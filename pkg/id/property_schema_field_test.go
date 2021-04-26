@@ -47,8 +47,7 @@ func TestPropertySchemaFieldID_CopyRef(t *testing.T) {
 
 	assert.Equal(t, propertySchemaFieldID, *propertySchemaFieldID.CopyRef())
 
-	// TODO: Check why this assert is not working
-	//assert.NotEqual(t, propertySchemaFieldID.Ref(), propertySchemaFieldID.CopyRef())
+	assert.False(t, propertySchemaFieldID.Ref() == propertySchemaFieldID.CopyRef())
 }
 
 func TestPropertySchemaFieldID_String(t *testing.T) {

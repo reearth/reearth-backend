@@ -47,8 +47,7 @@ func TestPluginExtensionID_CopyRef(t *testing.T) {
 
 	assert.Equal(t, pluginExtensionID, *pluginExtensionID.CopyRef())
 
-	// TODO: Check why this assert is not working
-	// assert.NotEqual(t, pluginExtensionID.Ref(), pluginExtensionID.CopyRef())
+	assert.False(t, pluginExtensionID.Ref() == pluginExtensionID.CopyRef())
 }
 
 func TestPluginExtensionID_String(t *testing.T) {

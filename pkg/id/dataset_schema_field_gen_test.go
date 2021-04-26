@@ -3,6 +3,7 @@
 package id
 
 import (
+	"encoding/json"
 	//"encoding/json"
 	"errors"
 	"testing"
@@ -177,12 +178,12 @@ func TestDatasetSchemaFieldID_String(t *testing.T) {
 	assert.Equal(t, subId.String(), id.String())
 }
 
-/*func TestDatasetSchemaFieldID_GoString(t *testing.T) {
+func TestDatasetSchemaFieldID_GoString(t *testing.T) {
 	id := New()
 	subId := DatasetSchemaFieldIDFromRefID(&id)
 
 	assert.Equal(t, subId.GoString(), "id.DatasetSchemaFieldID("+id.String()+")")
-}*/
+}
 
 func TestDatasetSchemaFieldID_RefString(t *testing.T) {
 	id := New()
@@ -201,8 +202,6 @@ func TestDatasetSchemaFieldID_Ref(t *testing.T) {
 	subIdRef := subId.Ref()
 
 	assert.Equal(t, *subId, *subIdRef)
-	// TODO: check why this not working
-	//assert.True(t, subId == subIdRef)
 }
 
 func TestDatasetSchemaFieldID_CopyRef(t *testing.T) {
@@ -229,7 +228,7 @@ func TestDatasetSchemaFieldID_StringRef(t *testing.T) {
 	assert.Equal(t, *subId.StringRef(), id.String())
 }
 
-/*func TestDatasetSchemaFieldID_MarhsalJSON(t *testing.T) {
+func TestDatasetSchemaFieldID_MarhsalJSON(t *testing.T) {
 	id := New()
 	subId := DatasetSchemaFieldIDFromRefID(&id)
 
@@ -238,9 +237,9 @@ func TestDatasetSchemaFieldID_StringRef(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, exp, res)
-}*/
+}
 
-/*func TestDatasetSchemaFieldID_UnmarhsalJSON(t *testing.T) {
+func TestDatasetSchemaFieldID_UnmarhsalJSON(t *testing.T) {
 	jsonString := "\"01f3zhkysvcxsnzepyyqtq21fb\""
 
 	subId := &DatasetSchemaFieldID{}
@@ -249,9 +248,9 @@ func TestDatasetSchemaFieldID_StringRef(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, "01f3zhkysvcxsnzepyyqtq21fb", subId.String())
-}*/
+}
 
-/*func TestDatasetSchemaFieldID_MarshalText(t *testing.T) {
+func TestDatasetSchemaFieldID_MarshalText(t *testing.T) {
 	id := New()
 	subId := DatasetSchemaFieldIDFromRefID(&id)
 
@@ -259,9 +258,9 @@ func TestDatasetSchemaFieldID_StringRef(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, []byte(id.String()), res)
-}*/
+}
 
-/*func TestDatasetSchemaFieldID_UnmarshalText(t *testing.T) {
+func TestDatasetSchemaFieldID_UnmarshalText(t *testing.T) {
 	text := []byte("01f3zhcaq35403zdjnd6dcm0t2")
 
 	subId := &DatasetSchemaFieldID{}
@@ -271,7 +270,7 @@ func TestDatasetSchemaFieldID_StringRef(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "01f3zhcaq35403zdjnd6dcm0t2", subId.String())
 
-}*/
+}
 
 func TestDatasetSchemaFieldID_IsNil(t *testing.T) {
 	subId := DatasetSchemaFieldID{}

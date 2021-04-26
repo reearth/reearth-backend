@@ -3,6 +3,7 @@
 package id
 
 import (
+	"encoding/json"
 	//"encoding/json"
 	"errors"
 	"testing"
@@ -177,12 +178,12 @@ func TestInfoboxFieldID_String(t *testing.T) {
 	assert.Equal(t, subId.String(), id.String())
 }
 
-/*func TestInfoboxFieldID_GoString(t *testing.T) {
+func TestInfoboxFieldID_GoString(t *testing.T) {
 	id := New()
 	subId := InfoboxFieldIDFromRefID(&id)
 
 	assert.Equal(t, subId.GoString(), "id.InfoboxFieldID("+id.String()+")")
-}*/
+}
 
 func TestInfoboxFieldID_RefString(t *testing.T) {
 	id := New()
@@ -201,8 +202,6 @@ func TestInfoboxFieldID_Ref(t *testing.T) {
 	subIdRef := subId.Ref()
 
 	assert.Equal(t, *subId, *subIdRef)
-	// TODO: check why this not working
-	//assert.True(t, subId == subIdRef)
 }
 
 func TestInfoboxFieldID_CopyRef(t *testing.T) {
@@ -229,7 +228,7 @@ func TestInfoboxFieldID_StringRef(t *testing.T) {
 	assert.Equal(t, *subId.StringRef(), id.String())
 }
 
-/*func TestInfoboxFieldID_MarhsalJSON(t *testing.T) {
+func TestInfoboxFieldID_MarhsalJSON(t *testing.T) {
 	id := New()
 	subId := InfoboxFieldIDFromRefID(&id)
 
@@ -238,9 +237,9 @@ func TestInfoboxFieldID_StringRef(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, exp, res)
-}*/
+}
 
-/*func TestInfoboxFieldID_UnmarhsalJSON(t *testing.T) {
+func TestInfoboxFieldID_UnmarhsalJSON(t *testing.T) {
 	jsonString := "\"01f3zhkysvcxsnzepyyqtq21fb\""
 
 	subId := &InfoboxFieldID{}
@@ -249,9 +248,9 @@ func TestInfoboxFieldID_StringRef(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, "01f3zhkysvcxsnzepyyqtq21fb", subId.String())
-}*/
+}
 
-/*func TestInfoboxFieldID_MarshalText(t *testing.T) {
+func TestInfoboxFieldID_MarshalText(t *testing.T) {
 	id := New()
 	subId := InfoboxFieldIDFromRefID(&id)
 
@@ -259,9 +258,9 @@ func TestInfoboxFieldID_StringRef(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, []byte(id.String()), res)
-}*/
+}
 
-/*func TestInfoboxFieldID_UnmarshalText(t *testing.T) {
+func TestInfoboxFieldID_UnmarshalText(t *testing.T) {
 	text := []byte("01f3zhcaq35403zdjnd6dcm0t2")
 
 	subId := &InfoboxFieldID{}
@@ -271,7 +270,7 @@ func TestInfoboxFieldID_StringRef(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "01f3zhcaq35403zdjnd6dcm0t2", subId.String())
 
-}*/
+}
 
 func TestInfoboxFieldID_IsNil(t *testing.T) {
 	subId := InfoboxFieldID{}

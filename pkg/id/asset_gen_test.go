@@ -201,8 +201,6 @@ func TestAssetID_Ref(t *testing.T) {
 	subIdRef := subId.Ref()
 
 	assert.Equal(t, *subId, *subIdRef)
-	// TODO: check why this not working
-	//assert.True(t, subId == subIdRef)
 }
 
 func TestAssetID_CopyRef(t *testing.T) {
