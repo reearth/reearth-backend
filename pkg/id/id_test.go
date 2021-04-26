@@ -35,7 +35,7 @@ func TestID_NewAllID(t *testing.T) {
 			expected: 1,
 		},
 		{
-			name:     "success: Multiple ID",
+			name:     "success: Multiple IDs",
 			input:    5,
 			expected: 5,
 		},
@@ -59,45 +59,20 @@ func TestID_NewAllID(t *testing.T) {
 
 func TestID_NewIDWith(t *testing.T) {
 	testCases := []struct {
-		name     string
-		input    string
-		expected struct {
-			result ID
-			err    error
-		}
+		name  string
+		input string
 	}{
 		{
 			name:  "Fail:Not valid string",
 			input: "testMustFail",
-			expected: struct {
-				result ID
-				err    error
-			}{
-				ID{},
-				ErrInvalidID,
-			},
 		},
 		{
 			name:  "Fail:Not valid string",
 			input: "",
-			expected: struct {
-				result ID
-				err    error
-			}{
-				ID{},
-				ErrInvalidID,
-			},
 		},
 		{
 			name:  "success:valid string",
 			input: "01f2r7kg1fvvffp0gmexgy5hxy",
-			expected: struct {
-				result ID
-				err    error
-			}{
-				ID{ulid.MustParse("01f2r7kg1fvvffp0gmexgy5hxy")},
-				nil,
-			},
 		},
 	}
 	for _, tc := range testCases {
@@ -105,10 +80,9 @@ func TestID_NewIDWith(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			result, err := NewIDWith(tc.input)
-			assert.Equal(tt, tc.expected.result, result)
-			if err != nil {
-				assert.True(tt, errors.As(tc.expected.err, &err))
-			}
+			exResult, exErr := FromID(tc.input)
+			assert.Equal(tt, exResult, result)
+			assert.Equal(tt, exErr, err)
 		})
 	}
 }
@@ -332,7 +306,7 @@ func TestID_generateAllID(t *testing.T) {
 			expected: 1,
 		},
 		{
-			name:     "success: Multiple ID",
+			name:     "success: Multiple IDs",
 			input:    5,
 			expected: 5,
 		},
