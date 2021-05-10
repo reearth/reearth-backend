@@ -226,6 +226,12 @@ type Plugin {
     propertySchema: PropertySchema @goField(forceResolver: true)
 }
 
+type PluginMetadata{
+    name: String!
+    description: String!
+    createdAt: DateTime!
+}
+
 enum PluginExtensionType {
     PRIMITIVE
     WIDGET
@@ -1300,6 +1306,7 @@ type Query {
     dynamicDatasetSchemas(sceneId: ID!): [DatasetSchema!]!
     searchUser(nameOrEmail: String!): SearchedUser
     checkProjectAlias(alias: String!): CheckProjectAliasPayload!
+    installablePlugins: [PluginMetadata!]!
 }
 
 # Mutation

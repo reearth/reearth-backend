@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/reearth/reearth-backend/internal/infrastructure/github"
+
 	"github.com/reearth/reearth-backend/internal/infrastructure/adapter"
 	"github.com/reearth/reearth-backend/internal/infrastructure/auth0"
 	"github.com/reearth/reearth-backend/internal/infrastructure/fs"
@@ -73,6 +75,9 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 
 	// Auth0
 	gateways.Authenticator = auth0.New(conf.Auth0.Domain, conf.Auth0.ClientID, conf.Auth0.ClientSecret)
+
+	// github
+	gateways.Github = github.NewPluginRegistry()
 
 	// release lock of all scenes
 	if err := repos.SceneLock.ReleaseAllLock(context.Background()); err != nil {
