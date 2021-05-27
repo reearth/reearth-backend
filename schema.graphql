@@ -179,6 +179,9 @@ enum Role {
 type Project implements Node {
     id: ID!
     isArchived: Boolean!
+    isBasicAuthActive: Boolean!
+    basicAuthUsername: String
+    basicAuthPassword: String
     createdAt: DateTime!
     updatedAt: DateTime!
     publishedAt: DateTime
