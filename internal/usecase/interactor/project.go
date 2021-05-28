@@ -165,6 +165,18 @@ func (i *Project) Update(ctx context.Context, p interfaces.UpdateProjectParam, o
 		prj.SetArchived(*p.Archived)
 	}
 
+	if p.IsBasicAuthActive != nil {
+		prj.SetIsBasicAuthActive(*p.IsBasicAuthActive)
+	}
+
+	if p.BasicAuthUsername != nil {
+		prj.SetBasicAuthUsername(*p.BasicAuthUsername)
+	}
+
+	if p.BasicAuthPassword != nil {
+		prj.SetBasicAuthUsername(*p.BasicAuthPassword)
+	}
+
 	if p.PublicTitle != nil {
 		prj.UpdatePublicTitle(*p.PublicTitle)
 	}
