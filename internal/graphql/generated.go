@@ -6013,6 +6013,9 @@ input UpdateProjectInput {
     name: String
     description: String
     archived: Boolean
+    isBasicAuthActive: Boolean
+    basicAuthUsername: String
+    basicAuthPassword: String
     alias: String
     imageUrl: URL
     publicTitle: String
@@ -29295,6 +29298,30 @@ func (ec *executionContext) unmarshalInputUpdateProjectInput(ctx context.Context
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("archived"))
 			it.Archived, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "isBasicAuthActive":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("isBasicAuthActive"))
+			it.IsBasicAuthActive, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "basicAuthUsername":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("basicAuthUsername"))
+			it.BasicAuthUsername, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "basicAuthPassword":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("basicAuthPassword"))
+			it.BasicAuthPassword, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
