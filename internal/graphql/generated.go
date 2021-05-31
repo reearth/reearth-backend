@@ -5461,8 +5461,8 @@ type Project implements Node {
     id: ID!
     isArchived: Boolean!
     isBasicAuthActive: Boolean!
-    basicAuthUsername: String
-    basicAuthPassword: String
+    basicAuthUsername: String!
+    basicAuthPassword: String!
     createdAt: DateTime!
     updatedAt: DateTime!
     publishedAt: DateTime
@@ -18872,11 +18872,14 @@ func (ec *executionContext) _Project_basicAuthUsername(ctx context.Context, fiel
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Project_basicAuthPassword(ctx context.Context, field graphql.CollectedField, obj *graphql1.Project) (ret graphql.Marshaler) {
@@ -18904,11 +18907,14 @@ func (ec *executionContext) _Project_basicAuthPassword(ctx context.Context, fiel
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Project_createdAt(ctx context.Context, field graphql.CollectedField, obj *graphql1.Project) (ret graphql.Marshaler) {
@@ -33004,8 +33010,14 @@ func (ec *executionContext) _Project(ctx context.Context, sel ast.SelectionSet, 
 			}
 		case "basicAuthUsername":
 			out.Values[i] = ec._Project_basicAuthUsername(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "basicAuthPassword":
 			out.Values[i] = ec._Project_basicAuthPassword(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "createdAt":
 			out.Values[i] = ec._Project_createdAt(ctx, field, obj)
 			if out.Values[i] == graphql.Null {

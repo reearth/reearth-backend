@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
@@ -68,6 +69,8 @@ func newEcho(cfg *ServerConfig) *echo.Echo {
 	if cfg.Config == nil {
 		log.Fatalln("ServerConfig.Config is nil")
 	}
+
+	fmt.Print("echo------------------")
 
 	e := echo.New()
 	e.Debug = cfg.Debug

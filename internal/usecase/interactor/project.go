@@ -174,7 +174,7 @@ func (i *Project) Update(ctx context.Context, p interfaces.UpdateProjectParam, o
 	}
 
 	if p.BasicAuthPassword != nil {
-		prj.SetBasicAuthUsername(*p.BasicAuthPassword)
+		prj.SetBasicAuthPassword(*p.BasicAuthPassword)
 	}
 
 	if p.PublicTitle != nil {

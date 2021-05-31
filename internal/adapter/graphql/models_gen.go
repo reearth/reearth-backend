@@ -581,8 +581,8 @@ type Project struct {
 	ID                id.ID             `json:"id"`
 	IsArchived        bool              `json:"isArchived"`
 	IsBasicAuthActive bool              `json:"isBasicAuthActive"`
-	BasicAuthUsername *string           `json:"basicAuthUsername"`
-	BasicAuthPassword *string           `json:"basicAuthPassword"`
+	BasicAuthUsername string            `json:"basicAuthUsername"`
+	BasicAuthPassword string            `json:"basicAuthPassword"`
 	CreatedAt         time.Time         `json:"createdAt"`
 	UpdatedAt         time.Time         `json:"updatedAt"`
 	PublishedAt       *time.Time        `json:"publishedAt"`
