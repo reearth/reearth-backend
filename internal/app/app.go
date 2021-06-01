@@ -80,6 +80,7 @@ func initAppEcho(cfg *ServerConfig) *echo.Echo {
 	}
 
 	e.GET("/api/published/:name", apiPublished(cfg))
+	e.GET("/api/published_basic_auth/:name", apiBasicAuth(cfg))
 	e.GET("/api/published_data/:name", apiPublishedData(cfg))
 	api := e.Group("/api")
 
@@ -136,6 +137,25 @@ func apiPublished(cfg *ServerConfig) echo.HandlerFunc {
 			"description": description,
 			"image":       prj.PublicImage(),
 			"noindex":     prj.PublicNoIndex(),
+		})
+	}
+}
+
+func apiBasicAuth(cfg *ServerConfig) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		name := c.Param("name")
+		prj, err := cfg.Repos.Project.FindByPublicName(c.Request().Context(), name)
+		if err != nil || prj == nil {
+			return echo.ErrNotFound
+		}
+
+		isBasicAuthActive := prj.IsBasicAuthActive()
+		basicAuthUsername := prj.BasicAuthUsername()
+		basicAuthPassword := prj.BasicAuthPassword()
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"isBasicAuthActive": isBasicAuthActive,
+			"basicAuthUsername": basicAuthUsername,
+			"basicAuthPassword": basicAuthPassword,
 		})
 	}
 }
