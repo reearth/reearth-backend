@@ -223,6 +223,8 @@ func TestID_Copy(t *testing.T) {
 	id2 := id.Copy()
 
 	assert.Equal(t, id.id, id2.id)
+
+	assert.NotSame(t, id.id, id2.id)
 }
 
 func TestID_Timestamp(t *testing.T) {
@@ -273,7 +275,6 @@ func TestID_Equal(t *testing.T) {
 }
 
 func TestID_IsEmpty(t *testing.T) {
-
 	id := ID{}
 
 	assert.True(t, id.IsEmpty())
@@ -337,7 +338,6 @@ func TestID_parseID(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.EqualValues(t, strings.ToLower(id.String()), "01f2r7kg1fvvffp0gmexgy5hxy")
-
 }
 
 func TestID_includeUpperCase(t *testing.T) {

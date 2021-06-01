@@ -300,7 +300,6 @@ func TestPropertySchemaID_UnmarshalText(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, "test#2.0.0/test", propertySchemaID.String())
-
 }
 
 func TestPropertySchemaIDToKeys(t *testing.T) {

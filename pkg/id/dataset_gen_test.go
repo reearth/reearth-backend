@@ -210,7 +210,7 @@ func TestDatasetID_CopyRef(t *testing.T) {
 	subIdCopyRef := subId.CopyRef()
 
 	assert.Equal(t, *subId, *subIdCopyRef)
-	assert.False(t, subId == subIdCopyRef)
+	assert.NotSame(t, subId, subIdCopyRef)
 }
 
 func TestDatasetID_IDRef(t *testing.T) {
