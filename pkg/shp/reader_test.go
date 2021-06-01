@@ -8,7 +8,6 @@ import (
 )
 
 func assertPointsEqual(t *testing.T, a, b []float64, msgAndArgs ...interface{}) bool {
-
 	if !assert.True(t, len(a) == len(b), msgAndArgs...) {
 		return false
 	}
@@ -26,10 +25,10 @@ func getShapesFromFile(prefix string, t *testing.T) (shapes []Shape) {
 	file, err := ReadFrom(ior)
 	assert.Nil(t, err, "Failed to open shapefile")
 
-	defer func(ior *os.File) {
+	defer func() {
 		err := ior.Close()
 		assert.Nil(t, err, "Failed to close shapefile")
-	}(ior)
+	}()
 
 	for file.Next() {
 		_, shape := file.Shape()

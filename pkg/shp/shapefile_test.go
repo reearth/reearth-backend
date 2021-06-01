@@ -108,7 +108,6 @@ func TestBox_Extend(t *testing.T) {
 }
 
 func TestNewPolyLine(t *testing.T) {
-
 	points := [][]Point{
 		{Point{0.0, 0.0}, Point{5.0, 5.0}},
 		{Point{10.0, 10.0}, Point{15.0, 15.0}},

@@ -96,5 +96,4 @@ func TestShapeType_String(t *testing.T) {
 			assert.Equal(tt, tc.expected, tc.input.String())
 		})
 	}
-
 }

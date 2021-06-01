@@ -8,22 +8,21 @@ import (
 )
 
 func TestReadZipFrom(t *testing.T) {
-
 	p := "test_files/ne_110m_admin_0_countries.zip"
 
 	ior, err := os.Open(p)
 	assert.Nil(t, err)
-	defer func(ior *os.File) {
+	defer func() {
 		err := ior.Close()
 		assert.Nil(t, err)
-	}(ior)
+	}()
 
 	zr, err := ReadZipFrom(ior)
 	assert.Nil(t, err)
-	defer func(zr *ZipReader) {
+	defer func() {
 		err := zr.Close()
 		assert.Nil(t, err)
-	}(zr)
+	}()
 
 	var shps []Shape
 	for zr.Next() {
@@ -60,17 +59,15 @@ func TestReadZipFromWrongScenarios(t *testing.T) {
 
 			ior, err := os.Open(tc.input)
 			assert.Nil(t, err)
-			defer func(ior *os.File) {
+			defer func() {
 				err := ior.Close()
 				assert.Nil(t, err)
-			}(ior)
+			}()
 
 			_, err = ReadZipFrom(ior)
 			assert.NotNil(tt, err)
-			// assert.True(tt, errors.As(tc.expected,$err))
 		})
 	}
-
 }
 
 func TestReadZipFromClosedReader(t *testing.T) {
