@@ -5,6 +5,7 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/pkg/file"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
@@ -70,6 +71,29 @@ func (c *DatasetController) ImportDataset(ctx context.Context, i *ImportDatasetI
 		SceneId:  id.SceneID(i.SceneID),
 		SchemaId: id.DatasetSchemaIDFromRefID(i.DatasetSchemaID),
 		File:     fromFile(&i.File),
+	}, o)
+	if err != nil {
+		return nil, err
+	}
+
+	return &ImportDatasetPayload{DatasetSchema: toDatasetSchema(res)}, nil
+}
+
+func LoadGoogleSheetAdCSV(token string, fileId string, sheetName string) (*file.File, error) {
+	// https://docs.google.com/spreadsheets/d/{{fileId}}/gviz/tq?tqx=out:csv&sheet={{sheetName}}
+	return nil, nil
+}
+
+func (c *DatasetController) ImportDatasetFromGoogleSheet(ctx context.Context, i *ImportDatasetFromGoogleSheetInput, o *usecase.Operator) (*ImportDatasetPayload, error) {
+	csvFile, err := LoadGoogleSheetAdCSV(i.AccessToken, i.FileID, i.SheetName)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := c.usecase().ImportDataset(ctx, interfaces.ImportDatasetParam{
+		SceneId:  id.SceneID(i.SceneID),
+		SchemaId: id.DatasetSchemaIDFromRefID(i.DatasetSchemaID),
+		File:     csvFile,
 	}, o)
 	if err != nil {
 		return nil, err
