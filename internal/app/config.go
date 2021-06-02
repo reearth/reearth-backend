@@ -1,10 +1,13 @@
 package app
 
 import (
+	"fmt"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
+	"github.com/reearth/reearth-backend/pkg/log"
 )
 
 const configPrefix = "reearth"
@@ -20,7 +23,6 @@ type Config struct {
 	Tracer       string
 	TracerSample float64
 	GCS          GCSConfig
-	ServeFiles   bool
 	AssetBaseURL string
 	Origins      []string
 	Web          WebConfig
@@ -45,19 +47,31 @@ type GCSConfig struct {
 }
 
 func ReadConfig(debug bool) (*Config, error) {
-	envs := []string{}
 	if debug {
-		// .env file is only available in debug environment
-		envs = append(envs, ".env", ".env.local")
-	}
-	for _, e := range envs {
-		if err := godotenv.Load(e); err != nil && !os.IsNotExist(err) {
+		// .env.local file is only available in debug environment
+		if err := godotenv.Load(".env.local"); err != nil && !os.IsNotExist(err) {
 			return nil, err
 		}
+		log.Infof("config: .env.local loaded")
 	}
 
 	var c Config
 	err := envconfig.Process(configPrefix, &c)
 
+	if debug {
+		c.Dev = true
+	}
+
 	return &c, err
+}
+
+func (c Config) Print() string {
+	s := fmt.Sprintf("%+v", c)
+	for _, secret := range []string{c.DB, c.Auth0.ClientSecret} {
+		if secret == "" {
+			continue
+		}
+		s = strings.ReplaceAll(s, secret, "***")
+	}
+	return s
 }
