@@ -20,6 +20,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
+	"golang.org/x/text/language"
 )
 
 // region    ************************** generated!.gotpl **************************
@@ -5311,6 +5312,7 @@ directive @goField(forceResolver: Boolean, name: String) on INPUT_FIELD_DEFINITI
 scalar Cursor
 scalar DateTime
 scalar URL
+scalar Lang
 scalar FileSize
 scalar PluginID
 scalar PluginExtensionID
@@ -5424,7 +5426,7 @@ type User implements Node {
     id: ID!
     name: String!
     email: String!
-    lang: String!
+    lang: Lang!
     theme: Theme!
     myTeamId: ID!
     auths: [String!]!
@@ -5961,6 +5963,8 @@ input RemoveAssetInput {
 }
 
 input SignupInput {
+    lang: Lang
+    theme: Theme
     userId: ID
     teamId: ID
     secret: String
@@ -5969,7 +5973,7 @@ input SignupInput {
 input UpdateMeInput {
     name: String
     email: String
-    lang: String
+    lang: Lang
     theme: Theme
     password: String
     passwordConfirmation: String
@@ -6606,77 +6610,77 @@ type Query {
 
 type Mutation {
     # Asset
-    createAsset(input: CreateAssetInput!): CreateAssetPayload!
-    removeAsset(input: RemoveAssetInput!): RemoveAssetPayload!
+    createAsset(input: CreateAssetInput!): CreateAssetPayload
+    removeAsset(input: RemoveAssetInput!): RemoveAssetPayload
 
     # User
-    signup(input: SignupInput!): SignupPayload!
-    updateMe(input: UpdateMeInput!): UpdateMePayload!
-    removeMyAuth(input: RemoveMyAuthInput!): UpdateMePayload!
-    deleteMe(input: DeleteMeInput!): DeleteMePayload!
+    signup(input: SignupInput!): SignupPayload
+    updateMe(input: UpdateMeInput!): UpdateMePayload
+    removeMyAuth(input: RemoveMyAuthInput!): UpdateMePayload
+    deleteMe(input: DeleteMeInput!): DeleteMePayload
 
     # Team
-    createTeam(input: CreateTeamInput!): CreateTeamPayload!
-    deleteTeam(input: DeleteTeamInput!): DeleteTeamPayload!
-    updateTeam(input: UpdateTeamInput!): UpdateTeamPayload!
-    addMemberToTeam(input: AddMemberToTeamInput!): AddMemberToTeamPayload!
-    removeMemberFromTeam(input: RemoveMemberFromTeamInput!): RemoveMemberFromTeamPayload!
-    updateMemberOfTeam(input: UpdateMemberOfTeamInput!): UpdateMemberOfTeamPayload!
+    createTeam(input: CreateTeamInput!): CreateTeamPayload
+    deleteTeam(input: DeleteTeamInput!): DeleteTeamPayload
+    updateTeam(input: UpdateTeamInput!): UpdateTeamPayload
+    addMemberToTeam(input: AddMemberToTeamInput!): AddMemberToTeamPayload
+    removeMemberFromTeam(input: RemoveMemberFromTeamInput!): RemoveMemberFromTeamPayload
+    updateMemberOfTeam(input: UpdateMemberOfTeamInput!): UpdateMemberOfTeamPayload
 
     # Project
-    createProject(input: CreateProjectInput!): ProjectPayload!
-    updateProject(input: UpdateProjectInput!): ProjectPayload!
-    publishProject(input: PublishProjectInput!): ProjectPayload!
-    deleteProject(input: DeleteProjectInput!): DeleteProjectPayload!
+    createProject(input: CreateProjectInput!): ProjectPayload
+    updateProject(input: UpdateProjectInput!): ProjectPayload
+    publishProject(input: PublishProjectInput!): ProjectPayload
+    deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
 
     # Plugin
-    uploadPlugin(input: UploadPluginInput!): UploadPluginPayload!
+    uploadPlugin(input: UploadPluginInput!): UploadPluginPayload
 
     # Scene
-    createScene(input: CreateSceneInput!): CreateScenePayload!
-    addWidget(input: AddWidgetInput!): AddWidgetPayload!
-    updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload!
-    removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload!
-    installPlugin(input: InstallPluginInput!): InstallPluginPayload!
-    uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload!
-    upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload!
+    createScene(input: CreateSceneInput!): CreateScenePayload
+    addWidget(input: AddWidgetInput!): AddWidgetPayload
+    updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
+    removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
+    installPlugin(input: InstallPluginInput!): InstallPluginPayload
+    uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
+    upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload
 
     # Dataset
-    updateDatasetSchema(input:UpdateDatasetSchemaInput!): UpdateDatasetSchemaPayload!
-    syncDataset(input: SyncDatasetInput!): SyncDatasetPayload!
-    addDynamicDatasetSchema(input:AddDynamicDatasetSchemaInput!): AddDynamicDatasetSchemaPayload!
-    addDynamicDataset(input:AddDynamicDatasetInput!): AddDynamicDatasetPayload!
-    removeDatasetSchema(input: RemoveDatasetSchemaInput!): RemoveDatasetSchemaPayload!
-    importDataset(input: ImportDatasetInput!): ImportDatasetPayload!
-    addDatasetSchema(input:AddDatasetSchemaInput!): AddDatasetSchemaPayload!
+    updateDatasetSchema(input:UpdateDatasetSchemaInput!): UpdateDatasetSchemaPayload
+    syncDataset(input: SyncDatasetInput!): SyncDatasetPayload
+    addDynamicDatasetSchema(input:AddDynamicDatasetSchemaInput!): AddDynamicDatasetSchemaPayload
+    addDynamicDataset(input:AddDynamicDatasetInput!): AddDynamicDatasetPayload
+    removeDatasetSchema(input: RemoveDatasetSchemaInput!): RemoveDatasetSchemaPayload
+    importDataset(input: ImportDatasetInput!): ImportDatasetPayload
+    addDatasetSchema(input:AddDatasetSchemaInput!): AddDatasetSchemaPayload
 
     # Property
-    updatePropertyValue(input: UpdatePropertyValueInput!): PropertyFieldPayload!
-    updatePropertyValueLatLng(input: UpdatePropertyValueLatLngInput!): PropertyFieldPayload!
-    updatePropertyValueLatLngHeight(input: UpdatePropertyValueLatLngHeightInput!): PropertyFieldPayload!
-    updatePropertyValueCamera(input: UpdatePropertyValueCameraInput!): PropertyFieldPayload!
-    updatePropertyValueTypography(input: UpdatePropertyValueTypographyInput!): PropertyFieldPayload!
-    removePropertyField(input: RemovePropertyFieldInput!): PropertyFieldPayload!
-    uploadFileToProperty(input: UploadFileToPropertyInput!): PropertyFieldPayload!
-    linkDatasetToPropertyValue(input: LinkDatasetToPropertyValueInput!): PropertyFieldPayload!
-    unlinkPropertyValue(input: UnlinkPropertyValueInput!): PropertyFieldPayload!
-    addPropertyItem(input: AddPropertyItemInput!): PropertyItemPayload!
-    movePropertyItem(input: MovePropertyItemInput!): PropertyItemPayload!
-    removePropertyItem(input: RemovePropertyItemInput!): PropertyItemPayload!
-    updatePropertyItems(input: UpdatePropertyItemInput!): PropertyItemPayload!
+    updatePropertyValue(input: UpdatePropertyValueInput!): PropertyFieldPayload
+    updatePropertyValueLatLng(input: UpdatePropertyValueLatLngInput!): PropertyFieldPayload
+    updatePropertyValueLatLngHeight(input: UpdatePropertyValueLatLngHeightInput!): PropertyFieldPayload
+    updatePropertyValueCamera(input: UpdatePropertyValueCameraInput!): PropertyFieldPayload
+    updatePropertyValueTypography(input: UpdatePropertyValueTypographyInput!): PropertyFieldPayload
+    removePropertyField(input: RemovePropertyFieldInput!): PropertyFieldPayload
+    uploadFileToProperty(input: UploadFileToPropertyInput!): PropertyFieldPayload
+    linkDatasetToPropertyValue(input: LinkDatasetToPropertyValueInput!): PropertyFieldPayload
+    unlinkPropertyValue(input: UnlinkPropertyValueInput!): PropertyFieldPayload
+    addPropertyItem(input: AddPropertyItemInput!): PropertyItemPayload
+    movePropertyItem(input: MovePropertyItemInput!): PropertyItemPayload
+    removePropertyItem(input: RemovePropertyItemInput!): PropertyItemPayload
+    updatePropertyItems(input: UpdatePropertyItemInput!): PropertyItemPayload
 
     # Layer
-    addLayerItem(input: AddLayerItemInput!): AddLayerItemPayload!
-    addLayerGroup(input: AddLayerGroupInput!): AddLayerGroupPayload!
-    removeLayer(input: RemoveLayerInput!): RemoveLayerPayload!
-    updateLayer(input: UpdateLayerInput!): UpdateLayerPayload!
-    moveLayer(input: MoveLayerInput!): MoveLayerPayload!
-    createInfobox(input: CreateInfoboxInput!): CreateInfoboxPayload!
-    removeInfobox(input: RemoveInfoboxInput!): RemoveInfoboxPayload!
-    addInfoboxField(input: AddInfoboxFieldInput!): AddInfoboxFieldPayload!
-    moveInfoboxField(input: MoveInfoboxFieldInput!): MoveInfoboxFieldPayload!
-    removeInfoboxField(input: RemoveInfoboxFieldInput!): RemoveInfoboxFieldPayload!
-    importLayer(input:ImportLayerInput!): ImportLayerPayload!
+    addLayerItem(input: AddLayerItemInput!): AddLayerItemPayload
+    addLayerGroup(input: AddLayerGroupInput!): AddLayerGroupPayload
+    removeLayer(input: RemoveLayerInput!): RemoveLayerPayload
+    updateLayer(input: UpdateLayerInput!): UpdateLayerPayload
+    moveLayer(input: MoveLayerInput!): MoveLayerPayload
+    createInfobox(input: CreateInfoboxInput!): CreateInfoboxPayload
+    removeInfobox(input: RemoveInfoboxInput!): RemoveInfoboxPayload
+    addInfoboxField(input: AddInfoboxFieldInput!): AddInfoboxFieldPayload
+    moveInfoboxField(input: MoveInfoboxFieldInput!): MoveInfoboxFieldPayload
+    removeInfoboxField(input: RemoveInfoboxFieldInput!): RemoveInfoboxFieldPayload
+    importLayer(input:ImportLayerInput!): ImportLayerPayload
 }
 
 schema {
@@ -15316,14 +15320,11 @@ func (ec *executionContext) _Mutation_createAsset(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.CreateAssetPayload)
 	fc.Result = res
-	return ec.marshalNCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateAssetPayload(ctx, field.Selections, res)
+	return ec.marshalOCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateAssetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeAsset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15358,14 +15359,11 @@ func (ec *executionContext) _Mutation_removeAsset(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.RemoveAssetPayload)
 	fc.Result = res
-	return ec.marshalNRemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveAssetPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveAssetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_signup(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15400,14 +15398,11 @@ func (ec *executionContext) _Mutation_signup(ctx context.Context, field graphql.
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.SignupPayload)
 	fc.Result = res
-	return ec.marshalNSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSignupPayload(ctx, field.Selections, res)
+	return ec.marshalOSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSignupPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15442,14 +15437,11 @@ func (ec *executionContext) _Mutation_updateMe(ctx context.Context, field graphq
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpdateMePayload)
 	fc.Result = res
-	return ec.marshalNUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMePayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeMyAuth(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15484,14 +15476,11 @@ func (ec *executionContext) _Mutation_removeMyAuth(ctx context.Context, field gr
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpdateMePayload)
 	fc.Result = res
-	return ec.marshalNUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMePayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15526,14 +15515,11 @@ func (ec *executionContext) _Mutation_deleteMe(ctx context.Context, field graphq
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.DeleteMePayload)
 	fc.Result = res
-	return ec.marshalNDeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteMePayload(ctx, field.Selections, res)
+	return ec.marshalODeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteMePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15568,14 +15554,11 @@ func (ec *executionContext) _Mutation_createTeam(ctx context.Context, field grap
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.CreateTeamPayload)
 	fc.Result = res
-	return ec.marshalNCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15610,14 +15593,11 @@ func (ec *executionContext) _Mutation_deleteTeam(ctx context.Context, field grap
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.DeleteTeamPayload)
 	fc.Result = res
-	return ec.marshalNDeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteTeamPayload(ctx, field.Selections, res)
+	return ec.marshalODeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15652,14 +15632,11 @@ func (ec *executionContext) _Mutation_updateTeam(ctx context.Context, field grap
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpdateTeamPayload)
 	fc.Result = res
-	return ec.marshalNUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addMemberToTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15694,14 +15671,11 @@ func (ec *executionContext) _Mutation_addMemberToTeam(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddMemberToTeamPayload)
 	fc.Result = res
-	return ec.marshalNAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddMemberToTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddMemberToTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeMemberFromTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15736,14 +15710,11 @@ func (ec *executionContext) _Mutation_removeMemberFromTeam(ctx context.Context, 
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.RemoveMemberFromTeamPayload)
 	fc.Result = res
-	return ec.marshalNRemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveMemberFromTeamPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveMemberFromTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateMemberOfTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15778,14 +15749,11 @@ func (ec *executionContext) _Mutation_updateMemberOfTeam(ctx context.Context, fi
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpdateMemberOfTeamPayload)
 	fc.Result = res
-	return ec.marshalNUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMemberOfTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMemberOfTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15820,14 +15788,11 @@ func (ec *executionContext) _Mutation_createProject(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.ProjectPayload)
 	fc.Result = res
-	return ec.marshalNProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx, field.Selections, res)
+	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15862,14 +15827,11 @@ func (ec *executionContext) _Mutation_updateProject(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.ProjectPayload)
 	fc.Result = res
-	return ec.marshalNProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx, field.Selections, res)
+	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_publishProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15904,14 +15866,11 @@ func (ec *executionContext) _Mutation_publishProject(ctx context.Context, field 
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.ProjectPayload)
 	fc.Result = res
-	return ec.marshalNProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx, field.Selections, res)
+	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15946,14 +15905,11 @@ func (ec *executionContext) _Mutation_deleteProject(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.DeleteProjectPayload)
 	fc.Result = res
-	return ec.marshalNDeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteProjectPayload(ctx, field.Selections, res)
+	return ec.marshalODeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_uploadPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -15988,14 +15944,11 @@ func (ec *executionContext) _Mutation_uploadPlugin(ctx context.Context, field gr
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UploadPluginPayload)
 	fc.Result = res
-	return ec.marshalNUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginPayload(ctx, field.Selections, res)
+	return ec.marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createScene(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16030,14 +15983,11 @@ func (ec *executionContext) _Mutation_createScene(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.CreateScenePayload)
 	fc.Result = res
-	return ec.marshalNCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateScenePayload(ctx, field.Selections, res)
+	return ec.marshalOCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateScenePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addWidget(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16072,14 +16022,11 @@ func (ec *executionContext) _Mutation_addWidget(ctx context.Context, field graph
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddWidgetPayload)
 	fc.Result = res
-	return ec.marshalNAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddWidgetPayload(ctx, field.Selections, res)
+	return ec.marshalOAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddWidgetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateWidget(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16114,14 +16061,11 @@ func (ec *executionContext) _Mutation_updateWidget(ctx context.Context, field gr
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpdateWidgetPayload)
 	fc.Result = res
-	return ec.marshalNUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateWidgetPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateWidgetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeWidget(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16156,14 +16100,11 @@ func (ec *executionContext) _Mutation_removeWidget(ctx context.Context, field gr
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.RemoveWidgetPayload)
 	fc.Result = res
-	return ec.marshalNRemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveWidgetPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveWidgetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_installPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16198,14 +16139,11 @@ func (ec *executionContext) _Mutation_installPlugin(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.InstallPluginPayload)
 	fc.Result = res
-	return ec.marshalNInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginPayload(ctx, field.Selections, res)
+	return ec.marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_uninstallPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16240,14 +16178,11 @@ func (ec *executionContext) _Mutation_uninstallPlugin(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UninstallPluginPayload)
 	fc.Result = res
-	return ec.marshalNUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUninstallPluginPayload(ctx, field.Selections, res)
+	return ec.marshalOUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUninstallPluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_upgradePlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16282,14 +16217,11 @@ func (ec *executionContext) _Mutation_upgradePlugin(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpgradePluginPayload)
 	fc.Result = res
-	return ec.marshalNUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpgradePluginPayload(ctx, field.Selections, res)
+	return ec.marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpgradePluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16324,14 +16256,11 @@ func (ec *executionContext) _Mutation_updateDatasetSchema(ctx context.Context, f
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpdateDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalNUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_syncDataset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16366,14 +16295,11 @@ func (ec *executionContext) _Mutation_syncDataset(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.SyncDatasetPayload)
 	fc.Result = res
-	return ec.marshalNSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSyncDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSyncDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addDynamicDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16408,14 +16334,11 @@ func (ec *executionContext) _Mutation_addDynamicDatasetSchema(ctx context.Contex
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddDynamicDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalNAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalOAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addDynamicDataset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16450,14 +16373,11 @@ func (ec *executionContext) _Mutation_addDynamicDataset(ctx context.Context, fie
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddDynamicDatasetPayload)
 	fc.Result = res
-	return ec.marshalNAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16492,14 +16412,11 @@ func (ec *executionContext) _Mutation_removeDatasetSchema(ctx context.Context, f
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.RemoveDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalNRemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_importDataset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16534,14 +16451,11 @@ func (ec *executionContext) _Mutation_importDataset(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.ImportDatasetPayload)
 	fc.Result = res
-	return ec.marshalNImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16576,14 +16490,11 @@ func (ec *executionContext) _Mutation_addDatasetSchema(ctx context.Context, fiel
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalNAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalOAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16618,14 +16529,11 @@ func (ec *executionContext) _Mutation_updatePropertyValue(ctx context.Context, f
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueLatLng(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16660,14 +16568,11 @@ func (ec *executionContext) _Mutation_updatePropertyValueLatLng(ctx context.Cont
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueLatLngHeight(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16702,14 +16607,11 @@ func (ec *executionContext) _Mutation_updatePropertyValueLatLngHeight(ctx contex
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueCamera(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16744,14 +16646,11 @@ func (ec *executionContext) _Mutation_updatePropertyValueCamera(ctx context.Cont
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueTypography(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16786,14 +16685,11 @@ func (ec *executionContext) _Mutation_updatePropertyValueTypography(ctx context.
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removePropertyField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16828,14 +16724,11 @@ func (ec *executionContext) _Mutation_removePropertyField(ctx context.Context, f
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_uploadFileToProperty(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16870,14 +16763,11 @@ func (ec *executionContext) _Mutation_uploadFileToProperty(ctx context.Context, 
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_linkDatasetToPropertyValue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16912,14 +16802,11 @@ func (ec *executionContext) _Mutation_linkDatasetToPropertyValue(ctx context.Con
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_unlinkPropertyValue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16954,14 +16841,11 @@ func (ec *executionContext) _Mutation_unlinkPropertyValue(ctx context.Context, f
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addPropertyItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16996,14 +16880,11 @@ func (ec *executionContext) _Mutation_addPropertyItem(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalNPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_movePropertyItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17038,14 +16919,11 @@ func (ec *executionContext) _Mutation_movePropertyItem(ctx context.Context, fiel
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalNPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removePropertyItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17080,14 +16958,11 @@ func (ec *executionContext) _Mutation_removePropertyItem(ctx context.Context, fi
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalNPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyItems(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17122,14 +16997,11 @@ func (ec *executionContext) _Mutation_updatePropertyItems(ctx context.Context, f
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalNPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addLayerItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17164,14 +17036,11 @@ func (ec *executionContext) _Mutation_addLayerItem(ctx context.Context, field gr
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddLayerItemPayload)
 	fc.Result = res
-	return ec.marshalNAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerItemPayload(ctx, field.Selections, res)
+	return ec.marshalOAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addLayerGroup(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17206,14 +17075,11 @@ func (ec *executionContext) _Mutation_addLayerGroup(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddLayerGroupPayload)
 	fc.Result = res
-	return ec.marshalNAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerGroupPayload(ctx, field.Selections, res)
+	return ec.marshalOAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerGroupPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17248,14 +17114,11 @@ func (ec *executionContext) _Mutation_removeLayer(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.RemoveLayerPayload)
 	fc.Result = res
-	return ec.marshalNRemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveLayerPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17290,14 +17153,11 @@ func (ec *executionContext) _Mutation_updateLayer(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.UpdateLayerPayload)
 	fc.Result = res
-	return ec.marshalNUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateLayerPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_moveLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17332,14 +17192,11 @@ func (ec *executionContext) _Mutation_moveLayer(ctx context.Context, field graph
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.MoveLayerPayload)
 	fc.Result = res
-	return ec.marshalNMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveLayerPayload(ctx, field.Selections, res)
+	return ec.marshalOMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createInfobox(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17374,14 +17231,11 @@ func (ec *executionContext) _Mutation_createInfobox(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.CreateInfoboxPayload)
 	fc.Result = res
-	return ec.marshalNCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateInfoboxPayload(ctx, field.Selections, res)
+	return ec.marshalOCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateInfoboxPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeInfobox(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17416,14 +17270,11 @@ func (ec *executionContext) _Mutation_removeInfobox(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.RemoveInfoboxPayload)
 	fc.Result = res
-	return ec.marshalNRemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addInfoboxField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17458,14 +17309,11 @@ func (ec *executionContext) _Mutation_addInfoboxField(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.AddInfoboxFieldPayload)
 	fc.Result = res
-	return ec.marshalNAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddInfoboxFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddInfoboxFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_moveInfoboxField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17500,14 +17348,11 @@ func (ec *executionContext) _Mutation_moveInfoboxField(ctx context.Context, fiel
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.MoveInfoboxFieldPayload)
 	fc.Result = res
-	return ec.marshalNMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveInfoboxFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveInfoboxFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeInfoboxField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17542,14 +17387,11 @@ func (ec *executionContext) _Mutation_removeInfoboxField(ctx context.Context, fi
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.RemoveInfoboxFieldPayload)
 	fc.Result = res
-	return ec.marshalNRemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxFieldPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_importLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17584,14 +17426,11 @@ func (ec *executionContext) _Mutation_importLayer(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.ImportLayerPayload)
 	fc.Result = res
-	return ec.marshalNImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportLayerPayload(ctx, field.Selections, res)
+	return ec.marshalOImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *graphql1.PageInfo) (ret graphql.Marshaler) {
@@ -26526,9 +26365,9 @@ func (ec *executionContext) _User_lang(ctx context.Context, field graphql.Collec
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(language.Tag)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_theme(ctx context.Context, field graphql.CollectedField, obj *graphql1.User) (ret graphql.Marshaler) {
@@ -29027,6 +28866,22 @@ func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj i
 
 	for k, v := range asMap {
 		switch k {
+		case "lang":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
+			it.Lang, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "theme":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("theme"))
+			it.Theme, err = ec.unmarshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐTheme(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "userId":
 			var err error
 
@@ -29247,7 +29102,7 @@ func (ec *executionContext) unmarshalInputUpdateMeInput(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-			it.Lang, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Lang, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -32473,279 +32328,114 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = graphql.MarshalString("Mutation")
 		case "createAsset":
 			out.Values[i] = ec._Mutation_createAsset(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeAsset":
 			out.Values[i] = ec._Mutation_removeAsset(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "signup":
 			out.Values[i] = ec._Mutation_signup(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updateMe":
 			out.Values[i] = ec._Mutation_updateMe(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeMyAuth":
 			out.Values[i] = ec._Mutation_removeMyAuth(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "deleteMe":
 			out.Values[i] = ec._Mutation_deleteMe(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "createTeam":
 			out.Values[i] = ec._Mutation_createTeam(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "deleteTeam":
 			out.Values[i] = ec._Mutation_deleteTeam(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updateTeam":
 			out.Values[i] = ec._Mutation_updateTeam(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addMemberToTeam":
 			out.Values[i] = ec._Mutation_addMemberToTeam(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeMemberFromTeam":
 			out.Values[i] = ec._Mutation_removeMemberFromTeam(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updateMemberOfTeam":
 			out.Values[i] = ec._Mutation_updateMemberOfTeam(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "createProject":
 			out.Values[i] = ec._Mutation_createProject(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updateProject":
 			out.Values[i] = ec._Mutation_updateProject(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "publishProject":
 			out.Values[i] = ec._Mutation_publishProject(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "deleteProject":
 			out.Values[i] = ec._Mutation_deleteProject(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "uploadPlugin":
 			out.Values[i] = ec._Mutation_uploadPlugin(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "createScene":
 			out.Values[i] = ec._Mutation_createScene(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addWidget":
 			out.Values[i] = ec._Mutation_addWidget(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updateWidget":
 			out.Values[i] = ec._Mutation_updateWidget(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeWidget":
 			out.Values[i] = ec._Mutation_removeWidget(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "installPlugin":
 			out.Values[i] = ec._Mutation_installPlugin(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "uninstallPlugin":
 			out.Values[i] = ec._Mutation_uninstallPlugin(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "upgradePlugin":
 			out.Values[i] = ec._Mutation_upgradePlugin(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updateDatasetSchema":
 			out.Values[i] = ec._Mutation_updateDatasetSchema(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "syncDataset":
 			out.Values[i] = ec._Mutation_syncDataset(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addDynamicDatasetSchema":
 			out.Values[i] = ec._Mutation_addDynamicDatasetSchema(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addDynamicDataset":
 			out.Values[i] = ec._Mutation_addDynamicDataset(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeDatasetSchema":
 			out.Values[i] = ec._Mutation_removeDatasetSchema(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "importDataset":
 			out.Values[i] = ec._Mutation_importDataset(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addDatasetSchema":
 			out.Values[i] = ec._Mutation_addDatasetSchema(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updatePropertyValue":
 			out.Values[i] = ec._Mutation_updatePropertyValue(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updatePropertyValueLatLng":
 			out.Values[i] = ec._Mutation_updatePropertyValueLatLng(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updatePropertyValueLatLngHeight":
 			out.Values[i] = ec._Mutation_updatePropertyValueLatLngHeight(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updatePropertyValueCamera":
 			out.Values[i] = ec._Mutation_updatePropertyValueCamera(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updatePropertyValueTypography":
 			out.Values[i] = ec._Mutation_updatePropertyValueTypography(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removePropertyField":
 			out.Values[i] = ec._Mutation_removePropertyField(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "uploadFileToProperty":
 			out.Values[i] = ec._Mutation_uploadFileToProperty(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "linkDatasetToPropertyValue":
 			out.Values[i] = ec._Mutation_linkDatasetToPropertyValue(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "unlinkPropertyValue":
 			out.Values[i] = ec._Mutation_unlinkPropertyValue(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addPropertyItem":
 			out.Values[i] = ec._Mutation_addPropertyItem(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "movePropertyItem":
 			out.Values[i] = ec._Mutation_movePropertyItem(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removePropertyItem":
 			out.Values[i] = ec._Mutation_removePropertyItem(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updatePropertyItems":
 			out.Values[i] = ec._Mutation_updatePropertyItems(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addLayerItem":
 			out.Values[i] = ec._Mutation_addLayerItem(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addLayerGroup":
 			out.Values[i] = ec._Mutation_addLayerGroup(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeLayer":
 			out.Values[i] = ec._Mutation_removeLayer(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "updateLayer":
 			out.Values[i] = ec._Mutation_updateLayer(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "moveLayer":
 			out.Values[i] = ec._Mutation_moveLayer(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "createInfobox":
 			out.Values[i] = ec._Mutation_createInfobox(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeInfobox":
 			out.Values[i] = ec._Mutation_removeInfobox(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "addInfoboxField":
 			out.Values[i] = ec._Mutation_addInfoboxField(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "moveInfoboxField":
 			out.Values[i] = ec._Mutation_moveInfoboxField(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "removeInfoboxField":
 			out.Values[i] = ec._Mutation_removeInfoboxField(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "importLayer":
 			out.Values[i] = ec._Mutation_importLayer(ctx, field)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -35720,37 +35410,9 @@ func (ec *executionContext) unmarshalNAddDatasetSchemaInput2githubᚗcomᚋreear
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNAddDatasetSchemaPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddDatasetSchemaPayload) graphql.Marshaler {
-	return ec._AddDatasetSchemaPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddDatasetSchemaPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddDatasetSchemaPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNAddDynamicDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetInput(ctx context.Context, v interface{}) (graphql1.AddDynamicDatasetInput, error) {
 	res, err := ec.unmarshalInputAddDynamicDatasetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNAddDynamicDatasetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddDynamicDatasetPayload) graphql.Marshaler {
-	return ec._AddDynamicDatasetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddDynamicDatasetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddDynamicDatasetPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNAddDynamicDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetSchemaInput(ctx context.Context, v interface{}) (graphql1.AddDynamicDatasetSchemaInput, error) {
@@ -35758,37 +35420,9 @@ func (ec *executionContext) unmarshalNAddDynamicDatasetSchemaInput2githubᚗcom�
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNAddDynamicDatasetSchemaPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddDynamicDatasetSchemaPayload) graphql.Marshaler {
-	return ec._AddDynamicDatasetSchemaPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddDynamicDatasetSchemaPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddDynamicDatasetSchemaPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNAddInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddInfoboxFieldInput(ctx context.Context, v interface{}) (graphql1.AddInfoboxFieldInput, error) {
 	res, err := ec.unmarshalInputAddInfoboxFieldInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNAddInfoboxFieldPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddInfoboxFieldPayload) graphql.Marshaler {
-	return ec._AddInfoboxFieldPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddInfoboxFieldPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddInfoboxFieldPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNAddLayerGroupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerGroupInput(ctx context.Context, v interface{}) (graphql1.AddLayerGroupInput, error) {
@@ -35796,56 +35430,14 @@ func (ec *executionContext) unmarshalNAddLayerGroupInput2githubᚗcomᚋreearth�
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNAddLayerGroupPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerGroupPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddLayerGroupPayload) graphql.Marshaler {
-	return ec._AddLayerGroupPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerGroupPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddLayerGroupPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddLayerGroupPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNAddLayerItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerItemInput(ctx context.Context, v interface{}) (graphql1.AddLayerItemInput, error) {
 	res, err := ec.unmarshalInputAddLayerItemInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNAddLayerItemPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerItemPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddLayerItemPayload) graphql.Marshaler {
-	return ec._AddLayerItemPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerItemPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddLayerItemPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddLayerItemPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNAddMemberToTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddMemberToTeamInput(ctx context.Context, v interface{}) (graphql1.AddMemberToTeamInput, error) {
 	res, err := ec.unmarshalInputAddMemberToTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNAddMemberToTeamPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddMemberToTeamPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddMemberToTeamPayload) graphql.Marshaler {
-	return ec._AddMemberToTeamPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddMemberToTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddMemberToTeamPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddMemberToTeamPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNAddPropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddPropertyItemInput(ctx context.Context, v interface{}) (graphql1.AddPropertyItemInput, error) {
@@ -35856,20 +35448,6 @@ func (ec *executionContext) unmarshalNAddPropertyItemInput2githubᚗcomᚋreeart
 func (ec *executionContext) unmarshalNAddWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddWidgetInput(ctx context.Context, v interface{}) (graphql1.AddWidgetInput, error) {
 	res, err := ec.unmarshalInputAddWidgetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNAddWidgetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddWidgetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.AddWidgetPayload) graphql.Marshaler {
-	return ec._AddWidgetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddWidgetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AddWidgetPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAsset(ctx context.Context, sel ast.SelectionSet, v []*graphql1.Asset) graphql.Marshaler {
@@ -36014,37 +35592,9 @@ func (ec *executionContext) unmarshalNCreateAssetInput2githubᚗcomᚋreearthᚋ
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNCreateAssetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateAssetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.CreateAssetPayload) graphql.Marshaler {
-	return ec._CreateAssetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateAssetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateAssetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._CreateAssetPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNCreateInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateInfoboxInput(ctx context.Context, v interface{}) (graphql1.CreateInfoboxInput, error) {
 	res, err := ec.unmarshalInputCreateInfoboxInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNCreateInfoboxPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.CreateInfoboxPayload) graphql.Marshaler {
-	return ec._CreateInfoboxPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateInfoboxPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._CreateInfoboxPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNCreateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateProjectInput(ctx context.Context, v interface{}) (graphql1.CreateProjectInput, error) {
@@ -36057,37 +35607,9 @@ func (ec *executionContext) unmarshalNCreateSceneInput2githubᚗcomᚋreearthᚋ
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNCreateScenePayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateScenePayload(ctx context.Context, sel ast.SelectionSet, v graphql1.CreateScenePayload) graphql.Marshaler {
-	return ec._CreateScenePayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateScenePayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateScenePayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._CreateScenePayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNCreateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateTeamInput(ctx context.Context, v interface{}) (graphql1.CreateTeamInput, error) {
 	res, err := ec.unmarshalInputCreateTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNCreateTeamPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateTeamPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.CreateTeamPayload) graphql.Marshaler {
-	return ec._CreateTeamPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateTeamPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._CreateTeamPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNCursor2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx context.Context, v interface{}) (usecase.Cursor, error) {
@@ -36509,56 +36031,14 @@ func (ec *executionContext) unmarshalNDeleteMeInput2githubᚗcomᚋreearthᚋree
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNDeleteMePayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteMePayload(ctx context.Context, sel ast.SelectionSet, v graphql1.DeleteMePayload) graphql.Marshaler {
-	return ec._DeleteMePayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNDeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteMePayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.DeleteMePayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._DeleteMePayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNDeleteProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteProjectInput(ctx context.Context, v interface{}) (graphql1.DeleteProjectInput, error) {
 	res, err := ec.unmarshalInputDeleteProjectInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNDeleteProjectPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteProjectPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.DeleteProjectPayload) graphql.Marshaler {
-	return ec._DeleteProjectPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNDeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteProjectPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.DeleteProjectPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._DeleteProjectPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNDeleteTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteTeamInput(ctx context.Context, v interface{}) (graphql1.DeleteTeamInput, error) {
 	res, err := ec.unmarshalInputDeleteTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNDeleteTeamPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteTeamPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.DeleteTeamPayload) graphql.Marshaler {
-	return ec._DeleteTeamPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNDeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.DeleteTeamPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._DeleteTeamPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNFileSize2int64(ctx context.Context, v interface{}) (int64, error) {
@@ -36662,37 +36142,9 @@ func (ec *executionContext) unmarshalNImportDatasetInput2githubᚗcomᚋreearth�
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNImportDatasetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportDatasetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.ImportDatasetPayload) graphql.Marshaler {
-	return ec._ImportDatasetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.ImportDatasetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._ImportDatasetPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNImportLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportLayerInput(ctx context.Context, v interface{}) (graphql1.ImportLayerInput, error) {
 	res, err := ec.unmarshalInputImportLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNImportLayerPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportLayerPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.ImportLayerPayload) graphql.Marshaler {
-	return ec._ImportLayerPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.ImportLayerPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._ImportLayerPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNInfobox2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInfobox(ctx context.Context, sel ast.SelectionSet, v graphql1.Infobox) graphql.Marshaler {
@@ -36761,20 +36213,6 @@ func (ec *executionContext) unmarshalNInstallPluginInput2githubᚗcomᚋreearth�
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNInstallPluginPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.InstallPluginPayload) graphql.Marshaler {
-	return ec._InstallPluginPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.InstallPluginPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._InstallPluginPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {
 	res, err := graphql.UnmarshalInt(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -36782,6 +36220,21 @@ func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}
 
 func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
 	res := graphql.MarshalInt(v)
+	if res == graphql.Null {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+	}
+	return res
+}
+
+func (ec *executionContext) unmarshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx context.Context, v interface{}) (language.Tag, error) {
+	res, err := graphql1.UnmarshalLang(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx context.Context, sel ast.SelectionSet, v language.Tag) graphql.Marshaler {
+	res := graphql1.MarshalLang(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37065,37 +36518,9 @@ func (ec *executionContext) unmarshalNMoveInfoboxFieldInput2githubᚗcomᚋreear
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNMoveInfoboxFieldPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.MoveInfoboxFieldPayload) graphql.Marshaler {
-	return ec._MoveInfoboxFieldPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.MoveInfoboxFieldPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._MoveInfoboxFieldPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNMoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveLayerInput(ctx context.Context, v interface{}) (graphql1.MoveLayerInput, error) {
 	res, err := ec.unmarshalInputMoveLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNMoveLayerPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.MoveLayerPayload) graphql.Marshaler {
-	return ec._MoveLayerPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.MoveLayerPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._MoveLayerPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNMovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMovePropertyItemInput(ctx context.Context, v interface{}) (graphql1.MovePropertyItemInput, error) {
@@ -37500,20 +36925,6 @@ func (ec *executionContext) marshalNProjectEdge2ᚖgithubᚗcomᚋreearthᚋreea
 	return ec._ProjectEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProjectPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.ProjectPayload) graphql.Marshaler {
-	return ec._ProjectPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.ProjectPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._ProjectPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProperty(ctx context.Context, sel ast.SelectionSet, v *graphql1.Property) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
@@ -37579,20 +36990,6 @@ func (ec *executionContext) marshalNPropertyFieldLink2ᚖgithubᚗcomᚋreearth�
 		return graphql.Null
 	}
 	return ec._PropertyFieldLink(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalNPropertyFieldPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.PropertyFieldPayload) graphql.Marshaler {
-	return ec._PropertyFieldPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.PropertyFieldPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._PropertyFieldPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*graphql1.PropertyGroup) graphql.Marshaler {
@@ -37687,20 +37084,6 @@ func (ec *executionContext) marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋree
 	}
 	wg.Wait()
 	return ret
-}
-
-func (ec *executionContext) marshalNPropertyItemPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.PropertyItemPayload) graphql.Marshaler {
-	return ec._PropertyItemPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.PropertyItemPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._PropertyItemPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNPropertyLinkableFields2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyLinkableFields(ctx context.Context, sel ast.SelectionSet, v *graphql1.PropertyLinkableFields) graphql.Marshaler {
@@ -37965,37 +37348,9 @@ func (ec *executionContext) unmarshalNRemoveAssetInput2githubᚗcomᚋreearthᚋ
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNRemoveAssetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveAssetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.RemoveAssetPayload) graphql.Marshaler {
-	return ec._RemoveAssetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNRemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveAssetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveAssetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._RemoveAssetPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNRemoveDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveDatasetSchemaInput(ctx context.Context, v interface{}) (graphql1.RemoveDatasetSchemaInput, error) {
 	res, err := ec.unmarshalInputRemoveDatasetSchemaInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNRemoveDatasetSchemaPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.RemoveDatasetSchemaPayload) graphql.Marshaler {
-	return ec._RemoveDatasetSchemaPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNRemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveDatasetSchemaPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._RemoveDatasetSchemaPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNRemoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxFieldInput(ctx context.Context, v interface{}) (graphql1.RemoveInfoboxFieldInput, error) {
@@ -38003,37 +37358,9 @@ func (ec *executionContext) unmarshalNRemoveInfoboxFieldInput2githubᚗcomᚋree
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNRemoveInfoboxFieldPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.RemoveInfoboxFieldPayload) graphql.Marshaler {
-	return ec._RemoveInfoboxFieldPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNRemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveInfoboxFieldPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._RemoveInfoboxFieldPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNRemoveInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxInput(ctx context.Context, v interface{}) (graphql1.RemoveInfoboxInput, error) {
 	res, err := ec.unmarshalInputRemoveInfoboxInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNRemoveInfoboxPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.RemoveInfoboxPayload) graphql.Marshaler {
-	return ec._RemoveInfoboxPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNRemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveInfoboxPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._RemoveInfoboxPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNRemoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveLayerInput(ctx context.Context, v interface{}) (graphql1.RemoveLayerInput, error) {
@@ -38041,37 +37368,9 @@ func (ec *executionContext) unmarshalNRemoveLayerInput2githubᚗcomᚋreearthᚋ
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNRemoveLayerPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.RemoveLayerPayload) graphql.Marshaler {
-	return ec._RemoveLayerPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNRemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveLayerPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._RemoveLayerPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNRemoveMemberFromTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveMemberFromTeamInput(ctx context.Context, v interface{}) (graphql1.RemoveMemberFromTeamInput, error) {
 	res, err := ec.unmarshalInputRemoveMemberFromTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNRemoveMemberFromTeamPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveMemberFromTeamPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.RemoveMemberFromTeamPayload) graphql.Marshaler {
-	return ec._RemoveMemberFromTeamPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNRemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveMemberFromTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveMemberFromTeamPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._RemoveMemberFromTeamPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNRemoveMyAuthInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveMyAuthInput(ctx context.Context, v interface{}) (graphql1.RemoveMyAuthInput, error) {
@@ -38092,20 +37391,6 @@ func (ec *executionContext) unmarshalNRemovePropertyItemInput2githubᚗcomᚋree
 func (ec *executionContext) unmarshalNRemoveWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveWidgetInput(ctx context.Context, v interface{}) (graphql1.RemoveWidgetInput, error) {
 	res, err := ec.unmarshalInputRemoveWidgetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNRemoveWidgetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveWidgetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.RemoveWidgetPayload) graphql.Marshaler {
-	return ec._RemoveWidgetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNRemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveWidgetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._RemoveWidgetPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRole(ctx context.Context, v interface{}) (graphql1.Role, error) {
@@ -38237,20 +37522,6 @@ func (ec *executionContext) unmarshalNSignupInput2githubᚗcomᚋreearthᚋreear
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNSignupPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSignupPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.SignupPayload) graphql.Marshaler {
-	return ec._SignupPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSignupPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.SignupPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._SignupPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v interface{}) (string, error) {
 	res, err := graphql.UnmarshalString(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -38299,20 +37570,6 @@ func (ec *executionContext) marshalNString2ᚕstringᚄ(ctx context.Context, sel
 func (ec *executionContext) unmarshalNSyncDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSyncDatasetInput(ctx context.Context, v interface{}) (graphql1.SyncDatasetInput, error) {
 	res, err := ec.unmarshalInputSyncDatasetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNSyncDatasetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSyncDatasetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.SyncDatasetPayload) graphql.Marshaler {
-	return ec._SyncDatasetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSyncDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.SyncDatasetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._SyncDatasetPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNTeam2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐTeam(ctx context.Context, sel ast.SelectionSet, v graphql1.Team) graphql.Marshaler {
@@ -38428,20 +37685,6 @@ func (ec *executionContext) unmarshalNUninstallPluginInput2githubᚗcomᚋreeart
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUninstallPluginPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUninstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UninstallPluginPayload) graphql.Marshaler {
-	return ec._UninstallPluginPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUninstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UninstallPluginPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UninstallPluginPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNUnlinkPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUnlinkPropertyValueInput(ctx context.Context, v interface{}) (graphql1.UnlinkPropertyValueInput, error) {
 	res, err := ec.unmarshalInputUnlinkPropertyValueInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -38452,37 +37695,9 @@ func (ec *executionContext) unmarshalNUpdateDatasetSchemaInput2githubᚗcomᚋre
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUpdateDatasetSchemaPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UpdateDatasetSchemaPayload) graphql.Marshaler {
-	return ec._UpdateDatasetSchemaPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateDatasetSchemaPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UpdateDatasetSchemaPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNUpdateLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateLayerInput(ctx context.Context, v interface{}) (graphql1.UpdateLayerInput, error) {
 	res, err := ec.unmarshalInputUpdateLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNUpdateLayerPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateLayerPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UpdateLayerPayload) graphql.Marshaler {
-	return ec._UpdateLayerPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateLayerPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UpdateLayerPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNUpdateMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMeInput(ctx context.Context, v interface{}) (graphql1.UpdateMeInput, error) {
@@ -38490,37 +37705,9 @@ func (ec *executionContext) unmarshalNUpdateMeInput2githubᚗcomᚋreearthᚋree
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUpdateMePayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMePayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UpdateMePayload) graphql.Marshaler {
-	return ec._UpdateMePayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMePayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateMePayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UpdateMePayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNUpdateMemberOfTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMemberOfTeamInput(ctx context.Context, v interface{}) (graphql1.UpdateMemberOfTeamInput, error) {
 	res, err := ec.unmarshalInputUpdateMemberOfTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNUpdateMemberOfTeamPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMemberOfTeamPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UpdateMemberOfTeamPayload) graphql.Marshaler {
-	return ec._UpdateMemberOfTeamPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMemberOfTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateMemberOfTeamPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UpdateMemberOfTeamPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNUpdateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateProjectInput(ctx context.Context, v interface{}) (graphql1.UpdateProjectInput, error) {
@@ -38589,56 +37776,14 @@ func (ec *executionContext) unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋr
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUpdateTeamPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UpdateTeamPayload) graphql.Marshaler {
-	return ec._UpdateTeamPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateTeamPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UpdateTeamPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNUpdateWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateWidgetInput(ctx context.Context, v interface{}) (graphql1.UpdateWidgetInput, error) {
 	res, err := ec.unmarshalInputUpdateWidgetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUpdateWidgetPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UpdateWidgetPayload) graphql.Marshaler {
-	return ec._UpdateWidgetPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateWidgetPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UpdateWidgetPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNUpgradePluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpgradePluginInput(ctx context.Context, v interface{}) (graphql1.UpgradePluginInput, error) {
 	res, err := ec.unmarshalInputUpgradePluginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNUpgradePluginPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpgradePluginPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UpgradePluginPayload) graphql.Marshaler {
-	return ec._UpgradePluginPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpgradePluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpgradePluginPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UpgradePluginPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNUpload2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx context.Context, v interface{}) (graphql.Upload, error) {
@@ -38664,20 +37809,6 @@ func (ec *executionContext) unmarshalNUploadFileToPropertyInput2githubᚗcomᚋr
 func (ec *executionContext) unmarshalNUploadPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginInput(ctx context.Context, v interface{}) (graphql1.UploadPluginInput, error) {
 	res, err := ec.unmarshalInputUploadPluginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNUploadPluginPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginPayload(ctx context.Context, sel ast.SelectionSet, v graphql1.UploadPluginPayload) graphql.Marshaler {
-	return ec._UploadPluginPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UploadPluginPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._UploadPluginPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUser(ctx context.Context, sel ast.SelectionSet, v *graphql1.User) graphql.Marshaler {
@@ -38939,6 +38070,62 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
+func (ec *executionContext) marshalOAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddDatasetSchemaPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddDatasetSchemaPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddDynamicDatasetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddDynamicDatasetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddDynamicDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddDynamicDatasetSchemaPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddDynamicDatasetSchemaPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddInfoboxFieldPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddInfoboxFieldPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerGroupPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddLayerGroupPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddLayerGroupPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddLayerItemPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddLayerItemPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddLayerItemPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddMemberToTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddMemberToTeamPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddMemberToTeamPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐAddWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.AddWidgetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AddWidgetPayload(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalOAny2interface(ctx context.Context, v interface{}) (interface{}, error) {
 	if v == nil {
 		return nil, nil
@@ -38983,6 +38170,34 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 		return graphql.Null
 	}
 	return graphql.MarshalBoolean(*v)
+}
+
+func (ec *executionContext) marshalOCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateAssetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateAssetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._CreateAssetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateInfoboxPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._CreateInfoboxPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateScenePayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateScenePayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._CreateScenePayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐCreateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.CreateTeamPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._CreateTeamPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx context.Context, v interface{}) (*usecase.Cursor, error) {
@@ -39041,6 +38256,27 @@ func (ec *executionContext) marshalODateTime2ᚖtimeᚐTime(ctx context.Context,
 		return graphql.Null
 	}
 	return graphql.MarshalTime(*v)
+}
+
+func (ec *executionContext) marshalODeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteMePayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.DeleteMePayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._DeleteMePayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalODeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteProjectPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.DeleteProjectPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._DeleteProjectPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalODeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐDeleteTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.DeleteTeamPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._DeleteTeamPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOFloat2ᚖfloat64(ctx context.Context, v interface{}) (*float64, error) {
@@ -39109,11 +38345,32 @@ func (ec *executionContext) marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbac
 	return graphql1.MarshalID(*v)
 }
 
+func (ec *executionContext) marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.ImportDatasetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._ImportDatasetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.ImportLayerPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._ImportLayerPayload(ctx, sel, v)
+}
+
 func (ec *executionContext) marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInfobox(ctx context.Context, sel ast.SelectionSet, v *graphql1.Infobox) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Infobox(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.InstallPluginPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._InstallPluginPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOInt2ᚖint(ctx context.Context, v interface{}) (*int, error) {
@@ -39129,6 +38386,21 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 		return graphql.Null
 	}
 	return graphql.MarshalInt(*v)
+}
+
+func (ec *executionContext) unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx context.Context, v interface{}) (*language.Tag, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql1.UnmarshalLang(v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx context.Context, sel ast.SelectionSet, v *language.Tag) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return graphql1.MarshalLang(*v)
 }
 
 func (ec *executionContext) marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLayer(ctx context.Context, sel ast.SelectionSet, v graphql1.Layer) graphql.Marshaler {
@@ -39178,6 +38450,20 @@ func (ec *executionContext) marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋr
 		return graphql.Null
 	}
 	return ec._MergedProperty(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.MoveInfoboxFieldPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._MoveInfoboxFieldPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.MoveLayerPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._MoveLayerPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalONode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐNode(ctx context.Context, sel ast.SelectionSet, v graphql1.Node) graphql.Marshaler {
@@ -39236,6 +38522,13 @@ func (ec *executionContext) marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearth�
 		return graphql.Null
 	}
 	return ec._Project(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProjectPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.ProjectPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._ProjectPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐProperty(ctx context.Context, sel ast.SelectionSet, v *graphql1.Property) graphql.Marshaler {
@@ -39299,6 +38592,13 @@ func (ec *executionContext) marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreear
 	return ret
 }
 
+func (ec *executionContext) marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.PropertyFieldPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._PropertyFieldPayload(ctx, sel, v)
+}
+
 func (ec *executionContext) marshalOPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyGroup(ctx context.Context, sel ast.SelectionSet, v *graphql1.PropertyGroup) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -39311,6 +38611,13 @@ func (ec *executionContext) marshalOPropertyItem2githubᚗcomᚋreearthᚋreeart
 		return graphql.Null
 	}
 	return ec._PropertyItem(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertyItemPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.PropertyItemPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._PropertyItemPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertySchema(ctx context.Context, sel ast.SelectionSet, v *graphql1.PropertySchema) graphql.Marshaler {
@@ -39420,6 +38727,55 @@ func (ec *executionContext) marshalOPropertySchemaID2ᚖgithubᚗcomᚋreearth�
 	return graphql1.MarshalPropertySchemaID(*v)
 }
 
+func (ec *executionContext) marshalORemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveAssetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveAssetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RemoveAssetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveDatasetSchemaPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RemoveDatasetSchemaPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveInfoboxFieldPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RemoveInfoboxFieldPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveInfoboxPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RemoveInfoboxPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveLayerPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RemoveLayerPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveMemberFromTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveMemberFromTeamPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RemoveMemberFromTeamPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐRemoveWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.RemoveWidgetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RemoveWidgetPayload(ctx, sel, v)
+}
+
 func (ec *executionContext) marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx context.Context, sel ast.SelectionSet, v *graphql1.Scene) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -39462,6 +38818,13 @@ func (ec *executionContext) marshalOSearchedUser2ᚖgithubᚗcomᚋreearthᚋree
 		return graphql.Null
 	}
 	return ec._SearchedUser(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSignupPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.SignupPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._SignupPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {
@@ -39522,6 +38885,13 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 		return graphql.Null
 	}
 	return graphql.MarshalString(*v)
+}
+
+func (ec *executionContext) marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSyncDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.SyncDatasetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._SyncDatasetPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐTeam(ctx context.Context, sel ast.SelectionSet, v *graphql1.Team) graphql.Marshaler {
@@ -39593,6 +38963,62 @@ func (ec *executionContext) marshalOURL2ᚖnetᚋurlᚐURL(ctx context.Context, 
 	return graphql1.MarshalURL(*v)
 }
 
+func (ec *executionContext) marshalOUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUninstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UninstallPluginPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UninstallPluginPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateDatasetSchemaPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateDatasetSchemaPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateLayerPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateLayerPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateLayerPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMePayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateMePayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateMePayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateMemberOfTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateMemberOfTeamPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateMemberOfTeamPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateTeamPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateTeamPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpdateWidgetPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateWidgetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUpgradePluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UpgradePluginPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpgradePluginPayload(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx context.Context, v interface{}) (*graphql.Upload, error) {
 	if v == nil {
 		return nil, nil
@@ -39606,6 +39032,13 @@ func (ec *executionContext) marshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgen�
 		return graphql.Null
 	}
 	return graphql.MarshalUpload(*v)
+}
+
+func (ec *executionContext) marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UploadPluginPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UploadPluginPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUser(ctx context.Context, sel ast.SelectionSet, v *graphql1.User) graphql.Marshaler {
