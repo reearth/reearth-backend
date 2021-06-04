@@ -22,18 +22,48 @@ import (
 )
 
 type Published struct {
-	project            repo.Project
-	file               gateway.File
-	indexHTMLURL       *url.URL
-	actualIndexHTMLURL string
-	indexHTML          *cache.Cache
+	project      repo.Project
+	file         gateway.File
+	indexHTML    *cache.Cache
+	indexHTMLStr string
 }
 
-func NewPublished(project repo.Project, file gateway.File, indexHTMLURL *url.URL) interfaces.Published {
+func NewPublished(project repo.Project, file gateway.File, indexHTML string) interfaces.Published {
 	return &Published{
 		project:      project,
 		file:         file,
-		indexHTMLURL: indexHTMLURL,
+		indexHTMLStr: indexHTML,
+	}
+}
+
+func NewPublishedWithURL(project repo.Project, file gateway.File, indexHTMLURL *url.URL) interfaces.Published {
+	return &Published{
+		project: project,
+		file:    file,
+		indexHTML: cache.New(func(c context.Context, i interface{}) (interface{}, error) {
+			req, err := http.NewRequestWithContext(c, http.MethodGet, indexHTMLURL.String(), nil)
+			if err != nil {
+				return nil, err
+			}
+			res, err := http.DefaultClient.Do(req)
+			if err != nil {
+				log.Errorf("published index: conn err: %s", err)
+				return nil, errors.New("failed to fetch HTML")
+			}
+			if res.StatusCode >= 300 {
+				log.Errorf("published index: status err: %d", res.StatusCode)
+				return nil, errors.New("failed to fetch HTML")
+			}
+			defer func() {
+				_ = res.Body.Close()
+			}()
+			str, err := io.ReadAll(res.Body)
+			if err != nil {
+				log.Errorf("published index: read err: %s", err)
+				return "", errors.New("failed to fetch HTML")
+			}
+			return string(str), nil
+		}, time.Hour),
 	}
 }
 
@@ -62,55 +92,16 @@ func (i *Published) Index(ctx context.Context, name string, u *url.URL) (string,
 	}
 
 	md := interfaces.ProjectPublishedMetadataFrom(prj)
-	i.actualIndexHTMLURL = indexURL(u, i.indexHTMLURL)
 
-	if i.indexHTML == nil {
-		i.indexHTML = cache.New(func(ctx context.Context, _ interface{}) (interface{}, error) {
-			req, err := http.NewRequestWithContext(ctx, http.MethodGet, i.actualIndexHTMLURL, nil)
-			if err != nil {
-				return nil, err
-			}
-			res, err := http.DefaultClient.Do(req)
-			if err != nil {
-				log.Errorf("published index: conn err: %s", err)
-				return nil, errors.New("failed to fetch HTML")
-			}
-			if res.StatusCode >= 300 {
-				log.Errorf("published index: status err: %d", res.StatusCode)
-				return nil, errors.New("failed to fetch HTML")
-			}
-			defer func() {
-				_ = res.Body.Close()
-			}()
-			str, err := io.ReadAll(res.Body)
-			if err != nil {
-				log.Errorf("published index: read err: %s", err)
-				return "", errors.New("failed to fetch HTML")
-			}
-			return string(str), nil
-		}, time.Hour)
+	html := i.indexHTMLStr
+	if i.indexHTML != nil {
+		htmli, err := i.indexHTML.Get(ctx)
+		if err != nil {
+			return "", err
+		}
+		html = htmli.(string)
 	}
-
-	indexHTML, err := i.indexHTML.Get(ctx)
-	if err != nil {
-		return "", err
-	}
-
-	return renderIndex(indexHTML.(string), u.String(), md), nil
-}
-
-// indexURL returns the HTML file URL from current URL and config.
-func indexURL(u, indexURL *url.URL) string {
-	if indexURL == nil || indexURL.String() == "" {
-		u2 := *u
-		u2.Path = "/published.html"
-		return u2.String()
-	} else if !indexURL.IsAbs() {
-		u2 := *u
-		u2.Path = indexURL.Path
-		return u2.String()
-	}
-	return indexURL.String()
+	return renderIndex(html, u.String(), md), nil
 }
 
 const headers = `{{if .title}}  <meta name="twitter:title" content="{{.title}}" />

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -23,7 +24,7 @@ func publicAPI(
 	gateways *gateway.Container,
 ) {
 	controller := http1.NewUserController(interactor.NewUser(repos, gateways, conf.SignupSecret))
-	publishedController := http1.NewPublishedController(interactor.NewPublished(repos.Project, gateways.File, conf.Published.IndexURL))
+	publishedController := http1.NewPublishedController(interactor.NewPublished(repos.Project, gateways.File, ""))
 
 	r.GET("/ping", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, "pong")
@@ -79,8 +80,20 @@ func publishedRoute(
 	repos *repo.Container,
 	gateways *gateway.Container,
 ) {
+	var i interfaces.Published
+	if conf.Published.IndexURL == nil || conf.Published.IndexURL.String() == "" {
+		html, err := os.ReadFile("web/published.html")
+		if err == nil {
+			i = interactor.NewPublished(repos.Project, gateways.File, string(html))
+		} else {
+			i = interactor.NewPublished(repos.Project, gateways.File, "")
+		}
+	} else {
+		i = interactor.NewPublishedWithURL(repos.Project, gateways.File, conf.Published.IndexURL)
+	}
+	contr := http1.NewPublishedController(i)
+
 	key := struct{}{}
-	publishedController := http1.NewPublishedController(interactor.NewPublished(repos.Project, gateways.File, conf.Published.IndexURL))
 	auth := middleware.BasicAuthWithConfig(middleware.BasicAuthConfig{
 		Validator: func(user string, password string, c echo.Context) (bool, error) {
 			md, ok := c.Request().Context().Value(key).(interfaces.ProjectPublishedMetadata)
@@ -95,7 +108,7 @@ func publishedRoute(
 				return true
 			}
 
-			md, err := publishedController.Metadata(c.Request().Context(), name)
+			md, err := contr.Metadata(c.Request().Context(), name)
 			if err != nil {
 				return true
 			}
@@ -105,8 +118,17 @@ func publishedRoute(
 		},
 	})
 
+	r.GET("/:name/data.json", func(c echo.Context) error {
+		r, err := contr.Data(c.Request().Context(), c.Param("name"))
+		if err != nil {
+			return err
+		}
+
+		return c.Stream(http.StatusOK, "application/json", r)
+	}, auth)
+
 	r.GET("/:name/", func(c echo.Context) error {
-		index, err := publishedController.Index(c.Request().Context(), c.Param("name"), &url.URL{
+		index, err := contr.Index(c.Request().Context(), c.Param("name"), &url.URL{
 			Scheme: "http",
 			Host:   c.Request().Host,
 			Path:   c.Request().URL.Path,
@@ -114,16 +136,10 @@ func publishedRoute(
 		if err != nil {
 			return err
 		}
-
-		return c.HTML(http.StatusOK, index)
-	}, auth)
-
-	r.GET("/:name/data.json", func(c echo.Context) error {
-		r, err := publishedController.Data(c.Request().Context(), c.Param("name"))
-		if err != nil {
-			return err
+		if index == "" {
+			return echo.ErrNotFound
 		}
 
-		return c.Stream(http.StatusOK, "application/json", r)
+		return c.HTML(http.StatusOK, index)
 	}, auth)
 }
