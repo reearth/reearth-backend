@@ -77,7 +77,7 @@ extensions:
           surturation_shift:
             title: 彩度
       googleAnalytics:
-        title: グーグルアナリティクス
+        title: Google Analytics
         description: Google Analyticsを有効にすることで、公開ページがどのように閲覧されているかを分析することが可能です。
         fields:
           enableGA:
