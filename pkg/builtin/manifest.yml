@@ -141,7 +141,7 @@ extensions:
               max: 1
         - id: googleAnalytics
           title: Google Analytics
-          description: Set your Google Analytics tracking ID and analize how your published project being viewed.
+          description: Set your Google Analytics tracking ID and analyze how your published project is being viewed.
           fields:
             - id: enableGA
               type: bool
@@ -151,7 +151,7 @@ extensions:
             - id: trackingId
               type: string
               title: Tracking ID
-              description: Paste your Google Analytics tracking ID here. This would be mebeded in your published project.
+              description: Paste your Google Analytics tracking ID here. This will be embedded in your published project.
   - id: infobox
     title: Infobox
     visualizer: cesium
