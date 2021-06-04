@@ -12,6 +12,7 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"golang.org/x/text/language"
 )
 
 type Layer interface {
@@ -588,6 +589,9 @@ type PluginExtension struct {
 type Project struct {
 	ID                id.ID             `json:"id"`
 	IsArchived        bool              `json:"isArchived"`
+	IsBasicAuthActive bool              `json:"isBasicAuthActive"`
+	BasicAuthUsername string            `json:"basicAuthUsername"`
+	BasicAuthPassword string            `json:"basicAuthPassword"`
 	CreatedAt         time.Time         `json:"createdAt"`
 	UpdatedAt         time.Time         `json:"updatedAt"`
 	PublishedAt       *time.Time        `json:"publishedAt"`
@@ -901,9 +905,11 @@ type SearchedUser struct {
 }
 
 type SignupInput struct {
-	UserID *id.ID  `json:"userId"`
-	TeamID *id.ID  `json:"teamId"`
-	Secret *string `json:"secret"`
+	Lang   *language.Tag `json:"lang"`
+	Theme  *Theme        `json:"theme"`
+	UserID *id.ID        `json:"userId"`
+	TeamID *id.ID        `json:"teamId"`
+	Secret *string       `json:"secret"`
 }
 
 type SignupPayload struct {
@@ -988,12 +994,12 @@ type UpdateLayerPayload struct {
 }
 
 type UpdateMeInput struct {
-	Name                 *string `json:"name"`
-	Email                *string `json:"email"`
-	Lang                 *string `json:"lang"`
-	Theme                *Theme  `json:"theme"`
-	Password             *string `json:"password"`
-	PasswordConfirmation *string `json:"passwordConfirmation"`
+	Name                 *string       `json:"name"`
+	Email                *string       `json:"email"`
+	Lang                 *language.Tag `json:"lang"`
+	Theme                *Theme        `json:"theme"`
+	Password             *string       `json:"password"`
+	PasswordConfirmation *string       `json:"passwordConfirmation"`
 }
 
 type UpdateMePayload struct {
@@ -1015,6 +1021,9 @@ type UpdateProjectInput struct {
 	Name              *string         `json:"name"`
 	Description       *string         `json:"description"`
 	Archived          *bool           `json:"archived"`
+	IsBasicAuthActive *bool           `json:"isBasicAuthActive"`
+	BasicAuthUsername *string         `json:"basicAuthUsername"`
+	BasicAuthPassword *string         `json:"basicAuthPassword"`
 	Alias             *string         `json:"alias"`
 	ImageURL          *url.URL        `json:"imageUrl"`
 	PublicTitle       *string         `json:"publicTitle"`
@@ -1145,15 +1154,15 @@ type UploadPluginPayload struct {
 }
 
 type User struct {
-	ID       id.ID    `json:"id"`
-	Name     string   `json:"name"`
-	Email    string   `json:"email"`
-	Lang     string   `json:"lang"`
-	Theme    Theme    `json:"theme"`
-	MyTeamID id.ID    `json:"myTeamId"`
-	Auths    []string `json:"auths"`
-	Teams    []*Team  `json:"teams"`
-	MyTeam   *Team    `json:"myTeam"`
+	ID       id.ID        `json:"id"`
+	Name     string       `json:"name"`
+	Email    string       `json:"email"`
+	Lang     language.Tag `json:"lang"`
+	Theme    Theme        `json:"theme"`
+	MyTeamID id.ID        `json:"myTeamId"`
+	Auths    []string     `json:"auths"`
+	Teams    []*Team      `json:"teams"`
+	MyTeam   *Team        `json:"myTeam"`
 }
 
 func (User) IsNode() {}
