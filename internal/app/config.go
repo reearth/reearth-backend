@@ -1,7 +1,9 @@
 package app
 
 import (
+	"fmt"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
@@ -45,16 +47,30 @@ type GCSConfig struct {
 }
 
 func ReadConfig(debug bool) (*Config, error) {
-	if debug {
-		// .env.local file is only available in debug environment
-		if err := godotenv.Load(".env.local"); err != nil && !os.IsNotExist(err) {
-			return nil, err
-		}
-		log.Infof("config: .env.local loaded")
+	// load .env
+	if err := godotenv.Load(".env"); err != nil && !os.IsNotExist(err) {
+		return nil, err
+	} else if err == nil {
+		log.Infof("config: .env loaded")
 	}
 
 	var c Config
 	err := envconfig.Process(configPrefix, &c)
 
+	if debug {
+		c.Dev = true
+	}
+
 	return &c, err
+}
+
+func (c Config) Print() string {
+	s := fmt.Sprintf("%+v", c)
+	for _, secret := range []string{c.DB, c.Auth0.ClientSecret} {
+		if secret == "" {
+			continue
+		}
+		s = strings.ReplaceAll(s, secret, "***")
+	}
+	return s
 }
