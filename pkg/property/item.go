@@ -23,7 +23,10 @@ type Item interface {
 	Prune()
 	MigrateSchema(context.Context, *Schema, dataset.Loader)
 	MigrateDataset(DatasetMigrationParam)
+	MigrateGroup(id.PropertySchemaID, *SchemaGroup, MigrationPlan)
 	ValidateSchema(*SchemaGroup) error
+	UpdateSchema(id.PropertySchemaID)
+	UpdateSchemaGroup(id.PropertySchemaFieldID)
 }
 
 type itemBase struct {

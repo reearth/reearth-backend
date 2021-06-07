@@ -114,3 +114,60 @@ func TestField_Update(t *testing.T) {
 	b.UpdateUnsafe(v)
 	assert.Equal(t, v, b.Value())
 }
+
+func TestField_MigrateField(t *testing.T) {
+
+	testCases := []struct {
+		Name     string
+		SF       *SchemaField
+		Plan     bool
+		Input    *Field
+		Expected struct {
+			Field  *Field
+			Output bool
+		}
+	}{
+		{
+			Name: "type changed: can't cast",
+			SF:   NewSchemaField().ID("a").Type(ValueTypeLatLng).MustBuild(),
+			Input: NewFieldUnsafe().FieldUnsafe("a").
+				ValueUnsafe(ValueTypeString.ValueFromUnsafe("foobar")).
+				Build(),
+			Expected: struct {
+				Field  *Field
+				Output bool
+			}{
+				Field: NewFieldUnsafe().
+					FieldUnsafe("a").TypeUnsafe(ValueTypeLatLng).
+					Build(),
+				Output: true,
+			},
+		},
+		{
+			Name: "type changed: can cast",
+			SF:   NewSchemaField().ID("a").Type(ValueTypeString).MustBuild(),
+			Input: NewFieldUnsafe().FieldUnsafe("a").
+				ValueUnsafe(ValueTypeNumber.ValueFromUnsafe(40)).
+				Build(),
+			Expected: struct {
+				Field  *Field
+				Output bool
+			}{
+				Field: NewFieldUnsafe().
+					FieldUnsafe("a").TypeUnsafe(ValueTypeString).
+					ValueUnsafe(ValueTypeNumber.ValueFromUnsafe("40")).
+					Build(),
+				Output: true,
+			},
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			res := tc.Input.MigrateField(tc.SF)
+			assert.Equal(tt, tc.Expected.Field, tc.Input)
+			assert.Equal(tt, tc.Expected.Output, res)
+		})
+	}
+}

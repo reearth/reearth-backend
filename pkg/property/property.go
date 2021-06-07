@@ -491,3 +491,29 @@ func (p *Property) ValidateSchema(ps *Schema) error {
 
 	return nil
 }
+
+func (p *Property) MigrateGroup(newSchema *Schema, plans MigrationPlans) {
+	if p == nil || newSchema == nil {
+		return
+	}
+	for _, plan := range plans {
+		item := p.ItemBySchema(plan.FromItem)
+		// check if the schema has the item
+		isg := newSchema.Group(item.SchemaGroup())
+		if isg != nil {
+			item.MigrateGroup(newSchema.ID(), isg, plan)
+		} else {
+			// item not found -> detect if field is renamed
+			sg := newSchema.Group(plan.ToItem)
+			if sg != nil {
+				// rename the item
+				item.UpdateSchema(newSchema.ID())
+				item.UpdateSchemaGroup(plan.ToItem)
+			} else {
+				//item removed or plan is not to migrate -> remove the item
+				p.RemoveItem(PointItem(item.ID()))
+			}
+		}
+	}
+	p.schema = newSchema.ID()
+}

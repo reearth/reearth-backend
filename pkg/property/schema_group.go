@@ -125,3 +125,7 @@ func (s *SchemaGroup) RepresentativeField() *SchemaField {
 func (s *SchemaGroup) SetTitle(t i18n.String) {
 	s.title = t.Copy()
 }
+
+func (s *SchemaGroup) UpdateID(nid id.PropertySchemaFieldID) {
+	s.id = nid
+}

@@ -392,3 +392,20 @@ func (p *GroupList) ValidateSchema(ps *SchemaGroup) error {
 
 	return nil
 }
+
+func (g *GroupList) UpdateSchemaGroup(nsg id.PropertySchemaFieldID) {
+	g.itemBase.SchemaGroup = nsg
+}
+
+func (g *GroupList) UpdateSchema(newSchema id.PropertySchemaID) {
+	g.itemBase.Schema = newSchema
+}
+
+func (g *GroupList) MigrateGroup(schema id.PropertySchemaID, newSchemaGroup *SchemaGroup, plan MigrationPlan) {
+	if g == nil {
+		return
+	}
+	for _, f := range g.groups {
+		f.MigrateGroup(schema, newSchemaGroup, plan)
+	}
+}

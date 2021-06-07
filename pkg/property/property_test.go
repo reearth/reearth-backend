@@ -273,3 +273,117 @@ func TestRemoveListItem(t *testing.T) {
 	assert.Equal(t, []*Group{}, gl.Groups())
 	assert.Equal(t, 0, len(p.Items()))
 }
+
+func TestProperty_MigrateGroup(t *testing.T) {
+	sid := id.MustPropertySchemaID("xxx/aaa")
+	sid2 := id.MustPropertySchemaID("xxx/bbb")
+	sfid1 := id.PropertySchemaFieldID("a")
+	sfid2 := id.PropertySchemaFieldID("b")
+	scene := id.NewSceneID()
+	nsg := NewSchemaGroup().ID("b").Schema(sid2).Fields([]*SchemaField{
+		NewSchemaField().ID(sfid1).Type(ValueTypeString).MustBuild(),
+	}).MustBuild()
+	nsg2 := NewSchemaGroup().ID("c").Schema(sid2).Fields([]*SchemaField{
+		NewSchemaField().ID("c").Type(ValueTypeString).MustBuild(),
+	}).MustBuild()
+	osg := NewSchemaGroup().ID("a").Schema(sid).Fields([]*SchemaField{
+		NewSchemaField().ID(sfid1).Type(ValueTypeString).MustBuild(),
+		NewSchemaField().ID(sfid2).Type(ValueTypeString).MustBuild(),
+	}).MustBuild()
+	newSchema := NewSchema().ID(sid2).Groups([]*SchemaGroup{nsg, nsg2}).MustBuild()
+	fields := []*Field{
+		NewFieldUnsafe().FieldUnsafe(sfid1).
+			ValueUnsafe(ValueTypeString.ValueFromUnsafe("foobar")).
+			Build(),
+	}
+	item1 := NewGroup().NewID().Schema(sid, osg.ID()).Fields(fields).MustBuild()
+	item2 := NewGroup().NewID().Schema(sid, nsg.ID()).MustBuild()
+	items := []Item{
+		// should be removed or renamed
+		item1,
+		// should remain with new schema id
+		item2,
+	}
+	property := New().NewID().Scene(scene).Schema(sid).Items(items).MustBuild()
+	testCases := []struct {
+		Name     string
+		Plans    MigrationPlans
+		Property *Property
+		Schema   *Schema
+		Expected struct {
+			Items  []Item
+			Schema id.PropertySchemaID
+		}
+	}{
+		{
+			Name:     "nil new schema -> no migration",
+			Property: property,
+			Expected: struct {
+				Items  []Item
+				Schema id.PropertySchemaID
+			}{Items: items, Schema: sid},
+		},
+		{
+			Name:     "remove item: no migration plans",
+			Property: property,
+			Schema:   newSchema,
+			Plans: MigrationPlans{
+				MigrationPlan{
+					FromItem: item1.SchemaGroup(),
+					From:     "a",
+					ToItem:   item1.SchemaGroup(),
+					To:       "a",
+				},
+				MigrationPlan{
+					FromItem: item2.SchemaGroup(),
+					From:     "b",
+					ToItem:   item2.SchemaGroup(),
+					To:       "b",
+				},
+			},
+			Expected: struct {
+				Items  []Item
+				Schema id.PropertySchemaID
+			}{Items: []Item{
+				NewGroup().ID(item2.ID()).Schema(sid2, nsg.ID()).MustBuild(),
+			}, Schema: sid2},
+		},
+		{
+			Name: "rename item",
+			Property: New().NewID().Scene(scene).Schema(sid).Items([]Item{
+				item1,
+				item2,
+			}).MustBuild(),
+			Schema: newSchema,
+			Plans: MigrationPlans{
+				MigrationPlan{
+					FromItem: item1.SchemaGroup(),
+					From:     "a",
+					ToItem:   "c",
+					To:       "c",
+				},
+				MigrationPlan{
+					FromItem: item2.SchemaGroup(),
+					From:     "b",
+					ToItem:   item2.SchemaGroup(),
+					To:       "b",
+				},
+			},
+			Expected: struct {
+				Items  []Item
+				Schema id.PropertySchemaID
+			}{Items: []Item{
+				NewGroup().ID(item1.ID()).Schema(sid2, nsg2.ID()).Fields(fields).MustBuild(),
+				NewGroup().ID(item2.ID()).Schema(sid2, nsg.ID()).MustBuild(),
+			}, Schema: sid2},
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tc.Property.MigrateGroup(tc.Schema, tc.Plans)
+			assert.Equal(tt, tc.Expected.Items, tc.Property.Items())
+			assert.Equal(tt, tc.Expected.Schema, tc.Property.Schema())
+		})
+	}
+}

@@ -284,3 +284,37 @@ func (p *Group) ValidateSchema(ps *SchemaGroup) error {
 
 	return nil
 }
+
+func (g *Group) UpdateSchema(newSchema id.PropertySchemaID) {
+	g.itemBase.Schema = newSchema
+}
+
+func (g *Group) UpdateSchemaGroup(nsg id.PropertySchemaFieldID) {
+	g.itemBase.SchemaGroup = nsg
+}
+
+func (g *Group) MigrateGroup(schema id.PropertySchemaID, newSchemaGroup *SchemaGroup, plan MigrationPlan) {
+	if g == nil || newSchemaGroup == nil {
+		return
+	}
+	for _, f := range g.Fields() {
+		sf := newSchemaGroup.Field(f.Field())
+		if sf != nil {
+			if !f.MigrateField(sf) {
+				g.RemoveField(f.Field())
+			}
+		} else {
+			//if field exist and migration plan is to migrate
+			sf := newSchemaGroup.Field(plan.To)
+			if sf != nil {
+				// rename the field
+				f.UpdateField(plan.To)
+			} else {
+				//	Either the plan is not for migration or the field is removed -> remove
+				g.RemoveField(f.Field())
+			}
+		}
+	}
+	g.UpdateSchema(schema)
+	g.UpdateSchemaGroup(newSchemaGroup.ID())
+}

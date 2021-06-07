@@ -106,6 +106,10 @@ func (p *Field) UpdateUnsafe(value *Value) {
 	p.value = value
 }
 
+func (p *Field) UpdateTypeUnsafe(t ValueType) {
+	p.ptype = t
+}
+
 func (p *Field) Link(links *Links) {
 	p.links = links.Clone()
 }
@@ -197,4 +201,27 @@ type DatasetMigrationParam struct {
 	DatasetFieldIDMap   map[id.DatasetSchemaFieldID]id.DatasetSchemaFieldID
 	NewDatasetSchemaMap map[id.DatasetSchemaID]*dataset.Schema
 	NewDatasetMap       map[id.DatasetID]*dataset.Dataset
+}
+
+func (p *Field) MigrateField(newSchemaField *SchemaField) bool {
+	if p == nil {
+		return false
+	}
+
+	if newSchemaField != nil {
+		var nv *Value
+		// check field type, assert if possible and update the value
+		if t := newSchemaField.Type(); t != p.Type() {
+			v, ok := t.ValueFrom(p.Value().Value())
+			if ok {
+				nv = v
+			} else {
+				nv = nil
+			}
+			p.UpdateUnsafe(nv)
+			p.UpdateTypeUnsafe(t)
+		}
+		return true
+	}
+	return false
 }

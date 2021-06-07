@@ -469,3 +469,101 @@ func TestGroup_UpdateNameFieldValue(t *testing.T) {
 		})
 	}
 }
+
+func TestGroup_MigrateGroup(t *testing.T) {
+	sid := id.MustPropertySchemaID("xxx/aaa")
+	sid2 := id.MustPropertySchemaID("xxx/bbb")
+	sid3 := id.MustPropertySchemaID("xxx/ccc")
+	sfid1 := id.PropertySchemaFieldID("a")
+	sfid2 := id.PropertySchemaFieldID("b")
+	sfid3 := id.PropertySchemaFieldID("c")
+	nsg := NewSchemaGroup().ID("b").Schema(sid2).Fields([]*SchemaField{
+		NewSchemaField().ID(sfid1).Type(ValueTypeString).MustBuild(),
+	}).MustBuild()
+	nsg2 := NewSchemaGroup().ID("b").Schema(sid3).Fields([]*SchemaField{
+		NewSchemaField().ID(sfid1).Type(ValueTypeString).MustBuild(),
+		NewSchemaField().ID(sfid3).Type(ValueTypeString).MustBuild(),
+	}).MustBuild()
+	osg := NewSchemaGroup().ID("c").Schema(sid).Fields([]*SchemaField{
+		NewSchemaField().ID(sfid1).Type(ValueTypeString).MustBuild(),
+		NewSchemaField().ID(sfid2).Type(ValueTypeString).MustBuild(),
+	}).MustBuild()
+	fields := []*Field{
+		// should remain
+		NewFieldUnsafe().FieldUnsafe(sfid1).
+			ValueUnsafe(ValueTypeString.ValueFromUnsafe("foobar")).
+			Build(),
+		// should remove
+		NewFieldUnsafe().FieldUnsafe(sfid2).
+			ValueUnsafe(ValueTypeString.ValueFromUnsafe("xxx")).
+			Build(),
+	}
+	fields2 := []*Field{
+		// should remain
+		NewFieldUnsafe().FieldUnsafe(sfid1).
+			ValueUnsafe(ValueTypeString.ValueFromUnsafe("foobar")).
+			Build(),
+		// should be renamed
+		NewFieldUnsafe().FieldUnsafe(sfid2).
+			ValueUnsafe(ValueTypeString.ValueFromUnsafe("xxx")).
+			Build(),
+	}
+	oldGroup := NewGroup().NewID().Schema(sid, osg.ID()).Fields(nil).MustBuild()
+	oldGroup1 := NewGroup().NewID().Schema(sid, osg.ID()).Fields(fields).MustBuild()
+	oldGroup2 := NewGroup().NewID().Schema(sid, osg.ID()).Fields(fields2).MustBuild()
+	testCases := []struct {
+		Name           string
+		NewSchemaGroup *SchemaGroup
+		Plan           MigrationPlan
+		Schema         id.PropertySchemaID
+		OldGroup       *Group
+		Expected       *Group
+	}{
+		{
+			Name:           "no migration -> nil old group",
+			NewSchemaGroup: nsg,
+			OldGroup:       nil,
+		},
+		{
+			Name:           "no migration -> nil schemaGroup",
+			NewSchemaGroup: nil,
+			OldGroup:       oldGroup,
+			Expected:       oldGroup,
+		},
+		{
+			Name:           "Rename field",
+			NewSchemaGroup: nsg2,
+			OldGroup:       oldGroup2,
+			Schema:         sid3,
+			Plan: MigrationPlan{
+				From: "b",
+				To:   "c",
+			},
+			Expected: NewGroup().ID(oldGroup2.ID()).Schema(sid3, nsg2.ID()).Fields([]*Field{
+				NewFieldUnsafe().FieldUnsafe(sfid1).
+					ValueUnsafe(ValueTypeString.ValueFromUnsafe("foobar")).
+					Build(),
+				NewFieldUnsafe().FieldUnsafe(sfid3).
+					ValueUnsafe(ValueTypeString.ValueFromUnsafe("xxx")).
+					Build()}).MustBuild(),
+		},
+		{
+			Name:           "Remove: no migration plan",
+			NewSchemaGroup: nsg,
+			OldGroup:       oldGroup1,
+			Schema:         sid2,
+			Expected: NewGroup().ID(oldGroup1.ID()).Schema(sid2, nsg.ID()).Fields([]*Field{
+				NewFieldUnsafe().FieldUnsafe(sfid1).
+					ValueUnsafe(ValueTypeString.ValueFromUnsafe("foobar")).
+					Build()}).MustBuild(),
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			tc.OldGroup.MigrateGroup(tc.Schema, tc.NewSchemaGroup, tc.Plan)
+			assert.Equal(tt, tc.Expected, tc.OldGroup)
+		})
+	}
+}
