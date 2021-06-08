@@ -37,10 +37,6 @@ func (c *Cache) Get(ctx context.Context) (interface{}, error) {
 }
 
 func (c *Cache) update(ctx context.Context) error {
-	if c == nil {
-		return nil
-	}
-
 	var err error
 	data, err := c.updater(ctx, c.data)
 	if err != nil {
@@ -53,7 +49,7 @@ func (c *Cache) update(ctx context.Context) error {
 }
 
 func (c *Cache) currentTime() time.Time {
-	if c == nil || c.now == nil {
+	if c.now == nil {
 		return time.Now()
 	}
 	return c.now()

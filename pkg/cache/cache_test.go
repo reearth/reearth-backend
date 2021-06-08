@@ -16,6 +16,10 @@ func TestCache_Get(t *testing.T) {
 	var cache *Cache
 	called := 0
 
+	res, e := cache.Get(ctx) // nil cache
+	assert.NoError(t, e)
+	assert.Nil(t, res)
+
 	cache = New(func(c context.Context, i interface{}) (interface{}, error) {
 		assert.Same(t, ctx, c)
 		if called == 0 {
@@ -30,7 +34,7 @@ func TestCache_Get(t *testing.T) {
 		return data, nil
 	}, time.Duration(0)) // duration 0 means data will be updated every time
 
-	res, e := cache.Get(ctx) // first
+	res, e = cache.Get(ctx) // first
 	assert.NoError(t, e)
 	assert.Same(t, data, res)
 	assert.Equal(t, 1, called)
