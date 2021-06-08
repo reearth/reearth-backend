@@ -24,10 +24,10 @@
 </div><!-- #lowframe -->
 
 <div id="topbar" class="wide"><div class="container">
-<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
-<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<div class="top-heading" id="heading-wide"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
 <a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form style="display:none" method="GET" action="/main/search">
+<form style="display:none" method="GET" action="/reearth-backend/main/search">
 <div id="menu">
 
 <span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
@@ -371,7 +371,7 @@ is used to represent bounding boxes
 </p>
 
 			<pre>type Box struct {
-<span id="Box.MinX"></span>    MinX, MinY, MaxX, MaxY <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="Box.MinX"></span>    MinX, MinY, MaxX, MaxY <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -447,12 +447,12 @@ Field representation of a field object in the DBF file
 </p>
 
 			<pre>type Field struct {
-<span id="Field.Name"></span>    Name      [11]<a href="/main/pkg/builtin/#byte">byte</a>
-<span id="Field.Fieldtype"></span>    Fieldtype <a href="/main/pkg/builtin/#byte">byte</a>
-<span id="Field.Addr"></span>    Addr      [4]<a href="/main/pkg/builtin/#byte">byte</a> <span class="comment">// not used</span>
-<span id="Field.Size"></span>    Size      <a href="/main/pkg/builtin/#uint8">uint8</a>
-<span id="Field.Precision"></span>    Precision <a href="/main/pkg/builtin/#uint8">uint8</a>
-<span id="Field.Padding"></span>    Padding   [14]<a href="/main/pkg/builtin/#byte">byte</a>
+<span id="Field.Name"></span>    Name      [11]<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>
+<span id="Field.Fieldtype"></span>    Fieldtype <a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>
+<span id="Field.Addr"></span>    Addr      [4]<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a> <span class="comment">// not used</span>
+<span id="Field.Size"></span>    Size      <a href="/reearth-backend/main/pkg/builtin/#uint8">uint8</a>
+<span id="Field.Precision"></span>    Precision <a href="/reearth-backend/main/pkg/builtin/#uint8">uint8</a>
+<span id="Field.Padding"></span>    Padding   [14]<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>
 }
 </pre>
 
@@ -484,15 +484,15 @@ MultiPatch part is interpreted.
 
 			<pre>type MultiPatch struct {
 <span id="MultiPatch.Box"></span>    Box       <a href="index.html#Box">Box</a>
-<span id="MultiPatch.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="MultiPatch.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="MultiPatch.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
-<span id="MultiPatch.PartTypes"></span>    PartTypes []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.NumParts"></span>    NumParts  <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.NumPoints"></span>    NumPoints <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.Parts"></span>    Parts     []<a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.PartTypes"></span>    PartTypes []<a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
 <span id="MultiPatch.Points"></span>    Points    []<a href="index.html#Point">Point</a>
-<span id="MultiPatch.ZRange"></span>    ZRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="MultiPatch.ZArray"></span>    ZArray    []<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="MultiPatch.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="MultiPatch.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPatch.ZRange"></span>    ZRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPatch.ZArray"></span>    ZArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPatch.MRange"></span>    MRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPatch.MArray"></span>    MArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -536,7 +536,7 @@ MultiPoint is the shape that consists of multiple points.
 
 			<pre>type MultiPoint struct {
 <span id="MultiPoint.Box"></span>    Box       <a href="index.html#Box">Box</a>
-<span id="MultiPoint.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPoint.NumPoints"></span>    NumPoints <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
 <span id="MultiPoint.Points"></span>    Points    []<a href="index.html#Point">Point</a>
 }
 </pre>
@@ -581,10 +581,10 @@ MultiPointM is the collection of multiple points with measures.
 
 			<pre>type MultiPointM struct {
 <span id="MultiPointM.Box"></span>    Box       <a href="index.html#Box">Box</a>
-<span id="MultiPointM.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPointM.NumPoints"></span>    NumPoints <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
 <span id="MultiPointM.Points"></span>    Points    []<a href="index.html#Point">Point</a>
-<span id="MultiPointM.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="MultiPointM.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointM.MRange"></span>    MRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointM.MArray"></span>    MArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -628,12 +628,12 @@ MultiPointZ consists of one ore more PointZ.
 
 			<pre>type MultiPointZ struct {
 <span id="MultiPointZ.Box"></span>    Box       <a href="index.html#Box">Box</a>
-<span id="MultiPointZ.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPointZ.NumPoints"></span>    NumPoints <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
 <span id="MultiPointZ.Points"></span>    Points    []<a href="index.html#Point">Point</a>
-<span id="MultiPointZ.ZRange"></span>    ZRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="MultiPointZ.ZArray"></span>    ZArray    []<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="MultiPointZ.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="MultiPointZ.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointZ.ZRange"></span>    ZRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointZ.ZArray"></span>    ZArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointZ.MRange"></span>    MRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointZ.MArray"></span>    MArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -718,7 +718,7 @@ Point is the shape that consists of single a geometry point.
 </p>
 
 			<pre>type Point struct {
-<span id="Point.X"></span>    X, Y <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="Point.X"></span>    X, Y <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -762,9 +762,9 @@ PointM is a point with a measure.
 </p>
 
 			<pre>type PointM struct {
-<span id="PointM.X"></span>    X <a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PointM.Y"></span>    Y <a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PointM.M"></span>    M <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PointM.X"></span>    X <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PointM.Y"></span>    Y <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PointM.M"></span>    M <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -808,10 +808,10 @@ PointZ is a triplet of double precision coordinates plus a measure.
 </p>
 
 			<pre>type PointZ struct {
-<span id="PointZ.X"></span>    X <a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PointZ.Y"></span>    Y <a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PointZ.Z"></span>    Z <a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PointZ.M"></span>    M <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PointZ.X"></span>    X <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PointZ.Y"></span>    Y <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PointZ.Z"></span>    Z <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PointZ.M"></span>    M <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -859,9 +859,9 @@ intersect each other.
 
 			<pre>type PolyLine struct {
     <a href="index.html#Box">Box</a>
-<span id="PolyLine.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="PolyLine.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="PolyLine.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLine.NumParts"></span>    NumParts  <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLine.NumPoints"></span>    NumPoints <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLine.Parts"></span>    Parts     []<a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
 <span id="PolyLine.Points"></span>    Points    []<a href="index.html#Point">Point</a>
 }
 </pre>
@@ -922,12 +922,12 @@ PolyLineM is the polyline in which each point also has a measure.
 
 			<pre>type PolyLineM struct {
 <span id="PolyLineM.Box"></span>    Box       <a href="index.html#Box">Box</a>
-<span id="PolyLineM.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="PolyLineM.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="PolyLineM.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineM.NumParts"></span>    NumParts  <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineM.NumPoints"></span>    NumPoints <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineM.Parts"></span>    Parts     []<a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
 <span id="PolyLineM.Points"></span>    Points    []<a href="index.html#Point">Point</a>
-<span id="PolyLineM.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PolyLineM.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineM.MRange"></span>    MRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineM.MArray"></span>    MArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -973,14 +973,14 @@ and may or may not intersect one another.
 
 			<pre>type PolyLineZ struct {
 <span id="PolyLineZ.Box"></span>    Box       <a href="index.html#Box">Box</a>
-<span id="PolyLineZ.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="PolyLineZ.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
-<span id="PolyLineZ.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineZ.NumParts"></span>    NumParts  <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineZ.NumPoints"></span>    NumPoints <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineZ.Parts"></span>    Parts     []<a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>
 <span id="PolyLineZ.Points"></span>    Points    []<a href="index.html#Point">Point</a>
-<span id="PolyLineZ.ZRange"></span>    ZRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PolyLineZ.ZArray"></span>    ZArray    []<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PolyLineZ.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
-<span id="PolyLineZ.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineZ.ZRange"></span>    ZRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineZ.ZArray"></span>    ZArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineZ.MRange"></span>    MRange    [2]<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineZ.MArray"></span>    MArray    []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>
 }
 </pre>
 
@@ -1167,7 +1167,7 @@ through the Shape method.
 					
 					
 				</h3>
-				<pre>func ReadFrom(r <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#Reader">Reader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ReadFrom(r <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#Reader">Reader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				<p>
 ReadFrom read from io.Reader
 </p>
@@ -1198,7 +1198,7 @@ BBox returns the bounding box of the shapefile.
 					
 					
 				</h3>
-				<pre>func (r *<a href="index.html#Reader">Reader</a>) Err() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (r *<a href="index.html#Reader">Reader</a>) Err() <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				<p>
 Err returns the last non-EOF error encountered.
 </p>
@@ -1213,7 +1213,7 @@ Err returns the last non-EOF error encountered.
 					
 					
 				</h3>
-				<pre>func (r *<a href="index.html#Reader">Reader</a>) Next() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<pre>func (r *<a href="index.html#Reader">Reader</a>) Next() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				<p>
 Next reads in the next Shape in the Shapefile, which
 will then be available through the Shape method. It
@@ -1231,7 +1231,7 @@ file or encounters an error.
 					
 					
 				</h3>
-				<pre>func (r *<a href="index.html#Reader">Reader</a>) Shape() (<a href="/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)</pre>
+				<pre>func (r *<a href="index.html#Reader">Reader</a>) Shape() (<a href="/reearth-backend/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)</pre>
 				<p>
 Shape returns the most recent feature that was read by
 a call to Next. It returns two values, the int is the
@@ -1257,19 +1257,19 @@ SequentialReader is the interface that allows reading shapes and attributes one 
 
 			<pre>type SequentialReader interface {
     <span class="comment">// Closer frees the resources allocated by the SequentialReader.</span>
-    <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Closer">Closer</a>
+    <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Closer">Closer</a>
 
     <span class="comment">// Next tries to advance the reading by one shape and one attribute row</span>
     <span class="comment">// and returns true if the read operation could be performed without any</span>
     <span class="comment">// error.</span>
-    Next() <a href="/main/pkg/builtin/#bool">bool</a>
+    Next() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>
 
     <span class="comment">// Shape returns the index and the last read shape. If the SequentialReader</span>
     <span class="comment">// encountered any errors, nil is returned for the Shape.</span>
-    Shape() (<a href="/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)
+    Shape() (<a href="/reearth-backend/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)
 
     <span class="comment">// Err returns the last non-EOF error encountered.</span>
-    Err() <a href="/main/pkg/builtin/#error">error</a>
+    Err() <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
 }</pre>
 
 			
@@ -1287,7 +1287,7 @@ SequentialReader is the interface that allows reading shapes and attributes one 
 					
 					
 				</h3>
-				<pre>func SequentialReaderFromExt(shp <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#ReadCloser">ReadCloser</a>) <a href="index.html#SequentialReader">SequentialReader</a></pre>
+				<pre>func SequentialReaderFromExt(shp <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#ReadCloser">ReadCloser</a>) <a href="index.html#SequentialReader">SequentialReader</a></pre>
 				<p>
 SequentialReaderFromExt returns a new SequentialReader that interprets shp
 as a source of shapes whose attributes can be retrieved from dbf.
@@ -1338,7 +1338,7 @@ Shape interface
 ShapeType is a identifier for the the type of shapes.
 </p>
 
-			<pre>type ShapeType <a href="/main/pkg/builtin/#int32">int32</a></pre>
+			<pre>type ShapeType <a href="/reearth-backend/main/pkg/builtin/#int32">int32</a></pre>
 
 			
 				<p>
@@ -1378,7 +1378,7 @@ These are the possible shape types.
 					
 					
 				</h3>
-				<pre>func (i <a href="index.html#ShapeType">ShapeType</a>) String() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (i <a href="index.html#ShapeType">ShapeType</a>) String() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				
 				
 				
@@ -1417,7 +1417,7 @@ Writer is the type that is used to write a new shapefile.
 					
 					
 				</h3>
-				<pre>func CreateFrom(ws <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#WriteSeeker">WriteSeeker</a>, t <a href="index.html#ShapeType">ShapeType</a>) (*<a href="index.html#Writer">Writer</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func CreateFrom(ws <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#WriteSeeker">WriteSeeker</a>, t <a href="index.html#ShapeType">ShapeType</a>) (*<a href="index.html#Writer">Writer</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -1430,7 +1430,7 @@ Writer is the type that is used to write a new shapefile.
 					
 					
 				</h3>
-				<pre>func (w *<a href="index.html#Writer">Writer</a>) Close() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (w *<a href="index.html#Writer">Writer</a>) Close() <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				<p>
 Close closes the writer.
 </p>
@@ -1445,7 +1445,7 @@ Close closes the writer.
 					
 					
 				</h3>
-				<pre>func (w *<a href="index.html#Writer">Writer</a>) Write(shape <a href="index.html#Shape">Shape</a>) (<a href="/main/pkg/builtin/#int32">int32</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func (w *<a href="index.html#Writer">Writer</a>) Write(shape <a href="index.html#Shape">Shape</a>) (<a href="/reearth-backend/main/pkg/builtin/#int32">int32</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				<p>
 Write shape to the writer.
 Returns the index of the written object
@@ -1488,7 +1488,7 @@ ZipReader provides an interface for reading Shapefiles that are compressed in a 
 					
 					
 				</h3>
-				<pre>func ReadZipFrom(r <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#ZipReader">ZipReader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ReadZipFrom(r <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#ZipReader">ZipReader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				<p>
 ReadZipFrom read zip file from io.Reader, zip file must contain only one shape file
 </p>
@@ -1504,7 +1504,7 @@ ReadZipFrom read zip file from io.Reader, zip file must contain only one shape f
 					
 					
 				</h3>
-				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Close() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Close() <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				<p>
 Close closes the ZipReader and frees the allocated resources.
 </p>
@@ -1519,7 +1519,7 @@ Close closes the ZipReader and frees the allocated resources.
 					
 					
 				</h3>
-				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Err() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Err() <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				<p>
 Err returns the last non-EOF error that was encountered by this ZipReader.
 </p>
@@ -1534,7 +1534,7 @@ Err returns the last non-EOF error that was encountered by this ZipReader.
 					
 					
 				</h3>
-				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Next() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Next() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				<p>
 Next reads the next shape in the shapefile and the next row in the DBF. Call
 Shape() and Attribute() to access the values.
@@ -1550,7 +1550,7 @@ Shape() and Attribute() to access the values.
 					
 					
 				</h3>
-				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Shape() (<a href="/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)</pre>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Shape() (<a href="/reearth-backend/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)</pre>
 				<p>
 Shape returns the shape that was last read as well as the current index.
 </p>
@@ -1575,7 +1575,7 @@ Build version go1.16.4.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
-and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+and code is licensed under a <a href="/reearth-backend/main/LICENSE">BSD license</a>.<br>
 <a href="https://golang.org/doc/tos.html">Terms of Service</a> |
 <a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>

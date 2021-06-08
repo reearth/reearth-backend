@@ -24,10 +24,10 @@
 </div><!-- #lowframe -->
 
 <div id="topbar" class="wide"><div class="container">
-<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
-<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<div class="top-heading" id="heading-wide"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
 <a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form style="display:none" method="GET" action="/main/search">
+<form style="display:none" method="GET" action="/reearth-backend/main/search">
 <div id="menu">
 
 <span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
@@ -266,7 +266,7 @@
 			<h2 id="pkg-constants">Constants</h2>
 			
 				
-				<pre>const <span id="SchemaJSON">SchemaJSON</span> <a href="/main/pkg/builtin/#string">string</a> = `{
+				<pre>const <span id="SchemaJSON">SchemaJSON</span> <a href="/reearth-backend/main/pkg/builtin/#string">string</a> = `{
   &#34;$id&#34;: &#34;https://app.reearth.io/schemas/plugin-manifest&#34;,
   &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema&#34;,
   &#34;description&#34;: &#34;Re:Earth plugin manifest schema&#34;,
@@ -629,7 +629,7 @@
 `</pre>
 			
 				
-				<pre>const <span id="SchemaTranslationJSON">SchemaTranslationJSON</span> <a href="/main/pkg/builtin/#string">string</a> = `{
+				<pre>const <span id="SchemaTranslationJSON">SchemaTranslationJSON</span> <a href="/reearth-backend/main/pkg/builtin/#string">string</a> = `{
   &#34;$id&#34;: &#34;https://app.reearth.io/schemas/plugin-manifest-translation&#34;,
   &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema&#34;,
   &#34;description&#34;: &#34;Re:Earth plugin manifest schema translation&#34;,
@@ -763,15 +763,15 @@
 			
 				
 				<pre>var (
-    <span id="ErrInvalidManifest">ErrInvalidManifest</span>       <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid manifest&#34;)
-    <span id="ErrFailedToParseManifest">ErrFailedToParseManifest</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse plugin manifest&#34;)
-    <span id="ErrSystemManifest">ErrSystemManifest</span>              = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;cannot build system manifest&#34;)
+    <span id="ErrInvalidManifest">ErrInvalidManifest</span>       <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid manifest&#34;)
+    <span id="ErrFailedToParseManifest">ErrFailedToParseManifest</span> <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse plugin manifest&#34;)
+    <span id="ErrSystemManifest">ErrSystemManifest</span>              = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;cannot build system manifest&#34;)
 )</pre>
 			
 				
 				<pre>var (
-    <span id="ErrInvalidManifestTranslation">ErrInvalidManifestTranslation</span>       <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid manifest translation&#34;)
-    <span id="ErrFailedToParseManifestTranslation">ErrFailedToParseManifestTranslation</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse plugin manifest translation&#34;)
+    <span id="ErrInvalidManifestTranslation">ErrInvalidManifestTranslation</span>       <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid manifest translation&#34;)
+    <span id="ErrFailedToParseManifestTranslation">ErrFailedToParseManifestTranslation</span> <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse plugin manifest translation&#34;)
 )</pre>
 			
 		
@@ -786,9 +786,9 @@
 			</h2>
 			
 			<pre>type Choice struct {
-<span id="Choice.Icon"></span>    Icon  <a href="/main/pkg/builtin/#string">string</a> `json:&#34;icon,omitempty&#34;`
-<span id="Choice.Key"></span>    Key   <a href="/main/pkg/builtin/#string">string</a> `json:&#34;key&#34;`
-<span id="Choice.Label"></span>    Label <a href="/main/pkg/builtin/#string">string</a> `json:&#34;label,omitempty&#34;`
+<span id="Choice.Icon"></span>    Icon  <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;icon,omitempty&#34;`
+<span id="Choice.Key"></span>    Key   <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;key&#34;`
+<span id="Choice.Label"></span>    Label <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;label,omitempty&#34;`
 }
 </pre>
 
@@ -813,13 +813,13 @@
 			</h2>
 			
 			<pre>type Extension struct {
-<span id="Extension.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
+<span id="Extension.Description"></span>    Description *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
 <span id="Extension.ID"></span>    ID          <a href="index.html#ID">ID</a>              `json:&#34;id&#34;`
-<span id="Extension.Icon"></span>    Icon        *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;icon,omitempty&#34;`
+<span id="Extension.Icon"></span>    Icon        *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;icon,omitempty&#34;`
 <span id="Extension.Schema"></span>    Schema      *<a href="index.html#PropertySchema">PropertySchema</a> `json:&#34;schema,omitempty&#34;`
-<span id="Extension.Title"></span>    Title       <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
-<span id="Extension.Type"></span>    Type        <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;type&#34;`
-<span id="Extension.Visualizer"></span>    Visualizer  <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;visualizer&#34;`
+<span id="Extension.Title"></span>    Title       <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
+<span id="Extension.Type"></span>    Type        <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;type&#34;`
+<span id="Extension.Visualizer"></span>    Visualizer  <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;visualizer&#34;`
 }
 </pre>
 
@@ -843,7 +843,7 @@
 				
 			</h2>
 			
-			<pre>type ID <a href="/main/pkg/builtin/#string">string</a></pre>
+			<pre>type ID <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
 			
 
@@ -865,7 +865,7 @@
 				
 			</h2>
 			
-			<pre>type Id <a href="/main/pkg/builtin/#string">string</a></pre>
+			<pre>type Id <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
 			
 
@@ -909,7 +909,7 @@
 					
 					
 				</h3>
-				<pre>func MergeManifestTranslation(m *<a href="index.html#Manifest">Manifest</a>, tl map[<a href="/main/pkg/builtin/#string">string</a>]*<a href="index.html#TranslationRoot">TranslationRoot</a>) *<a href="index.html#Manifest">Manifest</a></pre>
+				<pre>func MergeManifestTranslation(m *<a href="index.html#Manifest">Manifest</a>, tl map[<a href="/reearth-backend/main/pkg/builtin/#string">string</a>]*<a href="index.html#TranslationRoot">TranslationRoot</a>) *<a href="index.html#Manifest">Manifest</a></pre>
 				
 				
 				
@@ -920,7 +920,7 @@
 					
 					
 				</h3>
-				<pre>func MustParseSystemFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Manifest">Manifest</a></pre>
+				<pre>func MustParseSystemFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#Manifest">Manifest</a></pre>
 				
 				
 				
@@ -931,7 +931,7 @@
 					
 					
 				</h3>
-				<pre>func Parse(source <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func Parse(source <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -942,7 +942,7 @@
 					
 					
 				</h3>
-				<pre>func ParseSystemFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ParseSystemFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -959,7 +959,7 @@
 			</h2>
 			
 			<pre>type PropertyCondition struct {
-<span id="PropertyCondition.Field"></span>    Field <a href="/main/pkg/builtin/#string">string</a>      `json:&#34;field&#34;`
+<span id="PropertyCondition.Field"></span>    Field <a href="/reearth-backend/main/pkg/builtin/#string">string</a>      `json:&#34;field&#34;`
 <span id="PropertyCondition.Type"></span>    Type  <a href="index.html#Valuetype">Valuetype</a>   `json:&#34;type&#34;`
 <span id="PropertyCondition.Value"></span>    Value interface{} `json:&#34;value&#34;`
 }
@@ -1012,8 +1012,8 @@
 			</h2>
 			
 			<pre>type PropertyPointer struct {
-<span id="PropertyPointer.FieldID"></span>    FieldID       <a href="/main/pkg/builtin/#string">string</a> `json:&#34;fieldId&#34;`
-<span id="PropertyPointer.SchemaGroupID"></span>    SchemaGroupID <a href="/main/pkg/builtin/#string">string</a> `json:&#34;schemaGroupId&#34;`
+<span id="PropertyPointer.FieldID"></span>    FieldID       <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;fieldId&#34;`
+<span id="PropertyPointer.SchemaGroupID"></span>    SchemaGroupID <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;schemaGroupId&#34;`
 }
 </pre>
 
@@ -1040,7 +1040,7 @@
 			<pre>type PropertySchema struct {
 <span id="PropertySchema.Groups"></span>    Groups   []<a href="index.html#PropertySchemaGroup">PropertySchemaGroup</a>   `json:&#34;groups,omitempty&#34;`
 <span id="PropertySchema.Linkable"></span>    Linkable *<a href="index.html#PropertyLinkableFields">PropertyLinkableFields</a> `json:&#34;linkable,omitempty&#34;`
-<span id="PropertySchema.Version"></span>    Version  <a href="/main/pkg/builtin/#float64">float64</a>                 `json:&#34;version,omitempty&#34;`
+<span id="PropertySchema.Version"></span>    Version  <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>                 `json:&#34;version,omitempty&#34;`
 }
 </pre>
 
@@ -1068,15 +1068,15 @@
 <span id="PropertySchemaField.AvailableIf"></span>    AvailableIf  *<a href="index.html#PropertyCondition">PropertyCondition</a> `json:&#34;availableIf,omitempty&#34;`
 <span id="PropertySchemaField.Choices"></span>    Choices      []<a href="index.html#Choice">Choice</a>           `json:&#34;choices,omitempty&#34;`
 <span id="PropertySchemaField.DefaultValue"></span>    DefaultValue interface{}        `json:&#34;defaultValue,omitempty&#34;`
-<span id="PropertySchemaField.Description"></span>    Description  *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;description,omitempty&#34;`
+<span id="PropertySchemaField.Description"></span>    Description  *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>            `json:&#34;description,omitempty&#34;`
 <span id="PropertySchemaField.ID"></span>    ID           <a href="index.html#ID">ID</a>                 `json:&#34;id&#34;`
-<span id="PropertySchemaField.Max"></span>    Max          *<a href="/main/pkg/builtin/#float64">float64</a>           `json:&#34;max,omitempty&#34;`
-<span id="PropertySchemaField.Min"></span>    Min          *<a href="/main/pkg/builtin/#float64">float64</a>           `json:&#34;min,omitempty&#34;`
-<span id="PropertySchemaField.Prefix"></span>    Prefix       *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;prefix,omitempty&#34;`
-<span id="PropertySchemaField.Suffix"></span>    Suffix       *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;suffix,omitempty&#34;`
-<span id="PropertySchemaField.Title"></span>    Title        *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;title&#34;`
+<span id="PropertySchemaField.Max"></span>    Max          *<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>           `json:&#34;max,omitempty&#34;`
+<span id="PropertySchemaField.Min"></span>    Min          *<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>           `json:&#34;min,omitempty&#34;`
+<span id="PropertySchemaField.Prefix"></span>    Prefix       *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>            `json:&#34;prefix,omitempty&#34;`
+<span id="PropertySchemaField.Suffix"></span>    Suffix       *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>            `json:&#34;suffix,omitempty&#34;`
+<span id="PropertySchemaField.Title"></span>    Title        *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>            `json:&#34;title&#34;`
 <span id="PropertySchemaField.Type"></span>    Type         <a href="index.html#Valuetype">Valuetype</a>          `json:&#34;type&#34;`
-<span id="PropertySchemaField.UI"></span>    UI           *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;ui,omitempty&#34;`
+<span id="PropertySchemaField.UI"></span>    UI           *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>            `json:&#34;ui,omitempty&#34;`
 }
 </pre>
 
@@ -1102,12 +1102,12 @@
 			
 			<pre>type PropertySchemaGroup struct {
 <span id="PropertySchemaGroup.AvailableIf"></span>    AvailableIf         *<a href="index.html#PropertyCondition">PropertyCondition</a>    `json:&#34;availableIf,omitempty&#34;`
-<span id="PropertySchemaGroup.Description"></span>    Description         *<a href="/main/pkg/builtin/#string">string</a>               `json:&#34;description,omitempty&#34;`
+<span id="PropertySchemaGroup.Description"></span>    Description         *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>               `json:&#34;description,omitempty&#34;`
 <span id="PropertySchemaGroup.Fields"></span>    Fields              []<a href="index.html#PropertySchemaField">PropertySchemaField</a> `json:&#34;fields,omitempty&#34;`
 <span id="PropertySchemaGroup.ID"></span>    ID                  <a href="index.html#ID">ID</a>                    `json:&#34;id&#34;`
-<span id="PropertySchemaGroup.List"></span>    List                <a href="/main/pkg/builtin/#bool">bool</a>                  `json:&#34;list,omitempty&#34;`
+<span id="PropertySchemaGroup.List"></span>    List                <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>                  `json:&#34;list,omitempty&#34;`
 <span id="PropertySchemaGroup.RepresentativeField"></span>    RepresentativeField *<a href="index.html#Id">Id</a>                   `json:&#34;representativeField,omitempty&#34;`
-<span id="PropertySchemaGroup.Title"></span>    Title               <a href="/main/pkg/builtin/#string">string</a>                `json:&#34;title&#34;`
+<span id="PropertySchemaGroup.Title"></span>    Title               <a href="/reearth-backend/main/pkg/builtin/#string">string</a>                `json:&#34;title&#34;`
 }
 </pre>
 
@@ -1132,16 +1132,16 @@
 			</h2>
 			
 			<pre>type Root struct {
-<span id="Root.Author"></span>    Author      *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;author,omitempty&#34;`
-<span id="Root.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
+<span id="Root.Author"></span>    Author      *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;author,omitempty&#34;`
+<span id="Root.Description"></span>    Description *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
 <span id="Root.Extensions"></span>    Extensions  []<a href="index.html#Extension">Extension</a>     `json:&#34;extensions,omitempty&#34;`
 <span id="Root.ID"></span>    ID          <a href="index.html#ID">ID</a>              `json:&#34;id&#34;`
-<span id="Root.Main"></span>    Main        *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;main,omitempty&#34;`
-<span id="Root.Repository"></span>    Repository  *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;repository,omitempty&#34;`
+<span id="Root.Main"></span>    Main        *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;main,omitempty&#34;`
+<span id="Root.Repository"></span>    Repository  *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;repository,omitempty&#34;`
 <span id="Root.Schema"></span>    Schema      *<a href="index.html#PropertySchema">PropertySchema</a> `json:&#34;schema,omitempty&#34;`
-<span id="Root.System"></span>    System      <a href="/main/pkg/builtin/#bool">bool</a>            `json:&#34;system,omitempty&#34;`
-<span id="Root.Title"></span>    Title       <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
-<span id="Root.Version"></span>    Version     <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;version,omitempty&#34;`
+<span id="Root.System"></span>    System      <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>            `json:&#34;system,omitempty&#34;`
+<span id="Root.Title"></span>    Title       <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
+<span id="Root.Version"></span>    Version     <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;version,omitempty&#34;`
 }
 </pre>
 
@@ -1166,8 +1166,8 @@
 			</h2>
 			
 			<pre>type TranslationExtension struct {
-<span id="TranslationExtension.Description"></span>    Description    *<a href="/main/pkg/builtin/#string">string</a>                   `json:&#34;description,omitempty&#34;`
-<span id="TranslationExtension.Title"></span>    Title          *<a href="/main/pkg/builtin/#string">string</a>                   `json:&#34;title,omitempty&#34;`
+<span id="TranslationExtension.Description"></span>    Description    *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>                   `json:&#34;description,omitempty&#34;`
+<span id="TranslationExtension.Title"></span>    Title          *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>                   `json:&#34;title,omitempty&#34;`
 <span id="TranslationExtension.PropertySchema"></span>    PropertySchema <a href="index.html#TranslationPropertySchema">TranslationPropertySchema</a> `json:&#34;propertySchema,omitempty&#34;`
 }
 </pre>
@@ -1192,7 +1192,7 @@
 				
 			</h2>
 			
-			<pre>type TranslationPropertySchema map[<a href="/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationPropertySchemaGroup">TranslationPropertySchemaGroup</a></pre>
+			<pre>type TranslationPropertySchema map[<a href="/reearth-backend/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationPropertySchemaGroup">TranslationPropertySchemaGroup</a></pre>
 
 			
 
@@ -1215,9 +1215,9 @@
 			</h2>
 			
 			<pre>type TranslationPropertySchemaField struct {
-<span id="TranslationPropertySchemaField.Choices"></span>    Choices     map[<a href="/main/pkg/builtin/#string">string</a>]<a href="http://localhost:8080/pkg/builtin/#string">string</a> `json:&#34;choices,omitempty&#34;`
-<span id="TranslationPropertySchemaField.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>           `json:&#34;description,omitempty&#34;`
-<span id="TranslationPropertySchemaField.Title"></span>    Title       *<a href="/main/pkg/builtin/#string">string</a>           `json:&#34;title,omitempty&#34;`
+<span id="TranslationPropertySchemaField.Choices"></span>    Choices     map[<a href="/reearth-backend/main/pkg/builtin/#string">string</a>]<a href="http://localhost:8080/pkg/builtin/#string">string</a> `json:&#34;choices,omitempty&#34;`
+<span id="TranslationPropertySchemaField.Description"></span>    Description *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>           `json:&#34;description,omitempty&#34;`
+<span id="TranslationPropertySchemaField.Title"></span>    Title       *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>           `json:&#34;title,omitempty&#34;`
 }
 </pre>
 
@@ -1242,9 +1242,9 @@
 			</h2>
 			
 			<pre>type TranslationPropertySchemaGroup struct {
-<span id="TranslationPropertySchemaGroup.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>                                   `json:&#34;description,omitempty&#34;`
-<span id="TranslationPropertySchemaGroup.Fields"></span>    Fields      map[<a href="/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationPropertySchemaField">TranslationPropertySchemaField</a> `json:&#34;fields,omitempty&#34;`
-<span id="TranslationPropertySchemaGroup.Title"></span>    Title       *<a href="/main/pkg/builtin/#string">string</a>                                   `json:&#34;title,omitempty&#34;`
+<span id="TranslationPropertySchemaGroup.Description"></span>    Description *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>                                   `json:&#34;description,omitempty&#34;`
+<span id="TranslationPropertySchemaGroup.Fields"></span>    Fields      map[<a href="/reearth-backend/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationPropertySchemaField">TranslationPropertySchemaField</a> `json:&#34;fields,omitempty&#34;`
+<span id="TranslationPropertySchemaGroup.Title"></span>    Title       *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>                                   `json:&#34;title,omitempty&#34;`
 }
 </pre>
 
@@ -1269,9 +1269,9 @@
 			</h2>
 			
 			<pre>type TranslationRoot struct {
-<span id="TranslationRoot.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>                         `json:&#34;description,omitempty&#34;`
-<span id="TranslationRoot.Extensions"></span>    Extensions  map[<a href="/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationExtension">TranslationExtension</a> `json:&#34;extensions,omitempty&#34;`
-<span id="TranslationRoot.Title"></span>    Title       *<a href="/main/pkg/builtin/#string">string</a>                         `json:&#34;title,omitempty&#34;`
+<span id="TranslationRoot.Description"></span>    Description *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>                         `json:&#34;description,omitempty&#34;`
+<span id="TranslationRoot.Extensions"></span>    Extensions  map[<a href="/reearth-backend/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationExtension">TranslationExtension</a> `json:&#34;extensions,omitempty&#34;`
+<span id="TranslationRoot.Title"></span>    Title       *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>                         `json:&#34;title,omitempty&#34;`
 <span id="TranslationRoot.Schema"></span>    Schema      <a href="index.html#TranslationPropertySchema">TranslationPropertySchema</a>       `json:&#34;schema,omitempty&#34;`
 }
 </pre>
@@ -1291,7 +1291,7 @@
 					
 					
 				</h3>
-				<pre>func MustParseTransSystemFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#TranslationRoot">TranslationRoot</a></pre>
+				<pre>func MustParseTransSystemFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#TranslationRoot">TranslationRoot</a></pre>
 				
 				
 				
@@ -1302,7 +1302,7 @@
 					
 					
 				</h3>
-				<pre>func ParseTranslation(source <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ParseTranslation(source <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -1313,7 +1313,7 @@
 					
 					
 				</h3>
-				<pre>func ParseTranslationFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ParseTranslationFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -1329,7 +1329,7 @@
 				
 			</h2>
 			
-			<pre>type Valuetype <a href="/main/pkg/builtin/#string">string</a></pre>
+			<pre>type Valuetype <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
 			
 
@@ -1358,7 +1358,7 @@ Build version go1.16.4.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
-and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+and code is licensed under a <a href="/reearth-backend/main/LICENSE">BSD license</a>.<br>
 <a href="https://golang.org/doc/tos.html">Terms of Service</a> |
 <a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>
