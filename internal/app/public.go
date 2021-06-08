@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"crypto/subtle"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -100,7 +101,7 @@ func publishedRoute(
 			if !ok {
 				return true, echo.ErrNotFound
 			}
-			return !md.IsBasicAuthActive || user == md.BasicAuthUsername && password == md.BasicAuthPassword, nil
+			return !md.IsBasicAuthActive || subtle.ConstantTimeCompare([]byte(user), []byte(md.BasicAuthUsername)) == 1 && subtle.ConstantTimeCompare([]byte(password), []byte(md.BasicAuthPassword)) == 1, nil
 		},
 		Skipper: func(c echo.Context) bool {
 			name := c.Param("name")
