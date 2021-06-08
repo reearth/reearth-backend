@@ -1,0 +1,3719 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>layer - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package layer
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/layer"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+				<dd><a href="index.html#pkg-subdirectories">Subdirectories</a></dd>
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="index.html#Builder">type Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#New">func New() *Builder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Extension">func (b *Builder) Extension(extension *id.PluginExtensionID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Group">func (b *Builder) Group() *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.LayerID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Infobox">func (b *Builder) Infobox(infobox *Infobox) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.IsVisible">func (b *Builder) IsVisible(visible bool) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.IsVisibleRef">func (b *Builder) IsVisibleRef(visible *bool) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Item">func (b *Builder) Item() *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Name">func (b *Builder) Name(name string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.NewID">func (b *Builder) NewID() *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Plugin">func (b *Builder) Plugin(plugin *id.PluginID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Property">func (b *Builder) Property(p *id.PropertyID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Scene">func (b *Builder) Scene(s id.SceneID) *Builder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Group">type Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupFromLayer">func GroupFromLayer(l Layer) *Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupFromLayerRef">func GroupFromLayerRef(l *Layer) *Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ToLayerGroup">func ToLayerGroup(l Layer) *Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ToLayerGroupRef">func ToLayerGroupRef(l *Layer) *Group</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Extension">func (l *Group) Extension() *id.PluginExtensionID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.HasInfobox">func (l *Group) HasInfobox() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.ID">func (l *Group) ID() id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.IDRef">func (l *Group) IDRef() *id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Infobox">func (l *Group) Infobox() *Infobox</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.IsLinked">func (l *Group) IsLinked() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.IsRoot">func (l *Group) IsRoot() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.IsVisible">func (l *Group) IsVisible() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.LayerRef">func (l *Group) LayerRef() *Layer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Layers">func (l *Group) Layers() *IDList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Link">func (l *Group) Link(ds id.DatasetSchemaID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.LinkedDatasetSchema">func (l *Group) LinkedDatasetSchema() *id.DatasetSchemaID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.MoveLayerFrom">func (l *Group) MoveLayerFrom(id id.LayerID, index int, fromLayerGroup *Group)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Name">func (l *Group) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Plugin">func (l *Group) Plugin() *id.PluginID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Properties">func (l *Group) Properties() []id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Property">func (l *Group) Property() *id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Rename">func (l *Group) Rename(name string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Scene">func (l *Group) Scene() id.SceneID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.SetInfobox">func (l *Group) SetInfobox(infobox *Infobox)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.SetPlugin">func (l *Group) SetPlugin(plugin *id.PluginID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.SetVisible">func (l *Group) SetVisible(visible bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Unlink">func (l *Group) Unlink()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.UsesPlugin">func (l *Group) UsesPlugin() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.ValidateProperties">func (l *Group) ValidateProperties(pm property.Map) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#GroupBuilder">type GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewGroup">func NewGroup() *GroupBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Build">func (b *GroupBuilder) Build() (*Group, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Extension">func (b *GroupBuilder) Extension(extension *id.PluginExtensionID) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.ID">func (b *GroupBuilder) ID(id id.LayerID) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Infobox">func (b *GroupBuilder) Infobox(infobox *Infobox) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.IsVisible">func (b *GroupBuilder) IsVisible(visible bool) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Layers">func (b *GroupBuilder) Layers(ll *IDList) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.LinkedDatasetSchema">func (b *GroupBuilder) LinkedDatasetSchema(linkedDatasetSchema *id.DatasetSchemaID) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.MustBuild">func (b *GroupBuilder) MustBuild() *Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Name">func (b *GroupBuilder) Name(name string) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.NewID">func (b *GroupBuilder) NewID() *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Plugin">func (b *GroupBuilder) Plugin(plugin *id.PluginID) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Property">func (b *GroupBuilder) Property(property *id.PropertyID) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Root">func (b *GroupBuilder) Root(root bool) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Scene">func (b *GroupBuilder) Scene(s id.SceneID) *GroupBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#GroupList">type GroupList</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.ToLayerList">func (ll GroupList) ToLayerList() List</a></dd>
+				
+			
+				
+				<dd><a href="index.html#IDList">type IDList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewIDList">func NewIDList(layers []id.LayerID) *IDList</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.AddLayer">func (l *IDList) AddLayer(lid id.LayerID, index int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.AddOrMoveLayer">func (l *IDList) AddOrMoveLayer(lid id.LayerID, index int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.AppendLayers">func (l *IDList) AppendLayers(lid ...id.LayerID) *IDList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.AtRef">func (l *IDList) AtRef(index int) *id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.Clone">func (l *IDList) Clone() (l2 *IDList)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.Empty">func (l *IDList) Empty()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.FindLayerIndex">func (l *IDList) FindLayerIndex(id id.LayerID) int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.HasLayer">func (l *IDList) HasLayer(id id.LayerID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.LayerAt">func (l *IDList) LayerAt(index int) id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.LayerCount">func (l *IDList) LayerCount() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.Layers">func (l *IDList) Layers() []id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.Merge">func (l *IDList) Merge(l2 *IDList)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.MoveLayer">func (l *IDList) MoveLayer(id id.LayerID, toIndex int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.MoveLayerAt">func (l *IDList) MoveLayerAt(fromIndex int, toIndex int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.RemoveLayer">func (l *IDList) RemoveLayer(id id.LayerID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#IDList.RemoveLayerAt">func (l *IDList) RemoveLayerAt(index int)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Infobox">type Infobox</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewInfobox">func NewInfobox(fields []*InfoboxField, p id.PropertyID) *Infobox</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Add">func (i *Infobox) Add(field *InfoboxField, index int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Count">func (i *Infobox) Count() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Field">func (i *Infobox) Field(field id.InfoboxFieldID) *InfoboxField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.FieldAt">func (i *Infobox) FieldAt(index int) *InfoboxField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Fields">func (i *Infobox) Fields() []*InfoboxField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Has">func (i *Infobox) Has(id id.InfoboxFieldID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Move">func (i *Infobox) Move(field id.InfoboxFieldID, toIndex int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.MoveAt">func (i *Infobox) MoveAt(fromIndex int, toIndex int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Property">func (i *Infobox) Property() id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.PropertyRef">func (i *Infobox) PropertyRef() *id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Remove">func (i *Infobox) Remove(field id.InfoboxFieldID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.RemoveAt">func (i *Infobox) RemoveAt(index int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.ValidateProperties">func (i *Infobox) ValidateProperties(pm property.Map) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#InfoboxField">type InfoboxField</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxField.Extension">func (i *InfoboxField) Extension() id.PluginExtensionID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxField.ID">func (i *InfoboxField) ID() id.InfoboxFieldID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxField.Plugin">func (i *InfoboxField) Plugin() id.PluginID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxField.Property">func (i *InfoboxField) Property() id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxField.PropertyRef">func (i *InfoboxField) PropertyRef() *id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxField.ValidateProperty">func (i *InfoboxField) ValidateProperty(pm property.Map) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#InfoboxFieldBuilder">type InfoboxFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewInfoboxField">func NewInfoboxField() *InfoboxFieldBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldBuilder.Build">func (b *InfoboxFieldBuilder) Build() (*InfoboxField, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldBuilder.Extension">func (b *InfoboxFieldBuilder) Extension(extension id.PluginExtensionID) *InfoboxFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldBuilder.ID">func (b *InfoboxFieldBuilder) ID(id id.InfoboxFieldID) *InfoboxFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldBuilder.MustBuild">func (b *InfoboxFieldBuilder) MustBuild() *InfoboxField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldBuilder.NewID">func (b *InfoboxFieldBuilder) NewID() *InfoboxFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldBuilder.Plugin">func (b *InfoboxFieldBuilder) Plugin(plugin id.PluginID) *InfoboxFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldBuilder.Property">func (b *InfoboxFieldBuilder) Property(p id.PropertyID) *InfoboxFieldBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Initializer">type Initializer</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Initializer.Clone">func (i *Initializer) Clone() *Initializer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Initializer.Layer">func (i *Initializer) Layer(sid id.SceneID) (r InitializerResult, err error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Initializer.MustBeLayer">func (i *Initializer) MustBeLayer(sid id.SceneID) InitializerResult</a></dd>
+				
+			
+				
+				<dd><a href="index.html#InitializerInfobox">type InitializerInfobox</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerInfobox.Clone">func (i *InitializerInfobox) Clone() *InitializerInfobox</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerInfobox.Infobox">func (i *InitializerInfobox) Infobox(scene id.SceneID) (*Infobox, property.Map, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#InitializerInfoboxField">type InitializerInfoboxField</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerInfoboxField.Clone">func (i *InitializerInfoboxField) Clone() *InitializerInfoboxField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerInfoboxField.InfoboxField">func (i *InitializerInfoboxField) InfoboxField(scene id.SceneID) (*InfoboxField, *property.Property, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#InitializerResult">type InitializerResult</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerResult.RootLayer">func (r InitializerResult) RootLayer() Layer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerResult.RootLayerGroup">func (r InitializerResult) RootLayerGroup() *Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerResult.RootLayerItem">func (r InitializerResult) RootLayerItem() *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerResult.RootLayerRef">func (r InitializerResult) RootLayerRef() *Layer</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Item">type Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemFromLayer">func ItemFromLayer(l Layer) *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemFromLayerRef">func ItemFromLayerRef(l *Layer) *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ToLayerItem">func ToLayerItem(l Layer) *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ToLayerItemRef">func ToLayerItemRef(l *Layer) *Item</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Extension">func (l *Item) Extension() *id.PluginExtensionID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.HasInfobox">func (l *Item) HasInfobox() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.ID">func (l *Item) ID() id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.IDRef">func (l *Item) IDRef() *id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Infobox">func (l *Item) Infobox() *Infobox</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.IsLinked">func (l *Item) IsLinked() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.IsVisible">func (l *Item) IsVisible() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.LayerRef">func (l *Item) LayerRef() *Layer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Link">func (l *Item) Link(ds id.DatasetID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.LinkedDataset">func (l *Item) LinkedDataset() *id.DatasetID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Name">func (l *Item) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Plugin">func (l *Item) Plugin() *id.PluginID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Properties">func (l *Item) Properties() []id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Property">func (l *Item) Property() *id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Rename">func (l *Item) Rename(name string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Scene">func (l *Item) Scene() id.SceneID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.SetInfobox">func (l *Item) SetInfobox(infobox *Infobox)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.SetPlugin">func (l *Item) SetPlugin(plugin *id.PluginID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.SetVisible">func (l *Item) SetVisible(visible bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Unlink">func (l *Item) Unlink()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.UsesPlugin">func (l *Item) UsesPlugin() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.ValidateProperties">func (l *Item) ValidateProperties(pm property.Map) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ItemBuilder">type ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewItem">func NewItem() *ItemBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Build">func (b *ItemBuilder) Build() (*Item, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Extension">func (b *ItemBuilder) Extension(extension *id.PluginExtensionID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.ID">func (b *ItemBuilder) ID(id id.LayerID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Infobox">func (b *ItemBuilder) Infobox(infobox *Infobox) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.IsVisible">func (b *ItemBuilder) IsVisible(visible bool) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.LinkedDataset">func (b *ItemBuilder) LinkedDataset(linkedDataset *id.DatasetID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.MustBuild">func (b *ItemBuilder) MustBuild() *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Name">func (b *ItemBuilder) Name(name string) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.NewID">func (b *ItemBuilder) NewID() *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Plugin">func (b *ItemBuilder) Plugin(plugin *id.PluginID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Property">func (b *ItemBuilder) Property(p *id.PropertyID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Scene">func (b *ItemBuilder) Scene(s id.SceneID) *ItemBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ItemList">type ItemList</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemList.FindByDataset">func (ll ItemList) FindByDataset(ds id.DatasetID) *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemList.ToLayerList">func (ll ItemList) ToLayerList() List</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Layer">type Layer</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#List">type List</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Deref">func (ll List) Deref() []Layer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Find">func (ll List) Find(lid id.LayerID) *Layer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.FindByDataset">func (ll List) FindByDataset(ds id.DatasetID) *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Loader">func (ll List) Loader() Loader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Map">func (ll List) Map() Map</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Pick">func (ll List) Pick(il *IDList) List</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.SeparateLayerItemAndGroup">func (ll List) SeparateLayerItemAndGroup() (ItemList, GroupList)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.ToLayerGroupList">func (ll List) ToLayerGroupList() GroupList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.ToLayerItemList">func (ll List) ToLayerItemList() ItemList</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Loader">type Loader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LoaderFrom">func LoaderFrom(data []Layer) Loader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LoaderFromMap">func LoaderFromMap(data map[id.LayerID]Layer) Loader</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#LoaderByScene">type LoaderByScene</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Map">type Map</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MapFrom">func MapFrom(l Layer) Map</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Add">func (m Map) Add(layers ...*Layer) Map</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Clone">func (m Map) Clone() Map</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Group">func (m Map) Group(i id.LayerID) *Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Item">func (m Map) Item(i id.LayerID) *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Keys">func (m Map) Keys() []id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Layer">func (m Map) Layer(i id.LayerID) Layer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Len">func (m Map) Len() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.List">func (m Map) List() List</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Merge">func (m Map) Merge(m2 Map) Map</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Pick">func (m Map) Pick(il *IDList) List</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Merged">type Merged</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Merge">func Merge(o Layer, p *Group) *Merged</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Merged.Properties">func (m *Merged) Properties() []id.PropertyID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#MergedInfobox">type MergedInfobox</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MergeInfobox">func MergeInfobox(o *Infobox, p *Infobox, linked *id.DatasetID) *MergedInfobox</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#MergedInfoboxField">type MergedInfoboxField</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go">builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go">group.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go">group_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go">id_list.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go">infobox.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go">infobox_field.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go">infobox_field_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go">initializer.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go">item.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go">item_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go">layer.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go">list.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go">loader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go">merged.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=72:111#L1">Builder</a>
+				<a class="permalink" href="index.html#Builder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Builder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=113:132#L1">New</a>
+					<a class="permalink" href="index.html#New">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Builder.Extension">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=971:1040#L50">Extension</a>
+					<a class="permalink" href="index.html#Builder.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Extension(extension *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Group">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=187:226#L5">Group</a>
+					<a class="permalink" href="index.html#Builder.Group">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Group() *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=338:382#L13">ID</a>
+					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Infobox">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1196:1248#L60">Infobox</a>
+					<a class="permalink" href="index.html#Builder.Infobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Infobox(infobox *<a href="index.html#Infobox">Infobox</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.IsVisible">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=653:703#L33">IsVisible</a>
+					<a class="permalink" href="index.html#Builder.IsVisible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) IsVisible(visible <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.IsVisibleRef">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=745:799#L38">IsVisibleRef</a>
+					<a class="permalink" href="index.html#Builder.IsVisibleRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) IsVisibleRef(visible *<a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Item">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=264:301#L9">Item</a>
+					<a class="permalink" href="index.html#Builder.Item">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Item() *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Name">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=573:617#L28">Name</a>
+					<a class="permalink" href="index.html#Builder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=414:448#L18">NewID</a>
+					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) NewID() *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Plugin">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=867:921#L45">Plugin</a>
+					<a class="permalink" href="index.html#Builder.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Plugin(plugin *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Property">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1096:1149#L55">Property</a>
+					<a class="permalink" href="index.html#Builder.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Property(p *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Scene">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=493:539#L23">Scene</a>
+					<a class="permalink" href="index.html#Builder.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Scene(s <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Group">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=123:251#L1">Group</a>
+				<a class="permalink" href="index.html#Group">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Group struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GroupFromLayer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=72:107#L1">GroupFromLayer</a>
+					<a class="permalink" href="index.html#GroupFromLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GroupFromLayer(l <a href="index.html#Layer">Layer</a>) *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GroupFromLayerRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=172:211#L5">GroupFromLayerRef</a>
+					<a class="permalink" href="index.html#GroupFromLayerRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GroupFromLayerRef(l *<a href="index.html#Layer">Layer</a>) *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ToLayerGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=531:564#L20">ToLayerGroup</a>
+					<a class="permalink" href="index.html#ToLayerGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ToLayerGroup(l <a href="index.html#Layer">Layer</a>) *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ToLayerGroupRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=628:665#L27">ToLayerGroupRef</a>
+					<a class="permalink" href="index.html#ToLayerGroupRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ToLayerGroupRef(l *<a href="index.html#Layer">Layer</a>) *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Group.Extension">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=580:629#L27">Extension</a>
+					<a class="permalink" href="index.html#Group.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Extension() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.HasInfobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=1997:2034#L120">HasInfobox</a>
+					<a class="permalink" href="index.html#Group.HasInfobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) HasInfobox() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.ID">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=253:284#L5">ID</a>
+					<a class="permalink" href="index.html#Group.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.IDRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=315:350#L9">IDRef</a>
+					<a class="permalink" href="index.html#Group.IDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Infobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=879:913#L45">Infobox</a>
+					<a class="permalink" href="index.html#Group.Infobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Infobox() *<a href="index.html#Infobox">Infobox</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.IsLinked">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1503:1534#L87">IsLinked</a>
+					<a class="permalink" href="index.html#Group.IsLinked">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) IsLinked() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.IsRoot">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2563:2592#L153">IsRoot</a>
+					<a class="permalink" href="index.html#Group.IsRoot">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) IsRoot() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.IsVisible">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=980:1012#L52">IsVisible</a>
+					<a class="permalink" href="index.html#Group.IsVisible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) IsVisible() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.LayerRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2457:2490#L145">LayerRef</a>
+					<a class="permalink" href="index.html#Group.LayerRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) LayerRef() *<a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Layers">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1981:2013#L117">Layers</a>
+					<a class="permalink" href="index.html#Group.Layers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Layers() *<a href="index.html#IDList">IDList</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Link">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1778:1821#L102">Link</a>
+					<a class="permalink" href="index.html#Group.Link">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Link(ds <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.LinkedDatasetSchema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1610:1667#L94">LinkedDatasetSchema</a>
+					<a class="permalink" href="index.html#Group.LinkedDatasetSchema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) LinkedDatasetSchema() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.MoveLayerFrom">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2120:2198#L127">MoveLayerFrom</a>
+					<a class="permalink" href="index.html#Group.MoveLayerFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) MoveLayerFrom(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>, index <a href="/main/pkg/builtin/#int">int</a>, fromLayerGroup *<a href="index.html#Group">Group</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Name">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=415:444#L16">Name</a>
+					<a class="permalink" href="index.html#Group.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Name() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Plugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=477:514#L20">Plugin</a>
+					<a class="permalink" href="index.html#Group.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Plugin() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Properties">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2646:2690#L160">Properties</a>
+					<a class="permalink" href="index.html#Group.Properties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Property">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=770:811#L38">Property</a>
+					<a class="permalink" href="index.html#Group.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Property() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Rename">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1083:1118#L59">Rename</a>
+					<a class="permalink" href="index.html#Group.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Rename(name <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Scene">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2191:2229#L134">Scene</a>
+					<a class="permalink" href="index.html#Group.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.SetInfobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1177:1221#L66">SetInfobox</a>
+					<a class="permalink" href="index.html#Group.SetInfobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) SetInfobox(infobox *<a href="index.html#Infobox">Infobox</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.SetPlugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1393:1439#L80">SetPlugin</a>
+					<a class="permalink" href="index.html#Group.SetPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) SetPlugin(plugin *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.SetVisible">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1287:1327#L73">SetVisible</a>
+					<a class="permalink" href="index.html#Group.SetVisible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) SetVisible(visible <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Unlink">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1895:1919#L110">Unlink</a>
+					<a class="permalink" href="index.html#Group.Unlink">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Unlink()</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.UsesPlugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=698:731#L34">UsesPlugin</a>
+					<a class="permalink" href="index.html#Group.UsesPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) UsesPlugin() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.ValidateProperties">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2760:2817#L167">ValidateProperties</a>
+					<a class="permalink" href="index.html#Group.ValidateProperties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Group">Group</a>) ValidateProperties(pm <a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="GroupBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=310:348#L16">GroupBuilder</a>
+				<a class="permalink" href="index.html#GroupBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GroupBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=350:379#L20">NewGroup</a>
+					<a class="permalink" href="index.html#NewGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewGroup() *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="GroupBuilder.Build">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=455:501#L24">Build</a>
+					<a class="permalink" href="index.html#GroupBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Build() (*<a href="index.html#Group">Group</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Extension">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1439:1518#L79">Extension</a>
+					<a class="permalink" href="index.html#GroupBuilder.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Extension(extension *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.ID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=801:855#L44">ID</a>
+					<a class="permalink" href="index.html#GroupBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Infobox">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1780:1842#L94">Infobox</a>
+					<a class="permalink" href="index.html#GroupBuilder.Infobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Infobox(infobox *<a href="index.html#Infobox">Infobox</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.IsVisible">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1229:1289#L69">IsVisible</a>
+					<a class="permalink" href="index.html#GroupBuilder.IsVisible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) IsVisible(visible <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Layers">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1692:1747#L89">Layers</a>
+					<a class="permalink" href="index.html#GroupBuilder.Layers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Layers(ll *<a href="index.html#IDList">IDList</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.LinkedDatasetSchema">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1881:1978#L99">LinkedDatasetSchema</a>
+					<a class="permalink" href="index.html#GroupBuilder.LinkedDatasetSchema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) LinkedDatasetSchema(linkedDatasetSchema *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.MustBuild">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=585:626#L31">MustBuild</a>
+					<a class="permalink" href="index.html#GroupBuilder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) MustBuild() *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Name">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1142:1196#L64">Name</a>
+					<a class="permalink" href="index.html#GroupBuilder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.NewID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=884:928#L49">NewID</a>
+					<a class="permalink" href="index.html#GroupBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) NewID() *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Plugin">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1328:1392#L74">Plugin</a>
+					<a class="permalink" href="index.html#GroupBuilder.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Plugin(plugin *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Property">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1571:1641#L84">Property</a>
+					<a class="permalink" href="index.html#GroupBuilder.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Property(property *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Root">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1057:1109#L59">Root</a>
+					<a class="permalink" href="index.html#GroupBuilder.Root">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Root(root <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Scene">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=970:1026#L54">Scene</a>
+					<a class="permalink" href="index.html#GroupBuilder.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Scene(s <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="GroupList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2198:2221#L118">GroupList</a>
+				<a class="permalink" href="index.html#GroupList">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GroupList []*<a href="index.html#Group">Group</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="GroupList.ToLayerList">func (GroupList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2223:2261#L120">ToLayerList</a>
+					<a class="permalink" href="index.html#GroupList.ToLayerList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#GroupList">GroupList</a>) ToLayerList() <a href="index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="IDList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=79:185#L1">IDList</a>
+				<a class="permalink" href="index.html#IDList">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+IDList _
+</p>
+
+			<pre>type IDList struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewIDList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=202:245#L3">NewIDList</a>
+					<a class="permalink" href="index.html#NewIDList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewIDList(layers []<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#IDList">IDList</a></pre>
+				<p>
+NewIDList _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="IDList.AddLayer">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=1407:1459#L72">AddLayer</a>
+					<a class="permalink" href="index.html#IDList.AddLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) AddLayer(lid <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>, index <a href="/main/pkg/builtin/#int">int</a>)</pre>
+				<p>
+AddLayer _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.AddOrMoveLayer">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=2175:2233#L113">AddOrMoveLayer</a>
+					<a class="permalink" href="index.html#IDList.AddOrMoveLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) AddOrMoveLayer(lid <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>, index <a href="/main/pkg/builtin/#int">int</a>)</pre>
+				<p>
+AddOrMoveLayer _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.AppendLayers">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=1822:1878#L91">AppendLayers</a>
+					<a class="permalink" href="index.html#IDList.AppendLayers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) AppendLayers(lid ...<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#IDList">IDList</a></pre>
+				<p>
+AppendLayers _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.AtRef">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=960:1005#L43">AtRef</a>
+					<a class="permalink" href="index.html#IDList.AtRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) AtRef(index <a href="/main/pkg/builtin/#int">int</a>) *<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="IDList.Clone">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=2054:2091#L105">Clone</a>
+					<a class="permalink" href="index.html#IDList.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) Clone() (l2 *<a href="index.html#IDList">IDList</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="IDList.Empty">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=3877:3901#L207">Empty</a>
+					<a class="permalink" href="index.html#IDList.Empty">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) Empty()</pre>
+				<p>
+Empty _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.FindLayerIndex">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=1126:1176#L51">FindLayerIndex</a>
+					<a class="permalink" href="index.html#IDList.FindLayerIndex">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) FindLayerIndex(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) <a href="/main/pkg/builtin/#int">int</a></pre>
+				<p>
+FindLayerIndex _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.HasLayer">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=648:693#L27">HasLayer</a>
+					<a class="permalink" href="index.html#IDList.HasLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) HasLayer(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+HasLayer _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.LayerAt">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=805:851#L36">LayerAt</a>
+					<a class="permalink" href="index.html#IDList.LayerAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) LayerAt(index <a href="/main/pkg/builtin/#int">int</a>) <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				<p>
+LayerAt _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.LayerCount">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=1303:1336#L64">LayerCount</a>
+					<a class="permalink" href="index.html#IDList.LayerCount">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) LayerCount() <a href="/main/pkg/builtin/#int">int</a></pre>
+				<p>
+LayerCount _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.Layers">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=497:535#L18">Layers</a>
+					<a class="permalink" href="index.html#IDList.Layers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) Layers() []<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				<p>
+Layers _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.Merge">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=1984:2018#L101">Merge</a>
+					<a class="permalink" href="index.html#IDList.Merge">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) Merge(l2 *<a href="index.html#IDList">IDList</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="IDList.MoveLayer">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=2529:2583#L132">MoveLayer</a>
+					<a class="permalink" href="index.html#IDList.MoveLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) MoveLayer(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>, toIndex <a href="/main/pkg/builtin/#int">int</a>)</pre>
+				<p>
+MoveLayer _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.MoveLayerAt">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=2749:2805#L146">MoveLayerAt</a>
+					<a class="permalink" href="index.html#IDList.MoveLayerAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) MoveLayerAt(fromIndex <a href="/main/pkg/builtin/#int">int</a>, toIndex <a href="http://localhost:8080/pkg/builtin/#int">int</a>)</pre>
+				<p>
+MoveLayerAt _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.RemoveLayer">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=3295:3338#L171">RemoveLayer</a>
+					<a class="permalink" href="index.html#IDList.RemoveLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) RemoveLayer(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>)</pre>
+				<p>
+RemoveLayer _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="IDList.RemoveLayerAt">func (*IDList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/id_list.go?s=3491:3532#L185">RemoveLayerAt</a>
+					<a class="permalink" href="index.html#IDList.RemoveLayerAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#IDList">IDList</a>) RemoveLayerAt(index <a href="/main/pkg/builtin/#int">int</a>)</pre>
+				<p>
+RemoveLayerAt _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Infobox">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=191:329#L2">Infobox</a>
+				<a class="permalink" href="index.html#Infobox">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Infobox struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewInfobox">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=331:396#L9">NewInfobox</a>
+					<a class="permalink" href="index.html#NewInfobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewInfobox(fields []*<a href="index.html#InfoboxField">InfoboxField</a>, p <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#Infobox">Infobox</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Infobox.Add">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=1443:1496#L69">Add</a>
+					<a class="permalink" href="index.html#Infobox.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Add(field *<a href="index.html#InfoboxField">InfoboxField</a>, index <a href="/main/pkg/builtin/#int">int</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.Count">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=1386:1415#L65">Count</a>
+					<a class="permalink" href="index.html#Infobox.Count">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Count() <a href="/main/pkg/builtin/#int">int</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.Field">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=999:1061#L44">Field</a>
+					<a class="permalink" href="index.html#Infobox.Field">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Field(field <a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a>) *<a href="index.html#InfoboxField">InfoboxField</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.FieldAt">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=1151:1201#L53">FieldAt</a>
+					<a class="permalink" href="index.html#Infobox.FieldAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) FieldAt(index <a href="/main/pkg/builtin/#int">int</a>) *<a href="index.html#InfoboxField">InfoboxField</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.Fields">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=873:915#L37">Fields</a>
+					<a class="permalink" href="index.html#Infobox.Fields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Fields() []*<a href="index.html#InfoboxField">InfoboxField</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.Has">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=1301:1349#L60">Has</a>
+					<a class="permalink" href="index.html#Infobox.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Has(id <a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.Move">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=1731:1791#L83">Move</a>
+					<a class="permalink" href="index.html#Infobox.Move">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Move(field <a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a>, toIndex <a href="/main/pkg/builtin/#int">int</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.MoveAt">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=1907:1959#L92">MoveAt</a>
+					<a class="permalink" href="index.html#Infobox.MoveAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) MoveAt(fromIndex <a href="/main/pkg/builtin/#int">int</a>, toIndex <a href="http://localhost:8080/pkg/builtin/#int">int</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.Property">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=691:733#L25">Property</a>
+					<a class="permalink" href="index.html#Infobox.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Property() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.PropertyRef">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=758:804#L29">PropertyRef</a>
+					<a class="permalink" href="index.html#Infobox.PropertyRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) PropertyRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.Remove">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=2342:2391#L109">Remove</a>
+					<a class="permalink" href="index.html#Infobox.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) Remove(field <a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.RemoveAt">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=2492:2529#L118">RemoveAt</a>
+					<a class="permalink" href="index.html#Infobox.RemoveAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) RemoveAt(index <a href="/main/pkg/builtin/#int">int</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.ValidateProperties">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=2767:2826#L133">ValidateProperties</a>
+					<a class="permalink" href="index.html#Infobox.ValidateProperties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) ValidateProperties(pm <a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="InfoboxField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go?s=242:379#L2">InfoboxField</a>
+				<a class="permalink" href="index.html#InfoboxField">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type InfoboxField struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="InfoboxField.Extension">func (*InfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go?s=511:566#L17">Extension</a>
+					<a class="permalink" href="index.html#InfoboxField.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InfoboxField">InfoboxField</a>) Extension() <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxField.ID">func (*InfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go?s=381:426#L9">ID</a>
+					<a class="permalink" href="index.html#InfoboxField.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InfoboxField">InfoboxField</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxField.Plugin">func (*InfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go?s=445:488#L13">Plugin</a>
+					<a class="permalink" href="index.html#InfoboxField.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InfoboxField">InfoboxField</a>) Plugin() <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxField.Property">func (*InfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go?s=592:639#L21">Property</a>
+					<a class="permalink" href="index.html#InfoboxField.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InfoboxField">InfoboxField</a>) Property() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxField.PropertyRef">func (*InfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go?s=664:715#L25">PropertyRef</a>
+					<a class="permalink" href="index.html#InfoboxField.PropertyRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InfoboxField">InfoboxField</a>) PropertyRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxField.ValidateProperty">func (*InfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field.go?s=777:839#L32">ValidateProperty</a>
+					<a class="permalink" href="index.html#InfoboxField.ValidateProperty">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InfoboxField">InfoboxField</a>) ValidateProperty(pm <a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="InfoboxFieldBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=97:149#L1">InfoboxFieldBuilder</a>
+				<a class="permalink" href="index.html#InfoboxFieldBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+InfoboxFieldBuilder _
+</p>
+
+			<pre>type InfoboxFieldBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewInfoboxField">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=151:194#L2">NewInfoboxField</a>
+					<a class="permalink" href="index.html#NewInfoboxField">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewInfoboxField() *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="InfoboxFieldBuilder.Build">func (*InfoboxFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=249:309#L6">Build</a>
+					<a class="permalink" href="index.html#InfoboxFieldBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a>) Build() (*<a href="index.html#InfoboxField">InfoboxField</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxFieldBuilder.Extension">func (*InfoboxFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=914:1006#L38">Extension</a>
+					<a class="permalink" href="index.html#InfoboxFieldBuilder.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a>) Extension(extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxFieldBuilder.ID">func (*InfoboxFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=584:659#L23">ID</a>
+					<a class="permalink" href="index.html#InfoboxFieldBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a>) *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxFieldBuilder.MustBuild">func (*InfoboxFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=459:514#L15">MustBuild</a>
+					<a class="permalink" href="index.html#InfoboxFieldBuilder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a>) MustBuild() *<a href="index.html#InfoboxField">InfoboxField</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxFieldBuilder.NewID">func (*InfoboxFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=688:746#L28">NewID</a>
+					<a class="permalink" href="index.html#InfoboxFieldBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a>) NewID() *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxFieldBuilder.Plugin">func (*InfoboxFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=800:877#L33">Plugin</a>
+					<a class="permalink" href="index.html#InfoboxFieldBuilder.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a>) Plugin(plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InfoboxFieldBuilder.Property">func (*InfoboxFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox_field_builder.go?s=1049:1125#L43">Property</a>
+					<a class="permalink" href="index.html#InfoboxFieldBuilder.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a>) Property(p <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#InfoboxFieldBuilder">InfoboxFieldBuilder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Initializer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=676:1440#L25">Initializer</a>
+				<a class="permalink" href="index.html#Initializer">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Initializer struct {
+<span id="Initializer.ID"></span>    ID                  *<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>           `json:&#34;id&#34;`
+<span id="Initializer.Plugin"></span>    Plugin              *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>          `json:&#34;plugin&#34;`
+<span id="Initializer.Extension"></span>    Extension           *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a> `json:&#34;extension&#34;`
+<span id="Initializer.Name"></span>    Name                <a href="/main/pkg/builtin/#string">string</a>                `json:&#34;name&#34;`
+<span id="Initializer.Infobox"></span>    Infobox             *<a href="index.html#InitializerInfobox">InitializerInfobox</a>   `json:&#34;infobox&#34;`
+<span id="Initializer.PropertyID"></span>    PropertyID          *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>        `json:&#34;propertyId&#34;`
+<span id="Initializer.Property"></span>    Property            *<a href="../property/index.html">property</a>.<a href="../property/index.html#Initializer">Initializer</a> `json:&#34;property&#34;`
+<span id="Initializer.Layers"></span>    Layers              []*<a href="index.html#Initializer">Initializer</a>        `json:&#34;layers&#34;`
+<span id="Initializer.LayerIDs"></span>    LayerIDs            []<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>          `json:&#34;layerIds&#34;`
+<span id="Initializer.IsVisible"></span>    IsVisible           *<a href="/main/pkg/builtin/#bool">bool</a>                 `json:&#34;isVisible&#34;`
+<span id="Initializer.LinkedDatasetSchema"></span>    LinkedDatasetSchema *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>   `json:&#34;linkedDatasetSchema&#34;`
+<span id="Initializer.LinkedDataset"></span>    LinkedDataset       *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>         `json:&#34;linkedDataset&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Initializer.Clone">func (*Initializer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=1442:1484#L40">Clone</a>
+					<a class="permalink" href="index.html#Initializer.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Initializer">Initializer</a>) Clone() *<a href="index.html#Initializer">Initializer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Initializer.Layer">func (*Initializer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=2431:2507#L80">Layer</a>
+					<a class="permalink" href="index.html#Initializer.Layer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Initializer">Initializer</a>) Layer(sid <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) (r <a href="index.html#InitializerResult">InitializerResult</a>, err <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Initializer.MustBeLayer">func (*Initializer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=3973:4040#L152">MustBeLayer</a>
+					<a class="permalink" href="index.html#Initializer.MustBeLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Initializer">Initializer</a>) MustBeLayer(sid <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) <a href="index.html#InitializerResult">InitializerResult</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="InitializerInfobox">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=4113:4318#L160">InitializerInfobox</a>
+				<a class="permalink" href="index.html#InitializerInfobox">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type InitializerInfobox struct {
+<span id="InitializerInfobox.PropertyID"></span>    PropertyID *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>             `json:&#34;propertyId&#34;`
+<span id="InitializerInfobox.Property"></span>    Property   *<a href="../property/index.html">property</a>.<a href="../property/index.html#Initializer">Initializer</a>      `json:&#34;property&#34;`
+<span id="InitializerInfobox.Fields"></span>    Fields     []*<a href="index.html#InitializerInfoboxField">InitializerInfoboxField</a> `json:&#34;fields&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="InitializerInfobox.Clone">func (*InitializerInfobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=4320:4376#L166">Clone</a>
+					<a class="permalink" href="index.html#InitializerInfobox.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InitializerInfobox">InitializerInfobox</a>) Clone() *<a href="index.html#InitializerInfobox">InitializerInfobox</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InitializerInfobox.Infobox">func (*InitializerInfobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=4740:4826#L186">Infobox</a>
+					<a class="permalink" href="index.html#InitializerInfobox.Infobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InitializerInfobox">InitializerInfobox</a>) Infobox(scene <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) (*<a href="index.html#Infobox">Infobox</a>, <a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="InitializerInfoboxField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=5648:5942#L225">InitializerInfoboxField</a>
+				<a class="permalink" href="index.html#InitializerInfoboxField">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type InitializerInfoboxField struct {
+<span id="InitializerInfoboxField.ID"></span>    ID         *<a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a>    `json:&#34;id&#34;`
+<span id="InitializerInfoboxField.Plugin"></span>    Plugin     <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>           `json:&#34;plugin&#34;`
+<span id="InitializerInfoboxField.Extension"></span>    Extension  <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>  `json:&#34;extension&#34;`
+<span id="InitializerInfoboxField.PropertyID"></span>    PropertyID *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>        `json:&#34;propertyId&#34;`
+<span id="InitializerInfoboxField.Property"></span>    Property   *<a href="../property/index.html">property</a>.<a href="../property/index.html#Initializer">Initializer</a> `json:&#34;property&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="InitializerInfoboxField.Clone">func (*InitializerInfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=5944:6010#L233">Clone</a>
+					<a class="permalink" href="index.html#InitializerInfoboxField.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InitializerInfoboxField">InitializerInfoboxField</a>) Clone() *<a href="index.html#InitializerInfoboxField">InitializerInfoboxField</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InitializerInfoboxField.InfoboxField">func (*InitializerInfoboxField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=6238:6345#L247">InfoboxField</a>
+					<a class="permalink" href="index.html#InitializerInfoboxField.InfoboxField">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#InitializerInfoboxField">InitializerInfoboxField</a>) InfoboxField(scene <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) (*<a href="index.html#InfoboxField">InfoboxField</a>, *<a href="../property/index.html">property</a>.<a href="../property/index.html#Property">Property</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="InitializerResult">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=246:343#L3">InitializerResult</a>
+				<a class="permalink" href="index.html#InitializerResult">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type InitializerResult struct {
+<span id="InitializerResult.Root"></span>    Root       <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>
+<span id="InitializerResult.Layers"></span>    Layers     <a href="index.html#Map">Map</a>
+<span id="InitializerResult.Properties"></span>    Properties <a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="InitializerResult.RootLayer">func (InitializerResult) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=345:389#L9">RootLayer</a>
+					<a class="permalink" href="index.html#InitializerResult.RootLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#InitializerResult">InitializerResult</a>) RootLayer() <a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InitializerResult.RootLayerGroup">func (InitializerResult) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=505:555#L17">RootLayerGroup</a>
+					<a class="permalink" href="index.html#InitializerResult.RootLayerGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#InitializerResult">InitializerResult</a>) RootLayerGroup() *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InitializerResult.RootLayerItem">func (InitializerResult) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=592:640#L21">RootLayerItem</a>
+					<a class="permalink" href="index.html#InitializerResult.RootLayerItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#InitializerResult">InitializerResult</a>) RootLayerItem() *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="InitializerResult.RootLayerRef">func (InitializerResult) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer.go?s=426:474#L13">RootLayerRef</a>
+					<a class="permalink" href="index.html#InitializerResult.RootLayerRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#InitializerResult">InitializerResult</a>) RootLayerRef() *<a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=123:183#L1">Item</a>
+				<a class="permalink" href="index.html#Item">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Item struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="ItemFromLayer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=72:105#L1">ItemFromLayer</a>
+					<a class="permalink" href="index.html#ItemFromLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ItemFromLayer(l <a href="index.html#Layer">Layer</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ItemFromLayerRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=169:206#L5">ItemFromLayerRef</a>
+					<a class="permalink" href="index.html#ItemFromLayerRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ItemFromLayerRef(l *<a href="index.html#Layer">Layer</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ToLayerItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=771:802#L38">ToLayerItem</a>
+					<a class="permalink" href="index.html#ToLayerItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ToLayerItem(l <a href="index.html#Layer">Layer</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ToLayerItemRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=865:900#L45">ToLayerItemRef</a>
+					<a class="permalink" href="index.html#ToLayerItemRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ToLayerItemRef(l *<a href="index.html#Layer">Layer</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Item.Extension">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=640:688#L35">Extension</a>
+					<a class="permalink" href="index.html#Item.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Extension() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.HasInfobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=1997:2034#L120">HasInfobox</a>
+					<a class="permalink" href="index.html#Item.HasInfobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) HasInfobox() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.ID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=185:215#L3">ID</a>
+					<a class="permalink" href="index.html#Item.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.IDRef">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=246:280#L7">IDRef</a>
+					<a class="permalink" href="index.html#Item.IDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Infobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=969:1002#L56">Infobox</a>
+					<a class="permalink" href="index.html#Item.Infobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Infobox() *<a href="index.html#Infobox">Infobox</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.IsLinked">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1485:1515#L91">IsLinked</a>
+					<a class="permalink" href="index.html#Item.IsLinked">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) IsLinked() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.IsVisible">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=436:467#L21">IsVisible</a>
+					<a class="permalink" href="index.html#Item.IsVisible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) IsVisible() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.LayerRef">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1911:1943#L121">LayerRef</a>
+					<a class="permalink" href="index.html#Item.LayerRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) LayerRef() *<a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Link">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1728:1764#L106">Link</a>
+					<a class="permalink" href="index.html#Item.Link">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Link(ds <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.LinkedDataset">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1585:1629#L98">LinkedDataset</a>
+					<a class="permalink" href="index.html#Item.LinkedDataset">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) LinkedDataset() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Name">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=345:373#L14">Name</a>
+					<a class="permalink" href="index.html#Item.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Name() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Plugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=538:574#L28">Plugin</a>
+					<a class="permalink" href="index.html#Item.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Plugin() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Properties">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2016:2059#L129">Properties</a>
+					<a class="permalink" href="index.html#Item.Properties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Property">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=861:901#L49">Property</a>
+					<a class="permalink" href="index.html#Item.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Property() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Rename">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1069:1103#L63">Rename</a>
+					<a class="permalink" href="index.html#Item.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Rename(name <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Scene">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2191:2229#L134">Scene</a>
+					<a class="permalink" href="index.html#Item.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.SetInfobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1267:1310#L77">SetInfobox</a>
+					<a class="permalink" href="index.html#Item.SetInfobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) SetInfobox(infobox *<a href="index.html#Infobox">Infobox</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.SetPlugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1376:1421#L84">SetPlugin</a>
+					<a class="permalink" href="index.html#Item.SetPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) SetPlugin(plugin *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.SetVisible">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1162:1201#L70">SetVisible</a>
+					<a class="permalink" href="index.html#Item.SetVisible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) SetVisible(visible <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Unlink">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1832:1855#L114">Unlink</a>
+					<a class="permalink" href="index.html#Item.Unlink">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Unlink()</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.UsesPlugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=757:789#L42">UsesPlugin</a>
+					<a class="permalink" href="index.html#Item.UsesPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) UsesPlugin() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.ValidateProperties">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2129:2185#L136">ValidateProperties</a>
+					<a class="permalink" href="index.html#Item.ValidateProperties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#Item">Item</a>) ValidateProperties(pm <a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ItemBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=304:340#L16">ItemBuilder</a>
+				<a class="permalink" href="index.html#ItemBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ItemBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=342:369#L20">NewItem</a>
+					<a class="permalink" href="index.html#NewItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewItem() *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="ItemBuilder.Build">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=443:487#L24">Build</a>
+					<a class="permalink" href="index.html#ItemBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Build() (*<a href="index.html#Item">Item</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Extension">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1322:1399#L74">Extension</a>
+					<a class="permalink" href="index.html#ItemBuilder.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Extension(extension *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.ID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=781:833#L44">ID</a>
+					<a class="permalink" href="index.html#ItemBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Infobox">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1557:1617#L84">Infobox</a>
+					<a class="permalink" href="index.html#ItemBuilder.Infobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Infobox(infobox *<a href="index.html#Infobox">Infobox</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.IsVisible">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1116:1174#L64">IsVisible</a>
+					<a class="permalink" href="index.html#ItemBuilder.IsVisible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) IsVisible(visible <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.LinkedDataset">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1656:1733#L89">LinkedDataset</a>
+					<a class="permalink" href="index.html#ItemBuilder.LinkedDataset">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) LinkedDataset(linkedDataset *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.MustBuild">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=571:610#L31">MustBuild</a>
+					<a class="permalink" href="index.html#ItemBuilder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) MustBuild() *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Name">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1031:1083#L59">Name</a>
+					<a class="permalink" href="index.html#ItemBuilder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.NewID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=862:904#L49">NewID</a>
+					<a class="permalink" href="index.html#ItemBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) NewID() *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Plugin">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1213:1275#L69">Plugin</a>
+					<a class="permalink" href="index.html#ItemBuilder.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Plugin(plugin *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Property">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1452:1513#L79">Property</a>
+					<a class="permalink" href="index.html#ItemBuilder.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Property(p *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Scene">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=946:1000#L54">Scene</a>
+					<a class="permalink" href="index.html#ItemBuilder.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Scene(s <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ItemList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1831:1852#L97">ItemList</a>
+				<a class="permalink" href="index.html#ItemList">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ItemList []*<a href="index.html#Item">Item</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ItemList.FindByDataset">func (ItemList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1854:1909#L99">FindByDataset</a>
+					<a class="permalink" href="index.html#ItemList.FindByDataset">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#ItemList">ItemList</a>) FindByDataset(ds <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemList.ToLayerList">func (ItemList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2035:2072#L109">ToLayerList</a>
+					<a class="permalink" href="index.html#ItemList.ToLayerList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#ItemList">ItemList</a>) ToLayerList() <a href="index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Layer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=141:529#L1">Layer</a>
+				<a class="permalink" href="index.html#Layer">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Layer interface {
+    ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>
+    Name() <a href="/main/pkg/builtin/#string">string</a>
+    IsVisible() <a href="/main/pkg/builtin/#bool">bool</a>
+    Plugin() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>
+    Extension() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>
+    UsesPlugin() <a href="/main/pkg/builtin/#bool">bool</a>
+    Property() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>
+    HasInfobox() <a href="/main/pkg/builtin/#bool">bool</a>
+    Infobox() *<a href="index.html#Infobox">Infobox</a>
+    Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>
+    Rename(<a href="/main/pkg/builtin/#string">string</a>)
+    SetVisible(<a href="/main/pkg/builtin/#bool">bool</a>)
+    SetInfobox(*<a href="index.html#Infobox">Infobox</a>)
+    SetPlugin(*<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>)
+    Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>
+    ValidateProperties(<a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>) <a href="/main/pkg/builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="List">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=81:99#L1">List</a>
+				<a class="permalink" href="index.html#List">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type List []*<a href="index.html#Layer">Layer</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="List.Deref">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1462:1492#L72">Deref</a>
+					<a class="permalink" href="index.html#List.Deref">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) Deref() []<a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Find">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=340:382#L15">Find</a>
+					<a class="permalink" href="index.html#List.Find">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) Find(lid <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.FindByDataset">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=499:550#L27">FindByDataset</a>
+					<a class="permalink" href="index.html#List.FindByDataset">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) FindByDataset(ds <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Loader">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1685:1715#L87">Loader</a>
+					<a class="permalink" href="index.html#List.Loader">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) Loader() <a href="index.html#Loader">Loader</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Map">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1752:1776#L91">Map</a>
+					<a class="permalink" href="index.html#List.Map">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) Map() <a href="index.html#Map">Map</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Pick">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=101:137#L1">Pick</a>
+					<a class="permalink" href="index.html#List.Pick">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) Pick(il *<a href="index.html#IDList">IDList</a>) <a href="index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.SeparateLayerItemAndGroup">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1119:1183#L59">SeparateLayerItemAndGroup</a>
+					<a class="permalink" href="index.html#List.SeparateLayerItemAndGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) SeparateLayerItemAndGroup() (<a href="index.html#ItemList">ItemList</a>, <a href="index.html#GroupList">GroupList</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.ToLayerGroupList">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=921:964#L49">ToLayerGroupList</a>
+					<a class="permalink" href="index.html#List.ToLayerGroupList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) ToLayerGroupList() <a href="index.html#GroupList">GroupList</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.ToLayerItemList">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=727:768#L39">ToLayerItemList</a>
+					<a class="permalink" href="index.html#List.ToLayerItemList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) ToLayerItemList() <a href="index.html#ItemList">ItemList</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Loader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=84:146#L1">Loader</a>
+				<a class="permalink" href="index.html#Loader">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Loader func(<a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) (<a href="index.html#List">List</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="LoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=215:251#L2">LoaderFrom</a>
+					<a class="permalink" href="index.html#LoaderFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func LoaderFrom(data []<a href="index.html#Layer">Layer</a>) <a href="index.html#Loader">Loader</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="LoaderFromMap">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=595:647#L22">LoaderFromMap</a>
+					<a class="permalink" href="index.html#LoaderFromMap">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func LoaderFromMap(data map[<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>]<a href="index.html#Layer">Layer</a>) <a href="index.html#Loader">Loader</a></pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="LoaderByScene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=147:213#L1">LoaderByScene</a>
+				<a class="permalink" href="index.html#LoaderByScene">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type LoaderByScene func(<a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) (<a href="index.html#List">List</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Map">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2387:2417#L129">Map</a>
+				<a class="permalink" href="index.html#Map">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Map map[<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>]*<a href="index.html#Layer">Layer</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MapFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2419:2444#L131">MapFrom</a>
+					<a class="permalink" href="index.html#MapFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MapFrom(l <a href="index.html#Layer">Layer</a>) <a href="index.html#Map">Map</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Map.Add">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2473:2511#L135">Add</a>
+					<a class="permalink" href="index.html#Map.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Add(layers ...*<a href="index.html#Layer">Layer</a>) <a href="index.html#Map">Map</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Clone">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2855:2879#L163">Clone</a>
+					<a class="permalink" href="index.html#Map.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Clone() <a href="index.html#Map">Map</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Group">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3586:3625#L214">Group</a>
+					<a class="permalink" href="index.html#Map.Group">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Group(i <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Item">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3472:3509#L207">Item</a>
+					<a class="permalink" href="index.html#Map.Item">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Item(i <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Keys">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3703:3735#L221">Keys</a>
+					<a class="permalink" href="index.html#Map.Keys">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Keys() []<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Layer">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3375:3413#L200">Layer</a>
+					<a class="permalink" href="index.html#Map.Layer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Layer(i <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) <a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Len">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3943:3965#L232">Len</a>
+					<a class="permalink" href="index.html#Map.Len">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Len() <a href="/main/pkg/builtin/#int">int</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.List">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2699:2723#L152">List</a>
+					<a class="permalink" href="index.html#Map.List">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) List() <a href="index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Merge">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2992:3022#L174">Merge</a>
+					<a class="permalink" href="index.html#Map.Merge">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Merge(m2 <a href="index.html#Map">Map</a>) <a href="index.html#Map">Map</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Pick">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3144:3178#L186">Pick</a>
+					<a class="permalink" href="index.html#Map.Pick">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Map">Map</a>) Pick(il *<a href="index.html#IDList">IDList</a>) <a href="index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Merged">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go?s=175:417#L1">Merged</a>
+				<a class="permalink" href="index.html#Merged">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Merged represents a merged layer from two layers
+</p>
+
+			<pre>type Merged struct {
+<span id="Merged.Original"></span>    Original    <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>
+<span id="Merged.Parent"></span>    Parent      *<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>
+<span id="Merged.Name"></span>    Name        <a href="/main/pkg/builtin/#string">string</a>
+<span id="Merged.Scene"></span>    Scene       <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>
+<span id="Merged.Property"></span>    Property    *<a href="../property/index.html">property</a>.<a href="../property/index.html#MergedMetadata">MergedMetadata</a>
+<span id="Merged.Infobox"></span>    Infobox     *<a href="index.html#MergedInfobox">MergedInfobox</a>
+<span id="Merged.PluginID"></span>    PluginID    *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>
+<span id="Merged.ExtensionID"></span>    ExtensionID *<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="Merge">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go?s=820:857#L25">Merge</a>
+					<a class="permalink" href="index.html#Merge">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func Merge(o <a href="index.html#Layer">Layer</a>, p *<a href="index.html#Group">Group</a>) *<a href="index.html#Merged">Merged</a></pre>
+				<p>
+Merge merges two layers
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Merged.Properties">func (*Merged) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go?s=2248:2293#L85">Properties</a>
+					<a class="permalink" href="index.html#Merged.Properties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Merged">Merged</a>) Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				<p>
+Properties returns all property IDs in Merged
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="MergedInfobox">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go?s=481:577#L11">MergedInfobox</a>
+				<a class="permalink" href="index.html#MergedInfobox">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+MergedInfobox represents a merged info box from two layers
+</p>
+
+			<pre>type MergedInfobox struct {
+<span id="MergedInfobox.Property"></span>    Property *<a href="../property/index.html">property</a>.<a href="../property/index.html#MergedMetadata">MergedMetadata</a>
+<span id="MergedInfobox.Fields"></span>    Fields   []*<a href="index.html#MergedInfoboxField">MergedInfoboxField</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MergeInfobox">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go?s=1417:1495#L47">MergeInfobox</a>
+					<a class="permalink" href="index.html#MergeInfobox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MergeInfobox(o *<a href="index.html#Infobox">Infobox</a>, p *<a href="index.html#Infobox">Infobox</a>, linked *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) *<a href="index.html#MergedInfobox">MergedInfobox</a></pre>
+				<p>
+MergeInfobox merges two infoboxes
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="MergedInfoboxField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go?s=637:791#L17">MergedInfoboxField</a>
+				<a class="permalink" href="index.html#MergedInfoboxField">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+MergedInfoboxField represents a field of MergedInfobox
+</p>
+
+			<pre>type MergedInfoboxField struct {
+<span id="MergedInfoboxField.ID"></span>    ID        <a href="../id/index.html">id</a>.<a href="../id/index.html#InfoboxFieldID">InfoboxFieldID</a>
+<span id="MergedInfoboxField.Plugin"></span>    Plugin    <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>
+<span id="MergedInfoboxField.Extension"></span>    Extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>
+<span id="MergedInfoboxField.Property"></span>    Property  *<a href="../property/index.html">property</a>.<a href="../property/index.html#MergedMetadata">MergedMetadata</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	<div class="pkg-dir">
+		<table>
+			<tr>
+				<th class="pkg-name">Name</th>
+				<th class="pkg-synopsis">Synopsis</th>
+			</tr>
+
+			
+			<tr>
+				<td colspan="2"><a href="../index.html">..</a></td>
+			</tr>
+			
+
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="decoding/index.html">decoding</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="encoding/index.html">encoding</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="initializer/index.html">initializer</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="merging/index.html">merging</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+		</table>
+	</div>
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>shp - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package shp
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/shp"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="index.html#Box">type Box</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#BBoxFromPoints">func BBoxFromPoints(points []Point) (box Box)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Box.Extend">func (b *Box) Extend(box Box)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Box.ExtendWithPoint">func (b *Box) ExtendWithPoint(p Point)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Field">type Field</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#MultiPatch">type MultiPatch</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MultiPatch.BBox">func (p MultiPatch) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#MultiPoint">type MultiPoint</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MultiPoint.BBox">func (p MultiPoint) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#MultiPointM">type MultiPointM</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MultiPointM.BBox">func (p MultiPointM) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#MultiPointZ">type MultiPointZ</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MultiPointZ.BBox">func (p MultiPointZ) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Null">type Null</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Null.BBox">func (n Null) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Point">type Point</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Point.BBox">func (p Point) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PointM">type PointM</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PointM.BBox">func (p PointM) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PointZ">type PointZ</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PointZ.BBox">func (p PointZ) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PolyLine">type PolyLine</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewPolyLine">func NewPolyLine(parts [][]Point) *PolyLine</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PolyLine.BBox">func (p PolyLine) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PolyLineM">type PolyLineM</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PolyLineM.BBox">func (p PolyLineM) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PolyLineZ">type PolyLineZ</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PolyLineZ.BBox">func (p PolyLineZ) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Polygon">type Polygon</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Polygon.BBox">func (p Polygon) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PolygonM">type PolygonM</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PolygonM.BBox">func (p PolygonM) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PolygonZ">type PolygonZ</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PolygonZ.BBox">func (p PolygonZ) BBox() Box</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Reader">type Reader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ReadFrom">func ReadFrom(r io.Reader) (*Reader, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Reader.BBox">func (r *Reader) BBox() Box</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Reader.Err">func (r *Reader) Err() error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Reader.Next">func (r *Reader) Next() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Reader.Shape">func (r *Reader) Shape() (int, Shape)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SequentialReader">type SequentialReader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SequentialReaderFromExt">func SequentialReaderFromExt(shp io.ReadCloser) SequentialReader</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Shape">type Shape</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ShapeType">type ShapeType</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ShapeType.String">func (i ShapeType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Writer">type Writer</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#CreateFrom">func CreateFrom(ws io.WriteSeeker, t ShapeType) (*Writer, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Writer.Close">func (w *Writer) Close() error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Writer.Write">func (w *Writer) Write(shape Shape) (int32, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ZipReader">type ZipReader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ReadZipFrom">func ReadZipFrom(r io.Reader) (*ZipReader, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ZipReader.Close">func (zr *ZipReader) Close() error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ZipReader.Err">func (zr *ZipReader) Err() error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ZipReader.Next">func (zr *ZipReader) Next() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ZipReader.Shape">func (zr *ZipReader) Shape() (int, Shape)</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/errreader.go">errreader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/reader.go">reader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/sequentialreader.go">sequentialreader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go">shapefile.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapetype_string.go">shapetype_string.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/writer.go">writer.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/zipreader.go">zipreader.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="Box">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=703:754#L23">Box</a>
+				<a class="permalink" href="index.html#Box">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Box structure made up from four coordinates. This type
+is used to represent bounding boxes
+</p>
+
+			<pre>type Box struct {
+<span id="Box.MinX"></span>    MinX, MinY, MaxX, MaxY <a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="BBoxFromPoints">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=1408:1453#L54">BBoxFromPoints</a>
+					<a class="permalink" href="index.html#BBoxFromPoints">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func BBoxFromPoints(points []<a href="index.html#Point">Point</a>) (box <a href="index.html#Box">Box</a>)</pre>
+				<p>
+BBoxFromPoints returns the bounding box calculated
+from points.
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Box.Extend">func (*Box) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=907:936#L30">Extend</a>
+					<a class="permalink" href="index.html#Box.Extend">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Box">Box</a>) Extend(box <a href="index.html#Box">Box</a>)</pre>
+				<p>
+Extend extends the box with coordinates from the provided
+box. This method calls Box.ExtendWithPoint twice with
+{MinX, MinY} and {MaxX, MaxY}
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Box.ExtendWithPoint">func (*Box) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=1146:1184#L37">ExtendWithPoint</a>
+					<a class="permalink" href="index.html#Box.ExtendWithPoint">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Box">Box</a>) ExtendWithPoint(p <a href="index.html#Point">Point</a>)</pre>
+				<p>
+ExtendWithPoint extends box with coordinates from point
+if they are outside the range of the current box.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Field">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=22790:22932#L1008">Field</a>
+				<a class="permalink" href="index.html#Field">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Field representation of a field object in the DBF file
+</p>
+
+			<pre>type Field struct {
+<span id="Field.Name"></span>    Name      [11]<a href="/main/pkg/builtin/#byte">byte</a>
+<span id="Field.Fieldtype"></span>    Fieldtype <a href="/main/pkg/builtin/#byte">byte</a>
+<span id="Field.Addr"></span>    Addr      [4]<a href="/main/pkg/builtin/#byte">byte</a> <span class="comment">// not used</span>
+<span id="Field.Size"></span>    Size      <a href="/main/pkg/builtin/#uint8">uint8</a>
+<span id="Field.Precision"></span>    Precision <a href="/main/pkg/builtin/#uint8">uint8</a>
+<span id="Field.Padding"></span>    Padding   [14]<a href="/main/pkg/builtin/#byte">byte</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="MultiPatch">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=20244:20462#L896">MultiPatch</a>
+				<a class="permalink" href="index.html#MultiPatch">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+MultiPatch consists of a number of surfaces patches. Each surface path
+descries a surface. The surface patches of a MultiPatch are referred to as
+its parts, and the type of part controls how the order of vertices of an
+MultiPatch part is interpreted.
+</p>
+
+			<pre>type MultiPatch struct {
+<span id="MultiPatch.Box"></span>    Box       <a href="index.html#Box">Box</a>
+<span id="MultiPatch.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.PartTypes"></span>    PartTypes []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPatch.Points"></span>    Points    []<a href="index.html#Point">Point</a>
+<span id="MultiPatch.ZRange"></span>    ZRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPatch.ZArray"></span>    ZArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPatch.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPatch.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="MultiPatch.BBox">func (MultiPatch) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=20523:20553#L910">BBox</a>
+					<a class="permalink" href="index.html#MultiPatch.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#MultiPatch">MultiPatch</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the MultiPatch feature
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="MultiPoint">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=6433:6510#L288">MultiPoint</a>
+				<a class="permalink" href="index.html#MultiPoint">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+MultiPoint is the shape that consists of multiple points.
+</p>
+
+			<pre>type MultiPoint struct {
+<span id="MultiPoint.Box"></span>    Box       <a href="index.html#Box">Box</a>
+<span id="MultiPoint.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPoint.Points"></span>    Points    []<a href="index.html#Point">Point</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="MultiPoint.BBox">func (MultiPoint) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=6571:6601#L295">BBox</a>
+					<a class="permalink" href="index.html#MultiPoint.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#MultiPoint">MultiPoint</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the MultiPoint feature
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="MultiPointM">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=18614:18735#L829">MultiPointM</a>
+				<a class="permalink" href="index.html#MultiPointM">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+MultiPointM is the collection of multiple points with measures.
+</p>
+
+			<pre>type MultiPointM struct {
+<span id="MultiPointM.Box"></span>    Box       <a href="index.html#Box">Box</a>
+<span id="MultiPointM.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPointM.Points"></span>    Points    []<a href="index.html#Point">Point</a>
+<span id="MultiPointM.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointM.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="MultiPointM.BBox">func (MultiPointM) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=18796:18827#L838">BBox</a>
+					<a class="permalink" href="index.html#MultiPointM.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#MultiPointM">MultiPointM</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox eturns the bounding box of the MultiPointM feature
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="MultiPointZ">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=12576:12740#L559">MultiPointZ</a>
+				<a class="permalink" href="index.html#MultiPointZ">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+MultiPointZ consists of one ore more PointZ.
+</p>
+
+			<pre>type MultiPointZ struct {
+<span id="MultiPointZ.Box"></span>    Box       <a href="index.html#Box">Box</a>
+<span id="MultiPointZ.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="MultiPointZ.Points"></span>    Points    []<a href="index.html#Point">Point</a>
+<span id="MultiPointZ.ZRange"></span>    ZRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointZ.ZArray"></span>    ZArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointZ.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="MultiPointZ.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="MultiPointZ.BBox">func (MultiPointZ) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=12802:12833#L570">BBox</a>
+					<a class="permalink" href="index.html#MultiPointZ.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#MultiPointZ">MultiPointZ</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox eturns the bounding box of the MultiPointZ feature.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Null">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=1718:1738#L74">Null</a>
+				<a class="permalink" href="index.html#Null">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Null is an empty shape.
+</p>
+
+			<pre>type Null struct {
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Null.BBox">func (Null) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=1794:1818#L78">BBox</a>
+					<a class="permalink" href="index.html#Null.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (n <a href="index.html#Null">Null</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox Returns an empty BBox at the geometry origin.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Point">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=2206:2241#L99">Point</a>
+				<a class="permalink" href="index.html#Point">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Point is the shape that consists of single a geometry point.
+</p>
+
+			<pre>type Point struct {
+<span id="Point.X"></span>    X, Y <a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Point.BBox">func (Point) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=2350:2375#L105">BBox</a>
+					<a class="permalink" href="index.html#Point.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#Point">Point</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the Point feature, i.e. an empty area at
+the point location itself.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PointM">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=14425:14480#L642">PointM</a>
+				<a class="permalink" href="index.html#PointM">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PointM is a point with a measure.
+</p>
+
+			<pre>type PointM struct {
+<span id="PointM.X"></span>    X <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PointM.Y"></span>    Y <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PointM.M"></span>    M <a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="PointM.BBox">func (PointM) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=14609:14635#L650">BBox</a>
+					<a class="permalink" href="index.html#PointM.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#PointM">PointM</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the PointM feature which is a zero-sized
+area at the X- and Y-coordinates of the point.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PointZ">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=7423:7489#L333">PointZ</a>
+				<a class="permalink" href="index.html#PointZ">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PointZ is a triplet of double precision coordinates plus a measure.
+</p>
+
+			<pre>type PointZ struct {
+<span id="PointZ.X"></span>    X <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PointZ.Y"></span>    Y <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PointZ.Z"></span>    Z <a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PointZ.M"></span>    M <a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="PointZ.BBox">func (PointZ) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=7619:7645#L342">BBox</a>
+					<a class="permalink" href="index.html#PointZ.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#PointZ">PointZ</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox eturns the bounding box of the PointZ feature which is an zero-sized area
+at the X and Y coordinates of the feature.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PolyLine">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=3173:3274#L144">PolyLine</a>
+				<a class="permalink" href="index.html#PolyLine">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PolyLine is a shape type that consists of an ordered set of vertices that
+consists of one or more parts. A part is a connected sequence of two ore
+more points. Parts may or may not be connected to another and may or may not
+intersect each other.
+</p>
+
+			<pre>type PolyLine struct {
+    <a href="index.html#Box">Box</a>
+<span id="PolyLine.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLine.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLine.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLine.Points"></span>    Points    []<a href="index.html#Point">Point</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewPolyLine">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=3435:3478#L155">NewPolyLine</a>
+					<a class="permalink" href="index.html#NewPolyLine">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewPolyLine(parts [][]<a href="index.html#Point">Point</a>) *<a href="index.html#PolyLine">PolyLine</a></pre>
+				<p>
+NewPolyLine returns a pointer a new PolyLine created
+with the provided points. The inner slice should be
+the points that the parent part consists of.
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="PolyLine.BBox">func (PolyLine) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=3839:3867#L174">BBox</a>
+					<a class="permalink" href="index.html#PolyLine.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#PolyLine">PolyLine</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the PolyLine feature
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PolyLineM">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=15032:15187#L671">PolyLineM</a>
+				<a class="permalink" href="index.html#PolyLineM">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PolyLineM is the polyline in which each point also has a measure.
+</p>
+
+			<pre>type PolyLineM struct {
+<span id="PolyLineM.Box"></span>    Box       <a href="index.html#Box">Box</a>
+<span id="PolyLineM.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineM.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineM.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineM.Points"></span>    Points    []<a href="index.html#Point">Point</a>
+<span id="PolyLineM.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineM.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="PolyLineM.BBox">func (PolyLineM) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=15248:15277#L682">BBox</a>
+					<a class="permalink" href="index.html#PolyLineM.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#PolyLineM">PolyLineM</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the PolyLineM feature.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PolyLineZ">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=8170:8368#L365">PolyLineZ</a>
+				<a class="permalink" href="index.html#PolyLineZ">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PolyLineZ is a shape which consists of one or more parts. A part is a
+connected sequence of two or more points. Parts may or may not be connected
+and may or may not intersect one another.
+</p>
+
+			<pre>type PolyLineZ struct {
+<span id="PolyLineZ.Box"></span>    Box       <a href="index.html#Box">Box</a>
+<span id="PolyLineZ.NumParts"></span>    NumParts  <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineZ.NumPoints"></span>    NumPoints <a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineZ.Parts"></span>    Parts     []<a href="/main/pkg/builtin/#int32">int32</a>
+<span id="PolyLineZ.Points"></span>    Points    []<a href="index.html#Point">Point</a>
+<span id="PolyLineZ.ZRange"></span>    ZRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineZ.ZArray"></span>    ZArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineZ.MRange"></span>    MRange    [2]<a href="/main/pkg/builtin/#float64">float64</a>
+<span id="PolyLineZ.MArray"></span>    MArray    []<a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="PolyLineZ.BBox">func (PolyLineZ) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=8428:8457#L378">BBox</a>
+					<a class="permalink" href="index.html#PolyLineZ.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#PolyLineZ">PolyLineZ</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox eturns the bounding box of the PolyLineZ feature.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Polygon">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=5122:5143#L230">Polygon</a>
+				<a class="permalink" href="index.html#Polygon">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Polygon is identical to the PolyLine struct. However the parts must form
+rings that may not intersect.
+</p>
+
+			<pre>type Polygon <a href="index.html#PolyLine">PolyLine</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Polygon.BBox">func (Polygon) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=5201:5228#L233">BBox</a>
+					<a class="permalink" href="index.html#Polygon.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#Polygon">Polygon</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the Polygon feature
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PolygonM">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=16889:16912#L754">PolygonM</a>
+				<a class="permalink" href="index.html#PolygonM">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PolygonM structure is identical to the PolyLineZ structure.
+</p>
+
+			<pre>type PolygonM <a href="index.html#PolyLineZ">PolyLineZ</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="PolygonM.BBox">func (PolygonM) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=16972:17000#L757">BBox</a>
+					<a class="permalink" href="index.html#PolygonM.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#PolygonM">PolygonM</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the PolygonM feature.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PolygonZ">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=10470:10493#L467">PolygonZ</a>
+				<a class="permalink" href="index.html#PolygonZ">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PolygonZ structure is identical to the PolyLineZ structure.
+</p>
+
+			<pre>type PolygonZ <a href="index.html#PolyLineZ">PolyLineZ</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="PolygonZ.BBox">func (PolygonZ) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=10552:10580#L470">BBox</a>
+					<a class="permalink" href="index.html#PolygonZ.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="index.html#PolygonZ">PolygonZ</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the PolygonZ feature
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Reader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/reader.go?s=290:609#L5">Reader</a>
+				<a class="permalink" href="index.html#Reader">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Reader provides a interface for reading Shapefiles. Calls
+to the Next method will iterate through the objects in the
+Shapefile. After a call to Next the object will be available
+through the Shape method.
+</p>
+
+			<pre>type Reader struct {
+<span id="Reader.GeometryType"></span>    GeometryType <a href="index.html#ShapeType">ShapeType</a>
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="ReadFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/reader.go?s=643:686#L25">ReadFrom</a>
+					<a class="permalink" href="index.html#ReadFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ReadFrom(r <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#Reader">Reader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+ReadFrom read from io.Reader
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Reader.BBox">func (*Reader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/reader.go?s=931:958#L37">BBox</a>
+					<a class="permalink" href="index.html#Reader.BBox">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Reader">Reader</a>) BBox() <a href="index.html#Box">Box</a></pre>
+				<p>
+BBox returns the bounding box of the shapefile.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Reader.Err">func (*Reader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/reader.go?s=5959:5987#L250">Err</a>
+					<a class="permalink" href="index.html#Reader.Err">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Reader">Reader</a>) Err() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<p>
+Err returns the last non-EOF error encountered.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Reader.Next">func (*Reader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/reader.go?s=3526:3554#L140">Next</a>
+					<a class="permalink" href="index.html#Reader.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Reader">Reader</a>) Next() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Next reads in the next Shape in the Shapefile, which
+will then be available through the Shape method. It
+returns false when the reader has reached the end of the
+file or encounters an error.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Reader.Shape">func (*Reader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/reader.go?s=2208:2245#L89">Shape</a>
+					<a class="permalink" href="index.html#Reader.Shape">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#Reader">Reader</a>) Shape() (<a href="/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)</pre>
+				<p>
+Shape returns the most recent feature that was read by
+a call to Next. It returns two values, the int is the
+object index starting from zero in the shapefile which
+can be used as row in ReadAttribute, and the Shape is the object.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SequentialReader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/sequentialreader.go?s=181:1032#L1">SequentialReader</a>
+				<a class="permalink" href="index.html#SequentialReader">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SequentialReader is the interface that allows reading shapes and attributes one after another. It also embeds io.Closer.
+</p>
+
+			<pre>type SequentialReader interface {
+    <span class="comment">// Closer frees the resources allocated by the SequentialReader.</span>
+    <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Closer">Closer</a>
+
+    <span class="comment">// Next tries to advance the reading by one shape and one attribute row</span>
+    <span class="comment">// and returns true if the read operation could be performed without any</span>
+    <span class="comment">// error.</span>
+    Next() <a href="/main/pkg/builtin/#bool">bool</a>
+
+    <span class="comment">// Shape returns the index and the last read shape. If the SequentialReader</span>
+    <span class="comment">// encountered any errors, nil is returned for the Shape.</span>
+    Shape() (<a href="/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)
+
+    <span class="comment">// Err returns the last non-EOF error encountered.</span>
+    Err() <a href="/main/pkg/builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="SequentialReaderFromExt">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/sequentialreader.go?s=7377:7451#L286">SequentialReaderFromExt</a>
+					<a class="permalink" href="index.html#SequentialReaderFromExt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func SequentialReaderFromExt(shp <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#ReadCloser">ReadCloser</a>) <a href="index.html#SequentialReader">SequentialReader</a></pre>
+				<p>
+SequentialReaderFromExt returns a new SequentialReader that interprets shp
+as a source of shapes whose attributes can be retrieved from dbf.
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Shape">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=1605:1689#L66">Shape</a>
+				<a class="permalink" href="index.html#Shape">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Shape interface
+</p>
+
+			<pre>type Shape interface {
+    BBox() <a href="index.html#Box">Box</a>
+    <span class="comment">// contains filtered or unexported methods</span>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ShapeType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapefile.go?s=147:167#L1">ShapeType</a>
+				<a class="permalink" href="index.html#ShapeType">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+ShapeType is a identifier for the the type of shapes.
+</p>
+
+			<pre>type ShapeType <a href="/main/pkg/builtin/#int32">int32</a></pre>
+
+			
+				<p>
+These are the possible shape types.
+</p>
+
+				<pre>const (
+    <span id="NULL">NULL</span>        <a href="index.html#ShapeType">ShapeType</a> = 0
+    <span id="POINT">POINT</span>       <a href="index.html#ShapeType">ShapeType</a> = 1
+    <span id="POLYLINE">POLYLINE</span>    <a href="index.html#ShapeType">ShapeType</a> = 3
+    <span id="POLYGON">POLYGON</span>     <a href="index.html#ShapeType">ShapeType</a> = 5
+    <span id="MULTIPOINT">MULTIPOINT</span>  <a href="index.html#ShapeType">ShapeType</a> = 8
+    <span id="POINTZ">POINTZ</span>      <a href="index.html#ShapeType">ShapeType</a> = 11
+    <span id="POLYLINEZ">POLYLINEZ</span>   <a href="index.html#ShapeType">ShapeType</a> = 13
+    <span id="POLYGONZ">POLYGONZ</span>    <a href="index.html#ShapeType">ShapeType</a> = 15
+    <span id="MULTIPOINTZ">MULTIPOINTZ</span> <a href="index.html#ShapeType">ShapeType</a> = 18
+    <span id="POINTM">POINTM</span>      <a href="index.html#ShapeType">ShapeType</a> = 21
+    <span id="POLYLINEM">POLYLINEM</span>   <a href="index.html#ShapeType">ShapeType</a> = 23
+    <span id="POLYGONM">POLYGONM</span>    <a href="index.html#ShapeType">ShapeType</a> = 25
+    <span id="MULTIPOINTM">MULTIPOINTM</span> <a href="index.html#ShapeType">ShapeType</a> = 28
+    <span id="MULTIPATCH">MULTIPATCH</span>  <a href="index.html#ShapeType">ShapeType</a> = 31
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ShapeType.String">func (ShapeType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/shapetype_string.go?s=1141:1175#L36">String</a>
+					<a class="permalink" href="index.html#ShapeType.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i <a href="index.html#ShapeType">ShapeType</a>) String() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Writer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/writer.go?s=119:232#L1">Writer</a>
+				<a class="permalink" href="index.html#Writer">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Writer is the type that is used to write a new shapefile.
+</p>
+
+			<pre>type Writer struct {
+<span id="Writer.GeometryType"></span>    GeometryType <a href="index.html#ShapeType">ShapeType</a>
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="CreateFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/writer.go?s=234:298#L7">CreateFrom</a>
+					<a class="permalink" href="index.html#CreateFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func CreateFrom(ws <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#WriteSeeker">WriteSeeker</a>, t <a href="index.html#ShapeType">ShapeType</a>) (*<a href="index.html#Writer">Writer</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Writer.Close">func (*Writer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/writer.go?s=1593:1623#L72">Close</a>
+					<a class="permalink" href="index.html#Writer.Close">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Writer">Writer</a>) Close() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<p>
+Close closes the writer.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Writer.Write">func (*Writer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/writer.go?s=565:615#L22">Write</a>
+					<a class="permalink" href="index.html#Writer.Write">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Writer">Writer</a>) Write(shape <a href="index.html#Shape">Shape</a>) (<a href="/main/pkg/builtin/#int32">int32</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Write shape to the writer.
+Returns the index of the written object
+which can be used in WriteAttribute.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ZipReader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/zipreader.go?s=169:231#L2">ZipReader</a>
+				<a class="permalink" href="index.html#ZipReader">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+ZipReader provides an interface for reading Shapefiles that are compressed in a ZIP archive.
+</p>
+
+			<pre>type ZipReader struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="ReadZipFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/zipreader.go?s=643:692#L20">ReadZipFrom</a>
+					<a class="permalink" href="index.html#ReadZipFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ReadZipFrom(r <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#ZipReader">ZipReader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+ReadZipFrom read zip file from io.Reader, zip file must contain only one shape file
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="ZipReader.Close">func (*ZipReader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/zipreader.go?s=1754:1788#L62">Close</a>
+					<a class="permalink" href="index.html#ZipReader.Close">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Close() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<p>
+Close closes the ZipReader and frees the allocated resources.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ZipReader.Err">func (*ZipReader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/zipreader.go?s=2642:2674#L95">Err</a>
+					<a class="permalink" href="index.html#ZipReader.Err">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Err() <a href="/main/pkg/builtin/#error">error</a></pre>
+				<p>
+Err returns the last non-EOF error that was encountered by this ZipReader.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ZipReader.Next">func (*ZipReader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/zipreader.go?s=1990:2022#L72">Next</a>
+					<a class="permalink" href="index.html#ZipReader.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Next() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Next reads the next shape in the shapefile and the next row in the DBF. Call
+Shape() and Attribute() to access the values.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ZipReader.Shape">func (*ZipReader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/shp/zipreader.go?s=2125:2166#L77">Shape</a>
+					<a class="permalink" href="index.html#ZipReader.Shape">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (zr *<a href="index.html#ZipReader">ZipReader</a>) Shape() (<a href="/main/pkg/builtin/#int">int</a>, <a href="index.html#Shape">Shape</a>)</pre>
+				<p>
+Shape returns the shape that was last read as well as the current index.
+</p>
+
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>kml - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package kml
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/kml"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="index.html#BoundaryIs">type BoundaryIs</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Collection">type Collection</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Icon">type Icon</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#IconStyle">type IconStyle</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#LineString">type LineString</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#LineStyle">type LineStyle</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#LinearRing">type LinearRing</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Placemark">type Placemark</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Point">type Point</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PointFields">type PointFields</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PolyStyle">type PolyStyle</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Polygon">type Polygon</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Style">type Style</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go">kml.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="BoundaryIs">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=473:541#L10">BoundaryIs</a>
+				<a class="permalink" href="index.html#BoundaryIs">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type BoundaryIs struct {
+<span id="BoundaryIs.LinearRing"></span>    LinearRing <a href="index.html#LinearRing">LinearRing</a> `xml:&#34;LinearRing&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Collection">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=76:262#L1">Collection</a>
+				<a class="permalink" href="index.html#Collection">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Collection struct {
+<span id="Collection.Folders"></span>    Folders    []<a href="index.html#Collection">Collection</a> `xml:&#34;Folder&#34;`
+<span id="Collection.Placemarks"></span>    Placemarks []<a href="index.html#Placemark">Placemark</a>  `xml:&#34;Placemark&#34;`
+<span id="Collection.Styles"></span>    Styles     []<a href="index.html#Style">Style</a>      `xml:&#34;Style&#34;`
+<span id="Collection.Name"></span>    Name       <a href="/main/pkg/builtin/#string">string</a>       `xml:&#34;name&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Icon">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=1054:1100#L37">Icon</a>
+				<a class="permalink" href="index.html#Icon">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Icon struct {
+<span id="Icon.Href"></span>    Href <a href="/main/pkg/builtin/#string">string</a> `xml:&#34;href&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="IconStyle">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=942:1053#L32">IconStyle</a>
+				<a class="permalink" href="index.html#IconStyle">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type IconStyle struct {
+<span id="IconStyle.Icon"></span>    Icon  *<a href="index.html#Icon">Icon</a>   `xml:&#34;Icon&#34;`
+<span id="IconStyle.Color"></span>    Color <a href="/main/pkg/builtin/#string">string</a>  `xml:&#34;color&#34;`
+<span id="IconStyle.Scale"></span>    Scale <a href="/main/pkg/builtin/#float64">float64</a> `xml:&#34;scale&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="LineString">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=804:870#L24">LineString</a>
+				<a class="permalink" href="index.html#LineString">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type LineString struct {
+<span id="LineString.Coordinates"></span>    Coordinates <a href="/main/pkg/builtin/#string">string</a> `xml:&#34;coordinates&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="LineStyle">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=1317:1400#L50">LineStyle</a>
+				<a class="permalink" href="index.html#LineStyle">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Polyline Styling
+</p>
+
+			<pre>type LineStyle struct {
+<span id="LineStyle.Color"></span>    Color <a href="/main/pkg/builtin/#string">string</a>  `xml:&#34;color&#34;`
+<span id="LineStyle.Width"></span>    Width <a href="/main/pkg/builtin/#float64">float64</a> `xml:&#34;width&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="LinearRing">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=542:608#L13">LinearRing</a>
+				<a class="permalink" href="index.html#LinearRing">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type LinearRing struct {
+<span id="LinearRing.Coordinates"></span>    Coordinates <a href="/main/pkg/builtin/#string">string</a> `xml:&#34;coordinates&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Placemark">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=263:472#L3">Placemark</a>
+				<a class="permalink" href="index.html#Placemark">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Placemark struct {
+<span id="Placemark.Point"></span>    Point    <a href="index.html#Point">Point</a>      `xml:&#34;Point&#34;`
+<span id="Placemark.Polygon"></span>    Polygon  <a href="index.html#Polygon">Polygon</a>    `xml:&#34;Polygon&#34;`
+<span id="Placemark.Polyline"></span>    Polyline <a href="index.html#LineString">LineString</a> `xml:&#34;LineString&#34;`
+<span id="Placemark.Name"></span>    Name     <a href="/main/pkg/builtin/#string">string</a>     `xml:&#34;name&#34;`
+<span id="Placemark.StyleUrl"></span>    StyleUrl <a href="/main/pkg/builtin/#string">string</a>     `xml:&#34;styleUrl&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Point">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=609:670#L16">Point</a>
+				<a class="permalink" href="index.html#Point">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Point struct {
+<span id="Point.Coordinates"></span>    Coordinates <a href="/main/pkg/builtin/#string">string</a> `xml:&#34;coordinates&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PointFields">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=871:940#L27">PointFields</a>
+				<a class="permalink" href="index.html#PointFields">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PointFields struct {
+<span id="PointFields.Latlng"></span>    Latlng *<a href="../property/index.html">property</a>.<a href="../property/index.html#LatLng">LatLng</a>
+<span id="PointFields.Height"></span>    Height *<a href="/main/pkg/builtin/#float64">float64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PolyStyle">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=1401:1514#L54">PolyStyle</a>
+				<a class="permalink" href="index.html#PolyStyle">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PolyStyle struct {
+<span id="PolyStyle.Color"></span>    Color  <a href="/main/pkg/builtin/#string">string</a> `xml:&#34;color&#34;`
+<span id="PolyStyle.Fill"></span>    Fill   <a href="/main/pkg/builtin/#bool">bool</a>   `xml:&#34;fill&#34;`
+<span id="PolyStyle.Stroke"></span>    Stroke <a href="/main/pkg/builtin/#bool">bool</a>   `xml:&#34;outline&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Polygon">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=672:803#L20">Polygon</a>
+				<a class="permalink" href="index.html#Polygon">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Polygon struct {
+<span id="Polygon.OuterBoundaryIs"></span>    OuterBoundaryIs <a href="index.html#BoundaryIs">BoundaryIs</a>   `xml:&#34;outerBoundaryIs&#34;`
+<span id="Polygon.InnerBoundaryIs"></span>    InnerBoundaryIs []<a href="index.html#BoundaryIs">BoundaryIs</a> `xml:&#34;innerBoundaryIs&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Style">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/kml/kml.go?s=1120:1295#L42">Style</a>
+				<a class="permalink" href="index.html#Style">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Marker Styling
+</p>
+
+			<pre>type Style struct {
+<span id="Style.Id"></span>    Id        <a href="/main/pkg/builtin/#string">string</a>    `xml:&#34;id,attr&#34;`
+<span id="Style.IconStyle"></span>    IconStyle <a href="index.html#IconStyle">IconStyle</a> `xml:&#34;IconStyle&#34;`
+<span id="Style.LineStyle"></span>    LineStyle <a href="index.html#LineStyle">LineStyle</a> `xml:&#34;LineStyle&#34;`
+<span id="Style.PolyStyle"></span>    PolyStyle <a href="index.html#PolyStyle">PolyStyle</a> `xml:&#34;PolyStyle&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

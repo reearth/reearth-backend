@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>decoding - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package decoding
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/layer/decoding"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+				
+				<dd><a href="index.html#MustCreateProperty">func MustCreateProperty(t string, v interface{}, sceneID id.SceneID, styleItem interface{}, extension string) *property.Property</a></dd>
+			
+			
+				
+				<dd><a href="index.html#CZMLDecoder">type CZMLDecoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewCZMLDecoder">func NewCZMLDecoder(d *json.Decoder, s id.SceneID) *CZMLDecoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#CZMLDecoder.Decode">func (d *CZMLDecoder) Decode() (Result, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Decoder">type Decoder</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#GeoJSONDecoder">type GeoJSONDecoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewGeoJSONDecoder">func NewGeoJSONDecoder(r io.Reader, s id.SceneID) *GeoJSONDecoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GeoJSONDecoder.Decode">func (d *GeoJSONDecoder) Decode() (Result, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#GeoStyle">type GeoStyle</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#KMLDecoder">type KMLDecoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewKMLDecoder">func NewKMLDecoder(d *xml.Decoder, s id.SceneID) *KMLDecoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#KMLDecoder.Decode">func (d *KMLDecoder) Decode() (Result, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#LayerEncodingFormat">type LayerEncodingFormat</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthDecoder">type ReearthDecoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewReearthDecoder">func NewReearthDecoder(d *json.Decoder, scene id.SceneID) *ReearthDecoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ReearthDecoder.Decode">func (d *ReearthDecoder) Decode() (r Result, err error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ReearthInfobox">type ReearthInfobox</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthInfoboxField">type ReearthInfoboxField</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthLayer">type ReearthLayer</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthProperty">type ReearthProperty</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthPropertyField">type ReearthPropertyField</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthPropertyGroup">type ReearthPropertyGroup</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthPropertyItem">type ReearthPropertyItem</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthPropertyLink">type ReearthPropertyLink</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ReearthRoot">type ReearthRoot</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ReearthRoot.Result">func (r *ReearthRoot) Result(scene id.SceneID) (result Result, err error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Result">type Result</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Result.Merge">func (r Result) Merge(r2 Result) Result</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Result.MergeInitializerResult">func (r Result) MergeInitializerResult(r2 layer.InitializerResult) Result</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Result.RootLayers">func (r Result) RootLayers() layer.List</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Result.Validate">func (r Result) Validate() error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ShapeDecoder">type ShapeDecoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewShapeDecoder">func NewShapeDecoder(r ShapeReader, s id.SceneID) *ShapeDecoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ShapeDecoder.Decode">func (shd *ShapeDecoder) Decode() (Result, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ShapeReader">type ShapeReader</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/common.go">common.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/czml.go">czml.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/decoder.go">decoder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/format.go">format.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/geojson.go">geojson.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/kml.go">kml.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go">reearth.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/shp.go">shp.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span id="ErrBadColor">ErrBadColor</span>  = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;bad color&#34;)
+    <span id="ErrFieldType">ErrFieldType</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;incompatible field Type&#34;)
+)</pre>
+			
+		
+		
+			
+			
+			<h2 id="MustCreateProperty">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/common.go?s=1720:1848#L67">MustCreateProperty</a>
+				<a class="permalink" href="index.html#MustCreateProperty">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func MustCreateProperty(t <a href="/main/pkg/builtin/#string">string</a>, v interface{}, sceneID <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>, styleItem interface{}, extension <a href="http://localhost:8080/pkg/builtin/#string">string</a>) *<a href="../../property/index.html">property</a>.<a href="../../property/index.html#Property">Property</a></pre>
+			
+			
+			
+
+		
+		
+			
+			
+			<h2 id="CZMLDecoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/czml.go?s=249:341#L3">CZMLDecoder</a>
+				<a class="permalink" href="index.html#CZMLDecoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type CZMLDecoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewCZMLDecoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/czml.go?s=343:406#L9">NewCZMLDecoder</a>
+					<a class="permalink" href="index.html#NewCZMLDecoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewCZMLDecoder(d *<a href="/main/pkg/encoding/json/">json</a>.<a href="http://localhost:8080/pkg/encoding/json/#Decoder">Decoder</a>, s <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) *<a href="index.html#CZMLDecoder">CZMLDecoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="CZMLDecoder.Decode">func (*CZMLDecoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/czml.go?s=486:532#L17">Decode</a>
+					<a class="permalink" href="index.html#CZMLDecoder.Decode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#CZMLDecoder">CZMLDecoder</a>) Decode() (<a href="index.html#Result">Result</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Decoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/decoder.go?s=182:234#L1">Decoder</a>
+				<a class="permalink" href="index.html#Decoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Decoder interface {
+    Decode() (<a href="index.html#Result">Result</a>, <a href="/main/pkg/builtin/#error">error</a>)
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="GeoJSONDecoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/geojson.go?s=373:494#L8">GeoJSONDecoder</a>
+				<a class="permalink" href="index.html#GeoJSONDecoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GeoJSONDecoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewGeoJSONDecoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/geojson.go?s=496:561#L15">NewGeoJSONDecoder</a>
+					<a class="permalink" href="index.html#NewGeoJSONDecoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewGeoJSONDecoder(r <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>, s <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) *<a href="index.html#GeoJSONDecoder">GeoJSONDecoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="GeoJSONDecoder.Decode">func (*GeoJSONDecoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/geojson.go?s=644:693#L23">Decode</a>
+					<a class="permalink" href="index.html#GeoJSONDecoder.Decode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#GeoJSONDecoder">GeoJSONDecoder</a>) Decode() (<a href="index.html#Result">Result</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="GeoStyle">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/geojson.go?s=233:372#L3">GeoStyle</a>
+				<a class="permalink" href="index.html#GeoStyle">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GeoStyle struct {
+<span id="GeoStyle.StrokeColor"></span>    StrokeColor <a href="/main/pkg/builtin/#string">string</a>  `json:&#34;stroke&#34;`
+<span id="GeoStyle.StrokeWidth"></span>    StrokeWidth <a href="/main/pkg/builtin/#float64">float64</a> `json:&#34;stroke-width&#34;`
+<span id="GeoStyle.FillColor"></span>    FillColor   <a href="/main/pkg/builtin/#string">string</a>  `json:&#34;fill&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="KMLDecoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/kml.go?s=285:383#L7">KMLDecoder</a>
+				<a class="permalink" href="index.html#KMLDecoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type KMLDecoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewKMLDecoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/kml.go?s=385:445#L13">NewKMLDecoder</a>
+					<a class="permalink" href="index.html#NewKMLDecoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewKMLDecoder(d *<a href="/main/pkg/encoding/xml/">xml</a>.<a href="http://localhost:8080/pkg/encoding/xml/#Decoder">Decoder</a>, s <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) *<a href="index.html#KMLDecoder">KMLDecoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="KMLDecoder.Decode">func (*KMLDecoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/kml.go?s=5885:5930#L245">Decode</a>
+					<a class="permalink" href="index.html#KMLDecoder.Decode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#KMLDecoder">KMLDecoder</a>) Decode() (<a href="index.html#Result">Result</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="LayerEncodingFormat">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/format.go?s=18:49#L1">LayerEncodingFormat</a>
+				<a class="permalink" href="index.html#LayerEncodingFormat">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type LayerEncodingFormat <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span id="LayerEncodingFormatKML">LayerEncodingFormatKML</span>     <a href="index.html#LayerEncodingFormat">LayerEncodingFormat</a> = &#34;kml&#34;
+    <span id="LayerEncodingFormatCZML">LayerEncodingFormatCZML</span>    <a href="index.html#LayerEncodingFormat">LayerEncodingFormat</a> = &#34;czml&#34;
+    <span id="LayerEncodingFormatGEOJSON">LayerEncodingFormatGEOJSON</span> <a href="index.html#LayerEncodingFormat">LayerEncodingFormat</a> = &#34;geojson&#34;
+    <span id="LayerEncodingFormatSHAPE">LayerEncodingFormatSHAPE</span>   <a href="index.html#LayerEncodingFormat">LayerEncodingFormat</a> = &#34;shape&#34;
+    <span id="LayerEncodingFormatREEARTH">LayerEncodingFormatREEARTH</span> <a href="index.html#LayerEncodingFormat">LayerEncodingFormat</a> = &#34;reearth&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthDecoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=252:321#L3">ReearthDecoder</a>
+				<a class="permalink" href="index.html#ReearthDecoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthDecoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewReearthDecoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=323:396#L8">NewReearthDecoder</a>
+					<a class="permalink" href="index.html#NewReearthDecoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewReearthDecoder(d *<a href="/main/pkg/encoding/json/">json</a>.<a href="http://localhost:8080/pkg/encoding/json/#Decoder">Decoder</a>, scene <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) *<a href="index.html#ReearthDecoder">ReearthDecoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="ReearthDecoder.Decode">func (*ReearthDecoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=446:501#L12">Decode</a>
+					<a class="permalink" href="index.html#ReearthDecoder.Decode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ReearthDecoder">ReearthDecoder</a>) Decode() (r <a href="index.html#Result">Result</a>, err <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ReearthInfobox">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=2824:2954#L112">ReearthInfobox</a>
+				<a class="permalink" href="index.html#ReearthInfobox">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthInfobox struct {
+<span id="ReearthInfobox.Property"></span>    Property *<a href="index.html#ReearthProperty">ReearthProperty</a>       `json:&#34;property&#34;`
+<span id="ReearthInfobox.Blocks"></span>    Blocks   []*<a href="index.html#ReearthInfoboxField">ReearthInfoboxField</a> `json:&#34;blocks&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthInfoboxField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=3505:3689#L143">ReearthInfoboxField</a>
+				<a class="permalink" href="index.html#ReearthInfoboxField">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthInfoboxField struct {
+<span id="ReearthInfoboxField.Plugin"></span>    Plugin    <a href="../../id/index.html">id</a>.<a href="../../id/index.html#PluginID">PluginID</a>          `json:&#34;plugin&#34;`
+<span id="ReearthInfoboxField.Extension"></span>    Extension <a href="../../id/index.html">id</a>.<a href="../../id/index.html#PluginExtensionID">PluginExtensionID</a> `json:&#34;extension&#34;`
+<span id="ReearthInfoboxField.Property"></span>    Property  *<a href="index.html#ReearthProperty">ReearthProperty</a>     `json:&#34;property&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthLayer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=1222:1808#L58">ReearthLayer</a>
+				<a class="permalink" href="index.html#ReearthLayer">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthLayer struct {
+<span id="ReearthLayer.Plugin"></span>    Plugin              *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#PluginID">PluginID</a>          `json:&#34;plugin&#34;`
+<span id="ReearthLayer.Extension"></span>    Extension           *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#PluginExtensionID">PluginExtensionID</a> `json:&#34;extension&#34;`
+<span id="ReearthLayer.Name"></span>    Name                <a href="/main/pkg/builtin/#string">string</a>                `json:&#34;name&#34;`
+<span id="ReearthLayer.Infobox"></span>    Infobox             *<a href="index.html#ReearthInfobox">ReearthInfobox</a>       `json:&#34;infobox&#34;`
+<span id="ReearthLayer.Property"></span>    Property            *<a href="index.html#ReearthProperty">ReearthProperty</a>      `json:&#34;property&#34;`
+<span id="ReearthLayer.Layers"></span>    Layers              []<a href="index.html#ReearthLayer">ReearthLayer</a>        `json:&#34;layers&#34;`
+<span id="ReearthLayer.IsVisible"></span>    IsVisible           *<a href="/main/pkg/builtin/#bool">bool</a>                 `json:&#34;isVisible&#34;`
+<span id="ReearthLayer.LinkedDatasetSchema"></span>    LinkedDatasetSchema *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#DatasetSchemaID">DatasetSchemaID</a>   `json:&#34;linkedDatasetSchema&#34;`
+<span id="ReearthLayer.LinkedDataset"></span>    LinkedDataset       *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#DatasetID">DatasetID</a>         `json:&#34;linkedDataset&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthProperty">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=4218:4287#L175">ReearthProperty</a>
+				<a class="permalink" href="index.html#ReearthProperty">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthProperty map[<a href="../../id/index.html">id</a>.<a href="../../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>]<a href="index.html#ReearthPropertyItem">ReearthPropertyItem</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthPropertyField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=6041:6211#L257">ReearthPropertyField</a>
+				<a class="permalink" href="index.html#ReearthPropertyField">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthPropertyField struct {
+<span id="ReearthPropertyField.Type"></span>    Type  <a href="/main/pkg/builtin/#string">string</a>                 `json:&#34;type&#34;`
+<span id="ReearthPropertyField.Links"></span>    Links []*<a href="index.html#ReearthPropertyLink">ReearthPropertyLink</a> `json:&#34;links&#34;`
+<span id="ReearthPropertyField.Value"></span>    Value interface{}            `json:&#34;value&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthPropertyGroup">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=5579:5655#L237">ReearthPropertyGroup</a>
+				<a class="permalink" href="index.html#ReearthPropertyGroup">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthPropertyGroup map[<a href="../../id/index.html">id</a>.<a href="../../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>]*<a href="index.html#ReearthPropertyField">ReearthPropertyField</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthPropertyItem">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=4661:4790#L194">ReearthPropertyItem</a>
+				<a class="permalink" href="index.html#ReearthPropertyItem">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthPropertyItem struct {
+<span id="ReearthPropertyItem.Groups"></span>    Groups []<a href="index.html#ReearthPropertyGroup">ReearthPropertyGroup</a> `json:&#34;groups&#34;`
+<span id="ReearthPropertyItem.Fields"></span>    Fields <a href="index.html#ReearthPropertyGroup">ReearthPropertyGroup</a>   `json:&#34;fields&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthPropertyLink">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=6876:7058#L298">ReearthPropertyLink</a>
+				<a class="permalink" href="index.html#ReearthPropertyLink">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthPropertyLink struct {
+<span id="ReearthPropertyLink.Dataset"></span>    Dataset *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#DatasetID">DatasetID</a>           `json:&#34;dataset&#34;`
+<span id="ReearthPropertyLink.Schema"></span>    Schema  <a href="../../id/index.html">id</a>.<a href="../../id/index.html#DatasetSchemaID">DatasetSchemaID</a>      `json:&#34;schema&#34;`
+<span id="ReearthPropertyLink.Field"></span>    Field   <a href="../../id/index.html">id</a>.<a href="../../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a> `json:&#34;field&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ReearthRoot">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=715:825#L31">ReearthRoot</a>
+				<a class="permalink" href="index.html#ReearthRoot">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ReearthRoot struct {
+<span id="ReearthRoot.Reearth"></span>    Reearth <a href="/main/pkg/builtin/#int">int</a>             `json:&#34;reearth&#34;`
+<span id="ReearthRoot.Layers"></span>    Layers  []*<a href="index.html#ReearthLayer">ReearthLayer</a> `json:&#34;layers&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ReearthRoot.Result">func (*ReearthRoot) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/reearth.go?s=827:900#L36">Result</a>
+					<a class="permalink" href="index.html#ReearthRoot.Result">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#ReearthRoot">ReearthRoot</a>) Result(scene <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) (result <a href="index.html#Result">Result</a>, err <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Result">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/decoder.go?s=236:331#L5">Result</a>
+				<a class="permalink" href="index.html#Result">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Result struct {
+<span id="Result.Root"></span>    Root       *<a href="../index.html">layer</a>.<a href="../index.html#IDList">IDList</a>
+<span id="Result.Layers"></span>    Layers     <a href="../index.html">layer</a>.<a href="../index.html#Map">Map</a>
+<span id="Result.Properties"></span>    Properties <a href="../../property/index.html">property</a>.<a href="../../property/index.html#Map">Map</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Result.Merge">func (Result) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/decoder.go?s=408:447#L15">Merge</a>
+					<a class="permalink" href="index.html#Result.Merge">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#Result">Result</a>) Merge(r2 <a href="index.html#Result">Result</a>) <a href="index.html#Result">Result</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Result.MergeInitializerResult">func (Result) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/decoder.go?s=627:700#L25">MergeInitializerResult</a>
+					<a class="permalink" href="index.html#Result.MergeInitializerResult">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#Result">Result</a>) MergeInitializerResult(r2 <a href="../index.html">layer</a>.<a href="../index.html#InitializerResult">InitializerResult</a>) <a href="index.html#Result">Result</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Result.RootLayers">func (Result) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/decoder.go?s=333:372#L11">RootLayers</a>
+					<a class="permalink" href="index.html#Result.RootLayers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#Result">Result</a>) RootLayers() <a href="../index.html">layer</a>.<a href="../index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Result.Validate">func (Result) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/decoder.go?s=867:899#L33">Validate</a>
+					<a class="permalink" href="index.html#Result.Validate">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r <a href="index.html#Result">Result</a>) Validate() <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ShapeDecoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/shp.go?s=303:372#L5">ShapeDecoder</a>
+				<a class="permalink" href="index.html#ShapeDecoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ShapeDecoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewShapeDecoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/shp.go?s=374:437#L10">NewShapeDecoder</a>
+					<a class="permalink" href="index.html#NewShapeDecoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewShapeDecoder(r <a href="index.html#ShapeReader">ShapeReader</a>, s <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) *<a href="index.html#ShapeDecoder">ShapeDecoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="ShapeDecoder.Decode">func (*ShapeDecoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/shp.go?s=1250:1299#L51">Decode</a>
+					<a class="permalink" href="index.html#ShapeDecoder.Decode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (shd *<a href="index.html#ShapeDecoder">ShapeDecoder</a>) Decode() (<a href="index.html#Result">Result</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ShapeReader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/decoding/shp.go?s=220:302#L1">ShapeReader</a>
+				<a class="permalink" href="index.html#ShapeReader">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ShapeReader interface {
+    Next() <a href="/main/pkg/builtin/#bool">bool</a>
+    Shape() (<a href="/main/pkg/builtin/#int">int</a>, <a href="../../shp/index.html">shp</a>.<a href="../../shp/index.html#Shape">Shape</a>)
+    Err() <a href="/main/pkg/builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

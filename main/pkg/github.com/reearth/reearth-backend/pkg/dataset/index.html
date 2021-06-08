@@ -1,0 +1,3033 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>dataset - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package dataset
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/dataset"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#Builder">type Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#New">func New() *Builder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Build">func (b *Builder) Build() (*Dataset, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Fields">func (b *Builder) Fields(fields []*Field) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.DatasetID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.MustBuild">func (b *Builder) MustBuild() *Dataset</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.NewID">func (b *Builder) NewID() *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Scene">func (b *Builder) Scene(scene id.SceneID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Schema">func (b *Builder) Schema(schema id.DatasetSchemaID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Source">func (b *Builder) Source(source Source) *Builder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Dataset">type Dataset</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.Field">func (d *Dataset) Field(id id.DatasetSchemaFieldID) *Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.FieldBySource">func (d *Dataset) FieldBySource(source Source) *Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.FieldByType">func (d *Dataset) FieldByType(t ValueType) *Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.FieldRef">func (d *Dataset) FieldRef(id *id.DatasetSchemaFieldID) *Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.Fields">func (d *Dataset) Fields() []*Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.ID">func (d *Dataset) ID() (i id.DatasetID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.NameField">func (d *Dataset) NameField(ds *Schema) *Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.Scene">func (d *Dataset) Scene() (i id.SceneID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.Schema">func (d *Dataset) Schema() (i id.DatasetSchemaID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Dataset.Source">func (d *Dataset) Source() (i Source)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#DatasetCSVParser">type DatasetCSVParser</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewCSVParser">func NewCSVParser(r io.Reader, n string, seperator rune) *DatasetCSVParser</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#DatasetCSVParser.CheckCompatible">func (p *DatasetCSVParser) CheckCompatible(s *Schema) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#DatasetCSVParser.GuessSchema">func (p *DatasetCSVParser) GuessSchema(sid id.SceneID) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#DatasetCSVParser.Init">func (p *DatasetCSVParser) Init() error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#DatasetCSVParser.ReadAll">func (p *DatasetCSVParser) ReadAll() (*Schema, []*Dataset, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Diff">type Diff</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Field">type Field</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewField">func NewField(field id.DatasetSchemaFieldID, value *Value, source Source) *Field</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Field.Field">func (d *Field) Field() (i id.DatasetSchemaFieldID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Field.FieldRef">func (d *Field) FieldRef() *id.DatasetSchemaFieldID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Field.Source">func (d *Field) Source() (s Source)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Field.Type">func (d *Field) Type() (v ValueType)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Field.Value">func (d *Field) Value() *Value</a></dd>
+				
+			
+				
+				<dd><a href="index.html#GraphIterator">type GraphIterator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GraphIteratorFrom">func GraphIteratorFrom(root id.DatasetID, depth int) *GraphIterator</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GraphIterator.Next">func (di *GraphIterator) Next(d *Dataset) (id.DatasetID, bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GraphIterator.Result">func (di *GraphIterator) Result() Map</a></dd>
+				
+			
+				
+				<dd><a href="index.html#GraphLoader">type GraphLoader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GraphLoaderFromMap">func GraphLoaderFromMap(m Map) GraphLoader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GraphLoaderFromMapAndGraph">func GraphLoaderFromMapAndGraph(m Map, g GraphLoader) GraphLoader</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#LatLng">type LatLng</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LatLngFrom">func LatLngFrom(m interface{}) (LatLng, bool)</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#LatLngHeight">type LatLngHeight</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LatLngHeightFrom">func LatLngHeightFrom(m interface{}) (LatLngHeight, bool)</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#List">type List</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.DiffBySource">func (l List) DiffBySource(l2 List) Diff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.FilterByDatasetSchema">func (l List) FilterByDatasetSchema(s id.DatasetSchemaID) List</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.FindDataset">func (l List) FindDataset(id id.DatasetID) *Dataset</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.FindDatasetBySource">func (l List) FindDatasetBySource(s Source) *Dataset</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.First">func (l List) First() *Dataset</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.GraphLoader">func (l List) GraphLoader() GraphLoader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Last">func (l List) Last() *Dataset</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Loader">func (l List) Loader() Loader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Map">func (l List) Map() Map</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.ToDatasetIds">func (l List) ToDatasetIds() []id.DatasetID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Loader">type Loader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LoaderFrom">func LoaderFrom(data []*Dataset) Loader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LoaderFromMap">func LoaderFromMap(data map[id.DatasetID]*Dataset) Loader</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Map">type Map</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Add">func (dm Map) Add(dss ...*Dataset)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.GraphLoader">func (dm Map) GraphLoader() GraphLoader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.GraphSearchByFields">func (dm Map) GraphSearchByFields(root id.DatasetID, fields ...id.DatasetSchemaFieldID) (List, *Field)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Loader">func (dm Map) Loader() Loader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Map.Slice">func (dm Map) Slice() List</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Schema">type Schema</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Dynamic">func (d *Schema) Dynamic() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Field">func (d *Schema) Field(id id.DatasetSchemaFieldID) *SchemaField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.FieldBySource">func (d *Schema) FieldBySource(source Source) *SchemaField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.FieldByType">func (d *Schema) FieldByType(t ValueType) *SchemaField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.FieldDiffBySource">func (d *Schema) FieldDiffBySource(d2 *Schema) SchemaFieldDiff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.FieldRef">func (d *Schema) FieldRef(id *id.DatasetSchemaFieldID) *SchemaField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Fields">func (d *Schema) Fields() []*SchemaField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.ID">func (d *Schema) ID() (i id.DatasetSchemaID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.IDRef">func (d *Schema) IDRef() *id.DatasetSchemaID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Name">func (d *Schema) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Rename">func (u *Schema) Rename(name string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.RepresentativeField">func (d *Schema) RepresentativeField() *SchemaField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.RepresentativeFieldID">func (d *Schema) RepresentativeFieldID() *id.DatasetSchemaFieldID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Scene">func (d *Schema) Scene() (i id.SceneID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Source">func (d *Schema) Source() (s Source)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SchemaBuilder">type SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewSchema">func NewSchema() *SchemaBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.Build">func (b *SchemaBuilder) Build() (*Schema, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.Dynamic">func (b *SchemaBuilder) Dynamic(dynamic bool) *SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.Fields">func (b *SchemaBuilder) Fields(fields []*SchemaField) *SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.ID">func (b *SchemaBuilder) ID(id id.DatasetSchemaID) *SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.MustBuild">func (b *SchemaBuilder) MustBuild() *Schema</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.Name">func (b *SchemaBuilder) Name(name string) *SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.NewID">func (b *SchemaBuilder) NewID() *SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.RepresentativeField">func (b *SchemaBuilder) RepresentativeField(representativeField id.DatasetSchemaFieldID) *SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.Scene">func (b *SchemaBuilder) Scene(scene id.SceneID) *SchemaBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaBuilder.Source">func (b *SchemaBuilder) Source(source Source) *SchemaBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SchemaField">type SchemaField</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.ID">func (d *SchemaField) ID() (i id.DatasetSchemaFieldID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.IDRef">func (d *SchemaField) IDRef() *id.DatasetSchemaFieldID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.Name">func (d *SchemaField) Name() (n string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.Ref">func (d *SchemaField) Ref() *id.DatasetSchemaID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.Source">func (d *SchemaField) Source() (s Source)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.Type">func (d *SchemaField) Type() (v ValueType)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SchemaFieldBuilder">type SchemaFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewSchemaField">func NewSchemaField() *SchemaFieldBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.Build">func (b *SchemaFieldBuilder) Build() (*SchemaField, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.ID">func (b *SchemaFieldBuilder) ID(id id.DatasetSchemaFieldID) *SchemaFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.MustBuild">func (b *SchemaFieldBuilder) MustBuild() *SchemaField</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.Name">func (b *SchemaFieldBuilder) Name(name string) *SchemaFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.NewID">func (b *SchemaFieldBuilder) NewID() *SchemaFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.Ref">func (b *SchemaFieldBuilder) Ref(ref *id.DatasetSchemaID) *SchemaFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.Source">func (b *SchemaFieldBuilder) Source(source Source) *SchemaFieldBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaFieldBuilder.Type">func (b *SchemaFieldBuilder) Type(dataType ValueType) *SchemaFieldBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SchemaFieldDiff">type SchemaFieldDiff</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#SchemaGraphIterator">type SchemaGraphIterator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGraphIteratorFrom">func SchemaGraphIteratorFrom(root id.DatasetSchemaID, depth int) *SchemaGraphIterator</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGraphIterator.Next">func (di *SchemaGraphIterator) Next(d *Schema) (id.DatasetSchemaID, bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGraphIterator.Result">func (di *SchemaGraphIterator) Result() SchemaMap</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SchemaList">type SchemaList</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaList.Map">func (dsl SchemaList) Map() SchemaMap</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SchemaMap">type SchemaMap</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaMap.GraphSearchByFields">func (dsm SchemaMap) GraphSearchByFields(root id.DatasetSchemaID, fields ...id.DatasetSchemaFieldID) (SchemaList, *SchemaField)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaMap.Slice">func (dsm SchemaMap) Slice() SchemaList</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Source">type Source</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Source.String">func (d Source) String() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Value">type Value</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueFrom">func ValueFrom(v interface{}) *Value</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Clone">func (v *Value) Clone() *Value</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Interface">func (v *Value) Interface() interface{}</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Type">func (v *Value) Type() ValueType</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Value">func (v *Value) Value() interface{}</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueBool">func (v *Value) ValueBool() *bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLng">func (v *Value) ValueLatLng() *LatLng</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLngHeight">func (v *Value) ValueLatLngHeight() *LatLngHeight</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueNumber">func (v *Value) ValueNumber() *float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueRef">func (v *Value) ValueRef() *id.ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueString">func (v *Value) ValueString() *string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueURL">func (v *Value) ValueURL() *url.URL</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ValueType">type ValueType</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueTypeFrom">func ValueTypeFrom(t string) (ValueType, bool)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.Validate">func (t ValueType) Validate() (ValueType, bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.ValidateValue">func (t ValueType) ValidateValue(v *Value) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.ValueFrom">func (t ValueType) ValueFrom(v interface{}) *Value</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go">builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/csvparser.go">csvparser.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go">dataset.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/diff.go">diff.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go">field.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_iterator.go">graph_iterator.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_loader.go">graph_loader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go">list.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/loader.go">loader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go">schema.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go">schema_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go">schema_field.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go">schema_field_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_diff.go">schema_field_diff.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_graph_iterator.go">schema_graph_iterator.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_list.go">schema_list.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/source.go">source.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go">value.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span class="comment">// ErrFailedToParseCSVorTSVFile _</span>
+    <span id="ErrFailedToParseCSVorTSVFile">ErrFailedToParseCSVorTSVFile</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse file content&#34;)
+    <span class="comment">// ErrIncompatibleSchema _</span>
+    <span id="ErrIncompatibleSchema">ErrIncompatibleSchema</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;schema is not compatible with csv&#34;)
+    <span class="comment">// ErrDuplicatiedNameFields _</span>
+    <span id="ErrDuplicatiedNameFields">ErrDuplicatiedNameFields</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse, name-duplicated fields&#34;)
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=87:122#L1">Builder</a>
+				<a class="permalink" href="index.html#Builder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Builder _
+</p>
+
+			<pre>type Builder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=133:152#L3">New</a>
+					<a class="permalink" href="index.html#New">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+New _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=201:244#L8">Build</a>
+					<a class="permalink" href="index.html#Builder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#Dataset">Dataset</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Build _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Fields">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=1083:1133#L59">Fields</a>
+					<a class="permalink" href="index.html#Builder.Fields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Fields(fields []*<a href="index.html#Field">Field</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Fields _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=600:646#L29">ID</a>
+					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=484:522#L20">MustBuild</a>
+					<a class="permalink" href="index.html#Builder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) MustBuild() *<a href="index.html#Dataset">Dataset</a></pre>
+				<p>
+MustBuild _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=686:720#L35">NewID</a>
+					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) NewID() *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+NewID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Scene">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=780:830#L41">Scene</a>
+					<a class="permalink" href="index.html#Builder.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Scene(scene <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Scene _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Schema">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=974:1034#L53">Schema</a>
+					<a class="permalink" href="index.html#Builder.Schema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Schema(schema <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Schema _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Source">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/builder.go?s=877:925#L47">Source</a>
+					<a class="permalink" href="index.html#Builder.Source">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Source(source <a href="index.html#Source">Source</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Source _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Dataset">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=82:264#L1">Dataset</a>
+				<a class="permalink" href="index.html#Dataset">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Dataset _
+</p>
+
+			<pre>type Dataset struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Dataset.Field">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=914:972#L50">Field</a>
+					<a class="permalink" href="index.html#Dataset.Field">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) Field(id <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) *<a href="index.html#Field">Field</a></pre>
+				<p>
+Field _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.FieldBySource">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=1445:1498#L81">FieldBySource</a>
+					<a class="permalink" href="index.html#Dataset.FieldBySource">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) FieldBySource(source <a href="index.html#Source">Source</a>) *<a href="index.html#Field">Field</a></pre>
+				<p>
+FieldBySource _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.FieldByType">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=1639:1688#L94">FieldByType</a>
+					<a class="permalink" href="index.html#Dataset.FieldByType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) FieldByType(t <a href="index.html#ValueType">ValueType</a>) *<a href="index.html#Field">Field</a></pre>
+				<p>
+FieldByType _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.FieldRef">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=1063:1125#L58">FieldRef</a>
+					<a class="permalink" href="index.html#Dataset.FieldRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) FieldRef(id *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) *<a href="index.html#Field">Field</a></pre>
+				<p>
+FieldRef _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.Fields">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=681:716#L38">Fields</a>
+					<a class="permalink" href="index.html#Dataset.Fields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) Fields() []*<a href="index.html#Field">Field</a></pre>
+				<p>
+Fields _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.ID">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=274:313#L6">ID</a>
+					<a class="permalink" href="index.html#Dataset.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) ID() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>)</pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.NameField">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=1212:1258#L66">NameField</a>
+					<a class="permalink" href="index.html#Dataset.NameField">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) NameField(ds *<a href="index.html#Schema">Schema</a>) *<a href="index.html#Field">Field</a></pre>
+				<p>
+NameField _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.Scene">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=370:410#L14">Scene</a>
+					<a class="permalink" href="index.html#Dataset.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) Scene() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>)</pre>
+				<p>
+Scene _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.Schema">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=570:619#L30">Schema</a>
+					<a class="permalink" href="index.html#Dataset.Schema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) Schema() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>)</pre>
+				<p>
+Schema _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Dataset.Source">func (*Dataset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/dataset.go?s=471:508#L22">Source</a>
+					<a class="permalink" href="index.html#Dataset.Source">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Dataset">Dataset</a>) Source() (i <a href="index.html#Source">Source</a>)</pre>
+				<p>
+Source _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="DatasetCSVParser">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/csvparser.go?s=469:601#L11">DatasetCSVParser</a>
+				<a class="permalink" href="index.html#DatasetCSVParser">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type DatasetCSVParser struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewCSVParser">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/csvparser.go?s=603:677#L19">NewCSVParser</a>
+					<a class="permalink" href="index.html#NewCSVParser">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewCSVParser(r <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>, n <a href="http://localhost:8080/pkg/builtin/#string">string</a>, seperator <a href="http://localhost:8080/pkg/builtin/#rune">rune</a>) *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="DatasetCSVParser.CheckCompatible">func (*DatasetCSVParser) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/csvparser.go?s=4414:4473#L186">CheckCompatible</a>
+					<a class="permalink" href="index.html#DatasetCSVParser.CheckCompatible">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) CheckCompatible(s *<a href="index.html#Schema">Schema</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="DatasetCSVParser.GuessSchema">func (*DatasetCSVParser) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/csvparser.go?s=1547:1607#L67">GuessSchema</a>
+					<a class="permalink" href="index.html#DatasetCSVParser.GuessSchema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) GuessSchema(sid <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="DatasetCSVParser.Init">func (*DatasetCSVParser) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/csvparser.go?s=798:837#L29">Init</a>
+					<a class="permalink" href="index.html#DatasetCSVParser.Init">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) Init() <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="DatasetCSVParser.ReadAll">func (*DatasetCSVParser) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/csvparser.go?s=2420:2485#L104">ReadAll</a>
+					<a class="permalink" href="index.html#DatasetCSVParser.ReadAll">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) ReadAll() (*<a href="index.html#Schema">Schema</a>, []*<a href="index.html#Dataset">Dataset</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Diff">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/diff.go?s=79:162#L1">Diff</a>
+				<a class="permalink" href="index.html#Diff">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Diff _
+</p>
+
+			<pre>type Diff struct {
+<span id="Diff.Added"></span>    Added   <a href="index.html#List">List</a>
+<span id="Diff.Removed"></span>    Removed <a href="index.html#List">List</a>
+<span id="Diff.Others"></span>    Others  map[<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>]*<a href="index.html#Dataset">Dataset</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Field">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go?s=80:181#L1">Field</a>
+				<a class="permalink" href="index.html#Field">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Field _
+</p>
+
+			<pre>type Field struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewField">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go?s=197:277#L4">NewField</a>
+					<a class="permalink" href="index.html#NewField">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewField(field <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>, value *<a href="index.html#Value">Value</a>, source <a href="index.html#Source">Source</a>) *<a href="index.html#Field">Field</a></pre>
+				<p>
+NewField _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Field.Field">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go?s=389:440#L14">Field</a>
+					<a class="permalink" href="index.html#Field.Field">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Field">Field</a>) Field() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>)</pre>
+				<p>
+Field _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Field.FieldRef">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go?s=503:554#L22">FieldRef</a>
+					<a class="permalink" href="index.html#Field.FieldRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Field">Field</a>) FieldRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a></pre>
+				<p>
+FieldRef _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Field.Source">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go?s=814:849#L46">Source</a>
+					<a class="permalink" href="index.html#Field.Source">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Field">Field</a>) Source() (s <a href="index.html#Source">Source</a>)</pre>
+				<p>
+Source _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Field.Type">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go?s=623:659#L30">Type</a>
+					<a class="permalink" href="index.html#Field.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Field">Field</a>) Type() (v <a href="index.html#ValueType">ValueType</a>)</pre>
+				<p>
+Type _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Field.Value">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/field.go?s=719:749#L38">Value</a>
+					<a class="permalink" href="index.html#Field.Value">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Field">Field</a>) Value() *<a href="index.html#Value">Value</a></pre>
+				<p>
+Value _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="GraphIterator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_iterator.go?s=168:325#L1">GraphIterator</a>
+				<a class="permalink" href="index.html#GraphIterator">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+GraphIterator は、データセットをグラフ探索するためのイテレータです。
+</p>
+
+			<pre>type GraphIterator struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GraphIteratorFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_iterator.go?s=350:417#L5">GraphIteratorFrom</a>
+					<a class="permalink" href="index.html#GraphIteratorFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GraphIteratorFrom(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, depth <a href="/main/pkg/builtin/#int">int</a>) *<a href="index.html#GraphIterator">GraphIterator</a></pre>
+				<p>
+GraphIteratorFrom _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="GraphIterator.Next">func (*GraphIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_iterator.go?s=517:579#L13">Next</a>
+					<a class="permalink" href="index.html#GraphIterator.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (di *<a href="index.html#GraphIterator">GraphIterator</a>) Next(d *<a href="index.html#Dataset">Dataset</a>) (<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Next _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="GraphIterator.Result">func (*GraphIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_iterator.go?s=1583:1620#L57">Result</a>
+					<a class="permalink" href="index.html#GraphIterator.Result">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (di *<a href="index.html#GraphIterator">GraphIterator</a>) Result() <a href="index.html#Map">Map</a></pre>
+				<p>
+Result _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="GraphLoader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_loader.go?s=86:188#L1">GraphLoader</a>
+				<a class="permalink" href="index.html#GraphLoader">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GraphLoader func(<a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) (<a href="index.html#List">List</a>, *<a href="index.html#Field">Field</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GraphLoaderFromMap">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_loader.go?s=190:232#L1">GraphLoaderFromMap</a>
+					<a class="permalink" href="index.html#GraphLoaderFromMap">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GraphLoaderFromMap(m <a href="index.html#Map">Map</a>) <a href="index.html#GraphLoader">GraphLoader</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="GraphLoaderFromMapAndGraph">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/graph_loader.go?s=435:500#L8">GraphLoaderFromMapAndGraph</a>
+					<a class="permalink" href="index.html#GraphLoaderFromMapAndGraph">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GraphLoaderFromMapAndGraph(m <a href="index.html#Map">Map</a>, g <a href="index.html#GraphLoader">GraphLoader</a>) <a href="index.html#GraphLoader">GraphLoader</a></pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="LatLng">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=135:225#L1">LatLng</a>
+				<a class="permalink" href="index.html#LatLng">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+LatLng _
+</p>
+
+			<pre>type LatLng struct {
+<span id="LatLng.Lat"></span>    Lat <a href="/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lat&#34;`
+<span id="LatLng.Lng"></span>    Lng <a href="/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lng&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="LatLngFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=243:288#L7">LatLngFrom</a>
+					<a class="permalink" href="index.html#LatLngFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func LatLngFrom(m interface{}) (<a href="index.html#LatLng">LatLng</a>, <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+LatLngFrom _
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="LatLngHeight">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=384:526#L14">LatLngHeight</a>
+				<a class="permalink" href="index.html#LatLngHeight">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+LatLngHeight _
+</p>
+
+			<pre>type LatLngHeight struct {
+<span id="LatLngHeight.Lat"></span>    Lat    <a href="/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lat&#34;`
+<span id="LatLngHeight.Lng"></span>    Lng    <a href="/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lng&#34;`
+<span id="LatLngHeight.Height"></span>    Height <a href="/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;height&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="LatLngHeightFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=550:607#L21">LatLngHeightFrom</a>
+					<a class="permalink" href="index.html#LatLngHeightFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func LatLngHeightFrom(m interface{}) (<a href="index.html#LatLngHeight">LatLngHeight</a>, <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+LatLngHeightFrom _
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="List">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=84:104#L1">List</a>
+				<a class="permalink" href="index.html#List">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+List _
+</p>
+
+			<pre>type List []*<a href="index.html#Dataset">Dataset</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="List.DiffBySource">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=1030:1070#L61">DiffBySource</a>
+					<a class="permalink" href="index.html#List.DiffBySource">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) DiffBySource(l2 <a href="index.html#List">List</a>) <a href="index.html#Diff">Diff</a></pre>
+				<p>
+DiffBySource _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="List.FilterByDatasetSchema">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=848:910#L50">FilterByDatasetSchema</a>
+					<a class="permalink" href="index.html#List.FilterByDatasetSchema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) FilterByDatasetSchema(s <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>) <a href="index.html#List">List</a></pre>
+				<p>
+FilterByDatasetSchema _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="List.FindDataset">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=340:391#L17">FindDataset</a>
+					<a class="permalink" href="index.html#List.FindDataset">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) FindDataset(id <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) *<a href="index.html#Dataset">Dataset</a></pre>
+				<p>
+FindDataset _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="List.FindDatasetBySource">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=686:738#L40">FindDatasetBySource</a>
+					<a class="permalink" href="index.html#List.FindDatasetBySource">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) FindDatasetBySource(s <a href="index.html#Source">Source</a>) *<a href="index.html#Dataset">Dataset</a></pre>
+				<p>
+FindDatasetBySource _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="List.First">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=117:147#L1">First</a>
+					<a class="permalink" href="index.html#List.First">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) First() *<a href="index.html#Dataset">Dataset</a></pre>
+				<p>
+First _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="List.GraphLoader">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=1969:2008#L117">GraphLoader</a>
+					<a class="permalink" href="index.html#List.GraphLoader">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) GraphLoader() <a href="index.html#GraphLoader">GraphLoader</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Last">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=222:251#L9">Last</a>
+					<a class="permalink" href="index.html#List.Last">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) Last() *<a href="index.html#Dataset">Dataset</a></pre>
+				<p>
+Last _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="List.Loader">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=1912:1941#L113">Loader</a>
+					<a class="permalink" href="index.html#List.Loader">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) Loader() <a href="index.html#Loader">Loader</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Map">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=1767:1790#L100">Map</a>
+					<a class="permalink" href="index.html#List.Map">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) Map() <a href="index.html#Map">Map</a></pre>
+				<p>
+Map _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="List.ToDatasetIds">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=489:532#L27">ToDatasetIds</a>
+					<a class="permalink" href="index.html#List.ToDatasetIds">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#List">List</a>) ToDatasetIds() []<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a></pre>
+				<p>
+ToDatasetIds _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Loader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/loader.go?s=86:150#L1">Loader</a>
+				<a class="permalink" href="index.html#Loader">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Loader func(<a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) (<a href="index.html#List">List</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="LoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/loader.go?s=152:191#L1">LoaderFrom</a>
+					<a class="permalink" href="index.html#LoaderFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func LoaderFrom(data []*<a href="index.html#Dataset">Dataset</a>) <a href="index.html#Loader">Loader</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="LoaderFromMap">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/loader.go?s=532:589#L21">LoaderFromMap</a>
+					<a class="permalink" href="index.html#LoaderFromMap">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func LoaderFromMap(data map[<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>]*<a href="index.html#Dataset">Dataset</a>) <a href="index.html#Loader">Loader</a></pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Map">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=2059:2093#L122">Map</a>
+				<a class="permalink" href="index.html#Map">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Map _
+</p>
+
+			<pre>type Map map[<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>]*<a href="index.html#Dataset">Dataset</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Map.Add">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=2104:2138#L125">Add</a>
+					<a class="permalink" href="index.html#Map.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dm <a href="index.html#Map">Map</a>) Add(dss ...*<a href="index.html#Dataset">Dataset</a>)</pre>
+				<p>
+Add _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Map.GraphLoader">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=3142:3181#L183">GraphLoader</a>
+					<a class="permalink" href="index.html#Map.GraphLoader">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dm <a href="index.html#Map">Map</a>) GraphLoader() <a href="index.html#GraphLoader">GraphLoader</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.GraphSearchByFields">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=2501:2603#L153">GraphSearchByFields</a>
+					<a class="permalink" href="index.html#Map.GraphSearchByFields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dm <a href="index.html#Map">Map</a>) GraphSearchByFields(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, fields ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) (<a href="index.html#List">List</a>, *<a href="index.html#Field">Field</a>)</pre>
+				<p>
+GraphSearchByFields _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Map.Loader">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=3081:3110#L179">Loader</a>
+					<a class="permalink" href="index.html#Map.Loader">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dm <a href="index.html#Map">Map</a>) Loader() <a href="index.html#Loader">Loader</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Map.Slice">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/list.go?s=2319:2345#L141">Slice</a>
+					<a class="permalink" href="index.html#Map.Slice">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dm <a href="index.html#Map">Map</a>) Slice() <a href="index.html#List">List</a></pre>
+				<p>
+Slice _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Schema">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=81:412#L1">Schema</a>
+				<a class="permalink" href="index.html#Schema">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Schema _
+</p>
+
+			<pre>type Schema struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Schema.Dynamic">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=2190:2221#L118">Dynamic</a>
+					<a class="permalink" href="index.html#Schema.Dynamic">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Dynamic() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Dynamic _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.Field">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=1512:1575#L76">Field</a>
+					<a class="permalink" href="index.html#Schema.Field">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Field(id <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) *<a href="index.html#SchemaField">SchemaField</a></pre>
+				<p>
+Field _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.FieldBySource">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=1805:1863#L92">FieldBySource</a>
+					<a class="permalink" href="index.html#Schema.FieldBySource">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) FieldBySource(source <a href="index.html#Source">Source</a>) *<a href="index.html#SchemaField">SchemaField</a></pre>
+				<p>
+FieldBySource _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.FieldByType">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=2004:2058#L105">FieldByType</a>
+					<a class="permalink" href="index.html#Schema.FieldByType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) FieldByType(t <a href="index.html#ValueType">ValueType</a>) *<a href="index.html#SchemaField">SchemaField</a></pre>
+				<p>
+FieldByType _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.FieldDiffBySource">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_diff.go?s=247:309#L3">FieldDiffBySource</a>
+					<a class="permalink" href="index.html#Schema.FieldDiffBySource">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) FieldDiffBySource(d2 *<a href="index.html#Schema">Schema</a>) <a href="index.html#SchemaFieldDiff">SchemaFieldDiff</a></pre>
+				<p>
+FieldDiffBySource _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.FieldRef">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=1647:1714#L84">FieldRef</a>
+					<a class="permalink" href="index.html#Schema.FieldRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) FieldRef(id *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) *<a href="index.html#SchemaField">SchemaField</a></pre>
+				<p>
+FieldRef _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.Fields">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=1268:1308#L64">Fields</a>
+					<a class="permalink" href="index.html#Schema.Fields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Fields() []*<a href="index.html#SchemaField">SchemaField</a></pre>
+				<p>
+Fields _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.ID">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=422:466#L8">ID</a>
+					<a class="permalink" href="index.html#Schema.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) ID() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>)</pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.IDRef">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=523:567#L16">IDRef</a>
+					<a class="permalink" href="index.html#Schema.IDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a></pre>
+				<p>
+IDRef _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.Name">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=830:860#L40">Name</a>
+					<a class="permalink" href="index.html#Schema.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Name() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.Rename">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=2257:2293#L123">Rename</a>
+					<a class="permalink" href="index.html#Schema.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#Schema">Schema</a>) Rename(name <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				<p>
+Rename _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.RepresentativeField">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=1095:1146#L56">RepresentativeField</a>
+					<a class="permalink" href="index.html#Schema.RepresentativeField">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) RepresentativeField() *<a href="index.html#SchemaField">SchemaField</a></pre>
+				<p>
+RepresentativeField _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.RepresentativeFieldID">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=938:1003#L48">RepresentativeFieldID</a>
+					<a class="permalink" href="index.html#Schema.RepresentativeFieldID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) RepresentativeFieldID() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a></pre>
+				<p>
+RepresentativeFieldID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.Scene">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=634:673#L24">Scene</a>
+					<a class="permalink" href="index.html#Schema.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Scene() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>)</pre>
+				<p>
+Scene _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Schema.Source">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema.go?s=734:770#L32">Source</a>
+					<a class="permalink" href="index.html#Schema.Source">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Source() (s <a href="index.html#Source">Source</a>)</pre>
+				<p>
+Source _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SchemaBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=93:133#L1">SchemaBuilder</a>
+				<a class="permalink" href="index.html#SchemaBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SchemaBuilder _
+</p>
+
+			<pre>type SchemaBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewSchema">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=150:181#L3">NewSchema</a>
+					<a class="permalink" href="index.html#NewSchema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewSchema() *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+NewSchema _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="SchemaBuilder.Build">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=235:283#L8">Build</a>
+					<a class="permalink" href="index.html#SchemaBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Build() (*<a href="index.html#Schema">Schema</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Build _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.Dynamic">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=1075:1135#L53">Dynamic</a>
+					<a class="permalink" href="index.html#SchemaBuilder.Dynamic">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Dynamic(dynamic <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+Dynamic _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.Fields">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=1497:1565#L72">Fields</a>
+					<a class="permalink" href="index.html#SchemaBuilder.Fields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Fields(fields []*<a href="index.html#SchemaField">SchemaField</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+Fields _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.ID">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=650:714#L29">ID</a>
+					<a class="permalink" href="index.html#SchemaBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.MustBuild">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=529:572#L20">MustBuild</a>
+					<a class="permalink" href="index.html#SchemaBuilder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) MustBuild() *<a href="index.html#Schema">Schema</a></pre>
+				<p>
+MustBuild _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.Name">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=973:1029#L47">Name</a>
+					<a class="permalink" href="index.html#SchemaBuilder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.NewID">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=754:800#L35">NewID</a>
+					<a class="permalink" href="index.html#SchemaBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) NewID() *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+NewID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.RepresentativeField">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=1308:1411#L65">RepresentativeField</a>
+					<a class="permalink" href="index.html#SchemaBuilder.RepresentativeField">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) RepresentativeField(representativeField <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+RepresentativeField _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.Scene">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=866:928#L41">Scene</a>
+					<a class="permalink" href="index.html#SchemaBuilder.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Scene(scene <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+Scene _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaBuilder.Source">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_builder.go?s=1186:1246#L59">Source</a>
+					<a class="permalink" href="index.html#SchemaBuilder.Source">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Source(source <a href="index.html#Source">Source</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<p>
+Source _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SchemaField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go?s=200:345#L1">SchemaField</a>
+				<a class="permalink" href="index.html#SchemaField">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SchemaField _
+</p>
+
+			<pre>type SchemaField struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SchemaField.ID">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go?s=355:409#L7">ID</a>
+					<a class="permalink" href="index.html#SchemaField.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) ID() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>)</pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaField.IDRef">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go?s=466:520#L15">IDRef</a>
+					<a class="permalink" href="index.html#SchemaField.IDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a></pre>
+				<p>
+IDRef _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaField.Name">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go?s=586:625#L23">Name</a>
+					<a class="permalink" href="index.html#SchemaField.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) Name() (n <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaField.Ref">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go?s=682:729#L31">Ref</a>
+					<a class="permalink" href="index.html#SchemaField.Ref">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) Ref() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a></pre>
+				<p>
+Ref _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaField.Source">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go?s=896:937#L47">Source</a>
+					<a class="permalink" href="index.html#SchemaField.Source">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) Source() (s <a href="index.html#Source">Source</a>)</pre>
+				<p>
+Source _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaField.Type">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field.go?s=790:832#L39">Type</a>
+					<a class="permalink" href="index.html#SchemaField.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) Type() (v <a href="index.html#ValueType">ValueType</a>)</pre>
+				<p>
+Type _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SchemaFieldBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=109:159#L1">SchemaFieldBuilder</a>
+				<a class="permalink" href="index.html#SchemaFieldBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SchemaFieldBuilder _
+</p>
+
+			<pre>type SchemaFieldBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewSchemaField">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=181:222#L5">NewSchemaField</a>
+					<a class="permalink" href="index.html#NewSchemaField">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewSchemaField() *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<p>
+NewSchemaField _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="SchemaFieldBuilder.Build">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=286:344#L10">Build</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Build() (*<a href="index.html#SchemaField">SchemaField</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Build _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaFieldBuilder.ID">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=668:747#L30">ID</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaFieldBuilder.MustBuild">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=537:590#L21">MustBuild</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) MustBuild() *<a href="index.html#SchemaField">SchemaField</a></pre>
+				<p>
+MustBuild _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaFieldBuilder.Name">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=913:979#L42">Name</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaFieldBuilder.NewID">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=787:843#L36">NewID</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) NewID() *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<p>
+NewID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaFieldBuilder.Ref">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=1264:1341#L60">Ref</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.Ref">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Ref(ref *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>) *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<p>
+Ref _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaFieldBuilder.Source">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=1148:1218#L54">Source</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.Source">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Source(source <a href="index.html#Source">Source</a>) *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<p>
+Source _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaFieldBuilder.Type">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_builder.go?s=1022:1095#L48">Type</a>
+					<a class="permalink" href="index.html#SchemaFieldBuilder.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Type(dataType <a href="index.html#ValueType">ValueType</a>) *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<p>
+Type _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SchemaFieldDiff">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_field_diff.go?s=90:222#L1">SchemaFieldDiff</a>
+				<a class="permalink" href="index.html#SchemaFieldDiff">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SchemaFieldDiff _
+</p>
+
+			<pre>type SchemaFieldDiff struct {
+<span id="SchemaFieldDiff.Added"></span>    Added    []*<a href="index.html#SchemaField">SchemaField</a>
+<span id="SchemaFieldDiff.Removed"></span>    Removed  []*<a href="index.html#SchemaField">SchemaField</a>
+<span id="SchemaFieldDiff.Replaced"></span>    Replaced map[<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>]*<a href="index.html#SchemaField">SchemaField</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="SchemaGraphIterator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_graph_iterator.go?s=174:349#L1">SchemaGraphIterator</a>
+				<a class="permalink" href="index.html#SchemaGraphIterator">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SchemaGraphIterator は、データセットをグラフ探索するためのイテレータです。
+</p>
+
+			<pre>type SchemaGraphIterator struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="SchemaGraphIteratorFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_graph_iterator.go?s=380:465#L5">SchemaGraphIteratorFrom</a>
+					<a class="permalink" href="index.html#SchemaGraphIteratorFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func SchemaGraphIteratorFrom(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, depth <a href="/main/pkg/builtin/#int">int</a>) *<a href="index.html#SchemaGraphIterator">SchemaGraphIterator</a></pre>
+				<p>
+SchemaGraphIteratorFrom _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="SchemaGraphIterator.Next">func (*SchemaGraphIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_graph_iterator.go?s=577:650#L13">Next</a>
+					<a class="permalink" href="index.html#SchemaGraphIterator.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (di *<a href="index.html#SchemaGraphIterator">SchemaGraphIterator</a>) Next(d *<a href="index.html#Schema">Schema</a>) (<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Next _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaGraphIterator.Result">func (*SchemaGraphIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_graph_iterator.go?s=1657:1706#L57">Result</a>
+					<a class="permalink" href="index.html#SchemaGraphIterator.Result">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (di *<a href="index.html#SchemaGraphIterator">SchemaGraphIterator</a>) Result() <a href="index.html#SchemaMap">SchemaMap</a></pre>
+				<p>
+Result _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SchemaList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_list.go?s=85:110#L1">SchemaList</a>
+				<a class="permalink" href="index.html#SchemaList">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SchemaList _
+</p>
+
+			<pre>type SchemaList []*<a href="index.html#Schema">Schema</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SchemaList.Map">func (SchemaList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_list.go?s=121:158#L1">Map</a>
+					<a class="permalink" href="index.html#SchemaList.Map">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dsl <a href="index.html#SchemaList">SchemaList</a>) Map() <a href="index.html#SchemaMap">SchemaMap</a></pre>
+				<p>
+Map _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SchemaMap">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_list.go?s=305:350#L13">SchemaMap</a>
+				<a class="permalink" href="index.html#SchemaMap">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+SchemaMap _
+</p>
+
+			<pre>type SchemaMap map[<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>]*<a href="index.html#Schema">Schema</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SchemaMap.GraphSearchByFields">func (SchemaMap) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_list.go?s=591:718#L30">GraphSearchByFields</a>
+					<a class="permalink" href="index.html#SchemaMap.GraphSearchByFields">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dsm <a href="index.html#SchemaMap">SchemaMap</a>) GraphSearchByFields(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, fields ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) (<a href="index.html#SchemaList">SchemaList</a>, *<a href="index.html#SchemaField">SchemaField</a>)</pre>
+				<p>
+GraphSearchByFields _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SchemaMap.Slice">func (SchemaMap) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/schema_list.go?s=363:402#L16">Slice</a>
+					<a class="permalink" href="index.html#SchemaMap.Slice">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (dsm <a href="index.html#SchemaMap">SchemaMap</a>) Slice() <a href="index.html#SchemaList">SchemaList</a></pre>
+				<p>
+Slice _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Source">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/source.go?s=29:47#L1">Source</a>
+				<a class="permalink" href="index.html#Source">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Source _
+</p>
+
+			<pre>type Source <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Source.String">func (Source) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/source.go?s=79:110#L1">String</a>
+					<a class="permalink" href="index.html#Source.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#Source">Source</a>) String() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+String implements Stringer
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Value">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2024:2073#L90">Value</a>
+				<a class="permalink" href="index.html#Value">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Value _
+</p>
+
+			<pre>type Value struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="ValueFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=6229:6265#L327">ValueFrom</a>
+					<a class="permalink" href="index.html#ValueFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ValueFrom(v interface{}) *<a href="index.html#Value">Value</a></pre>
+				<p>
+ValueFrom _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Value.Clone">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=5785:5815#L302">Clone</a>
+					<a class="permalink" href="index.html#Value.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Clone() *<a href="index.html#Value">Value</a></pre>
+				<p>
+Clone _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.Interface">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=6868:6907#L353">Interface</a>
+					<a class="permalink" href="index.html#Value.Interface">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Interface() interface{}</pre>
+				<p>
+Interface converts the value into generic representation
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.Type">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=3255:3287#L181">Type</a>
+					<a class="permalink" href="index.html#Value.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Type() <a href="index.html#ValueType">ValueType</a></pre>
+				<p>
+Type _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.Value">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2086:2121#L96">Value</a>
+					<a class="permalink" href="index.html#Value.Value">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Value() interface{}</pre>
+				<p>
+Value _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueBool">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2186:2219#L104">ValueBool</a>
+					<a class="permalink" href="index.html#Value.ValueBool">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueBool() *<a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+ValueBool  _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueLatLng">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2933:2970#L159">ValueLatLng</a>
+					<a class="permalink" href="index.html#Value.ValueLatLng">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLng() *<a href="index.html#LatLng">LatLng</a></pre>
+				<p>
+ValueLatLng  _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueLatLngHeight">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=3092:3141#L170">ValueLatLngHeight</a>
+					<a class="permalink" href="index.html#Value.ValueLatLngHeight">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLngHeight() *<a href="index.html#LatLngHeight">LatLngHeight</a></pre>
+				<p>
+ValueLatLngHeight  _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueNumber">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2332:2370#L115">ValueNumber</a>
+					<a class="permalink" href="index.html#Value.ValueNumber">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueNumber() *<a href="/main/pkg/builtin/#float64">float64</a></pre>
+				<p>
+ValueNumber _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueRef">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2636:2669#L137">ValueRef</a>
+					<a class="permalink" href="index.html#Value.ValueRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#ID">ID</a></pre>
+				<p>
+ValueRef _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueString">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2487:2524#L126">ValueString</a>
+					<a class="permalink" href="index.html#Value.ValueString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueString() *<a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+ValueString  _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueURL">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=2781:2816#L148">ValueURL</a>
+					<a class="permalink" href="index.html#Value.ValueURL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueURL() *<a href="/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a></pre>
+				<p>
+ValueURL  _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ValueType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=706:727#L28">ValueType</a>
+				<a class="permalink" href="index.html#ValueType">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+ValueType _
+</p>
+
+			<pre>type ValueType <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span class="comment">// ValueTypeBool _</span>
+    <span id="ValueTypeBool">ValueTypeBool</span> <a href="index.html#ValueType">ValueType</a> = &#34;bool&#34;
+    <span class="comment">// ValueTypeNumber _</span>
+    <span id="ValueTypeNumber">ValueTypeNumber</span> <a href="index.html#ValueType">ValueType</a> = &#34;number&#34;
+    <span class="comment">// ValueTypeString _</span>
+    <span id="ValueTypeString">ValueTypeString</span> <a href="index.html#ValueType">ValueType</a> = &#34;string&#34;
+    <span class="comment">// ValueTypeRef _</span>
+    <span id="ValueTypeRef">ValueTypeRef</span> <a href="index.html#ValueType">ValueType</a> = &#34;ref&#34;
+    <span class="comment">// ValueTypeURL _</span>
+    <span id="ValueTypeURL">ValueTypeURL</span> <a href="index.html#ValueType">ValueType</a> = &#34;url&#34;
+    <span class="comment">// ValueTypeLatLng _</span>
+    <span id="ValueTypeLatLng">ValueTypeLatLng</span> <a href="index.html#ValueType">ValueType</a> = &#34;latlng&#34;
+    <span class="comment">// ValueTypeLatLngHeight _</span>
+    <span id="ValueTypeLatLngHeight">ValueTypeLatLngHeight</span> <a href="index.html#ValueType">ValueType</a> = &#34;latlngheight&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="ValueTypeFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=1173:1219#L48">ValueTypeFrom</a>
+					<a class="permalink" href="index.html#ValueTypeFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ValueTypeFrom(t <a href="/main/pkg/builtin/#string">string</a>) (<a href="index.html#ValueType">ValueType</a>, <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+ValueTypeFrom _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="ValueType.Validate">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=1668:1715#L69">Validate</a>
+					<a class="permalink" href="index.html#ValueType.Validate">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t <a href="index.html#ValueType">ValueType</a>) Validate() (<a href="index.html#ValueType">ValueType</a>, <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Validate _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ValueType.ValidateValue">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=5088:5135#L260">ValidateValue</a>
+					<a class="permalink" href="index.html#ValueType.ValidateValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t <a href="index.html#ValueType">ValueType</a>) ValidateValue(v *<a href="index.html#Value">Value</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+ValidateValue _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ValueType.ValueFrom">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/dataset/value.go?s=3361:3411#L189">ValueFrom</a>
+					<a class="permalink" href="index.html#ValueType.ValueFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t <a href="index.html#ValueType">ValueType</a>) ValueFrom(v interface{}) *<a href="index.html#Value">Value</a></pre>
+				<p>
+ValueFrom _
+</p>
+
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

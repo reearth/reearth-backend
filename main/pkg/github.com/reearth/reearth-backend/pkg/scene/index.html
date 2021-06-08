@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>scene - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package scene
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/scene"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+				<dd><a href="index.html#pkg-subdirectories">Subdirectories</a></dd>
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#Builder">type Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#New">func New() *Builder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Build">func (b *Builder) Build() (*Scene, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.SceneID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.MustBuild">func (b *Builder) MustBuild() *Scene</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.NewID">func (b *Builder) NewID() *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.PluginSystem">func (b *Builder) PluginSystem(pluginSystem *PluginSystem) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Project">func (b *Builder) Project(prj id.ProjectID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Property">func (b *Builder) Property(p id.PropertyID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.RootLayer">func (b *Builder) RootLayer(rootLayer id.LayerID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Team">func (b *Builder) Team(team id.TeamID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.UpdatedAt">func (b *Builder) UpdatedAt(updatedAt time.Time) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.WidgetSystem">func (b *Builder) WidgetSystem(widgetSystem *WidgetSystem) *Builder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#LockMode">type LockMode</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LockMode.IsLocked">func (l LockMode) IsLocked() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LockMode.Validate">func (l LockMode) Validate() (LockMode, bool)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Plugin">type Plugin</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewPlugin">func NewPlugin(plugin id.PluginID, property *id.PropertyID) *Plugin</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Plugin">func (s Plugin) Plugin() id.PluginID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Property">func (s Plugin) Property() *id.PropertyID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PluginSystem">type PluginSystem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewPluginSystem">func NewPluginSystem(p []*Plugin) *PluginSystem</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Add">func (p *PluginSystem) Add(sp *Plugin)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Has">func (p *PluginSystem) Has(id id.PluginID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.HasPlugin">func (p *PluginSystem) HasPlugin(id id.PluginID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Plugin">func (p *PluginSystem) Plugin(pluginID id.PluginID) *Plugin</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Plugins">func (p *PluginSystem) Plugins() []*Plugin</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Properties">func (p *PluginSystem) Properties() []id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Property">func (p *PluginSystem) Property(id id.PluginID) *id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Remove">func (p *PluginSystem) Remove(pid id.PluginID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginSystem.Upgrade">func (p *PluginSystem) Upgrade(pid, newID id.PluginID)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Scene">type Scene</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.CreatedAt">func (s *Scene) CreatedAt() time.Time</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.ID">func (s *Scene) ID() id.SceneID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.IsTeamIncluded">func (s *Scene) IsTeamIncluded(teams []id.TeamID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.PluginSystem">func (s *Scene) PluginSystem() *PluginSystem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.Project">func (s *Scene) Project() id.ProjectID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.Properties">func (s *Scene) Properties() []id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.Property">func (s *Scene) Property() id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.RootLayer">func (s *Scene) RootLayer() id.LayerID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.SetUpdatedAt">func (s *Scene) SetUpdatedAt(updatedAt time.Time)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.Team">func (s *Scene) Team() id.TeamID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.UpdatedAt">func (s *Scene) UpdatedAt() time.Time</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.WidgetSystem">func (s *Scene) WidgetSystem() *WidgetSystem</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Widget">type Widget</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MustNewWidget">func MustNewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) *Widget</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidget">func NewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) (*Widget, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.Enabled">func (w *Widget) Enabled() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.Extension">func (w *Widget) Extension() id.PluginExtensionID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.ID">func (w *Widget) ID() id.WidgetID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.Plugin">func (w *Widget) Plugin() id.PluginID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.Property">func (w *Widget) Property() id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.SetEnabled">func (w *Widget) SetEnabled(enabled bool)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#WidgetSystem">type WidgetSystem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidgetSystem">func NewWidgetSystem(w []*Widget) *WidgetSystem</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Add">func (w *WidgetSystem) Add(sw *Widget)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Has">func (w *WidgetSystem) Has(p id.PluginID, e id.PluginExtensionID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Properties">func (w *WidgetSystem) Properties() []id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Remove">func (w *WidgetSystem) Remove(p id.PluginID, e id.PluginExtensionID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Replace">func (w *WidgetSystem) Replace(oldp, newp id.PluginID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Widget">func (w *WidgetSystem) Widget(p id.PluginID, e id.PluginExtensionID) *Widget</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Widgets">func (w *WidgetSystem) Widgets() []*Widget</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go">builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/lock.go">lock.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin.go">plugin.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go">plugin_system.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go">scene.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go">widget.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go">widget_system.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span id="ErrDuplicatedWidgetInstance">ErrDuplicatedWidgetInstance</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;duplicated widget instance&#34;)
+)</pre>
+			
+				
+				<pre>var <span id="ErrSceneIsLocked">ErrSceneIsLocked</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;scene is locked&#34;)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=94:131#L1">Builder</a>
+				<a class="permalink" href="index.html#Builder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Builder _
+</p>
+
+			<pre>type Builder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=142:161#L5">New</a>
+					<a class="permalink" href="index.html#New">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+New _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=212:253#L10">Build</a>
+					<a class="permalink" href="index.html#Builder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#Scene">Scene</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Build _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=851:895#L42">ID</a>
+					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=737:773#L33">MustBuild</a>
+					<a class="permalink" href="index.html#Builder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) MustBuild() *<a href="index.html#Scene">Scene</a></pre>
+				<p>
+MustBuild _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=939:973#L48">NewID</a>
+					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) NewID() *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+NewID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.PluginSystem">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1651:1718#L85">PluginSystem</a>
+					<a class="permalink" href="index.html#Builder.PluginSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) PluginSystem(pluginSystem *<a href="index.html#PluginSystem">PluginSystem</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+PluginSystem _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Project">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1037:1089#L54">Project</a>
+					<a class="permalink" href="index.html#Builder.Project">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Project(prj <a href="../id/index.html">id</a>.<a href="../id/index.html#ProjectID">ProjectID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Project _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Property">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1819:1871#L92">Property</a>
+					<a class="permalink" href="index.html#Builder.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Property(p <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Property _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.RootLayer">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1528:1586#L79">RootLayer</a>
+					<a class="permalink" href="index.html#Builder.RootLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) RootLayer(rootLayer <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+RootLayer _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Team">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1138:1185#L60">Team</a>
+					<a class="permalink" href="index.html#Builder.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Team(team <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Team _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.UpdatedAt">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1237:1294#L66">UpdatedAt</a>
+					<a class="permalink" href="index.html#Builder.UpdatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) UpdatedAt(updatedAt <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+UpdatedAt _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.WidgetSystem">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1359:1426#L72">WidgetSystem</a>
+					<a class="permalink" href="index.html#Builder.WidgetSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) WidgetSystem(widgetSystem *<a href="index.html#WidgetSystem">WidgetSystem</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+WidgetSystem _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="LockMode">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/lock.go?s=76:96#L1">LockMode</a>
+				<a class="permalink" href="index.html#LockMode">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+LockMode はシーンのロック状態を表します。
+</p>
+
+			<pre>type LockMode <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span class="comment">// LockModeFree はロックがかかっていない状態です。</span>
+    <span id="LockModeFree">LockModeFree</span> <a href="index.html#LockMode">LockMode</a> = &#34;&#34;
+    <span class="comment">// LockModePending は処理待ち中です。データの変更は無制限に変更はできます。</span>
+    <span id="LockModePending">LockModePending</span> <a href="index.html#LockMode">LockMode</a> = &#34;pending&#34;
+    <span class="comment">// LockModePluginUpgrading はプラグインをアップグレード中です。シーンへの各種操作ができません。</span>
+    <span id="LockModePluginUpgrading">LockModePluginUpgrading</span> <a href="index.html#LockMode">LockMode</a> = &#34;plugin upgrading&#34;
+    <span class="comment">// LockModeDatasetSyncing はデータセットを同期中です。シーンへの各種操作ができません。</span>
+    <span id="LockModeDatasetSyncing">LockModeDatasetSyncing</span> <a href="index.html#LockMode">LockMode</a> = &#34;dataset syncing&#34;
+    <span class="comment">// LockModePublishing はシーンを書き出し中です。シーンへの各種操作ができません。</span>
+    <span id="LockModePublishing">LockModePublishing</span> <a href="index.html#LockMode">LockMode</a> = &#34;publishing&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="LockMode.IsLocked">func (LockMode) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/lock.go?s=875:908#L10">IsLocked</a>
+					<a class="permalink" href="index.html#LockMode.IsLocked">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#LockMode">LockMode</a>) IsLocked() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+IsLocked _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="LockMode.Validate">func (LockMode) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/lock.go?s=1029:1074#L21">Validate</a>
+					<a class="permalink" href="index.html#LockMode.Validate">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#LockMode">LockMode</a>) Validate() (<a href="index.html#LockMode">LockMode</a>, <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Validate _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Plugin">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin.go?s=84:153#L1">Plugin</a>
+				<a class="permalink" href="index.html#Plugin">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Plugin _
+</p>
+
+			<pre>type Plugin struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewPlugin">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin.go?s=170:237#L4">NewPlugin</a>
+					<a class="permalink" href="index.html#NewPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewPlugin(plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, property *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#Plugin">Plugin</a></pre>
+				<p>
+NewPlugin _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Plugin.Plugin">func (Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin.go?s=391:427#L16">Plugin</a>
+					<a class="permalink" href="index.html#Plugin.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s <a href="index.html#Plugin">Plugin</a>) Plugin() <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a></pre>
+				<p>
+Plugin _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Property">func (Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin.go?s=464:505#L21">Property</a>
+					<a class="permalink" href="index.html#Plugin.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s <a href="index.html#Plugin">Plugin</a>) Property() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				<p>
+Property _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PluginSystem">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=90:137#L1">PluginSystem</a>
+				<a class="permalink" href="index.html#PluginSystem">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PluginSystem _
+</p>
+
+			<pre>type PluginSystem struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewPluginSystem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=160:207#L3">NewPluginSystem</a>
+					<a class="permalink" href="index.html#NewPluginSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewPluginSystem(p []*<a href="index.html#Plugin">Plugin</a>) *<a href="index.html#PluginSystem">PluginSystem</a></pre>
+				<p>
+NewPluginSystem _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="PluginSystem.Add">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1244:1282#L65">Add</a>
+					<a class="permalink" href="index.html#PluginSystem.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Add(sp *<a href="index.html#Plugin">Plugin</a>)</pre>
+				<p>
+Add _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.Has">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=894:941#L44">Has</a>
+					<a class="permalink" href="index.html#PluginSystem.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Has(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Has _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.HasPlugin">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1057:1110#L54">HasPlugin</a>
+					<a class="permalink" href="index.html#PluginSystem.HasPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) HasPlugin(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+HasPlugin _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.Plugin">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=2211:2270#L113">Plugin</a>
+					<a class="permalink" href="index.html#PluginSystem.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Plugin(pluginID <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) *<a href="index.html#Plugin">Plugin</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.Plugins">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=602:644#L28">Plugins</a>
+					<a class="permalink" href="index.html#PluginSystem.Plugins">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Plugins() []*<a href="index.html#Plugin">Plugin</a></pre>
+				<p>
+Plugins _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.Properties">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1962:2013#L100">Properties</a>
+					<a class="permalink" href="index.html#PluginSystem.Properties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				<p>
+Properties _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.Property">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=706:768#L33">Property</a>
+					<a class="permalink" href="index.html#PluginSystem.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Property(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				<p>
+Property _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.Remove">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1437:1483#L74">Remove</a>
+					<a class="permalink" href="index.html#PluginSystem.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Remove(pid <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>)</pre>
+				<p>
+Remove _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginSystem.Upgrade">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1685:1739#L87">Upgrade</a>
+					<a class="permalink" href="index.html#PluginSystem.Upgrade">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#PluginSystem">PluginSystem</a>) Upgrade(pid, newID <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>)</pre>
+				<p>
+Upgrade _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Scene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=151:381#L2">Scene</a>
+				<a class="permalink" href="index.html#Scene">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Scene struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Scene.CreatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=473:510#L20">CreatedAt</a>
+					<a class="permalink" href="index.html#Scene.CreatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) CreatedAt() <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.ID">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=383:414#L13">ID</a>
+					<a class="permalink" href="index.html#Scene.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.IsTeamIncluded">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1412:1466#L83">IsTeamIncluded</a>
+					<a class="permalink" href="index.html#Scene.IsTeamIncluded">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) IsTeamIncluded(teams []<a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.PluginSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1099:1143#L62">PluginSystem</a>
+					<a class="permalink" href="index.html#Scene.PluginSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) PluginSystem() *<a href="index.html#PluginSystem">PluginSystem</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.Project">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=587:625#L27">Project</a>
+					<a class="permalink" href="index.html#Scene.Project">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) Project() <a href="../id/index.html">id</a>.<a href="../id/index.html#ProjectID">ProjectID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.Properties">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1603:1647#L95">Properties</a>
+					<a class="permalink" href="index.html#Scene.Properties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.Property">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=783:823#L41">Property</a>
+					<a class="permalink" href="index.html#Scene.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) Property() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.RootLayer">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=891:929#L48">RootLayer</a>
+					<a class="permalink" href="index.html#Scene.RootLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) RootLayer() <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.SetUpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1305:1354#L76">SetUpdatedAt</a>
+					<a class="permalink" href="index.html#Scene.SetUpdatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) SetUpdatedAt(updatedAt <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.Team">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=691:723#L34">Team</a>
+					<a class="permalink" href="index.html#Scene.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) Team() <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.UpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1203:1240#L69">UpdatedAt</a>
+					<a class="permalink" href="index.html#Scene.UpdatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) UpdatedAt() <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.WidgetSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=995:1039#L55">WidgetSystem</a>
+					<a class="permalink" href="index.html#Scene.WidgetSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) WidgetSystem() *<a href="index.html#WidgetSystem">WidgetSystem</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Widget">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=72:213#L1">Widget</a>
+				<a class="permalink" href="index.html#Widget">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Widget struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MustNewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=677:811#L23">MustNewWidget</a>
+					<a class="permalink" href="index.html#MustNewWidget">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MustNewWidget(wid *<a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Widget">Widget</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="NewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=215:354#L5">NewWidget</a>
+					<a class="permalink" href="index.html#NewWidget">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewWidget(wid *<a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/main/pkg/builtin/#bool">bool</a>) (*<a href="index.html#Widget">Widget</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Widget.Enabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1177:1208#L47">Enabled</a>
+					<a class="permalink" href="index.html#Widget.Enabled">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) Enabled() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Widget.Extension">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1036:1085#L39">Extension</a>
+					<a class="permalink" href="index.html#Widget.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) Extension() <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Widget.ID">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=924:957#L31">ID</a>
+					<a class="permalink" href="index.html#Widget.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Widget.Plugin">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=976:1013#L35">Plugin</a>
+					<a class="permalink" href="index.html#Widget.Plugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) Plugin() <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Widget.Property">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1111:1152#L43">Property</a>
+					<a class="permalink" href="index.html#Widget.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) Property() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Widget.SetEnabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1232:1273#L51">SetEnabled</a>
+					<a class="permalink" href="index.html#Widget.SetEnabled">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) SetEnabled(enabled <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="WidgetSystem">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=164:211#L3">WidgetSystem</a>
+				<a class="permalink" href="index.html#WidgetSystem">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type WidgetSystem struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewWidgetSystem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=213:260#L7">NewWidgetSystem</a>
+					<a class="permalink" href="index.html#NewWidgetSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewWidgetSystem(w []*<a href="index.html#Widget">Widget</a>) *<a href="index.html#WidgetSystem">WidgetSystem</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="WidgetSystem.Add">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1203:1241#L62">Add</a>
+					<a class="permalink" href="index.html#WidgetSystem.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) Add(sw *<a href="index.html#Widget">Widget</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSystem.Has">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=979:1049#L50">Has</a>
+					<a class="permalink" href="index.html#WidgetSystem.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) Has(p <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, e <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSystem.Properties">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1819:1870#L93">Properties</a>
+					<a class="permalink" href="index.html#WidgetSystem.Properties">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSystem.Remove">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1370:1438#L70">Remove</a>
+					<a class="permalink" href="index.html#WidgetSystem.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) Remove(p <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, e <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSystem.Replace">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1624:1678#L82">Replace</a>
+					<a class="permalink" href="index.html#WidgetSystem.Replace">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) Replace(oldp, newp <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSystem.Widget">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=755:831#L38">Widget</a>
+					<a class="permalink" href="index.html#WidgetSystem.Widget">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) Widget(p <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, e <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) *<a href="index.html#Widget">Widget</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSystem.Widgets">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=634:676#L31">Widgets</a>
+					<a class="permalink" href="index.html#WidgetSystem.Widgets">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) Widgets() []*<a href="index.html#Widget">Widget</a></pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	<div class="pkg-dir">
+		<table>
+			<tr>
+				<th class="pkg-name">Name</th>
+				<th class="pkg-synopsis">Synopsis</th>
+			</tr>
+
+			
+			<tr>
+				<td colspan="2"><a href="../index.html">..</a></td>
+			</tr>
+			
+
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="builder/index.html">builder</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="sceneops/index.html">sceneops</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+		</table>
+	</div>
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>project - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package project
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/project"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+				
+				<dd><a href="index.html#CheckAliasPattern">func CheckAliasPattern(alias string) bool</a></dd>
+			
+			
+				
+				<dd><a href="index.html#Builder">type Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#New">func New() *Builder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Alias">func (b *Builder) Alias(alias string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.BasicAuthPassword">func (b *Builder) BasicAuthPassword(basicAuthPassword string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.BasicAuthUsername">func (b *Builder) BasicAuthUsername(basicAuthUsername string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Build">func (b *Builder) Build() (*Project, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Description">func (b *Builder) Description(description string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.ProjectID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ImageURL">func (b *Builder) ImageURL(imageURL *url.URL) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.IsArchived">func (b *Builder) IsArchived(isArchived bool) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.IsBasicAuthActive">func (b *Builder) IsBasicAuthActive(isBasicAuthActive bool) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.MustBuild">func (b *Builder) MustBuild() *Project</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Name">func (b *Builder) Name(name string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.NewID">func (b *Builder) NewID() *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.PublicDescription">func (b *Builder) PublicDescription(publicDescription string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.PublicImage">func (b *Builder) PublicImage(publicImage string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.PublicNoIndex">func (b *Builder) PublicNoIndex(publicNoIndex bool) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.PublicTitle">func (b *Builder) PublicTitle(publicTitle string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.PublishedAt">func (b *Builder) PublishedAt(publishedAt time.Time) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.PublishmentStatus">func (b *Builder) PublishmentStatus(publishmentStatus PublishmentStatus) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Team">func (b *Builder) Team(team id.TeamID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.UpdatedAt">func (b *Builder) UpdatedAt(updatedAt time.Time) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Visualizer">func (b *Builder) Visualizer(visualizer visualizer.Visualizer) *Builder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Project">type Project</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.Alias">func (p *Project) Alias() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.BasicAuthPassword">func (p *Project) BasicAuthPassword() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.BasicAuthUsername">func (p *Project) BasicAuthUsername() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.CreatedAt">func (p *Project) CreatedAt() time.Time</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.Description">func (p *Project) Description() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.ID">func (p *Project) ID() id.ProjectID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.ImageURL">func (p *Project) ImageURL() *url.URL</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.IsArchived">func (p *Project) IsArchived() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.IsBasicAuthActive">func (p *Project) IsBasicAuthActive() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.MatchWithPublicName">func (p *Project) MatchWithPublicName(name string) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.Name">func (p *Project) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.PublicDescription">func (p *Project) PublicDescription() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.PublicImage">func (p *Project) PublicImage() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.PublicName">func (p *Project) PublicName() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.PublicNoIndex">func (p *Project) PublicNoIndex() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.PublicTitle">func (p *Project) PublicTitle() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.PublishedAt">func (p *Project) PublishedAt() time.Time</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.PublishmentStatus">func (p *Project) PublishmentStatus() PublishmentStatus</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.SetArchived">func (p *Project) SetArchived(isArchived bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.SetBasicAuthPassword">func (p *Project) SetBasicAuthPassword(basicAuthPassword string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.SetBasicAuthUsername">func (p *Project) SetBasicAuthUsername(basicAuthUsername string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.SetImageURL">func (p *Project) SetImageURL(imageURL *url.URL)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.SetIsBasicAuthActive">func (p *Project) SetIsBasicAuthActive(isBasicAuthActive bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.SetPublishedAt">func (p *Project) SetPublishedAt(publishedAt time.Time)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.SetUpdatedAt">func (p *Project) SetUpdatedAt(updatedAt time.Time)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.Team">func (p *Project) Team() id.TeamID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdateAlias">func (p *Project) UpdateAlias(alias string) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdateDescription">func (p *Project) UpdateDescription(description string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdateName">func (p *Project) UpdateName(name string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdatePublicDescription">func (p *Project) UpdatePublicDescription(publicDescription string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdatePublicImage">func (p *Project) UpdatePublicImage(publicImage string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdatePublicNoIndex">func (p *Project) UpdatePublicNoIndex(publicNoIndex bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdatePublicTitle">func (p *Project) UpdatePublicTitle(publicTitle string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdatePublishmentStatus">func (p *Project) UpdatePublishmentStatus(publishmentStatus PublishmentStatus)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdateTeam">func (p *Project) UpdateTeam(team id.TeamID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdateVisualizer">func (p *Project) UpdateVisualizer(visualizer visualizer.Visualizer)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.UpdatedAt">func (p *Project) UpdatedAt() time.Time</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Project.Visualizer">func (p *Project) Visualizer() visualizer.Visualizer</a></dd>
+				
+			
+				
+				<dd><a href="index.html#PublishmentStatus">type PublishmentStatus</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go">builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go">project.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/publishment_status.go">publishment_status.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span id="ErrInvalidAlias">ErrInvalidAlias</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid alias&#34;)
+)</pre>
+			
+		
+		
+			
+			
+			<h2 id="CheckAliasPattern">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=4344:4385#L205">CheckAliasPattern</a>
+				<a class="permalink" href="index.html#CheckAliasPattern">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func CheckAliasPattern(alias <a href="/main/pkg/builtin/#string">string</a>) <a href="http://localhost:8080/pkg/builtin/#bool">bool</a></pre>
+			
+			
+			
+
+		
+		
+			
+			
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=147:182#L1">Builder</a>
+				<a class="permalink" href="index.html#Builder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Builder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=184:203#L5">New</a>
+					<a class="permalink" href="index.html#New">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Builder.Alias">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1705:1751#L80">Alias</a>
+					<a class="permalink" href="index.html#Builder.Alias">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Alias(alias <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.BasicAuthPassword">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1186:1256#L55">BasicAuthPassword</a>
+					<a class="permalink" href="index.html#Builder.BasicAuthPassword">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) BasicAuthPassword(basicAuthPassword <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.BasicAuthUsername">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1057:1127#L50">BasicAuthUsername</a>
+					<a class="permalink" href="index.html#Builder.BasicAuthUsername">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) BasicAuthUsername(basicAuthUsername <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=284:327#L9">Build</a>
+					<a class="permalink" href="index.html#Builder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#Project">Project</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Description">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1600:1658#L75">Description</a>
+					<a class="permalink" href="index.html#Builder.Description">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Description(description <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=673:719#L30">ID</a>
+					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#ProjectID">ProjectID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.ImageURL">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1786:1840#L85">ImageURL</a>
+					<a class="permalink" href="index.html#Builder.ImageURL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ImageURL(imageURL *<a href="/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.IsArchived">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=831:885#L40">IsArchived</a>
+					<a class="permalink" href="index.html#Builder.IsArchived">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) IsArchived(isArchived <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.IsBasicAuthActive">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=930:998#L45">IsBasicAuthActive</a>
+					<a class="permalink" href="index.html#Builder.IsBasicAuthActive">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) IsBasicAuthActive(isBasicAuthActive <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=565:603#L22">MustBuild</a>
+					<a class="permalink" href="index.html#Builder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) MustBuild() *<a href="index.html#Project">Project</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Name">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1523:1567#L70">Name</a>
+					<a class="permalink" href="index.html#Builder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=748:782#L35">NewID</a>
+					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) NewID() *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.PublicDescription">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=2070:2140#L100">PublicDescription</a>
+					<a class="permalink" href="index.html#Builder.PublicDescription">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) PublicDescription(publicDescription <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.PublicImage">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=2199:2257#L105">PublicImage</a>
+					<a class="permalink" href="index.html#Builder.PublicImage">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) PublicImage(publicImage <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.PublicNoIndex">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=2304:2364#L110">PublicNoIndex</a>
+					<a class="permalink" href="index.html#Builder.PublicNoIndex">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) PublicNoIndex(publicNoIndex <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.PublicTitle">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1965:2023#L95">PublicTitle</a>
+					<a class="permalink" href="index.html#Builder.PublicTitle">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) PublicTitle(publicTitle <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.PublishedAt">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1415:1476#L65">PublishedAt</a>
+					<a class="permalink" href="index.html#Builder.PublishedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) PublishedAt(publishedAt <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.PublishmentStatus">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=2611:2692#L125">PublishmentStatus</a>
+					<a class="permalink" href="index.html#Builder.PublishmentStatus">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) PublishmentStatus(publishmentStatus <a href="index.html#PublishmentStatus">PublishmentStatus</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Team">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=2415:2462#L115">Team</a>
+					<a class="permalink" href="index.html#Builder.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Team(team <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.UpdatedAt">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=1315:1372#L60">UpdatedAt</a>
+					<a class="permalink" href="index.html#Builder.UpdatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) UpdatedAt(updatedAt <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Visualizer">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/builder.go?s=2495:2566#L120">Visualizer</a>
+					<a class="permalink" href="index.html#Builder.Visualizer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Visualizer(visualizer <a href="../visualizer/index.html">visualizer</a>.<a href="../visualizer/index.html#Visualizer">Visualizer</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Project">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=311:839#L9">Project</a>
+				<a class="permalink" href="index.html#Project">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Project _
+</p>
+
+			<pre>type Project struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Project.Alias">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1441:1473#L66">Alias</a>
+					<a class="permalink" href="index.html#Project.Alias">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) Alias() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.BasicAuthPassword">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1111:1155#L46">BasicAuthPassword</a>
+					<a class="permalink" href="index.html#Project.BasicAuthPassword">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) BasicAuthPassword() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.BasicAuthUsername">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1033:1077#L42">BasicAuthUsername</a>
+					<a class="permalink" href="index.html#Project.BasicAuthUsername">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) BasicAuthUsername() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.CreatedAt">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2057:2096#L102">CreatedAt</a>
+					<a class="permalink" href="index.html#Project.CreatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) CreatedAt() <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.Description">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1375:1413#L62">Description</a>
+					<a class="permalink" href="index.html#Project.Description">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) Description() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.ID">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=841:876#L30">ID</a>
+					<a class="permalink" href="index.html#Project.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#ProjectID">ProjectID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.ImageURL">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1495:1532#L70">ImageURL</a>
+					<a class="permalink" href="index.html#Project.ImageURL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) ImageURL() *<a href="/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.IsArchived">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=895:930#L34">IsArchived</a>
+					<a class="permalink" href="index.html#Project.IsArchived">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) IsArchived() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.IsBasicAuthActive">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=957:999#L38">IsBasicAuthActive</a>
+					<a class="permalink" href="index.html#Project.IsBasicAuthActive">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) IsBasicAuthActive() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.MatchWithPublicName">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=4081:4136#L195">MatchWithPublicName</a>
+					<a class="permalink" href="index.html#Project.MatchWithPublicName">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) MatchWithPublicName(name <a href="/main/pkg/builtin/#string">string</a>) <a href="http://localhost:8080/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.Name">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1323:1354#L58">Name</a>
+					<a class="permalink" href="index.html#Project.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) Name() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.PublicDescription">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1701:1745#L82">PublicDescription</a>
+					<a class="permalink" href="index.html#Project.PublicDescription">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) PublicDescription() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.PublicImage">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1779:1817#L86">PublicImage</a>
+					<a class="permalink" href="index.html#Project.PublicImage">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) PublicImage() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.PublicName">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3941:3978#L188">PublicName</a>
+					<a class="permalink" href="index.html#Project.PublicName">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) PublicName() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.PublicNoIndex">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1845:1883#L90">PublicNoIndex</a>
+					<a class="permalink" href="index.html#Project.PublicNoIndex">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) PublicNoIndex() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.PublicTitle">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1635:1673#L78">PublicTitle</a>
+					<a class="permalink" href="index.html#Project.PublicTitle">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) PublicTitle() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.PublishedAt">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1254:1295#L54">PublishedAt</a>
+					<a class="permalink" href="index.html#Project.PublishedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) PublishedAt() <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.PublishmentStatus">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1913:1968#L94">PublishmentStatus</a>
+					<a class="permalink" href="index.html#Project.PublishmentStatus">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) PublishmentStatus() <a href="index.html#PublishmentStatus">PublishmentStatus</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.SetArchived">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2213:2259#L110">SetArchived</a>
+					<a class="permalink" href="index.html#Project.SetArchived">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) SetArchived(isArchived <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.SetBasicAuthPassword">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2512:2576#L122">SetBasicAuthPassword</a>
+					<a class="permalink" href="index.html#Project.SetBasicAuthPassword">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) SetBasicAuthPassword(basicAuthPassword <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.SetBasicAuthUsername">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2401:2465#L118">SetBasicAuthUsername</a>
+					<a class="permalink" href="index.html#Project.SetBasicAuthUsername">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) SetBasicAuthUsername(basicAuthUsername <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.SetImageURL">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2795:2843#L134">SetImageURL</a>
+					<a class="permalink" href="index.html#Project.SetImageURL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) SetImageURL(imageURL *<a href="/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.SetIsBasicAuthActive">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2292:2354#L114">SetIsBasicAuthActive</a>
+					<a class="permalink" href="index.html#Project.SetIsBasicAuthActive">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) SetIsBasicAuthActive(isBasicAuthActive <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.SetPublishedAt">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2705:2760#L130">SetPublishedAt</a>
+					<a class="permalink" href="index.html#Project.SetPublishedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) SetPublishedAt(publishedAt <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.SetUpdatedAt">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2623:2674#L126">SetUpdatedAt</a>
+					<a class="permalink" href="index.html#Project.SetUpdatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) SetUpdatedAt(updatedAt <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.Team">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2002:2036#L98">Team</a>
+					<a class="permalink" href="index.html#Project.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) Team() <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdateAlias">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3106:3155#L151">UpdateAlias</a>
+					<a class="permalink" href="index.html#Project.UpdateAlias">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdateAlias(alias <a href="/main/pkg/builtin/#string">string</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdateDescription">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3016:3071#L147">UpdateDescription</a>
+					<a class="permalink" href="index.html#Project.UpdateDescription">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdateDescription(description <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdateName">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2954:2995#L143">UpdateName</a>
+					<a class="permalink" href="index.html#Project.UpdateName">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdateName(name <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdatePublicDescription">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3350:3417#L164">UpdatePublicDescription</a>
+					<a class="permalink" href="index.html#Project.UpdatePublicDescription">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdatePublicDescription(publicDescription <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdatePublicImage">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3464:3519#L168">UpdatePublicImage</a>
+					<a class="permalink" href="index.html#Project.UpdatePublicImage">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdatePublicImage(publicImage <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdatePublicNoIndex">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3554:3611#L172">UpdatePublicNoIndex</a>
+					<a class="permalink" href="index.html#Project.UpdatePublicNoIndex">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdatePublicNoIndex(publicNoIndex <a href="/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdatePublicTitle">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3260:3315#L160">UpdatePublicTitle</a>
+					<a class="permalink" href="index.html#Project.UpdatePublicTitle">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdatePublicTitle(publicTitle <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdatePublishmentStatus">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3816:3894#L184">UpdatePublishmentStatus</a>
+					<a class="permalink" href="index.html#Project.UpdatePublishmentStatus">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdatePublishmentStatus(publishmentStatus <a href="index.html#PublishmentStatus">PublishmentStatus</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdateTeam">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3650:3694#L176">UpdateTeam</a>
+					<a class="permalink" href="index.html#Project.UpdateTeam">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdateTeam(team <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdateVisualizer">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=3715:3783#L180">UpdateVisualizer</a>
+					<a class="permalink" href="index.html#Project.UpdateVisualizer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdateVisualizer(visualizer <a href="../visualizer/index.html">visualizer</a>.<a href="../visualizer/index.html#Visualizer">Visualizer</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.UpdatedAt">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=1189:1228#L50">UpdatedAt</a>
+					<a class="permalink" href="index.html#Project.UpdatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) UpdatedAt() <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Project.Visualizer">func (*Project) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/project.go?s=2134:2186#L106">Visualizer</a>
+					<a class="permalink" href="index.html#Project.Visualizer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Project">Project</a>) Visualizer() <a href="../visualizer/index.html">visualizer</a>.<a href="../visualizer/index.html#Visualizer">Visualizer</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PublishmentStatus">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/project/publishment_status.go?s=40:69#L1">PublishmentStatus</a>
+				<a class="permalink" href="index.html#PublishmentStatus">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+PublishmentStatus _
+</p>
+
+			<pre>type PublishmentStatus <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span class="comment">// PublishmentStatusPublic _</span>
+    <span id="PublishmentStatusPublic">PublishmentStatusPublic</span> <a href="index.html#PublishmentStatus">PublishmentStatus</a> = &#34;public&#34;
+    <span class="comment">// PublishmentStatusLimited _</span>
+    <span id="PublishmentStatusLimited">PublishmentStatusLimited</span> <a href="index.html#PublishmentStatus">PublishmentStatus</a> = &#34;limited&#34;
+    <span class="comment">// PublishmentStatusPrivate _</span>
+    <span id="PublishmentStatusPrivate">PublishmentStatusPrivate</span> <a href="index.html#PublishmentStatus">PublishmentStatus</a> = &#34;private&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

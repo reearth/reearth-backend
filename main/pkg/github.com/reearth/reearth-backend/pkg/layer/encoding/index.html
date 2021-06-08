@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>encoding - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package encoding
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/layer/encoding"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#CZMLEncoder">type CZMLEncoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewCZMLEncoder">func NewCZMLEncoder(w io.Writer) *CZMLEncoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#CZMLEncoder.Encode">func (e *CZMLEncoder) Encode(layer merging.SealedLayer) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Encoder">type Encoder</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Exporter">type Exporter</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Exporter.Encode">func (e *Exporter) Encode(ctx context.Context, m merging.MergedLayer) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Exporter.ExportLayer">func (e *Exporter) ExportLayer(ctx context.Context, l layer.Layer) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Exporter.ExportLayerByID">func (e *Exporter) ExportLayerByID(ctx context.Context, l id.LayerID) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#GeoJSONEncoder">type GeoJSONEncoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewGeoJSONEncoder">func NewGeoJSONEncoder(w io.Writer) *GeoJSONEncoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GeoJSONEncoder.Encode">func (e *GeoJSONEncoder) Encode(layer merging.SealedLayer) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#KMLEncoder">type KMLEncoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewKMLEncoder">func NewKMLEncoder(w io.Writer) *KMLEncoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#KMLEncoder.Encode">func (e *KMLEncoder) Encode(layer merging.SealedLayer) error</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SHPEncoder">type SHPEncoder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewSHPEncoder">func NewSHPEncoder(w io.Writer) *SHPEncoder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SHPEncoder.Encode">func (e *SHPEncoder) Encode(layer merging.SealedLayer) error</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/common.go">common.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go">czml.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/encoder.go">encoder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/exporter.go">exporter.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/geojson.go">geojson.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go">kml.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/shp.go">shp.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var <span id="ErrInvalidColor">ErrInvalidColor</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid color&#34;)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="CZMLEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=263:308#L4">CZMLEncoder</a>
+				<a class="permalink" href="index.html#CZMLEncoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type CZMLEncoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewCZMLEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=310:355#L8">NewCZMLEncoder</a>
+					<a class="permalink" href="index.html#NewCZMLEncoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewCZMLEncoder(w <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Writer">Writer</a>) *<a href="index.html#CZMLEncoder">CZMLEncoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="CZMLEncoder.Encode">func (*CZMLEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=6181:6242#L225">Encode</a>
+					<a class="permalink" href="index.html#CZMLEncoder.Encode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#CZMLEncoder">CZMLEncoder</a>) Encode(layer <a href="../merging/index.html">merging</a>.<a href="../merging/index.html#SealedLayer">SealedLayer</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Encoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/encoder.go?s=86:147#L1">Encoder</a>
+				<a class="permalink" href="index.html#Encoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Encoder interface {
+    Encode(<a href="../merging/index.html">merging</a>.<a href="../merging/index.html#SealedLayer">SealedLayer</a>) <a href="/main/pkg/builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Exporter">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/exporter.go?s=191:282#L1">Exporter</a>
+				<a class="permalink" href="index.html#Exporter">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Exporter struct {
+<span id="Exporter.Merger"></span>    Merger  *<a href="../merging/index.html">merging</a>.<a href="../merging/index.html#Merger">Merger</a>
+<span id="Exporter.Sealer"></span>    Sealer  *<a href="../merging/index.html">merging</a>.<a href="../merging/index.html#Sealer">Sealer</a>
+<span id="Exporter.Encoder"></span>    Encoder <a href="index.html#Encoder">Encoder</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Exporter.Encode">func (*Exporter) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/exporter.go?s=715:790#L29">Encode</a>
+					<a class="permalink" href="index.html#Exporter.Encode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#Exporter">Exporter</a>) Encode(ctx <a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, m <a href="../merging/index.html">merging</a>.<a href="../merging/index.html#MergedLayer">MergedLayer</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Exporter.ExportLayer">func (*Exporter) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/exporter.go?s=504:576#L18">ExportLayer</a>
+					<a class="permalink" href="index.html#Exporter.ExportLayer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#Exporter">Exporter</a>) ExportLayer(ctx <a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, l <a href="../index.html">layer</a>.<a href="../index.html#Layer">Layer</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Exporter.ExportLayerByID">func (*Exporter) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/exporter.go?s=284:359#L7">ExportLayerByID</a>
+					<a class="permalink" href="index.html#Exporter.ExportLayerByID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#Exporter">Exporter</a>) ExportLayerByID(ctx <a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, l <a href="../../id/index.html">id</a>.<a href="../../id/index.html#LayerID">LayerID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="GeoJSONEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/geojson.go?s=241:289#L3">GeoJSONEncoder</a>
+				<a class="permalink" href="index.html#GeoJSONEncoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GeoJSONEncoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewGeoJSONEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/geojson.go?s=291:342#L7">NewGeoJSONEncoder</a>
+					<a class="permalink" href="index.html#NewGeoJSONEncoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewGeoJSONEncoder(w <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Writer">Writer</a>) *<a href="index.html#GeoJSONEncoder">GeoJSONEncoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="GeoJSONEncoder.Encode">func (*GeoJSONEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/geojson.go?s=4722:4786#L165">Encode</a>
+					<a class="permalink" href="index.html#GeoJSONEncoder.Encode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#GeoJSONEncoder">GeoJSONEncoder</a>) Encode(layer <a href="../merging/index.html">merging</a>.<a href="../merging/index.html#SealedLayer">SealedLayer</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="KMLEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=282:355#L7">KMLEncoder</a>
+				<a class="permalink" href="index.html#KMLEncoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type KMLEncoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewKMLEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=357:400#L12">NewKMLEncoder</a>
+					<a class="permalink" href="index.html#NewKMLEncoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewKMLEncoder(w <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Writer">Writer</a>) *<a href="index.html#KMLEncoder">KMLEncoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="KMLEncoder.Encode">func (*KMLEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=9595:9655#L370">Encode</a>
+					<a class="permalink" href="index.html#KMLEncoder.Encode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#KMLEncoder">KMLEncoder</a>) Encode(layer <a href="../merging/index.html">merging</a>.<a href="../merging/index.html#SealedLayer">SealedLayer</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SHPEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/shp.go?s=302:346#L4">SHPEncoder</a>
+				<a class="permalink" href="index.html#SHPEncoder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type SHPEncoder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewSHPEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/shp.go?s=348:391#L8">NewSHPEncoder</a>
+					<a class="permalink" href="index.html#NewSHPEncoder">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewSHPEncoder(w <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Writer">Writer</a>) *<a href="index.html#SHPEncoder">SHPEncoder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="SHPEncoder.Encode">func (*SHPEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/shp.go?s=3795:3855#L160">Encode</a>
+					<a class="permalink" href="index.html#SHPEncoder.Encode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (e *<a href="index.html#SHPEncoder">SHPEncoder</a>) Encode(layer <a href="../merging/index.html">merging</a>.<a href="../merging/index.html#SealedLayer">SealedLayer</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

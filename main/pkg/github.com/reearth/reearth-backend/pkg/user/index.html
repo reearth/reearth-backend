@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>user - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package user
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/user"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+				
+				<dd><a href="index.html#Init">func Init(p InitParams) (*User, *Team, error)</a></dd>
+			
+			
+				
+				<dd><a href="index.html#Auth">type Auth</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#AuthFromAuth0Sub">func AuthFromAuth0Sub(sub string) Auth</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Auth.IsAuth0">func (a Auth) IsAuth0() bool</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Builder">type Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#New">func New() *Builder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Auths">func (b *Builder) Auths(auths []Auth) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Build">func (b *Builder) Build() (*User, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Email">func (b *Builder) Email(email string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.UserID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Lang">func (b *Builder) Lang(lang language.Tag) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.LangFrom">func (b *Builder) LangFrom(lang string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.MustBuild">func (b *Builder) MustBuild() *User</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Name">func (b *Builder) Name(name string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.NewID">func (b *Builder) NewID() *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Team">func (b *Builder) Team(team id.TeamID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Theme">func (b *Builder) Theme(t Theme) *Builder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#InitParams">type InitParams</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Members">type Members</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#CopyMembers">func CopyMembers(members *Members) *Members</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewFixedMembers">func NewFixedMembers(u id.UserID) *Members</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewMembers">func NewMembers() *Members</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewMembersWith">func NewMembersWith(members map[id.UserID]Role) *Members</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.ContainsUser">func (m *Members) ContainsUser(u id.UserID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.Count">func (m *Members) Count() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.GetRole">func (m *Members) GetRole(u id.UserID) Role</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.IsOnlyOwner">func (m *Members) IsOnlyOwner(u id.UserID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.Join">func (m *Members) Join(u id.UserID, role Role) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.Leave">func (m *Members) Leave(u id.UserID) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.Members">func (m *Members) Members() map[id.UserID]Role</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.UpdateRole">func (m *Members) UpdateRole(u id.UserID, role Role) error</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Members.UsersByRole">func (m *Members) UsersByRole(role Role) []id.UserID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Role">type Role</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#RoleFromString">func RoleFromString(r string) (Role, error)</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Team">type Team</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Team.ID">func (t *Team) ID() id.TeamID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Team.IsPersonal">func (t *Team) IsPersonal() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Team.Members">func (t *Team) Members() *Members</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Team.Name">func (t *Team) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Team.Rename">func (t *Team) Rename(name string)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#TeamBuilder">type TeamBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewTeam">func NewTeam() *TeamBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamBuilder.Build">func (b *TeamBuilder) Build() (*Team, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamBuilder.ID">func (b *TeamBuilder) ID(id id.TeamID) *TeamBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamBuilder.Members">func (b *TeamBuilder) Members(members map[id.UserID]Role) *TeamBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamBuilder.MustBuild">func (b *TeamBuilder) MustBuild() *Team</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamBuilder.Name">func (b *TeamBuilder) Name(name string) *TeamBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamBuilder.NewID">func (b *TeamBuilder) NewID() *TeamBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamBuilder.Personal">func (b *TeamBuilder) Personal(p bool) *TeamBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Theme">type Theme</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#User">type User</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.AddAuth">func (u *User) AddAuth(a Auth) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.Auths">func (u *User) Auths() []Auth</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.ClearAuths">func (u *User) ClearAuths()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.ContainAuth">func (u *User) ContainAuth(a Auth) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.Email">func (u *User) Email() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.ID">func (u *User) ID() id.UserID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.Lang">func (u *User) Lang() language.Tag</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.Name">func (u *User) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.RemoveAuth">func (u *User) RemoveAuth(a Auth) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.RemoveAuthByProvider">func (u *User) RemoveAuthByProvider(provider string) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.Team">func (u *User) Team() id.TeamID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.Theme">func (u *User) Theme() Theme</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.UpdateEmail">func (u *User) UpdateEmail(email string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.UpdateLang">func (u *User) UpdateLang(lang language.Tag)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.UpdateName">func (u *User) UpdateName(name string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.UpdateTeam">func (u *User) UpdateTeam(team id.TeamID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#User.UpdateTheme">func (u *User) UpdateTheme(t Theme)</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/auth.go">auth.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go">builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/initializer.go">initializer.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go">members.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/role.go">role.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team.go">team.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go">team_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/theme.go">theme.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go">user.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span id="ErrUserAlreadyJoined">ErrUserAlreadyJoined</span>        = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;user already joined&#34;)
+    <span id="ErrCannotModifyPersonalTeam">ErrCannotModifyPersonalTeam</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;personal team cannot be modified&#34;)
+    <span id="ErrTeamWithProjects">ErrTeamWithProjects</span>         = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;target team still has some project&#34;)
+    <span id="ErrTargetUserNotInTheTeam">ErrTargetUserNotInTheTeam</span>   = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;target user does not exist in the team&#34;)
+)</pre>
+			
+				
+				<pre>var (
+    <span class="comment">// RoleReader is a role who can read project</span>
+    <span id="RoleReader">RoleReader</span> = <a href="index.html#Role">Role</a>(&#34;reader&#34;)
+    <span class="comment">// RoleWriter is a role who can read and write project</span>
+    <span id="RoleWriter">RoleWriter</span> = <a href="index.html#Role">Role</a>(&#34;writer&#34;)
+    <span class="comment">// RoleOwner is a role who can have full controll of project</span>
+    <span id="RoleOwner">RoleOwner</span> = <a href="index.html#Role">Role</a>(&#34;owner&#34;)
+    <span class="comment">// ErrInvalidRole _</span>
+    <span id="ErrInvalidRole">ErrInvalidRole</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid role&#34;)
+)</pre>
+			
+		
+		
+			
+			
+			<h2 id="Init">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/initializer.go?s=263:308#L8">Init</a>
+				<a class="permalink" href="index.html#Init">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Init(p <a href="index.html#InitParams">InitParams</a>) (*<a href="index.html#User">User</a>, *<a href="index.html#Team">Team</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+			
+			
+			
+
+		
+		
+			
+			
+			<h2 id="Auth">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/auth.go?s=32:86#L1">Auth</a>
+				<a class="permalink" href="index.html#Auth">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Auth struct {
+<span id="Auth.Provider"></span>    Provider <a href="/main/pkg/builtin/#string">string</a>
+<span id="Auth.Sub"></span>    Sub      <a href="/main/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="AuthFromAuth0Sub">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/auth.go?s=88:126#L1">AuthFromAuth0Sub</a>
+					<a class="permalink" href="index.html#AuthFromAuth0Sub">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func AuthFromAuth0Sub(sub <a href="/main/pkg/builtin/#string">string</a>) <a href="index.html#Auth">Auth</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Auth.IsAuth0">func (Auth) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/auth.go?s=238:266#L8">IsAuth0</a>
+					<a class="permalink" href="index.html#Auth.IsAuth0">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a <a href="index.html#Auth">Auth</a>) IsAuth0() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=101:133#L1">Builder</a>
+				<a class="permalink" href="index.html#Builder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Builder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=135:154#L2">New</a>
+					<a class="permalink" href="index.html#New">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Builder.Auths">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=1146:1192#L65">Auths</a>
+					<a class="permalink" href="index.html#Builder.Auths">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Auths(auths []<a href="index.html#Auth">Auth</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=189:229#L6">Build</a>
+					<a class="permalink" href="index.html#Builder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#User">User</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Email">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=647:693#L36">Email</a>
+					<a class="permalink" href="index.html#Builder.Email">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Email(email <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=418:461#L21">ID</a>
+					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Lang">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=808:858#L46">Lang</a>
+					<a class="permalink" href="index.html#Builder.Lang">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Lang(lang <a href="/main/pkg/golang.org/x/text/language/">language</a>.<a href="http://localhost:8080/pkg/golang.org/x/text/language/#Tag">Tag</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.LangFrom">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=963:1011#L56">LangFrom</a>
+					<a class="permalink" href="index.html#Builder.LangFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) LangFrom(lang <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=313:348#L13">MustBuild</a>
+					<a class="permalink" href="index.html#Builder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) MustBuild() *<a href="index.html#User">User</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Name">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=570:614#L31">Name</a>
+					<a class="permalink" href="index.html#Builder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=490:524#L26">NewID</a>
+					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) NewID() *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Team">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=728:775#L41">Team</a>
+					<a class="permalink" href="index.html#Builder.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Team(team <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Theme">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/builder.go?s=891:932#L51">Theme</a>
+					<a class="permalink" href="index.html#Builder.Theme">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Theme(t <a href="index.html#Theme">Theme</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="InitParams">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/initializer.go?s=101:261#L1">InitParams</a>
+				<a class="permalink" href="index.html#InitParams">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type InitParams struct {
+<span id="InitParams.Email"></span>    Email    <a href="/main/pkg/builtin/#string">string</a>
+<span id="InitParams.Name"></span>    Name     <a href="/main/pkg/builtin/#string">string</a>
+<span id="InitParams.Auth0Sub"></span>    Auth0Sub <a href="/main/pkg/builtin/#string">string</a>
+<span id="InitParams.Lang"></span>    Lang     *<a href="/main/pkg/golang.org/x/text/language/">language</a>.<a href="http://localhost:8080/pkg/golang.org/x/text/language/#Tag">Tag</a>
+<span id="InitParams.Theme"></span>    Theme    *<a href="index.html#Theme">Theme</a>
+<span id="InitParams.UserID"></span>    UserID   *<a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>
+<span id="InitParams.TeamID"></span>    TeamID   *<a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Members">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=406:471#L7">Members</a>
+				<a class="permalink" href="index.html#Members">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Members struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="CopyMembers">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=859:902#L30">CopyMembers</a>
+					<a class="permalink" href="index.html#CopyMembers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func CopyMembers(members *<a href="index.html#Members">Members</a>) *<a href="index.html#Members">Members</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="NewFixedMembers">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=561:603#L17">NewFixedMembers</a>
+					<a class="permalink" href="index.html#NewFixedMembers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewFixedMembers(u <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>) *<a href="index.html#Members">Members</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="NewMembers">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=473:499#L12">NewMembers</a>
+					<a class="permalink" href="index.html#NewMembers">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewMembers() *<a href="index.html#Members">Members</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="NewMembersWith">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=690:746#L22">NewMembersWith</a>
+					<a class="permalink" href="index.html#NewMembersWith">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewMembersWith(members map[<a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>]<a href="index.html#Role">Role</a>) *<a href="index.html#Members">Members</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Members.ContainsUser">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=1104:1152#L42">ContainsUser</a>
+					<a class="permalink" href="index.html#Members.ContainsUser">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) ContainsUser(u <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.Count">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=1236:1265#L51">Count</a>
+					<a class="permalink" href="index.html#Members.Count">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) Count() <a href="/main/pkg/builtin/#int">int</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.GetRole">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=1294:1337#L55">GetRole</a>
+					<a class="permalink" href="index.html#Members.GetRole">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) GetRole(u <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>) <a href="index.html#Role">Role</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.IsOnlyOwner">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=2413:2460#L115">IsOnlyOwner</a>
+					<a class="permalink" href="index.html#Members.IsOnlyOwner">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) IsOnlyOwner(u <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.Join">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=1635:1687#L74">Join</a>
+					<a class="permalink" href="index.html#Members.Join">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) Join(u <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>, role <a href="index.html#Role">Role</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.Leave">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=1891:1933#L88">Leave</a>
+					<a class="permalink" href="index.html#Members.Leave">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) Leave(u <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.Members">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=948:994#L34">Members</a>
+					<a class="permalink" href="index.html#Members.Members">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) Members() map[<a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>]<a href="index.html#Role">Role</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.UpdateRole">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=1364:1422#L59">UpdateRole</a>
+					<a class="permalink" href="index.html#Members.UpdateRole">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) UpdateRole(u <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>, role <a href="index.html#Role">Role</a>) <a href="/main/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Members.UsersByRole">func (*Members) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/members.go?s=2108:2160#L100">UsersByRole</a>
+					<a class="permalink" href="index.html#Members.UsersByRole">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m *<a href="index.html#Members">Members</a>) UsersByRole(role <a href="index.html#Role">Role</a>) []<a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Role">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/role.go?s=381:397#L10">Role</a>
+				<a class="permalink" href="index.html#Role">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Role _
+</p>
+
+			<pre>type Role <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="RoleFromString">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/role.go?s=582:625#L25">RoleFromString</a>
+					<a class="permalink" href="index.html#RoleFromString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func RoleFromString(r <a href="/main/pkg/builtin/#string">string</a>) (<a href="index.html#Role">Role</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+RoleFromString _
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Team">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team.go?s=66:138#L1">Team</a>
+				<a class="permalink" href="index.html#Team">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Team struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Team.ID">func (*Team) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team.go?s=140:169#L1">ID</a>
+					<a class="permalink" href="index.html#Team.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Team">Team</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Team.IsPersonal">func (*Team) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team.go?s=350:382#L17">IsPersonal</a>
+					<a class="permalink" href="index.html#Team.IsPersonal">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Team">Team</a>) IsPersonal() <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Team.Members">func (*Team) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team.go?s=237:270#L9">Members</a>
+					<a class="permalink" href="index.html#Team.Members">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Team">Team</a>) Members() *<a href="index.html#Members">Members</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Team.Name">func (*Team) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team.go?s=188:216#L5">Name</a>
+					<a class="permalink" href="index.html#Team.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Team">Team</a>) Name() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Team.Rename">func (*Team) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team.go?s=295:329#L13">Rename</a>
+					<a class="permalink" href="index.html#Team.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Team">Team</a>) Rename(name <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TeamBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=88:175#L1">TeamBuilder</a>
+				<a class="permalink" href="index.html#TeamBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+TeamBuilder _
+</p>
+
+			<pre>type TeamBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewTeam">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=190:217#L5">NewTeam</a>
+					<a class="permalink" href="index.html#NewTeam">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewTeam() *<a href="index.html#TeamBuilder">TeamBuilder</a></pre>
+				<p>
+NewTeam _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="TeamBuilder.Build">func (*TeamBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=267:311#L10">Build</a>
+					<a class="permalink" href="index.html#TeamBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#TeamBuilder">TeamBuilder</a>) Build() (*<a href="index.html#Team">Team</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Build _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TeamBuilder.ID">func (*TeamBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=668:719#L33">ID</a>
+					<a class="permalink" href="index.html#TeamBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#TeamBuilder">TeamBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>) *<a href="index.html#TeamBuilder">TeamBuilder</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TeamBuilder.Members">func (*TeamBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=955:1025#L51">Members</a>
+					<a class="permalink" href="index.html#TeamBuilder.Members">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#TeamBuilder">TeamBuilder</a>) Members(members map[<a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a>]<a href="index.html#Role">Role</a>) *<a href="index.html#TeamBuilder">TeamBuilder</a></pre>
+				<p>
+Members _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TeamBuilder.MustBuild">func (*TeamBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=551:590#L24">MustBuild</a>
+					<a class="permalink" href="index.html#TeamBuilder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#TeamBuilder">TeamBuilder</a>) MustBuild() *<a href="index.html#Team">Team</a></pre>
+				<p>
+MustBuild _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TeamBuilder.Name">func (*TeamBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=857:909#L45">Name</a>
+					<a class="permalink" href="index.html#TeamBuilder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#TeamBuilder">TeamBuilder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#TeamBuilder">TeamBuilder</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TeamBuilder.NewID">func (*TeamBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=759:801#L39">NewID</a>
+					<a class="permalink" href="index.html#TeamBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#TeamBuilder">TeamBuilder</a>) NewID() *<a href="index.html#TeamBuilder">TeamBuilder</a></pre>
+				<p>
+NewID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TeamBuilder.Personal">func (*TeamBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/team_builder.go?s=1076:1127#L57">Personal</a>
+					<a class="permalink" href="index.html#TeamBuilder.Personal">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#TeamBuilder">TeamBuilder</a>) Personal(p <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#TeamBuilder">TeamBuilder</a></pre>
+				<p>
+Personal _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Theme">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/theme.go?s=14:31#L1">Theme</a>
+				<a class="permalink" href="index.html#Theme">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Theme <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span id="ThemeDefault">ThemeDefault</span> <a href="index.html#Theme">Theme</a> = &#34;default&#34;
+    <span id="ThemeLight">ThemeLight</span>   <a href="index.html#Theme">Theme</a> = &#34;light&#34;
+    <span id="ThemeDark">ThemeDark</span>    <a href="index.html#Theme">Theme</a> = &#34;dark&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="User">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=101:230#L1">User</a>
+				<a class="permalink" href="index.html#User">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type User struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="User.AddAuth">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=1128:1163#L71">AddAuth</a>
+					<a class="permalink" href="index.html#User.AddAuth">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) AddAuth(a <a href="index.html#Auth">Auth</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.Auths">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=840:869#L52">Auths</a>
+					<a class="permalink" href="index.html#User.Auths">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) Auths() []<a href="index.html#Auth">Auth</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.ClearAuths">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=1775:1802#L108">ClearAuths</a>
+					<a class="permalink" href="index.html#User.ClearAuths">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) ClearAuths()</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.ContainAuth">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=943:982#L59">ContainAuth</a>
+					<a class="permalink" href="index.html#User.ContainAuth">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) ContainAuth(a <a href="index.html#Auth">Auth</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.Email">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=329:358#L16">Email</a>
+					<a class="permalink" href="index.html#User.Email">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) Email() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.ID">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=232:261#L8">ID</a>
+					<a class="permalink" href="index.html#User.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#UserID">UserID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.Lang">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=432:466#L24">Lang</a>
+					<a class="permalink" href="index.html#User.Lang">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) Lang() <a href="/main/pkg/golang.org/x/text/language/">language</a>.<a href="http://localhost:8080/pkg/golang.org/x/text/language/#Tag">Tag</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.Name">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=280:308#L12">Name</a>
+					<a class="permalink" href="index.html#User.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) Name() <a href="/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.RemoveAuth">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=1288:1326#L82">RemoveAuth</a>
+					<a class="permalink" href="index.html#User.RemoveAuth">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) RemoveAuth(a <a href="index.html#Auth">Auth</a>) <a href="/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.RemoveAuthByProvider">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=1510:1567#L95">RemoveAuthByProvider</a>
+					<a class="permalink" href="index.html#User.RemoveAuthByProvider">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) RemoveAuthByProvider(provider <a href="/main/pkg/builtin/#string">string</a>) <a href="http://localhost:8080/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.Team">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=380:411#L20">Team</a>
+					<a class="permalink" href="index.html#User.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) Team() <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.Theme">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=487:515#L28">Theme</a>
+					<a class="permalink" href="index.html#User.Theme">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) Theme() <a href="index.html#Theme">Theme</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.UpdateEmail">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=596:636#L36">UpdateEmail</a>
+					<a class="permalink" href="index.html#User.UpdateEmail">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) UpdateEmail(email <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.UpdateLang">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=721:765#L44">UpdateLang</a>
+					<a class="permalink" href="index.html#User.UpdateLang">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) UpdateLang(lang <a href="/main/pkg/golang.org/x/text/language/">language</a>.<a href="http://localhost:8080/pkg/golang.org/x/text/language/#Tag">Tag</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.UpdateName">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=537:575#L32">UpdateName</a>
+					<a class="permalink" href="index.html#User.UpdateName">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) UpdateName(name <a href="/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.UpdateTeam">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=659:700#L40">UpdateTeam</a>
+					<a class="permalink" href="index.html#User.UpdateTeam">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) UpdateTeam(team <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="User.UpdateTheme">func (*User) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/user/user.go?s=786:821#L48">UpdateTheme</a>
+					<a class="permalink" href="index.html#User.UpdateTheme">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (u *<a href="index.html#User">User</a>) UpdateTheme(t <a href="index.html#Theme">Theme</a>)</pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

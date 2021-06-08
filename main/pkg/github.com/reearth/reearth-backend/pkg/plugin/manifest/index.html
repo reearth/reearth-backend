@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>manifest - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package manifest
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/plugin/manifest"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+				<dd><a href="index.html#pkg-constants">Constants</a></dd>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#Choice">type Choice</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Extension">type Extension</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#ID">type ID</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Id">type Id</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Manifest">type Manifest</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MergeManifestTranslation">func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Manifest</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MustParseSystemFromStaticJSON">func MustParseSystemFromStaticJSON(source string) *Manifest</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Parse">func Parse(source io.Reader) (*Manifest, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ParseSystemFromStaticJSON">func ParseSystemFromStaticJSON(source string) (*Manifest, error)</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PropertyCondition">type PropertyCondition</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PropertyLinkableFields">type PropertyLinkableFields</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PropertyPointer">type PropertyPointer</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PropertySchema">type PropertySchema</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PropertySchemaField">type PropertySchemaField</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PropertySchemaGroup">type PropertySchemaGroup</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Root">type Root</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TranslationExtension">type TranslationExtension</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TranslationPropertySchema">type TranslationPropertySchema</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TranslationPropertySchemaField">type TranslationPropertySchemaField</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TranslationPropertySchemaGroup">type TranslationPropertySchemaGroup</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TranslationRoot">type TranslationRoot</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MustParseTransSystemFromStaticJSON">func MustParseTransSystemFromStaticJSON(source string) *TranslationRoot</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ParseTranslation">func ParseTranslation(source io.Reader) (*TranslationRoot, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ParseTranslationFromStaticJSON">func ParseTranslationFromStaticJSON(source string) (*TranslationRoot, error)</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Valuetype">type Valuetype</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/convert.go">convert.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/manifest.go">manifest.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go">parser.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go">parser_translation.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go">schema_gen.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_json_gen.go">schema_json_gen.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_json_translation_gen.go">schema_json_translation_gen.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_translation.go">schema_translation.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+			<h2 id="pkg-constants">Constants</h2>
+			
+				
+				<pre>const <span id="SchemaJSON">SchemaJSON</span> <a href="/main/pkg/builtin/#string">string</a> = `{
+  &#34;$id&#34;: &#34;https://app.reearth.io/schemas/plugin-manifest&#34;,
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema&#34;,
+  &#34;description&#34;: &#34;Re:Earth plugin manifest schema&#34;,
+  &#34;definitions&#34;: {
+    &#34;id&#34;: {
+      &#34;$id&#34;: &#34;#id&#34;,
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;pattern&#34;: &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;
+    },
+    &#34;id?&#34;: {
+      &#34;$id&#34;: &#34;#id?&#34;,
+      &#34;type&#34;: [
+        &#34;string&#34;,
+        &#34;null&#34;
+      ],
+      &#34;pattern&#34;: &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;
+    },
+    &#34;valuetype&#34;: {
+      &#34;$id&#34;: &#34;#valuetype&#34;,
+      &#34;type&#34;: &#34;string&#34;,
+      &#34;enum&#34;: [
+        &#34;bool&#34;,
+        &#34;number&#34;,
+        &#34;string&#34;,
+        &#34;url&#34;,
+        &#34;latlng&#34;,
+        &#34;latlngheight&#34;,
+        &#34;camera&#34;,
+        &#34;typography&#34;,
+        &#34;coordinates&#34;,
+        &#34;polygon&#34;,
+        &#34;rect&#34;,
+        &#34;ref&#34;
+      ]
+    },
+    &#34;propertyPointer&#34;: {
+      &#34;$id&#34;: &#34;#propertyPointer&#34;,
+      &#34;type&#34;: [
+        &#34;object&#34;,
+        &#34;null&#34;
+      ],
+      &#34;properties&#34;: {
+        &#34;schemaGroupId&#34;: {
+          &#34;type&#34;: &#34;string&#34;
+        },
+        &#34;fieldId&#34;: {
+          &#34;type&#34;: &#34;string&#34;
+        }
+      },
+      &#34;required&#34;: [
+        &#34;schemaGroupId&#34;,
+        &#34;fieldId&#34;
+      ],
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;propertyLinkableFields&#34;: {
+      &#34;$id&#34;: &#34;#propertyLinkableFields&#34;,
+      &#34;type&#34;: [
+        &#34;object&#34;,
+        &#34;null&#34;
+      ],
+      &#34;properties&#34;: {
+        &#34;latlng&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertyPointer&#34;
+        },
+        &#34;url&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertyPointer&#34;
+        }
+      },
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;propertyCondition&#34;: {
+      &#34;$id&#34;: &#34;#propertyCondition&#34;,
+      &#34;type&#34;: [
+        &#34;object&#34;,
+        &#34;null&#34;
+      ],
+      &#34;properties&#34;: {
+        &#34;field&#34;: {
+          &#34;type&#34;: &#34;string&#34;
+        },
+        &#34;type&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/valuetype&#34;
+        },
+        &#34;value&#34;: {}
+      },
+      &#34;required&#34;: [
+        &#34;field&#34;,
+        &#34;type&#34;,
+        &#34;value&#34;
+      ],
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;propertySchemaField&#34;: {
+      &#34;$id&#34;: &#34;#propertySchemaField&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/id&#34;
+        },
+        &#34;title&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;type&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/valuetype&#34;
+        },
+        &#34;prefix&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;suffix&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;defaultValue&#34;: {},
+        &#34;ui&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ],
+          &#34;enum&#34;: [
+            &#34;layer&#34;,
+            &#34;color&#34;,
+            &#34;multiline&#34;,
+            &#34;selection&#34;,
+            &#34;buttons&#34;,
+            &#34;range&#34;,
+            &#34;image&#34;,
+            &#34;video&#34;,
+            &#34;file&#34;,
+            &#34;camera_pose&#34;
+          ]
+        },
+        &#34;min&#34;: {
+          &#34;type&#34;: [
+            &#34;number&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;max&#34;: {
+          &#34;type&#34;: [
+            &#34;number&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;choices&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;items&#34;: {
+            &#34;type&#34;: &#34;object&#34;,
+            &#34;properties&#34;: {
+              &#34;key&#34;: {
+                &#34;type&#34;: &#34;string&#34;
+              },
+              &#34;label&#34;: {
+                &#34;type&#34;: &#34;string&#34;
+              },
+              &#34;icon&#34;: {
+                &#34;type&#34;: &#34;string&#34;
+              }
+            },
+            &#34;required&#34;: [
+              &#34;key&#34;
+            ],
+            &#34;additionalProperties&#34;: false
+          }
+        },
+        &#34;availableIf&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertyCondition&#34;
+        }
+      },
+      &#34;required&#34;: [
+        &#34;id&#34;,
+        &#34;type&#34;,
+        &#34;title&#34;
+      ],
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;propertySchemaGroup&#34;: {
+      &#34;$id&#34;: &#34;#propertySchemaGroup&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/id&#34;
+        },
+        &#34;title&#34;: {
+          &#34;type&#34;: &#34;string&#34;
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;list&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;
+        },
+        &#34;availableIf&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertyCondition&#34;
+        },
+        &#34;representativeField&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/id?&#34;
+        },
+        &#34;fields&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;items&#34;: {
+            &#34;$ref&#34;: &#34;#/definitions/propertySchemaField&#34;
+          }
+        }
+      },
+      &#34;required&#34;: [
+        &#34;id&#34;,
+        &#34;title&#34;
+      ],
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;propertySchema&#34;: {
+      &#34;$id&#34;: &#34;#propertySchema&#34;,
+      &#34;type&#34;: [
+        &#34;object&#34;,
+        &#34;null&#34;
+      ],
+      &#34;properties&#34;: {
+        &#34;version&#34;: {
+          &#34;type&#34;: &#34;number&#34;
+        },
+        &#34;linkable&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertyLinkableFields&#34;
+        },
+        &#34;groups&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;items&#34;: {
+            &#34;$ref&#34;: &#34;#/definitions/propertySchemaGroup&#34;
+          }
+        }
+      },
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;extension&#34;: {
+      &#34;$id&#34;: &#34;#extension&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/id&#34;
+        },
+        &#34;title&#34;: {
+          &#34;type&#34;: &#34;string&#34;
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;icon&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;visualizer&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;enum&#34;: [
+            &#34;cesium&#34;
+          ]
+        },
+        &#34;type&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;enum&#34;: [
+            &#34;primitive&#34;,
+            &#34;widget&#34;,
+            &#34;block&#34;,
+            &#34;visualizer&#34;,
+            &#34;infobox&#34;
+          ]
+        },
+        &#34;schema&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
+        }
+      },
+      &#34;required&#34;: [
+        &#34;id&#34;,
+        &#34;title&#34;,
+        &#34;visualizer&#34;,
+        &#34;type&#34;
+      ],
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;root&#34;: {
+      &#34;$id&#34;: &#34;#root&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;id&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/id&#34;
+        },
+        &#34;title&#34;: {
+          &#34;type&#34;: &#34;string&#34;
+        },
+        &#34;system&#34;: {
+          &#34;type&#34;: &#34;boolean&#34;
+        },
+        &#34;version&#34;: {
+          &#34;type&#34;: &#34;string&#34;
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;repository&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;author&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;main&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;extensions&#34;: {
+          &#34;type&#34;: &#34;array&#34;,
+          &#34;items&#34;: {
+            &#34;$ref&#34;: &#34;#/definitions/extension&#34;
+          }
+        },
+        &#34;schema&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
+        }
+      },
+      &#34;required&#34;: [
+        &#34;id&#34;,
+        &#34;title&#34;
+      ],
+      &#34;additionalProperties&#34;: false
+    }
+  },
+  &#34;$ref&#34;: &#34;#/definitions/root&#34;
+}
+`</pre>
+			
+				
+				<pre>const <span id="SchemaTranslationJSON">SchemaTranslationJSON</span> <a href="/main/pkg/builtin/#string">string</a> = `{
+  &#34;$id&#34;: &#34;https://app.reearth.io/schemas/plugin-manifest-translation&#34;,
+  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema&#34;,
+  &#34;description&#34;: &#34;Re:Earth plugin manifest schema translation&#34;,
+  &#34;definitions&#34;: {
+    &#34;propertySchemaField&#34;: {
+      &#34;$id&#34;: &#34;#propertySchemaField&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;additionalProperties&#34;: false,
+      &#34;properties&#34;: {
+        &#34;title&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;choices&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;additionalProperties&#34;: false,
+          &#34;patternProperties&#34;: {
+            &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
+              &#34;type&#34;: &#34;string&#34;
+            }
+          }
+        }
+      }
+    },
+    &#34;propertySchemaGroup&#34;: {
+      &#34;$id&#34;: &#34;#propertySchemaGroup&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;additionalProperties&#34;: false,
+      &#34;properties&#34;: {
+        &#34;title&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;fields&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;additionalProperties&#34;: false,
+          &#34;patternProperties&#34;: {
+            &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
+              &#34;$ref&#34;: &#34;#/definitions/propertySchemaField&#34;
+            }
+          }
+        }
+      }
+    },
+    &#34;propertySchema&#34;: {
+      &#34;$id&#34;: &#34;#propertySchema&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;additionalProperties&#34;: false,
+      &#34;patternProperties&#34;: {
+        &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertySchemaGroup&#34;
+        }
+      }
+    },
+    &#34;extension&#34;: {
+      &#34;$id&#34;: &#34;#extension&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;additionalProperties&#34;: false,
+      &#34;properties&#34;: {
+        &#34;title&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;propertySchema&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
+        }
+      }
+    },
+    &#34;root&#34;: {
+      &#34;$id&#34;: &#34;#root&#34;,
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;additionalProperties&#34;: false,
+      &#34;properties&#34;: {
+        &#34;title&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;description&#34;: {
+          &#34;type&#34;: [
+            &#34;string&#34;,
+            &#34;null&#34;
+          ]
+        },
+        &#34;extensions&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;patternProperties&#34;: {
+            &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
+              &#34;$ref&#34;: &#34;#/definitions/extension&#34;
+            }
+          }
+        },
+        &#34;schema&#34;: {
+          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
+        }
+      }
+    }
+  },
+  &#34;$ref&#34;: &#34;#/definitions/root&#34;
+}
+`</pre>
+			
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span id="ErrInvalidManifest">ErrInvalidManifest</span>       <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid manifest&#34;)
+    <span id="ErrFailedToParseManifest">ErrFailedToParseManifest</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse plugin manifest&#34;)
+    <span id="ErrSystemManifest">ErrSystemManifest</span>              = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;cannot build system manifest&#34;)
+)</pre>
+			
+				
+				<pre>var (
+    <span id="ErrInvalidManifestTranslation">ErrInvalidManifestTranslation</span>       <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid manifest translation&#34;)
+    <span id="ErrFailedToParseManifestTranslation">ErrFailedToParseManifestTranslation</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse plugin manifest translation&#34;)
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Choice">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=214:340#L1">Choice</a>
+				<a class="permalink" href="index.html#Choice">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Choice struct {
+<span id="Choice.Icon"></span>    Icon  <a href="/main/pkg/builtin/#string">string</a> `json:&#34;icon,omitempty&#34;`
+<span id="Choice.Key"></span>    Key   <a href="/main/pkg/builtin/#string">string</a> `json:&#34;key&#34;`
+<span id="Choice.Label"></span>    Label <a href="/main/pkg/builtin/#string">string</a> `json:&#34;label,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Extension">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=342:712#L1">Extension</a>
+				<a class="permalink" href="index.html#Extension">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Extension struct {
+<span id="Extension.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
+<span id="Extension.ID"></span>    ID          <a href="index.html#ID">ID</a>              `json:&#34;id&#34;`
+<span id="Extension.Icon"></span>    Icon        *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;icon,omitempty&#34;`
+<span id="Extension.Schema"></span>    Schema      *<a href="index.html#PropertySchema">PropertySchema</a> `json:&#34;schema,omitempty&#34;`
+<span id="Extension.Title"></span>    Title       <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
+<span id="Extension.Type"></span>    Type        <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;type&#34;`
+<span id="Extension.Visualizer"></span>    Visualizer  <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;visualizer&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=714:728#L11">ID</a>
+				<a class="permalink" href="index.html#ID">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ID <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Id">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=730:744#L13">Id</a>
+				<a class="permalink" href="index.html#Id">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Id <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Manifest">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/manifest.go?s=130:256#L1">Manifest</a>
+				<a class="permalink" href="index.html#Manifest">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Manifest struct {
+<span id="Manifest.Plugin"></span>    Plugin          *<a href="../index.html">plugin</a>.<a href="../index.html#Plugin">Plugin</a>
+<span id="Manifest.ExtensionSchema"></span>    ExtensionSchema []*<a href="../../property/index.html">property</a>.<a href="../../property/index.html#Schema">Schema</a>
+<span id="Manifest.Schema"></span>    Schema          *<a href="../../property/index.html">property</a>.<a href="../../property/index.html#Schema">Schema</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MergeManifestTranslation">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=2667:2751#L79">MergeManifestTranslation</a>
+					<a class="permalink" href="index.html#MergeManifestTranslation">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MergeManifestTranslation(m *<a href="index.html#Manifest">Manifest</a>, tl map[<a href="/main/pkg/builtin/#string">string</a>]*<a href="index.html#TranslationRoot">TranslationRoot</a>) *<a href="index.html#Manifest">Manifest</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="MustParseSystemFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=1801:1860#L61">MustParseSystemFromStaticJSON</a>
+					<a class="permalink" href="index.html#MustParseSystemFromStaticJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MustParseSystemFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Manifest">Manifest</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="Parse">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=689:736#L12">Parse</a>
+					<a class="permalink" href="index.html#Parse">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func Parse(source <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+				
+				<h3 id="ParseSystemFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=1378:1442#L41">ParseSystemFromStaticJSON</a>
+					<a class="permalink" href="index.html#ParseSystemFromStaticJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ParseSystemFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="PropertyCondition">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=746:880#L15">PropertyCondition</a>
+				<a class="permalink" href="index.html#PropertyCondition">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PropertyCondition struct {
+<span id="PropertyCondition.Field"></span>    Field <a href="/main/pkg/builtin/#string">string</a>      `json:&#34;field&#34;`
+<span id="PropertyCondition.Type"></span>    Type  <a href="index.html#Valuetype">Valuetype</a>   `json:&#34;type&#34;`
+<span id="PropertyCondition.Value"></span>    Value interface{} `json:&#34;value&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PropertyLinkableFields">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=882:1019#L21">PropertyLinkableFields</a>
+				<a class="permalink" href="index.html#PropertyLinkableFields">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PropertyLinkableFields struct {
+<span id="PropertyLinkableFields.Latlng"></span>    Latlng *<a href="index.html#PropertyPointer">PropertyPointer</a> `json:&#34;latlng,omitempty&#34;`
+<span id="PropertyLinkableFields.URL"></span>    URL    *<a href="index.html#PropertyPointer">PropertyPointer</a> `json:&#34;url,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PropertyPointer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1021:1136#L26">PropertyPointer</a>
+				<a class="permalink" href="index.html#PropertyPointer">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PropertyPointer struct {
+<span id="PropertyPointer.FieldID"></span>    FieldID       <a href="/main/pkg/builtin/#string">string</a> `json:&#34;fieldId&#34;`
+<span id="PropertyPointer.SchemaGroupID"></span>    SchemaGroupID <a href="/main/pkg/builtin/#string">string</a> `json:&#34;schemaGroupId&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PropertySchema">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1138:1351#L31">PropertySchema</a>
+				<a class="permalink" href="index.html#PropertySchema">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PropertySchema struct {
+<span id="PropertySchema.Groups"></span>    Groups   []<a href="index.html#PropertySchemaGroup">PropertySchemaGroup</a>   `json:&#34;groups,omitempty&#34;`
+<span id="PropertySchema.Linkable"></span>    Linkable *<a href="index.html#PropertyLinkableFields">PropertyLinkableFields</a> `json:&#34;linkable,omitempty&#34;`
+<span id="PropertySchema.Version"></span>    Version  <a href="/main/pkg/builtin/#float64">float64</a>                 `json:&#34;version,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PropertySchemaField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1353:2066#L37">PropertySchemaField</a>
+				<a class="permalink" href="index.html#PropertySchemaField">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PropertySchemaField struct {
+<span id="PropertySchemaField.AvailableIf"></span>    AvailableIf  *<a href="index.html#PropertyCondition">PropertyCondition</a> `json:&#34;availableIf,omitempty&#34;`
+<span id="PropertySchemaField.Choices"></span>    Choices      []<a href="index.html#Choice">Choice</a>           `json:&#34;choices,omitempty&#34;`
+<span id="PropertySchemaField.DefaultValue"></span>    DefaultValue interface{}        `json:&#34;defaultValue,omitempty&#34;`
+<span id="PropertySchemaField.Description"></span>    Description  *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;description,omitempty&#34;`
+<span id="PropertySchemaField.ID"></span>    ID           <a href="index.html#ID">ID</a>                 `json:&#34;id&#34;`
+<span id="PropertySchemaField.Max"></span>    Max          *<a href="/main/pkg/builtin/#float64">float64</a>           `json:&#34;max,omitempty&#34;`
+<span id="PropertySchemaField.Min"></span>    Min          *<a href="/main/pkg/builtin/#float64">float64</a>           `json:&#34;min,omitempty&#34;`
+<span id="PropertySchemaField.Prefix"></span>    Prefix       *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;prefix,omitempty&#34;`
+<span id="PropertySchemaField.Suffix"></span>    Suffix       *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;suffix,omitempty&#34;`
+<span id="PropertySchemaField.Title"></span>    Title        *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;title&#34;`
+<span id="PropertySchemaField.Type"></span>    Type         <a href="index.html#Valuetype">Valuetype</a>          `json:&#34;type&#34;`
+<span id="PropertySchemaField.UI"></span>    UI           *<a href="/main/pkg/builtin/#string">string</a>            `json:&#34;ui,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PropertySchemaGroup">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=2068:2582#L52">PropertySchemaGroup</a>
+				<a class="permalink" href="index.html#PropertySchemaGroup">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PropertySchemaGroup struct {
+<span id="PropertySchemaGroup.AvailableIf"></span>    AvailableIf         *<a href="index.html#PropertyCondition">PropertyCondition</a>    `json:&#34;availableIf,omitempty&#34;`
+<span id="PropertySchemaGroup.Description"></span>    Description         *<a href="/main/pkg/builtin/#string">string</a>               `json:&#34;description,omitempty&#34;`
+<span id="PropertySchemaGroup.Fields"></span>    Fields              []<a href="index.html#PropertySchemaField">PropertySchemaField</a> `json:&#34;fields,omitempty&#34;`
+<span id="PropertySchemaGroup.ID"></span>    ID                  <a href="index.html#ID">ID</a>                    `json:&#34;id&#34;`
+<span id="PropertySchemaGroup.List"></span>    List                <a href="/main/pkg/builtin/#bool">bool</a>                  `json:&#34;list,omitempty&#34;`
+<span id="PropertySchemaGroup.RepresentativeField"></span>    RepresentativeField *<a href="index.html#Id">Id</a>                   `json:&#34;representativeField,omitempty&#34;`
+<span id="PropertySchemaGroup.Title"></span>    Title               <a href="/main/pkg/builtin/#string">string</a>                `json:&#34;title&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Root">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=2584:3141#L62">Root</a>
+				<a class="permalink" href="index.html#Root">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Root struct {
+<span id="Root.Author"></span>    Author      *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;author,omitempty&#34;`
+<span id="Root.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
+<span id="Root.Extensions"></span>    Extensions  []<a href="index.html#Extension">Extension</a>     `json:&#34;extensions,omitempty&#34;`
+<span id="Root.ID"></span>    ID          <a href="index.html#ID">ID</a>              `json:&#34;id&#34;`
+<span id="Root.Main"></span>    Main        *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;main,omitempty&#34;`
+<span id="Root.Repository"></span>    Repository  *<a href="/main/pkg/builtin/#string">string</a>         `json:&#34;repository,omitempty&#34;`
+<span id="Root.Schema"></span>    Schema      *<a href="index.html#PropertySchema">PropertySchema</a> `json:&#34;schema,omitempty&#34;`
+<span id="Root.System"></span>    System      <a href="/main/pkg/builtin/#bool">bool</a>            `json:&#34;system,omitempty&#34;`
+<span id="Root.Title"></span>    Title       <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
+<span id="Root.Version"></span>    Version     <a href="/main/pkg/builtin/#string">string</a>          `json:&#34;version,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TranslationExtension">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_translation.go?s=18:270#L1">TranslationExtension</a>
+				<a class="permalink" href="index.html#TranslationExtension">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TranslationExtension struct {
+<span id="TranslationExtension.Description"></span>    Description    *<a href="/main/pkg/builtin/#string">string</a>                   `json:&#34;description,omitempty&#34;`
+<span id="TranslationExtension.Title"></span>    Title          *<a href="/main/pkg/builtin/#string">string</a>                   `json:&#34;title,omitempty&#34;`
+<span id="TranslationExtension.PropertySchema"></span>    PropertySchema <a href="index.html#TranslationPropertySchema">TranslationPropertySchema</a> `json:&#34;propertySchema,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TranslationPropertySchema">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_translation.go?s=272:344#L1">TranslationPropertySchema</a>
+				<a class="permalink" href="index.html#TranslationPropertySchema">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TranslationPropertySchema map[<a href="/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationPropertySchemaGroup">TranslationPropertySchemaGroup</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TranslationPropertySchemaField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_translation.go?s=346:568#L1">TranslationPropertySchemaField</a>
+				<a class="permalink" href="index.html#TranslationPropertySchemaField">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TranslationPropertySchemaField struct {
+<span id="TranslationPropertySchemaField.Choices"></span>    Choices     map[<a href="/main/pkg/builtin/#string">string</a>]<a href="http://localhost:8080/pkg/builtin/#string">string</a> `json:&#34;choices,omitempty&#34;`
+<span id="TranslationPropertySchemaField.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>           `json:&#34;description,omitempty&#34;`
+<span id="TranslationPropertySchemaField.Title"></span>    Title       *<a href="/main/pkg/builtin/#string">string</a>           `json:&#34;title,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TranslationPropertySchemaGroup">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_translation.go?s=570:863#L7">TranslationPropertySchemaGroup</a>
+				<a class="permalink" href="index.html#TranslationPropertySchemaGroup">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TranslationPropertySchemaGroup struct {
+<span id="TranslationPropertySchemaGroup.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>                                   `json:&#34;description,omitempty&#34;`
+<span id="TranslationPropertySchemaGroup.Fields"></span>    Fields      map[<a href="/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationPropertySchemaField">TranslationPropertySchemaField</a> `json:&#34;fields,omitempty&#34;`
+<span id="TranslationPropertySchemaGroup.Title"></span>    Title       *<a href="/main/pkg/builtin/#string">string</a>                                   `json:&#34;title,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TranslationRoot">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_translation.go?s=865:1188#L13">TranslationRoot</a>
+				<a class="permalink" href="index.html#TranslationRoot">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TranslationRoot struct {
+<span id="TranslationRoot.Description"></span>    Description *<a href="/main/pkg/builtin/#string">string</a>                         `json:&#34;description,omitempty&#34;`
+<span id="TranslationRoot.Extensions"></span>    Extensions  map[<a href="/main/pkg/builtin/#string">string</a>]<a href="index.html#TranslationExtension">TranslationExtension</a> `json:&#34;extensions,omitempty&#34;`
+<span id="TranslationRoot.Title"></span>    Title       *<a href="/main/pkg/builtin/#string">string</a>                         `json:&#34;title,omitempty&#34;`
+<span id="TranslationRoot.Schema"></span>    Schema      <a href="index.html#TranslationPropertySchema">TranslationPropertySchema</a>       `json:&#34;schema,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MustParseTransSystemFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=2005:2076#L50">MustParseTransSystemFromStaticJSON</a>
+					<a class="permalink" href="index.html#MustParseTransSystemFromStaticJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MustParseTransSystemFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#TranslationRoot">TranslationRoot</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ParseTranslation">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=1032:1097#L14">ParseTranslation</a>
+					<a class="permalink" href="index.html#ParseTranslation">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ParseTranslation(source <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+				
+				<h3 id="ParseTranslationFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=1630:1706#L35">ParseTranslationFromStaticJSON</a>
+					<a class="permalink" href="index.html#ParseTranslationFromStaticJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ParseTranslationFromStaticJSON(source <a href="/main/pkg/builtin/#string">string</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Valuetype">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=3143:3164#L75">Valuetype</a>
+				<a class="permalink" href="index.html#Valuetype">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Valuetype <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

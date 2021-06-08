@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>log - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package log
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/log"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+				
+				<dd><a href="index.html#Debug">func Debug(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Debugf">func Debugf(format string, args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Debugln">func Debugln(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Error">func Error(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Errorf">func Errorf(format string, args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Errorln">func Errorln(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Fatal">func Fatal(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Fatalf">func Fatalf(format string, args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Fatalln">func Fatalln(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Info">func Info(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Infof">func Infof(format string, args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Infoln">func Infoln(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Print">func Print(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Printf">func Printf(format string, args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Println">func Println(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Trace">func Trace(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Tracef">func Tracef(format string, args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Traceln">func Traceln(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Warn">func Warn(args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Warnf">func Warnf(format string, args ...interface{})</a></dd>
+			
+				
+				<dd><a href="index.html#Warnln">func Warnln(args ...interface{})</a></dd>
+			
+			
+				
+				<dd><a href="index.html#GCEFormatter">type GCEFormatter</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewGCEFormatter">func NewGCEFormatter(withSourceInfo bool) *GCEFormatter</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GCEFormatter.Format">func (f *GCEFormatter) Format(entry *logrus.Entry) ([]byte, error)</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/gceformatter.go">gceformatter.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go">log.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span id="ErrSkipNotFound">ErrSkipNotFound</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;could not find skips for log level&#34;)
+)</pre>
+			
+		
+		
+			
+			
+			<h2 id="Debug">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=987:1018#L44">Debug</a>
+				<a class="permalink" href="index.html#Debug">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Debug(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Debugf">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=421:468#L16">Debugf</a>
+				<a class="permalink" href="index.html#Debugf">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Debugf(format <a href="/main/pkg/builtin/#string">string</a>, args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Debugln">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1407:1440#L72">Debugln</a>
+				<a class="permalink" href="index.html#Debugln">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Debugln(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Error">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1223:1254#L60">Error</a>
+				<a class="permalink" href="index.html#Error">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Error(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Errorf">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=757:804#L32">Errorf</a>
+				<a class="permalink" href="index.html#Errorf">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Errorf(format <a href="/main/pkg/builtin/#string">string</a>, args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Errorln">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1659:1692#L88">Errorln</a>
+				<a class="permalink" href="index.html#Errorln">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Errorln(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Fatal">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1283:1314#L64">Fatal</a>
+				<a class="permalink" href="index.html#Fatal">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Fatal(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Fatalf">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=842:889#L36">Fatalf</a>
+				<a class="permalink" href="index.html#Fatalf">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Fatalf(format <a href="/main/pkg/builtin/#string">string</a>, args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Fatalln">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1723:1756#L92">Fatalln</a>
+				<a class="permalink" href="index.html#Fatalln">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Fatalln(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Info">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1047:1077#L48">Info</a>
+				<a class="permalink" href="index.html#Info">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Info(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Infof">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=506:552#L20">Infof</a>
+				<a class="permalink" href="index.html#Infof">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Infof(format <a href="/main/pkg/builtin/#string">string</a>, args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Infoln">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1471:1503#L76">Infoln</a>
+				<a class="permalink" href="index.html#Infoln">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Infoln(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Print">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1105:1136#L52">Print</a>
+				<a class="permalink" href="index.html#Print">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Print(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Printf">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=589:636#L24">Printf</a>
+				<a class="permalink" href="index.html#Printf">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Printf(format <a href="/main/pkg/builtin/#string">string</a>, args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Println">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1533:1566#L80">Println</a>
+				<a class="permalink" href="index.html#Println">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Println(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Trace">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=927:958#L40">Trace</a>
+				<a class="permalink" href="index.html#Trace">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Trace(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Tracef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=336:383#L12">Tracef</a>
+				<a class="permalink" href="index.html#Tracef">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Tracef(format <a href="/main/pkg/builtin/#string">string</a>, args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Traceln">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1343:1376#L68">Traceln</a>
+				<a class="permalink" href="index.html#Traceln">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Traceln(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Warn">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1165:1195#L56">Warn</a>
+				<a class="permalink" href="index.html#Warn">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Warn(args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Warnf">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=674:720#L28">Warnf</a>
+				<a class="permalink" href="index.html#Warnf">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Warnf(format <a href="/main/pkg/builtin/#string">string</a>, args ...interface{})</pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="Warnln">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/log.go?s=1597:1629#L84">Warnln</a>
+				<a class="permalink" href="index.html#Warnln">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func Warnln(args ...interface{})</pre>
+			
+			
+			
+
+		
+		
+			
+			
+			<h2 id="GCEFormatter">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/gceformatter.go?s=1642:1691#L68">GCEFormatter</a>
+				<a class="permalink" href="index.html#GCEFormatter">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GCEFormatter struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewGCEFormatter">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/gceformatter.go?s=1693:1748#L72">NewGCEFormatter</a>
+					<a class="permalink" href="index.html#NewGCEFormatter">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewGCEFormatter(withSourceInfo <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#GCEFormatter">GCEFormatter</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="GCEFormatter.Format">func (*GCEFormatter) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/log/gceformatter.go?s=1808:1874#L76">Format</a>
+					<a class="permalink" href="index.html#GCEFormatter.Format">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (f *<a href="index.html#GCEFormatter">GCEFormatter</a>) Format(entry *<a href="/main/pkg/github.com/sirupsen/logrus/">logrus</a>.<a href="http://localhost:8080/pkg/github.com/sirupsen/logrus/#Entry">Entry</a>) ([]<a href="http://localhost:8080/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

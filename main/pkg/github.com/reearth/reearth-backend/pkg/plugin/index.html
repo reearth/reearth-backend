@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>plugin - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package plugin
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/plugin"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+				<dd><a href="index.html#pkg-subdirectories">Subdirectories</a></dd>
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#Builder">type Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#New">func New() *Builder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Author">func (b *Builder) Author(author string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Build">func (b *Builder) Build() (*Plugin, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Description">func (b *Builder) Description(description i18n.String) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Extensions">func (b *Builder) Extensions(extensions []*Extension) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.PluginID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.MustBuild">func (b *Builder) MustBuild() *Plugin</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Name">func (b *Builder) Name(name i18n.String) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.RepositoryURL">func (b *Builder) RepositoryURL(repositoryURL string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Schema">func (b *Builder) Schema(schema *id.PropertySchemaID) *Builder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Extension">type Extension</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.Description">func (w *Extension) Description() i18n.String</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.ID">func (w *Extension) ID() id.PluginExtensionID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.Icon">func (w *Extension) Icon() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.Name">func (w *Extension) Name() i18n.String</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.Rename">func (w *Extension) Rename(name i18n.String)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.Schema">func (w *Extension) Schema() id.PropertySchemaID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.SetDescription">func (w *Extension) SetDescription(des i18n.String)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.Type">func (w *Extension) Type() ExtensionType</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Extension.Visualizer">func (w *Extension) Visualizer() visualizer.Visualizer</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ExtensionBuilder">type ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewExtension">func NewExtension() *ExtensionBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.Build">func (b *ExtensionBuilder) Build() (*Extension, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.Description">func (b *ExtensionBuilder) Description(description i18n.String) *ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.ID">func (b *ExtensionBuilder) ID(id id.PluginExtensionID) *ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.Icon">func (b *ExtensionBuilder) Icon(icon string) *ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.MustBuild">func (b *ExtensionBuilder) MustBuild() *Extension</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.Name">func (b *ExtensionBuilder) Name(name i18n.String) *ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.Schema">func (b *ExtensionBuilder) Schema(schema id.PropertySchemaID) *ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.System">func (b *ExtensionBuilder) System(s bool) *ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.Type">func (b *ExtensionBuilder) Type(extensionType ExtensionType) *ExtensionBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ExtensionBuilder.Visualizer">func (b *ExtensionBuilder) Visualizer(visualizer visualizer.Visualizer) *ExtensionBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ExtensionType">type ExtensionType</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Loader">type Loader</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Plugin">type Plugin</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Author">func (p *Plugin) Author() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Description">func (p *Plugin) Description() i18n.String</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Extension">func (p *Plugin) Extension(id id.PluginExtensionID) *Extension</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Extensions">func (p *Plugin) Extensions() []*Extension</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.ID">func (p *Plugin) ID() id.PluginID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Name">func (p *Plugin) Name() i18n.String</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Rename">func (p *Plugin) Rename(name i18n.String)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.RepositoryURL">func (p *Plugin) RepositoryURL() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Schema">func (p *Plugin) Schema() *id.PropertySchemaID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.SetDescription">func (p *Plugin) SetDescription(des i18n.String)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Version">func (p *Plugin) Version() semver.Version</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go">builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go">extension.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go">extension_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/loader.go">loader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go">plugin.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span class="comment">// ErrPluginExtensionDuplicated _</span>
+    <span id="ErrPluginExtensionDuplicated">ErrPluginExtensionDuplicated</span> <a href="/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;plugin extension duplicated&#34;)
+    <span class="comment">// ExtensionTypePrimitive _</span>
+    <span id="ExtensionTypePrimitive">ExtensionTypePrimitive</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;primitive&#34;
+    <span class="comment">// ExtensionTypeWidget _</span>
+    <span id="ExtensionTypeWidget">ExtensionTypeWidget</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;widget&#34;
+    <span class="comment">// ExtensionTypeBlock _</span>
+    <span id="ExtensionTypeBlock">ExtensionTypeBlock</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;block&#34;
+    <span class="comment">// ExtensionTypeVisualizer _</span>
+    <span id="ExtensionTypeVisualizer">ExtensionTypeVisualizer</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;visualizer&#34;
+    <span class="comment">// ExtensionTypeInfobox _</span>
+    <span id="ExtensionTypeInfobox">ExtensionTypeInfobox</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;infobox&#34;
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=120:154#L1">Builder</a>
+				<a class="permalink" href="index.html#Builder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Builder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=156:175#L2">New</a>
+					<a class="permalink" href="index.html#New">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Builder.Author">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=593:641#L29">Author</a>
+					<a class="permalink" href="index.html#Builder.Author">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Author(author <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=212:254#L6">Build</a>
+					<a class="permalink" href="index.html#Builder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#Plugin">Plugin</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Description">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=678:741#L34">Description</a>
+					<a class="permalink" href="index.html#Builder.Description">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Description(description <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Extensions">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=908:970#L44">Extensions</a>
+					<a class="permalink" href="index.html#Builder.Extensions">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Extensions(extensions []*<a href="index.html#Extension">Extension</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=430:475#L19">ID</a>
+					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=323:360#L11">MustBuild</a>
+					<a class="permalink" href="index.html#Builder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) MustBuild() *<a href="index.html#Plugin">Plugin</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Name">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=504:553#L24">Name</a>
+					<a class="permalink" href="index.html#Builder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Name(name <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.RepositoryURL">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=795:857#L39">RepositoryURL</a>
+					<a class="permalink" href="index.html#Builder.RepositoryURL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) RepositoryURL(repositoryURL <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.Schema">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/builder.go?s=1256:1318#L54">Schema</a>
+					<a class="permalink" href="index.html#Builder.Schema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Schema(schema *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Extension">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=750:988#L20">Extension</a>
+				<a class="permalink" href="index.html#Extension">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Extension _
+</p>
+
+			<pre>type Extension struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Extension.Description">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1235:1280#L46">Description</a>
+					<a class="permalink" href="index.html#Extension.Description">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) Description() <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a></pre>
+				<p>
+Description _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.ID">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=998:1043#L31">ID</a>
+					<a class="permalink" href="index.html#Extension.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.Icon">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1325:1358#L51">Icon</a>
+					<a class="permalink" href="index.html#Extension.Icon">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) Icon() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+Icon _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.Name">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1152:1190#L41">Name</a>
+					<a class="permalink" href="index.html#Extension.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) Name() <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.Rename">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1571:1615#L66">Rename</a>
+					<a class="permalink" href="index.html#Extension.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) Rename(name <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>)</pre>
+				<p>
+Rename _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.Schema">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1391:1439#L56">Schema</a>
+					<a class="permalink" href="index.html#Extension.Schema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) Schema() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a></pre>
+				<p>
+Schema _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.SetDescription">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1664:1715#L72">SetDescription</a>
+					<a class="permalink" href="index.html#Extension.SetDescription">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) SetDescription(des <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>)</pre>
+				<p>
+SetDescription _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.Type">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1072:1112#L36">Type</a>
+					<a class="permalink" href="index.html#Extension.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) Type() <a href="index.html#ExtensionType">ExtensionType</a></pre>
+				<p>
+Type _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Extension.Visualizer">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1478:1532#L61">Visualizer</a>
+					<a class="permalink" href="index.html#Extension.Visualizer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Extension">Extension</a>) Visualizer() <a href="../visualizer/index.html">visualizer</a>.<a href="../visualizer/index.html#Visualizer">Visualizer</a></pre>
+				<p>
+Visualizer _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ExtensionBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=206:260#L2">ExtensionBuilder</a>
+				<a class="permalink" href="index.html#ExtensionBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+ExtensionBuilder _
+</p>
+
+			<pre>type ExtensionBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewExtension">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=280:317#L8">NewExtension</a>
+					<a class="permalink" href="index.html#NewExtension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewExtension() *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+NewExtension _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="ExtensionBuilder.Build">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=377:431#L13">Build</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) Build() (*<a href="index.html#Extension">Extension</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Build _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.Description">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=1204:1285#L53">Description</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.Description">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) Description(description <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+Description _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.ID">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=830:902#L35">ID</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.Icon">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=1349:1411#L59">Icon</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.Icon">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) Icon(icon <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+Icon _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.MustBuild">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=703:752#L26">MustBuild</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) MustBuild() *<a href="index.html#Extension">Extension</a></pre>
+				<p>
+MustBuild _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.Name">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=941:1008#L41">Name</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) Name(name <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.Schema">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=1456:1535#L65">Schema</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.Schema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) Schema(schema <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+Schema _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.System">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=1734:1793#L77">System</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.System">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) System(s <a href="/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+System _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.Type">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=1058:1136#L47">Type</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) Type(extensionType <a href="index.html#ExtensionType">ExtensionType</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+Type _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ExtensionBuilder.Visualizer">func (*ExtensionBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go?s=1588:1677#L71">Visualizer</a>
+					<a class="permalink" href="index.html#ExtensionBuilder.Visualizer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a>) Visualizer(visualizer <a href="../visualizer/index.html">visualizer</a>.<a href="../visualizer/index.html#Visualizer">Visualizer</a>) *<a href="index.html#ExtensionBuilder">ExtensionBuilder</a></pre>
+				<p>
+Visualizer _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ExtensionType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=203:228#L2">ExtensionType</a>
+				<a class="permalink" href="index.html#ExtensionType">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+ExtensionType _
+</p>
+
+			<pre>type ExtensionType <a href="/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Loader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/loader.go?s=85:153#L1">Loader</a>
+				<a class="permalink" href="index.html#Loader">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Loader func(<a href="/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) ([]*<a href="index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Plugin">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=159:439#L1">Plugin</a>
+				<a class="permalink" href="index.html#Plugin">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Plugin _
+</p>
+
+			<pre>type Plugin struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Plugin.Author">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=669:701#L27">Author</a>
+					<a class="permalink" href="index.html#Plugin.Author">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Author() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+Author _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Description">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=741:783#L32">Description</a>
+					<a class="permalink" href="index.html#Plugin.Description">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Description() <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a></pre>
+				<p>
+Description _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Extension">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1187:1249#L54">Extension</a>
+					<a class="permalink" href="index.html#Plugin.Extension">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Extension(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>) *<a href="index.html#Extension">Extension</a></pre>
+				<p>
+Extension _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Extensions">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=922:964#L42">Extensions</a>
+					<a class="permalink" href="index.html#Plugin.Extensions">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Extensions() []*<a href="index.html#Extension">Extension</a></pre>
+				<p>
+Extensions _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.ID">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=449:482#L12">ID</a>
+					<a class="permalink" href="index.html#Plugin.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Name">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=594:629#L22">Name</a>
+					<a class="permalink" href="index.html#Plugin.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Name() <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Rename">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1410:1451#L68">Rename</a>
+					<a class="permalink" href="index.html#Plugin.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Rename(name <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>)</pre>
+				<p>
+Rename _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.RepositoryURL">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=837:876#L37">RepositoryURL</a>
+					<a class="permalink" href="index.html#Plugin.RepositoryURL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) RepositoryURL() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+RepositoryURL _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Schema">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1329:1375#L63">Schema</a>
+					<a class="permalink" href="index.html#Plugin.Schema">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Schema() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a></pre>
+				<p>
+Schema _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.SetDescription">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1500:1548#L74">SetDescription</a>
+					<a class="permalink" href="index.html#Plugin.SetDescription">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) SetDescription(des <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>)</pre>
+				<p>
+SetDescription _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Version">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=514:555#L17">Version</a>
+					<a class="permalink" href="index.html#Plugin.Version">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Version() <a href="/main/pkg/github.com/blang/semver/">semver</a>.<a href="http://localhost:8080/pkg/github.com/blang/semver/#Version">Version</a></pre>
+				<p>
+Version _
+</p>
+
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	<div class="pkg-dir">
+		<table>
+			<tr>
+				<th class="pkg-name">Name</th>
+				<th class="pkg-synopsis">Synopsis</th>
+			</tr>
+
+			
+			<tr>
+				<td colspan="2"><a href="../index.html">..</a></td>
+			</tr>
+			
+
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="manifest/index.html">manifest</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+		</table>
+	</div>
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

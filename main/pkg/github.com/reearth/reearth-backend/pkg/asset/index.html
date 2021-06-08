@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>asset - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package asset
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/asset"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#Asset">type Asset</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Asset.ContentType">func (a *Asset) ContentType() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Asset.CreatedAt">func (a *Asset) CreatedAt() time.Time</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Asset.ID">func (a *Asset) ID() id.AssetID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Asset.Name">func (a *Asset) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Asset.Size">func (a *Asset) Size() int64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Asset.Team">func (a *Asset) Team() id.TeamID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Asset.URL">func (a *Asset) URL() string</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Builder">type Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#New">func New() *Builder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Build">func (b *Builder) Build() (*Asset, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ContentType">func (b *Builder) ContentType(contentType string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.CreatedAt">func (b *Builder) CreatedAt(createdAt time.Time) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.AssetID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.MustBuild">func (b *Builder) MustBuild() *Asset</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Name">func (b *Builder) Name(name string) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.NewID">func (b *Builder) NewID() *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Size">func (b *Builder) Size(size int64) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Team">func (b *Builder) Team(team id.TeamID) *Builder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.URL">func (b *Builder) URL(url string) *Builder</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go">asset.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go">builder.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span class="comment">// ErrEmptyTeamID _</span>
+    <span id="ErrEmptyTeamID">ErrEmptyTeamID</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;require team id&#34;)
+    <span class="comment">// ErrEmptyURL _</span>
+    <span id="ErrEmptyURL">ErrEmptyURL</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;require valid url&#34;)
+    <span class="comment">// ErrEmptySize _</span>
+    <span id="ErrEmptySize">ErrEmptySize</span> = <a href="/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;file size cannot be zero&#34;)
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Asset">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=319:516#L10">Asset</a>
+				<a class="permalink" href="index.html#Asset">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Asset _
+</p>
+
+			<pre>type Asset struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Asset.ContentType">func (*Asset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=832:868#L46">ContentType</a>
+					<a class="permalink" href="index.html#Asset.ContentType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#Asset">Asset</a>) ContentType() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+ContentType _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Asset.CreatedAt">func (*Asset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=911:948#L51">CreatedAt</a>
+					<a class="permalink" href="index.html#Asset.CreatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#Asset">Asset</a>) CreatedAt() <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a></pre>
+				<p>
+CreatedAt _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Asset.ID">func (*Asset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=526:557#L21">ID</a>
+					<a class="permalink" href="index.html#Asset.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#Asset">Asset</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#AssetID">AssetID</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Asset.Name">func (*Asset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=649:678#L31">Name</a>
+					<a class="permalink" href="index.html#Asset.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#Asset">Asset</a>) Name() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Asset.Size">func (*Asset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=709:737#L36">Size</a>
+					<a class="permalink" href="index.html#Asset.Size">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#Asset">Asset</a>) Size() <a href="/main/pkg/builtin/#int64">int64</a></pre>
+				<p>
+Size _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Asset.Team">func (*Asset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=586:618#L26">Team</a>
+					<a class="permalink" href="index.html#Asset.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#Asset">Asset</a>) Team() <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a></pre>
+				<p>
+Team _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Asset.URL">func (*Asset) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/asset.go?s=767:795#L41">URL</a>
+					<a class="permalink" href="index.html#Asset.URL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#Asset">Asset</a>) URL() <a href="/main/pkg/builtin/#string">string</a></pre>
+				<p>
+URL _
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=94:127#L1">Builder</a>
+				<a class="permalink" href="index.html#Builder">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Builder _
+</p>
+
+			<pre>type Builder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=138:157#L5">New</a>
+					<a class="permalink" href="index.html#New">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+New _
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=204:245#L10">Build</a>
+					<a class="permalink" href="index.html#Builder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#Asset">Asset</a>, <a href="/main/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Build _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.ContentType">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=1212:1270#L75">ContentType</a>
+					<a class="permalink" href="index.html#Builder.ContentType">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ContentType(contentType <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+ContentType _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.CreatedAt">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=1332:1389#L81">CreatedAt</a>
+					<a class="permalink" href="index.html#Builder.CreatedAt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) CreatedAt(createdAt <a href="/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+CreatedAt -
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=685:729#L39">ID</a>
+					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#AssetID">AssetID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+ID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=571:607#L30">MustBuild</a>
+					<a class="permalink" href="index.html#Builder.MustBuild">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) MustBuild() *<a href="index.html#Asset">Asset</a></pre>
+				<p>
+MustBuild _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Name">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=950:994#L57">Name</a>
+					<a class="permalink" href="index.html#Builder.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Name(name <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Name _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=769:803#L45">NewID</a>
+					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) NewID() *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+NewID _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Size">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=1037:1080#L63">Size</a>
+					<a class="permalink" href="index.html#Builder.Size">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Size(size <a href="/main/pkg/builtin/#int64">int64</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Size _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.Team">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=860:907#L51">Team</a>
+					<a class="permalink" href="index.html#Builder.Team">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Team(team <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+Team _
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Builder.URL">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/asset/builder.go?s=1122:1164#L69">URL</a>
+					<a class="permalink" href="index.html#Builder.URL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) URL(url <a href="/main/pkg/builtin/#string">string</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<p>
+URL _
+</p>
+
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

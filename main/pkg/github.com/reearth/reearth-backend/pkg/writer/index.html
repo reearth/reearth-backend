@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>writer - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.16.4";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package writer
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/writer"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="index.html#WriterSeeker">type WriterSeeker</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WriterSeeker.Buffer">func (sc *WriterSeeker) Buffer() []byte</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WriterSeeker.Seek">func (sc *WriterSeeker) Seek(offset int64, whence int) (int64, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WriterSeeker.Write">func (sc *WriterSeeker) Write(p []byte) (int, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WriterSeeker.WriteTo">func (sc *WriterSeeker) WriteTo(w io.Writer) (int64, error)</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/writer/seeker_closer.go">seeker_closer.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="WriterSeeker">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/writer/seeker_closer.go?s=148:207#L1">WriterSeeker</a>
+				<a class="permalink" href="index.html#WriterSeeker">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+reference: <a href="https://stackoverflow.com/questions/45836767/using-an-io-writeseeker-without-a-file-in-go">https://stackoverflow.com/questions/45836767/using-an-io-writeseeker-without-a-file-in-go</a>
+</p>
+
+			<pre>type WriterSeeker struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="WriterSeeker.Buffer">func (*WriterSeeker) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/writer/seeker_closer.go?s=1064:1103#L41">Buffer</a>
+					<a class="permalink" href="index.html#WriterSeeker.Buffer">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (sc *<a href="index.html#WriterSeeker">WriterSeeker</a>) Buffer() []<a href="/main/pkg/builtin/#byte">byte</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WriterSeeker.Seek">func (*WriterSeeker) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/writer/seeker_closer.go?s=566:635#L19">Seek</a>
+					<a class="permalink" href="index.html#WriterSeeker.Seek">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (sc *<a href="index.html#WriterSeeker">WriterSeeker</a>) Seek(offset <a href="/main/pkg/builtin/#int64">int64</a>, whence <a href="http://localhost:8080/pkg/builtin/#int">int</a>) (<a href="http://localhost:8080/pkg/builtin/#int64">int64</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WriterSeeker.Write">func (*WriterSeeker) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/writer/seeker_closer.go?s=209:261#L4">Write</a>
+					<a class="permalink" href="index.html#WriterSeeker.Write">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (sc *<a href="index.html#WriterSeeker">WriterSeeker</a>) Write(p []<a href="/main/pkg/builtin/#byte">byte</a>) (<a href="http://localhost:8080/pkg/builtin/#int">int</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WriterSeeker.WriteTo">func (*WriterSeeker) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/writer/seeker_closer.go?s=947:1006#L36">WriteTo</a>
+					<a class="permalink" href="index.html#WriterSeeker.WriteTo">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (sc *<a href="index.html#WriterSeeker">WriterSeeker</a>) WriteTo(w <a href="/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Writer">Writer</a>) (<a href="http://localhost:8080/pkg/builtin/#int64">int64</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.16.4.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>
