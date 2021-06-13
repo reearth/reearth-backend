@@ -1,46 +1,48 @@
 package sceneops
 
 import (
-	"errors"
+	"context"
+	"io"
 
-	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/internal/usecase/gateway"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
+	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 )
 
 type PluginInstaller struct {
-	// PluginRepo           repo.Plugin
-	// PluginRepositoryRepo gateway.PluginRepository
-	// PropertySchemaRepo   repo.PropertySchema
+	PluginRepo           repo.Plugin
+	PluginRepositoryRepo gateway.PluginRepository
+	PropertySchemaRepo   repo.PropertySchema
 }
 
-func (s PluginInstaller) InstallPluginFromRepository(pluginID id.PluginID) error {
-	return errors.New("not implemented")
+func (s PluginInstaller) InstallPluginFromRepository(ctx context.Context, source io.Reader) error {
 
-	// 	manifest, err := s.PluginRepositoryRepo.Manifest(pluginID)
-	// 	if err != nil {
-	// 		return err
-	// 	}
+	m, err := manifest.Parse(source)
+	if err != nil {
+		return err
+	}
 
-	// 	// save
-	// 	if manifest.Schema != nil {
-	// 		err = s.PropertySchemaRepo.SaveAll(manifest.Schema)
-	// 		if err != nil {
-	// 			return err
-	// 		}
-	// 	}
+	// save
+	if m.Plugin != nil {
+		err = s.PluginRepo.Save(ctx, m.Plugin)
+		if err != nil {
+			return err
+		}
+	}
 
-	// 	for _, s := range manifest.ExtensionSchema {
-	// 		err = i.propertySchemaRepo.Save(&s)
-	// 		if err != nil {
-	// 			i.output.Upload(nil, err1.ErrInternalBy(err))
-	// 			return
-	// 		}
-	// 	}
+	if m.Schema != nil {
+		err = s.PropertySchemaRepo.Save(ctx, m.Schema)
+		if err != nil {
+			return err
+		}
+	}
 
-	// 	err = i.pluginRepo.Save(plugin)
-	// 	if err != nil {
-	// 		i.output.Upload(nil, err1.ErrInternalBy(err))
-	// 		return
-	// 	}
+	if m.ExtensionSchema != nil && len(m.ExtensionSchema) > 0 {
+		err = s.PropertySchemaRepo.SaveAll(ctx, m.ExtensionSchema)
+		if err != nil {
+			return err
+		}
+	}
 
 	// 	// Download and extract plugin files to storage
 	// 	data, err := i.pluginRepositoryRepo.Data(inp.Name, inp.Version)
@@ -118,5 +120,5 @@ func (s PluginInstaller) InstallPluginFromRepository(pluginID id.PluginID) error
 	// 		return
 	// 	}
 
-	// return nil
+	return nil
 }
