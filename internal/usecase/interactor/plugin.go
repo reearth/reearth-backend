@@ -30,7 +30,7 @@ func NewPlugin(r *repo.Container, gr *gateway.Container) interfaces.Plugin {
 		transaction:        r.Transaction,
 		pluginRepository:   gr.PluginRepository,
 		file:               gr.File,
-		pluginRegistry:     gr.Github,
+		pluginRegistry:     gr.PluginRegistry,
 	}
 }
 
@@ -67,7 +67,7 @@ func (i *Plugin) FetchPluginMetadata(ctx context.Context, operator *usecase.Oper
 		return nil, err
 	}
 
-	res, err := i.pluginRegistry.Fetch(ctx)
+	res, err := i.pluginRegistry.FetchMetadata(ctx)
 	if err != nil {
 		return nil, err
 	}

@@ -7,5 +7,5 @@ import (
 )
 
 type PluginRegistry interface {
-	Fetch(ctx context.Context) ([]*plugin.Metadata, error)
+	FetchMetadata(ctx context.Context) ([]*plugin.Metadata, error)
 }

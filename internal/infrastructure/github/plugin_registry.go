@@ -16,7 +16,7 @@ func NewPluginRegistry() gateway.PluginRegistry {
 
 const source = `https://raw.githubusercontent.com/reearth/plugins/main/plugins.json`
 
-func (d *pluginRegistry) Fetch(ctx context.Context) ([]*plugin.Metadata, error) {
+func (d *pluginRegistry) FetchMetadata(ctx context.Context) ([]*plugin.Metadata, error) {
 
 	response, err := fetchURL(ctx, source)
 	if err != nil {
