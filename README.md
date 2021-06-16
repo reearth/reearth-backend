@@ -13,7 +13,7 @@ To get started, follow these instructions:
  
  ## Building and running the app 
  
-Reearth is a Go web application built using [Echo](https://github.com/golangci/golangci-lint#install) as a framework and MongoDB as DBMS.
+Reearth is a Go web application built using [Echo](https://echo.labstack.com) as a framework and MongoDB as DBMS.
  
 To run DB with docker-compose:
  
