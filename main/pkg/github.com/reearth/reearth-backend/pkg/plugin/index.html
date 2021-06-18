@@ -232,6 +232,11 @@
 				
 			
 				
+				<dd><a href="index.html#Metadata">type Metadata</a></dd>
+				
+				
+			
+				
 				<dd><a href="index.html#Plugin">type Plugin</a></dd>
 				
 				
@@ -287,6 +292,8 @@
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension_builder.go">extension_builder.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/loader.go">loader.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/metadata.go">metadata.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go">plugin.go</a>
 			
@@ -854,6 +861,33 @@ ExtensionType _
 			</h2>
 			
 			<pre>type Loader func(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) ([]*<a href="index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Metadata">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/metadata.go?s=31:178#L1">Metadata</a>
+				<a class="permalink" href="index.html#Metadata">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Metadata struct {
+<span id="Metadata.Name"></span>    Name        <a href="/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;name&#34;`
+<span id="Metadata.Description"></span>    Description <a href="/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;description&#34;`
+<span id="Metadata.CreatedAt"></span>    CreatedAt   <a href="/reearth-backend/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a> `json:&#34;createdAt&#34;`
+}
+</pre>
 
 			
 
