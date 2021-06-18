@@ -16515,14 +16515,11 @@ func (ec *executionContext) _Mutation_importDatasetFromGoogleSheet(ctx context.C
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.ImportDatasetPayload)
 	fc.Result = res
-	return ec.marshalNImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
