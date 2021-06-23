@@ -3,10 +3,12 @@ package interactor
 import (
 	"context"
 	"errors"
+	"os"
 	"strings"
 
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/pkg/log"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
@@ -34,6 +36,7 @@ type Dataset struct {
 	transaction       repo.Transaction
 	datasource        gateway.DataSource
 	file              gateway.File
+	csvSource         gateway.CSVDatasource
 }
 
 func NewDataset(r *repo.Container, gr *gateway.Container) interfaces.Dataset {
@@ -48,6 +51,7 @@ func NewDataset(r *repo.Container, gr *gateway.Container) interfaces.Dataset {
 		transaction:       r.Transaction,
 		datasource:        gr.DataSource,
 		file:              gr.File,
+		csvSource:         gr.CSVDatasource,
 	}
 }
 
@@ -320,6 +324,30 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 	// Commit db transaction
 	tx.Commit()
 	return schema, nil
+}
+
+func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfaces.ImportDatasetFromGoogleSheetParam, operator *usecase.Operator) (_ *dataset.Schema, err error) {
+
+	csvFile, err := i.csvSource.Fetch(inp.Token, inp.FileID, inp.SheetName)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		err = csvFile.Content.(*os.File).Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+		err = os.Remove(csvFile.Name)
+		if err != nil {
+			log.Error(err)
+		}
+	}()
+
+	return i.ImportDataset(ctx, interfaces.ImportDatasetParam{
+		SceneId:  inp.SceneId,
+		SchemaId: inp.SchemaId,
+		File:     csvFile,
+	}, operator)
 }
 
 func (i *Dataset) Fetch(ctx context.Context, ids []id.DatasetID, operator *usecase.Operator) (dataset.List, error) {

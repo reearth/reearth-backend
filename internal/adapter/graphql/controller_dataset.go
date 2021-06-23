@@ -2,14 +2,9 @@ package graphql
 
 import (
 	"context"
-	"fmt"
-	"io"
-	"net/http"
-	"os"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
-	"github.com/reearth/reearth-backend/pkg/file"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
@@ -83,51 +78,13 @@ func (c *DatasetController) ImportDataset(ctx context.Context, i *ImportDatasetI
 	return &ImportDatasetPayload{DatasetSchema: toDatasetSchema(res)}, nil
 }
 
-// LoadGoogleSheetAdCSV
-// TODO: Move this method to infrastructure layer
-func LoadGoogleSheetAdCSV(token string, fileId string, sheetName string) (*file.File, error) {
-	url := fmt.Sprintf("https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s", fileId, sheetName)
-	req, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("Authorization", "Bearer "+token)
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		_ = res.Body.Close()
-	}()
-	if res.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("StatusCode=%d", res.StatusCode)
-	}
-	out, err := os.CreateTemp("csvTemp", fileId)
-	if err != nil {
-		return nil, err
-	}
-	defer out.Close()
-	io.Copy(out, res.Body)
-	// return result.WorldID, nil
-	return &file.File{
-		Content:     out,
-		Name:        "temp",
-		Fullpath:    "-",
-		Size:        0,
-		ContentType: "csv",
-	}, nil
-}
-
 func (c *DatasetController) ImportDatasetFromGoogleSheet(ctx context.Context, i *ImportDatasetFromGoogleSheetInput, o *usecase.Operator) (*ImportDatasetPayload, error) {
-	csvFile, err := LoadGoogleSheetAdCSV(i.AccessToken, i.FileID, i.SheetName)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := c.usecase().ImportDataset(ctx, interfaces.ImportDatasetParam{
-		SceneId:  id.SceneID(i.SceneID),
-		SchemaId: id.DatasetSchemaIDFromRefID(i.DatasetSchemaID),
-		File:     csvFile,
+	res, err := c.usecase().ImportDatasetFromGoogleSheet(ctx, interfaces.ImportDatasetFromGoogleSheetParam{
+		Token:     i.AccessToken,
+		FileID:    i.FileID,
+		SheetName: i.SheetName,
+		SceneId:   id.SceneID(i.SceneID),
+		SchemaId:  id.DatasetSchemaIDFromRefID(i.DatasetSchemaID),
 	}, o)
 	if err != nil {
 		return nil, err
