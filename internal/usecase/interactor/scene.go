@@ -626,8 +626,10 @@ func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, u
 	if err2 != nil {
 		return nil, nil, nil, err2
 	}
+	// should be moved somewhere else
 	var pluginId struct {
 		Id      string
+		Author  string
 		Version string
 	}
 	bytes, err := io.ReadAll(reader)
@@ -638,7 +640,7 @@ func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, u
 	if err2 != nil {
 		return nil, nil, nil, err2
 	}
-	pid, err2 := id.PluginIDFrom(pluginId.Id + "#" + pluginId.Version)
+	pid, err2 := id.PluginIDFrom(pluginId.Author + "/" + pluginId.Id + "#" + pluginId.Version)
 	if err2 != nil {
 		return nil, nil, nil, err2
 	}
