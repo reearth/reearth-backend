@@ -2,7 +2,11 @@ package interactor
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"github.com/reearth/reearth-backend/internal/infrastructure/github"
+	"io"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
@@ -388,7 +392,6 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 	tx.Commit()
 	return s, pid, propertyID, nil
 }
-
 func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, err error) {
 
 	tx, err := i.transaction.Begin()
@@ -606,4 +609,99 @@ func (i *Scene) getPlugin(ctx context.Context, p id.PluginID, e id.PluginExtensi
 	}
 
 	return plugin, extension, nil
+}
+
+func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, url string, operator *usecase.Operator) (_ *scene.Scene, _ *id.PluginID, _ *id.PropertyID, err error) {
+
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+	reader, err2 := github.FetchPluginContent(ctx, url)
+	if err2 != nil {
+		return nil, nil, nil, err2
+	}
+	var pluginId struct {
+		Id      string
+		Version string
+	}
+	bytes, err := io.ReadAll(reader)
+	if err2 != nil {
+		return nil, nil, nil, err2
+	}
+	err2 = json.Unmarshal(bytes, &pluginId)
+	if err2 != nil {
+		return nil, nil, nil, err2
+	}
+	pid, err2 := id.PluginIDFrom(pluginId.Id + "#" + pluginId.Version)
+	if err2 != nil {
+		return nil, nil, nil, err2
+	}
+	fmt.Println(pid)
+	if operator == nil {
+		return nil, nil, nil, interfaces.ErrOperationDenied
+	}
+
+	s, err2 := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
+	if err2 != nil {
+		return nil, nil, nil, err2
+	}
+	if err2 := i.CanWriteTeam(s.Team(), operator); err2 != nil {
+		return nil, nil, nil, err2
+	}
+
+	// check scene lock
+	if err2 := i.CheckSceneLock(ctx, sid); err2 != nil {
+		return nil, nil, nil, err2
+	}
+
+	if s.PluginSystem().HasPlugin(pid) {
+		return nil, nil, nil, interfaces.ErrPluginAlreadyInstalled
+	}
+	//
+	//plugin, err2 := i.pluginRepo.FindByID(ctx, pid)
+	//if err2 != nil {
+	//	if errors.Is(err2, err1.ErrNotFound) {
+	//		//
+	//		// Install Plugin
+	//		//
+	//		return nil, pid, nil, interfaces.ErrPluginNotFound
+	//	}
+	//	return nil, pid, nil, err2
+	//}
+	//
+	//var p *property.Property
+	//var propertyID *id.PropertyID
+	//schema := plugin.Schema()
+	//if schema != nil {
+	//	pr, err := property.New().NewID().Schema(*schema).Scene(sid).Build()
+	//	if err != nil {
+	//		return nil, pid, nil, err
+	//	}
+	//	prid := pr.ID()
+	//	p = pr
+	//	propertyID = &prid
+	//}
+	//
+	//s.PluginSystem().Add(scene.NewPlugin(pid, propertyID))
+	//
+	//if p != nil {
+	//	err2 = i.propertyRepo.Save(ctx, p)
+	//	if err2 != nil {
+	//		return nil, pid, nil, err2
+	//	}
+	//}
+	//
+	//err2 = i.sceneRepo.Save(ctx, s)
+	//if err2 != nil {
+	//	return nil, pid, nil, err2
+	//}
+	//
+	//tx.Commit()
+	return nil, nil, nil, nil
 }

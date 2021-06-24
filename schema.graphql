@@ -1038,6 +1038,11 @@ input AddDatasetSchemaInput {
     representativefield: ID
 }
 
+input InstallPluginFromResourceInput{
+    sceneId: ID!
+    URL: String!
+}
+
 # Payload
 type CreateAssetPayload {
     asset: Asset!
@@ -1294,6 +1299,11 @@ type DatasetEdge {
     node: Dataset
 }
 
+type InstallPluginFromResourcePayload {
+    scene: Scene!
+    scenePlugin: ScenePlugin!
+}
+
 
 # Query
 
@@ -1354,6 +1364,7 @@ type Mutation {
     updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
     removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
     installPlugin(input: InstallPluginInput!): InstallPluginPayload
+    installPluginFromResource(input: InstallPluginFromResourceInput!): InstallPluginFromResourcePayload
     uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
     upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload
 

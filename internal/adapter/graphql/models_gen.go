@@ -364,6 +364,16 @@ type InfoboxField struct {
 	Merged          *MergedInfoboxField  `json:"merged"`
 }
 
+type InstallPluginFromResourceInput struct {
+	SceneID id.ID  `json:"sceneId"`
+	URL     string `json:"URL"`
+}
+
+type InstallPluginFromResourcePayload struct {
+	Scene       *Scene       `json:"scene"`
+	ScenePlugin *ScenePlugin `json:"scenePlugin"`
+}
+
 type InstallPluginInput struct {
 	SceneID  id.ID       `json:"sceneId"`
 	PluginID id.PluginID `json:"pluginId"`

@@ -2,7 +2,6 @@ package graphql
 
 import (
 	"context"
-
 	graphql1 "github.com/reearth/reearth-backend/internal/adapter/graphql"
 )
 
@@ -424,4 +423,11 @@ func (r *mutationResolver) ImportDataset(ctx context.Context, input graphql1.Imp
 	defer exit()
 
 	return r.config.Controllers.DatasetController.ImportDataset(ctx, &input, getOperator(ctx))
+}
+
+func (r *mutationResolver) InstallPluginFromResource(ctx context.Context, input graphql1.InstallPluginFromResourceInput) (*graphql1.InstallPluginFromResourcePayload, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return r.config.Controllers.SceneController.InstallPluginFromResource(ctx, &input, getOperator(ctx))
 }

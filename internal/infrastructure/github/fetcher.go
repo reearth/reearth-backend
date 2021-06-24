@@ -48,6 +48,7 @@ func FetchPluginContent(ctx context.Context, url string) (io.Reader, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	zr, err := readZipResponse(res)
 	if err != nil {
 		return nil, err

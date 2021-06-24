@@ -2,7 +2,6 @@ package graphql
 
 import (
 	"context"
-
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -127,4 +126,9 @@ func (c *SceneController) UpgradePlugin(ctx context.Context, ginput *UpgradePlug
 		Scene:       toScene(s),
 		ScenePlugin: toScenePlugin(s.PluginSystem().Plugin(ginput.ToPluginID)),
 	}, nil
+}
+
+func (c *SceneController) InstallPluginFromResource(ctx context.Context, ginput *InstallPluginFromResourceInput, operator *usecase.Operator) (*InstallPluginFromResourcePayload, error) {
+	_, _, _, err := c.usecase().InstallPluginFromResource(ctx, id.SceneID(ginput.SceneID), ginput.URL, operator)
+	return nil, err
 }

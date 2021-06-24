@@ -290,6 +290,11 @@ type ComplexityRoot struct {
 		PropertyID      func(childComplexity int) int
 	}
 
+	InstallPluginFromResourcePayload struct {
+		Scene       func(childComplexity int) int
+		ScenePlugin func(childComplexity int) int
+	}
+
 	InstallPluginPayload struct {
 		Scene       func(childComplexity int) int
 		ScenePlugin func(childComplexity int) int
@@ -443,6 +448,7 @@ type ComplexityRoot struct {
 		ImportDataset                   func(childComplexity int, input graphql1.ImportDatasetInput) int
 		ImportLayer                     func(childComplexity int, input graphql1.ImportLayerInput) int
 		InstallPlugin                   func(childComplexity int, input graphql1.InstallPluginInput) int
+		InstallPluginFromResource       func(childComplexity int, input graphql1.InstallPluginFromResourceInput) int
 		LinkDatasetToPropertyValue      func(childComplexity int, input graphql1.LinkDatasetToPropertyValueInput) int
 		MoveInfoboxField                func(childComplexity int, input graphql1.MoveInfoboxFieldInput) int
 		MoveLayer                       func(childComplexity int, input graphql1.MoveLayerInput) int
@@ -994,6 +1000,7 @@ type MutationResolver interface {
 	UpdateWidget(ctx context.Context, input graphql1.UpdateWidgetInput) (*graphql1.UpdateWidgetPayload, error)
 	RemoveWidget(ctx context.Context, input graphql1.RemoveWidgetInput) (*graphql1.RemoveWidgetPayload, error)
 	InstallPlugin(ctx context.Context, input graphql1.InstallPluginInput) (*graphql1.InstallPluginPayload, error)
+	InstallPluginFromResource(ctx context.Context, input graphql1.InstallPluginFromResourceInput) (*graphql1.InstallPluginFromResourcePayload, error)
 	UninstallPlugin(ctx context.Context, input graphql1.UninstallPluginInput) (*graphql1.UninstallPluginPayload, error)
 	UpgradePlugin(ctx context.Context, input graphql1.UpgradePluginInput) (*graphql1.UpgradePluginPayload, error)
 	UpdateDatasetSchema(ctx context.Context, input graphql1.UpdateDatasetSchemaInput) (*graphql1.UpdateDatasetSchemaPayload, error)
@@ -1945,6 +1952,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.InfoboxField.PropertyID(childComplexity), true
 
+	case "InstallPluginFromResourcePayload.scene":
+		if e.complexity.InstallPluginFromResourcePayload.Scene == nil {
+			break
+		}
+
+		return e.complexity.InstallPluginFromResourcePayload.Scene(childComplexity), true
+
+	case "InstallPluginFromResourcePayload.scenePlugin":
+		if e.complexity.InstallPluginFromResourcePayload.ScenePlugin == nil {
+			break
+		}
+
+		return e.complexity.InstallPluginFromResourcePayload.ScenePlugin(childComplexity), true
+
 	case "InstallPluginPayload.scene":
 		if e.complexity.InstallPluginPayload.Scene == nil {
 			break
@@ -2835,6 +2856,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.InstallPlugin(childComplexity, args["input"].(graphql1.InstallPluginInput)), true
+
+	case "Mutation.installPluginFromResource":
+		if e.complexity.Mutation.InstallPluginFromResource == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_installPluginFromResource_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.InstallPluginFromResource(childComplexity, args["input"].(graphql1.InstallPluginFromResourceInput)), true
 
 	case "Mutation.linkDatasetToPropertyValue":
 		if e.complexity.Mutation.LinkDatasetToPropertyValue == nil {
@@ -6356,6 +6389,11 @@ input AddDatasetSchemaInput {
     representativefield: ID
 }
 
+input InstallPluginFromResourceInput{
+    sceneId: ID!
+    URL: String!
+}
+
 # Payload
 type CreateAssetPayload {
     asset: Asset!
@@ -6612,6 +6650,11 @@ type DatasetEdge {
     node: Dataset
 }
 
+type InstallPluginFromResourcePayload {
+    scene: Scene!
+    scenePlugin: ScenePlugin!
+}
+
 
 # Query
 
@@ -6672,6 +6715,7 @@ type Mutation {
     updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
     removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
     installPlugin(input: InstallPluginInput!): InstallPluginPayload
+    installPluginFromResource(input: InstallPluginFromResourceInput!): InstallPluginFromResourcePayload
     uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
     upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload
 
@@ -7044,6 +7088,21 @@ func (ec *executionContext) field_Mutation_importLayer_args(ctx context.Context,
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNImportLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐImportLayerInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_installPluginFromResource_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 graphql1.InstallPluginFromResourceInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNInstallPluginFromResourceInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginFromResourceInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -12234,6 +12293,76 @@ func (ec *executionContext) _InfoboxField_merged(ctx context.Context, field grap
 	return ec.marshalOMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMergedInfoboxField(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _InstallPluginFromResourcePayload_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.InstallPluginFromResourcePayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "InstallPluginFromResourcePayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Scene, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Scene)
+	fc.Result = res
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _InstallPluginFromResourcePayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *graphql1.InstallPluginFromResourcePayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "InstallPluginFromResourcePayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ScenePlugin, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.ScenePlugin)
+	fc.Result = res
+	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScenePlugin(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _InstallPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.InstallPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -16174,6 +16303,45 @@ func (ec *executionContext) _Mutation_installPlugin(ctx context.Context, field g
 	res := resTmp.(*graphql1.InstallPluginPayload)
 	fc.Result = res
 	return ec.marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginPayload(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_installPluginFromResource(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_installPluginFromResource_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().InstallPluginFromResource(rctx, args["input"].(graphql1.InstallPluginFromResourceInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.InstallPluginFromResourcePayload)
+	fc.Result = res
+	return ec.marshalOInstallPluginFromResourcePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginFromResourcePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_uninstallPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -28467,6 +28635,34 @@ func (ec *executionContext) unmarshalInputImportLayerInput(ctx context.Context, 
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputInstallPluginFromResourceInput(ctx context.Context, obj interface{}) (graphql1.InstallPluginFromResourceInput, error) {
+	var it graphql1.InstallPluginFromResourceInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "sceneId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
+			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "URL":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("URL"))
+			it.URL, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputInstallPluginInput(ctx context.Context, obj interface{}) (graphql1.InstallPluginInput, error) {
 	var it graphql1.InstallPluginInput
 	var asMap = obj.(map[string]interface{})
@@ -31620,6 +31816,38 @@ func (ec *executionContext) _InfoboxField(ctx context.Context, sel ast.Selection
 	return out
 }
 
+var installPluginFromResourcePayloadImplementors = []string{"InstallPluginFromResourcePayload"}
+
+func (ec *executionContext) _InstallPluginFromResourcePayload(ctx context.Context, sel ast.SelectionSet, obj *graphql1.InstallPluginFromResourcePayload) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, installPluginFromResourcePayloadImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("InstallPluginFromResourcePayload")
+		case "scene":
+			out.Values[i] = ec._InstallPluginFromResourcePayload_scene(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "scenePlugin":
+			out.Values[i] = ec._InstallPluginFromResourcePayload_scenePlugin(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var installPluginPayloadImplementors = []string{"InstallPluginPayload"}
 
 func (ec *executionContext) _InstallPluginPayload(ctx context.Context, sel ast.SelectionSet, obj *graphql1.InstallPluginPayload) graphql.Marshaler {
@@ -32529,6 +32757,8 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_removeWidget(ctx, field)
 		case "installPlugin":
 			out.Values[i] = ec._Mutation_installPlugin(ctx, field)
+		case "installPluginFromResource":
+			out.Values[i] = ec._Mutation_installPluginFromResource(ctx, field)
 		case "uninstallPlugin":
 			out.Values[i] = ec._Mutation_uninstallPlugin(ctx, field)
 		case "upgradePlugin":
@@ -36382,6 +36612,11 @@ func (ec *executionContext) marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋree
 	return ec._InfoboxField(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalNInstallPluginFromResourceInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginFromResourceInput(ctx context.Context, v interface{}) (graphql1.InstallPluginFromResourceInput, error) {
+	res, err := ec.unmarshalInputInstallPluginFromResourceInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNInstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginInput(ctx context.Context, v interface{}) (graphql1.InstallPluginInput, error) {
 	res, err := ec.unmarshalInputInstallPluginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -38538,6 +38773,13 @@ func (ec *executionContext) marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearth�
 		return graphql.Null
 	}
 	return ec._Infobox(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOInstallPluginFromResourcePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginFromResourcePayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.InstallPluginFromResourcePayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._InstallPluginFromResourcePayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐInstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.InstallPluginPayload) graphql.Marshaler {
