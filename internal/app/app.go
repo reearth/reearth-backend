@@ -124,17 +124,21 @@ func apiPublished(cfg *ServerConfig) echo.HandlerFunc {
 
 		title := prj.PublicTitle()
 		description := prj.PublicDescription()
+		image := prj.PublicImage()
 		if title == "" {
 			title = prj.Name()
 		}
 		if description == "" {
 			description = prj.Description()
 		}
+		if image == "" {
+			image = prj.ImageURL().String()
+		}
 
 		return c.JSON(http.StatusOK, map[string]interface{}{
 			"title":             title,
 			"description":       description,
-			"image":             prj.PublicImage(),
+			"image":             image,
 			"noindex":           prj.PublicNoIndex(),
 			"isBasicAuthActive": prj.IsBasicAuthActive(),
 			"basicAuthUsername": prj.BasicAuthUsername(),
