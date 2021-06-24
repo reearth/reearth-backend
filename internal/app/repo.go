@@ -80,7 +80,7 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 	gateways.PluginRegistry = github.NewPluginRegistry()
 
 	// google
-	gateways.CSVDatasource = google.NewCSV()
+	gateways.Google = google.NewGoogle()
 
 	// release lock of all scenes
 	if err := repos.SceneLock.ReleaseAllLock(context.Background()); err != nil {

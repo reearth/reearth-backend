@@ -36,7 +36,7 @@ type Dataset struct {
 	transaction       repo.Transaction
 	datasource        gateway.DataSource
 	file              gateway.File
-	csvSource         gateway.CSVDatasource
+	google            gateway.Google
 }
 
 func NewDataset(r *repo.Container, gr *gateway.Container) interfaces.Dataset {
@@ -51,7 +51,7 @@ func NewDataset(r *repo.Container, gr *gateway.Container) interfaces.Dataset {
 		transaction:       r.Transaction,
 		datasource:        gr.DataSource,
 		file:              gr.File,
-		csvSource:         gr.CSVDatasource,
+		google:            gr.Google,
 	}
 }
 
@@ -328,7 +328,7 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 
 func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfaces.ImportDatasetFromGoogleSheetParam, operator *usecase.Operator) (_ *dataset.Schema, err error) {
 
-	csvFile, err := i.csvSource.Fetch(inp.Token, inp.FileID, inp.SheetName)
+	csvFile, err := i.google.FetchCsv(inp.Token, inp.FileID, inp.SheetName)
 	if err != nil {
 		return nil, err
 	}
@@ -337,7 +337,7 @@ func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfac
 		if err != nil {
 			log.Fatal(err)
 		}
-		err = os.Remove(csvFile.Name)
+		err = os.Remove(csvFile.Fullpath)
 		if err != nil {
 			log.Error(err)
 		}

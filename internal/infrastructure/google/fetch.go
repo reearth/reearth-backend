@@ -45,8 +45,8 @@ func fetchCSV(token string, fileId string, sheetName string) (*file.File, error)
 
 	return &file.File{
 		Content:     out,
-		Name:        out.Name(),
-		Fullpath:    "-",
+		Name:        sheetName,
+		Fullpath:    out.Name(),
 		Size:        size,
 		ContentType: "text/csv",
 	}, nil

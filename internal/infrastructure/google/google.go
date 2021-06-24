@@ -5,13 +5,13 @@ import (
 	"github.com/reearth/reearth-backend/pkg/file"
 )
 
-type csv struct {
+type google struct {
 }
 
-func NewCSV() gateway.CSVDatasource {
-	return &csv{}
+func NewGoogle() gateway.Google {
+	return &google{}
 }
 
-func (c csv) Fetch(token string, fileId string, sheetName string) (*file.File, error) {
+func (g google) FetchCsv(token string, fileId string, sheetName string) (*file.File, error) {
 	return fetchCSV(token, fileId, sheetName)
 }
