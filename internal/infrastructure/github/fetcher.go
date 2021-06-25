@@ -44,19 +44,10 @@ func fetchArchiveURL(ctx context.Context, url string) (io.ReadCloser, error) {
 }
 
 func FetchPluginContent(ctx context.Context, url string) (io.Reader, error) {
-	res, err := fetchArchiveURL(ctx, url)
+	content, err := fetchArchiveURL(ctx, url)
 	if err != nil {
 		return nil, err
 	}
 
-	zr, err := readZipResponse(res)
-	if err != nil {
-		return nil, err
-	}
-
-	content, err := readRearthFile(zr)
-	if err != nil {
-		return nil, err
-	}
 	return content, nil
 }

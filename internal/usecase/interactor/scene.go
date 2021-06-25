@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/reearth/reearth-backend/internal/infrastructure/github"
 	"io"
+	"strings"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
@@ -611,7 +611,7 @@ func (i *Scene) getPlugin(ctx context.Context, p id.PluginID, e id.PluginExtensi
 	return plugin, extension, nil
 }
 
-func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, url string, operator *usecase.Operator) (_ *scene.Scene, _ *id.PluginID, _ *id.PropertyID, err error) {
+func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, inputPlugnId string, url string, operator *usecase.Operator) (_ *scene.Scene, _ *id.PluginID, _ *id.PropertyID, err error) {
 
 	tx, err := i.transaction.Begin()
 	if err != nil {
@@ -626,12 +626,22 @@ func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, u
 	if err2 != nil {
 		return nil, nil, nil, err2
 	}
+	ml, err2 := github.NewPluginRegistry().FetchMetadata(ctx)
+	if err2 != nil {
+		return nil, nil, nil, err2
+	}
+	a := inputPlugnId[:strings.IndexByte(inputPlugnId, '/')]
+	p := inputPlugnId[strings.IndexByte(inputPlugnId, '/')+1 : strings.IndexByte(inputPlugnId, '#')]
+	//v:= inputPlugnId[strings.IndexByte(inputPlugnId, '#')+1:]
+	//metadata := ml.FindByAuthorAndName(a, p)
+
 	// should be moved somewhere else
 	var pluginId struct {
 		Id      string
 		Author  string
 		Version string
 	}
+
 	bytes, err := io.ReadAll(reader)
 	if err2 != nil {
 		return nil, nil, nil, err2
@@ -640,15 +650,13 @@ func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, u
 	if err2 != nil {
 		return nil, nil, nil, err2
 	}
-	pid, err2 := id.PluginIDFrom(pluginId.Author + "/" + pluginId.Id + "#" + pluginId.Version)
+	pid, err2 := id.PluginIDFrom(pluginId.Id + "#" + pluginId.Version)
 	if err2 != nil {
 		return nil, nil, nil, err2
 	}
-	fmt.Println(pid)
 	if operator == nil {
 		return nil, nil, nil, interfaces.ErrOperationDenied
 	}
-
 	s, err2 := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
 	if err2 != nil {
 		return nil, nil, nil, err2
@@ -665,7 +673,7 @@ func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, u
 	if s.PluginSystem().HasPlugin(pid) {
 		return nil, nil, nil, interfaces.ErrPluginAlreadyInstalled
 	}
-	//
+
 	//plugin, err2 := i.pluginRepo.FindByID(ctx, pid)
 	//if err2 != nil {
 	//	if errors.Is(err2, err1.ErrNotFound) {
@@ -704,6 +712,6 @@ func (i *Scene) InstallPluginFromResource(ctx context.Context, sid id.SceneID, u
 	//	return nil, pid, nil, err2
 	//}
 	//
-	//tx.Commit()
+	tx.Commit()
 	return nil, nil, nil, nil
 }

@@ -6429,7 +6429,8 @@ input AddDatasetSchemaInput {
 
 input InstallPluginFromResourceInput{
   sceneId: ID!
-  URL: String!
+  pluginId: String!
+  url: String!
 }
 
 # Payload
@@ -28799,10 +28800,18 @@ func (ec *executionContext) unmarshalInputInstallPluginFromResourceInput(ctx con
 			if err != nil {
 				return it, err
 			}
-		case "URL":
+		case "pluginId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("URL"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("pluginId"))
+			it.PluginID, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "url":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("url"))
 			it.URL, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err

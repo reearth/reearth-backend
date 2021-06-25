@@ -1063,7 +1063,7 @@ input AddDatasetSchemaInput {
 input InstallPluginFromResourceInput{
   sceneId: ID!
   pluginId: String!
-  URL: String!
+  url: String!
 }
 
 # Payload

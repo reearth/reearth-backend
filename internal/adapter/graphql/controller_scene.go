@@ -129,6 +129,6 @@ func (c *SceneController) UpgradePlugin(ctx context.Context, ginput *UpgradePlug
 }
 
 func (c *SceneController) InstallPluginFromResource(ctx context.Context, ginput *InstallPluginFromResourceInput, operator *usecase.Operator) (*InstallPluginFromResourcePayload, error) {
-	_, _, _, err := c.usecase().InstallPluginFromResource(ctx, id.SceneID(ginput.SceneID), ginput.URL, operator)
+	_, _, _, err := c.usecase().InstallPluginFromResource(ctx, id.SceneID(ginput.SceneID), ginput.PluginID, ginput.URL, operator)
 	return nil, err
 }

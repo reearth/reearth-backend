@@ -365,8 +365,9 @@ type InfoboxField struct {
 }
 
 type InstallPluginFromResourceInput struct {
-	SceneID id.ID  `json:"sceneId"`
-	URL     string `json:"URL"`
+	SceneID  id.ID  `json:"sceneId"`
+	PluginID string `json:"pluginId"`
+	URL      string `json:"url"`
 }
 
 type InstallPluginFromResourcePayload struct {
