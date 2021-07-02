@@ -3,7 +3,7 @@ package interactor
 import (
 	"context"
 	"errors"
-	"os"
+	"io"
 	"strings"
 
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
@@ -333,13 +333,9 @@ func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfac
 		return nil, err
 	}
 	defer func() {
-		err = csvFile.Content.(*os.File).Close()
+		err = csvFile.Content.(io.ReadCloser).Close()
 		if err != nil {
 			log.Fatal(err)
-		}
-		err = os.Remove(csvFile.Fullpath)
-		if err != nil {
-			log.Error(err)
 		}
 	}()
 

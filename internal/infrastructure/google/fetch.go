@@ -2,8 +2,6 @@ package google
 
 import (
 	"fmt"
-	"io"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/reearth/reearth-backend/pkg/file"
@@ -21,33 +19,15 @@ func fetchCSV(token string, fileId string, sheetName string) (*file.File, error)
 	if err != nil {
 		return nil, err
 	}
-	defer func() {
-		_ = res.Body.Close()
-	}()
 	if res.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("StatusCode=%d", res.StatusCode)
 	}
 
-	out, err := ioutil.TempFile("", fileId+".*.csv")
-	if err != nil {
-		return nil, err
-	}
-
-	size, err := io.Copy(out, res.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	_, err = out.Seek(0, 0)
-	if err != nil {
-		return nil, err
-	}
-
 	return &file.File{
-		Content:     out,
+		Content:     res.Body,
 		Name:        sheetName,
-		Fullpath:    out.Name(),
-		Size:        size,
+		Fullpath:    sheetName,
+		Size:        0,
 		ContentType: "text/csv",
 	}, nil
 }
