@@ -9,7 +9,9 @@ type Widget struct {
 	plugin    id.PluginID
 	extension id.PluginExtensionID
 	property  id.PropertyID
-	enabled   bool
+	enabled,
+	extendable,
+	extended bool
 }
 
 func NewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) (*Widget, error) {
