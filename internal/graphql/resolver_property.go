@@ -470,7 +470,7 @@ func actualValue(datasetLoader dataloader.DatasetDataLoader, value interface{}, 
 		return &value, nil
 	}
 	// 先頭のリンクにしかDatasetが割り当てられていない→先頭から順々に辿っていく
-	if len(links) >= 1 && links[0].DatasetID != nil && links[len(links)-1].DatasetID == nil {
+	if len(links) > 1 && links[0].DatasetID != nil && links[len(links)-1].DatasetID == nil {
 		dsid := *links[0].DatasetID
 		for i, link := range links {
 			ds, err := datasetLoader.Load(id.DatasetID(dsid))
