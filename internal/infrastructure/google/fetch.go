@@ -2,12 +2,11 @@ package google
 
 import (
 	"fmt"
+	"io"
 	"net/http"
-
-	"github.com/reearth/reearth-backend/pkg/file"
 )
 
-func fetchCSV(token string, fileId string, sheetName string) (*file.File, error) {
+func fetchCSV(token string, fileId string, sheetName string) (*io.ReadCloser, error) {
 	url := fmt.Sprintf("https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s", fileId, sheetName)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -23,11 +22,5 @@ func fetchCSV(token string, fileId string, sheetName string) (*file.File, error)
 		return nil, fmt.Errorf("StatusCode=%d", res.StatusCode)
 	}
 
-	return &file.File{
-		Content:     res.Body,
-		Name:        sheetName,
-		Fullpath:    sheetName,
-		Size:        0,
-		ContentType: "text/csv",
-	}, nil
+	return &res.Body, nil
 }

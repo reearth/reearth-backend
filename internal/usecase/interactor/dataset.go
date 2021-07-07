@@ -189,6 +189,34 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 		return nil, interfaces.ErrFileNotIncluded
 	}
 
+	separator := ','
+	if strings.HasSuffix(inp.File.Name, ".tsv") {
+		separator = '\t'
+	}
+
+	return i.importDataset(ctx, inp.File.Content, inp.File.Name, separator, inp.SceneId, inp.SchemaId)
+}
+
+func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfaces.ImportDatasetFromGoogleSheetParam, operator *usecase.Operator) (_ *dataset.Schema, err error) {
+	if err := i.CanWriteScene(ctx, inp.SceneId, operator); err != nil {
+		return nil, err
+	}
+
+	csvFile, err := i.google.FetchCSV(inp.Token, inp.FileID, inp.SheetName)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		err = (*csvFile).Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	return i.importDataset(ctx, *csvFile, inp.SheetName, ',', inp.SceneId, inp.SchemaId)
+}
+
+func (i *Dataset) importDataset(ctx context.Context, content io.Reader, name string, separator rune, sceneId id.SceneID, schemaId *id.DatasetSchemaID) (_ *dataset.Schema, err error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -199,20 +227,16 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 		}
 	}()
 
-	seperator := ','
-	if strings.HasSuffix(inp.File.Name, ".tsv") {
-		seperator = '\t'
-	}
-	scenes := []id.SceneID{inp.SceneId}
-	csv := dataset.NewCSVParser(inp.File.Content, inp.File.Name, seperator)
+	scenes := []id.SceneID{sceneId}
+	csv := dataset.NewCSVParser(content, name, separator)
 	err = csv.Init()
 	if err != nil {
 		return nil, err
 	}
 
 	// replacment mode
-	if inp.SchemaId != nil {
-		dss, err := i.datasetSchemaRepo.FindByID(ctx, *inp.SchemaId, scenes)
+	if schemaId != nil {
+		dss, err := i.datasetSchemaRepo.FindByID(ctx, *schemaId, scenes)
 		if err != nil {
 			return nil, err
 		}
@@ -220,7 +244,7 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 		if err != nil {
 			return nil, err
 		}
-		toreplace, err := i.datasetRepo.FindBySchemaAll(ctx, *inp.SchemaId)
+		toreplace, err := i.datasetRepo.FindBySchemaAll(ctx, *schemaId)
 		if err != nil {
 			return nil, err
 		}
@@ -229,7 +253,7 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 			return nil, err
 		}
 	} else {
-		err = csv.GuessSchema(inp.SceneId)
+		err = csv.GuessSchema(sceneId)
 		if err != nil {
 			return nil, err
 		}
@@ -249,8 +273,8 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 		return nil, err
 	}
 
-	if inp.SchemaId != nil {
-		layergroups, err := i.layerRepo.FindGroupBySceneAndLinkedDatasetSchema(ctx, inp.SceneId, *inp.SchemaId)
+	if schemaId != nil {
+		layergroups, err := i.layerRepo.FindGroupBySceneAndLinkedDatasetSchema(ctx, sceneId, *schemaId)
 		if err != nil {
 			return nil, err
 		}
@@ -283,7 +307,7 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 					name = rf.Value().Value().(string)
 				}
 				layerItem, layerProperty, err := initializer.LayerItem{
-					SceneID:         inp.SceneId,
+					SceneID:         sceneId,
 					ParentLayerID:   lg.ID(),
 					Plugin:          builtin.Plugin(),
 					ExtensionID:     &extensionForLinkedLayers,
@@ -324,26 +348,6 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 	// Commit db transaction
 	tx.Commit()
 	return schema, nil
-}
-
-func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfaces.ImportDatasetFromGoogleSheetParam, operator *usecase.Operator) (_ *dataset.Schema, err error) {
-
-	csvFile, err := i.google.FetchCSV(inp.Token, inp.FileID, inp.SheetName)
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		err = csvFile.Content.(io.ReadCloser).Close()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
-
-	return i.ImportDataset(ctx, interfaces.ImportDatasetParam{
-		SceneId:  inp.SceneId,
-		SchemaId: inp.SchemaId,
-		File:     csvFile,
-	}, operator)
 }
 
 func (i *Dataset) Fetch(ctx context.Context, ids []id.DatasetID, operator *usecase.Operator) (dataset.List, error) {

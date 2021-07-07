@@ -1,9 +1,9 @@
 package gateway
 
 import (
-	"github.com/reearth/reearth-backend/pkg/file"
+	"io"
 )
 
 type Google interface {
-	FetchCSV(token string, fileId string, sheetName string) (*file.File, error)
+	FetchCSV(token string, fileId string, sheetName string) (*io.ReadCloser, error)
 }
