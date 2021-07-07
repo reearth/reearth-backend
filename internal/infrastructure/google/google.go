@@ -12,6 +12,6 @@ func NewGoogle() gateway.Google {
 	return &google{}
 }
 
-func (g google) FetchCsv(token string, fileId string, sheetName string) (*file.File, error) {
+func (g google) FetchCSV(token string, fileId string, sheetName string) (*file.File, error) {
 	return fetchCSV(token, fileId, sheetName)
 }

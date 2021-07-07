@@ -328,7 +328,7 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 
 func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfaces.ImportDatasetFromGoogleSheetParam, operator *usecase.Operator) (_ *dataset.Schema, err error) {
 
-	csvFile, err := i.google.FetchCsv(inp.Token, inp.FileID, inp.SheetName)
+	csvFile, err := i.google.FetchCSV(inp.Token, inp.FileID, inp.SheetName)
 	if err != nil {
 		return nil, err
 	}
