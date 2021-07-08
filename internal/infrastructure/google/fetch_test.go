@@ -42,8 +42,8 @@ func Test_fetchCSV(t *testing.T) {
 					Reply(http.StatusUnauthorized)
 			},
 			args: args{
-				token:     "ya29.a0AfH6SMA-glivrhwHjCCMLCTb8ROzUnvNUV73O7P1DLPFmOVRGAKxaozbQamKNAV8Ajd3uEnWdVbIrKUVHzotnlOInreqXgm6gWvG4NWDbyRMR58QHMq49YWs64gzw8V-KxfvUlnECgqN6JIW1uSMUqYBSDzk9g",
-				fileId:    "1bXBDUrOgYWdHzScMiLNHRUsmNC9SUV4VFOvpqrx0Yok",
+				token:     "xxxx",
+				fileId:    "1bXBDUrOgYWdHzScMiLNHRUsmNC9SUV4VFOvpqrxxxxx",
 				sheetName: "Dataset1",
 			},
 			wantErr: true,
@@ -53,7 +53,7 @@ func Test_fetchCSV(t *testing.T) {
 			setup: func() {
 				gock.New("https://docs.google.com").
 					Get("/spreadsheets/d/(.*)/gviz/tq").
-					PathParam("d", "1bXBDUrOgYWdHzScMiLNHRUsmNC9SUV4VFOvpqrx0Yok").
+					PathParam("d", "1bXBDUrOgYWdHzScMiLNHRUsmNC9SUV4VFOvpqrxxxxx").
 					MatchParams(map[string]string{
 						"tqx":   "out:csv",
 						"sheet": "Dataset1",
@@ -62,8 +62,8 @@ func Test_fetchCSV(t *testing.T) {
 					BodyString("lat,lng,hieght\n30,35,300\n30.1,35,400")
 			},
 			args: args{
-				token:     "ya29.a0AfH6SMA-glivrhwHjCCMLCTb8ROzUnvNUV73O7P1DLPFmOVRGAKxaozbQamKNAV8Ajd3uEnWdVbIrKUVHzotnlOInreqXgm6gWvG4NWDbyRMR58QHMq49YWs64gzw8V-KxfvUlnECgqN6JIW1uSMUqYBSDzk9g",
-				fileId:    "1bXBDUrOgYWdHzScMiLNHRUsmNC9SUV4VFOvpqrx0Yok",
+				token:     "xxxx",
+				fileId:    "1bXBDUrOgYWdHzScMiLNHRUsmNC9SUV4VFOvpqrxxxxx",
 				sheetName: "Dataset1",
 			},
 			wantErr: false,
