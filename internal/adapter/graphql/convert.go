@@ -5,6 +5,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/file"
+	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
@@ -53,6 +54,12 @@ func toPageInfo(p *usecase.PageInfo) *PageInfo {
 		HasNextPage:     p.HasNextPage(),
 		HasPreviousPage: p.HasPreviousPage(),
 	}
+}
+
+func toWidgetLayout(w plugin.WidgetLayout) *WidgetLayout {
+	l := Location{Zone: (*Zone)(&w.DefaultLocation.Zone), Section: (*Section)(&w.DefaultLocation.Section), Area: (*Area)(&w.DefaultLocation.Area)}
+	wl := WidgetLayout{Extendable: w.Extendable, Extended: &w.Extended, DefaultLocation: &l}
+	return &wl
 }
 
 func toVisualizer(v visualizer.Visualizer) Visualizer {

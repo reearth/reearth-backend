@@ -249,6 +249,35 @@ type PluginMetadata {
   createdAt: DateTime!
 }
 
+enum Zone {
+  INNER
+  OUTER
+}
+
+enum Section {
+  LEFT
+  CENTER
+  RIGHT
+}
+
+enum Area {
+  TOP
+  MIDDLE
+  BOTTOM
+}
+
+type Location {
+  zone: Zone
+  section: Section
+  area: Area
+}
+
+type WidgetLayout {
+  extendable: Boolean
+  extended: Boolean
+  defaultLocation: Location
+}
+
 enum PluginExtensionType {
   PRIMITIVE
   WIDGET
@@ -257,6 +286,7 @@ enum PluginExtensionType {
   INFOBOX
 }
 
+
 type PluginExtension {
   extensionId: PluginExtensionID!
   pluginId: PluginID!
@@ -264,6 +294,7 @@ type PluginExtension {
   name: String!
   description: String!
   icon: String!
+  widgetLayout: WidgetLayout!
   visualizer: Visualizer!
   propertySchemaId: PropertySchemaID!
   allTranslatedName: TranslatedString

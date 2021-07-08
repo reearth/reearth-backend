@@ -439,6 +439,12 @@ type LinkDatasetToPropertyValueInput struct {
 	DatasetIds            []*id.ID                  `json:"datasetIds"`
 }
 
+type Location struct {
+	Zone    *Zone    `json:"zone"`
+	Section *Section `json:"section"`
+	Area    *Area    `json:"area"`
+}
+
 type MergedInfobox struct {
 	Property *MergedProperty       `json:"property"`
 	Fields   []*MergedInfoboxField `json:"fields"`
@@ -567,6 +573,7 @@ type PluginExtension struct {
 	Name                     string               `json:"name"`
 	Description              string               `json:"description"`
 	Icon                     string               `json:"icon"`
+	WidgetLayout             *WidgetLayout        `json:"widgetLayout"`
 	Visualizer               Visualizer           `json:"visualizer"`
 	PropertySchemaID         id.PropertySchemaID  `json:"propertySchemaId"`
 	AllTranslatedName        map[string]string    `json:"allTranslatedName"`
@@ -1167,6 +1174,55 @@ type User struct {
 
 func (User) IsNode() {}
 
+type WidgetLayout struct {
+	Extendable      *bool     `json:"extendable"`
+	Extended        *bool     `json:"extended"`
+	DefaultLocation *Location `json:"defaultLocation"`
+}
+
+type Area string
+
+const (
+	AreaTop    Area = "TOP"
+	AreaMiddle Area = "MIDDLE"
+	AreaBottom Area = "BOTTOM"
+)
+
+var AllArea = []Area{
+	AreaTop,
+	AreaMiddle,
+	AreaBottom,
+}
+
+func (e Area) IsValid() bool {
+	switch e {
+	case AreaTop, AreaMiddle, AreaBottom:
+		return true
+	}
+	return false
+}
+
+func (e Area) String() string {
+	return string(e)
+}
+
+func (e *Area) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Area(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Area", str)
+	}
+	return nil
+}
+
+func (e Area) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
 type LayerEncodingFormat string
 
 const (
@@ -1551,6 +1607,49 @@ func (e SceneLockMode) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
+type Section string
+
+const (
+	SectionLeft   Section = "LEFT"
+	SectionCenter Section = "CENTER"
+	SectionRight  Section = "RIGHT"
+)
+
+var AllSection = []Section{
+	SectionLeft,
+	SectionCenter,
+	SectionRight,
+}
+
+func (e Section) IsValid() bool {
+	switch e {
+	case SectionLeft, SectionCenter, SectionRight:
+		return true
+	}
+	return false
+}
+
+func (e Section) String() string {
+	return string(e)
+}
+
+func (e *Section) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Section(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Section", str)
+	}
+	return nil
+}
+
+func (e Section) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
 type TextAlign string
 
 const (
@@ -1738,5 +1837,46 @@ func (e *Visualizer) UnmarshalGQL(v interface{}) error {
 }
 
 func (e Visualizer) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type Zone string
+
+const (
+	ZoneInner Zone = "INNER"
+	ZoneOuter Zone = "OUTER"
+)
+
+var AllZone = []Zone{
+	ZoneInner,
+	ZoneOuter,
+}
+
+func (e Zone) IsValid() bool {
+	switch e {
+	case ZoneInner, ZoneOuter:
+		return true
+	}
+	return false
+}
+
+func (e Zone) String() string {
+	return string(e)
+}
+
+func (e *Zone) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Zone(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Zone", str)
+	}
+	return nil
+}
+
+func (e Zone) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
