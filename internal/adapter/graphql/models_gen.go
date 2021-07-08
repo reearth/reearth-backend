@@ -338,6 +338,7 @@ type ImportLayerPayload struct {
 }
 
 type Infobox struct {
+	SceneID         id.ID           `json:"sceneId"`
 	LayerID         id.ID           `json:"layerId"`
 	PropertyID      id.ID           `json:"propertyId"`
 	Fields          []*InfoboxField `json:"fields"`
@@ -346,10 +347,12 @@ type Infobox struct {
 	Property        *Property       `json:"property"`
 	LinkedDataset   *Dataset        `json:"linkedDataset"`
 	Merged          *MergedInfobox  `json:"merged"`
+	Scene           *Scene          `json:"scene"`
 }
 
 type InfoboxField struct {
 	ID              id.ID                `json:"id"`
+	SceneID         id.ID                `json:"sceneId"`
 	LayerID         id.ID                `json:"layerId"`
 	PropertyID      id.ID                `json:"propertyId"`
 	PluginID        id.PluginID          `json:"pluginId"`
@@ -362,6 +365,8 @@ type InfoboxField struct {
 	Extension       *PluginExtension     `json:"extension"`
 	LinkedDataset   *Dataset             `json:"linkedDataset"`
 	Merged          *MergedInfoboxField  `json:"merged"`
+	Scene           *Scene               `json:"scene"`
+	ScenePlugin     *ScenePlugin         `json:"scenePlugin"`
 }
 
 type InstallPluginInput struct {
@@ -387,6 +392,7 @@ type LatLngHeight struct {
 
 type LayerGroup struct {
 	ID                    id.ID                 `json:"id"`
+	SceneID               id.ID                 `json:"sceneId"`
 	Name                  string                `json:"name"`
 	IsVisible             bool                  `json:"isVisible"`
 	PropertyID            *id.ID                `json:"propertyId"`
@@ -403,6 +409,8 @@ type LayerGroup struct {
 	Extension             *PluginExtension      `json:"extension"`
 	LinkedDatasetSchema   *DatasetSchema        `json:"linkedDatasetSchema"`
 	Layers                []Layer               `json:"layers"`
+	Scene                 *Scene                `json:"scene"`
+	ScenePlugin           *ScenePlugin          `json:"scenePlugin"`
 }
 
 func (LayerGroup) IsLayers() {}
@@ -410,6 +418,7 @@ func (LayerGroup) IsLayer()  {}
 
 type LayerItem struct {
 	ID              id.ID                 `json:"id"`
+	SceneID         id.ID                 `json:"sceneId"`
 	Name            string                `json:"name"`
 	IsVisible       bool                  `json:"isVisible"`
 	PropertyID      *id.ID                `json:"propertyId"`
@@ -424,6 +433,8 @@ type LayerItem struct {
 	Extension       *PluginExtension      `json:"extension"`
 	LinkedDataset   *Dataset              `json:"linkedDataset"`
 	Merged          *MergedLayer          `json:"merged"`
+	Scene           *Scene                `json:"scene"`
+	ScenePlugin     *ScenePlugin          `json:"scenePlugin"`
 }
 
 func (LayerItem) IsLayers() {}

@@ -73,6 +73,38 @@ func (r *infoboxResolver) Merged(ctx context.Context, obj *graphql1.Infobox) (*g
 	return ml.Infobox, nil
 }
 
+func (r *infoboxResolver) Scene(ctx context.Context, obj *graphql1.Infobox) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
+func (r *infoboxResolver) ScenePlugin(ctx context.Context, obj *graphql1.Infobox) (*graphql1.ScenePlugin, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	layer, err := dataloader.DataLoadersFromContext(ctx).Layer.Load(id.LayerID(obj.LayerID))
+	if err != nil || layer == nil {
+		return nil, err
+	}
+	var pluginID *id.PluginID
+	if lg, ok := (*layer).(*graphql1.LayerGroup); ok {
+		pluginID = lg.PluginID
+	} else if li, ok := (*layer).(*graphql1.LayerItem); ok {
+		pluginID = li.PluginID
+	}
+	if pluginID == nil {
+		return nil, nil
+	}
+
+	s, err := dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+	if err != nil {
+		return nil, err
+	}
+	return s.Plugin(*pluginID), nil
+}
+
 type infoboxFieldResolver struct{ *Resolver }
 
 func (r *infoboxFieldResolver) Layer(ctx context.Context, obj *graphql1.InfoboxField) (graphql1.Layer, error) {
@@ -145,6 +177,24 @@ func (r *infoboxFieldResolver) Merged(ctx context.Context, obj *graphql1.Infobox
 		return nil, err
 	}
 	return ml.Infobox.Field(obj.ID), nil
+}
+
+func (r *infoboxFieldResolver) Scene(ctx context.Context, obj *graphql1.InfoboxField) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
+func (r *infoboxFieldResolver) ScenePlugin(ctx context.Context, obj *graphql1.InfoboxField) (*graphql1.ScenePlugin, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	s, err := dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+	if err != nil {
+		return nil, err
+	}
+	return s.Plugin(obj.PluginID), nil
 }
 
 type layerGroupResolver struct{ *Resolver }
@@ -221,6 +271,27 @@ func (r *layerGroupResolver) Layers(ctx context.Context, obj *graphql1.LayerGrou
 	return graphql1.AttachParentLayer(layers, obj.ID), nil
 }
 
+func (r *layerGroupResolver) Scene(ctx context.Context, obj *graphql1.LayerGroup) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
+func (r *layerGroupResolver) ScenePlugin(ctx context.Context, obj *graphql1.LayerGroup) (*graphql1.ScenePlugin, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	if obj.PluginID == nil {
+		return nil, nil
+	}
+	s, err := dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+	if err != nil {
+		return nil, err
+	}
+	return s.Plugin(*obj.PluginID), nil
+}
+
 type layerItemResolver struct{ *Resolver }
 
 func (r *layerItemResolver) Parent(ctx context.Context, obj *graphql1.LayerItem) (*graphql1.LayerGroup, error) {
@@ -285,6 +356,27 @@ func (r *layerItemResolver) Merged(ctx context.Context, obj *graphql1.LayerItem)
 		return r.config.Controllers.LayerController.FetchParentAndMerged(ctx, id.LayerID(obj.ID), getOperator(ctx))
 	}
 	return r.config.Controllers.LayerController.FetchMerged(ctx, id.LayerID(obj.ID), id.LayerIDFromRefID(obj.ParentID), getOperator(ctx))
+}
+
+func (r *layerItemResolver) Scene(ctx context.Context, obj *graphql1.LayerItem) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
+func (r *layerItemResolver) ScenePlugin(ctx context.Context, obj *graphql1.LayerItem) (*graphql1.ScenePlugin, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	if obj.PluginID == nil {
+		return nil, nil
+	}
+	s, err := dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+	if err != nil {
+		return nil, err
+	}
+	return s.Plugin(*obj.PluginID), nil
 }
 
 type mergedLayerResolver struct{ *Resolver }
