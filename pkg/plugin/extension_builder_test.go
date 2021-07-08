@@ -51,6 +51,11 @@ func TestExtensionBuilder_Visualizer(t *testing.T) {
 	res := b.ID("xxx").Visualizer("ccc").MustBuild()
 	assert.Equal(t, visualizer.Visualizer("ccc"), res.Visualizer())
 }
+func TestExtensionBuilder_WidgetLayout(t *testing.T) {
+	var b = NewExtension()
+	res := b.ID("xxx").WidgetLayout(WidgetLayout{}).MustBuild()
+	assert.Equal(t, WidgetLayout(WidgetLayout{}), res.WidgetLayout())
+}
 
 func TestExtensionBuilder_Build(t *testing.T) {
 	testCases := []struct {
@@ -62,6 +67,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 		description   i18n.String
 		schema        id.PropertySchemaID
 		visualizer    visualizer.Visualizer
+		widgetLayout  WidgetLayout
 		expected      *Extension
 		err           error
 	}{
@@ -75,6 +81,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
+			widgetLayout:  WidgetLayout{},
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -83,6 +90,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
+				widgetLayout:  WidgetLayout{},
 			},
 			err: nil,
 		},
@@ -114,6 +122,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				Description(tc.description).
 				Name(tc.ename).
 				Icon(tc.icon).
+				WidgetLayout(tc.widgetLayout).
 				Build()
 			if err == nil {
 				assert.Equal(tt, tc.expected, e)
@@ -135,6 +144,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 		description   i18n.String
 		schema        id.PropertySchemaID
 		visualizer    visualizer.Visualizer
+		widgetLayout  WidgetLayout
 		expected      *Extension
 	}{
 		{
@@ -147,6 +157,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
+			widgetLayout:  WidgetLayout{},
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -155,6 +166,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
+				widgetLayout:  WidgetLayout{},
 			},
 		},
 		{
@@ -189,6 +201,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				Description(tc.description).
 				Name(tc.ename).
 				Icon(tc.icon).
+				WidgetLayout(tc.widgetLayout).
 				MustBuild()
 		})
 	}

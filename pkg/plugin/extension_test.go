@@ -11,21 +11,23 @@ import (
 
 func TestExtension(t *testing.T) {
 	expected := struct {
-		Id          id.PluginExtensionID
-		Type        ExtensionType
-		Name        i18n.String
-		Description i18n.String
-		Icon        string
-		Schema      id.PropertySchemaID
-		Visualizer  visualizer.Visualizer
+		Id           id.PluginExtensionID
+		Type         ExtensionType
+		Name         i18n.String
+		Description  i18n.String
+		Icon         string
+		Schema       id.PropertySchemaID
+		Visualizer   visualizer.Visualizer
+		WidgetLayout WidgetLayout
 	}{
-		Id:          "xxx",
-		Type:        ExtensionTypePrimitive,
-		Name:        i18n.StringFrom("aaa"),
-		Description: i18n.StringFrom("ddd"),
-		Icon:        "test",
-		Schema:      id.MustPropertySchemaID("hoge#0.1.0/fff"),
-		Visualizer:  "vvv",
+		Id:           "xxx",
+		Type:         ExtensionTypePrimitive,
+		Name:         i18n.StringFrom("aaa"),
+		Description:  i18n.StringFrom("ddd"),
+		Icon:         "test",
+		Schema:       id.MustPropertySchemaID("hoge#0.1.0/fff"),
+		Visualizer:   "vvv",
+		WidgetLayout: WidgetLayout{},
 	}
 
 	actual := NewExtension().
@@ -34,6 +36,7 @@ func TestExtension(t *testing.T) {
 		Description(i18n.StringFrom("ddd")).
 		Schema(id.MustPropertySchemaID("hoge#0.1.0/fff")).
 		Icon("test").
+		WidgetLayout(WidgetLayout{}).
 		Visualizer("vvv").
 		Type(ExtensionTypePrimitive).
 		MustBuild()
@@ -43,6 +46,7 @@ func TestExtension(t *testing.T) {
 	assert.Equal(t, expected.Description, actual.Description())
 	assert.Equal(t, expected.Name, actual.Name())
 	assert.Equal(t, expected.Icon, actual.Icon())
+	assert.Equal(t, expected.WidgetLayout, actual.WidgetLayout())
 	assert.Equal(t, expected.Schema, actual.Schema())
 	assert.Equal(t, expected.Id, actual.ID())
 }

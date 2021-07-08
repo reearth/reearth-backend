@@ -7,6 +7,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
+	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
@@ -116,12 +117,15 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 		icon = *i.Icon
 	}
 
+	wl := i.WidgetLayout.layout()
+
 	ext, err := plugin.NewExtension().
 		ID(id.PluginExtensionID(eid)).
 		Name(i18n.StringFrom(i.Title)).
 		Description(i18n.StringFrom(desc)).
 		Visualizer(viz).
 		Type(typ).
+		WidgetLayout(*wl).
 		Icon(icon).
 		Schema(schema.ID()).
 		System(sys).
@@ -131,6 +135,25 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 		return nil, nil, err
 	}
 	return ext, schema, nil
+}
+
+func (l *WidgetLayout) layout() *plugin.WidgetLayout {
+	if l == nil {
+		return &plugin.WidgetLayout{}
+	}
+
+	var pl plugin.WidgetLayout
+	pl.Extended = false
+	if l.Extendable == nil {
+		t := true
+		pl.Extendable = &t
+	} else {
+		pl.Extendable = l.Extendable
+	}
+
+	dl := scene.Location{Zone: l.DefaultLocation.Zone, Section: l.DefaultLocation.Section, Area: l.DefaultLocation.Area}
+	pl.DefaultLocation = &dl
+	return &pl
 }
 
 func (i *PropertySchema) schema(pluginID id.PluginID, idstr string) (*property.Schema, error) {

@@ -253,6 +253,38 @@ const SchemaJSON string = `{
       },
       "additionalProperties": false
     },
+    "location": {
+      "$id": "#location",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "zone": {
+          "type": "string",
+          "enum": [
+            "inner",
+            "outer"
+          ]
+        },
+        "section": {
+          "type": "string",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "area": {
+          "type": "string",
+          "enum": [
+            "top",
+            "middle",
+            "bottom"
+          ]
+        }
+      }
+    },
     "extension": {
       "$id": "#extension",
       "type": "object",
@@ -290,6 +322,26 @@ const SchemaJSON string = `{
             "visualizer",
             "infobox"
           ]
+        },
+        "widgetLayout": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "extendable": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "extended": {
+              "type": "boolean"
+            },
+            "defaultLocation": {
+              "$ref": "#/definitions/location"
+            }
+          }
         },
         "schema": {
           "$ref": "#/definitions/propertySchema"
@@ -361,5 +413,4 @@ const SchemaJSON string = `{
     }
   },
   "$ref": "#/definitions/root"
-}
-`
+}`

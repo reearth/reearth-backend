@@ -5,6 +5,7 @@ import (
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
@@ -26,6 +27,13 @@ var (
 	ExtensionTypeInfobox ExtensionType = "infobox"
 )
 
+// WidgetLayout _
+type WidgetLayout struct {
+	Extendable      *bool
+	Extended        bool
+	DefaultLocation *scene.Location
+}
+
 // Extension _
 type Extension struct {
 	id            id.PluginExtensionID
@@ -35,6 +43,7 @@ type Extension struct {
 	icon          string
 	schema        id.PropertySchemaID
 	visualizer    visualizer.Visualizer
+	widgetLayout  WidgetLayout
 }
 
 // ID _
@@ -70,6 +79,11 @@ func (w *Extension) Schema() id.PropertySchemaID {
 // Visualizer _
 func (w *Extension) Visualizer() visualizer.Visualizer {
 	return w.visualizer
+}
+
+// WidgetMetaData _
+func (w *Extension) WidgetLayout() WidgetLayout {
+	return w.widgetLayout
 }
 
 // Rename _
