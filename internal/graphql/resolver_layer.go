@@ -28,6 +28,10 @@ func (r *Resolver) MergedLayer() MergedLayerResolver {
 	return &mergedLayerResolver{r}
 }
 
+func (r *Resolver) MergedInfobox() MergedInfoboxResolver {
+	return &mergedInfoboxResolver{r}
+}
+
 func (r *Resolver) MergedInfoboxField() MergedInfoboxFieldResolver {
 	return &mergedInfoboxFieldResolver{r}
 }
@@ -398,6 +402,25 @@ func (r *mergedLayerResolver) Parent(ctx context.Context, obj *graphql1.MergedLa
 	return dataloader.DataLoadersFromContext(ctx).LayerGroup.Load(id.LayerID(*obj.ParentID))
 }
 
+func (r *mergedLayerResolver) Scene(ctx context.Context, obj *graphql1.MergedLayer) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	if obj.ParentID == nil {
+		return nil, nil
+	}
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
+type mergedInfoboxResolver struct{ *Resolver }
+
+func (r *mergedInfoboxResolver) Scene(ctx context.Context, obj *graphql1.MergedInfobox) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
 type mergedInfoboxFieldResolver struct{ *Resolver }
 
 func (r *mergedInfoboxFieldResolver) Plugin(ctx context.Context, obj *graphql1.MergedInfoboxField) (*graphql1.Plugin, error) {
@@ -416,4 +439,22 @@ func (r *mergedInfoboxFieldResolver) Extension(ctx context.Context, obj *graphql
 		return nil, err
 	}
 	return plugin.Extension(obj.ExtensionID), nil
+}
+
+func (r *mergedInfoboxFieldResolver) Scene(ctx context.Context, obj *graphql1.MergedInfoboxField) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
+func (r *mergedInfoboxFieldResolver) ScenePlugin(ctx context.Context, obj *graphql1.MergedInfoboxField) (*graphql1.ScenePlugin, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	s, err := dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+	if err != nil {
+		return nil, err
+	}
+	return s.Plugin(obj.PluginID), nil
 }

@@ -451,26 +451,33 @@ type LinkDatasetToPropertyValueInput struct {
 }
 
 type MergedInfobox struct {
+	SceneID  id.ID                 `json:"sceneID"`
 	Property *MergedProperty       `json:"property"`
 	Fields   []*MergedInfoboxField `json:"fields"`
+	Scene    *Scene                `json:"scene"`
 }
 
 type MergedInfoboxField struct {
 	OriginalID  id.ID                `json:"originalId"`
+	SceneID     id.ID                `json:"sceneID"`
 	PluginID    id.PluginID          `json:"pluginId"`
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
 	Property    *MergedProperty      `json:"property"`
 	Plugin      *Plugin              `json:"plugin"`
 	Extension   *PluginExtension     `json:"extension"`
+	Scene       *Scene               `json:"scene"`
+	ScenePlugin *ScenePlugin         `json:"scenePlugin"`
 }
 
 type MergedLayer struct {
 	OriginalID id.ID           `json:"originalId"`
 	ParentID   *id.ID          `json:"parentId"`
+	SceneID    id.ID           `json:"sceneID"`
 	Property   *MergedProperty `json:"property"`
 	Infobox    *MergedInfobox  `json:"infobox"`
 	Original   *LayerItem      `json:"original"`
 	Parent     *LayerGroup     `json:"parent"`
+	Scene      *Scene          `json:"scene"`
 }
 
 type MergedProperty struct {

@@ -50,6 +50,7 @@ type ResolverRoot interface {
 	InfoboxField() InfoboxFieldResolver
 	LayerGroup() LayerGroupResolver
 	LayerItem() LayerItemResolver
+	MergedInfobox() MergedInfoboxResolver
 	MergedInfoboxField() MergedInfoboxFieldResolver
 	MergedLayer() MergedLayerResolver
 	MergedProperty() MergedPropertyResolver
@@ -358,6 +359,8 @@ type ComplexityRoot struct {
 	MergedInfobox struct {
 		Fields   func(childComplexity int) int
 		Property func(childComplexity int) int
+		Scene    func(childComplexity int) int
+		SceneID  func(childComplexity int) int
 	}
 
 	MergedInfoboxField struct {
@@ -367,6 +370,9 @@ type ComplexityRoot struct {
 		Plugin      func(childComplexity int) int
 		PluginID    func(childComplexity int) int
 		Property    func(childComplexity int) int
+		Scene       func(childComplexity int) int
+		SceneID     func(childComplexity int) int
+		ScenePlugin func(childComplexity int) int
 	}
 
 	MergedLayer struct {
@@ -376,6 +382,8 @@ type ComplexityRoot struct {
 		Parent     func(childComplexity int) int
 		ParentID   func(childComplexity int) int
 		Property   func(childComplexity int) int
+		Scene      func(childComplexity int) int
+		SceneID    func(childComplexity int) int
 	}
 
 	MergedProperty struct {
@@ -963,13 +971,19 @@ type LayerItemResolver interface {
 	Scene(ctx context.Context, obj *graphql1.LayerItem) (*graphql1.Scene, error)
 	ScenePlugin(ctx context.Context, obj *graphql1.LayerItem) (*graphql1.ScenePlugin, error)
 }
+type MergedInfoboxResolver interface {
+	Scene(ctx context.Context, obj *graphql1.MergedInfobox) (*graphql1.Scene, error)
+}
 type MergedInfoboxFieldResolver interface {
 	Plugin(ctx context.Context, obj *graphql1.MergedInfoboxField) (*graphql1.Plugin, error)
 	Extension(ctx context.Context, obj *graphql1.MergedInfoboxField) (*graphql1.PluginExtension, error)
+	Scene(ctx context.Context, obj *graphql1.MergedInfoboxField) (*graphql1.Scene, error)
+	ScenePlugin(ctx context.Context, obj *graphql1.MergedInfoboxField) (*graphql1.ScenePlugin, error)
 }
 type MergedLayerResolver interface {
 	Original(ctx context.Context, obj *graphql1.MergedLayer) (*graphql1.LayerItem, error)
 	Parent(ctx context.Context, obj *graphql1.MergedLayer) (*graphql1.LayerGroup, error)
+	Scene(ctx context.Context, obj *graphql1.MergedLayer) (*graphql1.Scene, error)
 }
 type MergedPropertyResolver interface {
 	Original(ctx context.Context, obj *graphql1.MergedProperty) (*graphql1.Property, error)
@@ -2329,6 +2343,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.MergedInfobox.Property(childComplexity), true
 
+	case "MergedInfobox.scene":
+		if e.complexity.MergedInfobox.Scene == nil {
+			break
+		}
+
+		return e.complexity.MergedInfobox.Scene(childComplexity), true
+
+	case "MergedInfobox.sceneID":
+		if e.complexity.MergedInfobox.SceneID == nil {
+			break
+		}
+
+		return e.complexity.MergedInfobox.SceneID(childComplexity), true
+
 	case "MergedInfoboxField.extension":
 		if e.complexity.MergedInfoboxField.Extension == nil {
 			break
@@ -2371,6 +2399,27 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.MergedInfoboxField.Property(childComplexity), true
 
+	case "MergedInfoboxField.scene":
+		if e.complexity.MergedInfoboxField.Scene == nil {
+			break
+		}
+
+		return e.complexity.MergedInfoboxField.Scene(childComplexity), true
+
+	case "MergedInfoboxField.sceneID":
+		if e.complexity.MergedInfoboxField.SceneID == nil {
+			break
+		}
+
+		return e.complexity.MergedInfoboxField.SceneID(childComplexity), true
+
+	case "MergedInfoboxField.scenePlugin":
+		if e.complexity.MergedInfoboxField.ScenePlugin == nil {
+			break
+		}
+
+		return e.complexity.MergedInfoboxField.ScenePlugin(childComplexity), true
+
 	case "MergedLayer.infobox":
 		if e.complexity.MergedLayer.Infobox == nil {
 			break
@@ -2412,6 +2461,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.MergedLayer.Property(childComplexity), true
+
+	case "MergedLayer.scene":
+		if e.complexity.MergedLayer.Scene == nil {
+			break
+		}
+
+		return e.complexity.MergedLayer.Scene(childComplexity), true
+
+	case "MergedLayer.sceneID":
+		if e.complexity.MergedLayer.SceneID == nil {
+			break
+		}
+
+		return e.complexity.MergedLayer.SceneID(childComplexity), true
 
 	case "MergedProperty.groups":
 		if e.complexity.MergedProperty.Groups == nil {
@@ -6105,24 +6168,31 @@ type InfoboxField {
 type MergedLayer {
   originalId: ID!
   parentId: ID
+  sceneID: ID!
   property: MergedProperty
   infobox: MergedInfobox
   original: LayerItem @goField(forceResolver: true)
   parent: LayerGroup @goField(forceResolver: true)
+  scene: Scene @goField(forceResolver: true)
 }
 
 type MergedInfobox {
+  sceneID: ID!
   property: MergedProperty
   fields: [MergedInfoboxField!]!
+  scene: Scene @goField(forceResolver: true)
 }
 
 type MergedInfoboxField {
   originalId: ID!
+  sceneID: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
   property: MergedProperty
   plugin: Plugin @goField(forceResolver: true)
   extension: PluginExtension @goField(forceResolver: true)
+  scene: Scene @goField(forceResolver: true)
+  scenePlugin: ScenePlugin @goField(forceResolver: true)
 }
 
 # InputType
@@ -14082,6 +14152,41 @@ func (ec *executionContext) _LayerItem_scenePlugin(ctx context.Context, field gr
 	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScenePlugin(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfobox) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "MergedInfobox",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.SceneID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(id.ID)
+	fc.Result = res
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _MergedInfobox_property(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -14149,6 +14254,38 @@ func (ec *executionContext) _MergedInfobox_fields(ctx context.Context, field gra
 	return ec.marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMergedInfoboxFieldᚄ(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _MergedInfobox_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfobox) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "MergedInfobox",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.MergedInfobox().Scene(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Scene)
+	fc.Result = res
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _MergedInfoboxField_originalId(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -14168,6 +14305,41 @@ func (ec *executionContext) _MergedInfoboxField_originalId(ctx context.Context, 
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return obj.OriginalID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(id.ID)
+	fc.Result = res
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _MergedInfoboxField_sceneID(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfoboxField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "MergedInfoboxField",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.SceneID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -14350,6 +14522,70 @@ func (ec *executionContext) _MergedInfoboxField_extension(ctx context.Context, f
 	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPluginExtension(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _MergedInfoboxField_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfoboxField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "MergedInfoboxField",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.MergedInfoboxField().Scene(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Scene)
+	fc.Result = res
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _MergedInfoboxField_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfoboxField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "MergedInfoboxField",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.MergedInfoboxField().ScenePlugin(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.ScenePlugin)
+	fc.Result = res
+	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScenePlugin(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _MergedLayer_originalId(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -14415,6 +14651,41 @@ func (ec *executionContext) _MergedLayer_parentId(ctx context.Context, field gra
 	res := resTmp.(*id.ID)
 	fc.Result = res
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _MergedLayer_sceneID(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedLayer) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "MergedLayer",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.SceneID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(id.ID)
+	fc.Result = res
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MergedLayer_property(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedLayer) (ret graphql.Marshaler) {
@@ -14543,6 +14814,38 @@ func (ec *executionContext) _MergedLayer_parent(ctx context.Context, field graph
 	res := resTmp.(*graphql1.LayerGroup)
 	fc.Result = res
 	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLayerGroup(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _MergedLayer_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedLayer) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "MergedLayer",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.MergedLayer().Scene(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Scene)
+	fc.Result = res
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MergedProperty_originalId(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedProperty) (ret graphql.Marshaler) {
@@ -32694,13 +32997,29 @@ func (ec *executionContext) _MergedInfobox(ctx context.Context, sel ast.Selectio
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("MergedInfobox")
+		case "sceneID":
+			out.Values[i] = ec._MergedInfobox_sceneID(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "property":
 			out.Values[i] = ec._MergedInfobox_property(ctx, field, obj)
 		case "fields":
 			out.Values[i] = ec._MergedInfobox_fields(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
+		case "scene":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._MergedInfobox_scene(ctx, field, obj)
+				return res
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -32725,6 +33044,11 @@ func (ec *executionContext) _MergedInfoboxField(ctx context.Context, sel ast.Sel
 			out.Values[i] = graphql.MarshalString("MergedInfoboxField")
 		case "originalId":
 			out.Values[i] = ec._MergedInfoboxField_originalId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "sceneID":
+			out.Values[i] = ec._MergedInfoboxField_sceneID(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
@@ -32762,6 +33086,28 @@ func (ec *executionContext) _MergedInfoboxField(ctx context.Context, sel ast.Sel
 				res = ec._MergedInfoboxField_extension(ctx, field, obj)
 				return res
 			})
+		case "scene":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._MergedInfoboxField_scene(ctx, field, obj)
+				return res
+			})
+		case "scenePlugin":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._MergedInfoboxField_scenePlugin(ctx, field, obj)
+				return res
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -32791,6 +33137,11 @@ func (ec *executionContext) _MergedLayer(ctx context.Context, sel ast.SelectionS
 			}
 		case "parentId":
 			out.Values[i] = ec._MergedLayer_parentId(ctx, field, obj)
+		case "sceneID":
+			out.Values[i] = ec._MergedLayer_sceneID(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "property":
 			out.Values[i] = ec._MergedLayer_property(ctx, field, obj)
 		case "infobox":
@@ -32815,6 +33166,17 @@ func (ec *executionContext) _MergedLayer(ctx context.Context, sel ast.SelectionS
 					}
 				}()
 				res = ec._MergedLayer_parent(ctx, field, obj)
+				return res
+			})
+		case "scene":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._MergedLayer_scene(ctx, field, obj)
 				return res
 			})
 		default:
