@@ -1074,6 +1074,14 @@ input ImportDatasetInput {
   datasetSchemaId: ID
 }
 
+input ImportDatasetFromGoogleSheetInput {
+    accessToken: String!
+    fileId: String!
+    sheetName: String!
+    sceneId: ID!
+    datasetSchemaId: ID
+}
+
 input AddDatasetSchemaInput {
   sceneId: ID!
   name: String!
@@ -1438,6 +1446,7 @@ type Mutation {
     input: RemoveDatasetSchemaInput!
   ): RemoveDatasetSchemaPayload
   importDataset(input: ImportDatasetInput!): ImportDatasetPayload
+  importDatasetFromGoogleSheet(input: ImportDatasetFromGoogleSheetInput!): ImportDatasetPayload
   addDatasetSchema(input: AddDatasetSchemaInput!): AddDatasetSchemaPayload
 
   # Property
