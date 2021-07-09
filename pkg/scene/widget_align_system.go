@@ -53,13 +53,13 @@ func (was *WidgetAlignSystem) WidgetZone(zone string) *WidgetZone {
 	if was == nil {
 		return nil
 	}
-	if zone == "inner" {
+	switch zone {
+	case "inner":
 		return &was.inner
-	} else if zone == "outer" {
+	case "outer":
 		return &was.outer
-	} else {
-		return nil
 	}
+	return nil
 }
 
 // WidgetSection will return a specific section in the align system
@@ -70,15 +70,15 @@ func (was *WidgetAlignSystem) WidgetSection(zone, section string) *WidgetSection
 
 	z := was.WidgetZone(zone)
 
-	if section == "left" {
+	switch section {
+	case "left":
 		return &z.left
-	} else if section == "center" {
+	case "center":
 		return &z.center
-	} else if section == "right" {
+	case "right":
 		return &z.right
-	} else {
-		return nil
 	}
+	return nil
 }
 
 // WidgetArea will return a specific area in the align system
@@ -89,15 +89,15 @@ func (was *WidgetAlignSystem) WidgetArea(zone, section, area string) *WidgetArea
 
 	s := was.WidgetSection(zone, section)
 
-	if area == "top" {
+	switch area {
+	case "top":
 		return &s.top
-	} else if area == "middle" {
+	case "middle":
 		return &s.middle
-	} else if area == "bottom" {
+	case "bottom":
 		return &s.bottom
-	} else {
-		return nil
 	}
+	return nil
 }
 
 // Add a widget to the align system
@@ -128,20 +128,13 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 }
 
 // Move widget
-// func (was *WidgetAlignSystem) Move(wid *id.WidgetID, oldLocation, newLocation *Location) {
-// 	if was == nil {
-// 		return
-// 	}
-// 	was.Remove(wid, oldLocation)
-// 	was.Add(wid, newLocation)
-
-// 	// old := was.WidgetArea(oldLocation.zone, oldLocation.section, oldLocation.area).widgetIds
-// 	// for i, w := range old {
-// 	// 	if w.ID().Equal(wid.ID()) {
-// 	// 		old = append(old[:i], old[i+1])
-// 	// 	}
-// 	// }
-// }
+func (was *WidgetAlignSystem) Move(wid *id.WidgetID, oldLocation, newLocation *Location) {
+	if was == nil {
+		return
+	}
+	was.Remove(wid, oldLocation)
+	was.Add(wid, newLocation)
+}
 
 // // Reorder widgets in an area
 // // func(was *WidgetAlignSystem) Reorder(wid *id.WidgetID, oldIndex, newIndex int){
