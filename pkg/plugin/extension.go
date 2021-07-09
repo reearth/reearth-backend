@@ -36,7 +36,7 @@ type Extension struct {
 	icon          string
 	schema        id.PropertySchemaID
 	visualizer    visualizer.Visualizer
-	widgetLayout  scene.WidgetLayout
+	widgetLayout  *scene.WidgetLayout
 }
 
 // ID _
@@ -75,7 +75,7 @@ func (w *Extension) Visualizer() visualizer.Visualizer {
 }
 
 // WidgetMetaData _
-func (w *Extension) WidgetLayout() scene.WidgetLayout {
+func (w *Extension) WidgetLayout() *scene.WidgetLayout {
 	return w.widgetLayout
 }
 

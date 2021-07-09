@@ -193,7 +193,7 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 		return nil, nil, err
 	}
 
-	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, scene.WidgetLayout{})
+	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, nil)
 	if err != nil {
 		return nil, nil, err
 	}

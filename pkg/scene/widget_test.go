@@ -19,14 +19,14 @@ func TestNewWidget(t *testing.T) {
 		Extension    id.PluginExtensionID
 		Property     id.PropertyID
 		Enabled      bool
-		WidgetLayout WidgetLayout
+		WidgetLayout *WidgetLayout
 		Expected     struct {
 			Id           id.WidgetID
 			Plugin       id.PluginID
 			Extension    id.PluginExtensionID
 			Property     id.PropertyID
 			Enabled      bool
-			WidgetLayout WidgetLayout
+			WidgetLayout *WidgetLayout
 		}
 		err error
 	}{
@@ -37,21 +37,21 @@ func TestNewWidget(t *testing.T) {
 			Extension:    "eee",
 			Property:     pr,
 			Enabled:      true,
-			WidgetLayout: WidgetLayout{},
+			WidgetLayout: nil,
 			Expected: struct {
 				Id           id.WidgetID
 				Plugin       id.PluginID
 				Extension    id.PluginExtensionID
 				Property     id.PropertyID
 				Enabled      bool
-				WidgetLayout WidgetLayout
+				WidgetLayout *WidgetLayout
 			}{
 				Id:           wid,
 				Plugin:       pid,
 				Extension:    "eee",
 				Property:     pr,
 				Enabled:      true,
-				WidgetLayout: WidgetLayout{},
+				WidgetLayout: nil,
 			},
 			err: nil,
 		},
@@ -62,21 +62,21 @@ func TestNewWidget(t *testing.T) {
 			Extension:    "eee",
 			Property:     pr,
 			Enabled:      true,
-			WidgetLayout: WidgetLayout{},
+			WidgetLayout: nil,
 			Expected: struct {
 				Id           id.WidgetID
 				Plugin       id.PluginID
 				Extension    id.PluginExtensionID
 				Property     id.PropertyID
 				Enabled      bool
-				WidgetLayout WidgetLayout
+				WidgetLayout *WidgetLayout
 			}{
 				Id:           wid,
 				Plugin:       pid,
 				Extension:    "eee",
 				Property:     pr,
 				Enabled:      true,
-				WidgetLayout: WidgetLayout{},
+				WidgetLayout: nil,
 			},
 			err: nil,
 		},
@@ -87,7 +87,7 @@ func TestNewWidget(t *testing.T) {
 			Extension:    "",
 			Property:     pr,
 			Enabled:      true,
-			WidgetLayout: WidgetLayout{},
+			WidgetLayout: nil,
 			err:          id.ErrInvalidID,
 		},
 	}
@@ -125,14 +125,14 @@ func TestMustNewWidget(t *testing.T) {
 		Extension    id.PluginExtensionID
 		Property     id.PropertyID
 		Enabled      bool
-		WidgetLayout WidgetLayout
+		WidgetLayout *WidgetLayout
 		Expected     struct {
 			Id           id.WidgetID
 			Plugin       id.PluginID
 			Extension    id.PluginExtensionID
 			Property     id.PropertyID
 			Enabled      bool
-			WidgetLayout WidgetLayout
+			WidgetLayout *WidgetLayout
 		}
 		err error
 	}{
@@ -143,21 +143,21 @@ func TestMustNewWidget(t *testing.T) {
 			Extension:    "eee",
 			Property:     pr,
 			Enabled:      true,
-			WidgetLayout: WidgetLayout{},
+			WidgetLayout: nil,
 			Expected: struct {
 				Id           id.WidgetID
 				Plugin       id.PluginID
 				Extension    id.PluginExtensionID
 				Property     id.PropertyID
 				Enabled      bool
-				WidgetLayout WidgetLayout
+				WidgetLayout *WidgetLayout
 			}{
 				Id:           wid,
 				Plugin:       pid,
 				Extension:    "eee",
 				Property:     pr,
 				Enabled:      true,
-				WidgetLayout: WidgetLayout{},
+				WidgetLayout: nil,
 			},
 			err: nil,
 		},
@@ -168,21 +168,21 @@ func TestMustNewWidget(t *testing.T) {
 			Extension:    "eee",
 			Property:     pr,
 			Enabled:      true,
-			WidgetLayout: WidgetLayout{},
+			WidgetLayout: nil,
 			Expected: struct {
 				Id           id.WidgetID
 				Plugin       id.PluginID
 				Extension    id.PluginExtensionID
 				Property     id.PropertyID
 				Enabled      bool
-				WidgetLayout WidgetLayout
+				WidgetLayout *WidgetLayout
 			}{
 				Id:           wid,
 				Plugin:       pid,
 				Extension:    "eee",
 				Property:     pr,
 				Enabled:      true,
-				WidgetLayout: WidgetLayout{},
+				WidgetLayout: nil,
 			},
 			err: nil,
 		},
@@ -193,7 +193,7 @@ func TestMustNewWidget(t *testing.T) {
 			Extension:    "",
 			Property:     pr,
 			Enabled:      true,
-			WidgetLayout: WidgetLayout{},
+			WidgetLayout: nil,
 			err:          id.ErrInvalidID,
 		},
 	}
@@ -223,7 +223,7 @@ func TestMustNewWidget(t *testing.T) {
 }
 
 func TestWidget_SetEnabled(t *testing.T) {
-	res := MustNewWidget(id.NewWidgetID().Ref(), id.MustPluginID("xxx#1.1.1"), "eee", id.NewPropertyID(), false, WidgetLayout{})
+	res := MustNewWidget(id.NewWidgetID().Ref(), id.MustPluginID("xxx#1.1.1"), "eee", id.NewPropertyID(), false, nil)
 	res.SetEnabled(true)
 	assert.True(t, res.Enabled())
 }

@@ -125,7 +125,7 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 		Description(i18n.StringFrom(desc)).
 		Visualizer(viz).
 		Type(typ).
-		WidgetLayout(*wl).
+		WidgetLayout(wl).
 		Icon(icon).
 		Schema(schema.ID()).
 		System(sys).

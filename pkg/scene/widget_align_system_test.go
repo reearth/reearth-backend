@@ -109,3 +109,31 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 		})
 	}
 }
+
+// func TestWidgetAlignSystem_Move(t *testing.T) {
+// 	wid := id.NewWidgetID()
+// 	oloc := Location{"outer", "right", "middle"}
+// 	nloc := Location{"inner", "left", "top"}
+// 	was := NewWidgetAlignSystem()
+// 	was.Add(&wid, &oloc)
+
+// 	testCases := []struct{
+// 		Name string
+// 		Input struct {
+// 			id  *id.WidgetID
+// 			ol *Location
+// 			nl *Location
+// 		}
+// 		WAS, Expected *WidgetAlignSystem
+// 	}{
+// 		{
+// 			Name: "Move a widget from one location to another",
+// 			Input: struct {
+// 				id  *id.WidgetID
+// 				loc *Location
+// 			}{&wid, &loc},
+// 			WAS:      was,
+// 			Expected: was2,
+// 		}
+// 	}
+// }

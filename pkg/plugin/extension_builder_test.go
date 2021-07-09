@@ -54,8 +54,10 @@ func TestExtensionBuilder_Visualizer(t *testing.T) {
 }
 func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 	var b = NewExtension()
-	res := b.ID("xxx").WidgetLayout(scene.WidgetLayout{}).MustBuild()
-	assert.Equal(t, scene.WidgetLayout(scene.WidgetLayout{}), res.WidgetLayout())
+	wl := &scene.WidgetLayout{Extendable: true}
+	wl2 := &scene.WidgetLayout{Extendable: true}
+	res := b.ID("xxx").WidgetLayout(wl).MustBuild()
+	assert.Equal(t, wl2, res.WidgetLayout())
 }
 
 func TestExtensionBuilder_Build(t *testing.T) {
@@ -68,7 +70,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 		description   i18n.String
 		schema        id.PropertySchemaID
 		visualizer    visualizer.Visualizer
-		widgetLayout  scene.WidgetLayout
+		widgetLayout  *scene.WidgetLayout
 		expected      *Extension
 		err           error
 	}{
@@ -82,7 +84,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
-			widgetLayout:  scene.WidgetLayout{},
+			widgetLayout:  nil,
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -91,7 +93,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
-				widgetLayout:  scene.WidgetLayout{},
+				widgetLayout:  nil,
 			},
 			err: nil,
 		},
@@ -145,7 +147,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 		description   i18n.String
 		schema        id.PropertySchemaID
 		visualizer    visualizer.Visualizer
-		widgetLayout  scene.WidgetLayout
+		widgetLayout  *scene.WidgetLayout
 		expected      *Extension
 	}{
 		{
@@ -158,7 +160,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
-			widgetLayout:  scene.WidgetLayout{},
+			widgetLayout:  nil,
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -167,7 +169,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
-				widgetLayout:  scene.WidgetLayout{},
+				widgetLayout:  nil,
 			},
 		},
 		{

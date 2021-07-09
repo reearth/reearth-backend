@@ -15,7 +15,7 @@ type PluginExtensionDocument struct {
 	Icon         string
 	Schema       string
 	Visualizer   string
-	WidgetLayout scene.WidgetLayout
+	WidgetLayout *scene.WidgetLayout
 }
 
 type PluginDocument struct {

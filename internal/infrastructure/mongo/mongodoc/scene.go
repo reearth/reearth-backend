@@ -16,7 +16,7 @@ type SceneWidgetDocument struct {
 	Extension    string
 	Property     string
 	Enabled      bool
-	WidgetLayout scene.WidgetLayout
+	WidgetLayout *scene.WidgetLayout
 }
 
 type ScenePluginDocument struct {

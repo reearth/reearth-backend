@@ -85,7 +85,7 @@ func (b *ExtensionBuilder) Visualizer(visualizer visualizer.Visualizer) *Extensi
 }
 
 // WidgetLayout _
-func (b *ExtensionBuilder) WidgetLayout(widgetLayout scene.WidgetLayout) *ExtensionBuilder {
+func (b *ExtensionBuilder) WidgetLayout(widgetLayout *scene.WidgetLayout) *ExtensionBuilder {
 	b.p.widgetLayout = widgetLayout
 	return b
 }
