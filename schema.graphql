@@ -275,6 +275,7 @@ type Location {
 type WidgetLayout {
   extendable: Boolean
   extended: Boolean
+  floating: Boolean
   defaultLocation: Location
 }
 

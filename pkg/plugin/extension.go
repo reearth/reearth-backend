@@ -29,8 +29,9 @@ var (
 
 // WidgetLayout _
 type WidgetLayout struct {
-	Extendable      *bool
+	Extendable      bool
 	Extended        bool
+	Floating        bool
 	DefaultLocation *scene.Location
 }
 

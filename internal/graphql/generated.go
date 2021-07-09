@@ -903,6 +903,7 @@ type ComplexityRoot struct {
 		DefaultLocation func(childComplexity int) int
 		Extendable      func(childComplexity int) int
 		Extended        func(childComplexity int) int
+		Floating        func(childComplexity int) int
 	}
 }
 
@@ -5330,6 +5331,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.WidgetLayout.Extended(childComplexity), true
 
+	case "WidgetLayout.floating":
+		if e.complexity.WidgetLayout.Floating == nil {
+			break
+		}
+
+		return e.complexity.WidgetLayout.Floating(childComplexity), true
+
 	}
 	return 0, false
 }
@@ -5671,6 +5679,7 @@ type Location {
 type WidgetLayout {
   extendable: Boolean
   extended: Boolean
+  floating: Boolean
   defaultLocation: Location
 }
 
@@ -27118,6 +27127,38 @@ func (ec *executionContext) _WidgetLayout_extended(ctx context.Context, field gr
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _WidgetLayout_floating(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetLayout",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Floating, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _WidgetLayout_defaultLocation(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -35862,6 +35903,8 @@ func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.Selection
 			out.Values[i] = ec._WidgetLayout_extendable(ctx, field, obj)
 		case "extended":
 			out.Values[i] = ec._WidgetLayout_extended(ctx, field, obj)
+		case "floating":
+			out.Values[i] = ec._WidgetLayout_floating(ctx, field, obj)
 		case "defaultLocation":
 			out.Values[i] = ec._WidgetLayout_defaultLocation(ctx, field, obj)
 		default:

@@ -1177,6 +1177,7 @@ func (User) IsNode() {}
 type WidgetLayout struct {
 	Extendable      *bool     `json:"extendable"`
 	Extended        *bool     `json:"extended"`
+	Floating        *bool     `json:"floating"`
 	DefaultLocation *Location `json:"defaultLocation"`
 }
 

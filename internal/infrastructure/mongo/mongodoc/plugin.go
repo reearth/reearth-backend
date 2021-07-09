@@ -7,13 +7,14 @@ import (
 )
 
 type PluginExtensionDocument struct {
-	ID          string
-	Type        string
-	Name        map[string]string
-	Description map[string]string
-	Icon        string
-	Schema      string
-	Visualizer  string
+	ID           string
+	Type         string
+	Name         map[string]string
+	Description  map[string]string
+	Icon         string
+	Schema       string
+	Visualizer   string
+	WidgetLayout plugin.WidgetLayout
 }
 
 type PluginDocument struct {
@@ -54,13 +55,14 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 	extensionsDoc := make([]PluginExtensionDocument, 0, len(extensions))
 	for _, e := range extensions {
 		extensionsDoc = append(extensionsDoc, PluginExtensionDocument{
-			ID:          string(e.ID()),
-			Type:        string(e.Type()),
-			Name:        e.Name(),
-			Description: e.Description(),
-			Icon:        e.Icon(),
-			Schema:      e.Schema().String(),
-			Visualizer:  string(e.Visualizer()),
+			ID:           string(e.ID()),
+			Type:         string(e.Type()),
+			Name:         e.Name(),
+			Description:  e.Description(),
+			Icon:         e.Icon(),
+			Schema:       e.Schema().String(),
+			Visualizer:   string(e.Visualizer()),
+			WidgetLayout: e.WidgetLayout(),
 		})
 	}
 
@@ -94,6 +96,7 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 			Name(d.Name).
 			Description(d.Description).
 			Icon(e.Icon).
+			WidgetLayout(e.WidgetLayout).
 			Schema(psid).
 			Build()
 		if err != nil {

@@ -336,7 +336,16 @@ const SchemaJSON string = `{
               ]
             },
             "extended": {
-              "type": "boolean"
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "floating": {
+              "type": [
+                "boolean",
+                "null"
+              ]
             },
             "defaultLocation": {
               "$ref": "#/definitions/location"
