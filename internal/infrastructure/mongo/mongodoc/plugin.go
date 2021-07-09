@@ -3,6 +3,7 @@ package mongodoc
 import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
+	"github.com/reearth/reearth-backend/pkg/scene"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -14,7 +15,7 @@ type PluginExtensionDocument struct {
 	Icon         string
 	Schema       string
 	Visualizer   string
-	WidgetLayout plugin.WidgetLayout
+	WidgetLayout scene.WidgetLayout
 }
 
 type PluginDocument struct {

@@ -13,73 +13,82 @@ func TestNewWidget(t *testing.T) {
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
-		Name      string
-		Id        *id.WidgetID
-		Plugin    id.PluginID
-		Extension id.PluginExtensionID
-		Property  id.PropertyID
-		Enabled   bool
-		Expected  struct {
-			Id        id.WidgetID
-			Plugin    id.PluginID
-			Extension id.PluginExtensionID
-			Property  id.PropertyID
-			Enabled   bool
+		Name         string
+		Id           *id.WidgetID
+		Plugin       id.PluginID
+		Extension    id.PluginExtensionID
+		Property     id.PropertyID
+		Enabled      bool
+		WidgetLayout WidgetLayout
+		Expected     struct {
+			Id           id.WidgetID
+			Plugin       id.PluginID
+			Extension    id.PluginExtensionID
+			Property     id.PropertyID
+			Enabled      bool
+			WidgetLayout WidgetLayout
 		}
 		err error
 	}{
 		{
-			Name:      "success new widget",
-			Id:        wid.Ref(),
-			Plugin:    pid,
-			Extension: "eee",
-			Property:  pr,
-			Enabled:   true,
+			Name:         "success new widget",
+			Id:           wid.Ref(),
+			Plugin:       pid,
+			Extension:    "eee",
+			Property:     pr,
+			Enabled:      true,
+			WidgetLayout: WidgetLayout{},
 			Expected: struct {
-				Id        id.WidgetID
-				Plugin    id.PluginID
-				Extension id.PluginExtensionID
-				Property  id.PropertyID
-				Enabled   bool
+				Id           id.WidgetID
+				Plugin       id.PluginID
+				Extension    id.PluginExtensionID
+				Property     id.PropertyID
+				Enabled      bool
+				WidgetLayout WidgetLayout
 			}{
-				Id:        wid,
-				Plugin:    pid,
-				Extension: "eee",
-				Property:  pr,
-				Enabled:   true,
+				Id:           wid,
+				Plugin:       pid,
+				Extension:    "eee",
+				Property:     pr,
+				Enabled:      true,
+				WidgetLayout: WidgetLayout{},
 			},
 			err: nil,
 		},
 		{
-			Name:      "success nil id",
-			Id:        nil,
-			Plugin:    pid,
-			Extension: "eee",
-			Property:  pr,
-			Enabled:   true,
+			Name:         "success nil id",
+			Id:           nil,
+			Plugin:       pid,
+			Extension:    "eee",
+			Property:     pr,
+			Enabled:      true,
+			WidgetLayout: WidgetLayout{},
 			Expected: struct {
-				Id        id.WidgetID
-				Plugin    id.PluginID
-				Extension id.PluginExtensionID
-				Property  id.PropertyID
-				Enabled   bool
+				Id           id.WidgetID
+				Plugin       id.PluginID
+				Extension    id.PluginExtensionID
+				Property     id.PropertyID
+				Enabled      bool
+				WidgetLayout WidgetLayout
 			}{
-				Id:        wid,
-				Plugin:    pid,
-				Extension: "eee",
-				Property:  pr,
-				Enabled:   true,
+				Id:           wid,
+				Plugin:       pid,
+				Extension:    "eee",
+				Property:     pr,
+				Enabled:      true,
+				WidgetLayout: WidgetLayout{},
 			},
 			err: nil,
 		},
 		{
-			Name:      "fail empty extension",
-			Id:        wid.Ref(),
-			Plugin:    pid,
-			Extension: "",
-			Property:  pr,
-			Enabled:   true,
-			err:       id.ErrInvalidID,
+			Name:         "fail empty extension",
+			Id:           wid.Ref(),
+			Plugin:       pid,
+			Extension:    "",
+			Property:     pr,
+			Enabled:      true,
+			WidgetLayout: WidgetLayout{},
+			err:          id.ErrInvalidID,
 		},
 	}
 
@@ -87,7 +96,7 @@ func TestNewWidget(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := NewWidget(tc.Id, tc.Plugin, tc.Extension, tc.Property, tc.Enabled)
+			res, err := NewWidget(tc.Id, tc.Plugin, tc.Extension, tc.Property, tc.Enabled, tc.WidgetLayout)
 			if err == nil {
 				if tc.Id == nil {
 					assert.NotNil(tt, res.ID())
@@ -97,6 +106,7 @@ func TestNewWidget(t *testing.T) {
 				assert.Equal(tt, tc.Expected.Property, res.Property())
 				assert.Equal(tt, tc.Expected.Extension, res.Extension())
 				assert.Equal(tt, tc.Expected.Enabled, res.Enabled())
+				assert.Equal(tt, tc.Expected.WidgetLayout, res.WidgetLayout())
 				assert.Equal(tt, tc.Expected.Plugin, res.Plugin())
 			} else {
 				assert.True(tt, errors.As(tc.err, &err))
@@ -109,73 +119,82 @@ func TestMustNewWidget(t *testing.T) {
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
-		Name      string
-		Id        *id.WidgetID
-		Plugin    id.PluginID
-		Extension id.PluginExtensionID
-		Property  id.PropertyID
-		Enabled   bool
-		Expected  struct {
-			Id        id.WidgetID
-			Plugin    id.PluginID
-			Extension id.PluginExtensionID
-			Property  id.PropertyID
-			Enabled   bool
+		Name         string
+		Id           *id.WidgetID
+		Plugin       id.PluginID
+		Extension    id.PluginExtensionID
+		Property     id.PropertyID
+		Enabled      bool
+		WidgetLayout WidgetLayout
+		Expected     struct {
+			Id           id.WidgetID
+			Plugin       id.PluginID
+			Extension    id.PluginExtensionID
+			Property     id.PropertyID
+			Enabled      bool
+			WidgetLayout WidgetLayout
 		}
 		err error
 	}{
 		{
-			Name:      "success new widget",
-			Id:        wid.Ref(),
-			Plugin:    pid,
-			Extension: "eee",
-			Property:  pr,
-			Enabled:   true,
+			Name:         "success new widget",
+			Id:           wid.Ref(),
+			Plugin:       pid,
+			Extension:    "eee",
+			Property:     pr,
+			Enabled:      true,
+			WidgetLayout: WidgetLayout{},
 			Expected: struct {
-				Id        id.WidgetID
-				Plugin    id.PluginID
-				Extension id.PluginExtensionID
-				Property  id.PropertyID
-				Enabled   bool
+				Id           id.WidgetID
+				Plugin       id.PluginID
+				Extension    id.PluginExtensionID
+				Property     id.PropertyID
+				Enabled      bool
+				WidgetLayout WidgetLayout
 			}{
-				Id:        wid,
-				Plugin:    pid,
-				Extension: "eee",
-				Property:  pr,
-				Enabled:   true,
+				Id:           wid,
+				Plugin:       pid,
+				Extension:    "eee",
+				Property:     pr,
+				Enabled:      true,
+				WidgetLayout: WidgetLayout{},
 			},
 			err: nil,
 		},
 		{
-			Name:      "success nil id",
-			Id:        nil,
-			Plugin:    pid,
-			Extension: "eee",
-			Property:  pr,
-			Enabled:   true,
+			Name:         "success nil id",
+			Id:           nil,
+			Plugin:       pid,
+			Extension:    "eee",
+			Property:     pr,
+			Enabled:      true,
+			WidgetLayout: WidgetLayout{},
 			Expected: struct {
-				Id        id.WidgetID
-				Plugin    id.PluginID
-				Extension id.PluginExtensionID
-				Property  id.PropertyID
-				Enabled   bool
+				Id           id.WidgetID
+				Plugin       id.PluginID
+				Extension    id.PluginExtensionID
+				Property     id.PropertyID
+				Enabled      bool
+				WidgetLayout WidgetLayout
 			}{
-				Id:        wid,
-				Plugin:    pid,
-				Extension: "eee",
-				Property:  pr,
-				Enabled:   true,
+				Id:           wid,
+				Plugin:       pid,
+				Extension:    "eee",
+				Property:     pr,
+				Enabled:      true,
+				WidgetLayout: WidgetLayout{},
 			},
 			err: nil,
 		},
 		{
-			Name:      "fail empty extension",
-			Id:        wid.Ref(),
-			Plugin:    pid,
-			Extension: "",
-			Property:  pr,
-			Enabled:   true,
-			err:       id.ErrInvalidID,
+			Name:         "fail empty extension",
+			Id:           wid.Ref(),
+			Plugin:       pid,
+			Extension:    "",
+			Property:     pr,
+			Enabled:      true,
+			WidgetLayout: WidgetLayout{},
+			err:          id.ErrInvalidID,
 		},
 	}
 
@@ -197,14 +216,14 @@ func TestMustNewWidget(t *testing.T) {
 					assert.Equal(tt, tc.Expected.Plugin, res.Plugin())
 				}
 			}()
-			res = MustNewWidget(tc.Id, tc.Plugin, tc.Extension, tc.Property, tc.Enabled)
+			res = MustNewWidget(tc.Id, tc.Plugin, tc.Extension, tc.Property, tc.Enabled, tc.WidgetLayout)
 
 		})
 	}
 }
 
 func TestWidget_SetEnabled(t *testing.T) {
-	res := MustNewWidget(id.NewWidgetID().Ref(), id.MustPluginID("xxx#1.1.1"), "eee", id.NewPropertyID(), false)
+	res := MustNewWidget(id.NewWidgetID().Ref(), id.MustPluginID("xxx#1.1.1"), "eee", id.NewPropertyID(), false, WidgetLayout{})
 	res.SetEnabled(true)
 	assert.True(t, res.Enabled())
 }

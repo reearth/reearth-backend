@@ -27,14 +27,6 @@ var (
 	ExtensionTypeInfobox ExtensionType = "infobox"
 )
 
-// WidgetLayout _
-type WidgetLayout struct {
-	Extendable      bool
-	Extended        bool
-	Floating        bool
-	DefaultLocation *scene.Location
-}
-
 // Extension _
 type Extension struct {
 	id            id.PluginExtensionID
@@ -44,7 +36,7 @@ type Extension struct {
 	icon          string
 	schema        id.PropertySchemaID
 	visualizer    visualizer.Visualizer
-	widgetLayout  WidgetLayout
+	widgetLayout  scene.WidgetLayout
 }
 
 // ID _
@@ -83,7 +75,7 @@ func (w *Extension) Visualizer() visualizer.Visualizer {
 }
 
 // WidgetMetaData _
-func (w *Extension) WidgetLayout() WidgetLayout {
+func (w *Extension) WidgetLayout() scene.WidgetLayout {
 	return w.widgetLayout
 }
 

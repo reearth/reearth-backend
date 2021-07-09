@@ -137,24 +137,24 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 	return ext, schema, nil
 }
 
-func (l *WidgetLayout) layout() *plugin.WidgetLayout {
+func (l *WidgetLayout) layout() *scene.WidgetLayout {
 	if l == nil {
-		return &plugin.WidgetLayout{Extended: false, Extendable: true, Floating: false, DefaultLocation: &scene.Location{Zone: "outer", Section: "left", Area: "top"}}
+		return &scene.WidgetLayout{Extended: false, Extendable: true, Floating: false, DefaultLocation: &scene.Location{Zone: "outer", Section: "left", Area: "top"}}
 	}
 
-	var pl plugin.WidgetLayout
-	pl.Extended = false
+	var swl scene.WidgetLayout
+	swl.Extended = false
 	if l.Extendable == nil {
-		pl.Extendable = true
+		swl.Extendable = true
 	} else {
 		e := l.Extendable
-		pl.Extendable = *e
+		swl.Extendable = *e
 	}
 	if l.Floating == nil {
-		pl.Floating = false
+		swl.Floating = false
 	} else {
 		f := l.Floating
-		pl.Floating = *f
+		swl.Floating = *f
 	}
 	var dl scene.Location
 	if l.DefaultLocation == nil {
@@ -162,8 +162,8 @@ func (l *WidgetLayout) layout() *plugin.WidgetLayout {
 	} else {
 		dl = scene.Location{Zone: l.DefaultLocation.Zone, Section: l.DefaultLocation.Section, Area: l.DefaultLocation.Area}
 	}
-	pl.DefaultLocation = &dl
-	return &pl
+	swl.DefaultLocation = &dl
+	return &swl
 }
 
 func (i *PropertySchema) schema(pluginID id.PluginID, idstr string) (*property.Schema, error) {

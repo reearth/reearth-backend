@@ -5,6 +5,7 @@ import (
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 	"github.com/stretchr/testify/assert"
 )
@@ -18,7 +19,7 @@ func TestExtension(t *testing.T) {
 		Icon         string
 		Schema       id.PropertySchemaID
 		Visualizer   visualizer.Visualizer
-		WidgetLayout WidgetLayout
+		WidgetLayout scene.WidgetLayout
 	}{
 		Id:           "xxx",
 		Type:         ExtensionTypePrimitive,
@@ -27,7 +28,7 @@ func TestExtension(t *testing.T) {
 		Icon:         "test",
 		Schema:       id.MustPropertySchemaID("hoge#0.1.0/fff"),
 		Visualizer:   "vvv",
-		WidgetLayout: WidgetLayout{},
+		WidgetLayout: scene.WidgetLayout{},
 	}
 
 	actual := NewExtension().
@@ -36,7 +37,7 @@ func TestExtension(t *testing.T) {
 		Description(i18n.StringFrom("ddd")).
 		Schema(id.MustPropertySchemaID("hoge#0.1.0/fff")).
 		Icon("test").
-		WidgetLayout(WidgetLayout{}).
+		WidgetLayout(scene.WidgetLayout{}).
 		Visualizer("vvv").
 		Type(ExtensionTypePrimitive).
 		MustBuild()

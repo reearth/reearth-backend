@@ -38,7 +38,7 @@ func TestNewWidgetSystem(t *testing.T) {
 				},
 			},
 			Expected: &WidgetSystem{widgets: []*Widget{
-				MustNewWidget(wid, pid, "eee", pr, true),
+				MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{}),
 			}},
 		},
 		{
@@ -60,7 +60,7 @@ func TestNewWidgetSystem(t *testing.T) {
 				},
 			},
 			Expected: &WidgetSystem{widgets: []*Widget{
-				MustNewWidget(wid, pid, "eee", pr, true),
+				MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{}),
 			}},
 		},
 	}
@@ -93,7 +93,7 @@ func TestWidgetSystem_Add(t *testing.T) {
 				enabled:   true,
 			},
 			WS:       NewWidgetSystem([]*Widget{}),
-			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true)}),
+			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{})}),
 		},
 		{
 			Name:     "add nil widget",
@@ -122,8 +122,8 @@ func TestWidgetSystem_Add(t *testing.T) {
 				property:  pr,
 				enabled:   true,
 			},
-			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true)}),
-			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true)}),
+			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{})}),
+			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{})}),
 		},
 	}
 	for _, tc := range testCases {
@@ -150,7 +150,7 @@ func TestWidgetSystem_Remove(t *testing.T) {
 			Name:     "remove a widget",
 			PID:      pid,
 			EID:      "eee",
-			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true)}),
+			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{})}),
 			Expected: NewWidgetSystem([]*Widget{}),
 		},
 		{
@@ -183,8 +183,8 @@ func TestWidgetSystem_Replace(t *testing.T) {
 			Name:     "replace a widget",
 			PID:      pid,
 			NewID:    pid2,
-			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true)}),
-			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid2, "eee", pr, true)}),
+			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{})}),
+			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid2, "eee", pr, true, WidgetLayout{})}),
 		},
 		{
 			Name:     "replace with nil widget",
@@ -222,8 +222,8 @@ func TestWidgetSystem_Properties(t *testing.T) {
 		{
 			Name: "get properties",
 			WS: NewWidgetSystem([]*Widget{
-				MustNewWidget(wid, pid, "eee", pr, true),
-				MustNewWidget(wid2, pid, "eee", pr2, true),
+				MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{}),
+				MustNewWidget(wid2, pid, "eee", pr2, true, WidgetLayout{}),
 			}),
 			Expected: []id.PropertyID{pr, pr2},
 		},
@@ -257,12 +257,12 @@ func TestWidgetSystem_Widgets(t *testing.T) {
 		{
 			Name: "get widgets",
 			WS: NewWidgetSystem([]*Widget{
-				MustNewWidget(wid, pid, "eee", pr, true),
-				MustNewWidget(wid2, pid, "eee", pr2, true),
+				MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{}),
+				MustNewWidget(wid2, pid, "eee", pr2, true, WidgetLayout{}),
 			}),
 			Expected: []*Widget{
-				MustNewWidget(wid, pid, "eee", pr, true),
-				MustNewWidget(wid2, pid, "eee", pr2, true),
+				MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{}),
+				MustNewWidget(wid2, pid, "eee", pr2, true, WidgetLayout{}),
 			},
 		},
 		{
@@ -296,8 +296,8 @@ func TestWidgetSystem_Widget(t *testing.T) {
 			Name:     "get a widget",
 			PID:      pid,
 			EID:      "eee",
-			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true)}),
-			Expected: MustNewWidget(wid, pid, "eee", pr, true),
+			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{})}),
+			Expected: MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{}),
 		},
 		{
 			Name:     "dont has the widget",
@@ -337,7 +337,7 @@ func TestWidgetSystem_Has(t *testing.T) {
 			Name:     "has a widget",
 			PID:      pid,
 			EID:      "eee",
-			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true)}),
+			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, WidgetLayout{})}),
 			Expected: true,
 		},
 		{

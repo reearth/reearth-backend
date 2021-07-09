@@ -193,12 +193,14 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 		return nil, nil, err
 	}
 
-	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true)
+	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, scene.WidgetLayout{})
 	if err != nil {
 		return nil, nil, err
 	}
 
 	s.WidgetSystem().Add(widget)
+
+	s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
 
 	err = i.propertyRepo.Save(ctx, property)
 	if err != nil {

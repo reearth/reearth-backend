@@ -11,11 +11,12 @@ import (
 )
 
 type SceneWidgetDocument struct {
-	ID        string
-	Plugin    string
-	Extension string
-	Property  string
-	Enabled   bool
+	ID           string
+	Plugin       string
+	Extension    string
+	Property     string
+	Enabled      bool
+	WidgetLayout scene.WidgetLayout
 }
 
 type ScenePluginDocument struct {
@@ -89,11 +90,12 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 
 	for _, w := range widgets {
 		widgetsDoc = append(widgetsDoc, SceneWidgetDocument{
-			ID:        w.ID().String(),
-			Plugin:    w.Plugin().String(),
-			Extension: string(w.Extension()),
-			Property:  w.Property().String(),
-			Enabled:   w.Enabled(),
+			ID:           w.ID().String(),
+			Plugin:       w.Plugin().String(),
+			Extension:    string(w.Extension()),
+			Property:     w.Property().String(),
+			Enabled:      w.Enabled(),
+			WidgetLayout: w.WidgetLayout(),
 		})
 	}
 
@@ -157,6 +159,7 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 			id.PluginExtensionID(w.Extension),
 			prid,
 			w.Enabled,
+			w.WidgetLayout,
 		)
 		if err != nil {
 			return nil, err
