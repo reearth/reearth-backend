@@ -30,9 +30,9 @@ type WidgetArea struct {
 }
 
 type Location struct {
-	zone    string
-	section string
-	area    string
+	Zone    string
+	Section string
+	Area    string
 }
 
 // NewWidgetAlignSystem returns a new widget align system
@@ -106,7 +106,7 @@ func (was *WidgetAlignSystem) Add(wid *id.WidgetID, l *Location) {
 		return
 	}
 
-	a := was.WidgetArea(l.zone, l.section, l.area)
+	a := was.WidgetArea(l.Zone, l.Section, l.Area)
 	id := *wid
 	a.widgetIds = append(a.widgetIds, id)
 }
@@ -117,7 +117,7 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 		return
 	}
 
-	a := was.WidgetArea(l.zone, l.section, l.area)
+	a := was.WidgetArea(l.Zone, l.Section, l.Area)
 
 	for i, w := range a.widgetIds {
 		if w.ID().Equal(wid.ID()) {
@@ -128,20 +128,25 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 }
 
 // Move widget
-// func(was *WidgetAlignSystem) Move(wid *id.WidgetID, oldLocation, newLocation *Location){
+// func (was *WidgetAlignSystem) Move(wid *id.WidgetID, oldLocation, newLocation *Location) {
 // 	if was == nil {
 // 		return
 // 	}
+// 	was.Remove(wid, oldLocation)
+// 	was.Add(wid, newLocation)
 
-// 	old := was.WidgetArea(oldLocation.zone, oldLocation.section, oldLocation.area).widgetIds
-// 	old =
-
-// 	new := was.WidgetArea(newLocation.zone, newLocation.section, newLocation.area)
+// 	// old := was.WidgetArea(oldLocation.zone, oldLocation.section, oldLocation.area).widgetIds
+// 	// for i, w := range old {
+// 	// 	if w.ID().Equal(wid.ID()) {
+// 	// 		old = append(old[:i], old[i+1])
+// 	// 	}
+// 	// }
 // }
+
 // // Reorder widgets in an area
-// func(was *WidgetAlignSystem) Reorder(wid *id.WidgetID, oldIndex, newIndex int){
-// 	if was == nil {
-// 		return
-// 	}
+// // func(was *WidgetAlignSystem) Reorder(wid *id.WidgetID, oldIndex, newIndex int){
+// // 	if was == nil {
+// // 		return
+// // 	}
 
-// }
+// // }
