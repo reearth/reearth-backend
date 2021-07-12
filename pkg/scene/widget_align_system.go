@@ -119,27 +119,28 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 
 	a := was.WidgetArea(l.Zone, l.Section, l.Area)
 
-	for i, w := range a.widgetIds {
-		if w.ID().Equal(wid.ID()) {
-			a.widgetIds = append(a.widgetIds[:i], a.widgetIds[i+1])
-			return
+	var nwid []id.WidgetID
+	for _, w := range a.widgetIds {
+		if w.ID() != wid.ID() {
+			nwid = append(nwid, w)
 		}
 	}
+	a.widgetIds = nwid
 }
 
 // Move widget
 func (was *WidgetAlignSystem) Move(wid *id.WidgetID, oldLocation, newLocation *Location) {
-	if was == nil {
+	if was == nil || oldLocation == newLocation {
 		return
 	}
 	was.Remove(wid, oldLocation)
 	was.Add(wid, newLocation)
 }
 
-// // Reorder widgets in an area
-// // func(was *WidgetAlignSystem) Reorder(wid *id.WidgetID, oldIndex, newIndex int){
-// // 	if was == nil {
-// // 		return
-// // 	}
-
-// // }
+// Reorder assigns reordered widget ids
+func (was *WidgetAlignSystem) Reorder(wid *id.WidgetID, l *Location, newOrder []id.WidgetID) {
+	if was == nil {
+		return
+	}
+	was.WidgetArea(l.Zone, l.Section, l.Area).widgetIds = newOrder
+}
