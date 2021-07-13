@@ -86,6 +86,7 @@ func TestParseTranslation(t *testing.T) {
 			err:      ErrFailedToParseManifest,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
@@ -125,7 +126,7 @@ func TestParseTranslation(t *testing.T) {
 	}
 }
 
-func TestParseTranslationFromStaticJSON(t *testing.T) {
+func TestParseTranslationFromBytes(t *testing.T) {
 	desc := "test plugin desc"
 	name := "test plugin name"
 	ext_name := "test ext name"
@@ -169,17 +170,18 @@ func TestParseTranslationFromStaticJSON(t *testing.T) {
 			err: nil,
 		},
 		{
-			name:     "fail not valid JSON",
-			input:    "",
+			name:     "fail not valid YAML",
+			input:    "--",
 			expected: nil,
-			err:      ErrFailedToParseManifest,
+			err:      ErrFailedToParseManifestTranslation,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := ParseTranslationFromStaticJSON(tc.input)
+			res, err := ParseTranslationFromBytes([]byte(tc.input))
 			if err == nil {
 				assert.Equal(tt, *tc.expected.Title, *res.Title)
 				assert.Equal(tt, *res.Description, *tc.expected.Description)
@@ -207,13 +209,13 @@ func TestParseTranslationFromStaticJSON(t *testing.T) {
 					}
 				}
 			} else {
-				assert.True(tt, errors.As(tc.err, &err))
+				assert.True(tt, errors.Is(tc.err, err))
 			}
 		})
 	}
 }
 
-func TestMustParseTransSystemFromStaticJSON(t *testing.T) {
+func TestMustParseTransSystemFromBytes(t *testing.T) {
 	desc := "test plugin desc"
 	name := "test plugin name"
 	ext_name := "test ext name"
@@ -257,49 +259,51 @@ func TestMustParseTransSystemFromStaticJSON(t *testing.T) {
 			err: nil,
 		},
 		{
-			name:     "fail not valid JSON",
-			input:    "",
+			name:     "fail not valid YAML",
+			input:    "--",
 			expected: nil,
-			err:      ErrFailedToParseManifest,
+			err:      ErrFailedToParseManifestTranslation,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			tc := tc
-			var res *TranslationRoot
-			defer func() {
-				if r := recover(); r == nil {
-					assert.Equal(tt, *tc.expected.Title, *res.Title)
-					assert.Equal(tt, *res.Description, *tc.expected.Description)
-					assert.Equal(tt, res.Schema, tc.expected.Schema)
-					if len(res.Extensions) > 0 {
-						for k, v := range res.Extensions {
-							assert.Equal(tt, *v.Title, *tc.expected.Extensions[k].Title)
-							if len(v.PropertySchema) > 0 {
-								for kk, vv := range v.PropertySchema {
-									assert.Equal(tt, *vv.Description, *tc.expected.Extensions[k].PropertySchema[kk].Description)
-									assert.Equal(tt, *vv.Title, *tc.expected.Extensions[k].PropertySchema[kk].Title)
-									if len(vv.Fields) > 0 {
-										for kkk, vvv := range vv.Fields {
-											assert.Equal(tt, *vvv.Description, *tc.expected.Extensions[k].PropertySchema[kk].Fields[kkk].Description)
-											assert.Equal(tt, *vvv.Title, *tc.expected.Extensions[k].PropertySchema[kk].Fields[kkk].Title)
-											if len(vvv.Choices) > 0 {
-												for kkkk, vvvv := range vvv.Choices {
-													assert.Equal(tt, vvvv, tc.expected.Extensions[k].PropertySchema[kk].Fields[kkk].Choices[kkkk])
-												}
-											}
+
+			if tc.err != nil {
+				assert.PanicsWithError(tt, tc.err.Error(), func() {
+					_ = MustParseTranslationFromBytes([]byte(tc.input))
+				})
+				return
+			}
+
+			res := MustParseTranslationFromBytes([]byte(tc.input))
+			assert.Equal(tt, *tc.expected.Title, *res.Title)
+			assert.Equal(tt, *res.Description, *tc.expected.Description)
+			assert.Equal(tt, res.Schema, tc.expected.Schema)
+			if len(res.Extensions) > 0 {
+				for k, v := range res.Extensions {
+					assert.Equal(tt, *v.Title, *tc.expected.Extensions[k].Title)
+					if len(v.PropertySchema) > 0 {
+						for kk, vv := range v.PropertySchema {
+							assert.Equal(tt, *vv.Description, *tc.expected.Extensions[k].PropertySchema[kk].Description)
+							assert.Equal(tt, *vv.Title, *tc.expected.Extensions[k].PropertySchema[kk].Title)
+							if len(vv.Fields) > 0 {
+								for kkk, vvv := range vv.Fields {
+									assert.Equal(tt, *vvv.Description, *tc.expected.Extensions[k].PropertySchema[kk].Fields[kkk].Description)
+									assert.Equal(tt, *vvv.Title, *tc.expected.Extensions[k].PropertySchema[kk].Fields[kkk].Title)
+									if len(vvv.Choices) > 0 {
+										for kkkk, vvvv := range vvv.Choices {
+											assert.Equal(tt, vvvv, tc.expected.Extensions[k].PropertySchema[kk].Fields[kkk].Choices[kkkk])
 										}
 									}
 								}
 							}
 						}
 					}
-
 				}
-			}()
-			res = MustParseTransSystemFromStaticJSON(tc.input)
+			}
 		})
 	}
 }
@@ -325,7 +329,7 @@ func TestMergeManifestTranslation(t *testing.T) {
               {
                 "id": "test_field",
                 "title": "nnn",
-				"type": "string",
+								"type": "string",
                 "description": "kkk"
               }
             ]
@@ -352,8 +356,8 @@ func TestMergeManifestTranslation(t *testing.T) {
 		},
 		{
 			name: "nil translition list",
-			tl:   map[string]*TranslationRoot{"xx": MustParseTransSystemFromStaticJSON(translatedManifest)},
-			m:    MustParseSystemFromStaticJSON(manifest),
+			tl:   map[string]*TranslationRoot{"xx": MustParseTranslationFromBytes([]byte(translatedManifest))},
+			m:    MustParseSystemFromBytes([]byte(manifest)),
 			Expected: &struct{ PluginName, PluginDesc, ExtName, PsTitle, FieldName, FieldDesc i18n.String }{
 				PluginName: i18n.String{"en": "aaa", "xx": "test plugin name"},
 				PluginDesc: i18n.String{"en": "ddd", "xx": "test plugin desc"},
@@ -364,6 +368,7 @@ func TestMergeManifestTranslation(t *testing.T) {
 			},
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
@@ -400,6 +405,7 @@ func TestValidatTranslation(t *testing.T) {
 			err:   true,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
@@ -412,5 +418,4 @@ func TestValidatTranslation(t *testing.T) {
 			}
 		})
 	}
-
 }

@@ -2,10 +2,9 @@ package manifest
 
 // Generating types with schema typer for translation schema is disabled because some fields are wrongly typed.
 // DISABLED go:generate go run github.com/idubinskiy/schematyper -o schema_translation_gen.go --package manifest --prefix Translation ../../../plugin_manifest_schema_translation.json
-//go:generate go run github.com/reearth/reearth-backend/tools/cmd/embed -o schema_json_translation_gen.go -n SchemaTranslationJSON -i ../../../plugin_manifest_schema_translation.json
 
 import (
-	"encoding/json"
+	_ "embed"
 	"errors"
 	"fmt"
 	"io"
@@ -13,52 +12,56 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/xeipuuv/gojsonschema"
+	"gopkg.in/yaml.v2"
 )
 
 var (
-	ErrInvalidManifestTranslation       error                   = errors.New("invalid manifest translation")
-	ErrFailedToParseManifestTranslation error                   = errors.New("failed to parse plugin manifest translation")
-	schemaTranslationLoader             gojsonschema.JSONLoader = gojsonschema.NewStringLoader(SchemaTranslationJSON)
+	ErrInvalidManifestTranslation       error = errors.New("invalid manifest translation")
+	ErrFailedToParseManifestTranslation error = errors.New("failed to parse plugin manifest translation")
+	//go:embed plugin_manifest_schema_translation.json
+	SchemaTranslationJSON   []byte
+	schemaTranslationLoader = gojsonschema.NewBytesLoader(SchemaTranslationJSON)
 )
 
 func ParseTranslation(source io.Reader) (*TranslationRoot, error) {
 	// TODO: When using gojsonschema.NewReaderLoader, gojsonschema.Validate returns io.EOF error.
-	doc, err := io.ReadAll(source)
-	if err != nil {
-		return nil, ErrFailedToParseManifestTranslation
-	}
+	// doc, err := io.ReadAll(source)
+	// if err != nil {
+	// 	return nil, ErrFailedToParseManifestTranslation
+	// }
 
-	documentLoader := gojsonschema.NewBytesLoader(doc)
-	if err := validateTranslation(documentLoader); err != nil {
-		return nil, err
-	}
+	// TODO: gojsonschema does not support yaml
+	// documentLoader := gojsonschema.NewBytesLoader(doc)
+	// if err := validateTranslation(documentLoader); err != nil {
+	// 	return nil, err
+	// }
 
 	root := TranslationRoot{}
-	// err = json.NewDecoder(reader2).Decode(&root)
-	if err = json.Unmarshal(doc, &root); err != nil {
-		return nil, ErrInvalidManifestTranslation
+	if err := yaml.NewDecoder(source).Decode(&root); err != nil {
+		return nil, ErrFailedToParseManifestTranslation
+		// return nil, fmt.Errorf("failed to parse plugin manifest translation: %w", err)
 	}
 
 	return &root, nil
 }
 
-func ParseTranslationFromStaticJSON(source string) (*TranslationRoot, error) {
-	src := []byte(source)
-
-	documentLoader := gojsonschema.NewBytesLoader(src)
-	if err := validateTranslation(documentLoader); err != nil {
-		return nil, err
-	}
+func ParseTranslationFromBytes(source []byte) (*TranslationRoot, error) {
+	// TODO: schema check returns errors
+	// documentLoader := gojsonschema.NewBytesLoader(source)
+	// if err := validateTranslation(documentLoader); err != nil {
+	// 	return nil, err
+	// }
 
 	tr := TranslationRoot{}
-	if err := json.Unmarshal(src, &tr); err != nil {
-		return nil, ErrFailedToParseManifest
+	if err := yaml.Unmarshal(source, &tr); err != nil {
+		return nil, ErrFailedToParseManifestTranslation
+		// return nil, fmt.Errorf("failed to parse plugin manifest translation: %w", err)
 	}
 	return &tr, nil
 }
 
-func MustParseTransSystemFromStaticJSON(source string) *TranslationRoot {
-	m, err := ParseTranslationFromStaticJSON(source)
+func MustParseTranslationFromBytes(source []byte) *TranslationRoot {
+	m, err := ParseTranslationFromBytes(source)
 	if err != nil {
 		panic(err)
 	}

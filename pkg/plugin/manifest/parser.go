@@ -1,40 +1,43 @@
 package manifest
 
 //go:generate go run github.com/idubinskiy/schematyper -o schema_gen.go --package manifest ../../../plugin_manifest_schema.json
-//go:generate go run github.com/reearth/reearth-backend/tools/cmd/embed -o schema_json_gen.go -n SchemaJSON -i ../../../plugin_manifest_schema.json
 
 import (
-	"encoding/json"
+	_ "embed"
 	"errors"
 	"fmt"
 	"io"
 
 	"github.com/xeipuuv/gojsonschema"
+	"gopkg.in/yaml.v2"
 )
 
 var (
 	ErrInvalidManifest       error = errors.New("invalid manifest")
 	ErrFailedToParseManifest error = errors.New("failed to parse plugin manifest")
 	ErrSystemManifest              = errors.New("cannot build system manifest")
-	schemaLoader                   = gojsonschema.NewStringLoader(SchemaJSON)
+	//go:embed plugin_manifest_schema.json
+	SchemaJSON   []byte
+	schemaLoader = gojsonschema.NewBytesLoader(SchemaJSON)
 )
 
 func Parse(source io.Reader) (*Manifest, error) {
 	// TODO: When using gojsonschema.NewReaderLoader, gojsonschema.Validate returns io.EOF error.
-	doc, err := io.ReadAll(source)
-	if err != nil {
-		return nil, ErrFailedToParseManifest
-	}
+	// doc, err := io.ReadAll(source)
+	// if err != nil {
+	// 	return nil, ErrFailedToParseManifest
+	// }
 
-	documentLoader := gojsonschema.NewBytesLoader(doc)
-	if err := validate(documentLoader); err != nil {
-		return nil, err
-	}
+	// TODO: gojsonschema does not support yaml
+	// documentLoader := gojsonschema.NewBytesLoader(doc)
+	// if err := validate(documentLoader); err != nil {
+	// 	return nil, err
+	// }
 
 	root := Root{}
-	// err = json.NewDecoder(reader2).Decode(&root)
-	if err = json.Unmarshal(doc, &root); err != nil {
+	if err := yaml.NewDecoder(source).Decode(&root); err != nil {
 		return nil, ErrFailedToParseManifest
+		// return nil, fmt.Errorf("failed to parse plugin manifest: %w", err)
 	}
 
 	manifest, err := root.manifest()
@@ -48,16 +51,17 @@ func Parse(source io.Reader) (*Manifest, error) {
 	return manifest, nil
 }
 
-func ParseSystemFromStaticJSON(source string) (*Manifest, error) {
-	src := []byte(source)
-	documentLoader := gojsonschema.NewBytesLoader(src)
-	if err := validate(documentLoader); err != nil {
-		return nil, err
-	}
+func ParseSystemFromBytes(source []byte) (*Manifest, error) {
+	// TODO: gojsonschema does not support yaml
+	// documentLoader := gojsonschema.NewBytesLoader(src)
+	// if err := validate(documentLoader); err != nil {
+	// 	return nil, err
+	// }
 
 	root := Root{}
-	if err := json.Unmarshal(src, &root); err != nil {
+	if err := yaml.Unmarshal(source, &root); err != nil {
 		return nil, ErrFailedToParseManifest
+		// return nil, fmt.Errorf("failed to parse plugin manifest: %w", err)
 	}
 
 	manifest, err := root.manifest()
@@ -68,8 +72,8 @@ func ParseSystemFromStaticJSON(source string) (*Manifest, error) {
 	return manifest, nil
 }
 
-func MustParseSystemFromStaticJSON(source string) *Manifest {
-	m, err := ParseSystemFromStaticJSON(source)
+func MustParseSystemFromBytes(source []byte) *Manifest {
+	m, err := ParseSystemFromBytes(source)
 	if err != nil {
 		panic(err)
 	}
