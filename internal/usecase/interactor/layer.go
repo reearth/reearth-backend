@@ -354,6 +354,7 @@ func (i *Layer) AddGroup(ctx context.Context, inp interfaces.AddLayerGroupInput,
 	}
 
 	// create item layers
+	layerTitleFieldId := inp.MarkerTitleFieldId
 	representativeFieldID := datasetSchema.RepresentativeFieldID()
 	layerItems := make([]*layer.Item, 0, len(ds))
 	layerItemProperties := make([]*property.Property, 0, len(ds))
@@ -364,6 +365,11 @@ func (i *Layer) AddGroup(ctx context.Context, inp interfaces.AddLayerGroupInput,
 		name := ""
 		if rf := ds.FieldRef(representativeFieldID); rf != nil && rf.Type() == dataset.ValueTypeString {
 			name = rf.Value().Value().(string)
+		}
+		if name == "" && layerTitleFieldId != nil {
+			if rf := ds.FieldRef(layerTitleFieldId); rf != nil && rf.Type() == dataset.ValueTypeString {
+				name = rf.Value().Value().(string)
+			}
 		}
 
 		layerItem, property, err := initializer.LayerItem{
