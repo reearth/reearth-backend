@@ -40,7 +40,7 @@ func NewWidgetAlignSystem() *WidgetAlignSystem {
 	return &WidgetAlignSystem{}
 }
 
-// Layout will return a widget align system if not nil
+// WidgetAlignSystem will return a widget align system if not nil
 func (was *WidgetAlignSystem) WidgetAlignSystem() *WidgetAlignSystem {
 	if was == nil {
 		return nil

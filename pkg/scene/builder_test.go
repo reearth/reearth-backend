@@ -55,6 +55,11 @@ func TestBuilder_WidgetSystem(t *testing.T) {
 	b := New().NewID().RootLayer(id.NewLayerID()).Team(id.NewTeamID()).WidgetSystem(ws).MustBuild()
 	assert.Equal(t, ws, b.WidgetSystem())
 }
+func TestBuilder_WidgetAlignSystem(t *testing.T) {
+	was := NewWidgetAlignSystem()
+	b := New().NewID().RootLayer(id.NewLayerID()).Team(id.NewTeamID()).WidgetAlignSystem(was).MustBuild()
+	assert.Equal(t, was, b.WidgetAlignSystem())
+}
 
 func TestBuilder_Build(t *testing.T) {
 	tid := id.NewTeamID()
@@ -66,95 +71,104 @@ func TestBuilder_Build(t *testing.T) {
 	ws := NewWidgetSystem([]*Widget{
 		MustNewWidget(id.WidgetIDFromRefID(&nid), id.OfficialPluginID, "xxx", ppid, true, nil),
 	})
+	was := NewWidgetAlignSystem()
 	ps := NewPluginSystem([]*Plugin{
 		NewPlugin(id.OfficialPluginID, ppid.Ref()),
 	})
 	testCases := []struct {
-		Name         string
-		Id           id.SceneID
-		Project      id.ProjectID
-		Team         id.TeamID
-		RootLayer    id.LayerID
-		WidgetSystem *WidgetSystem
-		PluginSystem *PluginSystem
-		UpdatedAt    time.Time
-		Property     id.PropertyID
-		Expected     struct {
-			Id           id.SceneID
-			Project      id.ProjectID
-			Team         id.TeamID
-			RootLayer    id.LayerID
-			WidgetSystem *WidgetSystem
-			PluginSystem *PluginSystem
-			UpdatedAt    time.Time
-			Property     id.PropertyID
+		Name              string
+		Id                id.SceneID
+		Project           id.ProjectID
+		Team              id.TeamID
+		RootLayer         id.LayerID
+		WidgetSystem      *WidgetSystem
+		WidgetAlignSystem *WidgetAlignSystem
+		PluginSystem      *PluginSystem
+		UpdatedAt         time.Time
+		Property          id.PropertyID
+		Expected          struct {
+			Id                id.SceneID
+			Project           id.ProjectID
+			Team              id.TeamID
+			RootLayer         id.LayerID
+			WidgetSystem      *WidgetSystem
+			WidgetAlignSystem *WidgetAlignSystem
+			PluginSystem      *PluginSystem
+			UpdatedAt         time.Time
+			Property          id.PropertyID
 		}
 		err error
 	}{
 		{
-			Name:         "fail nil scene id",
-			Id:           id.SceneID{},
-			Project:      pid,
-			Team:         tid,
-			RootLayer:    lid,
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
-			err:          id.ErrInvalidID,
+			Name:              "fail nil scene id",
+			Id:                id.SceneID{},
+			Project:           pid,
+			Team:              tid,
+			RootLayer:         lid,
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
+			err:               id.ErrInvalidID,
 		},
 		{
-			Name:         "fail nil team id",
-			Id:           sid,
-			Project:      pid,
-			Team:         id.TeamID{},
-			RootLayer:    lid,
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
-			err:          id.ErrInvalidID,
+			Name:              "fail nil team id",
+			Id:                sid,
+			Project:           pid,
+			Team:              id.TeamID{},
+			RootLayer:         lid,
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
+			err:               id.ErrInvalidID,
 		},
 		{
-			Name:         "fail nil root layer id",
-			Id:           sid,
-			Project:      pid,
-			Team:         tid,
-			RootLayer:    id.LayerID{},
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
-			err:          id.ErrInvalidID,
+			Name:              "fail nil root layer id",
+			Id:                sid,
+			Project:           pid,
+			Team:              tid,
+			RootLayer:         id.LayerID{},
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
+			err:               id.ErrInvalidID,
 		},
 		{
-			Name:         "success build new scene",
-			Id:           sid,
-			Project:      pid,
-			Team:         tid,
-			RootLayer:    lid,
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
+			Name:              "success build new scene",
+			Id:                sid,
+			Project:           pid,
+			Team:              tid,
+			RootLayer:         lid,
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
 			Expected: struct {
-				Id           id.SceneID
-				Project      id.ProjectID
-				Team         id.TeamID
-				RootLayer    id.LayerID
-				WidgetSystem *WidgetSystem
-				PluginSystem *PluginSystem
-				UpdatedAt    time.Time
-				Property     id.PropertyID
+				Id                id.SceneID
+				Project           id.ProjectID
+				Team              id.TeamID
+				RootLayer         id.LayerID
+				WidgetSystem      *WidgetSystem
+				WidgetAlignSystem *WidgetAlignSystem
+				PluginSystem      *PluginSystem
+				UpdatedAt         time.Time
+				Property          id.PropertyID
 			}{
-				Id:           sid,
-				Project:      pid,
-				Team:         tid,
-				RootLayer:    lid,
-				WidgetSystem: ws,
-				PluginSystem: ps,
-				UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-				Property:     ppid,
+				Id:                sid,
+				Project:           pid,
+				Team:              tid,
+				RootLayer:         lid,
+				WidgetSystem:      ws,
+				WidgetAlignSystem: was,
+				PluginSystem:      ps,
+				UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+				Property:          ppid,
 			},
 			err: nil,
 		},
@@ -166,6 +180,7 @@ func TestBuilder_Build(t *testing.T) {
 			res, err := New().
 				ID(tc.Id).
 				WidgetSystem(tc.WidgetSystem).
+				WidgetAlignSystem(tc.WidgetAlignSystem).
 				Project(tc.Project).
 				PluginSystem(tc.PluginSystem).
 				Property(tc.Property).
@@ -199,95 +214,104 @@ func TestBuilder_MustBuild(t *testing.T) {
 	ws := NewWidgetSystem([]*Widget{
 		MustNewWidget(id.WidgetIDFromRefID(&nid), id.OfficialPluginID, "xxx", ppid, true, nil),
 	})
+	was := NewWidgetAlignSystem()
 	ps := NewPluginSystem([]*Plugin{
 		NewPlugin(id.OfficialPluginID, ppid.Ref()),
 	})
 	testCases := []struct {
-		Name         string
-		Id           id.SceneID
-		Project      id.ProjectID
-		Team         id.TeamID
-		RootLayer    id.LayerID
-		WidgetSystem *WidgetSystem
-		PluginSystem *PluginSystem
-		UpdatedAt    time.Time
-		Property     id.PropertyID
-		Expected     struct {
-			Id           id.SceneID
-			Project      id.ProjectID
-			Team         id.TeamID
-			RootLayer    id.LayerID
-			WidgetSystem *WidgetSystem
-			PluginSystem *PluginSystem
-			UpdatedAt    time.Time
-			Property     id.PropertyID
+		Name              string
+		Id                id.SceneID
+		Project           id.ProjectID
+		Team              id.TeamID
+		RootLayer         id.LayerID
+		WidgetSystem      *WidgetSystem
+		WidgetAlignSystem *WidgetAlignSystem
+		PluginSystem      *PluginSystem
+		UpdatedAt         time.Time
+		Property          id.PropertyID
+		Expected          struct {
+			Id                id.SceneID
+			Project           id.ProjectID
+			Team              id.TeamID
+			RootLayer         id.LayerID
+			WidgetSystem      *WidgetSystem
+			WidgetAlignSystem *WidgetAlignSystem
+			PluginSystem      *PluginSystem
+			UpdatedAt         time.Time
+			Property          id.PropertyID
 		}
 		err error
 	}{
 		{
-			Name:         "fail nil scene id",
-			Id:           id.SceneID{},
-			Project:      pid,
-			Team:         tid,
-			RootLayer:    lid,
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
-			err:          id.ErrInvalidID,
+			Name:              "fail nil scene id",
+			Id:                id.SceneID{},
+			Project:           pid,
+			Team:              tid,
+			RootLayer:         lid,
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
+			err:               id.ErrInvalidID,
 		},
 		{
-			Name:         "fail nil team id",
-			Id:           sid,
-			Project:      pid,
-			Team:         id.TeamID{},
-			RootLayer:    lid,
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
-			err:          id.ErrInvalidID,
+			Name:              "fail nil team id",
+			Id:                sid,
+			Project:           pid,
+			Team:              id.TeamID{},
+			RootLayer:         lid,
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
+			err:               id.ErrInvalidID,
 		},
 		{
-			Name:         "fail nil root layer id",
-			Id:           sid,
-			Project:      pid,
-			Team:         tid,
-			RootLayer:    id.LayerID{},
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
-			err:          id.ErrInvalidID,
+			Name:              "fail nil root layer id",
+			Id:                sid,
+			Project:           pid,
+			Team:              tid,
+			RootLayer:         id.LayerID{},
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
+			err:               id.ErrInvalidID,
 		},
 		{
-			Name:         "success build new scene",
-			Id:           sid,
-			Project:      pid,
-			Team:         tid,
-			RootLayer:    lid,
-			WidgetSystem: ws,
-			PluginSystem: ps,
-			UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-			Property:     ppid,
+			Name:              "success build new scene",
+			Id:                sid,
+			Project:           pid,
+			Team:              tid,
+			RootLayer:         lid,
+			WidgetSystem:      ws,
+			WidgetAlignSystem: was,
+			PluginSystem:      ps,
+			UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+			Property:          ppid,
 			Expected: struct {
-				Id           id.SceneID
-				Project      id.ProjectID
-				Team         id.TeamID
-				RootLayer    id.LayerID
-				WidgetSystem *WidgetSystem
-				PluginSystem *PluginSystem
-				UpdatedAt    time.Time
-				Property     id.PropertyID
+				Id                id.SceneID
+				Project           id.ProjectID
+				Team              id.TeamID
+				RootLayer         id.LayerID
+				WidgetSystem      *WidgetSystem
+				WidgetAlignSystem *WidgetAlignSystem
+				PluginSystem      *PluginSystem
+				UpdatedAt         time.Time
+				Property          id.PropertyID
 			}{
-				Id:           sid,
-				Project:      pid,
-				Team:         tid,
-				RootLayer:    lid,
-				WidgetSystem: ws,
-				PluginSystem: ps,
-				UpdatedAt:    time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
-				Property:     ppid,
+				Id:                sid,
+				Project:           pid,
+				Team:              tid,
+				RootLayer:         lid,
+				WidgetSystem:      ws,
+				WidgetAlignSystem: was,
+				PluginSystem:      ps,
+				UpdatedAt:         time.Date(2000, 1, 1, 1, 1, 0, 0, time.UTC),
+				Property:          ppid,
 			},
 			err: nil,
 		},
@@ -306,6 +330,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 					assert.Equal(tt, tc.Expected.Property, res.Property())
 					assert.Equal(tt, tc.Expected.PluginSystem, res.PluginSystem())
 					assert.Equal(tt, tc.Expected.WidgetSystem, res.WidgetSystem())
+					assert.Equal(tt, tc.Expected.WidgetAlignSystem, res.WidgetAlignSystem())
 					assert.Equal(tt, tc.Expected.Project, res.Project())
 				}
 			}()
@@ -313,6 +338,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 			res = New().
 				ID(tc.Id).
 				WidgetSystem(tc.WidgetSystem).
+				WidgetAlignSystem(tc.WidgetAlignSystem).
 				Project(tc.Project).
 				PluginSystem(tc.PluginSystem).
 				Property(tc.Property).

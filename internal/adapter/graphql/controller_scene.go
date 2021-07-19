@@ -6,6 +6,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
 type SceneControllerConfig struct {
@@ -41,11 +42,13 @@ func (c *SceneController) Create(ctx context.Context, ginput *CreateSceneInput, 
 }
 
 func (c *SceneController) AddWidget(ctx context.Context, ginput *AddWidgetInput, operator *usecase.Operator) (*AddWidgetPayload, error) {
+	dl := scene.Location{Zone: *ginput.Layout.DefaultLocation.Zone, Section: *ginput.Layout.DefaultLocation.Section, Area: *ginput.Layout.DefaultLocation.Area}
 	scene, widget, err := c.usecase().AddWidget(
 		ctx,
 		id.SceneID(ginput.SceneID),
 		ginput.PluginID,
 		id.PluginExtensionID(ginput.ExtensionID),
+		scene.WidgetLayout{Extendable: *ginput.Layout.Extendable, Extended: *ginput.Layout.Extended, Floating: *ginput.Layout.Floating, DefaultLocation: &dl},
 		operator,
 	)
 	if err != nil {

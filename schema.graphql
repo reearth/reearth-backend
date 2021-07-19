@@ -273,9 +273,9 @@ type Location {
 }
 
 type WidgetLayout {
-  extendable: Boolean
-  extended: Boolean
-  floating: Boolean
+  extendable: Boolean!
+  extended: Boolean!
+  floating: Boolean!
   defaultLocation: Location
 }
 
@@ -846,10 +846,24 @@ input DeleteProjectInput {
   projectId: ID!
 }
 
+input LocationInput {
+  zone: String
+  section: String
+  area: String
+}
+
+input WidgetLayoutInput {
+    extendable: Boolean
+    extended: Boolean
+    floating: Boolean
+    defaultLocation: LocationInput
+}
+
 input AddWidgetInput {
   sceneId: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
+  layout: WidgetLayoutInput
 }
 
 input UpdateWidgetInput {

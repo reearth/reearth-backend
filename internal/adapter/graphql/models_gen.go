@@ -128,6 +128,7 @@ type AddWidgetInput struct {
 	SceneID     id.ID                `json:"sceneId"`
 	PluginID    id.PluginID          `json:"pluginId"`
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
+	Layout      *WidgetLayoutInput   `json:"layout"`
 }
 
 type AddWidgetPayload struct {
@@ -462,6 +463,12 @@ type Location struct {
 	Zone    *Zone    `json:"zone"`
 	Section *Section `json:"section"`
 	Area    *Area    `json:"area"`
+}
+
+type LocationInput struct {
+	Zone    *string `json:"zone"`
+	Section *string `json:"section"`
+	Area    *string `json:"area"`
 }
 
 type MergedInfobox struct {
@@ -1201,10 +1208,17 @@ type User struct {
 func (User) IsNode() {}
 
 type WidgetLayout struct {
-	Extendable      *bool     `json:"extendable"`
-	Extended        *bool     `json:"extended"`
-	Floating        *bool     `json:"floating"`
+	Extendable      bool      `json:"extendable"`
+	Extended        bool      `json:"extended"`
+	Floating        bool      `json:"floating"`
 	DefaultLocation *Location `json:"defaultLocation"`
+}
+
+type WidgetLayoutInput struct {
+	Extendable      *bool          `json:"extendable"`
+	Extended        *bool          `json:"extended"`
+	Floating        *bool          `json:"floating"`
+	DefaultLocation *LocationInput `json:"defaultLocation"`
 }
 
 type Area string
