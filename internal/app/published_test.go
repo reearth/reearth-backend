@@ -156,21 +156,20 @@ func TestPublishedData(t *testing.T) {
 }
 
 func TestPublishedIndex(t *testing.T) {
-	h := PublishedIndex(func(ctx context.Context, name string, url *url.URL) (string, error) {
-		if name == "prj" {
-			return url.String(), nil
-		}
-		return "", err1.ErrNotFound
-	})
-
 	testCases := []struct {
 		Name          string
 		PublishedName string
 		Error         error
+		EmptyIndex    bool
 	}{
 		{
 			Name:  "empty",
 			Error: err1.ErrNotFound,
+		},
+		{
+			Name:       "empty index",
+			Error:      echo.ErrNotFound,
+			EmptyIndex: true,
 		},
 		{
 			Name:          "not found",
@@ -187,6 +186,7 @@ func TestPublishedIndex(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
+
 			assert := assert.New(tt)
 			req := httptest.NewRequest(http.MethodGet, "/aaa/bbb", nil)
 			res := httptest.NewRecorder()
@@ -195,12 +195,22 @@ func TestPublishedIndex(t *testing.T) {
 			c.SetParamNames("name")
 			c.SetParamValues(tc.PublishedName)
 
-			err := h(c)
+			err := PublishedIndex(func(ctx context.Context, name string, url *url.URL) (string, error) {
+				if tc.EmptyIndex {
+					return "", nil
+				}
+				if name == "prj" {
+					assert.Equal("http://example.com/aaa/bbb", url.String())
+					return "index", nil
+				}
+				return "", err1.ErrNotFound
+			})(c)
+
 			if tc.Error == nil {
 				assert.NoError(err)
 				assert.Equal(http.StatusOK, res.Code)
 				assert.Equal("text/html; charset=UTF-8", res.Header().Get(echo.HeaderContentType))
-				assert.Equal("http://example.com/aaa/bbb", res.Body.String())
+				assert.Equal("index", res.Body.String())
 			} else {
 				assert.ErrorIs(err, tc.Error)
 			}
