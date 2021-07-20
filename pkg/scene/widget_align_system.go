@@ -128,19 +128,29 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 	a.widgetIds = nwid
 }
 
-// Move widget
-func (was *WidgetAlignSystem) Move(wid *id.WidgetID, oldLocation, newLocation *Location) {
-	if was == nil || oldLocation == newLocation {
-		return
-	}
-	was.Remove(wid, oldLocation)
-	was.Add(wid, newLocation)
+func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
+	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
 }
 
-// Reorder assigns reordered widget ids
-func (was *WidgetAlignSystem) Reorder(wid *id.WidgetID, l *Location, newOrder []id.WidgetID) {
-	if was == nil {
+func removeInt(array []id.WidgetID, index int) []id.WidgetID {
+	return append(array[:index], array[index+1:]...)
+}
+
+func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
+	value := array[srcIndex]
+	return insertInt(removeInt(array, srcIndex), value, dstIndex)
+}
+
+// Update align system
+func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index, newIndex *int) {
+	if was == nil && wid == nil {
 		return
 	}
-	was.WidgetArea(l.Zone, l.Section, l.Area).widgetIds = newOrder
+
+	if index != nil && newIndex != nil {
+		moveInt(was.WidgetArea(l.Zone, l.Section, l.Area).widgetIds, *index, *newIndex)
+	} else {
+		was.Remove(wid, l)
+		was.Add(wid, newL)
+	}
 }

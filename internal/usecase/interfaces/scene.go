@@ -13,6 +13,7 @@ type UpdateWidgetParam struct {
 	SceneID     id.SceneID
 	PluginID    id.PluginID
 	ExtensionID id.PluginExtensionID
+	Extended    *bool
 	Enabled     *bool
 }
 

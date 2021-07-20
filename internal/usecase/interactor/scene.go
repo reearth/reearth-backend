@@ -193,14 +193,18 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 		return nil, nil, err
 	}
 
-	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, nil)
+	widgetLayout := extension.WidgetLayout()
+
+	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, &scene.WidgetLayout{Extendable: widgetLayout.Extendable, Extended: widgetLayout.Extended, Floating: widgetLayout.Floating, DefaultLocation: widgetLayout.DefaultLocation})
 	if err != nil {
 		return nil, nil, err
 	}
 
 	s.WidgetSystem().Add(widget)
 
-	s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
+	if !widget.WidgetLayout().Floating {
+		s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
+	}
 
 	err = i.propertyRepo.Save(ctx, property)
 	if err != nil {
@@ -254,6 +258,12 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	if param.Enabled != nil {
 		widget.SetEnabled(*param.Enabled)
 	}
+
+	if param.Extended != nil && param.Extended != &widget.WidgetLayout().Extended {
+		widget.SetExtended(*param.Extended)
+	}
+
+	// Update the widget align system
 
 	err2 = i.sceneRepo.Save(ctx, scene)
 	if err2 != nil {

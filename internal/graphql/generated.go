@@ -6439,7 +6439,6 @@ input AddWidgetInput {
   sceneId: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
-  layout: WidgetLayoutInput
 }
 
 input UpdateWidgetInput {
@@ -6447,6 +6446,7 @@ input UpdateWidgetInput {
   pluginId: PluginID!
   extensionId: PluginExtensionID!
   enabled: Boolean
+  layout: WidgetLayoutInput
 }
 
 input RemoveWidgetInput {
@@ -29559,14 +29559,6 @@ func (ec *executionContext) unmarshalInputAddWidgetInput(ctx context.Context, ob
 			if err != nil {
 				return it, err
 			}
-		case "layout":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("layout"))
-			it.Layout, err = ec.unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayoutInput(ctx, v)
-			if err != nil {
-				return it, err
-			}
 		}
 	}
 
@@ -31468,6 +31460,14 @@ func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context,
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("enabled"))
 			it.Enabled, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "layout":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("layout"))
+			it.Layout, err = ec.unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayoutInput(ctx, v)
 			if err != nil {
 				return it, err
 			}

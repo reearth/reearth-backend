@@ -110,11 +110,12 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 	}
 }
 
-func TestWidgetAlignSystem_Move(t *testing.T) {
+func TestWidgetAlignSystem_Update(t *testing.T) {
 	wid := id.NewWidgetID()
+
+	// for move
 	oloc := Location{"outer", "right", "middle"}
 	nloc := Location{"inner", "left", "top"}
-
 	was := NewWidgetAlignSystem()
 	was.Add(&wid, &oloc)
 
@@ -123,12 +124,27 @@ func TestWidgetAlignSystem_Move(t *testing.T) {
 	was2.Remove(&wid, &oloc)
 	was2.Add(&wid, &nloc)
 
+	// for reordering
+	i := 2
+	ni := 0
+	wid2 := id.NewWidgetID()
+	wid3 := id.NewWidgetID()
+	wids := []id.WidgetID{wid2, wid3, wid}
+	nwids := []id.WidgetID{wid, wid2, wid3}
+
+	was3 := NewWidgetAlignSystem()
+	was3.outer.right.middle.widgetIds = wids
+	was4 := NewWidgetAlignSystem()
+	was4.outer.right.middle.widgetIds = nwids
+
 	testCases := []struct {
 		Name  string
 		Input struct {
 			id *id.WidgetID
 			ol *Location
 			nl *Location
+			i  *int
+			ni *int
 		}
 		WAS, Expected *WidgetAlignSystem
 	}{
@@ -138,59 +154,30 @@ func TestWidgetAlignSystem_Move(t *testing.T) {
 				id *id.WidgetID
 				ol *Location
 				nl *Location
-			}{&wid, &oloc, &nloc},
+				i  *int
+				ni *int
+			}{&wid, &oloc, &nloc, nil, nil},
 			WAS:      was,
 			Expected: was2,
 		},
-	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			tc.WAS.Move(tc.Input.id, tc.Input.ol, tc.Input.nl)
-			assert.Equal(tt, tc.Expected, tc.WAS)
-		})
-	}
-}
-func TestWidgetAlignSystem_Reorder(t *testing.T) {
-	wid := id.NewWidgetID()
-	wid2 := id.NewWidgetID()
-	wid3 := id.NewWidgetID()
-	wids := []id.WidgetID{wid2, wid3, wid}
-	nwids := []id.WidgetID{wid, wid3, wid2}
-	loc := Location{"outer", "right", "middle"}
-	was := NewWidgetAlignSystem()
-	was.outer.right.middle.widgetIds = wids
-
-	was2 := NewWidgetAlignSystem()
-	was2.outer.right.middle.widgetIds = wids
-	was2.outer.right.middle.widgetIds = nwids
-
-	testCases := []struct {
-		Name  string
-		Input struct {
-			id    *id.WidgetID
-			l     *Location
-			nwids []id.WidgetID
-		}
-		WAS, Expected *WidgetAlignSystem
-	}{
 		{
-			Name: "Move a widget from one location to another",
+			Name: "Reorder a widget in one location",
 			Input: struct {
-				id    *id.WidgetID
-				l     *Location
-				nwids []id.WidgetID
-			}{&wid, &loc, nwids},
-			WAS:      was,
-			Expected: was2,
+				id *id.WidgetID
+				ol *Location
+				nl *Location
+				i  *int
+				ni *int
+			}{&wid, &oloc, nil, &i, &ni},
+			WAS:      was3,
+			Expected: was4,
 		},
 	}
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.WAS.Reorder(tc.Input.id, tc.Input.l, tc.Input.nwids)
+			tc.WAS.Update(tc.Input.id, tc.Input.ol, tc.Input.nl, tc.Input.i, tc.Input.ni)
 			assert.Equal(tt, tc.Expected, tc.WAS)
 		})
 	}

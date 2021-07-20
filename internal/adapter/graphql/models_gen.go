@@ -128,7 +128,6 @@ type AddWidgetInput struct {
 	SceneID     id.ID                `json:"sceneId"`
 	PluginID    id.PluginID          `json:"pluginId"`
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
-	Layout      *WidgetLayoutInput   `json:"layout"`
 }
 
 type AddWidgetPayload struct {
@@ -1159,6 +1158,7 @@ type UpdateWidgetInput struct {
 	PluginID    id.PluginID          `json:"pluginId"`
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
 	Enabled     *bool                `json:"enabled"`
+	Layout      *WidgetLayoutInput   `json:"layout"`
 }
 
 type UpdateWidgetPayload struct {

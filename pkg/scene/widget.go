@@ -75,3 +75,7 @@ func (w *Widget) WidgetLayout() *WidgetLayout {
 func (w *Widget) SetEnabled(enabled bool) {
 	w.enabled = enabled
 }
+
+func (w *Widget) SetExtended(extended bool) {
+	w.widgetLayout.Extended = extended
+}
