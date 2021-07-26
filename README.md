@@ -1,5 +1,5 @@
 # reearth-backend
-This is the front-backend repository of [Re:Earth](https://github.com/reearth/reearth).
+This is the back-end repository of [Re:Earth](https://github.com/reearth/reearth).
 
 ## Bug reporting and requesting features
 Any requests for new features are very welcome! Just create [an issue under the Re:Earth repository](https://github.com/reearth/reearth/issues) and the core team will take it into consideration.
