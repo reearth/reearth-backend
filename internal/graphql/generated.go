@@ -6502,7 +6502,7 @@ input AddLayerGroupInput {
   index: Int
   linkedDatasetSchemaID: ID
   name: String
-  markerTitleFieldId: DatasetSchemaFieldID
+  representativeFieldId: DatasetSchemaFieldID
 }
 
 input RemoveLayerInput {
@@ -28985,11 +28985,11 @@ func (ec *executionContext) unmarshalInputAddLayerGroupInput(ctx context.Context
 			if err != nil {
 				return it, err
 			}
-		case "markerTitleFieldId":
+		case "representativeFieldId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("markerTitleFieldId"))
-			it.MarkerTitleFieldID, err = ec.unmarshalODatasetSchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐDatasetSchemaFieldID(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("representativeFieldId"))
+			it.RepresentativeFieldID, err = ec.unmarshalODatasetSchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐDatasetSchemaFieldID(ctx, v)
 			if err != nil {
 				return it, err
 			}

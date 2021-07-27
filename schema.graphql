@@ -996,7 +996,7 @@ input AddLayerGroupInput {
   index: Int
   linkedDatasetSchemaID: ID
   name: String
-  markerTitleFieldId: DatasetSchemaFieldID
+  representativeFieldId: DatasetSchemaFieldID
 }
 
 input RemoveLayerInput {

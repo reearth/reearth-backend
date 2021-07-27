@@ -82,7 +82,7 @@ type AddLayerGroupInput struct {
 	Index                 *int                     `json:"index"`
 	LinkedDatasetSchemaID *id.ID                   `json:"linkedDatasetSchemaID"`
 	Name                  *string                  `json:"name"`
-	MarkerTitleFieldID    *id.DatasetSchemaFieldID `json:"markerTitleFieldId"`
+	RepresentativeFieldID *id.DatasetSchemaFieldID `json:"representativeFieldId"`
 }
 
 type AddLayerGroupPayload struct {
