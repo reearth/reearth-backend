@@ -60,11 +60,21 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 	var layout interfaces.LayoutParams
 	if ginput.Layout != nil {
 		l := ginput.Layout
-		layout.Extended = l.Extended
-		layout.OldIndex = l.OldIndex
-		layout.NewIndex = l.NewIndex
-		layout.OldLocation = &scene.Location{Zone: l.OldLocation.Zone, Section: l.OldLocation.Section, Area: l.OldLocation.Area}
-		layout.NewLocation = &scene.Location{Zone: l.NewLocation.Zone, Section: l.NewLocation.Section, Area: l.NewLocation.Area}
+		if l.Extended != nil {
+			layout.Extended = l.Extended
+		}
+		if l.OldIndex != nil {
+			layout.OldIndex = l.OldIndex
+		}
+		if l.NewIndex != nil {
+			layout.NewIndex = l.NewIndex
+		}
+		if l.Location != nil {
+			layout.Location = &scene.Location{Zone: l.Location.Zone, Section: l.Location.Section, Area: l.Location.Area}
+		}
+		if l.NewLocation != nil {
+			layout.NewLocation = &scene.Location{Zone: l.NewLocation.Zone, Section: l.NewLocation.Section, Area: l.NewLocation.Area}
+		}
 	}
 	scene, widget, err := c.usecase().UpdateWidget(ctx, interfaces.UpdateWidgetParam{
 		SceneID:     id.SceneID(ginput.SceneID),

@@ -38,15 +38,18 @@ func TestWidgetAlignSystem(t *testing.T) {
 
 func TestWidgetAlignSystem_Add(t *testing.T) {
 	wid := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
 	loc := Location{"inner", "left", "top"}
 	was := NewWidgetAlignSystem()
 	was2 := NewWidgetAlignSystem()
-	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, wid)
+	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, &wid)
+	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, &wid2)
 
 	testCases := []struct {
 		Name  string
 		Input struct {
 			id  *id.WidgetID
+			id2 *id.WidgetID
 			loc *Location
 		}
 		WAS, Expected *WidgetAlignSystem
@@ -55,8 +58,9 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 			Name: "Add a widget to widget align system",
 			Input: struct {
 				id  *id.WidgetID
+				id2 *id.WidgetID
 				loc *Location
-			}{&wid, &loc},
+			}{&wid, &wid2, &loc},
 			WAS:      was,
 			Expected: was2,
 		},
@@ -66,6 +70,7 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
 			tc.WAS.Add(tc.Input.id, tc.Input.loc)
+			tc.WAS.Add(tc.Input.id2, tc.Input.loc)
 			assert.Equal(tt, tc.Expected, tc.WAS)
 		})
 	}
@@ -129,8 +134,8 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	ni := 0
 	wid2 := id.NewWidgetID()
 	wid3 := id.NewWidgetID()
-	wids := []id.WidgetID{wid2, wid3, wid}
-	nwids := []id.WidgetID{wid, wid2, wid3}
+	wids := []*id.WidgetID{&wid2, &wid3, &wid}
+	nwids := []*id.WidgetID{&wid, &wid2, &wid3}
 
 	was3 := NewWidgetAlignSystem()
 	was3.outer.right.middle.widgetIds = wids

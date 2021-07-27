@@ -3,7 +3,6 @@ package interactor
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
@@ -255,25 +254,31 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 		return nil, nil, err1.ErrNotFound
 	}
 
+	was := scene.WidgetAlignSystem()
+
 	if param.Enabled != nil {
 		widget.SetEnabled(*param.Enabled)
 	}
 
-	was := scene.WidgetAlignSystem()
+	if *param.Enabled == true {
+		if param.Layout != nil {
+			l := param.Layout
 
-	if param.Layout != nil {
-		l := param.Layout
-		if l.Extended != nil {
-			fmt.Println("------------------------------")
-			fmt.Println("------------------------------")
-			fmt.Println("------------------------------")
-			fmt.Println(l.Extended)
-			widget.SetExtended(*l.Extended)
-		}
+			if l.Extended != nil && widget.WidgetLayout().Extendable == true {
+				widget.SetExtended(*l.Extended)
+			}
 
-		if l.NewIndex != nil || l.OldIndex != nil || l.NewLocation != nil || l.OldLocation != nil {
-			was.Update(widget.ID().Ref(), l.OldLocation, l.NewLocation, l.OldIndex, l.NewIndex)
+			if l.NewIndex != nil && l.OldIndex != nil {
+				was.Update(widget.ID().Ref(), nil, nil, l.OldIndex, l.NewIndex)
+			} else if l.NewLocation != nil && l.Location != nil {
+				widget.SetCurrentLocation(*l.NewLocation)
+				was.Update(widget.ID().Ref(), l.Location, l.NewLocation, nil, nil)
+			} else {
+				was.Add(widget.ID().Ref(), widget.WidgetLayout().CurrentLocation)
+			}
 		}
+	} else {
+		was.Remove(widget.ID().Ref(), widget.WidgetLayout().CurrentLocation)
 	}
 
 	err2 = i.sceneRepo.Save(ctx, scene)

@@ -11,7 +11,7 @@ import (
 
 type LayoutParams struct {
 	Extended *bool
-	OldLocation,
+	Location,
 	NewLocation *scene.Location
 	OldIndex,
 	NewIndex *int

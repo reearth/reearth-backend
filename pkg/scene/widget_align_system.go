@@ -26,7 +26,7 @@ type WidgetSection struct {
 
 // WidgetArea has the widgets and alignment information found in each part area of a section
 type WidgetArea struct {
-	widgetIds []id.WidgetID
+	widgetIds []*id.WidgetID
 	align     string
 }
 
@@ -93,7 +93,7 @@ func (was *WidgetAlignSystem) WidgetArea(zone, section, area string) *WidgetArea
 	return nil
 }
 
-func (was *WidgetAlignSystem) WidgetIds(z, s, a string) []id.WidgetID {
+func (was *WidgetAlignSystem) WidgetIds(z, s, a string) []*id.WidgetID {
 	area := was.WidgetArea(z, s, a)
 
 	return area.widgetIds
@@ -110,10 +110,8 @@ func (was *WidgetAlignSystem) Add(wid *id.WidgetID, l *Location) {
 	if was == nil {
 		return
 	}
-
 	a := was.WidgetArea(l.Zone, l.Section, l.Area)
-	id := *wid
-	a.widgetIds = append(a.widgetIds, id)
+	a.widgetIds = append(a.widgetIds, wid)
 }
 
 // Remove a widget from the align system
@@ -124,7 +122,7 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 
 	a := was.WidgetArea(l.Zone, l.Section, l.Area)
 
-	var nwid []id.WidgetID
+	var nwid []*id.WidgetID
 	for _, w := range a.widgetIds {
 		if w.ID() != wid.ID() {
 			nwid = append(nwid, w)
@@ -148,17 +146,17 @@ func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index,
 }
 
 // moveInt moves a widget's index
-func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
+func moveInt(array []*id.WidgetID, srcIndex int, dstIndex int) []*id.WidgetID {
 	value := array[srcIndex]
 	return insertInt(removeInt(array, srcIndex), value, dstIndex)
 }
 
 // insertInt is used in moveInt to add the widgetID to a new position(index)
-func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
-	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
+func insertInt(array []*id.WidgetID, value *id.WidgetID, index int) []*id.WidgetID {
+	return append(array[:index], append([]*id.WidgetID{value}, array[index:]...)...)
 }
 
 // removeInt is used in moveInt to remove the widgetID from original position(index)
-func removeInt(array []id.WidgetID, index int) []id.WidgetID {
+func removeInt(array []*id.WidgetID, index int) []*id.WidgetID {
 	return append(array[:index], array[index+1:]...)
 }

@@ -6429,11 +6429,11 @@ input LocationInput {
 }
 
 input WidgetLayoutInput {
-  Extended: Boolean
-	OldLocation: LocationInput
-	NewLocation: LocationInput
-	OldIndex: Int
-	NewIndex: Int
+  extended: Boolean
+	Location: LocationInput
+	newLocation: LocationInput
+	oldIndex: Int
+	newIndex: Int
 }
 
 input AddWidgetInput {
@@ -31601,42 +31601,42 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 
 	for k, v := range asMap {
 		switch k {
-		case "Extended":
+		case "extended":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Extended"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extended"))
 			it.Extended, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "OldLocation":
+		case "Location":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OldLocation"))
-			it.OldLocation, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Location"))
+			it.Location, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "NewLocation":
+		case "newLocation":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("NewLocation"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newLocation"))
 			it.NewLocation, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "OldIndex":
+		case "oldIndex":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OldIndex"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("oldIndex"))
 			it.OldIndex, err = ec.unmarshalOInt2ᚖint(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "NewIndex":
+		case "newIndex":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("NewIndex"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIndex"))
 			it.NewIndex, err = ec.unmarshalOInt2ᚖint(ctx, v)
 			if err != nil {
 				return it, err

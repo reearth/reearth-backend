@@ -24,7 +24,7 @@ type WidgetLayout struct {
 }
 
 type WidgetArea struct {
-	WidgetIds []id.WidgetID
+	WidgetIds []*id.WidgetID
 	Align     string
 }
 

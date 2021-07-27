@@ -1216,11 +1216,11 @@ type WidgetLayout struct {
 }
 
 type WidgetLayoutInput struct {
-	Extended    *bool          `json:"Extended"`
-	OldLocation *LocationInput `json:"OldLocation"`
-	NewLocation *LocationInput `json:"NewLocation"`
-	OldIndex    *int           `json:"OldIndex"`
-	NewIndex    *int           `json:"NewIndex"`
+	Extended    *bool          `json:"extended"`
+	Location    *LocationInput `json:"Location"`
+	NewLocation *LocationInput `json:"newLocation"`
+	OldIndex    *int           `json:"oldIndex"`
+	NewIndex    *int           `json:"newIndex"`
 }
 
 type Area string

@@ -853,11 +853,11 @@ input LocationInput {
 }
 
 input WidgetLayoutInput {
-  Extended: Boolean
-	OldLocation: LocationInput
-	NewLocation: LocationInput
-	OldIndex: Int
-	NewIndex: Int
+  extended: Boolean
+	Location: LocationInput
+	newLocation: LocationInput
+	oldIndex: Int
+	newIndex: Int
 }
 
 input AddWidgetInput {

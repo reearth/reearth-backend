@@ -79,3 +79,7 @@ func (w *Widget) SetEnabled(enabled bool) {
 func (w *Widget) SetExtended(extended bool) {
 	w.widgetLayout.Extended = extended
 }
+
+func (w *Widget) SetCurrentLocation(currentLocation Location) {
+	w.widgetLayout.CurrentLocation = &currentLocation
+}
