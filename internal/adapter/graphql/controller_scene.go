@@ -6,6 +6,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
 type SceneControllerConfig struct {
@@ -56,11 +57,21 @@ func (c *SceneController) AddWidget(ctx context.Context, ginput *AddWidgetInput,
 }
 
 func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidgetInput, operator *usecase.Operator) (*UpdateWidgetPayload, error) {
+	var layout interfaces.LayoutParams
+	if ginput.Layout != nil {
+		l := ginput.Layout
+		layout.Extended = l.Extended
+		layout.OldIndex = l.OldIndex
+		layout.NewIndex = l.NewIndex
+		layout.OldLocation = &scene.Location{Zone: l.OldLocation.Zone, Section: l.OldLocation.Section, Area: l.OldLocation.Area}
+		layout.NewLocation = &scene.Location{Zone: l.NewLocation.Zone, Section: l.NewLocation.Section, Area: l.NewLocation.Area}
+	}
 	scene, widget, err := c.usecase().UpdateWidget(ctx, interfaces.UpdateWidgetParam{
 		SceneID:     id.SceneID(ginput.SceneID),
 		PluginID:    ginput.PluginID,
 		ExtensionID: id.PluginExtensionID(ginput.ExtensionID),
 		Enabled:     ginput.Enabled,
+		Layout:      &layout,
 	}, operator)
 	if err != nil {
 		return nil, err
@@ -70,10 +81,18 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 }
 
 func (c *SceneController) RemoveWidget(ctx context.Context, ginput *RemoveWidgetInput, operator *usecase.Operator) (*RemoveWidgetPayload, error) {
+	var loc scene.Location
+	if ginput.Location != nil {
+		l := ginput.Location
+		loc.Zone = l.Zone
+		loc.Section = l.Section
+		loc.Area = l.Area
+	}
 	scene, err := c.usecase().RemoveWidget(ctx,
 		id.SceneID(ginput.SceneID),
 		id.PluginID(ginput.PluginID),
 		id.PluginExtensionID(ginput.ExtensionID),
+		&loc,
 		operator,
 	)
 	if err != nil {

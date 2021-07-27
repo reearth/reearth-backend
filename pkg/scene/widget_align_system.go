@@ -1,6 +1,8 @@
 package scene
 
-import "github.com/reearth/reearth-backend/pkg/id"
+import (
+	"github.com/reearth/reearth-backend/pkg/id"
+)
 
 // WidgetAlignSystem is the layout structure of any enabled widgets that will be displayed over the scene
 type WidgetAlignSystem struct {
@@ -24,7 +26,6 @@ type WidgetSection struct {
 
 // WidgetArea has the widgets and alignment information found in each part area of a section
 type WidgetArea struct {
-	// position  string
 	widgetIds []id.WidgetID
 	align     string
 }
@@ -38,14 +39,6 @@ type Location struct {
 // NewWidgetAlignSystem returns a new widget align system
 func NewWidgetAlignSystem() *WidgetAlignSystem {
 	return &WidgetAlignSystem{}
-}
-
-// WidgetAlignSystem will return a widget align system if not nil
-func (was *WidgetAlignSystem) WidgetAlignSystem() *WidgetAlignSystem {
-	if was == nil {
-		return nil
-	}
-	return was
 }
 
 // WidgetZone will return a specific zone in the align system
@@ -100,6 +93,18 @@ func (was *WidgetAlignSystem) WidgetArea(zone, section, area string) *WidgetArea
 	return nil
 }
 
+func (was *WidgetAlignSystem) WidgetIds(z, s, a string) []id.WidgetID {
+	area := was.WidgetArea(z, s, a)
+
+	return area.widgetIds
+}
+
+func (was *WidgetAlignSystem) Alignment(z, s, a string) string {
+	area := was.WidgetArea(z, s, a)
+
+	return area.align
+}
+
 // Add a widget to the align system
 func (was *WidgetAlignSystem) Add(wid *id.WidgetID, l *Location) {
 	if was == nil {
@@ -128,20 +133,7 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 	a.widgetIds = nwid
 }
 
-func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
-	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
-}
-
-func removeInt(array []id.WidgetID, index int) []id.WidgetID {
-	return append(array[:index], array[index+1:]...)
-}
-
-func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
-	value := array[srcIndex]
-	return insertInt(removeInt(array, srcIndex), value, dstIndex)
-}
-
-// Update align system
+// Update a widget in the align system
 func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index, newIndex *int) {
 	if was == nil && wid == nil {
 		return
@@ -153,4 +145,20 @@ func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index,
 		was.Remove(wid, l)
 		was.Add(wid, newL)
 	}
+}
+
+// moveInt moves a widget's index
+func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
+	value := array[srcIndex]
+	return insertInt(removeInt(array, srcIndex), value, dstIndex)
+}
+
+// insertInt is used in moveInt to add the widgetID to a new position(index)
+func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
+	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
+}
+
+// removeInt is used in moveInt to remove the widgetID from original position(index)
+func removeInt(array []id.WidgetID, index int) []id.WidgetID {
+	return append(array[:index], array[index+1:]...)
 }

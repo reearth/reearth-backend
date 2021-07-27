@@ -139,7 +139,7 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 
 func (l *WidgetLayout) layout() *scene.WidgetLayout {
 	if l == nil {
-		return &scene.WidgetLayout{Extended: false, Extendable: true, Floating: false, DefaultLocation: &scene.Location{Zone: "outer", Section: "left", Area: "top"}}
+		return &scene.WidgetLayout{Extended: false, Extendable: true, Floating: false, CurrentLocation: &scene.Location{Zone: "outer", Section: "left", Area: "top"}}
 	}
 
 	var swl scene.WidgetLayout
@@ -157,12 +157,12 @@ func (l *WidgetLayout) layout() *scene.WidgetLayout {
 		swl.Floating = *f
 	}
 	var dl scene.Location
-	if l.DefaultLocation == nil {
+	if l.CurrentLocation == nil {
 		dl = scene.Location{Zone: "outer", Section: "left", Area: "top"}
 	} else {
-		dl = scene.Location{Zone: l.DefaultLocation.Zone, Section: l.DefaultLocation.Section, Area: l.DefaultLocation.Area}
+		dl = scene.Location{Zone: l.CurrentLocation.Zone, Section: l.CurrentLocation.Section, Area: l.CurrentLocation.Area}
 	}
-	swl.DefaultLocation = &dl
+	swl.CurrentLocation = &dl
 	return &swl
 }
 

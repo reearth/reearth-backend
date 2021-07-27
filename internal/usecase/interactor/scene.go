@@ -3,6 +3,7 @@ package interactor
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
@@ -195,15 +196,14 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 
 	widgetLayout := extension.WidgetLayout()
 
-	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, &scene.WidgetLayout{Extendable: widgetLayout.Extendable, Extended: widgetLayout.Extended, Floating: widgetLayout.Floating, DefaultLocation: widgetLayout.DefaultLocation})
+	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, &scene.WidgetLayout{Extendable: widgetLayout.Extendable, Extended: widgetLayout.Extended, Floating: widgetLayout.Floating, CurrentLocation: widgetLayout.CurrentLocation})
 	if err != nil {
 		return nil, nil, err
 	}
 
 	s.WidgetSystem().Add(widget)
-
-	if !widget.WidgetLayout().Floating {
-		s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
+	if widget.WidgetLayout().Floating == false {
+		s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().CurrentLocation)
 	}
 
 	err = i.propertyRepo.Save(ctx, property)
@@ -259,11 +259,22 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 		widget.SetEnabled(*param.Enabled)
 	}
 
-	if param.Extended != nil && param.Extended != &widget.WidgetLayout().Extended {
-		widget.SetExtended(*param.Extended)
-	}
+	was := scene.WidgetAlignSystem()
 
-	// Update the widget align system
+	if param.Layout != nil {
+		l := param.Layout
+		if l.Extended != nil {
+			fmt.Println("------------------------------")
+			fmt.Println("------------------------------")
+			fmt.Println("------------------------------")
+			fmt.Println(l.Extended)
+			widget.SetExtended(*l.Extended)
+		}
+
+		if l.NewIndex != nil || l.OldIndex != nil || l.NewLocation != nil || l.OldLocation != nil {
+			was.Update(widget.ID().Ref(), l.OldLocation, l.NewLocation, l.OldIndex, l.NewIndex)
+		}
+	}
 
 	err2 = i.sceneRepo.Save(ctx, scene)
 	if err2 != nil {
@@ -274,7 +285,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	return scene, widget, nil
 }
 
-func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, operator *usecase.Operator) (_ *scene.Scene, err error) {
+func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, loc *scene.Location, operator *usecase.Operator) (_ *scene.Scene, err error) {
 
 	tx, err := i.transaction.Begin()
 	if err != nil {
@@ -311,6 +322,11 @@ func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID
 	}
 
 	ws.Remove(pid, eid)
+
+	was := scene.WidgetAlignSystem()
+	if loc != nil {
+		was.Remove(widget.ID().Ref(), loc)
+	}
 
 	err2 = i.propertyRepo.Remove(ctx, widget.Property())
 	if err2 != nil {

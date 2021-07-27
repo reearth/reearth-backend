@@ -10,13 +10,48 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
+type Location struct {
+	Zone    string
+	Section string
+	Area    string
+}
+
+type WidgetLayout struct {
+	Extendable      bool
+	Extended        bool
+	Floating        bool
+	CurrentLocation *Location
+}
+
+type WidgetArea struct {
+	WidgetIds []id.WidgetID
+	Align     string
+}
+
+type WidgetSection struct {
+	Top    WidgetArea
+	Middle WidgetArea
+	Bottom WidgetArea
+}
+
+type WidgetZone struct {
+	Left   WidgetSection
+	Center WidgetSection
+	Right  WidgetSection
+}
+
+type SceneAlignSystemDocument struct {
+	Inner WidgetZone
+	Outer WidgetZone
+}
+
 type SceneWidgetDocument struct {
 	ID           string
 	Plugin       string
 	Extension    string
 	Property     string
 	Enabled      bool
-	WidgetLayout *scene.WidgetLayout
+	WidgetLayout *WidgetLayout
 }
 
 type ScenePluginDocument struct {
@@ -25,14 +60,15 @@ type ScenePluginDocument struct {
 }
 
 type SceneDocument struct {
-	ID        string
-	Project   string
-	Team      string
-	RootLayer string
-	Widgets   []SceneWidgetDocument
-	Plugins   []ScenePluginDocument
-	UpdateAt  time.Time
-	Property  string
+	ID          string
+	Project     string
+	Team        string
+	RootLayer   string
+	Widgets     []SceneWidgetDocument
+	AlignSystem SceneAlignSystemDocument
+	Plugins     []ScenePluginDocument
+	UpdateAt    time.Time
+	Property    string
 }
 
 type SceneConsumer struct {
@@ -83,19 +119,21 @@ func (c *SceneIDConsumer) Consume(raw bson.Raw) error {
 
 func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 	widgets := scene.WidgetSystem().Widgets()
+	was := scene.WidgetAlignSystem()
 	plugins := scene.PluginSystem().Plugins()
 
 	widgetsDoc := make([]SceneWidgetDocument, 0, len(widgets))
 	pluginsDoc := make([]ScenePluginDocument, 0, len(plugins))
 
 	for _, w := range widgets {
+		layout := WidgetLayout{Extendable: w.WidgetLayout().Extendable, Extended: w.WidgetLayout().Extended, CurrentLocation: (*Location)(w.WidgetLayout().CurrentLocation)}
 		widgetsDoc = append(widgetsDoc, SceneWidgetDocument{
 			ID:           w.ID().String(),
 			Plugin:       w.Plugin().String(),
 			Extension:    string(w.Extension()),
 			Property:     w.Property().String(),
 			Enabled:      w.Enabled(),
-			WidgetLayout: w.WidgetLayout(),
+			WidgetLayout: &layout,
 		})
 	}
 
@@ -106,16 +144,105 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 		})
 	}
 
+	widgetAlignDoc := SceneAlignSystemDocument{Inner: WidgetZone{
+		Left: WidgetSection{
+			Top: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "left", "top"),
+				Align:     was.Alignment("inner", "left", "top"),
+			},
+			Middle: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "left", "middle"),
+				Align:     was.Alignment("inner", "left", "middle"),
+			},
+			Bottom: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "left", "bottom"),
+				Align:     was.Alignment("inner", "left", "bottom"),
+			},
+		},
+		Center: WidgetSection{
+			Top: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "center", "top"),
+				Align:     was.Alignment("inner", "center", "top"),
+			},
+			Middle: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "center", "middle"),
+				Align:     was.Alignment("inner", "center", "middle"),
+			},
+			Bottom: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "center", "bottom"),
+				Align:     was.Alignment("inner", "center", "bottom"),
+			},
+		},
+		Right: WidgetSection{
+			Top: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "right", "top"),
+				Align:     was.Alignment("inner", "right", "top"),
+			},
+			Middle: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "right", "middle"),
+				Align:     was.Alignment("inner", "right", "middle"),
+			},
+			Bottom: WidgetArea{
+				WidgetIds: was.WidgetIds("inner", "right", "bottom"),
+				Align:     was.Alignment("inner", "right", "bottom"),
+			},
+		},
+	}, Outer: WidgetZone{
+		Left: WidgetSection{
+			Top: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "left", "top"),
+				Align:     was.Alignment("outer", "left", "top"),
+			},
+			Middle: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "left", "middle"),
+				Align:     was.Alignment("outer", "left", "middle"),
+			},
+			Bottom: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "left", "bottom"),
+				Align:     was.Alignment("outer", "left", "bottom"),
+			},
+		},
+		Center: WidgetSection{
+			Top: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "center", "top"),
+				Align:     was.Alignment("outer", "center", "top"),
+			},
+			Middle: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "center", "middle"),
+				Align:     was.Alignment("outer", "center", "middle"),
+			},
+			Bottom: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "center", "bottom"),
+				Align:     was.Alignment("outer", "center", "bottom"),
+			},
+		},
+		Right: WidgetSection{
+			Top: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "right", "top"),
+				Align:     was.Alignment("outer", "right", "top"),
+			},
+			Middle: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "right", "middle"),
+				Align:     was.Alignment("outer", "right", "middle"),
+			},
+			Bottom: WidgetArea{
+				WidgetIds: was.WidgetIds("outer", "right", "bottom"),
+				Align:     was.Alignment("outer", "right", "bottom"),
+			},
+		},
+	}}
+
 	id := scene.ID().String()
 	return &SceneDocument{
-		ID:        id,
-		Project:   scene.Project().String(),
-		Team:      scene.Team().String(),
-		RootLayer: scene.RootLayer().String(),
-		Widgets:   widgetsDoc,
-		Plugins:   pluginsDoc,
-		UpdateAt:  scene.UpdatedAt(),
-		Property:  scene.Property().String(),
+		ID:          id,
+		Project:     scene.Project().String(),
+		Team:        scene.Team().String(),
+		RootLayer:   scene.RootLayer().String(),
+		Widgets:     widgetsDoc,
+		AlignSystem: widgetAlignDoc,
+		Plugins:     pluginsDoc,
+		UpdateAt:    scene.UpdatedAt(),
+		Property:    scene.Property().String(),
 	}, id
 }
 
@@ -153,13 +280,22 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 		if err != nil {
 			return nil, err
 		}
+		wl := scene.WidgetLayout{}
+		if w.WidgetLayout != nil {
+			wl = scene.WidgetLayout{
+				Extendable:      w.WidgetLayout.Extendable,
+				Extended:        w.WidgetLayout.Extended,
+				Floating:        w.WidgetLayout.Floating,
+				CurrentLocation: (*scene.Location)(w.WidgetLayout.CurrentLocation),
+			}
+		}
 		sw, err := scene.NewWidget(
 			id.WidgetIDFromRef(&w.ID),
 			pid,
 			id.PluginExtensionID(w.Extension),
 			prid,
 			w.Enabled,
-			w.WidgetLayout,
+			&wl,
 		)
 		if err != nil {
 			return nil, err

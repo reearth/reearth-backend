@@ -465,9 +465,9 @@ type Location struct {
 }
 
 type LocationInput struct {
-	Zone    *string `json:"zone"`
-	Section *string `json:"section"`
-	Area    *string `json:"area"`
+	Zone    string `json:"zone"`
+	Section string `json:"section"`
+	Area    string `json:"area"`
 }
 
 type MergedInfobox struct {
@@ -890,6 +890,7 @@ type RemoveWidgetInput struct {
 	SceneID     id.ID                `json:"sceneId"`
 	PluginID    id.PluginID          `json:"pluginId"`
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
+	Location    *LocationInput       `json:"location"`
 }
 
 type RemoveWidgetPayload struct {
@@ -1211,14 +1212,15 @@ type WidgetLayout struct {
 	Extendable      bool      `json:"extendable"`
 	Extended        bool      `json:"extended"`
 	Floating        bool      `json:"floating"`
-	DefaultLocation *Location `json:"defaultLocation"`
+	CurrentLocation *Location `json:"currentLocation"`
 }
 
 type WidgetLayoutInput struct {
-	Extendable      *bool          `json:"extendable"`
-	Extended        *bool          `json:"extended"`
-	Floating        *bool          `json:"floating"`
-	DefaultLocation *LocationInput `json:"defaultLocation"`
+	Extended    *bool          `json:"Extended"`
+	OldLocation *LocationInput `json:"OldLocation"`
+	NewLocation *LocationInput `json:"NewLocation"`
+	OldIndex    *int           `json:"OldIndex"`
+	NewIndex    *int           `json:"NewIndex"`
 }
 
 type Area string

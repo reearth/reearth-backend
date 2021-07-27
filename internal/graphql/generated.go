@@ -920,7 +920,7 @@ type ComplexityRoot struct {
 	}
 
 	WidgetLayout struct {
-		DefaultLocation func(childComplexity int) int
+		CurrentLocation func(childComplexity int) int
 		Extendable      func(childComplexity int) int
 		Extended        func(childComplexity int) int
 		Floating        func(childComplexity int) int
@@ -5482,12 +5482,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.User.Theme(childComplexity), true
 
-	case "WidgetLayout.defaultLocation":
-		if e.complexity.WidgetLayout.DefaultLocation == nil {
+	case "WidgetLayout.currentLocation":
+		if e.complexity.WidgetLayout.CurrentLocation == nil {
 			break
 		}
 
-		return e.complexity.WidgetLayout.DefaultLocation(childComplexity), true
+		return e.complexity.WidgetLayout.CurrentLocation(childComplexity), true
 
 	case "WidgetLayout.extendable":
 		if e.complexity.WidgetLayout.Extendable == nil {
@@ -5852,7 +5852,7 @@ type WidgetLayout {
   extendable: Boolean!
   extended: Boolean!
   floating: Boolean!
-  defaultLocation: Location
+  currentLocation: Location
 }
 
 enum PluginExtensionType {
@@ -6423,16 +6423,17 @@ input DeleteProjectInput {
 }
 
 input LocationInput {
-  zone: String
-  section: String
-  area: String
+  zone: String!
+  section: String!
+  area: String!
 }
 
 input WidgetLayoutInput {
-    extendable: Boolean
-    extended: Boolean
-    floating: Boolean
-    defaultLocation: LocationInput
+  Extended: Boolean
+	OldLocation: LocationInput
+	NewLocation: LocationInput
+	OldIndex: Int
+	NewIndex: Int
 }
 
 input AddWidgetInput {
@@ -6453,6 +6454,7 @@ input RemoveWidgetInput {
   sceneId: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
+  location: LocationInput!
 }
 
 input InstallPluginInput {
@@ -28034,7 +28036,7 @@ func (ec *executionContext) _WidgetLayout_floating(ctx context.Context, field gr
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _WidgetLayout_defaultLocation(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
+func (ec *executionContext) _WidgetLayout_currentLocation(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -28052,7 +28054,7 @@ func (ec *executionContext) _WidgetLayout_defaultLocation(ctx context.Context, f
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.DefaultLocation, nil
+		return obj.CurrentLocation, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -30011,7 +30013,7 @@ func (ec *executionContext) unmarshalInputLocationInput(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("zone"))
-			it.Zone, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Zone, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30019,7 +30021,7 @@ func (ec *executionContext) unmarshalInputLocationInput(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("section"))
-			it.Section, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Section, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30027,7 +30029,7 @@ func (ec *executionContext) unmarshalInputLocationInput(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("area"))
-			it.Area, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Area, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30460,6 +30462,14 @@ func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context,
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extensionId"))
 			it.ExtensionID, err = ec.unmarshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "location":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("location"))
+			it.Location, err = ec.unmarshalNLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -31591,35 +31601,43 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 
 	for k, v := range asMap {
 		switch k {
-		case "extendable":
+		case "Extended":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extendable"))
-			it.Extendable, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "extended":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extended"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Extended"))
 			it.Extended, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "floating":
+		case "OldLocation":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("floating"))
-			it.Floating, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OldLocation"))
+			it.OldLocation, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "defaultLocation":
+		case "NewLocation":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("defaultLocation"))
-			it.DefaultLocation, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("NewLocation"))
+			it.NewLocation, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "OldIndex":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OldIndex"))
+			it.OldIndex, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "NewIndex":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("NewIndex"))
+			it.NewIndex, err = ec.unmarshalOInt2ᚖint(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -37087,8 +37105,8 @@ func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.Selection
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "defaultLocation":
-			out.Values[i] = ec._WidgetLayout_defaultLocation(ctx, field, obj)
+		case "currentLocation":
+			out.Values[i] = ec._WidgetLayout_currentLocation(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -38315,6 +38333,11 @@ func (ec *executionContext) unmarshalNListOperation2githubᚗcomᚋreearthᚋree
 
 func (ec *executionContext) marshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐListOperation(ctx context.Context, sel ast.SelectionSet, v graphql1.ListOperation) graphql.Marshaler {
 	return v
+}
+
+func (ec *executionContext) unmarshalNLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx context.Context, v interface{}) (*graphql1.LocationInput, error) {
+	res, err := ec.unmarshalInputLocationInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMergedInfoboxFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*graphql1.MergedInfoboxField) graphql.Marshaler {
