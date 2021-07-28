@@ -431,12 +431,7 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 	ps.Remove(pid)
 
 	// remove widgets
-	for _, w := range scene.WidgetSystem().Widgets() {
-		if w.Plugin().Equal(pid) {
-			scene.WidgetSystem().Remove(pid, w.Extension())
-			removedProperties = append(removedProperties, w.Property())
-		}
-	}
+	removedProperties = append(removedProperties, scene.WidgetSystem().RemoveAllByPlugin(pid)...)
 
 	// remove layers and infobox fields
 	modifiedLayers := layer.List{}
