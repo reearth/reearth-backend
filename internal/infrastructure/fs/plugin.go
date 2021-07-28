@@ -27,7 +27,7 @@ func (r *pluginRepo) manifest(ctx context.Context, id id.PluginID) string {
 	return path.Join(getPluginFilePath(r.basePath, id, manifestFilePath))
 }
 
-func (r *pluginRepo) FindByID(ctx context.Context, id id.PluginID) (*plugin.Plugin, error) {
+func (r *pluginRepo) FindByID(ctx context.Context, id id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
 	filename := r.manifest(ctx, id)
 	if _, err := os.Stat(filename); err != nil {
 		return nil, rerror.ErrNotFound
@@ -45,13 +45,18 @@ func (r *pluginRepo) FindByID(ctx context.Context, id id.PluginID) (*plugin.Plug
 		return nil, rerror.ErrInternalBy(err)
 	}
 
+	sid := m.Plugin.ID().Scene()
+	if sid != nil && !sid.Contains(sids) {
+		return nil, nil
+	}
+
 	return m.Plugin, nil
 }
 
-func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugin.Plugin, error) {
+func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID, sids []id.SceneID) ([]*plugin.Plugin, error) {
 	results := make([]*plugin.Plugin, 0, len(ids))
 	for _, id := range ids {
-		res, err := r.FindByID(ctx, id)
+		res, err := r.FindByID(ctx, id, sids)
 		if err != nil {
 			return nil, err
 		}

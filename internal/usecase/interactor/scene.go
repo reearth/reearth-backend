@@ -151,8 +151,7 @@ func (s *Scene) FetchLock(ctx context.Context, ids []id.SceneID, operator *useca
 	return s.sceneLockRepo.GetAllLock(ctx, ids)
 }
 
-func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, operator *usecase.Operator) (_ *scene.Scene, widget *scene.Widget, err error) {
-
+func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, eid id.PluginExtensionID, operator *usecase.Operator) (_ *scene.Scene, widget *scene.Widget, err error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -168,11 +167,11 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 	}
 
 	// check scene lock
-	if err := i.CheckSceneLock(ctx, id); err != nil {
+	if err := i.CheckSceneLock(ctx, sid); err != nil {
 		return nil, nil, err
 	}
 
-	s, err := i.sceneRepo.FindByID(ctx, id, operator.WritableTeams)
+	s, err := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -180,7 +179,7 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 		return nil, nil, err
 	}
 
-	_, extension, err := i.getPlugin(ctx, pid, eid)
+	_, extension, err := i.getPlugin(ctx, sid, pid, eid)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -188,7 +187,7 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 		return nil, nil, interfaces.ErrExtensionTypeMustBeWidget
 	}
 
-	property, err := property.New().NewID().Schema(extension.Schema()).Scene(id).Build()
+	property, err := property.New().NewID().Schema(extension.Schema()).Scene(sid).Build()
 	if err != nil {
 		return nil, nil, err
 	}
@@ -347,7 +346,7 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 		return nil, pid, nil, interfaces.ErrPluginAlreadyInstalled
 	}
 
-	plugin, err2 := i.pluginRepo.FindByID(ctx, pid)
+	plugin, err2 := i.pluginRepo.FindByID(ctx, pid, []id.SceneID{sid})
 	if err2 != nil {
 		if errors.Is(err2, rerror.ErrNotFound) {
 			//
@@ -591,8 +590,8 @@ func (i *Scene) UpgradePlugin(ctx context.Context, sid id.SceneID, oldPluginID, 
 	return result.Scene, err
 }
 
-func (i *Scene) getPlugin(ctx context.Context, p id.PluginID, e id.PluginExtensionID) (*plugin.Plugin, *plugin.Extension, error) {
-	plugin, err2 := i.pluginRepo.FindByID(ctx, p)
+func (i *Scene) getPlugin(ctx context.Context, sid id.SceneID, p id.PluginID, e id.PluginExtensionID) (*plugin.Plugin, *plugin.Extension, error) {
+	plugin, err2 := i.pluginRepo.FindByID(ctx, p, []id.SceneID{sid})
 	if err2 != nil {
 		if errors.Is(err2, rerror.ErrNotFound) {
 			return nil, nil, interfaces.ErrPluginNotFound

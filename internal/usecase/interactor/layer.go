@@ -152,7 +152,6 @@ func (i *Layer) FetchParentAndMerged(ctx context.Context, org id.LayerID, operat
 }
 
 func (i *Layer) AddItem(ctx context.Context, inp interfaces.AddLayerItemInput, operator *usecase.Operator) (_ *layer.Item, _ *layer.Group, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -185,7 +184,7 @@ func (i *Layer) AddItem(ctx context.Context, inp interfaces.AddLayerItemInput, o
 		return nil, nil, interfaces.ErrCannotAddLayerToLinkedLayerGroup
 	}
 
-	plugin, extension, err := i.getPlugin(ctx, inp.PluginID, inp.ExtensionID)
+	plugin, extension, err := i.getPlugin(ctx, parentLayer.Scene(), inp.PluginID, inp.ExtensionID)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -273,7 +272,7 @@ func (i *Layer) AddGroup(ctx context.Context, inp interfaces.AddLayerGroupInput,
 	var extensionSchemaID id.PropertySchemaID
 	var propertySchema *property.Schema
 
-	plug, extension, err := i.getPlugin(ctx, inp.PluginID, inp.ExtensionID)
+	plug, extension, err := i.getPlugin(ctx, parentLayer.Scene(), inp.PluginID, inp.ExtensionID)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -733,7 +732,6 @@ func (i *Layer) RemoveInfobox(ctx context.Context, layerID id.LayerID, operator 
 }
 
 func (i *Layer) AddInfoboxField(ctx context.Context, inp interfaces.AddInfoboxFieldParam, operator *usecase.Operator) (_ *layer.InfoboxField, _ layer.Layer, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -764,7 +762,7 @@ func (i *Layer) AddInfoboxField(ctx context.Context, inp interfaces.AddInfoboxFi
 		return nil, nil, interfaces.ErrInfoboxNotFound
 	}
 
-	_, extension, err := i.getPlugin(ctx, &inp.PluginID, &inp.ExtensionID)
+	_, extension, err := i.getPlugin(ctx, l.Scene(), &inp.PluginID, &inp.ExtensionID)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -893,12 +891,12 @@ func (i *Layer) RemoveInfoboxField(ctx context.Context, inp interfaces.RemoveInf
 	return inp.InfoboxFieldID, layer, err
 }
 
-func (i *Layer) getPlugin(ctx context.Context, p *id.PluginID, e *id.PluginExtensionID) (*plugin.Plugin, *plugin.Extension, error) {
+func (i *Layer) getPlugin(ctx context.Context, sid id.SceneID, p *id.PluginID, e *id.PluginExtensionID) (*plugin.Plugin, *plugin.Extension, error) {
 	if p == nil {
 		return nil, nil, nil
 	}
 
-	plugin, err := i.pluginRepo.FindByID(ctx, *p)
+	plugin, err := i.pluginRepo.FindByID(ctx, *p, []id.SceneID{sid})
 	if err != nil {
 		if errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil, interfaces.ErrPluginNotFound
