@@ -10,7 +10,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/stretchr/testify/assert"
-	"github.com/xeipuuv/gojsonschema"
 )
 
 func TestParse(t *testing.T) {
@@ -155,50 +154,6 @@ func TestMustParseSystemFromBytes(t *testing.T) {
 			m := MustParseSystemFromBytes([]byte(tc.input))
 			assert.Equal(tt, tc.expected.Plugin.ID(), m.Plugin.ID())
 			assert.Equal(tt, m.Plugin.Name(), m.Plugin.Name())
-		})
-	}
-}
-
-func TestValidate(t *testing.T) {
-	testCases := []struct {
-		name, input string
-		err         bool
-	}{
-		{
-			name: "success create manifest",
-			input: `{
-				"id": "aaa",
-				"title": "bbb",
-				"version": "1.1.1"
-			}`,
-			err: false,
-		},
-		{
-			name:  "fail not valid JSON",
-			input: "",
-			err:   true,
-		},
-		{
-			name: "fail invalid name type",
-			input: `{
-				"id": "aaa",
-				"title": 123,
-				"version": "1.1.1"
-			}`,
-			err: true,
-		},
-	}
-
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
-			err := validate(gojsonschema.NewBytesLoader([]byte(tc.input)))
-			if tc.err {
-				assert.Error(tt, err)
-			} else {
-				assert.NoError(tt, err)
-			}
 		})
 	}
 }

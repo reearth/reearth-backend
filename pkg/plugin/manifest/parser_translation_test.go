@@ -6,8 +6,6 @@ import (
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
-	"github.com/xeipuuv/gojsonschema"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -383,38 +381,6 @@ func TestMergeManifestTranslation(t *testing.T) {
 				//assert.Equal(tt, tc.Expected.FieldName, res.ExtensionSchema[0].Group("test_ps").Field("test_field").Name())
 				//assert.Equal(tt, tc.Expected.FieldDesc, res.ExtensionSchema[0].Group("test_ps").Field("test_field").Description())
 				//assert.Equal(tt, tc.Expected.ExtName, res.ExtensionSchema[0])
-			}
-		})
-	}
-}
-
-func TestValidatTranslation(t *testing.T) {
-	testCases := []struct {
-		name, input string
-		err         bool
-	}{
-		{
-			name:  "success create translation",
-			input: translatedManifest,
-
-			err: false,
-		},
-		{
-			name:  "fail not valid JSON",
-			input: "",
-			err:   true,
-		},
-	}
-
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
-			err := validateTranslation(gojsonschema.NewBytesLoader([]byte(tc.input)))
-			if tc.err {
-				assert.Error(tt, err)
-			} else {
-				assert.NoError(tt, err)
 			}
 		})
 	}

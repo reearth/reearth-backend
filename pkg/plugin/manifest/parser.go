@@ -5,10 +5,8 @@ package manifest
 import (
 	_ "embed"
 	"errors"
-	"fmt"
 	"io"
 
-	"github.com/xeipuuv/gojsonschema"
 	"gopkg.in/yaml.v2"
 )
 
@@ -16,24 +14,9 @@ var (
 	ErrInvalidManifest       error = errors.New("invalid manifest")
 	ErrFailedToParseManifest error = errors.New("failed to parse plugin manifest")
 	ErrSystemManifest              = errors.New("cannot build system manifest")
-	//go:embed plugin_manifest_schema.json
-	SchemaJSON   []byte
-	schemaLoader = gojsonschema.NewBytesLoader(SchemaJSON)
 )
 
 func Parse(source io.Reader) (*Manifest, error) {
-	// TODO: When using gojsonschema.NewReaderLoader, gojsonschema.Validate returns io.EOF error.
-	// doc, err := io.ReadAll(source)
-	// if err != nil {
-	// 	return nil, ErrFailedToParseManifest
-	// }
-
-	// TODO: gojsonschema does not support yaml
-	// documentLoader := gojsonschema.NewBytesLoader(doc)
-	// if err := validate(documentLoader); err != nil {
-	// 	return nil, err
-	// }
-
 	root := Root{}
 	if err := yaml.NewDecoder(source).Decode(&root); err != nil {
 		return nil, ErrFailedToParseManifest
@@ -52,12 +35,6 @@ func Parse(source io.Reader) (*Manifest, error) {
 }
 
 func ParseSystemFromBytes(source []byte) (*Manifest, error) {
-	// TODO: gojsonschema does not support yaml
-	// documentLoader := gojsonschema.NewBytesLoader(src)
-	// if err := validate(documentLoader); err != nil {
-	// 	return nil, err
-	// }
-
 	root := Root{}
 	if err := yaml.Unmarshal(source, &root); err != nil {
 		return nil, ErrFailedToParseManifest
@@ -78,25 +55,4 @@ func MustParseSystemFromBytes(source []byte) *Manifest {
 		panic(err)
 	}
 	return m
-}
-
-func validate(ld gojsonschema.JSONLoader) error {
-	// documentLoader, reader2 := gojsonschema.NewReaderLoader(source)
-	result, err := gojsonschema.Validate(schemaLoader, ld)
-	if err != nil {
-		return ErrFailedToParseManifest
-	}
-
-	if !result.Valid() {
-		var errstr string
-		for i, e := range result.Errors() {
-			if i > 0 {
-				errstr += ", "
-			}
-			errstr += e.String()
-		}
-		return fmt.Errorf("invalid manifest: %w", errors.New(errstr))
-	}
-
-	return nil
 }

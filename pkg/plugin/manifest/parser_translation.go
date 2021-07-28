@@ -6,36 +6,19 @@ package manifest
 import (
 	_ "embed"
 	"errors"
-	"fmt"
 	"io"
 
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
-	"github.com/xeipuuv/gojsonschema"
 	"gopkg.in/yaml.v2"
 )
 
 var (
 	ErrInvalidManifestTranslation       error = errors.New("invalid manifest translation")
 	ErrFailedToParseManifestTranslation error = errors.New("failed to parse plugin manifest translation")
-	//go:embed plugin_manifest_schema_translation.json
-	SchemaTranslationJSON   []byte
-	schemaTranslationLoader = gojsonschema.NewBytesLoader(SchemaTranslationJSON)
 )
 
 func ParseTranslation(source io.Reader) (*TranslationRoot, error) {
-	// TODO: When using gojsonschema.NewReaderLoader, gojsonschema.Validate returns io.EOF error.
-	// doc, err := io.ReadAll(source)
-	// if err != nil {
-	// 	return nil, ErrFailedToParseManifestTranslation
-	// }
-
-	// TODO: gojsonschema does not support yaml
-	// documentLoader := gojsonschema.NewBytesLoader(doc)
-	// if err := validateTranslation(documentLoader); err != nil {
-	// 	return nil, err
-	// }
-
 	root := TranslationRoot{}
 	if err := yaml.NewDecoder(source).Decode(&root); err != nil {
 		return nil, ErrFailedToParseManifestTranslation
@@ -46,12 +29,6 @@ func ParseTranslation(source io.Reader) (*TranslationRoot, error) {
 }
 
 func ParseTranslationFromBytes(source []byte) (*TranslationRoot, error) {
-	// TODO: schema check returns errors
-	// documentLoader := gojsonschema.NewBytesLoader(source)
-	// if err := validateTranslation(documentLoader); err != nil {
-	// 	return nil, err
-	// }
-
 	tr := TranslationRoot{}
 	if err := yaml.Unmarshal(source, &tr); err != nil {
 		return nil, ErrFailedToParseManifestTranslation
@@ -66,27 +43,6 @@ func MustParseTranslationFromBytes(source []byte) *TranslationRoot {
 		panic(err)
 	}
 	return m
-}
-
-func validateTranslation(ld gojsonschema.JSONLoader) error {
-	// documentLoader, reader2 := gojsonschema.NewReaderLoader(source)
-	result, err := gojsonschema.Validate(schemaTranslationLoader, ld)
-	if err != nil {
-		return ErrFailedToParseManifest
-	}
-
-	if !result.Valid() {
-		var errstr string
-		for i, e := range result.Errors() {
-			if i > 0 {
-				errstr += ", "
-			}
-			errstr += e.String()
-		}
-		return fmt.Errorf("invalid manifest translation: %w", errors.New(errstr))
-	}
-
-	return nil
 }
 
 func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Manifest {
