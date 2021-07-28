@@ -23,7 +23,7 @@ func NewPlugin() repo.Plugin {
 	}
 }
 
-func (r *Plugin) FindByID(ctx context.Context, id id.PluginID) (*plugin.Plugin, error) {
+func (r *Plugin) FindByID(ctx context.Context, id id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -31,7 +31,7 @@ func (r *Plugin) FindByID(ctx context.Context, id id.PluginID) (*plugin.Plugin, 
 		return p, nil
 	}
 	for _, p := range r.data {
-		if p.ID().Equal(id) {
+		if p.ID().Equal(id) && (p.ID().Scene() == nil || p.ID().Scene().Contains(sids)) {
 			p2 := *p
 			return &p2, nil
 		}
@@ -39,7 +39,7 @@ func (r *Plugin) FindByID(ctx context.Context, id id.PluginID) (*plugin.Plugin, 
 	return nil, err1.ErrNotFound
 }
 
-func (r *Plugin) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugin.Plugin, error) {
+func (r *Plugin) FindByIDs(ctx context.Context, ids []id.PluginID, sids []id.SceneID) ([]*plugin.Plugin, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -50,7 +50,7 @@ func (r *Plugin) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugin.Pl
 			continue
 		}
 		for _, p := range r.data {
-			if p.ID().Equal(id) {
+			if p.ID().Equal(id) && (p.ID().Scene() == nil || p.ID().Scene().Contains(sids)) {
 				p2 := *p
 				result = append(result, &p2)
 			} else {

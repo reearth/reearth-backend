@@ -24,6 +24,7 @@ type PluginDocument struct {
 	RepositoryURL string
 	Extensions    []PluginExtensionDocument
 	Schema        *string
+	Scene         *string `bson:",omitempty"`
 }
 
 type PluginConsumer struct {
@@ -71,6 +72,7 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 		RepositoryURL: plugin.RepositoryURL(),
 		Extensions:    extensionsDoc,
 		Schema:        plugin.Schema().StringRef(),
+		Scene:         plugin.ID().Scene().StringRef(),
 	}, pid
 }
 
