@@ -6297,7 +6297,7 @@ input UpdateProjectInput {
   imageUrl: URL
   publicTitle: String
   publicDescription: String
-  publicImage: Upload
+  publicImage: String
   publicNoIndex: Boolean
   deleteImageUrl: Boolean
   deletePublicImage: Boolean
@@ -30469,7 +30469,7 @@ func (ec *executionContext) unmarshalInputUpdateProjectInput(ctx context.Context
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("publicImage"))
-			it.PublicImage, err = ec.unmarshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx, v)
+			it.PublicImage, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -40443,21 +40443,6 @@ func (ec *executionContext) marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreear
 		return graphql.Null
 	}
 	return ec._UpgradePluginPayload(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx context.Context, v interface{}) (*graphql.Upload, error) {
-	if v == nil {
-		return nil, nil
-	}
-	res, err := graphql.UnmarshalUpload(v)
-	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx context.Context, sel ast.SelectionSet, v *graphql.Upload) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return graphql.MarshalUpload(*v)
 }
 
 func (ec *executionContext) marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UploadPluginPayload) graphql.Marshaler {
