@@ -8,6 +8,7 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/pkg/layer/layerops"
 	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 
@@ -17,7 +18,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/layer"
-	"github.com/reearth/reearth-backend/pkg/layer/initializer"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/scene/sceneops"
@@ -306,7 +306,7 @@ func (i *Dataset) importDataset(ctx context.Context, content io.Reader, name str
 				if rf := ds.FieldRef(representativeFieldID); rf != nil && rf.Type() == dataset.ValueTypeString {
 					name = rf.Value().Value().(string)
 				}
-				layerItem, layerProperty, err := initializer.LayerItem{
+				layerItem, layerProperty, err := layerops.LayerItem{
 					SceneID:         sceneId,
 					ParentLayerID:   lg.ID(),
 					Plugin:          builtin.Plugin(),

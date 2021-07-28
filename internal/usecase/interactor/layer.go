@@ -18,7 +18,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/layer"
 	"github.com/reearth/reearth-backend/pkg/layer/decoding"
-	"github.com/reearth/reearth-backend/pkg/layer/initializer"
+	"github.com/reearth/reearth-backend/pkg/layer/layerops"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
 )
@@ -194,7 +194,7 @@ func (i *Layer) AddItem(ctx context.Context, inp interfaces.AddLayerItemInput, o
 		return nil, nil, err
 	}
 
-	layerItem, property, err := initializer.LayerItem{
+	layerItem, property, err := layerops.LayerItem{
 		SceneID:                parentLayer.Scene(),
 		ParentLayerID:          parentLayer.ID(),
 		Plugin:                 plugin,
@@ -237,7 +237,6 @@ func (i *Layer) AddItem(ctx context.Context, inp interfaces.AddLayerItemInput, o
 }
 
 func (i *Layer) AddGroup(ctx context.Context, inp interfaces.AddLayerGroupInput, operator *usecase.Operator) (_ *layer.Group, _ *layer.Group, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -371,7 +370,7 @@ func (i *Layer) AddGroup(ctx context.Context, inp interfaces.AddLayerGroupInput,
 			name = rf.Value().Value().(string)
 		}
 
-		layerItem, property, err := initializer.LayerItem{
+		layerItem, property, err := layerops.LayerItem{
 			SceneID:         parentLayer.Scene(),
 			ParentLayerID:   layerGroup.ID(),
 			Plugin:          plug,
