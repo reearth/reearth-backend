@@ -22,10 +22,9 @@ type PluginDocument struct {
 	Author        string
 	Description   map[string]string
 	RepositoryURL string
-	Deprecated    bool
-	Public        bool
 	Extensions    []PluginExtensionDocument
 	Schema        *string
+	Scene         *string
 }
 
 type PluginConsumer struct {
@@ -73,6 +72,7 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 		RepositoryURL: plugin.RepositoryURL(),
 		Extensions:    extensionsDoc,
 		Schema:        plugin.Schema().StringRef(),
+		Scene:         plugin.Scene().StringRef(),
 	}, pid
 }
 
@@ -110,5 +110,6 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 		RepositoryURL(d.RepositoryURL).
 		Extensions(extensions).
 		Schema(id.PropertySchemaIDFromRef(d.Schema)).
+		Scene(id.SceneIDFromRef(d.Scene)).
 		Build()
 }

@@ -43,7 +43,6 @@ func (i *Plugin) Fetch(ctx context.Context, ids []id.PluginID, operator *usecase
 }
 
 func (i *Plugin) Upload(ctx context.Context, r io.Reader, operator *usecase.Operator) (_ *plugin.Plugin, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return

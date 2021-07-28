@@ -38,6 +38,7 @@ func toPlugin(p *plugin.Plugin) *Plugin {
 		Version:                  p.Version().String(),
 		PropertySchemaID:         p.Schema(),
 		Extensions:               extensions,
+		SceneID:                  p.Scene().IDRef(),
 	}
 }
 

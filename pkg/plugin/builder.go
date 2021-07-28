@@ -62,11 +62,11 @@ func (b *Builder) Extensions(extensions []*Extension) *Builder {
 }
 
 func (b *Builder) Schema(schema *id.PropertySchemaID) *Builder {
-	if schema == nil {
-		b.p.schema = nil
-	} else {
-		sid := *schema
-		b.p.schema = &sid
-	}
+	b.p.schema = schema.CopyRef()
+	return b
+}
+
+func (b *Builder) Scene(scene *id.SceneID) *Builder {
+	b.p.scene = scene.CopyRef()
 	return b
 }

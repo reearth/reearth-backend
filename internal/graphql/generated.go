@@ -518,6 +518,8 @@ type ComplexityRoot struct {
 		PropertySchema           func(childComplexity int) int
 		PropertySchemaID         func(childComplexity int) int
 		RepositoryURL            func(childComplexity int) int
+		Scene                    func(childComplexity int) int
+		SceneID                  func(childComplexity int) int
 		ScenePlugin              func(childComplexity int, sceneID id.ID) int
 		TranslatedDescription    func(childComplexity int, lang *string) int
 		TranslatedName           func(childComplexity int, lang *string) int
@@ -1066,6 +1068,7 @@ type MutationResolver interface {
 }
 type PluginResolver interface {
 	PropertySchema(ctx context.Context, obj *graphql1.Plugin) (*graphql1.PropertySchema, error)
+	Scene(ctx context.Context, obj *graphql1.Plugin) (*graphql1.Scene, error)
 }
 type PluginExtensionResolver interface {
 	Plugin(ctx context.Context, obj *graphql1.PluginExtension) (*graphql1.Plugin, error)
@@ -3528,6 +3531,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Plugin.RepositoryURL(childComplexity), true
 
+	case "Plugin.scene":
+		if e.complexity.Plugin.Scene == nil {
+			break
+		}
+
+		return e.complexity.Plugin.Scene(childComplexity), true
+
+	case "Plugin.sceneId":
+		if e.complexity.Plugin.SceneID == nil {
+			break
+		}
+
+		return e.complexity.Plugin.SceneID(childComplexity), true
+
 	case "Plugin.scenePlugin":
 		if e.complexity.Plugin.ScenePlugin == nil {
 			break
@@ -5745,7 +5762,9 @@ type Plugin {
   allTranslatedName: TranslatedString
   translatedName(lang: String): String!
   translatedDescription(lang: String): String!
+  sceneId: ID
   propertySchema: PropertySchema @goField(forceResolver: true)
+  scene: Scene @goField(forceResolver: true)
 }
 
 type PluginMetadata {
@@ -6304,7 +6323,9 @@ input UpdateProjectInput {
 }
 
 input UploadPluginInput {
-  file: Upload!
+  sceneId: ID!
+  file: Upload
+  url: String
 }
 
 input CreateSceneInput {
@@ -18995,6 +19016,38 @@ func (ec *executionContext) _Plugin_translatedDescription(ctx context.Context, f
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Plugin_sceneId(ctx context.Context, field graphql.CollectedField, obj *graphql1.Plugin) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Plugin",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.SceneID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*id.ID)
+	fc.Result = res
+	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Plugin_propertySchema(ctx context.Context, field graphql.CollectedField, obj *graphql1.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -19025,6 +19078,38 @@ func (ec *executionContext) _Plugin_propertySchema(ctx context.Context, field gr
 	res := resTmp.(*graphql1.PropertySchema)
 	fc.Result = res
 	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPropertySchema(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Plugin_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.Plugin) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Plugin",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Plugin().Scene(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Scene)
+	fc.Result = res
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PluginExtension_extensionId(ctx context.Context, field graphql.CollectedField, obj *graphql1.PluginExtension) (ret graphql.Marshaler) {
@@ -31153,11 +31238,27 @@ func (ec *executionContext) unmarshalInputUploadPluginInput(ctx context.Context,
 
 	for k, v := range asMap {
 		switch k {
+		case "sceneId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
+			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "file":
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("file"))
-			it.File, err = ec.unmarshalNUpload2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx, v)
+			it.File, err = ec.unmarshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "url":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("url"))
+			it.URL, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -33928,6 +34029,8 @@ func (ec *executionContext) _Plugin(ctx context.Context, sel ast.SelectionSet, o
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
+		case "sceneId":
+			out.Values[i] = ec._Plugin_sceneId(ctx, field, obj)
 		case "propertySchema":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -33937,6 +34040,17 @@ func (ec *executionContext) _Plugin(ctx context.Context, sel ast.SelectionSet, o
 					}
 				}()
 				res = ec._Plugin_propertySchema(ctx, field, obj)
+				return res
+			})
+		case "scene":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Plugin_scene(ctx, field, obj)
 				return res
 			})
 		default:
@@ -40443,6 +40557,21 @@ func (ec *executionContext) marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreear
 		return graphql.Null
 	}
 	return ec._UpgradePluginPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx context.Context, v interface{}) (*graphql.Upload, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := graphql.UnmarshalUpload(v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx context.Context, sel ast.SelectionSet, v *graphql.Upload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return graphql.MarshalUpload(*v)
 }
 
 func (ec *executionContext) marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐUploadPluginPayload(ctx context.Context, sel ast.SelectionSet, v *graphql1.UploadPluginPayload) graphql.Marshaler {

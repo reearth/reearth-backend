@@ -1,7 +1,6 @@
 package plugin
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
@@ -76,12 +75,14 @@ func TestBuilder_RepositoryURL(t *testing.T) {
 }
 
 func TestBuilder_Build(t *testing.T) {
+	sceneID := id.NewSceneID().Ref()
 	testCases := []struct {
 		name, author, repositoryURL string
 		id                          id.PluginID
 		pname, description          i18n.String
 		ext                         []*Extension
 		schema                      *id.PropertySchemaID
+		scene                       *id.SceneID
 		expected                    *Plugin
 		err                         error // skip for now as error is always nil
 	}{
@@ -97,6 +98,7 @@ func TestBuilder_Build(t *testing.T) {
 				NewExtension().ID("yyy").MustBuild(),
 			},
 			schema: id.MustPropertySchemaID("hoge#0.1.0/fff").Ref(),
+			scene:  sceneID,
 			expected: &Plugin{
 				id:            id.MustPluginID("hoge#0.1.0"),
 				name:          i18n.StringFrom("nnn"),
@@ -109,6 +111,7 @@ func TestBuilder_Build(t *testing.T) {
 				},
 				extensionOrder: []id.PluginExtensionID{id.PluginExtensionID("xxx"), id.PluginExtensionID("yyy")},
 				schema:         id.MustPropertySchemaID("hoge#0.1.0/fff").Ref(),
+				scene:          sceneID,
 			},
 		},
 	}
@@ -124,24 +127,23 @@ func TestBuilder_Build(t *testing.T) {
 				Name(tc.pname).
 				Schema(tc.schema).
 				Author(tc.author).
+				Scene(tc.scene).
 				Build()
-			if err == nil {
-				assert.Equal(tt, tc.expected, p)
-			} else {
-				assert.True(tt, errors.As(tc.err, &err))
-			}
-
+			assert.NoError(tt, err)
+			assert.Equal(tt, tc.expected, p)
 		})
 	}
 }
 
 func TestBuilder_MustBuild(t *testing.T) {
+	sceneID := id.NewSceneID().Ref()
 	testCases := []struct {
 		name, author, repositoryURL string
 		id                          id.PluginID
 		pname, description          i18n.String
 		ext                         []*Extension
 		schema                      *id.PropertySchemaID
+		scene                       *id.SceneID
 		expected                    *Plugin
 	}{
 		{
@@ -156,6 +158,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				NewExtension().ID("yyy").MustBuild(),
 			},
 			schema: id.MustPropertySchemaID("hoge#0.1.0/fff").Ref(),
+			scene:  sceneID,
 			expected: &Plugin{
 				id:            id.MustPluginID("hoge#0.1.0"),
 				name:          i18n.StringFrom("nnn"),
@@ -168,6 +171,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				},
 				extensionOrder: []id.PluginExtensionID{id.PluginExtensionID("xxx"), id.PluginExtensionID("yyy")},
 				schema:         id.MustPropertySchemaID("hoge#0.1.0/fff").Ref(),
+				scene:          sceneID,
 			},
 		},
 	}
@@ -184,13 +188,9 @@ func TestBuilder_MustBuild(t *testing.T) {
 				Name(tc.pname).
 				Schema(tc.schema).
 				Author(tc.author).
+				Scene(tc.scene).
 				MustBuild()
 			assert.Equal(tt, tc.expected, p)
-
 		})
 	}
-}
-
-func TestNew(t *testing.T) {
-	assert.NotNil(t, New())
 }

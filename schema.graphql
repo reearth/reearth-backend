@@ -239,7 +239,9 @@ type Plugin {
   allTranslatedName: TranslatedString
   translatedName(lang: String): String!
   translatedDescription(lang: String): String!
+  sceneId: ID
   propertySchema: PropertySchema @goField(forceResolver: true)
+  scene: Scene @goField(forceResolver: true)
 }
 
 type PluginMetadata {
@@ -798,7 +800,9 @@ input UpdateProjectInput {
 }
 
 input UploadPluginInput {
-  file: Upload!
+  sceneId: ID!
+  file: Upload
+  url: String
 }
 
 input CreateSceneInput {

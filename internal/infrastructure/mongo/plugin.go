@@ -32,6 +32,7 @@ func (r *pluginRepo) init() {
 }
 
 func (r *pluginRepo) FindByID(ctx context.Context, id id.PluginID) (*plugin.Plugin, error) {
+	// TODO: separate built-in plugins to another repository
 	if p := builtin.GetPlugin(id); p != nil {
 		return p, nil
 	}
@@ -46,6 +47,7 @@ func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugi
 	b := map[string]*plugin.Plugin{}
 	ids2 := make([]id.PluginID, 0, len(ids))
 	for _, id := range ids {
+		// TODO: separate built-in plugins to another repository
 		if p := builtin.GetPlugin(id); p != nil {
 			b[id.String()] = p
 		} else {

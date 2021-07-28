@@ -584,7 +584,9 @@ type Plugin struct {
 	AllTranslatedName        map[string]string    `json:"allTranslatedName"`
 	TranslatedName           string               `json:"translatedName"`
 	TranslatedDescription    string               `json:"translatedDescription"`
+	SceneID                  *id.ID               `json:"sceneId"`
 	PropertySchema           *PropertySchema      `json:"propertySchema"`
+	Scene                    *Scene               `json:"scene"`
 }
 
 type PluginExtension struct {
@@ -1173,7 +1175,9 @@ type UploadFileToPropertyInput struct {
 }
 
 type UploadPluginInput struct {
-	File graphql.Upload `json:"file"`
+	SceneID id.ID           `json:"sceneId"`
+	File    *graphql.Upload `json:"file"`
+	URL     *string         `json:"url"`
 }
 
 type UploadPluginPayload struct {

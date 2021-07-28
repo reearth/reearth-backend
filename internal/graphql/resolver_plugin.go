@@ -50,6 +50,16 @@ func (r *pluginResolver) TranslatedDescription(ctx context.Context, obj *graphql
 	return obj.Description, nil
 }
 
+func (r *pluginResolver) Scene(ctx context.Context, obj *graphql1.Plugin) (*graphql1.Scene, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	if obj.SceneID == nil {
+		return nil, nil
+	}
+	return dataloader.DataLoadersFromContext(ctx).Scene.Load(id.SceneID(*obj.SceneID))
+}
+
 type pluginExtensionResolver struct{ *Resolver }
 
 func (r *pluginExtensionResolver) Plugin(ctx context.Context, obj *graphql1.PluginExtension) (*graphql1.Plugin, error) {
