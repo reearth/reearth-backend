@@ -173,6 +173,14 @@ func (d *PluginID) StringRef() *string {
 
 // Equal returns if two IDs are quivarent.
 func (d PluginID) Equal(d2 PluginID) bool {
+	if d.sys {
+		return d2.sys
+	}
+	if d.scene != nil {
+		if d2.scene == nil || *d.scene != *d2.scene {
+			return false
+		}
+	}
 	return d.name == d2.name && d.version == d2.version
 }
 

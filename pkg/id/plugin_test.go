@@ -484,44 +484,51 @@ func TestPluginID_StringRef(t *testing.T) {
 func TestPluginID_Equal(t *testing.T) {
 	t.Parallel()
 	testCases := []struct {
-		name  string
-		input struct {
-			pluginID1 PluginID
-			pluginID2 PluginID
-		}
+		name     string
+		input1   PluginID
+		input2   PluginID
 		expected bool
 	}{
 		{
-			name: "Equal",
-			input: struct {
-				pluginID1 PluginID
-				pluginID2 PluginID
-			}{
-				pluginID1: MustPluginID("Test#1.0.0"),
-				pluginID2: MustPluginID("Test#1.0.0"),
-			},
+			name:     "system",
+			input1:   MustPluginID("reearth"),
+			input2:   MustPluginID("reearth"),
 			expected: true,
 		},
 		{
-			name: "Equal",
-			input: struct {
-				pluginID1 PluginID
-				pluginID2 PluginID
-			}{
-				pluginID1: MustPluginID("Test#1.0.0"),
-				pluginID2: MustPluginID("Test#1.0.1"),
-			},
+			name:     "system and normal",
+			input1:   MustPluginID("reearth"),
+			input2:   MustPluginID("Test#1.0.0"),
 			expected: false,
 		},
 		{
-			name: "Equal",
-			input: struct {
-				pluginID1 PluginID
-				pluginID2 PluginID
-			}{
-				pluginID1: MustPluginID("Test0#1.0.0"),
-				pluginID2: MustPluginID("Test1#1.0.0"),
-			},
+			name:     "same",
+			input1:   MustPluginID("Test#1.0.0"),
+			input2:   MustPluginID("Test#1.0.0"),
+			expected: true,
+		},
+		{
+			name:     "diff version",
+			input1:   MustPluginID("Test#1.0.0"),
+			input2:   MustPluginID("Test#1.0.1"),
+			expected: false,
+		},
+		{
+			name:     "diff name",
+			input1:   MustPluginID("Test0#1.0.0"),
+			input2:   MustPluginID("Test1#1.0.0"),
+			expected: false,
+		},
+		{
+			name:     "same scene",
+			input1:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test#1.0.0"),
+			input2:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test#1.0.0"),
+			expected: true,
+		},
+		{
+			name:     "diff scene",
+			input1:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test#1.0.0"),
+			input2:   MustPluginID("01fbprc3j929w0a3h16nh8rqy7~Test#1.0.0"),
 			expected: false,
 		},
 	}
@@ -529,8 +536,8 @@ func TestPluginID_Equal(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			assert.Equal(tt, tc.expected, tc.input.pluginID1.Equal(tc.input.pluginID2))
-			assert.Equal(tt, tc.expected, tc.input.pluginID2.Equal(tc.input.pluginID1))
+			assert.Equal(tt, tc.expected, tc.input1.Equal(tc.input2))
+			assert.Equal(tt, tc.expected, tc.input2.Equal(tc.input1))
 		})
 	}
 
