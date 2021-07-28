@@ -11,6 +11,7 @@ import (
 	err1 "github.com/reearth/reearth-backend/pkg/error"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/layer"
+	"github.com/reearth/reearth-backend/pkg/layer/layerops"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/scene"
@@ -345,15 +346,15 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 		return nil, pid, nil, interfaces.ErrPluginAlreadyInstalled
 	}
 
-	plugin, err2 := i.pluginRepo.FindByID(ctx, pid, []id.SceneID{sid})
-	if err2 != nil {
+	plugin, err := i.pluginRepo.FindByID(ctx, pid, []id.SceneID{sid})
+	if err != nil {
 		if errors.Is(err2, err1.ErrNotFound) {
-			//
-			// Install Plugin
-			//
 			return nil, pid, nil, interfaces.ErrPluginNotFound
 		}
-		return nil, pid, nil, err2
+		return nil, pid, nil, err
+	}
+	if psid := plugin.ID().Scene(); psid != nil && *psid != sid {
+		return nil, pid, nil, interfaces.ErrPluginNotFound
 	}
 
 	var p *property.Property
@@ -429,92 +430,38 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 	// remove widgets
 	removedProperties = append(removedProperties, scene.WidgetSystem().RemoveAllByPlugin(pid)...)
 
-	// remove layers and infobox fields
-	modifiedLayers := layer.List{}
-	removedLayers := []id.LayerID{}
-	layers, err := i.layerRepo.FindByScene(ctx, sid)
+	// remove layers
+	res, err := layerops.Processor{
+		LayerLoader: repo.LayerLoaderFrom(i.layerRepo, []id.SceneID{sid}),
+		RootLayerID: scene.RootLayer(),
+	}.UninstallPlugin(ctx, pid)
 	if err != nil {
 		return nil, err
 	}
-	for _, l := range layers {
-		if l == nil {
-			continue
-		}
-		ll := *l
-		if p := ll.Plugin(); p != nil && pid.Equal(*p) {
-			removedLayers = append(removedLayers, ll.ID())
-			if pp := ll.Property(); pp != nil {
-				removedProperties = append(removedProperties, *pp)
-			}
-			if ib := ll.Infobox(); ib != nil {
-				removedProperties = append(removedProperties, ib.Property())
-				for _, f := range ib.Fields() {
-					removedProperties = append(removedProperties, f.Property())
-				}
-			}
-		} else if ib := ll.Infobox(); ib != nil {
-			removedProperties = append(removedProperties, ib.Property())
-			for _, f := range ib.Fields() {
-				removedProperties = append(removedProperties, f.Property())
-			}
-			var ll2 layer.Layer = ll
-			modifiedLayers = append(modifiedLayers, &ll2)
-		}
-	}
 
-	for _, lg := range layers.ToLayerGroupList() {
-		modified := false
-		cancel := false
-		for _, lid := range removedLayers {
-			if lg.ID() == lid {
-				cancel = true
-				break
-			}
-			if lg.Layers().HasLayer(lid) {
-				lg.Layers().RemoveLayer(lid)
-				modified = true
-			}
-		}
-		if cancel {
-			continue
-		}
-		if modified {
-			already := false
-			for _, l := range modifiedLayers {
-				if l != nil && (*l).ID() == lg.ID() {
-					already = true
-					break
-				}
-			}
-			if already {
-				continue
-			}
-			var lg2 layer.Layer = lg
-			modifiedLayers = append(modifiedLayers, &lg2)
-		}
-	}
+	removedProperties = append(removedProperties, res.RemovedProperties...)
 
-	if len(modifiedLayers) > 0 {
-		err = i.layerRepo.SaveAll(ctx, modifiedLayers)
-		if err != nil {
+	// save
+	if len(res.ModifiedLayers) > 0 {
+		if err := i.layerRepo.SaveAll(ctx, res.ModifiedLayers); err != nil {
 			return nil, err
 		}
 	}
-	if len(removedLayers) > 0 {
-		err = i.layerRepo.RemoveAll(ctx, removedLayers)
-		if err != nil {
+
+	if res.RemovedLayers.LayerCount() > 0 {
+		if err := i.layerRepo.RemoveAll(ctx, res.RemovedLayers.Layers()); err != nil {
 			return nil, err
 		}
 	}
-	err = i.sceneRepo.Save(ctx, scene)
-	if err != nil {
-		return nil, err
-	}
+
 	if len(removedProperties) > 0 {
-		err = i.propertyRepo.RemoveAll(ctx, removedProperties)
-		if err != nil {
+		if err := i.propertyRepo.RemoveAll(ctx, removedProperties); err != nil {
 			return nil, err
 		}
+	}
+
+	if err := i.sceneRepo.Save(ctx, scene); err != nil {
+		return nil, err
 	}
 
 	tx.Commit()
