@@ -111,7 +111,6 @@ func TestBuilder_Build(t *testing.T) {
 				},
 				extensionOrder: []id.PluginExtensionID{id.PluginExtensionID("xxx"), id.PluginExtensionID("yyy")},
 				schema:         id.MustPropertySchemaID("hoge#0.1.0/fff").Ref(),
-				scene:          sceneID,
 			},
 		},
 	}
@@ -127,7 +126,6 @@ func TestBuilder_Build(t *testing.T) {
 				Name(tc.pname).
 				Schema(tc.schema).
 				Author(tc.author).
-				Scene(tc.scene).
 				Build()
 			assert.NoError(tt, err)
 			assert.Equal(tt, tc.expected, p)
@@ -171,7 +169,6 @@ func TestBuilder_MustBuild(t *testing.T) {
 				},
 				extensionOrder: []id.PluginExtensionID{id.PluginExtensionID("xxx"), id.PluginExtensionID("yyy")},
 				schema:         id.MustPropertySchemaID("hoge#0.1.0/fff").Ref(),
-				scene:          sceneID,
 			},
 		},
 	}
@@ -188,7 +185,6 @@ func TestBuilder_MustBuild(t *testing.T) {
 				Name(tc.pname).
 				Schema(tc.schema).
 				Author(tc.author).
-				Scene(tc.scene).
 				MustBuild()
 			assert.Equal(tt, tc.expected, p)
 		})

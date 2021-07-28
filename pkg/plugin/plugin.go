@@ -6,7 +6,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-// Plugin _
 type Plugin struct {
 	id             id.PluginID
 	name           i18n.String
@@ -16,7 +15,6 @@ type Plugin struct {
 	extensions     map[id.PluginExtensionID]*Extension
 	extensionOrder []id.PluginExtensionID
 	schema         *id.PropertySchemaID
-	scene          *id.SceneID
 }
 
 func (p *Plugin) ID() id.PluginID {
@@ -72,9 +70,4 @@ func (p *Plugin) Rename(name i18n.String) {
 
 func (p *Plugin) SetDescription(des i18n.String) {
 	p.description = des.Copy()
-}
-
-// Scene returns scene ID of the plugin. If the scene ID is nil, it indicates that the plugin is public and can be used by anyone.
-func (p *Plugin) Scene() *id.SceneID {
-	return p.scene.CopyRef()
 }

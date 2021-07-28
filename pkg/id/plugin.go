@@ -18,6 +18,7 @@ type PluginID struct {
 	name    string
 	version string
 	sys     bool
+	scene   *SceneID
 }
 
 var pluginNameRe = regexp.MustCompile("^[a-zA-Z0-9._-]+$")
@@ -29,6 +30,27 @@ func validatePluginName(s string) bool {
 	return pluginNameRe.MatchString(s)
 }
 
+func NewPluginID(name string, version string, scene *SceneID) (PluginID, error) {
+	if name == officialPluginIDStr {
+		// official plugin
+		return PluginID{name: name, sys: true}, nil
+	}
+
+	if !validatePluginName(name) {
+		return PluginID{}, ErrInvalidID
+	}
+
+	if _, err := semver.Parse(version); err != nil {
+		return PluginID{}, ErrInvalidID
+	}
+
+	return PluginID{
+		name:    name,
+		version: version,
+		scene:   scene.CopyRef(),
+	}, nil
+}
+
 // PluginIDFrom generates a new id.PluginID from a string.
 func PluginIDFrom(id string) (PluginID, error) {
 	if id == officialPluginIDStr {
@@ -36,15 +58,25 @@ func PluginIDFrom(id string) (PluginID, error) {
 		return PluginID{name: id, sys: true}, nil
 	}
 
-	ids := strings.Split(id, "#")
-	if len(ids) != 2 || !validatePluginName(ids[0]) {
+	// scene id
+	var sceneID *SceneID
+	scene := strings.SplitN(id, "~", 2)
+	if len(scene) == 2 {
+		sceneID2, err := SceneIDFrom(scene[0])
+		if err != nil {
+			return PluginID{}, ErrInvalidID
+		}
+		sceneID = &sceneID2
+		id = scene[1]
+	}
+
+	// name and version
+	ids := strings.SplitN(id, "#", 2)
+	if len(ids) != 2 {
 		return PluginID{}, ErrInvalidID
 	}
-	v, err2 := semver.Parse(ids[1])
-	if err2 != nil {
-		return PluginID{}, ErrInvalidID
-	}
-	return PluginID{name: ids[0], version: v.String()}, nil
+
+	return NewPluginID(ids[0], ids[1], sceneID)
 }
 
 // MustPluginID generates a new id.PluginID from a string, but panics if the string cannot be parsed.
@@ -90,6 +122,11 @@ func (d PluginID) System() bool {
 	return d.sys
 }
 
+// Scene returns a scene ID of the plugin. It indicates this plugin is private and available for only the specific scene.
+func (d PluginID) Scene() *SceneID {
+	return d.scene
+}
+
 // Validate returns true if id is valid.
 func (d PluginID) Validate() bool {
 	if d.sys {
@@ -99,11 +136,15 @@ func (d PluginID) Validate() bool {
 }
 
 // String returns a string representation.
-func (d PluginID) String() string {
+func (d PluginID) String() (s string) {
 	if d.sys {
 		return d.name
 	}
-	return d.name + "#" + d.version
+	if d.scene != nil {
+		s = d.scene.String() + "~"
+	}
+	s += d.name + "#" + d.version
+	return
 }
 
 // Ref returns a reference.

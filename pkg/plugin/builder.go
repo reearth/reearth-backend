@@ -65,8 +65,3 @@ func (b *Builder) Schema(schema *id.PropertySchemaID) *Builder {
 	b.p.schema = schema.CopyRef()
 	return b
 }
-
-func (b *Builder) Scene(scene *id.SceneID) *Builder {
-	b.p.scene = scene.CopyRef()
-	return b
-}
