@@ -7,7 +7,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/layer"
-	"github.com/reearth/reearth-backend/pkg/layer/initializer"
+	"github.com/reearth/reearth-backend/pkg/layer/layerops"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
 )
@@ -232,7 +232,7 @@ func (srv DatasetMigrator) migrateLayer(ctx context.Context, sid id.SceneID, old
 					name = rf.Value().Value().(string)
 				}
 
-				layerItem, property, err := initializer.LayerItem{
+				layerItem, property, err := layerops.LayerItem{
 					SceneID:         sid,
 					ParentLayerID:   lg.ID(),
 					LinkedDatasetID: &did,

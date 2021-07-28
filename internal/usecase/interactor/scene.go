@@ -192,7 +192,7 @@ func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, 
 		return nil, nil, err
 	}
 
-	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true)
+	widget, err = scene.NewWidget(id.NewWidgetID(), pid, eid, property.ID(), true)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -314,7 +314,6 @@ func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID
 }
 
 func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, _ id.PluginID, _ *id.PropertyID, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -373,14 +372,12 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 	s.PluginSystem().Add(scene.NewPlugin(pid, propertyID))
 
 	if p != nil {
-		err2 = i.propertyRepo.Save(ctx, p)
-		if err2 != nil {
+		if err := i.propertyRepo.Save(ctx, p); err != nil {
 			return nil, pid, nil, err2
 		}
 	}
 
-	err2 = i.sceneRepo.Save(ctx, s)
-	if err2 != nil {
+	if err := i.sceneRepo.Save(ctx, s); err != nil {
 		return nil, pid, nil, err2
 	}
 
@@ -389,7 +386,6 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 }
 
 func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -465,6 +461,7 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 			modifiedLayers = append(modifiedLayers, &ll2)
 		}
 	}
+
 	for _, lg := range layers.ToLayerGroupList() {
 		modified := false
 		cancel := false
@@ -525,7 +522,6 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 }
 
 func (i *Scene) UpgradePlugin(ctx context.Context, sid id.SceneID, oldPluginID, newPluginID id.PluginID, operator *usecase.Operator) (_ *scene.Scene, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
