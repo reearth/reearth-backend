@@ -124,7 +124,7 @@ func (d PluginID) System() bool {
 
 // Scene returns a scene ID of the plugin. It indicates this plugin is private and available for only the specific scene.
 func (d PluginID) Scene() *SceneID {
-	return d.scene
+	return d.scene.CopyRef()
 }
 
 // Validate returns true if id is valid.

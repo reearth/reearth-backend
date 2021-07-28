@@ -344,9 +344,11 @@ func TestPluginID_Version(t *testing.T) {
 
 func TestPluginID_Scene(t *testing.T) {
 	scene := MustSceneID("01fbpdqax0ttrftj3gb5gm4rw7")
-	assert.Equal(t, scene, *(PluginID{
+	sid := PluginID{
 		scene: &scene,
-	}.Scene()))
+	}.Scene()
+	assert.Equal(t, scene, *sid)
+	assert.NotSame(t, scene, *sid)
 }
 
 func TestPluginID_System(t *testing.T) {
