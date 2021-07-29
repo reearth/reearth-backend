@@ -46,16 +46,20 @@ func toScene(scene *scene.Scene) *Scene {
 		plugins = append(plugins, toScenePlugin(sp))
 	}
 
+	sceneWidgetAlignSystem := scene.WidgetAlignSystem()
+	widgetAlignSystem := toAlignSystem(sceneWidgetAlignSystem)
+
 	return &Scene{
-		ID:          scene.ID().ID(),
-		ProjectID:   scene.Project().ID(),
-		PropertyID:  scene.Property().ID(),
-		TeamID:      scene.Team().ID(),
-		RootLayerID: scene.RootLayer().ID(),
-		CreatedAt:   scene.CreatedAt(),
-		UpdatedAt:   scene.UpdatedAt(),
-		Widgets:     widgets,
-		Plugins:     plugins,
+		ID:                scene.ID().ID(),
+		ProjectID:         scene.Project().ID(),
+		PropertyID:        scene.Property().ID(),
+		TeamID:            scene.Team().ID(),
+		RootLayerID:       scene.RootLayer().ID(),
+		CreatedAt:         scene.CreatedAt(),
+		UpdatedAt:         scene.UpdatedAt(),
+		Widgets:           widgets,
+		WidgetAlignSystem: widgetAlignSystem,
+		Plugins:           plugins,
 	}
 }
 

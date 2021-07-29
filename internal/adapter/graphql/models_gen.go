@@ -909,6 +909,7 @@ type Scene struct {
 	RootLayerID           id.ID                    `json:"rootLayerId"`
 	Widgets               []*SceneWidget           `json:"widgets"`
 	Plugins               []*ScenePlugin           `json:"plugins"`
+	WidgetAlignSystem     *WidgetAlignSystem       `json:"widgetAlignSystem"`
 	DynamicDatasetSchemas []*DatasetSchema         `json:"dynamicDatasetSchemas"`
 	Project               *Project                 `json:"project"`
 	Team                  *Team                    `json:"team"`
@@ -1208,6 +1209,16 @@ type User struct {
 
 func (User) IsNode() {}
 
+type WidgetAlignSystem struct {
+	Inner *WidgetZone `json:"inner"`
+	Outer *WidgetZone `json:"outer"`
+}
+
+type WidgetArea struct {
+	WidgetIds []*id.ID `json:"widgetIds"`
+	Align     *string  `json:"align"`
+}
+
 type WidgetLayout struct {
 	Extendable      bool      `json:"extendable"`
 	Extended        bool      `json:"extended"`
@@ -1221,6 +1232,18 @@ type WidgetLayoutInput struct {
 	NewLocation *LocationInput `json:"newLocation"`
 	OldIndex    *int           `json:"oldIndex"`
 	NewIndex    *int           `json:"newIndex"`
+}
+
+type WidgetSection struct {
+	Top    *WidgetArea `json:"top"`
+	Middle *WidgetArea `json:"middle"`
+	Bottom *WidgetArea `json:"bottom"`
+}
+
+type WidgetZone struct {
+	Left   *WidgetSection `json:"left"`
+	Center *WidgetSection `json:"center"`
+	Right  *WidgetSection `json:"right"`
 }
 
 type Area string

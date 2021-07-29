@@ -803,6 +803,7 @@ type ComplexityRoot struct {
 		Team                  func(childComplexity int) int
 		TeamID                func(childComplexity int) int
 		UpdatedAt             func(childComplexity int) int
+		WidgetAlignSystem     func(childComplexity int) int
 		Widgets               func(childComplexity int) int
 	}
 
@@ -919,11 +920,33 @@ type ComplexityRoot struct {
 		Theme    func(childComplexity int) int
 	}
 
+	WidgetAlignSystem struct {
+		Inner func(childComplexity int) int
+		Outer func(childComplexity int) int
+	}
+
+	WidgetArea struct {
+		Align     func(childComplexity int) int
+		WidgetIds func(childComplexity int) int
+	}
+
 	WidgetLayout struct {
 		CurrentLocation func(childComplexity int) int
 		Extendable      func(childComplexity int) int
 		Extended        func(childComplexity int) int
 		Floating        func(childComplexity int) int
+	}
+
+	WidgetSection struct {
+		Bottom func(childComplexity int) int
+		Middle func(childComplexity int) int
+		Top    func(childComplexity int) int
+	}
+
+	WidgetZone struct {
+		Center func(childComplexity int) int
+		Left   func(childComplexity int) int
+		Right  func(childComplexity int) int
 	}
 }
 
@@ -5052,6 +5075,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Scene.UpdatedAt(childComplexity), true
 
+	case "Scene.widgetAlignSystem":
+		if e.complexity.Scene.WidgetAlignSystem == nil {
+			break
+		}
+
+		return e.complexity.Scene.WidgetAlignSystem(childComplexity), true
+
 	case "Scene.widgets":
 		if e.complexity.Scene.Widgets == nil {
 			break
@@ -5482,6 +5512,34 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.User.Theme(childComplexity), true
 
+	case "WidgetAlignSystem.inner":
+		if e.complexity.WidgetAlignSystem.Inner == nil {
+			break
+		}
+
+		return e.complexity.WidgetAlignSystem.Inner(childComplexity), true
+
+	case "WidgetAlignSystem.outer":
+		if e.complexity.WidgetAlignSystem.Outer == nil {
+			break
+		}
+
+		return e.complexity.WidgetAlignSystem.Outer(childComplexity), true
+
+	case "WidgetArea.align":
+		if e.complexity.WidgetArea.Align == nil {
+			break
+		}
+
+		return e.complexity.WidgetArea.Align(childComplexity), true
+
+	case "WidgetArea.widgetIds":
+		if e.complexity.WidgetArea.WidgetIds == nil {
+			break
+		}
+
+		return e.complexity.WidgetArea.WidgetIds(childComplexity), true
+
 	case "WidgetLayout.currentLocation":
 		if e.complexity.WidgetLayout.CurrentLocation == nil {
 			break
@@ -5509,6 +5567,48 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.WidgetLayout.Floating(childComplexity), true
+
+	case "WidgetSection.bottom":
+		if e.complexity.WidgetSection.Bottom == nil {
+			break
+		}
+
+		return e.complexity.WidgetSection.Bottom(childComplexity), true
+
+	case "WidgetSection.middle":
+		if e.complexity.WidgetSection.Middle == nil {
+			break
+		}
+
+		return e.complexity.WidgetSection.Middle(childComplexity), true
+
+	case "WidgetSection.top":
+		if e.complexity.WidgetSection.Top == nil {
+			break
+		}
+
+		return e.complexity.WidgetSection.Top(childComplexity), true
+
+	case "WidgetZone.center":
+		if e.complexity.WidgetZone.Center == nil {
+			break
+		}
+
+		return e.complexity.WidgetZone.Center(childComplexity), true
+
+	case "WidgetZone.left":
+		if e.complexity.WidgetZone.Left == nil {
+			break
+		}
+
+		return e.complexity.WidgetZone.Left(childComplexity), true
+
+	case "WidgetZone.right":
+		if e.complexity.WidgetZone.Right == nil {
+			break
+		}
+
+		return e.complexity.WidgetZone.Right(childComplexity), true
 
 	}
 	return 0, false
@@ -5883,6 +5983,30 @@ type PluginExtension {
   translatedDescription(lang: String): String! @goField(forceResolver: true)
 }
 
+# Widget Align System
+
+type WidgetAlignSystem {
+  inner: WidgetZone
+  outer: WidgetZone
+}
+
+type WidgetZone {
+  left: WidgetSection
+  center: WidgetSection
+  right: WidgetSection
+}
+
+type WidgetSection {
+  top: WidgetArea
+  middle: WidgetArea
+  bottom: WidgetArea
+}
+
+type WidgetArea {
+  widgetIds: [ID]
+  align: String
+}
+
 # Scene
 
 type Scene implements Node {
@@ -5895,6 +6019,7 @@ type Scene implements Node {
   rootLayerId: ID!
   widgets: [SceneWidget!]!
   plugins: [ScenePlugin!]!
+  widgetAlignSystem: WidgetAlignSystem
   dynamicDatasetSchemas: [DatasetSchema!]!
   project: Project @goField(forceResolver: true)
   team: Team @goField(forceResolver: true)
@@ -25660,6 +25785,38 @@ func (ec *executionContext) _Scene_plugins(ctx context.Context, field graphql.Co
 	return ec.marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScenePluginᚄ(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Scene_widgetAlignSystem(ctx context.Context, field graphql.CollectedField, obj *graphql1.Scene) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Scene",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.WidgetAlignSystem, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetAlignSystem)
+	fc.Result = res
+	return ec.marshalOWidgetAlignSystem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetAlignSystem(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Scene_dynamicDatasetSchemas(ctx context.Context, field graphql.CollectedField, obj *graphql1.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -27931,6 +28088,134 @@ func (ec *executionContext) _User_myTeam(ctx context.Context, field graphql.Coll
 	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐTeam(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _WidgetAlignSystem_inner(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetAlignSystem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetAlignSystem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Inner, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetZone)
+	fc.Result = res
+	return ec.marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetZone(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetAlignSystem_outer(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetAlignSystem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetAlignSystem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Outer, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetZone)
+	fc.Result = res
+	return ec.marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetZone(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetArea_widgetIds(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetArea) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetArea",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.WidgetIds, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*id.ID)
+	fc.Result = res
+	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetArea_align(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetArea) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetArea",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Align, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _WidgetLayout_extendable(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -28066,6 +28351,198 @@ func (ec *executionContext) _WidgetLayout_currentLocation(ctx context.Context, f
 	res := resTmp.(*graphql1.Location)
 	fc.Result = res
 	return ec.marshalOLocation2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocation(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetSection_top(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetSection) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetSection",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Top, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetArea)
+	fc.Result = res
+	return ec.marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetArea(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetSection_middle(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetSection) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetSection",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Middle, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetArea)
+	fc.Result = res
+	return ec.marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetArea(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetSection_bottom(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetSection) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetSection",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Bottom, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetArea)
+	fc.Result = res
+	return ec.marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetArea(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetZone_left(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetZone) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetZone",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Left, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetSection)
+	fc.Result = res
+	return ec.marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetSection(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetZone_center(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetZone) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetZone",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Center, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetSection)
+	fc.Result = res
+	return ec.marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetSection(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetZone_right(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetZone) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetZone",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Right, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.WidgetSection)
+	fc.Result = res
+	return ec.marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetSection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -36258,6 +36735,8 @@ func (ec *executionContext) _Scene(ctx context.Context, sel ast.SelectionSet, ob
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
+		case "widgetAlignSystem":
+			out.Values[i] = ec._Scene_widgetAlignSystem(ctx, field, obj)
 		case "dynamicDatasetSchemas":
 			out.Values[i] = ec._Scene_dynamicDatasetSchemas(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -37079,6 +37558,58 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 	return out
 }
 
+var widgetAlignSystemImplementors = []string{"WidgetAlignSystem"}
+
+func (ec *executionContext) _WidgetAlignSystem(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetAlignSystem) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, widgetAlignSystemImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("WidgetAlignSystem")
+		case "inner":
+			out.Values[i] = ec._WidgetAlignSystem_inner(ctx, field, obj)
+		case "outer":
+			out.Values[i] = ec._WidgetAlignSystem_outer(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var widgetAreaImplementors = []string{"WidgetArea"}
+
+func (ec *executionContext) _WidgetArea(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetArea) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, widgetAreaImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("WidgetArea")
+		case "widgetIds":
+			out.Values[i] = ec._WidgetArea_widgetIds(ctx, field, obj)
+		case "align":
+			out.Values[i] = ec._WidgetArea_align(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var widgetLayoutImplementors = []string{"WidgetLayout"}
 
 func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetLayout) graphql.Marshaler {
@@ -37107,6 +37638,62 @@ func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.Selection
 			}
 		case "currentLocation":
 			out.Values[i] = ec._WidgetLayout_currentLocation(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var widgetSectionImplementors = []string{"WidgetSection"}
+
+func (ec *executionContext) _WidgetSection(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetSection) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, widgetSectionImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("WidgetSection")
+		case "top":
+			out.Values[i] = ec._WidgetSection_top(ctx, field, obj)
+		case "middle":
+			out.Values[i] = ec._WidgetSection_middle(ctx, field, obj)
+		case "bottom":
+			out.Values[i] = ec._WidgetSection_bottom(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var widgetZoneImplementors = []string{"WidgetZone"}
+
+func (ec *executionContext) _WidgetZone(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetZone) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, widgetZoneImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("WidgetZone")
+		case "left":
+			out.Values[i] = ec._WidgetZone_left(ctx, field, obj)
+		case "center":
+			out.Values[i] = ec._WidgetZone_center(ctx, field, obj)
+		case "right":
+			out.Values[i] = ec._WidgetZone_right(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -40288,6 +40875,42 @@ func (ec *executionContext) marshalOFloat2ᚖfloat64(ctx context.Context, sel as
 	return graphql.MarshalFloat(*v)
 }
 
+func (ec *executionContext) unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx context.Context, v interface{}) ([]*id.ID, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]*id.ID, len(vSlice))
+	for i := range vSlice {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
+		res[i], err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx context.Context, sel ast.SelectionSet, v []*id.ID) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	for i := range v {
+		ret[i] = ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, sel, v[i])
+	}
+
+	return ret
+}
+
 func (ec *executionContext) unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx context.Context, v interface{}) ([]*id.ID, error) {
 	if v == nil {
 		return nil, nil
@@ -41074,12 +41697,40 @@ func (ec *executionContext) marshalOValueType2ᚖgithubᚗcomᚋreearthᚋreeart
 	return v
 }
 
+func (ec *executionContext) marshalOWidgetAlignSystem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetAlignSystem(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetAlignSystem) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._WidgetAlignSystem(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetArea(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetArea) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._WidgetArea(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayoutInput(ctx context.Context, v interface{}) (*graphql1.WidgetLayoutInput, error) {
 	if v == nil {
 		return nil, nil
 	}
 	res, err := ec.unmarshalInputWidgetLayoutInput(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetSection(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetSection) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._WidgetSection(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetZone(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetZone) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._WidgetZone(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐZone(ctx context.Context, v interface{}) (*graphql1.Zone, error) {

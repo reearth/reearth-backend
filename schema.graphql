@@ -307,6 +307,30 @@ type PluginExtension {
   translatedDescription(lang: String): String! @goField(forceResolver: true)
 }
 
+# Widget Align System
+
+type WidgetAlignSystem {
+  inner: WidgetZone
+  outer: WidgetZone
+}
+
+type WidgetZone {
+  left: WidgetSection
+  center: WidgetSection
+  right: WidgetSection
+}
+
+type WidgetSection {
+  top: WidgetArea
+  middle: WidgetArea
+  bottom: WidgetArea
+}
+
+type WidgetArea {
+  widgetIds: [ID]
+  align: String
+}
+
 # Scene
 
 type Scene implements Node {
@@ -319,6 +343,7 @@ type Scene implements Node {
   rootLayerId: ID!
   widgets: [SceneWidget!]!
   plugins: [ScenePlugin!]!
+  widgetAlignSystem: WidgetAlignSystem
   dynamicDatasetSchemas: [DatasetSchema!]!
   project: Project @goField(forceResolver: true)
   team: Team @goField(forceResolver: true)

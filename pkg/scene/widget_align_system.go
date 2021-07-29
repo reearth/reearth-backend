@@ -95,13 +95,11 @@ func (was *WidgetAlignSystem) WidgetArea(zone, section, area string) *WidgetArea
 
 func (was *WidgetAlignSystem) WidgetIds(z, s, a string) []*id.WidgetID {
 	area := was.WidgetArea(z, s, a)
-
 	return area.widgetIds
 }
 
 func (was *WidgetAlignSystem) Alignment(z, s, a string) string {
 	area := was.WidgetArea(z, s, a)
-
 	return area.align
 }
 
@@ -111,7 +109,8 @@ func (was *WidgetAlignSystem) Add(wid *id.WidgetID, l *Location) {
 		return
 	}
 	a := was.WidgetArea(l.Zone, l.Section, l.Area)
-	a.widgetIds = append(a.widgetIds, wid)
+	nIds := append(a.widgetIds, wid)
+	a.widgetIds = nIds
 }
 
 // Remove a widget from the align system
@@ -159,4 +158,12 @@ func insertInt(array []*id.WidgetID, value *id.WidgetID, index int) []*id.Widget
 // removeInt is used in moveInt to remove the widgetID from original position(index)
 func removeInt(array []*id.WidgetID, index int) []*id.WidgetID {
 	return append(array[:index], array[index+1:]...)
+}
+
+func (was *WidgetAlignSystem) WidgetAreaFrom(wids []*id.WidgetID, align, z, s, a string) {
+	if was == nil {
+		return
+	}
+	wa := was.WidgetArea(z, s, a)
+	wa.widgetIds = wids
 }
