@@ -25,6 +25,33 @@ type Archive interface {
 	Next() (*File, error)
 }
 
+type FilteredArchive struct {
+	a       Archive
+	skipper func(p string) bool
+}
+
+func NewFilteredArchive(a Archive, skipper func(p string) bool) *FilteredArchive {
+	return &FilteredArchive{
+		a:       a,
+		skipper: skipper,
+	}
+}
+
+func (s *FilteredArchive) Next() (*File, error) {
+	for {
+		n, err := s.a.Next()
+		if err != nil {
+			return nil, err
+		}
+		if n == nil {
+			return nil, nil
+		}
+		if !s.skipper(n.Path) {
+			return n, nil
+		}
+	}
+}
+
 type ZipReader struct {
 	zr *zip.Reader
 	i  int
