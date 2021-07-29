@@ -1,6 +1,7 @@
 package file
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"testing"
@@ -76,4 +77,37 @@ func TestReaders(t *testing.T) {
 			assert.Nil(n)
 		})
 	}
+}
+
+func TestFilteredArchive(t *testing.T) {
+	var paths []string
+	a := NewFilteredArchive(&testArchive{}, func(p string) bool {
+		paths = append(paths, p)
+		return p == "1"
+	})
+	n, err := a.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "0"}, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "2"}, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Nil(t, n)
+	assert.Equal(t, []string{"0", "1", "2"}, paths)
+}
+
+type testArchive struct {
+	c int
+}
+
+func (a *testArchive) Next() (*File, error) {
+	if a.c >= 3 {
+		return nil, nil
+	}
+	f := &File{
+		Path: fmt.Sprintf("%d", a.c),
+	}
+	a.c++
+	return f, nil
 }
