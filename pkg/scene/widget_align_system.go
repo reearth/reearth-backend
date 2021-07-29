@@ -93,11 +93,13 @@ func (was *WidgetAlignSystem) WidgetArea(zone, section, area string) *WidgetArea
 	return nil
 }
 
+// WidgetIds will return a slice of widget ids from a specific area
 func (was *WidgetAlignSystem) WidgetIds(z, s, a string) []*id.WidgetID {
 	area := was.WidgetArea(z, s, a)
 	return area.widgetIds
 }
 
+// Alignment will return the alignment of a specific area
 func (was *WidgetAlignSystem) Alignment(z, s, a string) string {
 	area := was.WidgetArea(z, s, a)
 	return area.align
@@ -160,6 +162,7 @@ func removeInt(array []*id.WidgetID, index int) []*id.WidgetID {
 	return append(array[:index], array[index+1:]...)
 }
 
+// WidgetAreaFrom will add a slice of widget ids to a specific area of an align system
 func (was *WidgetAlignSystem) WidgetAreaFrom(wids []*id.WidgetID, align, z, s, a string) {
 	if was == nil {
 		return
