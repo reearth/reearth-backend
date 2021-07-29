@@ -195,14 +195,14 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 
 	widgetLayout := extension.WidgetLayout()
 
-	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, &scene.WidgetLayout{Extendable: widgetLayout.Extendable, Extended: widgetLayout.Extended, Floating: widgetLayout.Floating, CurrentLocation: widgetLayout.CurrentLocation})
+	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, &scene.WidgetLayout{Extendable: widgetLayout.Extendable, Extended: widgetLayout.Extended, Floating: widgetLayout.Floating, DefaultLocation: widgetLayout.DefaultLocation})
 	if err != nil {
 		return nil, nil, err
 	}
 
 	s.WidgetSystem().Add(widget)
 	if !widget.WidgetLayout().Floating {
-		s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().CurrentLocation)
+		s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
 	}
 
 	err = i.propertyRepo.Save(ctx, property)
@@ -259,26 +259,36 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	if param.Enabled != nil {
 		widget.SetEnabled(*param.Enabled)
 	}
+	if !widget.WidgetLayout().Floating {
+		if *param.Enabled {
+			if param.Layout != nil {
+				l := param.Layout
 
-	if *param.Enabled {
-		if param.Layout != nil {
-			l := param.Layout
+				if l.Extended != nil && widget.WidgetLayout().Extendable {
+					widget.SetExtended(*l.Extended)
+				}
 
-			if l.Extended != nil && widget.WidgetLayout().Extendable {
-				widget.SetExtended(*l.Extended)
+				if l.NewIndex != nil && l.OldIndex != nil && l.Location != nil {
+					was.Update(widget.ID().Ref(), l.Location, nil, l.OldIndex, l.NewIndex, nil)
+				} else if l.NewLocation != nil && l.Location != nil {
+					was.Update(widget.ID().Ref(), l.Location, l.NewLocation, nil, nil, nil)
+				} else if l.Align != nil && l.Location != nil {
+					was.Update(widget.ID().Ref(), l.Location, l.NewLocation, nil, nil, l.Align)
+				} else {
+					if l.Location != nil {
+						was.Add(widget.ID().Ref(), l.Location)
+					} else {
+						was.Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
+					}
+				}
 			}
-
-			if l.NewIndex != nil && l.OldIndex != nil {
-				was.Update(widget.ID().Ref(), nil, nil, l.OldIndex, l.NewIndex)
-			} else if l.NewLocation != nil && l.Location != nil {
-				widget.SetCurrentLocation(*l.NewLocation)
-				was.Update(widget.ID().Ref(), l.Location, l.NewLocation, nil, nil)
+		} else {
+			if param.Layout.Location != nil {
+				was.Remove(widget.ID().Ref(), param.Layout.Location)
 			} else {
-				was.Add(widget.ID().Ref(), widget.WidgetLayout().CurrentLocation)
+				was.Remove(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
 			}
 		}
-	} else {
-		was.Remove(widget.ID().Ref(), widget.WidgetLayout().CurrentLocation)
 	}
 
 	err2 = i.sceneRepo.Save(ctx, scene)

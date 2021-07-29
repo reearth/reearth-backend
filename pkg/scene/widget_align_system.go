@@ -133,14 +133,21 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 }
 
 // Update a widget in the align system
-func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index, newIndex *int) {
-	if was == nil && wid == nil {
+func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index, newIndex *int, align *string) {
+	if was == nil && wid == nil && l == nil {
 		return
 	}
 
+	a := was.WidgetArea(l.Zone, l.Section, l.Area)
+
+	if align != nil {
+		a.align = *align
+	}
+
 	if index != nil && newIndex != nil {
-		moveInt(was.WidgetArea(l.Zone, l.Section, l.Area).widgetIds, *index, *newIndex)
-	} else {
+		moveInt(a.widgetIds, *index, *newIndex)
+	}
+	if l != nil && newL != nil {
 		was.Remove(wid, l)
 		was.Add(wid, newL)
 	}

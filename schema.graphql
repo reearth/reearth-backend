@@ -277,7 +277,7 @@ type WidgetLayout {
   extendable: Boolean!
   extended: Boolean!
   floating: Boolean!
-  currentLocation: Location
+  defaultLocation: Location
 }
 
 enum PluginExtensionType {
@@ -880,10 +880,11 @@ input LocationInput {
 
 input WidgetLayoutInput {
   extended: Boolean
-	Location: LocationInput
+	Location: LocationInput!
 	newLocation: LocationInput
 	oldIndex: Int
 	newIndex: Int
+  align: String
 }
 
 input AddWidgetInput {

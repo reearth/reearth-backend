@@ -15,7 +15,7 @@ type WidgetLayout struct {
 	Extendable      bool
 	Extended        bool
 	Floating        bool
-	CurrentLocation *Location
+	DefaultLocation *Location
 }
 
 type WidgetArea struct {

@@ -75,6 +75,9 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 		if l.NewLocation != nil {
 			layout.NewLocation = &scene.Location{Zone: l.NewLocation.Zone, Section: l.NewLocation.Section, Area: l.NewLocation.Area}
 		}
+		if l.Align != nil {
+			layout.Align = l.Align
+		}
 	}
 	scene, widget, err := c.usecase().UpdateWidget(ctx, interfaces.UpdateWidgetParam{
 		SceneID:     id.SceneID(ginput.SceneID),

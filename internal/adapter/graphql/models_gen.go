@@ -1224,7 +1224,7 @@ type WidgetLayout struct {
 	Extendable      bool      `json:"extendable"`
 	Extended        bool      `json:"extended"`
 	Floating        bool      `json:"floating"`
-	CurrentLocation *Location `json:"currentLocation"`
+	DefaultLocation *Location `json:"defaultLocation"`
 }
 
 type WidgetLayoutInput struct {
@@ -1233,6 +1233,7 @@ type WidgetLayoutInput struct {
 	NewLocation *LocationInput `json:"newLocation"`
 	OldIndex    *int           `json:"oldIndex"`
 	NewIndex    *int           `json:"newIndex"`
+	Align       *string        `json:"align"`
 }
 
 type WidgetSection struct {

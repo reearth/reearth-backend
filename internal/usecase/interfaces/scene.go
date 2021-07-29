@@ -15,6 +15,7 @@ type LayoutParams struct {
 	NewLocation *scene.Location
 	OldIndex,
 	NewIndex *int
+	Align *string
 }
 
 type UpdateWidgetParam struct {

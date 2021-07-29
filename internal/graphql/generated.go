@@ -931,7 +931,7 @@ type ComplexityRoot struct {
 	}
 
 	WidgetLayout struct {
-		CurrentLocation func(childComplexity int) int
+		DefaultLocation func(childComplexity int) int
 		Extendable      func(childComplexity int) int
 		Extended        func(childComplexity int) int
 		Floating        func(childComplexity int) int
@@ -5540,12 +5540,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.WidgetArea.WidgetIds(childComplexity), true
 
-	case "WidgetLayout.currentLocation":
-		if e.complexity.WidgetLayout.CurrentLocation == nil {
+	case "WidgetLayout.defaultLocation":
+		if e.complexity.WidgetLayout.DefaultLocation == nil {
 			break
 		}
 
-		return e.complexity.WidgetLayout.CurrentLocation(childComplexity), true
+		return e.complexity.WidgetLayout.DefaultLocation(childComplexity), true
 
 	case "WidgetLayout.extendable":
 		if e.complexity.WidgetLayout.Extendable == nil {
@@ -5953,7 +5953,7 @@ type WidgetLayout {
   extendable: Boolean!
   extended: Boolean!
   floating: Boolean!
-  currentLocation: Location
+  defaultLocation: Location
 }
 
 enum PluginExtensionType {
@@ -6556,10 +6556,11 @@ input LocationInput {
 
 input WidgetLayoutInput {
   extended: Boolean
-	Location: LocationInput
+	Location: LocationInput!
 	newLocation: LocationInput
 	oldIndex: Int
 	newIndex: Int
+  align: String
 }
 
 input AddWidgetInput {
@@ -28323,7 +28324,7 @@ func (ec *executionContext) _WidgetLayout_floating(ctx context.Context, field gr
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _WidgetLayout_currentLocation(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
+func (ec *executionContext) _WidgetLayout_defaultLocation(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -28341,7 +28342,7 @@ func (ec *executionContext) _WidgetLayout_currentLocation(ctx context.Context, f
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.CurrentLocation, nil
+		return obj.DefaultLocation, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -32100,7 +32101,7 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Location"))
-			it.Location, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
+			it.Location, err = ec.unmarshalNLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -32125,6 +32126,14 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIndex"))
 			it.NewIndex, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "align":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("align"))
+			it.Align, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -37646,8 +37655,8 @@ func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.Selection
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "currentLocation":
-			out.Values[i] = ec._WidgetLayout_currentLocation(ctx, field, obj)
+		case "defaultLocation":
+			out.Values[i] = ec._WidgetLayout_defaultLocation(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

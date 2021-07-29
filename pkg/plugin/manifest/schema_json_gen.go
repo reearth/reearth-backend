@@ -347,7 +347,7 @@ const SchemaJSON string = `{
                 "null"
               ]
             },
-            "currentLocation": {
+            "defaultLocation": {
               "$ref": "#/definitions/location"
             }
           }

@@ -343,7 +343,7 @@
                 "null"
               ]
             },
-            "currentLocation": {
+            "defaultLocation": {
               "$ref": "#/definitions/location"
             }
           }
