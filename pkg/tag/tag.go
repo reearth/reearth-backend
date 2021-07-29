@@ -2,37 +2,72 @@ package tag
 
 import "github.com/reearth/reearth-backend/pkg/id"
 
-type TagBase struct {
+type tagBase struct {
 	id                  id.TagID
 	label               string
 	scene               id.SceneID
 	linkedDatasetSchema *id.DatasetSchemaID
 }
 
-func (t *TagBase) ID() id.TagID {
+type Tag struct {
+	tagBase tagBase
+}
+
+func (t *tagBase) ID() id.TagID {
 	return t.id
 }
 
-func (t *TagBase) Label() string {
+func (t *tagBase) Label() string {
 	return t.label
 }
 
-func (t *TagBase) Scene() id.SceneID {
+func (t *tagBase) Scene() id.SceneID {
 	return t.scene
 }
 
-func (t *TagBase) SetLabel(label string) {
+func (t *tagBase) SetLabel(label string) {
 	t.label = label
 }
 
-func (t *TagBase) IsLinked() bool {
+func (t *tagBase) IsLinked() bool {
 	if t == nil {
 		return false
 	}
 	return t.linkedDatasetSchema != nil
 }
 
-func (t *TagBase) LinkedDatasetSchema() *id.DatasetSchemaID {
+func (t *Tag) ID() id.TagID {
+	return t.tagBase.ID()
+}
+
+func (t *Tag) Label() string {
+	return t.tagBase.Label()
+}
+
+func (t *Tag) Scene() id.SceneID {
+	return t.tagBase.Scene()
+}
+
+func (t *Tag) SetLabel(label string) {
+	t.tagBase.label = label
+}
+
+func (t *Tag) IsLinked() bool {
+	if t == nil {
+		return false
+	}
+	return t.tagBase.LinkedDatasetSchema() != nil
+}
+
+func (t *Tag) LinkedDatasetSchema() *id.DatasetSchemaID {
+	if t == nil || t.tagBase.linkedDatasetSchema == nil {
+		return nil
+	}
+	id := t.tagBase.linkedDatasetSchema
+	return id
+}
+
+func (t *tagBase) LinkedDatasetSchema() *id.DatasetSchemaID {
 	if t == nil || t.linkedDatasetSchema == nil {
 		return nil
 	}
@@ -40,7 +75,7 @@ func (t *TagBase) LinkedDatasetSchema() *id.DatasetSchemaID {
 	return &id
 }
 
-func (t *TagBase) LinkToDatasetSchema(ds id.DatasetSchemaID) {
+func (t *tagBase) LinkToDatasetSchema(ds id.DatasetSchemaID) {
 	if t == nil {
 		return
 	}
@@ -48,7 +83,7 @@ func (t *TagBase) LinkToDatasetSchema(ds id.DatasetSchemaID) {
 	t.linkedDatasetSchema = &ds2
 }
 
-func (t *TagBase) Unlink() {
+func (t *tagBase) Unlink() {
 	if t == nil {
 		return
 	}

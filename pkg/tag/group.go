@@ -2,12 +2,12 @@ package tag
 
 import "github.com/reearth/reearth-backend/pkg/id"
 
-type Group struct {
-	TagBase
+type TagGroup struct {
+	tagBase
 	tags []id.TagID
 }
 
-func (g *Group) Items() []id.TagID {
+func (g *TagGroup) Items() []id.TagID {
 	if g == nil {
 		return nil
 	}
@@ -17,14 +17,14 @@ func (g *Group) Items() []id.TagID {
 	return g.tags
 }
 
-func (g *Group) AddItem(t id.TagID) {
+func (g *TagGroup) AddItem(t id.TagID) {
 	if g == nil {
 		return
 	}
 	g.tags = append(g.tags, t)
 }
 
-func (g *Group) RemoveItem(t id.TagID) {
+func (g *TagGroup) RemoveItem(t id.TagID) {
 	if g == nil {
 		return
 	}

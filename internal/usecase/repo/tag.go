@@ -14,4 +14,6 @@ type Tag interface {
 	FindByIds(context.Context, []id.TagID, id.SceneID) ([]tag.Tag, error)
 	Save(context.Context, tag.Tag) error
 	SaveAll(context.Context, []id.TagID) error
+	Remove(context.Context, id.TagID) error
+	RemoveAll(context.Context, []id.TagID) error
 }

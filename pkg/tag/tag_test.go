@@ -29,7 +29,7 @@ func TestTagBase_Label(t *testing.T) {
 	}
 
 	t.Run(test.name, func(t *testing.T) {
-		tr := &TagBase{
+		tr := &tagBase{
 			id:                  test.fields.id,
 			label:               test.fields.label,
 			scene:               test.fields.scene,
@@ -65,7 +65,7 @@ func TestTagBase_SetLabel(t *testing.T) {
 		args: args{label: "newLabel"},
 	}
 	t.Run(test.name, func(t *testing.T) {
-		tr := &TagBase{
+		tr := &tagBase{
 			id:                  test.fields.id,
 			label:               test.fields.label,
 			scene:               test.fields.scene,
