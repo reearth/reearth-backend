@@ -147,7 +147,7 @@ func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index,
 	if index != nil && newIndex != nil {
 		moveInt(a.widgetIds, *index, *newIndex)
 	}
-	if l != nil && newL != nil {
+	if newL != nil {
 		was.Remove(wid, l)
 		was.Add(wid, newL)
 	}
