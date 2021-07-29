@@ -15,7 +15,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/file"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/log"
-	"github.com/reearth/reearth-backend/pkg/plugin"
+	"google.golang.org/api/iterator"
 )
 
 const (
@@ -183,7 +183,7 @@ func (f *fileRepo) RemoveAsset(ctx context.Context, u *url.URL) error {
 	}
 	bucket, err := f.bucket(ctx)
 	if err != nil {
-		return err
+		return err1.ErrInternalBy(err)
 	}
 	object := bucket.Object(name)
 	if err := object.Delete(ctx); err != nil {
@@ -195,68 +195,26 @@ func (f *fileRepo) RemoveAsset(ctx context.Context, u *url.URL) error {
 	return nil
 }
 
-func (f *fileRepo) UploadAndExtractPluginFiles(ctx context.Context, archive file.Archive, plugin *plugin.Plugin) (*url.URL, error) {
-	defer func() {
-		_ = archive.Close()
-	}()
-
-	basePath := path.Join(gcsPluginBasePath, plugin.ID().Name(), plugin.Version().String())
-	objectURL := getGCSObjectURL(f.base, basePath)
-	if objectURL == nil {
-		return nil, gateway.ErrInvalidFile
+func (f *fileRepo) RemovePlugin(ctx context.Context, pid id.PluginID) error {
+	filename := path.Join(gcsMapBasePath, pid.String())
+	if filename == "" {
+		return gateway.ErrInvalidFile
 	}
 
-	for {
-		ff, err := archive.Next()
-		if errors.Is(err, file.EOF) {
-			break
-		}
-		bucket, err := f.bucket(ctx)
-		if err != nil {
-			return nil, err
-		}
-		name := path.Join(basePath, ff.Fullpath)
-		object := bucket.Object(name)
-		_, err2 := object.Attrs(ctx)
-		if errors.Is(err2, storage.ErrBucketNotExist) {
-			return nil, gateway.ErrFailedToUploadFile
-		} else if !errors.Is(err2, storage.ErrObjectNotExist) {
-			// does not overwrite
-			continue
-		}
-
-		writer := object.NewWriter(ctx)
-		if _, err := io.Copy(writer, ff.Content); err != nil {
-			log.Errorf("gcs: err=%+v\n", err)
-			return nil, gateway.ErrFailedToUploadFile
-		}
-		if err := writer.Close(); err != nil {
-			log.Errorf("gcs: err=%+v\n", err)
-			return nil, gateway.ErrFailedToUploadFile
-		}
+	bucket, err := f.bucket(ctx)
+	if err != nil {
+		return err1.ErrInternalBy(err)
 	}
 
-	return objectURL, nil
-}
 
-func getGCSObjectURL(base *url.URL, objectName string) *url.URL {
-	if base == nil {
-		return nil
+	object := bucket.Object(name)
+	if err := object.Delete(ctx); err != nil {
+		if errors.Is(err, storage.ErrObjectNotExist) {
+			return nil
+		}
+		return err1.ErrInternalBy(err)
 	}
-	b := *base
-	b.Path = path.Join(b.Path, objectName)
-	return &b
-}
-
-func getGCSObjectNameFromURL(base, u *url.URL) string {
-	if u == nil {
-		return ""
-	}
-	bp := ""
-	if base != nil {
-		bp = base.Path
-	}
-	return strings.TrimPrefix(strings.TrimPrefix(u.Path, bp), "/")
+	return nil
 }
 
 func (f *fileRepo) UploadBuiltScene(ctx context.Context, reader io.Reader, name string) error {
@@ -323,4 +281,46 @@ func (f *fileRepo) RemoveBuiltScene(ctx context.Context, name string) error {
 		return err1.ErrInternalBy(err)
 	}
 	return nil
+}
+
+func (f *fileRepo) DeleteRecursive(ctx context.Context, path string) error {
+	bucket, err := f.bucket(ctx)
+	if err != nil {
+		return err
+	}
+	it := bucket.Objects(ctx, &storage.Query{
+		Prefix:    path,
+	})
+	for {
+		oa, err := it.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return err1.ErrInternalBy(err)
+		}
+		oa.
+		// o.Delete(ctx)
+	}
+
+}
+
+func getGCSObjectURL(base *url.URL, objectName string) *url.URL {
+	if base == nil {
+		return nil
+	}
+	b := *base
+	b.Path = path.Join(b.Path, objectName)
+	return &b
+}
+
+func getGCSObjectNameFromURL(base, u *url.URL) string {
+	if u == nil {
+		return ""
+	}
+	bp := ""
+	if base != nil {
+		bp = base.Path
+	}
+	return strings.TrimPrefix(strings.TrimPrefix(u.Path, bp), "/")
 }
