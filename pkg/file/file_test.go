@@ -34,7 +34,7 @@ func TestReaders(t *testing.T) {
 
 	testCases := []struct {
 		Name    string
-		Archive Archive
+		Archive Iterator
 		Files   []string
 	}{
 		{
@@ -79,9 +79,9 @@ func TestReaders(t *testing.T) {
 	}
 }
 
-func TestFilteredArchive(t *testing.T) {
+func TestFilteredIterator(t *testing.T) {
 	var paths []string
-	a := NewFilteredArchive(&testArchive{}, func(p string) bool {
+	a := NewFilteredIterator(&testArchive{}, func(p string) bool {
 		paths = append(paths, p)
 		return p == "1"
 	})

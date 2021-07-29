@@ -23,7 +23,7 @@ func NewPluginRepository(basePath string) gateway.PluginRepository {
 	}
 }
 
-func (r *pluginRepository) Data(ctx context.Context, id id.PluginID) (file.Archive, error) {
+func (r *pluginRepository) Data(ctx context.Context, id id.PluginID) (file.Iterator, error) {
 	return r.getArchive(id)
 }
 
@@ -53,7 +53,7 @@ func (r *pluginRepository) Manifest(ctx context.Context, id id.PluginID) (*manif
 	return nil, manifest.ErrFailedToParseManifest
 }
 
-func (r *pluginRepository) getArchive(id id.PluginID) (file.Archive, error) {
+func (r *pluginRepository) getArchive(id id.PluginID) (file.Iterator, error) {
 	return NewArchive(
 		path.Join(r.basePath, id.Name()+"_"+id.Version().String()),
 	)

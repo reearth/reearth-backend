@@ -1,4 +1,4 @@
-// Package file provides convenient helpers for files, and abstractions to handle variable file format with few interfaces.
+// Package file provides convenient helpers for files and abstractions of files
 package file
 
 import (
@@ -10,7 +10,7 @@ import (
 	"io"
 )
 
-// File abstracts files for each archive formats.
+// File abstracts an abstract file
 type File struct {
 	Content io.ReadCloser
 	Path    string
@@ -19,25 +19,25 @@ type File struct {
 	ContentType string
 }
 
-// Archive abstracts variable archive formats
-type Archive interface {
+// Iterator is an iterator of files
+type Iterator interface {
 	// Next returns the next File. If there is no next File, returns nil file and nil error
 	Next() (*File, error)
 }
 
-type FilteredArchive struct {
-	a       Archive
+type FilteredIterator struct {
+	a       Iterator
 	skipper func(p string) bool
 }
 
-func NewFilteredArchive(a Archive, skipper func(p string) bool) *FilteredArchive {
-	return &FilteredArchive{
+func NewFilteredIterator(a Iterator, skipper func(p string) bool) *FilteredIterator {
+	return &FilteredIterator{
 		a:       a,
 		skipper: skipper,
 	}
 }
 
-func (s *FilteredArchive) Next() (*File, error) {
+func (s *FilteredIterator) Next() (*File, error) {
 	for {
 		n, err := s.a.Next()
 		if err != nil {
