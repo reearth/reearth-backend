@@ -100,9 +100,9 @@ func (was *WidgetAlignSystem) WidgetIds(z, s, a string) []*id.WidgetID {
 }
 
 // Alignment will return the alignment of a specific area
-func (was *WidgetAlignSystem) Alignment(z, s, a string) string {
+func (was *WidgetAlignSystem) Alignment(z, s, a string) *string {
 	area := was.WidgetArea(z, s, a)
-	return area.align
+	return &area.align
 }
 
 // Add a widget to the align system

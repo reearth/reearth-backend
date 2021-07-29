@@ -201,7 +201,7 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 	}
 
 	s.WidgetSystem().Add(widget)
-	if widget.WidgetLayout().Floating == false {
+	if !widget.WidgetLayout().Floating {
 		s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().CurrentLocation)
 	}
 
@@ -260,11 +260,11 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 		widget.SetEnabled(*param.Enabled)
 	}
 
-	if *param.Enabled == true {
+	if *param.Enabled {
 		if param.Layout != nil {
 			l := param.Layout
 
-			if l.Extended != nil && widget.WidgetLayout().Extendable == true {
+			if l.Extended != nil && widget.WidgetLayout().Extendable {
 				widget.SetExtended(*l.Extended)
 			}
 
