@@ -1,50 +1,38 @@
 package fs
 
 import (
-	"net/url"
-	"path"
-	"strings"
+	"os"
+	"path/filepath"
 
+	err1 "github.com/reearth/reearth-backend/pkg/error"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 )
 
 const (
-	manifestFilePath = "reearth.json"
 	assetDir         = "assets"
 	pluginDir        = "plugins"
 	publishedDir     = "published"
+	manifestFilePath = "reearth.json"
 )
 
-func getPluginFilePath(base string, pluginID id.PluginID, filename string) string {
-	return path.Join(base, pluginDir, pluginID.Name(), pluginID.Version().String(), filename)
-}
-
-func getAssetFilePath(base string, filename string) string {
-	return path.Join(base, assetDir, filename)
-}
-
-func getPublishedDataFilePath(base, name string) string {
-	return path.Join(base, publishedDir, name+".json")
-}
-
-func getAssetFileURL(base *url.URL, filename string) *url.URL {
-	if base == nil {
-		return nil
+func readManifest(base string, pid id.PluginID) (*manifest.Manifest, error) {
+	file, err := os.Open(filepath.Join(base, pluginDir, pid.String(), manifestFilePath))
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, err1.ErrNotFound
+		}
+		return nil, err1.ErrInternalBy(err)
 	}
 
-	b := *base
-	b.Path = path.Join(b.Path, filename)
-	return &b
-}
+	defer func() {
+		_ = file.Close()
+	}()
 
-func getAssetFilePathFromURL(base string, u *url.URL) string {
-	if u == nil {
-		return ""
+	m, err := manifest.Parse(file)
+	if err != nil {
+		return nil, err1.ErrInternalBy(err)
 	}
-	p := strings.Split(u.Path, "/")
-	if len(p) == 0 {
-		return ""
-	}
-	f := p[len(p)-1]
-	return getAssetFilePath(base, f)
+
+	return m, nil
 }

@@ -18,5 +18,5 @@ func TestGetAssetFileURL(t *testing.T) {
 func TestGetAssetFilePathFromURL(t *testing.T) {
 	u, err := url.Parse("http://hoge.com/assets/xxx.yyy")
 	assert.NoError(t, err)
-	assert.Equal(t, "a/assets/xxx.yyy", getAssetFilePathFromURL("a", u))
+	assert.Equal(t, "xxx.yyy", getAssetFilePathFromURL(u))
 }

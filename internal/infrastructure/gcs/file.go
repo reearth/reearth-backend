@@ -54,77 +54,11 @@ func NewFile(bucketName, base string, cacheControl string) (gateway.File, error)
 	}, nil
 }
 
-func (f *fileRepo) bucket(ctx context.Context) (*storage.BucketHandle, error) {
-	client, err := storage.NewClient(ctx)
-	if err != nil {
-		return nil, err
-	}
-	bucket := client.Bucket(f.bucketName)
-	return bucket, err
-}
-
-func (f *fileRepo) ReadAsset(ctx context.Context, name string) (io.Reader, error) {
+func (f *fileRepo) ReadAsset(ctx context.Context, name string) (io.ReadCloser, error) {
 	if name == "" {
 		return nil, err1.ErrNotFound
 	}
-
-	p := path.Join(gcsAssetBasePath, name)
-	bucket, err := f.bucket(ctx)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gcs: read asset from gs://%s/%s", f.bucketName, p)
-	reader, err := bucket.Object(p).NewReader(ctx)
-	if err != nil {
-		if errors.Is(err, storage.ErrObjectNotExist) {
-			return nil, err1.ErrNotFound
-		}
-		return nil, err1.ErrInternalBy(err)
-	}
-	return reader, nil
-}
-
-func (f *fileRepo) ReadPluginFile(ctx context.Context, plugin id.PluginID, name string) (io.Reader, error) {
-	if name == "" {
-		return nil, err1.ErrNotFound
-	}
-
-	p := path.Join(gcsPluginBasePath, plugin.Name(), plugin.Version().String(), name)
-	bucket, err := f.bucket(ctx)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gcs: read plugin from gs://%s/%s", f.bucketName, p)
-	reader, err := bucket.Object(p).NewReader(ctx)
-	if err != nil {
-		if errors.Is(err, storage.ErrObjectNotExist) {
-			return nil, err1.ErrNotFound
-		}
-		return nil, err1.ErrInternalBy(err)
-	}
-	return reader, nil
-}
-
-func (f *fileRepo) ReadBuiltSceneFile(ctx context.Context, name string) (io.Reader, error) {
-	if name == "" {
-		return nil, err1.ErrNotFound
-	}
-
-	p := path.Join(gcsMapBasePath, name+".json")
-	bucket, err := f.bucket(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	log.Infof("gcs: read scene from gs://%s/%s", f.bucketName, p)
-	reader, err := bucket.Object(p).NewReader(ctx)
-	if err != nil {
-		if errors.Is(err, storage.ErrObjectNotExist) {
-			return nil, err1.ErrNotFound
-		}
-		return nil, err1.ErrInternalBy(err)
-	}
-	return reader, nil
+	return f.read(ctx, path.Join(gcsAssetBasePath, name))
 }
 
 func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, error) {
@@ -135,174 +69,209 @@ func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, 
 		return nil, gateway.ErrFileTooLarge
 	}
 
-	bucket, err := f.bucket(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	// calc checksum
-	// hasher := sha256.New()
-	// tr := io.TeeReader(file.Content, hasher)
-	// checksum := hex.EncodeToString(hasher.Sum(nil))
-
-	id := id.New().String()
-	filename := id + path.Ext(file.Name)
-	name := path.Join(gcsAssetBasePath, filename)
-	objectURL := getGCSObjectURL(f.base, name)
-	if objectURL == nil {
+	filename := path.Join(gcsAssetBasePath, id.New().String()+path.Ext(file.Path))
+	u := getGCSObjectURL(f.base, filename)
+	if u == nil {
 		return nil, gateway.ErrInvalidFile
 	}
 
-	object := bucket.Object(name)
-	_, err = object.Attrs(ctx)
-	if !errors.Is(err, storage.ErrObjectNotExist) {
-		log.Errorf("gcs: err=%+v\n", err)
-		return nil, gateway.ErrFailedToUploadFile
+	if err := f.upload(ctx, filename, file.Content); err != nil {
+		return nil, err
 	}
-
-	writer := object.NewWriter(ctx)
-	if _, err := io.Copy(writer, file.Content); err != nil {
-		log.Errorf("gcs: err=%+v\n", err)
-		return nil, gateway.ErrFailedToUploadFile
-	}
-	if err := writer.Close(); err != nil {
-		log.Errorf("gcs: err=%+v\n", err)
-		return nil, gateway.ErrFailedToUploadFile
-	}
-
-	return objectURL, nil
+	return u, nil
 }
 
 func (f *fileRepo) RemoveAsset(ctx context.Context, u *url.URL) error {
-	if u == nil {
-		return gateway.ErrInvalidFile
+	return f.delete(ctx, getGCSObjectNameFromURL(f.base, u))
+}
+
+// plugin
+
+func (f *fileRepo) ReadPluginFile(ctx context.Context, pid id.PluginID, filename string) (io.ReadCloser, error) {
+	if filename == "" {
+		return nil, err1.ErrNotFound
 	}
-	name := getGCSObjectNameFromURL(f.base, u)
-	if name == "" {
-		return gateway.ErrInvalidFile
-	}
-	bucket, err := f.bucket(ctx)
-	if err != nil {
-		return err1.ErrInternalBy(err)
-	}
-	object := bucket.Object(name)
-	if err := object.Delete(ctx); err != nil {
-		if errors.Is(err, storage.ErrObjectNotExist) {
-			return nil
-		}
-		return err1.ErrInternalBy(err)
-	}
-	return nil
+	return f.read(ctx, path.Join(gcsPluginBasePath, pid.String(), filename))
+}
+
+func (f *fileRepo) UploadPluginFile(ctx context.Context, pid id.PluginID, file *file.File) error {
+	return f.upload(ctx, path.Join(gcsPluginBasePath, pid.String(), file.Path), file.Content)
 }
 
 func (f *fileRepo) RemovePlugin(ctx context.Context, pid id.PluginID) error {
-	filename := path.Join(gcsMapBasePath, pid.String())
+	return f.deleteAll(ctx, path.Join(gcsPluginBasePath, pid.String()))
+}
+
+// built scene
+
+func (f *fileRepo) ReadBuiltSceneFile(ctx context.Context, name string) (io.ReadCloser, error) {
+	if name == "" {
+		return nil, err1.ErrNotFound
+	}
+	return f.read(ctx, path.Join(gcsMapBasePath, name+".json"))
+}
+
+func (f *fileRepo) UploadBuiltScene(ctx context.Context, content io.Reader, name string) error {
+	return f.upload(ctx, path.Join(gcsMapBasePath, name+".json"), content)
+}
+
+func (f *fileRepo) MoveBuiltScene(ctx context.Context, oldName, name string) error {
+	return f.move(ctx, path.Join(gcsMapBasePath, oldName+".json"), path.Join(gcsMapBasePath, name+".json"))
+}
+
+func (f *fileRepo) RemoveBuiltScene(ctx context.Context, name string) error {
+	return f.delete(ctx, path.Join(gcsMapBasePath, name+".json"))
+}
+
+// helpers
+
+func (f *fileRepo) bucket(ctx context.Context) (*storage.BucketHandle, error) {
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		return nil, err
+	}
+	bucket := client.Bucket(f.bucketName)
+	return bucket, nil
+}
+
+func (f *fileRepo) read(ctx context.Context, filename string) (io.ReadCloser, error) {
+	if filename == "" {
+		return nil, err1.ErrNotFound
+	}
+
+	bucket, err := f.bucket(ctx)
+	if err != nil {
+		log.Errorf("gcs: read bucket err: %+v\n", err)
+		return nil, err1.ErrInternalBy(err)
+	}
+
+	reader, err := bucket.Object(filename).NewReader(ctx)
+	if err != nil {
+		if errors.Is(err, storage.ErrObjectNotExist) {
+			return nil, err1.ErrNotFound
+		}
+		log.Errorf("gcs: read err: %+v\n", err)
+		return nil, err1.ErrInternalBy(err)
+	}
+
+	return reader, nil
+}
+
+func (f *fileRepo) upload(ctx context.Context, filename string, content io.Reader) error {
 	if filename == "" {
 		return gateway.ErrInvalidFile
 	}
 
 	bucket, err := f.bucket(ctx)
 	if err != nil {
+		log.Errorf("gcs: upload bucket err: %+v\n", err)
 		return err1.ErrInternalBy(err)
 	}
 
-
-	object := bucket.Object(name)
-	if err := object.Delete(ctx); err != nil {
-		if errors.Is(err, storage.ErrObjectNotExist) {
-			return nil
-		}
-		return err1.ErrInternalBy(err)
-	}
-	return nil
-}
-
-func (f *fileRepo) UploadBuiltScene(ctx context.Context, reader io.Reader, name string) error {
-	filename := path.Join(gcsMapBasePath, name+".json")
-	bucket, err := f.bucket(ctx)
-	if err != nil {
-		return err
-	}
 	object := bucket.Object(filename)
-
 	if err := object.Delete(ctx); err != nil && !errors.Is(err, storage.ErrObjectNotExist) {
-		log.Errorf("gcs: err=%+v\n", err)
+		log.Errorf("gcs: upload delete err: %+v\n", err)
 		return gateway.ErrFailedToUploadFile
 	}
 
 	writer := object.NewWriter(ctx)
 	writer.ObjectAttrs.CacheControl = f.cacheControl
 
-	if _, err := io.Copy(writer, reader); err != nil {
-		log.Errorf("gcs: err=%+v\n", err)
+	if _, err := io.Copy(writer, content); err != nil {
+		log.Errorf("gcs: upload err: %+v\n", err)
 		return gateway.ErrFailedToUploadFile
 	}
 
 	if err := writer.Close(); err != nil {
-		log.Errorf("gcs: err=%+v\n", err)
+		log.Errorf("gcs: upload close err: %+v\n", err)
 		return gateway.ErrFailedToUploadFile
 	}
 
 	return nil
 }
 
-func (f *fileRepo) MoveBuiltScene(ctx context.Context, oldName, name string) error {
-	oldFilename := path.Join(gcsMapBasePath, oldName+".json")
-	filename := path.Join(gcsMapBasePath, name+".json")
+func (f *fileRepo) move(ctx context.Context, from, dest string) error {
+	if from == "" || dest == "" || from == dest {
+		return gateway.ErrInvalidFile
+	}
+
 	bucket, err := f.bucket(ctx)
 	if err != nil {
-		return err
+		log.Errorf("gcs: move bucket err: %+v\n", err)
+		return err1.ErrInternalBy(err)
 	}
-	object := bucket.Object(oldFilename)
-	destObject := bucket.Object(filename)
+
+	object := bucket.Object(from)
+	destObject := bucket.Object(dest)
 	if _, err := destObject.CopierFrom(object).Run(ctx); err != nil {
 		if errors.Is(err, storage.ErrObjectNotExist) {
 			return err1.ErrNotFound
 		}
+		log.Errorf("gcs: move copy err: %+v\n", err)
 		return err1.ErrInternalBy(err)
 	}
+
 	if err := object.Delete(ctx); err != nil {
+		log.Errorf("gcs: move delete err: %+v\n", err)
 		return err1.ErrInternalBy(err)
 	}
+
 	return nil
 }
 
-func (f *fileRepo) RemoveBuiltScene(ctx context.Context, name string) error {
-	filename := path.Join(gcsMapBasePath, name+".json")
+func (f *fileRepo) delete(ctx context.Context, filename string) error {
+	if filename == "" {
+		return gateway.ErrInvalidFile
+	}
+
 	bucket, err := f.bucket(ctx)
 	if err != nil {
-		return err
+		log.Errorf("gcs: delete bucket err: %+v\n", err)
+		return err1.ErrInternalBy(err)
 	}
+
 	object := bucket.Object(filename)
 	if err := object.Delete(ctx); err != nil {
 		if errors.Is(err, storage.ErrObjectNotExist) {
 			return nil
 		}
+
+		log.Errorf("gcs: delete err: %+v\n", err)
 		return err1.ErrInternalBy(err)
 	}
 	return nil
 }
 
-func (f *fileRepo) DeleteRecursive(ctx context.Context, path string) error {
+func (f *fileRepo) deleteAll(ctx context.Context, path string) error {
+	if path == "" {
+		return gateway.ErrInvalidFile
+	}
+
 	bucket, err := f.bucket(ctx)
 	if err != nil {
-		return err
+		log.Errorf("gcs: deleteAll bucket err: %+v\n", err)
+		return err1.ErrInternalBy(err)
 	}
+
 	it := bucket.Objects(ctx, &storage.Query{
-		Prefix:    path,
+		Prefix: path,
 	})
+
 	for {
-		oa, err := it.Next()
+		attrs, err := it.Next()
 		if err == iterator.Done {
 			break
 		}
 		if err != nil {
+			log.Errorf("gcs: deleteAll next err: %+v\n", err)
 			return err1.ErrInternalBy(err)
 		}
-		oa.
-		// o.Delete(ctx)
+		if err := bucket.Object(attrs.Name).Delete(ctx); err != nil {
+			log.Errorf("gcs: deleteAll err: %+v\n", err)
+			return err1.ErrInternalBy(err)
+		}
 	}
-
+	return nil
 }
 
 func getGCSObjectURL(base *url.URL, objectName string) *url.URL {

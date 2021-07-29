@@ -3,6 +3,7 @@ package fs
 import (
 	"context"
 	"errors"
+	"io"
 	"path"
 
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
@@ -32,19 +33,15 @@ func (r *pluginRepository) Manifest(ctx context.Context, id id.PluginID) (*manif
 		return nil, err
 	}
 
-	defer func() {
-		_ = archive.Close()
-	}()
-
 	for {
 		f, err := archive.Next()
-		if errors.Is(err, file.EOF) {
+		if errors.Is(err, io.EOF) {
 			break
 		}
 		if err != nil {
 			return nil, err1.ErrInternalBy(err)
 		}
-		if f.Fullpath == manifestFilePath {
+		if f.Path == manifestFilePath {
 			m, err := manifest.Parse(f.Content)
 			if err != nil {
 				return nil, err
@@ -52,6 +49,7 @@ func (r *pluginRepository) Manifest(ctx context.Context, id id.PluginID) (*manif
 			return m, nil
 		}
 	}
+
 	return nil, manifest.ErrFailedToParseManifest
 }
 

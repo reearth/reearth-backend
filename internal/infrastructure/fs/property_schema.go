@@ -3,13 +3,10 @@ package fs
 import (
 	"context"
 	"errors"
-	"os"
-	"path"
 
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	err1 "github.com/reearth/reearth-backend/pkg/error"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 	"github.com/reearth/reearth-backend/pkg/property"
 )
 
@@ -23,28 +20,13 @@ func NewPropertySchema(basePath string) repo.PropertySchema {
 	}
 }
 
-func (r *propertySchema) manifest(id id.PluginID) string {
-	return path.Join(getPluginFilePath(r.basePath, id, manifestFilePath))
-}
-
 func (r *propertySchema) FindByID(ctx context.Context, i id.PropertySchemaID) (*property.Schema, error) {
 	pid, err := id.PluginIDFrom(i.Plugin())
 	if err != nil {
 		return nil, err1.ErrNotFound
 	}
-	filename := r.manifest(pid)
-	if _, err := os.Stat(filename); err != nil {
-		return nil, err1.ErrNotFound
-	}
-	file, err2 := os.Open(filename)
-	if err2 != nil {
-		return nil, err1.ErrInternalBy(err2)
-	}
-	defer func() {
-		_ = file.Close()
-	}()
 
-	m, err := manifest.Parse(file)
+	m, err := readManifest(r.basePath, pid)
 	if err != nil {
 		return nil, err1.ErrInternalBy(err)
 	}
@@ -52,6 +34,7 @@ func (r *propertySchema) FindByID(ctx context.Context, i id.PropertySchemaID) (*
 	if m.Schema != nil && m.Schema.ID() == i {
 		return m.Schema, nil
 	}
+
 	for _, ps := range m.ExtensionSchema {
 		if ps == nil {
 			continue

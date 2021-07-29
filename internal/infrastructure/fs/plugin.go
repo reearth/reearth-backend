@@ -3,14 +3,11 @@ package fs
 import (
 	"context"
 	"errors"
-	"os"
-	"path"
 
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	err1 "github.com/reearth/reearth-backend/pkg/error"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
-	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 )
 
 type pluginRepo struct {
@@ -23,24 +20,8 @@ func NewPlugin(basePath string) repo.Plugin {
 	}
 }
 
-func (r *pluginRepo) manifest(ctx context.Context, id id.PluginID) string {
-	return path.Join(getPluginFilePath(r.basePath, id, manifestFilePath))
-}
-
-func (r *pluginRepo) FindByID(ctx context.Context, id id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
-	filename := r.manifest(ctx, id)
-	if _, err := os.Stat(filename); err != nil {
-		return nil, err1.ErrNotFound
-	}
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err1.ErrInternalBy(err)
-	}
-	defer func() {
-		_ = file.Close()
-	}()
-
-	m, err := manifest.Parse(file)
+func (r *pluginRepo) FindByID(ctx context.Context, pid id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
+	m, err := readManifest(r.basePath, pid)
 	if err != nil {
 		return nil, err1.ErrInternalBy(err)
 	}
