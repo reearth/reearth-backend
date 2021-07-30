@@ -189,8 +189,7 @@ func (i PropertySchemaGroup) schemaGroup(sid id.PropertySchemaID) (*property.Sch
 	title := i.Title
 	var representativeField *id.PropertySchemaFieldID
 	if i.RepresentativeField != nil {
-		representativeField2 := id.PropertySchemaFieldID(*i.RepresentativeField)
-		representativeField = &representativeField2
+		representativeField = id.PropertySchemaFieldID(*i.RepresentativeField).Ref()
 	}
 
 	// fields
