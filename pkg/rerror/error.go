@@ -8,14 +8,12 @@ import (
 
 var (
 	errInternal = errors.New("internal")
-	// ErrNotFound _
+	// ErrNotFound indicates something was not found.
 	ErrNotFound = errors.New("not found")
 	// ErrInvalidParams represents the params are invalid, such as empty string.
 	ErrInvalidParams = errors.New("invalid params")
-	// ErrNotImplemented _
+	// ErrNotImplemented indicates unimplemented.
 	ErrNotImplemented = errors.New("not implemented")
-	// ErrUserNotFound _
-	ErrUserNotFound = errors.New("user is not found")
 )
 
 // ErrInternal is an error struct that can hold an internal error but hides users the details.
