@@ -109,8 +109,6 @@
 			<div id="manual-nav">
 			<dl>
 			
-				<dd><a href="index.html#pkg-constants">Constants</a></dd>
-			
 			
 				<dd><a href="index.html#pkg-variables">Variables</a></dd>
 			
@@ -143,13 +141,13 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#MergeManifestTranslation">func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Manifest</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#MustParseSystemFromStaticJSON">func MustParseSystemFromStaticJSON(source string) *Manifest</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#MustParseSystemFromBytes">func MustParseSystemFromBytes(source []byte) *Manifest</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Parse">func Parse(source io.Reader) (*Manifest, error)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#ParseSystemFromStaticJSON">func ParseSystemFromStaticJSON(source string) (*Manifest, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#ParseSystemFromBytes">func ParseSystemFromBytes(source []byte) (*Manifest, error)</a></dd>
 				
 				
 			
@@ -212,13 +210,13 @@
 				<dd><a href="index.html#TranslationRoot">type TranslationRoot</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#MustParseTransSystemFromStaticJSON">func MustParseTransSystemFromStaticJSON(source string) *TranslationRoot</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#MustParseTranslationFromBytes">func MustParseTranslationFromBytes(source []byte) *TranslationRoot</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#ParseTranslation">func ParseTranslation(source io.Reader) (*TranslationRoot, error)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#ParseTranslationFromStaticJSON">func ParseTranslationFromStaticJSON(source string) (*TranslationRoot, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#ParseTranslationFromBytes">func ParseTranslationFromBytes(source []byte) (*TranslationRoot, error)</a></dd>
 				
 				
 			
@@ -248,10 +246,6 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go">schema_gen.go</a>
 			
-				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_json_gen.go">schema_json_gen.go</a>
-			
-				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_json_translation_gen.go">schema_json_translation_gen.go</a>
-			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_translation.go">schema_translation.go</a>
 			
 			</span>
@@ -262,501 +256,6 @@
 
 		
 
-		
-			<h2 id="pkg-constants">Constants</h2>
-			
-				
-				<pre>const <span id="SchemaJSON">SchemaJSON</span> <a href="/reearth-backend/main/pkg/builtin/#string">string</a> = `{
-  &#34;$id&#34;: &#34;https://app.reearth.io/schemas/plugin-manifest&#34;,
-  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema&#34;,
-  &#34;description&#34;: &#34;Re:Earth plugin manifest schema&#34;,
-  &#34;definitions&#34;: {
-    &#34;id&#34;: {
-      &#34;$id&#34;: &#34;#id&#34;,
-      &#34;type&#34;: &#34;string&#34;,
-      &#34;pattern&#34;: &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;
-    },
-    &#34;id?&#34;: {
-      &#34;$id&#34;: &#34;#id?&#34;,
-      &#34;type&#34;: [
-        &#34;string&#34;,
-        &#34;null&#34;
-      ],
-      &#34;pattern&#34;: &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;
-    },
-    &#34;valuetype&#34;: {
-      &#34;$id&#34;: &#34;#valuetype&#34;,
-      &#34;type&#34;: &#34;string&#34;,
-      &#34;enum&#34;: [
-        &#34;bool&#34;,
-        &#34;number&#34;,
-        &#34;string&#34;,
-        &#34;url&#34;,
-        &#34;latlng&#34;,
-        &#34;latlngheight&#34;,
-        &#34;camera&#34;,
-        &#34;typography&#34;,
-        &#34;coordinates&#34;,
-        &#34;polygon&#34;,
-        &#34;rect&#34;,
-        &#34;ref&#34;
-      ]
-    },
-    &#34;propertyPointer&#34;: {
-      &#34;$id&#34;: &#34;#propertyPointer&#34;,
-      &#34;type&#34;: [
-        &#34;object&#34;,
-        &#34;null&#34;
-      ],
-      &#34;properties&#34;: {
-        &#34;schemaGroupId&#34;: {
-          &#34;type&#34;: &#34;string&#34;
-        },
-        &#34;fieldId&#34;: {
-          &#34;type&#34;: &#34;string&#34;
-        }
-      },
-      &#34;required&#34;: [
-        &#34;schemaGroupId&#34;,
-        &#34;fieldId&#34;
-      ],
-      &#34;additionalProperties&#34;: false
-    },
-    &#34;propertyLinkableFields&#34;: {
-      &#34;$id&#34;: &#34;#propertyLinkableFields&#34;,
-      &#34;type&#34;: [
-        &#34;object&#34;,
-        &#34;null&#34;
-      ],
-      &#34;properties&#34;: {
-        &#34;latlng&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertyPointer&#34;
-        },
-        &#34;url&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertyPointer&#34;
-        }
-      },
-      &#34;additionalProperties&#34;: false
-    },
-    &#34;propertyCondition&#34;: {
-      &#34;$id&#34;: &#34;#propertyCondition&#34;,
-      &#34;type&#34;: [
-        &#34;object&#34;,
-        &#34;null&#34;
-      ],
-      &#34;properties&#34;: {
-        &#34;field&#34;: {
-          &#34;type&#34;: &#34;string&#34;
-        },
-        &#34;type&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/valuetype&#34;
-        },
-        &#34;value&#34;: {}
-      },
-      &#34;required&#34;: [
-        &#34;field&#34;,
-        &#34;type&#34;,
-        &#34;value&#34;
-      ],
-      &#34;additionalProperties&#34;: false
-    },
-    &#34;propertySchemaField&#34;: {
-      &#34;$id&#34;: &#34;#propertySchemaField&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;properties&#34;: {
-        &#34;id&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/id&#34;
-        },
-        &#34;title&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;type&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/valuetype&#34;
-        },
-        &#34;prefix&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;suffix&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;defaultValue&#34;: {},
-        &#34;ui&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ],
-          &#34;enum&#34;: [
-            &#34;layer&#34;,
-            &#34;color&#34;,
-            &#34;multiline&#34;,
-            &#34;selection&#34;,
-            &#34;buttons&#34;,
-            &#34;range&#34;,
-            &#34;image&#34;,
-            &#34;video&#34;,
-            &#34;file&#34;,
-            &#34;camera_pose&#34;
-          ]
-        },
-        &#34;min&#34;: {
-          &#34;type&#34;: [
-            &#34;number&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;max&#34;: {
-          &#34;type&#34;: [
-            &#34;number&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;choices&#34;: {
-          &#34;type&#34;: &#34;array&#34;,
-          &#34;items&#34;: {
-            &#34;type&#34;: &#34;object&#34;,
-            &#34;properties&#34;: {
-              &#34;key&#34;: {
-                &#34;type&#34;: &#34;string&#34;
-              },
-              &#34;label&#34;: {
-                &#34;type&#34;: &#34;string&#34;
-              },
-              &#34;icon&#34;: {
-                &#34;type&#34;: &#34;string&#34;
-              }
-            },
-            &#34;required&#34;: [
-              &#34;key&#34;
-            ],
-            &#34;additionalProperties&#34;: false
-          }
-        },
-        &#34;availableIf&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertyCondition&#34;
-        }
-      },
-      &#34;required&#34;: [
-        &#34;id&#34;,
-        &#34;type&#34;,
-        &#34;title&#34;
-      ],
-      &#34;additionalProperties&#34;: false
-    },
-    &#34;propertySchemaGroup&#34;: {
-      &#34;$id&#34;: &#34;#propertySchemaGroup&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;properties&#34;: {
-        &#34;id&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/id&#34;
-        },
-        &#34;title&#34;: {
-          &#34;type&#34;: &#34;string&#34;
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;list&#34;: {
-          &#34;type&#34;: &#34;boolean&#34;
-        },
-        &#34;availableIf&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertyCondition&#34;
-        },
-        &#34;representativeField&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/id?&#34;
-        },
-        &#34;fields&#34;: {
-          &#34;type&#34;: &#34;array&#34;,
-          &#34;items&#34;: {
-            &#34;$ref&#34;: &#34;#/definitions/propertySchemaField&#34;
-          }
-        }
-      },
-      &#34;required&#34;: [
-        &#34;id&#34;,
-        &#34;title&#34;
-      ],
-      &#34;additionalProperties&#34;: false
-    },
-    &#34;propertySchema&#34;: {
-      &#34;$id&#34;: &#34;#propertySchema&#34;,
-      &#34;type&#34;: [
-        &#34;object&#34;,
-        &#34;null&#34;
-      ],
-      &#34;properties&#34;: {
-        &#34;version&#34;: {
-          &#34;type&#34;: &#34;number&#34;
-        },
-        &#34;linkable&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertyLinkableFields&#34;
-        },
-        &#34;groups&#34;: {
-          &#34;type&#34;: &#34;array&#34;,
-          &#34;items&#34;: {
-            &#34;$ref&#34;: &#34;#/definitions/propertySchemaGroup&#34;
-          }
-        }
-      },
-      &#34;additionalProperties&#34;: false
-    },
-    &#34;extension&#34;: {
-      &#34;$id&#34;: &#34;#extension&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;properties&#34;: {
-        &#34;id&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/id&#34;
-        },
-        &#34;title&#34;: {
-          &#34;type&#34;: &#34;string&#34;
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;icon&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;visualizer&#34;: {
-          &#34;type&#34;: &#34;string&#34;,
-          &#34;enum&#34;: [
-            &#34;cesium&#34;
-          ]
-        },
-        &#34;type&#34;: {
-          &#34;type&#34;: &#34;string&#34;,
-          &#34;enum&#34;: [
-            &#34;primitive&#34;,
-            &#34;widget&#34;,
-            &#34;block&#34;,
-            &#34;visualizer&#34;,
-            &#34;infobox&#34;
-          ]
-        },
-        &#34;schema&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
-        }
-      },
-      &#34;required&#34;: [
-        &#34;id&#34;,
-        &#34;title&#34;,
-        &#34;visualizer&#34;,
-        &#34;type&#34;
-      ],
-      &#34;additionalProperties&#34;: false
-    },
-    &#34;root&#34;: {
-      &#34;$id&#34;: &#34;#root&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;properties&#34;: {
-        &#34;id&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/id&#34;
-        },
-        &#34;title&#34;: {
-          &#34;type&#34;: &#34;string&#34;
-        },
-        &#34;system&#34;: {
-          &#34;type&#34;: &#34;boolean&#34;
-        },
-        &#34;version&#34;: {
-          &#34;type&#34;: &#34;string&#34;
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;repository&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;author&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;main&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;extensions&#34;: {
-          &#34;type&#34;: &#34;array&#34;,
-          &#34;items&#34;: {
-            &#34;$ref&#34;: &#34;#/definitions/extension&#34;
-          }
-        },
-        &#34;schema&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
-        }
-      },
-      &#34;required&#34;: [
-        &#34;id&#34;,
-        &#34;title&#34;
-      ],
-      &#34;additionalProperties&#34;: false
-    }
-  },
-  &#34;$ref&#34;: &#34;#/definitions/root&#34;
-}
-`</pre>
-			
-				
-				<pre>const <span id="SchemaTranslationJSON">SchemaTranslationJSON</span> <a href="/reearth-backend/main/pkg/builtin/#string">string</a> = `{
-  &#34;$id&#34;: &#34;https://app.reearth.io/schemas/plugin-manifest-translation&#34;,
-  &#34;$schema&#34;: &#34;http://json-schema.org/draft-04/schema&#34;,
-  &#34;description&#34;: &#34;Re:Earth plugin manifest schema translation&#34;,
-  &#34;definitions&#34;: {
-    &#34;propertySchemaField&#34;: {
-      &#34;$id&#34;: &#34;#propertySchemaField&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;additionalProperties&#34;: false,
-      &#34;properties&#34;: {
-        &#34;title&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;choices&#34;: {
-          &#34;type&#34;: &#34;object&#34;,
-          &#34;additionalProperties&#34;: false,
-          &#34;patternProperties&#34;: {
-            &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
-              &#34;type&#34;: &#34;string&#34;
-            }
-          }
-        }
-      }
-    },
-    &#34;propertySchemaGroup&#34;: {
-      &#34;$id&#34;: &#34;#propertySchemaGroup&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;additionalProperties&#34;: false,
-      &#34;properties&#34;: {
-        &#34;title&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;fields&#34;: {
-          &#34;type&#34;: &#34;object&#34;,
-          &#34;additionalProperties&#34;: false,
-          &#34;patternProperties&#34;: {
-            &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
-              &#34;$ref&#34;: &#34;#/definitions/propertySchemaField&#34;
-            }
-          }
-        }
-      }
-    },
-    &#34;propertySchema&#34;: {
-      &#34;$id&#34;: &#34;#propertySchema&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;additionalProperties&#34;: false,
-      &#34;patternProperties&#34;: {
-        &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertySchemaGroup&#34;
-        }
-      }
-    },
-    &#34;extension&#34;: {
-      &#34;$id&#34;: &#34;#extension&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;additionalProperties&#34;: false,
-      &#34;properties&#34;: {
-        &#34;title&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;propertySchema&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
-        }
-      }
-    },
-    &#34;root&#34;: {
-      &#34;$id&#34;: &#34;#root&#34;,
-      &#34;type&#34;: &#34;object&#34;,
-      &#34;additionalProperties&#34;: false,
-      &#34;properties&#34;: {
-        &#34;title&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;description&#34;: {
-          &#34;type&#34;: [
-            &#34;string&#34;,
-            &#34;null&#34;
-          ]
-        },
-        &#34;extensions&#34;: {
-          &#34;type&#34;: &#34;object&#34;,
-          &#34;patternProperties&#34;: {
-            &#34;^[A-Za-z]{1}[\\w-:.]{0,}$&#34;: {
-              &#34;$ref&#34;: &#34;#/definitions/extension&#34;
-            }
-          }
-        },
-        &#34;schema&#34;: {
-          &#34;$ref&#34;: &#34;#/definitions/propertySchema&#34;
-        }
-      }
-    }
-  },
-  &#34;$ref&#34;: &#34;#/definitions/root&#34;
-}
-`</pre>
-			
 		
 		
 			<h2 id="pkg-variables">Variables</h2>
@@ -904,7 +403,7 @@
 
 			
 				
-				<h3 id="MergeManifestTranslation">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=2667:2751#L79">MergeManifestTranslation</a>
+				<h3 id="MergeManifestTranslation">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=1446:1530#L37">MergeManifestTranslation</a>
 					<a class="permalink" href="index.html#MergeManifestTranslation">&#xb6;</a>
 					
 					
@@ -915,18 +414,18 @@
 				
 			
 				
-				<h3 id="MustParseSystemFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=1801:1860#L61">MustParseSystemFromStaticJSON</a>
-					<a class="permalink" href="index.html#MustParseSystemFromStaticJSON">&#xb6;</a>
+				<h3 id="MustParseSystemFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=1186:1240#L41">MustParseSystemFromBytes</a>
+					<a class="permalink" href="index.html#MustParseSystemFromBytes">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func MustParseSystemFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#Manifest">Manifest</a></pre>
+				<pre>func MustParseSystemFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) *<a href="index.html#Manifest">Manifest</a></pre>
 				
 				
 				
 			
 				
-				<h3 id="Parse">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=689:736#L12">Parse</a>
+				<h3 id="Parse">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=427:474#L8">Parse</a>
 					<a class="permalink" href="index.html#Parse">&#xb6;</a>
 					
 					
@@ -937,12 +436,12 @@
 				
 			
 				
-				<h3 id="ParseSystemFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=1378:1442#L41">ParseSystemFromStaticJSON</a>
-					<a class="permalink" href="index.html#ParseSystemFromStaticJSON">&#xb6;</a>
+				<h3 id="ParseSystemFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=840:899#L26">ParseSystemFromBytes</a>
+					<a class="permalink" href="index.html#ParseSystemFromBytes">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func ParseSystemFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ParseSystemFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -1286,18 +785,18 @@
 
 			
 				
-				<h3 id="MustParseTransSystemFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=2005:2076#L50">MustParseTransSystemFromStaticJSON</a>
-					<a class="permalink" href="index.html#MustParseTransSystemFromStaticJSON">&#xb6;</a>
+				<h3 id="MustParseTranslationFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=1286:1352#L29">MustParseTranslationFromBytes</a>
+					<a class="permalink" href="index.html#MustParseTranslationFromBytes">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func MustParseTransSystemFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#TranslationRoot">TranslationRoot</a></pre>
+				<pre>func MustParseTranslationFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) *<a href="index.html#TranslationRoot">TranslationRoot</a></pre>
 				
 				
 				
 			
 				
-				<h3 id="ParseTranslation">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=1032:1097#L14">ParseTranslation</a>
+				<h3 id="ParseTranslation">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=659:724#L10">ParseTranslation</a>
 					<a class="permalink" href="index.html#ParseTranslation">&#xb6;</a>
 					
 					
@@ -1308,12 +807,12 @@
 				
 			
 				
-				<h3 id="ParseTranslationFromStaticJSON">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=1630:1706#L35">ParseTranslationFromStaticJSON</a>
-					<a class="permalink" href="index.html#ParseTranslationFromStaticJSON">&#xb6;</a>
+				<h3 id="ParseTranslationFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser_translation.go?s=977:1048#L20">ParseTranslationFromBytes</a>
+					<a class="permalink" href="index.html#ParseTranslationFromBytes">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func ParseTranslationFromStaticJSON(source <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ParseTranslationFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) (*<a href="index.html#TranslationRoot">TranslationRoot</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
