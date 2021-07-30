@@ -75,8 +75,7 @@ func TestParse(t *testing.T) {
 				if !assert.NoError(tt, err) {
 					return
 				}
-				assert.Equal(tt, tc.expected.Plugin.ID(), m.Plugin.ID())
-				assert.Equal(tt, m.Plugin.Name(), m.Plugin.Name())
+				assert.Equal(tt, tc.expected, m)
 				return
 			}
 			assert.ErrorIs(tt, tc.err, err)
@@ -120,8 +119,7 @@ func TestParseSystemFromBytes(t *testing.T) {
 				if !assert.NoError(tt, err) {
 					return
 				}
-				assert.Equal(tt, tc.expected.Plugin.ID(), m.Plugin.ID())
-				assert.Equal(tt, m.Plugin.Name(), m.Plugin.Name())
+				assert.Equal(tt, tc.expected, m)
 				return
 			}
 			assert.ErrorIs(tt, tc.err, err)
@@ -168,8 +166,7 @@ func TestMustParseSystemFromBytes(t *testing.T) {
 			}
 
 			m := MustParseSystemFromBytes([]byte(tc.input))
-			assert.Equal(tt, tc.expected.Plugin.ID(), m.Plugin.ID())
-			assert.Equal(tt, m.Plugin.Name(), m.Plugin.Name())
+			assert.Equal(tt, m, tc.expected)
 		})
 	}
 }
