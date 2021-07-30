@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"github.com/reearth/reearth-backend/pkg/builtin"
-	perror "github.com/reearth/reearth-backend/pkg/error"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
+	perror "github.com/reearth/reearth-backend/pkg/rerror"
 )
 
 type InitializerResult struct {
