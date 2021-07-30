@@ -6,4 +6,6 @@ var migrations = map[int64]MigrationFunc{
   201217132559: AddSceneWidgetId,
   201217193948: AddSceneDefaultTile,
   210310145844: RemovePreviewToken,
+  210730152508: AddWidgetLayout,
+  210730175108: AddSceneAlignSystem,
 }
