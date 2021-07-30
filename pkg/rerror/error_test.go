@@ -41,6 +41,10 @@ func TestError(t *testing.T) {
 		Hidden: true,
 	}
 	assert.Equal(t, "label", err5.Error())
+
+	var nilerr *Error
+	assert.Equal(t, "", nilerr.Error())
+	assert.Nil(t, nilerr.Unwrap())
 }
 
 func TestFrom(t *testing.T) {
