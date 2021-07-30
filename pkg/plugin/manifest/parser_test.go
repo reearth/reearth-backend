@@ -1,8 +1,8 @@
 package manifest
 
 import (
+	_ "embed"
 	"errors"
-	"io"
 	"strings"
 	"testing"
 
@@ -12,41 +12,55 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+//go:embed testdata/minimum.yml
+var minimum string
+var minimumExpected = &Manifest{
+	Plugin:          plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
+	ExtensionSchema: []*property.Schema{},
+	Schema:          nil,
+}
+
+//go:embed testdata/test.yml
+var normal string
+var normalExpected = &Manifest{
+	Plugin:          plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
+	ExtensionSchema: []*property.Schema{},
+	Schema:          nil,
+}
+
 func TestParse(t *testing.T) {
 	testCases := []struct {
 		name     string
-		input    io.Reader
+		input    string
 		expected *Manifest
 		err      error
 	}{
 		{
-			name: "success create manifest",
-			input: strings.NewReader(`{
-										"id": "aaa",
-										"title": "bbb",
-										"version": "1.1.1"
-									}`),
-			expected: &Manifest{
-				Plugin:          plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
-				ExtensionSchema: []*property.Schema{},
-				Schema:          nil,
-			},
-			err: nil,
+			name:     "success create simple manifest",
+			input:    minimum,
+			expected: minimumExpected,
+			err:      nil,
+		},
+		{
+			name:     "success create manifest",
+			input:    normal,
+			expected: normalExpected,
+			err:      nil,
 		},
 		{
 			name:     "fail not valid JSON",
-			input:    strings.NewReader(""),
+			input:    "",
 			expected: nil,
 			err:      ErrFailedToParseManifest,
 		},
 		{
 			name: "fail system manifest",
-			input: strings.NewReader(`{
-											"system":true,
-											"id": "reearth",
-											"title": "bbb",
-											"version": "1.1.1"
-											}`),
+			input: `{
+				"system": true,
+				"id": "reearth",
+				"title": "bbb",
+				"version": "1.1.1"
+			}`,
 			expected: nil,
 			err:      ErrSystemManifest,
 		},
@@ -56,13 +70,16 @@ func TestParse(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			m, err := Parse(tc.input)
-			if err == nil {
-				assert.Equal(t, tc.expected.Plugin.ID(), m.Plugin.ID())
-				assert.Equal(t, m.Plugin.Name(), m.Plugin.Name())
-			} else {
-				assert.Equal(t, tc.err, err)
+			m, err := Parse(strings.NewReader(tc.input))
+			if tc.err == nil {
+				if !assert.NoError(tt, err) {
+					return
+				}
+				assert.Equal(tt, tc.expected.Plugin.ID(), m.Plugin.ID())
+				assert.Equal(tt, m.Plugin.Name(), m.Plugin.Name())
+				return
 			}
+			assert.ErrorIs(tt, tc.err, err)
 		})
 	}
 
@@ -75,18 +92,16 @@ func TestParseSystemFromBytes(t *testing.T) {
 		err         error
 	}{
 		{
-			name: "success create manifest",
-			input: `{
-						"id": "aaa",
-						"title": "bbb",
-						"version": "1.1.1"
-									}`,
-			expected: &Manifest{
-				Plugin:          plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
-				ExtensionSchema: []*property.Schema{},
-				Schema:          nil,
-			},
-			err: nil,
+			name:     "success create simple manifest",
+			input:    minimum,
+			expected: minimumExpected,
+			err:      nil,
+		},
+		{
+			name:     "success create manifest",
+			input:    normal,
+			expected: normalExpected,
+			err:      nil,
 		},
 		{
 			name:     "fail not valid YAML",
@@ -101,12 +116,15 @@ func TestParseSystemFromBytes(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			m, err := ParseSystemFromBytes([]byte(tc.input))
-			if err == nil {
-				assert.Equal(t, tc.expected.Plugin.ID(), m.Plugin.ID())
-				assert.Equal(t, m.Plugin.Name(), m.Plugin.Name())
-			} else {
-				assert.True(t, errors.Is(tc.err, err))
+			if tc.err == nil {
+				if !assert.NoError(tt, err) {
+					return
+				}
+				assert.Equal(tt, tc.expected.Plugin.ID(), m.Plugin.ID())
+				assert.Equal(tt, m.Plugin.Name(), m.Plugin.Name())
+				return
 			}
+			assert.ErrorIs(tt, tc.err, err)
 		})
 	}
 }
@@ -118,18 +136,16 @@ func TestMustParseSystemFromBytes(t *testing.T) {
 		err         error
 	}{
 		{
-			name: "success create manifest",
-			input: `{
-						"id": "aaa",
-						"name": "bbb",
-						"version": "1.1.1"
-									}`,
-			expected: &Manifest{
-				Plugin:          plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
-				ExtensionSchema: []*property.Schema{},
-				Schema:          nil,
-			},
-			err: nil,
+			name:     "success create simple manifest",
+			input:    minimum,
+			expected: minimumExpected,
+			err:      nil,
+		},
+		{
+			name:     "success create manifest",
+			input:    normal,
+			expected: normalExpected,
+			err:      nil,
 		},
 		{
 			name:     "fail not valid JSON",
