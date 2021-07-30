@@ -49,3 +49,7 @@ func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID, sids []id
 func (r *pluginRepo) Save(ctx context.Context, p *plugin.Plugin) error {
 	return err1.ErrInternalBy(errors.New("read only"))
 }
+
+func (r *pluginRepo) Remove(ctx context.Context, pid id.PluginID) error {
+	return err1.ErrInternalBy(errors.New("read only"))
+}

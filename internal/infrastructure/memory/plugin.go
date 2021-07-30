@@ -77,3 +77,16 @@ func (r *Plugin) Save(ctx context.Context, p *plugin.Plugin) error {
 	r.data = append(r.data, &p2)
 	return nil
 }
+
+func (r *Plugin) Remove(ctx context.Context, id id.PluginID) error {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	for i := 0; i < len(r.data); i++ {
+		if r.data[i].ID().Equal(id) {
+			r.data = append(r.data[:i], r.data[i+1:]...)
+			i--
+		}
+	}
+	return nil
+}

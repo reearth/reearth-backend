@@ -133,6 +133,10 @@ func (r *pluginRepo) Save(ctx context.Context, plugin *plugin.Plugin) error {
 	return r.client.SaveOne(ctx, id, doc)
 }
 
+func (r *pluginRepo) Remove(ctx context.Context, id id.PluginID) error {
+	return r.client.RemoveOne(ctx, id.String())
+}
+
 func (r *pluginRepo) find(ctx context.Context, dst []*plugin.Plugin, filter interface{}) ([]*plugin.Plugin, error) {
 	c := mongodoc.PluginConsumer{
 		Rows: dst,

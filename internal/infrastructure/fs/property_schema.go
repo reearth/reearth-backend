@@ -66,3 +66,11 @@ func (r *propertySchema) Save(ctx context.Context, p *property.Schema) error {
 func (r *propertySchema) SaveAll(ctx context.Context, p property.SchemaList) error {
 	return err1.ErrInternalBy(errors.New("read only"))
 }
+
+func (r *propertySchema) Remove(ctx context.Context, pid id.PropertySchemaID) error {
+	return err1.ErrInternalBy(errors.New("read only"))
+}
+
+func (r *propertySchema) RemoveAll(ctx context.Context, pid []id.PropertySchemaID) error {
+	return err1.ErrInternalBy(errors.New("read only"))
+}
