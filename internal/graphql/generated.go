@@ -816,6 +816,7 @@ type ComplexityRoot struct {
 
 	SceneWidget struct {
 		Enabled     func(childComplexity int) int
+		Extended    func(childComplexity int) int
 		Extension   func(childComplexity int) int
 		ExtensionID func(childComplexity int) int
 		ID          func(childComplexity int) int
@@ -5124,6 +5125,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.SceneWidget.Enabled(childComplexity), true
 
+	case "SceneWidget.extended":
+		if e.complexity.SceneWidget.Extended == nil {
+			break
+		}
+
+		return e.complexity.SceneWidget.Extended(childComplexity), true
+
 	case "SceneWidget.extension":
 		if e.complexity.SceneWidget.Extension == nil {
 			break
@@ -6049,6 +6057,7 @@ type SceneWidget {
   extensionId: PluginExtensionID!
   propertyId: ID!
   enabled: Boolean!
+  extended: Boolean!
   plugin: Plugin @goField(forceResolver: true)
   extension: PluginExtension @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
@@ -26366,6 +26375,41 @@ func (ec *executionContext) _SceneWidget_enabled(ctx context.Context, field grap
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _SceneWidget_extended(ctx context.Context, field graphql.CollectedField, obj *graphql1.SceneWidget) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "SceneWidget",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Extended, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _SceneWidget_plugin(ctx context.Context, field graphql.CollectedField, obj *graphql1.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -36928,6 +36972,11 @@ func (ec *executionContext) _SceneWidget(ctx context.Context, sel ast.SelectionS
 			}
 		case "enabled":
 			out.Values[i] = ec._SceneWidget_enabled(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "extended":
+			out.Values[i] = ec._SceneWidget_extended(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}

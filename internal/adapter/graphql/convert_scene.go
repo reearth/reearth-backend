@@ -15,6 +15,7 @@ func toSceneWidget(w *scene.Widget) *SceneWidget {
 		ExtensionID: w.Extension(),
 		PropertyID:  w.Property().ID(),
 		Enabled:     w.Enabled(),
+		Extended:    w.WidgetLayout().Extended,
 	}
 }
 

@@ -61,6 +61,11 @@ func (d WidgetID) String() string {
 	return ID(d).String()
 }
 
+// Equal returns if two IDs are quivarent.
+func (d WidgetID) Equal(d2 WidgetID) bool {
+	return d == d2
+}
+
 // GoString implements fmt.GoStringer interface.
 func (d WidgetID) GoString() string {
 	return "id.WidgetID(" + d.String() + ")"

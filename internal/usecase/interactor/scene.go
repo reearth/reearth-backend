@@ -259,6 +259,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	if param.Enabled != nil {
 		widget.SetEnabled(*param.Enabled)
 	}
+
 	if !widget.WidgetLayout().Floating {
 		if *param.Enabled {
 			if param.Layout != nil {
@@ -268,12 +269,12 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 					widget.SetExtended(*l.Extended)
 				}
 
-				if l.NewIndex != nil && l.OldIndex != nil && l.Location != nil {
+				if l.Location != nil && l.Align != nil {
+					was.Update(widget.ID().Ref(), l.Location, nil, nil, nil, l.Align)
+				} else if l.NewIndex != nil && l.OldIndex != nil && l.Location != nil {
 					was.Update(widget.ID().Ref(), l.Location, nil, l.OldIndex, l.NewIndex, nil)
 				} else if l.NewLocation != nil && l.Location != nil {
 					was.Update(widget.ID().Ref(), l.Location, l.NewLocation, nil, nil, nil)
-				} else if l.Align != nil && l.Location != nil {
-					was.Update(widget.ID().Ref(), l.Location, l.NewLocation, nil, nil, l.Align)
 				} else {
 					if l.Location != nil {
 						was.Add(widget.ID().Ref(), l.Location)
