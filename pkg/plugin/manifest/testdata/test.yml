@@ -8,7 +8,7 @@ extensions:
     schema:
       groups:
         - id: default
-          name: a
+          representativeField: a
           fields:
             - id: a
               type: bool

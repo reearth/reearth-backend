@@ -5,9 +5,11 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/i18n"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
+	"github.com/reearth/reearth-backend/pkg/visualizer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,8 +24,12 @@ var minimumExpected = &Manifest{
 //go:embed testdata/test.yml
 var normal string
 var normalExpected = &Manifest{
-	Plugin: plugin.New().ID(id.MustPluginID("aaa#1.1.1")).Extensions([]*plugin.Extension{
-		plugin.NewExtension().ID(id.PluginExtensionID("hoge")).Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).MustBuild(),
+	Plugin: plugin.New().ID(id.MustPluginID("aaa#1.1.1")).Name(i18n.StringFrom("bbb")).Extensions([]*plugin.Extension{
+		plugin.NewExtension().ID(id.PluginExtensionID("hoge")).
+			Visualizer(visualizer.VisualizerCesium).
+			Type(plugin.ExtensionTypePrimitive).
+			Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).
+			MustBuild(),
 	}).MustBuild(),
 	ExtensionSchema: []*property.Schema{
 		property.NewSchema().ID(id.MustPropertySchemaID("aaa#1.1.1/hoge")).Groups([]*property.SchemaGroup{

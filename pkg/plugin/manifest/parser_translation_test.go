@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
+	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -188,14 +189,12 @@ func TestMergeManifestTranslation(t *testing.T) {
 				assert.Nil(tt, res)
 				return
 			}
-			assert.Equal(tt, tc.Expected, res.Plugin)
-
-			assert.Equal(tt, tc.Expected.PluginDesc, res.Plugin.Description())
 			assert.Equal(tt, tc.Expected.PluginName, res.Plugin.Name())
+			assert.Equal(tt, tc.Expected.PluginDesc, res.Plugin.Description())
+			assert.Equal(tt, tc.Expected.ExtName, res.Plugin.Extension(id.PluginExtensionID("test_ext")).Name())
 			assert.Equal(tt, tc.Expected.PsTitle, res.ExtensionSchema[0].Group("test_ps").Title())
 			assert.Equal(tt, tc.Expected.FieldTitle, res.ExtensionSchema[0].Group("test_ps").Field("test_field").Title())
 			assert.Equal(tt, tc.Expected.FieldDesc, res.ExtensionSchema[0].Group("test_ps").Field("test_field").Description())
-			assert.Equal(tt, tc.Expected.ExtName, res.ExtensionSchema[0])
 		})
 	}
 }
