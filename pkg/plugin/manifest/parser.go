@@ -3,7 +3,6 @@ package manifest
 //go:generate go run github.com/idubinskiy/schematyper -o schema_gen.go --package manifest ../../../plugin_manifest_schema.json
 
 import (
-	_ "embed"
 	"errors"
 	"io"
 

@@ -4,7 +4,6 @@ package manifest
 // DISABLED go:generate go run github.com/idubinskiy/schematyper -o schema_translation_gen.go --package manifest --prefix Translation ../../../plugin_manifest_schema_translation.json
 
 import (
-	_ "embed"
 	"errors"
 	"io"
 
