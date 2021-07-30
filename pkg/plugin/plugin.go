@@ -64,6 +64,21 @@ func (p *Plugin) Schema() *id.PropertySchemaID {
 	return p.schema
 }
 
+func (p *Plugin) PropertySchemas() []id.PropertySchemaID {
+	if p == nil {
+		return nil
+	}
+
+	ps := make([]id.PropertySchemaID, 0, len(p.extensions)+1)
+	if p.schema != nil {
+		ps = append(ps, *p.schema)
+	}
+	for _, e := range p.extensions {
+		ps = append(ps, e.Schema())
+	}
+	return ps
+}
+
 func (p *Plugin) Rename(name i18n.String) {
 	p.name = name.Copy()
 }
