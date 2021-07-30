@@ -2,6 +2,7 @@ package rerror
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -40,6 +41,21 @@ func TestError(t *testing.T) {
 		Hidden: true,
 	}
 	assert.Equal(t, "label", err5.Error())
+}
+
+func TestFrom(t *testing.T) {
+	werr := errors.New("wrapped")
+	err := From("label", werr)
+	assert.Equal(t, "label", err.Label.Error())
+	assert.Same(t, werr, err.Err)
+	assert.False(t, err.Hidden)
+}
+
+func TestGet(t *testing.T) {
+	werr := &Error{Label: errors.New("hoge"), Err: errors.New("wrapped")}
+	err := fmt.Errorf("wrapped: %w", werr)
+	assert.Same(t, werr, Get(err))
+	assert.Same(t, werr, Get(werr))
 }
 
 func TestIs(t *testing.T) {

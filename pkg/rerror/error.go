@@ -50,6 +50,11 @@ type Error struct {
 	Hidden bool
 }
 
+// From creates an Error with string label.
+func From(label string, err error) *Error {
+	return &Error{Label: errors.New(label), Err: err}
+}
+
 // Error implements error interface.
 func (e *Error) Error() string {
 	if e == nil {
@@ -70,6 +75,13 @@ func (e *Error) Unwrap() error {
 		return nil
 	}
 	return e.Err
+}
+
+// Get gets Error struct from an error
+func Get(err error) *Error {
+	var target *Error
+	_ = errors.As(err, &target)
+	return target
 }
 
 // Is looks up errors whose label is the same as the specific label and return true if it was found
