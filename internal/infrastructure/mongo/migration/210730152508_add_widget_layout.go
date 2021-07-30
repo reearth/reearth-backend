@@ -31,7 +31,8 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 				widgets := make([]mongodoc.SceneWidgetDocument, 0, len(doc.Widgets))
 				for _, w := range doc.Widgets {
 					if w.WidgetLayout == nil {
-						wl := builtin.Plugin().Extension(id.PluginExtensionID(w.Extension)).WidgetLayout()
+						pid, _ := id.PluginIDFrom(w.Plugin)
+						wl := builtin.GetPlugin(pid).Extension(id.PluginExtensionID(w.Extension)).WidgetLayout()
 						float := wl.Floating
 						extendable := wl.Extendable
 						extended := false
