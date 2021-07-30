@@ -2,7 +2,6 @@ package manifest
 
 import (
 	_ "embed"
-	"errors"
 	"strings"
 	"testing"
 
@@ -23,9 +22,30 @@ var minimumExpected = &Manifest{
 //go:embed testdata/test.yml
 var normal string
 var normalExpected = &Manifest{
-	Plugin:          plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
-	ExtensionSchema: []*property.Schema{},
-	Schema:          nil,
+	Plugin: plugin.New().ID(id.MustPluginID("aaa#1.1.1")).Extensions([]*plugin.Extension{
+		plugin.NewExtension().ID(id.PluginExtensionID("hoge")).Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).MustBuild(),
+	}).MustBuild(),
+	ExtensionSchema: []*property.Schema{
+		property.NewSchema().ID(id.MustPropertySchemaID("aaa#1.1.1/hoge")).Groups([]*property.SchemaGroup{
+			property.NewSchemaGroup().ID(id.PropertySchemaFieldID("default")).
+				Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).
+				RepresentativeField(id.PropertySchemaFieldID("a").Ref()).
+				Fields([]*property.SchemaField{
+					property.NewSchemaField().ID(id.PropertySchemaFieldID("a")).
+						Type(property.ValueTypeBool).
+						DefaultValue(property.ValueTypeBool.MustBeValue(true)).
+						IsAvailableIf(&property.Condition{
+							Field: id.PropertySchemaFieldID("b"),
+							Value: property.ValueTypeString.MustBeValue("c"),
+						}).
+						MustBuild(),
+					property.NewSchemaField().ID(id.PropertySchemaFieldID("b")).
+						Type(property.ValueTypeString).
+						MustBuild(),
+				}).MustBuild(),
+		}).MustBuild(),
+	},
+	Schema: nil,
 }
 
 func TestParse(t *testing.T) {

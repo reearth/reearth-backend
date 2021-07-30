@@ -1,3 +1,21 @@
 id: aaa
 title: bbb
 version: 1.1.1
+extensions:
+  - id: hoge
+    type: primitive
+    visualizer: cesium
+    schema:
+      groups:
+        - id: default
+          name: a
+          fields:
+            - id: a
+              type: bool
+              defaultValue: true
+              availableIf:
+                field: b
+                type: string
+                value: c
+            - id: b
+              type: string
