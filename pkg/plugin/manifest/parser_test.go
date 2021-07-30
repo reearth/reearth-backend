@@ -42,11 +42,11 @@ var normalExpected = &Manifest{
 						DefaultValue(property.ValueTypeBool.MustBeValue(true)).
 						IsAvailableIf(&property.Condition{
 							Field: id.PropertySchemaFieldID("b"),
-							Value: property.ValueTypeString.MustBeValue("c"),
+							Value: property.ValueTypeNumber.MustBeValue(1),
 						}).
 						MustBuild(),
 					property.NewSchemaField().ID(id.PropertySchemaFieldID("b")).
-						Type(property.ValueTypeString).
+						Type(property.ValueTypeNumber).
 						MustBuild(),
 				}).MustBuild(),
 		}).MustBuild(),
