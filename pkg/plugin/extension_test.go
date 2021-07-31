@@ -28,7 +28,7 @@ func TestExtension(t *testing.T) {
 		Icon:         "test",
 		Schema:       id.MustPropertySchemaID("hoge#0.1.0/fff"),
 		Visualizer:   "vvv",
-		WidgetLayout: nil,
+		WidgetLayout: &scene.WidgetLayout{},
 	}
 
 	actual := NewExtension().
@@ -37,7 +37,7 @@ func TestExtension(t *testing.T) {
 		Description(i18n.StringFrom("ddd")).
 		Schema(id.MustPropertySchemaID("hoge#0.1.0/fff")).
 		Icon("test").
-		WidgetLayout(nil).
+		WidgetLayout(&scene.WidgetLayout{}).
 		Visualizer("vvv").
 		Type(ExtensionTypePrimitive).
 		MustBuild()

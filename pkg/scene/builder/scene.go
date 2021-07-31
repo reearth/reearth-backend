@@ -73,93 +73,8 @@ func (b *Builder) widgets(ctx context.Context, s *scene.Scene, p []*property.Pro
 
 func (b *Builder) widgetAlignment(ctx context.Context, s *scene.Scene) *widgetAlignSystemJSON {
 	sas := s.WidgetAlignSystem()
-	res := widgetAlignSystemJSON{Inner: widgetZone{
-		Left: widgetSection{
-			Top: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "left", "top")),
-				Align:     *sas.Alignment("inner", "left", "top"),
-			},
-			Middle: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "left", "middle")),
-				Align:     *sas.Alignment("inner", "left", "middle"),
-			},
-			Bottom: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "left", "bottom")),
-				Align:     *sas.Alignment("inner", "left", "bottom"),
-			},
-		},
-		Center: widgetSection{
-			Top: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "center", "top")),
-				Align:     *sas.Alignment("inner", "center", "top"),
-			},
-			Middle: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "center", "middle")),
-				Align:     *sas.Alignment("inner", "center", "middle"),
-			},
-			Bottom: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "center", "bottom")),
-				Align:     *sas.Alignment("inner", "center", "bottom"),
-			},
-		},
-		Right: widgetSection{
-			Top: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "right", "top")),
-				Align:     *sas.Alignment("inner", "right", "top"),
-			},
-			Middle: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "right", "middle")),
-				Align:     *sas.Alignment("inner", "right", "middle"),
-			},
-			Bottom: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("inner", "right", "bottom")),
-				Align:     *sas.Alignment("inner", "right", "bottom"),
-			},
-		},
-	}, Outer: widgetZone{
-		Left: widgetSection{
-			Top: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "left", "top")),
-				Align:     *sas.Alignment("outer", "left", "top"),
-			},
-			Middle: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "left", "middle")),
-				Align:     *sas.Alignment("outer", "left", "middle"),
-			},
-			Bottom: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "left", "bottom")),
-				Align:     *sas.Alignment("outer", "left", "bottom"),
-			},
-		},
-		Center: widgetSection{
-			Top: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "center", "top")),
-				Align:     *sas.Alignment("outer", "center", "top"),
-			},
-			Middle: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "center", "middle")),
-				Align:     *sas.Alignment("outer", "center", "middle"),
-			},
-			Bottom: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "center", "bottom")),
-				Align:     *sas.Alignment("outer", "center", "bottom"),
-			},
-		},
-		Right: widgetSection{
-			Top: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "right", "top")),
-				Align:     *sas.Alignment("outer", "right", "top"),
-			},
-			Middle: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "right", "middle")),
-				Align:     *sas.Alignment("outer", "right", "middle"),
-			},
-			Bottom: widgetArea{
-				WidgetIds: toString(sas.WidgetIds("outer", "right", "bottom")),
-				Align:     *sas.Alignment("outer", "right", "bottom"),
-			},
-		},
-	}}
+
+	res := widgetAlignSystemJSON{Inner: buildWidgetZone(sas), Outer: buildWidgetZone(sas)}
 	return &res
 }
 
@@ -188,4 +103,29 @@ func toString(wids []*id.WidgetID) []string {
 		docids = append(docids, wid.String())
 	}
 	return docids
+}
+
+func buildWidgetZone(sas *scene.WidgetAlignSystem) widgetZone {
+	return widgetZone{
+		Left:   buildWidgetSection(sas),
+		Center: buildWidgetSection(sas),
+		Right:  buildWidgetSection(sas),
+	}
+}
+
+func buildWidgetSection(sas *scene.WidgetAlignSystem) widgetSection {
+	return widgetSection{
+		Top: widgetArea{
+			WidgetIds: toString(sas.WidgetIds("outer", "right", "top")),
+			Align:     *sas.Alignment("outer", "right", "top"),
+		},
+		Middle: widgetArea{
+			WidgetIds: toString(sas.WidgetIds("outer", "right", "middle")),
+			Align:     *sas.Alignment("outer", "right", "middle"),
+		},
+		Bottom: widgetArea{
+			WidgetIds: toString(sas.WidgetIds("outer", "right", "bottom")),
+			Align:     *sas.Alignment("outer", "right", "bottom"),
+		},
+	}
 }

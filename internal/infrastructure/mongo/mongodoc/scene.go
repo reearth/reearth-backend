@@ -92,7 +92,7 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 	alignSysDoc := NewWidgetAlignSystem(*was)
 
 	for _, w := range widgets {
-		layout := WidgetLayout{Extendable: w.WidgetLayout().Extendable, Extended: w.WidgetLayout().Extended, Floating: w.WidgetLayout().Floating, DefaultLocation: (*Location)(w.WidgetLayout().DefaultLocation)}
+		layout := WidgetLayout{Extendable: w.WidgetLayout().Extendable, Extended: w.WidgetLayout().Extended, Floating: w.WidgetLayout().Floating, DefaultLocation: (*WidgetLocation)(w.WidgetLayout().DefaultLocation)}
 		widgetsDoc = append(widgetsDoc, SceneWidgetDocument{
 			ID:           w.ID().String(),
 			Plugin:       w.Plugin().String(),
@@ -165,7 +165,7 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 				Extendable:      w.WidgetLayout.Extendable,
 				Extended:        w.WidgetLayout.Extended,
 				Floating:        w.WidgetLayout.Floating,
-				DefaultLocation: (*scene.Location)(w.WidgetLayout.DefaultLocation),
+				DefaultLocation: (*scene.WidgetLocation)(w.WidgetLayout.DefaultLocation),
 			}
 		}
 		sw, err := scene.NewWidget(

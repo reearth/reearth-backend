@@ -301,7 +301,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	return scene, widget, nil
 }
 
-func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, loc *scene.Location, operator *usecase.Operator) (_ *scene.Scene, err error) {
+func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, loc *scene.WidgetLocation, operator *usecase.Operator) (_ *scene.Scene, err error) {
 
 	tx, err := i.transaction.Begin()
 	if err != nil {

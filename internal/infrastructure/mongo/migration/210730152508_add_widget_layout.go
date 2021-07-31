@@ -37,7 +37,7 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 						extendable := wl.Extendable
 						extended := false
 						dl := wl.DefaultLocation
-						mdl := mongodoc.Location{Zone: dl.Zone, Section: dl.Section, Area: dl.Area}
+						mdl := mongodoc.WidgetLocation{Zone: dl.Zone, Section: dl.Section, Area: dl.Area}
 						wldoc := mongodoc.WidgetLayout{Extendable: extendable, Extended: extended, Floating: float, DefaultLocation: &mdl}
 						w.WidgetLayout = &wldoc
 					}

@@ -267,7 +267,7 @@ enum Area {
   BOTTOM
 }
 
-type Location {
+type WidgetLocation {
   zone: Zone
   section: Section
   area: Area
@@ -277,7 +277,7 @@ type WidgetLayout {
   extendable: Boolean!
   extended: Boolean!
   floating: Boolean!
-  defaultLocation: Location
+  defaultLocation: WidgetLocation
 }
 
 enum PluginExtensionType {
@@ -873,7 +873,7 @@ input DeleteProjectInput {
   projectId: ID!
 }
 
-input LocationInput {
+input WidgetLocationInput {
   zone: String!
   section: String!
   area: String!
@@ -881,8 +881,8 @@ input LocationInput {
 
 input WidgetLayoutInput {
   extended: Boolean
-	Location: LocationInput!
-	newLocation: LocationInput
+	Location: WidgetLocationInput!
+	newLocation: WidgetLocationInput
 	oldIndex: Int
 	newIndex: Int
   align: String
@@ -906,7 +906,7 @@ input RemoveWidgetInput {
   sceneId: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
-  location: LocationInput!
+  location: WidgetLocationInput!
 }
 
 input InstallPluginInput {

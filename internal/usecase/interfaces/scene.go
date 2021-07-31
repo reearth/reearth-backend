@@ -12,7 +12,7 @@ import (
 type LayoutParams struct {
 	Extended *bool
 	Location,
-	NewLocation *scene.Location
+	NewLocation *scene.WidgetLocation
 	OldIndex,
 	NewIndex *int
 	Align *string
@@ -39,7 +39,7 @@ type Scene interface {
 	Create(context.Context, id.ProjectID, *usecase.Operator) (*scene.Scene, error)
 	AddWidget(context.Context, id.SceneID, id.PluginID, id.PluginExtensionID, *usecase.Operator) (*scene.Scene, *scene.Widget, error)
 	UpdateWidget(context.Context, UpdateWidgetParam, *usecase.Operator) (*scene.Scene, *scene.Widget, error)
-	RemoveWidget(context.Context, id.SceneID, id.PluginID, id.PluginExtensionID, *scene.Location, *usecase.Operator) (*scene.Scene, error)
+	RemoveWidget(context.Context, id.SceneID, id.PluginID, id.PluginExtensionID, *scene.WidgetLocation, *usecase.Operator) (*scene.Scene, error)
 	InstallPlugin(context.Context, id.SceneID, id.PluginID, *usecase.Operator) (*scene.Scene, id.PluginID, *id.PropertyID, error)
 	UninstallPlugin(context.Context, id.SceneID, id.PluginID, *usecase.Operator) (*scene.Scene, error)
 	UpgradePlugin(context.Context, id.SceneID, id.PluginID, id.PluginID, *usecase.Operator) (*scene.Scene, error)

@@ -70,10 +70,10 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 			layout.NewIndex = l.NewIndex
 		}
 		if l.Location != nil {
-			layout.Location = &scene.Location{Zone: l.Location.Zone, Section: l.Location.Section, Area: l.Location.Area}
+			layout.Location = &scene.WidgetLocation{Zone: l.Location.Zone, Section: l.Location.Section, Area: l.Location.Area}
 		}
 		if l.NewLocation != nil {
-			layout.NewLocation = &scene.Location{Zone: l.NewLocation.Zone, Section: l.NewLocation.Section, Area: l.NewLocation.Area}
+			layout.NewLocation = &scene.WidgetLocation{Zone: l.NewLocation.Zone, Section: l.NewLocation.Section, Area: l.NewLocation.Area}
 		}
 		if l.Align != nil {
 			layout.Align = l.Align
@@ -94,9 +94,8 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 }
 
 func (c *SceneController) RemoveWidget(ctx context.Context, ginput *RemoveWidgetInput, operator *usecase.Operator) (*RemoveWidgetPayload, error) {
-	var loc scene.Location
-	if ginput.Location != nil {
-		l := ginput.Location
+	var loc *scene.WidgetLocation
+	if l := ginput.Location; l != nil {
 		loc.Zone = l.Zone
 		loc.Section = l.Section
 		loc.Area = l.Area
@@ -105,7 +104,7 @@ func (c *SceneController) RemoveWidget(ctx context.Context, ginput *RemoveWidget
 		id.SceneID(ginput.SceneID),
 		id.PluginID(ginput.PluginID),
 		id.PluginExtensionID(ginput.ExtensionID),
-		&loc,
+		loc,
 		operator,
 	)
 	if err != nil {

@@ -39,7 +39,7 @@ func TestWidgetAlignSystem(t *testing.T) {
 func TestWidgetAlignSystem_Add(t *testing.T) {
 	wid := id.NewWidgetID()
 	wid2 := id.NewWidgetID()
-	loc := Location{"inner", "left", "top"}
+	loc := WidgetLocation{"inner", "left", "top"}
 	was := NewWidgetAlignSystem()
 	was2 := NewWidgetAlignSystem()
 	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, &wid)
@@ -51,7 +51,7 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 		Input struct {
 			id  *id.WidgetID
 			id2 *id.WidgetID
-			loc *Location
+			loc *WidgetLocation
 		}
 		WAS, Expected *WidgetAlignSystem
 	}{
@@ -60,7 +60,7 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 			Input: struct {
 				id  *id.WidgetID
 				id2 *id.WidgetID
-				loc *Location
+				loc *WidgetLocation
 			}{&wid, &wid2, &loc},
 			WAS:      was,
 			Expected: was2,
@@ -79,7 +79,7 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 
 func TestWidgetAlignSystem_Remove(t *testing.T) {
 	wid := id.NewWidgetID()
-	loc := Location{"inner", "left", "top"}
+	loc := WidgetLocation{"inner", "left", "top"}
 	was := NewWidgetAlignSystem()
 	oldWidgets := was.inner.left.top.widgetIds
 	was2 := NewWidgetAlignSystem()
@@ -92,7 +92,7 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 		Name  string
 		Input struct {
 			id  *id.WidgetID
-			loc *Location
+			loc *WidgetLocation
 		}
 		WAS, Expected *WidgetAlignSystem
 	}{
@@ -100,7 +100,7 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 			Name: "Remove a widget from widget align system",
 			Input: struct {
 				id  *id.WidgetID
-				loc *Location
+				loc *WidgetLocation
 			}{&wid, &loc},
 			WAS:      was,
 			Expected: was2,
@@ -121,8 +121,8 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	align := "left"
 
 	// for move
-	oloc := Location{"outer", "right", "middle"}
-	nloc := Location{"inner", "left", "top"}
+	oloc := WidgetLocation{"outer", "right", "middle"}
+	nloc := WidgetLocation{"inner", "left", "top"}
 	was := NewWidgetAlignSystem()
 	was.Add(&wid, &oloc)
 
@@ -149,8 +149,8 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 		Name  string
 		Input struct {
 			id *id.WidgetID
-			ol *Location
-			nl *Location
+			ol *WidgetLocation
+			nl *WidgetLocation
 			i  *int
 			ni *int
 			a  *string
@@ -161,8 +161,8 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 			Name: "Move a widget from one location to another",
 			Input: struct {
 				id *id.WidgetID
-				ol *Location
-				nl *Location
+				ol *WidgetLocation
+				nl *WidgetLocation
 				i  *int
 				ni *int
 				a  *string
@@ -174,8 +174,8 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 			Name: "Reorder a widget in one location",
 			Input: struct {
 				id *id.WidgetID
-				ol *Location
-				nl *Location
+				ol *WidgetLocation
+				nl *WidgetLocation
 				i  *int
 				ni *int
 				a  *string

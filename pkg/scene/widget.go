@@ -9,7 +9,7 @@ type WidgetLayout struct {
 	Extendable      bool
 	Extended        bool
 	Floating        bool
-	DefaultLocation *Location
+	DefaultLocation *WidgetLocation
 }
 
 type Widget struct {

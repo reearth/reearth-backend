@@ -15,7 +15,7 @@ type PluginExtensionDocument struct {
 	Icon         string
 	Schema       string
 	Visualizer   string
-	WidgetLayout *scene.WidgetLayout
+	WidgetLayout *WidgetLayout
 }
 
 type PluginDocument struct {
@@ -63,7 +63,7 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 			Icon:         e.Icon(),
 			Schema:       e.Schema().String(),
 			Visualizer:   string(e.Visualizer()),
-			WidgetLayout: e.WidgetLayout(),
+			WidgetLayout: &WidgetLayout{Extendable: e.WidgetLayout().Extendable, Extended: e.WidgetLayout().Extended, Floating: e.WidgetLayout().Floating, DefaultLocation: (*WidgetLocation)(e.WidgetLayout().DefaultLocation)},
 		})
 	}
 
@@ -97,7 +97,7 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 			Name(d.Name).
 			Description(d.Description).
 			Icon(e.Icon).
-			WidgetLayout(e.WidgetLayout).
+			WidgetLayout(&scene.WidgetLayout{Extendable: e.WidgetLayout.Extendable, Extended: e.WidgetLayout.Extended, Floating: e.WidgetLayout.Floating, DefaultLocation: (*scene.WidgetLocation)(e.WidgetLayout.DefaultLocation)}).
 			Schema(psid).
 			Build()
 		if err != nil {

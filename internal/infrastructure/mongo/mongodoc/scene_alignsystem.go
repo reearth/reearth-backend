@@ -5,7 +5,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-type Location struct {
+type WidgetLocation struct {
 	Zone    string
 	Section string
 	Area    string
@@ -15,7 +15,7 @@ type WidgetLayout struct {
 	Extendable      bool
 	Extended        bool
 	Floating        bool
-	DefaultLocation *Location
+	DefaultLocation *WidgetLocation
 }
 
 type WidgetArea struct {
@@ -41,93 +41,7 @@ type SceneAlignSystemDocument struct {
 }
 
 func NewWidgetAlignSystem(was scene.WidgetAlignSystem) *SceneAlignSystemDocument {
-	widgetAlignDoc := SceneAlignSystemDocument{Inner: WidgetZone{
-		Left: WidgetSection{
-			Top: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "left", "top")),
-				Align:     *was.Alignment("inner", "left", "top"),
-			},
-			Middle: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "left", "middle")),
-				Align:     *was.Alignment("inner", "left", "middle"),
-			},
-			Bottom: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "left", "bottom")),
-				Align:     *was.Alignment("inner", "left", "bottom"),
-			},
-		},
-		Center: WidgetSection{
-			Top: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "center", "top")),
-				Align:     *was.Alignment("inner", "center", "top"),
-			},
-			Middle: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "center", "middle")),
-				Align:     *was.Alignment("inner", "center", "middle"),
-			},
-			Bottom: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "center", "bottom")),
-				Align:     *was.Alignment("inner", "center", "bottom"),
-			},
-		},
-		Right: WidgetSection{
-			Top: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "right", "top")),
-				Align:     *was.Alignment("inner", "right", "top"),
-			},
-			Middle: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "right", "middle")),
-				Align:     *was.Alignment("inner", "right", "middle"),
-			},
-			Bottom: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("inner", "right", "bottom")),
-				Align:     *was.Alignment("inner", "right", "bottom"),
-			},
-		},
-	}, Outer: WidgetZone{
-		Left: WidgetSection{
-			Top: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "left", "top")),
-				Align:     *was.Alignment("outer", "left", "top"),
-			},
-			Middle: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "left", "middle")),
-				Align:     *was.Alignment("outer", "left", "middle"),
-			},
-			Bottom: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "left", "bottom")),
-				Align:     *was.Alignment("outer", "left", "bottom"),
-			},
-		},
-		Center: WidgetSection{
-			Top: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "center", "top")),
-				Align:     *was.Alignment("outer", "center", "top"),
-			},
-			Middle: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "center", "middle")),
-				Align:     *was.Alignment("outer", "center", "middle"),
-			},
-			Bottom: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "center", "bottom")),
-				Align:     *was.Alignment("outer", "center", "bottom"),
-			},
-		},
-		Right: WidgetSection{
-			Top: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "right", "top")),
-				Align:     *was.Alignment("outer", "right", "top"),
-			},
-			Middle: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "right", "middle")),
-				Align:     *was.Alignment("outer", "right", "middle"),
-			},
-			Bottom: WidgetArea{
-				WidgetIds: toString(was.WidgetIds("outer", "right", "bottom")),
-				Align:     *was.Alignment("outer", "right", "bottom"),
-			},
-		},
-	}}
+	widgetAlignDoc := SceneAlignSystemDocument{Inner: buildWidgetZone(&was), Outer: buildWidgetZone(&was)}
 	return &widgetAlignDoc
 }
 
@@ -187,4 +101,29 @@ func toStruct(wids []string) []*id.WidgetID {
 		docids = append(docids, &nid)
 	}
 	return docids
+}
+
+func buildWidgetZone(sas *scene.WidgetAlignSystem) WidgetZone {
+	return WidgetZone{
+		Left:   buildWidgetSection(sas),
+		Center: buildWidgetSection(sas),
+		Right:  buildWidgetSection(sas),
+	}
+}
+
+func buildWidgetSection(was *scene.WidgetAlignSystem) WidgetSection {
+	return WidgetSection{
+		Top: WidgetArea{
+			WidgetIds: toString(was.WidgetIds("outer", "left", "top")),
+			Align:     *was.Alignment("outer", "left", "top"),
+		},
+		Middle: WidgetArea{
+			WidgetIds: toString(was.WidgetIds("outer", "left", "middle")),
+			Align:     *was.Alignment("outer", "left", "middle"),
+		},
+		Bottom: WidgetArea{
+			WidgetIds: toString(was.WidgetIds("outer", "left", "bottom")),
+			Align:     *was.Alignment("outer", "left", "bottom"),
+		},
+	}
 }

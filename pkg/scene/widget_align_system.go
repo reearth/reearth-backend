@@ -30,7 +30,7 @@ type WidgetArea struct {
 	align     string
 }
 
-type Location struct {
+type WidgetLocation struct {
 	Zone    string
 	Section string
 	Area    string
@@ -106,7 +106,7 @@ func (was *WidgetAlignSystem) Alignment(z, s, a string) *string {
 }
 
 // Add a widget to the align system.
-func (was *WidgetAlignSystem) Add(wid *id.WidgetID, l *Location) {
+func (was *WidgetAlignSystem) Add(wid *id.WidgetID, l *WidgetLocation) {
 	if was == nil {
 		return
 	}
@@ -122,7 +122,7 @@ func (was *WidgetAlignSystem) Add(wid *id.WidgetID, l *Location) {
 }
 
 // Remove a widget from the align system.
-func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
+func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *WidgetLocation) {
 	if was == nil {
 		return
 	}
@@ -139,7 +139,7 @@ func (was *WidgetAlignSystem) Remove(wid *id.WidgetID, l *Location) {
 }
 
 // Update a widget in the align system.
-func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *Location, index, newIndex *int, align *string) {
+func (was *WidgetAlignSystem) Update(wid *id.WidgetID, l, newL *WidgetLocation, index, newIndex *int, align *string) {
 	if was == nil && wid == nil && l == nil {
 		return
 	}

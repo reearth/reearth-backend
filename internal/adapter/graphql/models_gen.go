@@ -459,18 +459,6 @@ type LinkDatasetToPropertyValueInput struct {
 	DatasetIds            []*id.ID                  `json:"datasetIds"`
 }
 
-type Location struct {
-	Zone    *Zone    `json:"zone"`
-	Section *Section `json:"section"`
-	Area    *Area    `json:"area"`
-}
-
-type LocationInput struct {
-	Zone    string `json:"zone"`
-	Section string `json:"section"`
-	Area    string `json:"area"`
-}
-
 type MergedInfobox struct {
 	SceneID  id.ID                 `json:"sceneID"`
 	Property *MergedProperty       `json:"property"`
@@ -891,7 +879,7 @@ type RemoveWidgetInput struct {
 	SceneID     id.ID                `json:"sceneId"`
 	PluginID    id.PluginID          `json:"pluginId"`
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
-	Location    *LocationInput       `json:"location"`
+	Location    *WidgetLocationInput `json:"location"`
 }
 
 type RemoveWidgetPayload struct {
@@ -1222,19 +1210,31 @@ type WidgetArea struct {
 }
 
 type WidgetLayout struct {
-	Extendable      bool      `json:"extendable"`
-	Extended        bool      `json:"extended"`
-	Floating        bool      `json:"floating"`
-	DefaultLocation *Location `json:"defaultLocation"`
+	Extendable      bool            `json:"extendable"`
+	Extended        bool            `json:"extended"`
+	Floating        bool            `json:"floating"`
+	DefaultLocation *WidgetLocation `json:"defaultLocation"`
 }
 
 type WidgetLayoutInput struct {
-	Extended    *bool          `json:"extended"`
-	Location    *LocationInput `json:"Location"`
-	NewLocation *LocationInput `json:"newLocation"`
-	OldIndex    *int           `json:"oldIndex"`
-	NewIndex    *int           `json:"newIndex"`
-	Align       *string        `json:"align"`
+	Extended    *bool                `json:"extended"`
+	Location    *WidgetLocationInput `json:"Location"`
+	NewLocation *WidgetLocationInput `json:"newLocation"`
+	OldIndex    *int                 `json:"oldIndex"`
+	NewIndex    *int                 `json:"newIndex"`
+	Align       *string              `json:"align"`
+}
+
+type WidgetLocation struct {
+	Zone    *Zone    `json:"zone"`
+	Section *Section `json:"section"`
+	Area    *Area    `json:"area"`
+}
+
+type WidgetLocationInput struct {
+	Zone    string `json:"zone"`
+	Section string `json:"section"`
+	Area    string `json:"area"`
 }
 
 type WidgetSection struct {

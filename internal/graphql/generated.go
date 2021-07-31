@@ -356,12 +356,6 @@ type ComplexityRoot struct {
 		ScenePlugin     func(childComplexity int) int
 	}
 
-	Location struct {
-		Area    func(childComplexity int) int
-		Section func(childComplexity int) int
-		Zone    func(childComplexity int) int
-	}
-
 	MergedInfobox struct {
 		Fields   func(childComplexity int) int
 		Property func(childComplexity int) int
@@ -936,6 +930,12 @@ type ComplexityRoot struct {
 		Extendable      func(childComplexity int) int
 		Extended        func(childComplexity int) int
 		Floating        func(childComplexity int) int
+	}
+
+	WidgetLocation struct {
+		Area    func(childComplexity int) int
+		Section func(childComplexity int) int
+		Zone    func(childComplexity int) int
 	}
 
 	WidgetSection struct {
@@ -2368,27 +2368,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.LayerItem.ScenePlugin(childComplexity), true
-
-	case "Location.area":
-		if e.complexity.Location.Area == nil {
-			break
-		}
-
-		return e.complexity.Location.Area(childComplexity), true
-
-	case "Location.section":
-		if e.complexity.Location.Section == nil {
-			break
-		}
-
-		return e.complexity.Location.Section(childComplexity), true
-
-	case "Location.zone":
-		if e.complexity.Location.Zone == nil {
-			break
-		}
-
-		return e.complexity.Location.Zone(childComplexity), true
 
 	case "MergedInfobox.fields":
 		if e.complexity.MergedInfobox.Fields == nil {
@@ -5576,6 +5555,27 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.WidgetLayout.Floating(childComplexity), true
 
+	case "WidgetLocation.area":
+		if e.complexity.WidgetLocation.Area == nil {
+			break
+		}
+
+		return e.complexity.WidgetLocation.Area(childComplexity), true
+
+	case "WidgetLocation.section":
+		if e.complexity.WidgetLocation.Section == nil {
+			break
+		}
+
+		return e.complexity.WidgetLocation.Section(childComplexity), true
+
+	case "WidgetLocation.zone":
+		if e.complexity.WidgetLocation.Zone == nil {
+			break
+		}
+
+		return e.complexity.WidgetLocation.Zone(childComplexity), true
+
 	case "WidgetSection.bottom":
 		if e.complexity.WidgetSection.Bottom == nil {
 			break
@@ -5951,7 +5951,7 @@ enum Area {
   BOTTOM
 }
 
-type Location {
+type WidgetLocation {
   zone: Zone
   section: Section
   area: Area
@@ -5961,7 +5961,7 @@ type WidgetLayout {
   extendable: Boolean!
   extended: Boolean!
   floating: Boolean!
-  defaultLocation: Location
+  defaultLocation: WidgetLocation
 }
 
 enum PluginExtensionType {
@@ -6557,7 +6557,7 @@ input DeleteProjectInput {
   projectId: ID!
 }
 
-input LocationInput {
+input WidgetLocationInput {
   zone: String!
   section: String!
   area: String!
@@ -6565,8 +6565,8 @@ input LocationInput {
 
 input WidgetLayoutInput {
   extended: Boolean
-	Location: LocationInput!
-	newLocation: LocationInput
+	Location: WidgetLocationInput!
+	newLocation: WidgetLocationInput
 	oldIndex: Int
 	newIndex: Int
   align: String
@@ -6590,7 +6590,7 @@ input RemoveWidgetInput {
   sceneId: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
-  location: LocationInput!
+  location: WidgetLocationInput!
 }
 
 input InstallPluginInput {
@@ -14443,102 +14443,6 @@ func (ec *executionContext) _LayerItem_scenePlugin(ctx context.Context, field gr
 	res := resTmp.(*graphql1.ScenePlugin)
 	fc.Result = res
 	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScenePlugin(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_zone(ctx context.Context, field graphql.CollectedField, obj *graphql1.Location) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Location",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Zone, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*graphql1.Zone)
-	fc.Result = res
-	return ec.marshalOZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐZone(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_section(ctx context.Context, field graphql.CollectedField, obj *graphql1.Location) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Location",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Section, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*graphql1.Section)
-	fc.Result = res
-	return ec.marshalOSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSection(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Location_area(ctx context.Context, field graphql.CollectedField, obj *graphql1.Location) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Location",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Area, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*graphql1.Area)
-	fc.Result = res
-	return ec.marshalOArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐArea(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field graphql.CollectedField, obj *graphql1.MergedInfobox) (ret graphql.Marshaler) {
@@ -28395,9 +28299,105 @@ func (ec *executionContext) _WidgetLayout_defaultLocation(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*graphql1.Location)
+	res := resTmp.(*graphql1.WidgetLocation)
 	fc.Result = res
-	return ec.marshalOLocation2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocation(ctx, field.Selections, res)
+	return ec.marshalOWidgetLocation2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocation(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetLocation_zone(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLocation) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetLocation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Zone, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Zone)
+	fc.Result = res
+	return ec.marshalOZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐZone(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetLocation_section(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLocation) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetLocation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Section, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Section)
+	fc.Result = res
+	return ec.marshalOSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐSection(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetLocation_area(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLocation) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetLocation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Area, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Area)
+	fc.Result = res
+	return ec.marshalOArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐArea(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetSection_top(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetSection) (ret graphql.Marshaler) {
@@ -30535,42 +30535,6 @@ func (ec *executionContext) unmarshalInputLinkDatasetToPropertyValueInput(ctx co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputLocationInput(ctx context.Context, obj interface{}) (graphql1.LocationInput, error) {
-	var it graphql1.LocationInput
-	var asMap = obj.(map[string]interface{})
-
-	for k, v := range asMap {
-		switch k {
-		case "zone":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("zone"))
-			it.Zone, err = ec.unmarshalNString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "section":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("section"))
-			it.Section, err = ec.unmarshalNString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "area":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("area"))
-			it.Area, err = ec.unmarshalNString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
 func (ec *executionContext) unmarshalInputMoveInfoboxFieldInput(ctx context.Context, obj interface{}) (graphql1.MoveInfoboxFieldInput, error) {
 	var it graphql1.MoveInfoboxFieldInput
 	var asMap = obj.(map[string]interface{})
@@ -31001,7 +30965,7 @@ func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("location"))
-			it.Location, err = ec.unmarshalNLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
+			it.Location, err = ec.unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -32145,7 +32109,7 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Location"))
-			it.Location, err = ec.unmarshalNLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
+			it.Location, err = ec.unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -32153,7 +32117,7 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newLocation"))
-			it.NewLocation, err = ec.unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx, v)
+			it.NewLocation, err = ec.unmarshalOWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -32178,6 +32142,42 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("align"))
 			it.Align, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputWidgetLocationInput(ctx context.Context, obj interface{}) (graphql1.WidgetLocationInput, error) {
+	var it graphql1.WidgetLocationInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "zone":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("zone"))
+			it.Zone, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "section":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("section"))
+			it.Section, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "area":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("area"))
+			it.Area, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -34134,34 +34134,6 @@ func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet
 				res = ec._LayerItem_scenePlugin(ctx, field, obj)
 				return res
 			})
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
-
-var locationImplementors = []string{"Location"}
-
-func (ec *executionContext) _Location(ctx context.Context, sel ast.SelectionSet, obj *graphql1.Location) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, locationImplementors)
-
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("Location")
-		case "zone":
-			out.Values[i] = ec._Location_zone(ctx, field, obj)
-		case "section":
-			out.Values[i] = ec._Location_section(ctx, field, obj)
-		case "area":
-			out.Values[i] = ec._Location_area(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -37717,6 +37689,34 @@ func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.Selection
 	return out
 }
 
+var widgetLocationImplementors = []string{"WidgetLocation"}
+
+func (ec *executionContext) _WidgetLocation(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetLocation) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, widgetLocationImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("WidgetLocation")
+		case "zone":
+			out.Values[i] = ec._WidgetLocation_zone(ctx, field, obj)
+		case "section":
+			out.Values[i] = ec._WidgetLocation_section(ctx, field, obj)
+		case "area":
+			out.Values[i] = ec._WidgetLocation_area(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var widgetSectionImplementors = []string{"WidgetSection"}
 
 func (ec *executionContext) _WidgetSection(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetSection) graphql.Marshaler {
@@ -38988,11 +38988,6 @@ func (ec *executionContext) unmarshalNListOperation2githubᚗcomᚋreearthᚋree
 
 func (ec *executionContext) marshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐListOperation(ctx context.Context, sel ast.SelectionSet, v graphql1.ListOperation) graphql.Marshaler {
 	return v
-}
-
-func (ec *executionContext) unmarshalNLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx context.Context, v interface{}) (*graphql1.LocationInput, error) {
-	res, err := ec.unmarshalInputLocationInput(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMergedInfoboxFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*graphql1.MergedInfoboxField) graphql.Marshaler {
@@ -40474,6 +40469,11 @@ func (ec *executionContext) marshalNWidgetLayout2ᚖgithubᚗcomᚋreearthᚋree
 	return ec._WidgetLayout(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx context.Context, v interface{}) (*graphql1.WidgetLocationInput, error) {
+	res, err := ec.unmarshalInputWidgetLocationInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {
 	return ec.___Directive(ctx, sel, &v)
 }
@@ -41122,21 +41122,6 @@ func (ec *executionContext) marshalOLayerItem2ᚖgithubᚗcomᚋreearthᚋreeart
 		return graphql.Null
 	}
 	return ec._LayerItem(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalOLocation2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocation(ctx context.Context, sel ast.SelectionSet, v *graphql1.Location) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._Location(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalOLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐLocationInput(ctx context.Context, v interface{}) (*graphql1.LocationInput, error) {
-	if v == nil {
-		return nil, nil
-	}
-	res, err := ec.unmarshalInputLocationInput(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐMergedInfobox(ctx context.Context, sel ast.SelectionSet, v *graphql1.MergedInfobox) graphql.Marshaler {
@@ -41799,6 +41784,21 @@ func (ec *executionContext) unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreeart
 		return nil, nil
 	}
 	res, err := ec.unmarshalInputWidgetLayoutInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOWidgetLocation2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocation(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetLocation) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._WidgetLocation(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx context.Context, v interface{}) (*graphql1.WidgetLocationInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputWidgetLocationInput(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 

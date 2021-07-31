@@ -84,7 +84,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
-			widgetLayout:  nil,
+			widgetLayout:  &scene.WidgetLayout{},
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -93,7 +93,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
-				widgetLayout:  nil,
+				widgetLayout:  &scene.WidgetLayout{},
 			},
 			err: nil,
 		},
