@@ -30,6 +30,10 @@ func NewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensio
 		wid = id.NewWidgetID().Ref()
 	}
 
+	if widgetLayout == nil {
+		widgetLayout = &WidgetLayout{}
+	}
+
 	return &Widget{
 		id:           *wid,
 		plugin:       plugin,
