@@ -73,7 +73,6 @@ func (b *Builder) widgets(ctx context.Context, s *scene.Scene, p []*property.Pro
 
 func (b *Builder) widgetAlignment(ctx context.Context, s *scene.Scene) *widgetAlignSystemJSON {
 	sas := s.WidgetAlignSystem()
-	// alignSys := s.WidgetAlignSystem()
 	res := widgetAlignSystemJSON{Inner: widgetZone{
 		Left: widgetSection{
 			Top: widgetArea{
