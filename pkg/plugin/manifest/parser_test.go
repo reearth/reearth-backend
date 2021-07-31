@@ -9,6 +9,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
+	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 	"github.com/stretchr/testify/assert"
 )
@@ -28,6 +29,7 @@ var normalExpected = &Manifest{
 		plugin.NewExtension().ID(id.PluginExtensionID("hoge")).
 			Visualizer(visualizer.VisualizerCesium).
 			Type(plugin.ExtensionTypePrimitive).
+			WidgetLayout(&scene.WidgetLayout{Extendable: true, Extended: false, Floating: false, DefaultLocation: &scene.Location{Zone: "outer", Section: "left", Area: "top"}}).
 			Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).
 			MustBuild(),
 	}).MustBuild(),

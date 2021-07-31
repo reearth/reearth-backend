@@ -37,7 +37,7 @@ func TestNewWidget(t *testing.T) {
 			Extension:    "eee",
 			Property:     pr,
 			Enabled:      true,
-			WidgetLayout: nil,
+			WidgetLayout: &WidgetLayout{},
 			Expected: struct {
 				Id           id.WidgetID
 				Plugin       id.PluginID
@@ -51,7 +51,7 @@ func TestNewWidget(t *testing.T) {
 				Extension:    "eee",
 				Property:     pr,
 				Enabled:      true,
-				WidgetLayout: nil,
+				WidgetLayout: &WidgetLayout{},
 			},
 			err: nil,
 		},
@@ -76,7 +76,7 @@ func TestNewWidget(t *testing.T) {
 				Extension:    "eee",
 				Property:     pr,
 				Enabled:      true,
-				WidgetLayout: nil,
+				WidgetLayout: &WidgetLayout{},
 			},
 			err: nil,
 		},

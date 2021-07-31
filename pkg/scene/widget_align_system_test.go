@@ -44,6 +44,7 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 	was2 := NewWidgetAlignSystem()
 	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, &wid)
 	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, &wid2)
+	was2.inner.left.top.align = "start"
 
 	testCases := []struct {
 		Name  string
