@@ -16,9 +16,7 @@ import (
 //go:embed testdata/minimum.yml
 var minimum string
 var minimumExpected = &Manifest{
-	Plugin:          plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
-	ExtensionSchema: []*property.Schema{},
-	Schema:          nil,
+	Plugin: plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
 }
 
 //go:embed testdata/test.yml
@@ -51,7 +49,6 @@ var normalExpected = &Manifest{
 				}).MustBuild(),
 		}).MustBuild(),
 	},
-	Schema: nil,
 }
 
 func TestParse(t *testing.T) {
