@@ -67,14 +67,14 @@ func (r *propertySchema) SaveAll(ctx context.Context, p property.SchemaList) err
 
 func (r *propertySchema) Remove(ctx context.Context, p id.PropertySchemaID) error {
 	if r.writer == nil {
-		return err1.ErrInternalBy(errors.New("writer is not set"))
+		return rerror.ErrInternalBy(errors.New("writer is not set"))
 	}
 	return r.writer.Remove(ctx, p)
 }
 
 func (r *propertySchema) RemoveAll(ctx context.Context, p []id.PropertySchemaID) error {
 	if r.writer == nil {
-		return err1.ErrInternalBy(errors.New("writer is not set"))
+		return rerror.ErrInternalBy(errors.New("writer is not set"))
 	}
 	return r.writer.RemoveAll(ctx, p)
 }

@@ -7,7 +7,6 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
-	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 )
 
@@ -52,5 +51,5 @@ func (r *pluginRepo) Save(ctx context.Context, p *plugin.Plugin) error {
 }
 
 func (r *pluginRepo) Remove(ctx context.Context, pid id.PluginID) error {
-	return err1.ErrInternalBy(errors.New("read only"))
+	return rerror.ErrInternalBy(errors.New("read only"))
 }
