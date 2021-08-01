@@ -10,13 +10,13 @@ import (
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
-func (i *Root) manifest() (*Manifest, error) {
+func (i *Root) manifest(sid *id.SceneID) (*Manifest, error) {
 	var pid id.PluginID
 	var err error
 	if i.System && string(i.ID) == id.OfficialPluginID.Name() {
 		pid = id.OfficialPluginID
 	} else {
-		pid, err = id.PluginIDFrom(string(i.ID) + "#" + i.Version)
+		pid, err = id.NewPluginID(string(i.ID), i.Version, sid)
 		if err != nil {
 			return nil, ErrInvalidManifest
 		}

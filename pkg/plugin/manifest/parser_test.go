@@ -55,7 +55,7 @@ func TestParse(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			m, err := Parse(tc.input)
+			m, err := Parse(tc.input, nil)
 			if err == nil {
 				assert.Equal(t, tc.expected.Plugin.ID(), m.Plugin.ID())
 				assert.Equal(t, m.Plugin.Name(), m.Plugin.Name())
@@ -98,7 +98,7 @@ func TestParseSystemFromStaticJSON(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			m, err := ParseSystemFromStaticJSON(tc.input)
+			m, err := ParseSystemFromStaticJSON(tc.input, nil)
 			if err == nil {
 				assert.Equal(t, tc.expected.Plugin.ID(), m.Plugin.ID())
 				assert.Equal(t, m.Plugin.Name(), m.Plugin.Name())
@@ -107,7 +107,6 @@ func TestParseSystemFromStaticJSON(t *testing.T) {
 			}
 		})
 	}
-
 }
 
 func TestMustParseSystemFromStaticJSON(t *testing.T) {
@@ -148,8 +147,7 @@ func TestMustParseSystemFromStaticJSON(t *testing.T) {
 					assert.Equal(t, m.Plugin.Name(), m.Plugin.Name())
 				}
 			}()
-			m = MustParseSystemFromStaticJSON(tc.input)
-
+			m = MustParseSystemFromStaticJSON(tc.input, nil)
 		})
 	}
 

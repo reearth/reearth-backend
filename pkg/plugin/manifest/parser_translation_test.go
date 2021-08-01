@@ -353,7 +353,7 @@ func TestMergeManifestTranslation(t *testing.T) {
 		{
 			name: "nil translition list",
 			tl:   map[string]*TranslationRoot{"xx": MustParseTransSystemFromStaticJSON(translatedManifest)},
-			m:    MustParseSystemFromStaticJSON(manifest),
+			m:    MustParseSystemFromStaticJSON(manifest, nil),
 			Expected: &struct{ PluginName, PluginDesc, ExtName, PsTitle, FieldName, FieldDesc i18n.String }{
 				PluginName: i18n.String{"en": "aaa", "xx": "test plugin name"},
 				PluginDesc: i18n.String{"en": "ddd", "xx": "test plugin desc"},

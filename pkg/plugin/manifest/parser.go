@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/xeipuuv/gojsonschema"
 )
 
@@ -19,7 +20,7 @@ var (
 	schemaLoader                   = gojsonschema.NewStringLoader(SchemaJSON)
 )
 
-func Parse(source io.Reader) (*Manifest, error) {
+func Parse(source io.Reader, scene *id.SceneID) (*Manifest, error) {
 	// TODO: When using gojsonschema.NewReaderLoader, gojsonschema.Validate returns io.EOF error.
 	doc, err := io.ReadAll(source)
 	if err != nil {
@@ -37,7 +38,7 @@ func Parse(source io.Reader) (*Manifest, error) {
 		return nil, ErrFailedToParseManifest
 	}
 
-	manifest, err := root.manifest()
+	manifest, err := root.manifest(scene)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +49,7 @@ func Parse(source io.Reader) (*Manifest, error) {
 	return manifest, nil
 }
 
-func ParseSystemFromStaticJSON(source string) (*Manifest, error) {
+func ParseSystemFromStaticJSON(source string, scene *id.SceneID) (*Manifest, error) {
 	src := []byte(source)
 	documentLoader := gojsonschema.NewBytesLoader(src)
 	if err := validate(documentLoader); err != nil {
@@ -60,7 +61,7 @@ func ParseSystemFromStaticJSON(source string) (*Manifest, error) {
 		return nil, ErrFailedToParseManifest
 	}
 
-	manifest, err := root.manifest()
+	manifest, err := root.manifest(scene)
 	if err != nil {
 		return nil, err
 	}
@@ -68,8 +69,8 @@ func ParseSystemFromStaticJSON(source string) (*Manifest, error) {
 	return manifest, nil
 }
 
-func MustParseSystemFromStaticJSON(source string) *Manifest {
-	m, err := ParseSystemFromStaticJSON(source)
+func MustParseSystemFromStaticJSON(source string, scene *id.SceneID) *Manifest {
+	m, err := ParseSystemFromStaticJSON(source, scene)
 	if err != nil {
 		panic(err)
 	}

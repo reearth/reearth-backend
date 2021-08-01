@@ -29,7 +29,7 @@ func readManifest(base string, pid id.PluginID) (*manifest.Manifest, error) {
 		_ = file.Close()
 	}()
 
-	m, err := manifest.Parse(file)
+	m, err := manifest.Parse(file, nil)
 	if err != nil {
 		return nil, err1.ErrInternalBy(err)
 	}
