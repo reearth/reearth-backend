@@ -1,7 +1,7 @@
 module github.com/reearth/reearth-backend
 
 require (
-	cloud.google.com/go v0.80.0
+	cloud.google.com/go v0.87.0
 	cloud.google.com/go/storage v1.14.0
 	github.com/99designs/gqlgen v0.13.0
 	github.com/99designs/gqlgen-contrib v0.1.1-0.20200601100547-7a955d321bbd
@@ -47,10 +47,10 @@ require (
 	go.opentelemetry.io/otel v0.7.0
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20201203163018-be400aefbc4c // indirect
-	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
-	golang.org/x/text v0.3.5
+	golang.org/x/text v0.3.6
 	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
-	golang.org/x/tools v0.1.0
+	golang.org/x/tools v0.1.5
+	google.golang.org/api v0.51.0
 	gopkg.in/go-playground/colors.v1 v1.2.0
 	gopkg.in/h2non/gock.v1 v1.1.0
 	gopkg.in/yaml.v2 v2.4.0 // indirect

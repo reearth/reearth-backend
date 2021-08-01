@@ -9,17 +9,15 @@ import (
 	"github.com/reearth/reearth-backend/pkg/rerror"
 )
 
-type archive struct {
+type Archive struct {
 	p       string
 	files   []string
 	counter int
 	name    string
 	size    int64
-	fi      *os.File
 }
 
-// NewArchive _
-func NewArchive(p string) (file.Archive, error) {
+func NewArchive(p string) (*Archive, error) {
 	bp := strings.TrimSuffix(p, "/")
 	files, size, err := dirwalk(bp, "", 0)
 	if err != nil {
@@ -28,7 +26,8 @@ func NewArchive(p string) (file.Archive, error) {
 		}
 		return nil, rerror.ErrInternalBy(err)
 	}
-	return &archive{
+
+	return &Archive{
 		p:       bp,
 		files:   files,
 		counter: 0,
@@ -37,10 +36,9 @@ func NewArchive(p string) (file.Archive, error) {
 	}, nil
 }
 
-// Next _
-func (a *archive) Next() (f *file.File, derr error) {
+func (a *Archive) Next() (f *file.File, derr error) {
 	if len(a.files) <= a.counter {
-		return nil, file.EOF
+		return nil, nil
 	}
 	next := a.files[a.counter]
 	a.counter++
@@ -56,32 +54,18 @@ func (a *archive) Next() (f *file.File, derr error) {
 	}
 
 	f = &file.File{
-		Content:  fi,
-		Name:     stat.Name(),
-		Fullpath: strings.TrimPrefix(next, a.p+"/"),
-		Size:     stat.Size(),
+		Content: fi,
+		Path:    strings.TrimPrefix(next, a.p+"/"),
+		Size:    stat.Size(),
 	}
 	return
 }
 
-// Close _
-func (a *archive) Close() error {
-	if a.fi != nil {
-		if err := a.fi.Close(); err != nil {
-			return rerror.ErrInternalBy(err)
-		}
-		a.fi = nil
-	}
-	return nil
-}
-
-// Name _
-func (a *archive) Name() string {
+func (a *Archive) Name() string {
 	return a.name
 }
 
-// Size _
-func (a *archive) Size() int64 {
+func (a *Archive) Size() int64 {
 	return a.size
 }
 

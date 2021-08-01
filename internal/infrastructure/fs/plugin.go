@@ -3,8 +3,6 @@ package fs
 import (
 	"context"
 	"errors"
-	"os"
-	"path"
 
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -23,24 +21,8 @@ func NewPlugin(basePath string) repo.Plugin {
 	}
 }
 
-func (r *pluginRepo) manifest(ctx context.Context, id id.PluginID) string {
-	return path.Join(getPluginFilePath(r.basePath, id, manifestFilePath))
-}
-
-func (r *pluginRepo) FindByID(ctx context.Context, id id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
-	filename := r.manifest(ctx, id)
-	if _, err := os.Stat(filename); err != nil {
-		return nil, rerror.ErrNotFound
-	}
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, rerror.ErrInternalBy(err)
-	}
-	defer func() {
-		_ = file.Close()
-	}()
-
-	m, err := manifest.Parse(file)
+func (r *pluginRepo) FindByID(ctx context.Context, pid id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
+	m, err := readManifest(r.basePath, pid)
 	if err != nil {
 		return nil, rerror.ErrInternalBy(err)
 	}
