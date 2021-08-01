@@ -190,11 +190,11 @@ func (i *Dataset) ImportDataset(ctx context.Context, inp interfaces.ImportDatase
 	}
 
 	separator := ','
-	if strings.HasSuffix(inp.File.Name, ".tsv") {
+	if strings.HasSuffix(inp.File.Path, ".tsv") {
 		separator = '\t'
 	}
 
-	return i.importDataset(ctx, inp.File.Content, inp.File.Name, separator, inp.SceneId, inp.SchemaId)
+	return i.importDataset(ctx, inp.File.Content, inp.File.Path, separator, inp.SceneId, inp.SchemaId)
 }
 
 func (i *Dataset) ImportDatasetFromGoogleSheet(ctx context.Context, inp interfaces.ImportDatasetFromGoogleSheetParam, operator *usecase.Operator) (_ *dataset.Schema, err error) {

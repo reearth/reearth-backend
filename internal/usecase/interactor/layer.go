@@ -957,13 +957,13 @@ func (i *Layer) ImportLayer(ctx context.Context, inp interfaces.ImportLayerParam
 			return nil, nil, errors.New("file is too big")
 		}
 		var reader decoding.ShapeReader
-		if inp.File.ContentType == "application/octet-stream" && strings.HasSuffix(inp.File.Name, ".shp") {
+		if inp.File.ContentType == "application/octet-stream" && strings.HasSuffix(inp.File.Path, ".shp") {
 			reader, err = shp.ReadFrom(inp.File.Content)
 			if err != nil {
 				return nil, nil, err
 			}
 			decoder = decoding.NewShapeDecoder(reader, parent.Scene())
-		} else if inp.File.ContentType == "application/zip" && strings.HasSuffix(inp.File.Name, ".zip") {
+		} else if inp.File.ContentType == "application/zip" && strings.HasSuffix(inp.File.Path, ".zip") {
 			reader, err = shp.ReadZipFrom(inp.File.Content)
 			if err != nil {
 				return nil, nil, err
