@@ -572,6 +572,7 @@ type PageInfo struct {
 
 type Plugin struct {
 	ID                       id.PluginID          `json:"id"`
+	SceneID                  *id.ID               `json:"sceneId"`
 	Name                     string               `json:"name"`
 	Version                  string               `json:"version"`
 	Description              string               `json:"description"`
@@ -579,6 +580,7 @@ type Plugin struct {
 	RepositoryURL            string               `json:"repositoryUrl"`
 	PropertySchemaID         *id.PropertySchemaID `json:"propertySchemaId"`
 	Extensions               []*PluginExtension   `json:"extensions"`
+	Scene                    *Scene               `json:"scene"`
 	ScenePlugin              *ScenePlugin         `json:"scenePlugin"`
 	AllTranslatedDescription map[string]string    `json:"allTranslatedDescription"`
 	AllTranslatedName        map[string]string    `json:"allTranslatedName"`
@@ -1173,7 +1175,9 @@ type UploadFileToPropertyInput struct {
 }
 
 type UploadPluginInput struct {
-	File graphql.Upload `json:"file"`
+	SceneID id.ID           `json:"sceneId"`
+	File    *graphql.Upload `json:"file"`
+	URL     *url.URL        `json:"url"`
 }
 
 type UploadPluginPayload struct {

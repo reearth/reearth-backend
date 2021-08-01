@@ -5,6 +5,7 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type PluginControllerConfig struct {
@@ -27,7 +28,7 @@ func (c *PluginController) usecase() interfaces.Plugin {
 }
 
 func (c *PluginController) Upload(ctx context.Context, ginput *UploadPluginInput, operator *usecase.Operator) (*UploadPluginPayload, error) {
-	res, err := c.usecase().Upload(ctx, ginput.File.File, operator)
+	res, err := c.usecase().Upload(ctx, ginput.File.File, id.SceneID(ginput.SceneID), operator)
 	if err != nil {
 		return nil, err
 	}

@@ -227,6 +227,7 @@ enum PublishmentStatus {
 
 type Plugin {
   id: PluginID!
+  sceneId: ID
   name: String!
   version: String!
   description: String!
@@ -234,7 +235,8 @@ type Plugin {
   repositoryUrl: String!
   propertySchemaId: PropertySchemaID
   extensions: [PluginExtension!]!
-  scenePlugin(sceneId: ID!): ScenePlugin
+  scene: Scene @goField(forceResolver: true)
+  scenePlugin(sceneId: ID): ScenePlugin
   allTranslatedDescription: TranslatedString
   allTranslatedName: TranslatedString
   translatedName(lang: String): String!
@@ -798,7 +800,9 @@ input UpdateProjectInput {
 }
 
 input UploadPluginInput {
-  file: Upload!
+  sceneId: ID!
+  file: Upload
+  url: URL
 }
 
 input CreateSceneInput {
