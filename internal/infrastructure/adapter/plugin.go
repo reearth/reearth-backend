@@ -57,3 +57,10 @@ func (r *pluginRepo) Save(ctx context.Context, p *plugin.Plugin) error {
 	}
 	return r.writer.Save(ctx, p)
 }
+
+func (r *pluginRepo) Remove(ctx context.Context, p id.PluginID) error {
+	if r.writer == nil {
+		return errors.New("cannot write")
+	}
+	return r.writer.Remove(ctx, p)
+}
