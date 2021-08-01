@@ -96,7 +96,7 @@ func TestParse(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			m, err := Parse(strings.NewReader(tc.input))
+			m, err := Parse(strings.NewReader(tc.input), nil)
 			if tc.err == nil {
 				if !assert.NoError(tt, err) {
 					return
@@ -140,7 +140,7 @@ func TestParseSystemFromBytes(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			m, err := ParseSystemFromBytes([]byte(tc.input))
+			m, err := ParseSystemFromBytes([]byte(tc.input), nil)
 			if tc.err == nil {
 				if !assert.NoError(tt, err) {
 					return
@@ -186,12 +186,12 @@ func TestMustParseSystemFromBytes(t *testing.T) {
 
 			if tc.err != nil {
 				assert.PanicsWithError(tt, tc.err.Error(), func() {
-					_ = MustParseSystemFromBytes([]byte(tc.input))
+					_ = MustParseSystemFromBytes([]byte(tc.input), nil)
 				})
 				return
 			}
 
-			m := MustParseSystemFromBytes([]byte(tc.input))
+			m := MustParseSystemFromBytes([]byte(tc.input), nil)
 			assert.Equal(tt, m, tc.expected)
 		})
 	}
