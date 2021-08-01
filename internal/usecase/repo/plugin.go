@@ -11,6 +11,7 @@ type Plugin interface {
 	FindByID(context.Context, id.PluginID, []id.SceneID) (*plugin.Plugin, error)
 	FindByIDs(context.Context, []id.PluginID, []id.SceneID) ([]*plugin.Plugin, error)
 	Save(context.Context, *plugin.Plugin) error
+	Remove(context.Context, id.PluginID) error
 }
 
 func PluginLoaderFrom(r Plugin) plugin.Loader {
