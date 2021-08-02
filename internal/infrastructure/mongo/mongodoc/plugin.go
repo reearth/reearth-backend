@@ -56,14 +56,18 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 	extensionsDoc := make([]PluginExtensionDocument, 0, len(extensions))
 	for _, e := range extensions {
 		extensionsDoc = append(extensionsDoc, PluginExtensionDocument{
-			ID:           string(e.ID()),
-			Type:         string(e.Type()),
-			Name:         e.Name(),
-			Description:  e.Description(),
-			Icon:         e.Icon(),
-			Schema:       e.Schema().String(),
-			Visualizer:   string(e.Visualizer()),
-			WidgetLayout: &WidgetLayout{Extendable: e.WidgetLayout().Extendable, Extended: e.WidgetLayout().Extended, Floating: e.WidgetLayout().Floating, DefaultLocation: (*WidgetLocation)(e.WidgetLayout().DefaultLocation)},
+			ID:          string(e.ID()),
+			Type:        string(e.Type()),
+			Name:        e.Name(),
+			Description: e.Description(),
+			Icon:        e.Icon(),
+			Schema:      e.Schema().String(),
+			Visualizer:  string(e.Visualizer()),
+			WidgetLayout: &WidgetLayout{
+				Extendable:      e.WidgetLayout().Extendable,
+				Extended:        e.WidgetLayout().Extended,
+				Floating:        e.WidgetLayout().Floating,
+				DefaultLocation: (*WidgetLocation)(e.WidgetLayout().DefaultLocation)},
 		})
 	}
 
@@ -97,7 +101,11 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 			Name(d.Name).
 			Description(d.Description).
 			Icon(e.Icon).
-			WidgetLayout(&scene.WidgetLayout{Extendable: e.WidgetLayout.Extendable, Extended: e.WidgetLayout.Extended, Floating: e.WidgetLayout.Floating, DefaultLocation: (*scene.WidgetLocation)(e.WidgetLayout.DefaultLocation)}).
+			WidgetLayout(&scene.WidgetLayout{
+				Extendable:      e.WidgetLayout.Extendable,
+				Extended:        e.WidgetLayout.Extended,
+				Floating:        e.WidgetLayout.Floating,
+				DefaultLocation: (*scene.WidgetLocation)(e.WidgetLayout.DefaultLocation)}).
 			Schema(psid).
 			Build()
 		if err != nil {

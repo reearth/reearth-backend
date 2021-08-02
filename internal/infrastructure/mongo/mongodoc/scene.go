@@ -190,11 +190,7 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 		ps = append(ps, scene.NewPlugin(pid, id.PropertyIDFromRef(p.Property)))
 	}
 
-	var nas *scene.WidgetAlignSystem
-	nas, err = d.AlignSystem.ToModelAlignSystem(as)
-	if err != nil {
-		return nil, err
-	}
+	nas := d.AlignSystem.ToModelAlignSystem(as)
 
 	return scene.New().
 		ID(sid).
