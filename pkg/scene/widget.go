@@ -4,7 +4,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-// WidgetLayout _
 type WidgetLayout struct {
 	Extendable      bool
 	Extended        bool

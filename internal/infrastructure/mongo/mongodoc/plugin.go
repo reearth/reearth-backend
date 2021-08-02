@@ -64,10 +64,10 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 			Schema:      e.Schema().String(),
 			Visualizer:  string(e.Visualizer()),
 			WidgetLayout: &WidgetLayout{
-				Extendable:      e.WidgetLayout().Extendable,
-				Extended:        e.WidgetLayout().Extended,
-				Floating:        e.WidgetLayout().Floating,
-				DefaultLocation: (*WidgetLocation)(e.WidgetLayout().DefaultLocation)},
+				Extendable:      e.Layout().Extendable,
+				Extended:        e.Layout().Extended,
+				Floating:        e.Layout().Floating,
+				DefaultLocation: (*WidgetLocation)(e.Layout().DefaultLocation)},
 		})
 	}
 

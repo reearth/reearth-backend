@@ -250,27 +250,27 @@ type PluginMetadata {
   createdAt: DateTime!
 }
 
-enum Zone {
+enum WZone {
   INNER
   OUTER
 }
 
-enum Section {
+enum WSection {
   LEFT
   CENTER
   RIGHT
 }
 
-enum Area {
+enum WArea {
   TOP
   MIDDLE
   BOTTOM
 }
 
 type WidgetLocation {
-  zone: Zone
-  section: Section
-  area: Area
+  zone: WZone
+  section: WSection
+  area: WArea
 }
 
 type WidgetLayout {
@@ -328,7 +328,7 @@ type WidgetSection {
 }
 
 type WidgetArea {
-  widgetIds: [ID]
+  widgetIds: [ID!]!
   align: String
 }
 

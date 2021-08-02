@@ -31,13 +31,21 @@ func TestNewWidget(t *testing.T) {
 		err error
 	}{
 		{
-			Name:         "success new widget",
-			Id:           wid.Ref(),
-			Plugin:       pid,
-			Extension:    "eee",
-			Property:     pr,
-			Enabled:      true,
-			WidgetLayout: &WidgetLayout{},
+			Name:      "success new widget",
+			Id:        wid.Ref(),
+			Plugin:    pid,
+			Extension: "eee",
+			Property:  pr,
+			Enabled:   true,
+			WidgetLayout: &WidgetLayout{
+				Extendable: false,
+				Extended:   true,
+				DefaultLocation: &WidgetLocation{
+					Zone:    "outer",
+					Section: "left",
+					Area:    "top",
+				},
+			},
 			Expected: struct {
 				Id           id.WidgetID
 				Plugin       id.PluginID
@@ -46,12 +54,20 @@ func TestNewWidget(t *testing.T) {
 				Enabled      bool
 				WidgetLayout *WidgetLayout
 			}{
-				Id:           wid,
-				Plugin:       pid,
-				Extension:    "eee",
-				Property:     pr,
-				Enabled:      true,
-				WidgetLayout: &WidgetLayout{},
+				Id:        wid,
+				Plugin:    pid,
+				Extension: "eee",
+				Property:  pr,
+				Enabled:   true,
+				WidgetLayout: &WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					},
+				},
 			},
 			err: nil,
 		},

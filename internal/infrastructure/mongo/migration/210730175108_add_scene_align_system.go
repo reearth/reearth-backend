@@ -37,7 +37,7 @@ func AddSceneAlignSystem(ctx context.Context, c DBClient) error {
 					swas.Add(wid, &mdl)
 				}
 
-				mwas := *mongodoc.NewWidgetAlignSystem(*swas)
+				mwas := *mongodoc.NewWidgetAlignSystem(swas)
 				doc.AlignSystem = mwas
 
 				ids = append(ids, doc.ID)

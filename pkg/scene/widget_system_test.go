@@ -30,40 +30,80 @@ func TestNewWidgetSystem(t *testing.T) {
 			Name: "widget list with matched values",
 			Input: []*Widget{
 				{
-					id:           *wid,
-					plugin:       pid,
-					extension:    "eee",
-					property:     pr,
-					enabled:      true,
-					widgetLayout: &WidgetLayout{},
+					id:        *wid,
+					plugin:    pid,
+					extension: "eee",
+					property:  pr,
+					enabled:   true,
+					widgetLayout: &WidgetLayout{
+						Extendable: false,
+						Extended:   true,
+						DefaultLocation: &WidgetLocation{
+							Zone:    "outer",
+							Section: "left",
+							Area:    "top",
+						},
+					},
 				},
 			},
 			Expected: &WidgetSystem{widgets: []*Widget{
-				MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{}),
+				MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					},
+				}),
 			}},
 		},
 		{
 			Name: "widget list with matched values",
 			Input: []*Widget{
 				{
-					id:           *wid,
-					plugin:       pid,
-					extension:    "eee",
-					property:     pr,
-					enabled:      true,
-					widgetLayout: &WidgetLayout{},
+					id:        *wid,
+					plugin:    pid,
+					extension: "eee",
+					property:  pr,
+					enabled:   true,
+					widgetLayout: &WidgetLayout{
+						Extendable: false,
+						Extended:   true,
+						DefaultLocation: &WidgetLocation{
+							Zone:    "outer",
+							Section: "left",
+							Area:    "top",
+						},
+					},
 				},
 				{
-					id:           *wid,
-					plugin:       pid,
-					extension:    "eee",
-					property:     pr,
-					enabled:      true,
-					widgetLayout: &WidgetLayout{},
+					id:        *wid,
+					plugin:    pid,
+					extension: "eee",
+					property:  pr,
+					enabled:   true,
+					widgetLayout: &WidgetLayout{
+						Extendable: false,
+						Extended:   true,
+						DefaultLocation: &WidgetLocation{
+							Zone:    "outer",
+							Section: "left",
+							Area:    "top",
+						},
+					},
 				},
 			},
 			Expected: &WidgetSystem{widgets: []*Widget{
-				MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{}),
+				MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					},
+				}),
 			}},
 		},
 	}
@@ -89,15 +129,42 @@ func TestWidgetSystem_Add(t *testing.T) {
 		{
 			Name: "add new widget",
 			Input: &Widget{
-				id:           *wid,
-				plugin:       pid,
-				extension:    "eee",
-				property:     pr,
-				enabled:      true,
-				widgetLayout: &WidgetLayout{},
+				id:        *wid,
+				plugin:    pid,
+				extension: "eee",
+				property:  pr,
+				enabled:   true,
+				widgetLayout: &WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					},
+				},
 			},
-			WS:       NewWidgetSystem([]*Widget{}),
-			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{})}),
+			WS: NewWidgetSystem([]*Widget{}),
+			Expected: NewWidgetSystem(
+				[]*Widget{
+					MustNewWidget(
+						wid,
+						pid,
+						"eee",
+						pr,
+						true,
+						&WidgetLayout{
+							Extendable: false,
+							Extended:   true,
+							DefaultLocation: &WidgetLocation{
+								Zone:    "outer",
+								Section: "left",
+								Area:    "top",
+							},
+						},
+					),
+				},
+			),
 		},
 		{
 			Name:     "add nil widget",
@@ -108,12 +175,20 @@ func TestWidgetSystem_Add(t *testing.T) {
 		{
 			Name: "add to nil widgetSystem",
 			Input: &Widget{
-				id:           *wid,
-				plugin:       pid,
-				extension:    "eee",
-				property:     pr,
-				enabled:      true,
-				widgetLayout: &WidgetLayout{},
+				id:        *wid,
+				plugin:    pid,
+				extension: "eee",
+				property:  pr,
+				enabled:   true,
+				widgetLayout: &WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					},
+				},
 			},
 			WS:       nil,
 			Expected: nil,
@@ -121,15 +196,39 @@ func TestWidgetSystem_Add(t *testing.T) {
 		{
 			Name: "add existing widget",
 			Input: &Widget{
-				id:           *wid,
-				plugin:       pid,
-				extension:    "eee",
-				property:     pr,
-				enabled:      true,
-				widgetLayout: &WidgetLayout{},
+				id:        *wid,
+				plugin:    pid,
+				extension: "eee",
+				property:  pr,
+				enabled:   true,
+				widgetLayout: &WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					},
+				},
 			},
-			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{})}),
-			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{})}),
+			WS: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{
+				Extendable: false,
+				Extended:   true,
+				DefaultLocation: &WidgetLocation{
+					Zone:    "outer",
+					Section: "left",
+					Area:    "top",
+				},
+			})}),
+			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{
+				Extendable: false,
+				Extended:   true,
+				DefaultLocation: &WidgetLocation{
+					Zone:    "outer",
+					Section: "left",
+					Area:    "top",
+				},
+			})}),
 		},
 	}
 	for _, tc := range testCases {

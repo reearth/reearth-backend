@@ -32,13 +32,22 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 				for _, w := range doc.Widgets {
 					if w.WidgetLayout == nil {
 						pid, _ := id.PluginIDFrom(w.Plugin)
-						wl := builtin.GetPlugin(pid).Extension(id.PluginExtensionID(w.Extension)).WidgetLayout()
-						float := wl.Floating
-						extendable := wl.Extendable
-						extended := false
-						dl := wl.DefaultLocation
-						mdl := mongodoc.WidgetLocation{Zone: dl.Zone, Section: dl.Section, Area: dl.Area}
-						wldoc := mongodoc.WidgetLayout{Extendable: extendable, Extended: extended, Floating: float, DefaultLocation: &mdl}
+
+						wl := builtin.GetPlugin(pid).
+							Extension(id.PluginExtensionID(w.Extension)).
+							Layout()
+
+						wldoc := mongodoc.WidgetLayout{
+							Extendable: wl.Extendable,
+							Extended:   false,
+							Floating:   wl.Floating,
+							DefaultLocation: &mongodoc.WidgetLocation{
+								Zone:    wl.DefaultLocation.Zone,
+								Section: wl.DefaultLocation.Section,
+								Area:    wl.DefaultLocation.Area,
+							},
+						}
+
 						w.WidgetLayout = &wldoc
 					}
 					widgets = append(widgets, w)

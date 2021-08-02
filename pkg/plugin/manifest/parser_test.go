@@ -29,7 +29,16 @@ var normalExpected = &Manifest{
 		plugin.NewExtension().ID(id.PluginExtensionID("hoge")).
 			Visualizer(visualizer.VisualizerCesium).
 			Type(plugin.ExtensionTypePrimitive).
-			WidgetLayout(&scene.WidgetLayout{Extendable: true, Extended: false, Floating: false, DefaultLocation: &scene.WidgetLocation{Zone: "outer", Section: "left", Area: "top"}}).
+			WidgetLayout(&scene.WidgetLayout{
+				Extendable: true,
+				Extended:   false,
+				Floating:   false,
+				DefaultLocation: &scene.WidgetLocation{
+					Zone:    "outer",
+					Section: "left",
+					Area:    "top",
+				},
+			}).
 			Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).
 			MustBuild(),
 	}).MustBuild(),

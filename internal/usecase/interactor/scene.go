@@ -193,7 +193,7 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 		return nil, nil, err
 	}
 
-	widgetLayout := extension.WidgetLayout()
+	widgetLayout := extension.Layout()
 
 	widget, err = scene.NewWidget(nil, pid, eid, property.ID(), true, &scene.WidgetLayout{Extendable: widgetLayout.Extendable, Extended: widgetLayout.Extended, Floating: widgetLayout.Floating, DefaultLocation: widgetLayout.DefaultLocation})
 	if err != nil {

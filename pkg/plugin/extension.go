@@ -75,7 +75,7 @@ func (w *Extension) Visualizer() visualizer.Visualizer {
 }
 
 // WidgetMetaData _
-func (w *Extension) WidgetLayout() *scene.WidgetLayout {
+func (w *Extension) Layout() *scene.WidgetLayout {
 	return w.widgetLayout
 }
 

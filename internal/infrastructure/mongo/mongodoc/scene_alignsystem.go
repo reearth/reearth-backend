@@ -40,8 +40,8 @@ type SceneAlignSystemDocument struct {
 	Outer WidgetZone
 }
 
-func NewWidgetAlignSystem(was scene.WidgetAlignSystem) *SceneAlignSystemDocument {
-	widgetAlignDoc := SceneAlignSystemDocument{Inner: buildWidgetZone(&was, "inner"), Outer: buildWidgetZone(&was, "outer")}
+func NewWidgetAlignSystem(was *scene.WidgetAlignSystem) *SceneAlignSystemDocument {
+	widgetAlignDoc := SceneAlignSystemDocument{Inner: buildWidgetZone(was, "inner"), Outer: buildWidgetZone(was, "outer")}
 	return &widgetAlignDoc
 }
 
@@ -74,7 +74,7 @@ func (*SceneAlignSystemDocument) ToModelAlignSystem(d SceneAlignSystemDocument) 
 	return was
 }
 
-func toString(wids []*id.WidgetID) []string {
+func widgetIDsToStrings(wids []*id.WidgetID) []string {
 	if wids == nil {
 		return nil
 	}
@@ -114,15 +114,15 @@ func buildWidgetZone(sas *scene.WidgetAlignSystem, z string) WidgetZone {
 func buildWidgetSection(was *scene.WidgetAlignSystem, z, s string) WidgetSection {
 	return WidgetSection{
 		Top: WidgetArea{
-			WidgetIds: toString(was.WidgetIds(z, s, "top")),
+			WidgetIds: widgetIDsToStrings(was.WidgetIds(z, s, "top")),
 			Align:     *was.Alignment(z, s, "top"),
 		},
 		Middle: WidgetArea{
-			WidgetIds: toString(was.WidgetIds(z, s, "middle")),
+			WidgetIds: widgetIDsToStrings(was.WidgetIds(z, s, "middle")),
 			Align:     *was.Alignment(z, s, "middle"),
 		},
 		Bottom: WidgetArea{
-			WidgetIds: toString(was.WidgetIds(z, s, "bottom")),
+			WidgetIds: widgetIDsToStrings(was.WidgetIds(z, s, "bottom")),
 			Align:     *was.Alignment(z, s, "bottom"),
 		},
 	}

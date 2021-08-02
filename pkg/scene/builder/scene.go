@@ -36,7 +36,7 @@ func (b *Builder) scene(ctx context.Context, s *scene.Scene, publishedAt time.Ti
 		Plugins:           b.plugins(ctx, s, p),
 		Widgets:           b.widgets(ctx, s, p),
 		Layers:            l,
-		WidgetAlignSystem: b.widgetAlignment(ctx, s),
+		WidgetAlignSystem: b.widgetAlignSystem(ctx, s),
 	}
 }
 
@@ -71,7 +71,7 @@ func (b *Builder) widgets(ctx context.Context, s *scene.Scene, p []*property.Pro
 	return res
 }
 
-func (b *Builder) widgetAlignment(ctx context.Context, s *scene.Scene) *widgetAlignSystemJSON {
+func (b *Builder) widgetAlignSystem(ctx context.Context, s *scene.Scene) *widgetAlignSystemJSON {
 	sas := s.WidgetAlignSystem()
 
 	res := widgetAlignSystemJSON{Inner: buildWidgetZone(sas), Outer: buildWidgetZone(sas)}

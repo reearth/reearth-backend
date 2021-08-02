@@ -1223,9 +1223,9 @@ type WidgetLayoutInput struct {
 }
 
 type WidgetLocation struct {
-	Zone    *Zone    `json:"zone"`
-	Section *Section `json:"section"`
-	Area    *Area    `json:"area"`
+	Zone    *WZone    `json:"zone"`
+	Section *WSection `json:"section"`
+	Area    *WArea    `json:"area"`
 }
 
 type WidgetLocationInput struct {
@@ -1244,49 +1244,6 @@ type WidgetZone struct {
 	Left   *WidgetSection `json:"left"`
 	Center *WidgetSection `json:"center"`
 	Right  *WidgetSection `json:"right"`
-}
-
-type Area string
-
-const (
-	AreaTop    Area = "TOP"
-	AreaMiddle Area = "MIDDLE"
-	AreaBottom Area = "BOTTOM"
-)
-
-var AllArea = []Area{
-	AreaTop,
-	AreaMiddle,
-	AreaBottom,
-}
-
-func (e Area) IsValid() bool {
-	switch e {
-	case AreaTop, AreaMiddle, AreaBottom:
-		return true
-	}
-	return false
-}
-
-func (e Area) String() string {
-	return string(e)
-}
-
-func (e *Area) UnmarshalGQL(v interface{}) error {
-	str, ok := v.(string)
-	if !ok {
-		return fmt.Errorf("enums must be strings")
-	}
-
-	*e = Area(str)
-	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid Area", str)
-	}
-	return nil
-}
-
-func (e Area) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
 type LayerEncodingFormat string
@@ -1673,49 +1630,6 @@ func (e SceneLockMode) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
-type Section string
-
-const (
-	SectionLeft   Section = "LEFT"
-	SectionCenter Section = "CENTER"
-	SectionRight  Section = "RIGHT"
-)
-
-var AllSection = []Section{
-	SectionLeft,
-	SectionCenter,
-	SectionRight,
-}
-
-func (e Section) IsValid() bool {
-	switch e {
-	case SectionLeft, SectionCenter, SectionRight:
-		return true
-	}
-	return false
-}
-
-func (e Section) String() string {
-	return string(e)
-}
-
-func (e *Section) UnmarshalGQL(v interface{}) error {
-	str, ok := v.(string)
-	if !ok {
-		return fmt.Errorf("enums must be strings")
-	}
-
-	*e = Section(str)
-	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid Section", str)
-	}
-	return nil
-}
-
-func (e Section) MarshalGQL(w io.Writer) {
-	fmt.Fprint(w, strconv.Quote(e.String()))
-}
-
 type TextAlign string
 
 const (
@@ -1906,43 +1820,129 @@ func (e Visualizer) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
-type Zone string
+type WArea string
 
 const (
-	ZoneInner Zone = "INNER"
-	ZoneOuter Zone = "OUTER"
+	WAreaTop    WArea = "TOP"
+	WAreaMiddle WArea = "MIDDLE"
+	WAreaBottom WArea = "BOTTOM"
 )
 
-var AllZone = []Zone{
-	ZoneInner,
-	ZoneOuter,
+var AllWArea = []WArea{
+	WAreaTop,
+	WAreaMiddle,
+	WAreaBottom,
 }
 
-func (e Zone) IsValid() bool {
+func (e WArea) IsValid() bool {
 	switch e {
-	case ZoneInner, ZoneOuter:
+	case WAreaTop, WAreaMiddle, WAreaBottom:
 		return true
 	}
 	return false
 }
 
-func (e Zone) String() string {
+func (e WArea) String() string {
 	return string(e)
 }
 
-func (e *Zone) UnmarshalGQL(v interface{}) error {
+func (e *WArea) UnmarshalGQL(v interface{}) error {
 	str, ok := v.(string)
 	if !ok {
 		return fmt.Errorf("enums must be strings")
 	}
 
-	*e = Zone(str)
+	*e = WArea(str)
 	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid Zone", str)
+		return fmt.Errorf("%s is not a valid WArea", str)
 	}
 	return nil
 }
 
-func (e Zone) MarshalGQL(w io.Writer) {
+func (e WArea) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type WSection string
+
+const (
+	WSectionLeft   WSection = "LEFT"
+	WSectionCenter WSection = "CENTER"
+	WSectionRight  WSection = "RIGHT"
+)
+
+var AllWSection = []WSection{
+	WSectionLeft,
+	WSectionCenter,
+	WSectionRight,
+}
+
+func (e WSection) IsValid() bool {
+	switch e {
+	case WSectionLeft, WSectionCenter, WSectionRight:
+		return true
+	}
+	return false
+}
+
+func (e WSection) String() string {
+	return string(e)
+}
+
+func (e *WSection) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = WSection(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid WSection", str)
+	}
+	return nil
+}
+
+func (e WSection) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type WZone string
+
+const (
+	WZoneInner WZone = "INNER"
+	WZoneOuter WZone = "OUTER"
+)
+
+var AllWZone = []WZone{
+	WZoneInner,
+	WZoneOuter,
+}
+
+func (e WZone) IsValid() bool {
+	switch e {
+	case WZoneInner, WZoneOuter:
+		return true
+	}
+	return false
+}
+
+func (e WZone) String() string {
+	return string(e)
+}
+
+func (e *WZone) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = WZone(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid WZone", str)
+	}
+	return nil
+}
+
+func (e WZone) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }

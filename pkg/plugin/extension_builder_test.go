@@ -55,9 +55,9 @@ func TestExtensionBuilder_Visualizer(t *testing.T) {
 func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 	var b = NewExtension()
 	wl := &scene.WidgetLayout{Extendable: true}
-	wl2 := &scene.WidgetLayout{Extendable: true}
+	wl2 := wl
 	res := b.ID("xxx").WidgetLayout(wl).MustBuild()
-	assert.Equal(t, wl2, res.WidgetLayout())
+	assert.Same(t, wl2, res.Layout())
 }
 
 func TestExtensionBuilder_Build(t *testing.T) {
@@ -84,7 +84,14 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
-			widgetLayout:  &scene.WidgetLayout{},
+			widgetLayout: &scene.WidgetLayout{
+				Extendable: false,
+				Extended:   true,
+				DefaultLocation: &scene.WidgetLocation{
+					Zone:    "outer",
+					Section: "left",
+					Area:    "top",
+				}},
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -93,7 +100,14 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
-				widgetLayout:  &scene.WidgetLayout{},
+				widgetLayout: &scene.WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &scene.WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					}},
 			},
 			err: nil,
 		},
@@ -160,7 +174,14 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
-			widgetLayout:  nil,
+			widgetLayout: &scene.WidgetLayout{
+				Extendable: false,
+				Extended:   true,
+				DefaultLocation: &scene.WidgetLocation{
+					Zone:    "outer",
+					Section: "left",
+					Area:    "top",
+				}},
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -169,7 +190,14 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
-				widgetLayout:  nil,
+				widgetLayout: &scene.WidgetLayout{
+					Extendable: false,
+					Extended:   true,
+					DefaultLocation: &scene.WidgetLocation{
+						Zone:    "outer",
+						Section: "left",
+						Area:    "top",
+					}},
 			},
 		},
 		{
