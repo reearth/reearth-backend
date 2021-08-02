@@ -2,10 +2,12 @@ package graphql
 
 import (
 	"context"
+	"errors"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/plugin"
 )
 
 type PluginControllerConfig struct {
@@ -28,7 +30,16 @@ func (c *PluginController) usecase() interfaces.Plugin {
 }
 
 func (c *PluginController) Upload(ctx context.Context, ginput *UploadPluginInput, operator *usecase.Operator) (*UploadPluginPayload, error) {
-	res, err := c.usecase().Upload(ctx, ginput.File.File, id.SceneID(ginput.SceneID), operator)
+	var res *plugin.Plugin
+	var err error
+
+	if ginput.File != nil {
+		res, err = c.usecase().Upload(ctx, ginput.File.File, id.SceneID(ginput.SceneID), operator)
+	} else if ginput.URL != nil {
+		res, err = c.usecase().UploadFromRemote(ctx, ginput.URL, id.SceneID(ginput.SceneID), operator)
+	} else {
+		return nil, errors.New("either file or url is required")
+	}
 	if err != nil {
 		return nil, err
 	}

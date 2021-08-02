@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"io"
+	"net/url"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -20,6 +21,7 @@ var (
 type Plugin interface {
 	Fetch(context.Context, []id.PluginID, *usecase.Operator) ([]*plugin.Plugin, error)
 	Upload(context.Context, io.Reader, id.SceneID, *usecase.Operator) (*plugin.Plugin, error)
+	UploadFromRemote(context.Context, *url.URL, id.SceneID, *usecase.Operator) (*plugin.Plugin, error)
 	Delete(context.Context, id.PluginID, *usecase.Operator) error
 	FetchPluginMetadata(context.Context, *usecase.Operator) ([]*plugin.Metadata, error)
 }
