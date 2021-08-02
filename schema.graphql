@@ -906,7 +906,6 @@ input RemoveWidgetInput {
   sceneId: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
-  location: WidgetLocationInput!
 }
 
 input InstallPluginInput {

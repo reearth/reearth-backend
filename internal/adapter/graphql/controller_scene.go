@@ -94,17 +94,10 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 }
 
 func (c *SceneController) RemoveWidget(ctx context.Context, ginput *RemoveWidgetInput, operator *usecase.Operator) (*RemoveWidgetPayload, error) {
-	var loc *scene.WidgetLocation
-	if l := ginput.Location; l != nil {
-		loc.Zone = l.Zone
-		loc.Section = l.Section
-		loc.Area = l.Area
-	}
 	scene, err := c.usecase().RemoveWidget(ctx,
 		id.SceneID(ginput.SceneID),
 		id.PluginID(ginput.PluginID),
 		id.PluginExtensionID(ginput.ExtensionID),
-		loc,
 		operator,
 	)
 	if err != nil {

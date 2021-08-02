@@ -36,6 +36,37 @@ type WidgetLocation struct {
 	Area    string
 }
 
+var Areas = []string{
+	"top",
+	"middle",
+	"bottom",
+}
+
+var Sections = map[string][]string{
+	"left":   Areas,
+	"center": Areas,
+	"right":  Areas,
+}
+
+var Zones = map[string]map[string][]string{
+	"inner": Sections,
+	"outer": Sections,
+}
+
+func (was *WidgetAlignSystem) FindWidgetIDsLocation(wid *id.WidgetID) *WidgetLocation {
+	for z, s := range Zones {
+		for s2, a := range s {
+			for _, a2 := range a {
+				if was.WidgetArea(z, s2, a2).Has(*wid) {
+					wloc := WidgetLocation{z, s2, a2}
+					return &wloc
+				}
+			}
+		}
+	}
+	return nil
+}
+
 // NewWidgetAlignSystem returns a new widget align system.
 func NewWidgetAlignSystem() *WidgetAlignSystem {
 	return &WidgetAlignSystem{}

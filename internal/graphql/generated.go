@@ -6590,7 +6590,6 @@ input RemoveWidgetInput {
   sceneId: ID!
   pluginId: PluginID!
   extensionId: PluginExtensionID!
-  location: WidgetLocationInput!
 }
 
 input InstallPluginInput {
@@ -30958,14 +30957,6 @@ func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context,
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extensionId"))
 			it.ExtensionID, err = ec.unmarshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "location":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("location"))
-			it.Location, err = ec.unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}

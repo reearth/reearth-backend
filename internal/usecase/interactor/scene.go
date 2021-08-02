@@ -301,7 +301,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	return scene, widget, nil
 }
 
-func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, loc *scene.WidgetLocation, operator *usecase.Operator) (_ *scene.Scene, err error) {
+func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, operator *usecase.Operator) (_ *scene.Scene, err error) {
 
 	tx, err := i.transaction.Begin()
 	if err != nil {
@@ -333,15 +333,19 @@ func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID
 	ws := scene.WidgetSystem()
 
 	widget := ws.Widget(pid, eid)
+	wid := widget.ID().Ref()
 	if widget == nil {
 		return nil, rerror.ErrNotFound
 	}
 
 	ws.Remove(pid, eid)
 
-	was := scene.WidgetAlignSystem()
-	if loc != nil {
-		was.Remove(widget.ID().Ref(), loc)
+	if !widget.WidgetLayout().Floating {
+		was := scene.WidgetAlignSystem()
+		area := was.FindWidgetIDsLocation(wid)
+		if area != nil {
+			was.Remove(wid, area)
+		}
 	}
 
 	err2 = i.propertyRepo.Remove(ctx, widget.Property())

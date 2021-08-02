@@ -879,7 +879,6 @@ type RemoveWidgetInput struct {
 	SceneID     id.ID                `json:"sceneId"`
 	PluginID    id.PluginID          `json:"pluginId"`
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
-	Location    *WidgetLocationInput `json:"location"`
 }
 
 type RemoveWidgetPayload struct {
