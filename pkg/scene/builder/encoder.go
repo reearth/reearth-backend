@@ -129,6 +129,6 @@ type widgetSection struct {
 }
 
 type widgetArea struct {
-	WidgetIds []string `json:"widgetIds"`
+	WidgetIDs []string `json:"widgetIds"`
 	Align     string   `json:"align"`
 }

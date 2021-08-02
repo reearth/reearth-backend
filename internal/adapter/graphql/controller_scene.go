@@ -74,11 +74,10 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 		}
 	}
 	scene, widget, err := c.usecase().UpdateWidget(ctx, interfaces.UpdateWidgetParam{
-		SceneID:     id.SceneID(ginput.SceneID),
-		PluginID:    ginput.PluginID,
-		ExtensionID: id.PluginExtensionID(ginput.ExtensionID),
-		Enabled:     ginput.Enabled,
-		Layout:      &layout,
+		SceneID:  id.SceneID(ginput.SceneID),
+		WidgetID: id.WidgetID(ginput.WidgetID),
+		Enabled:  ginput.Enabled,
+		Layout:   &layout,
 	}, operator)
 	if err != nil {
 		return nil, err
@@ -90,15 +89,14 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 func (c *SceneController) RemoveWidget(ctx context.Context, ginput *RemoveWidgetInput, operator *usecase.Operator) (*RemoveWidgetPayload, error) {
 	scene, err := c.usecase().RemoveWidget(ctx,
 		id.SceneID(ginput.SceneID),
-		id.PluginID(ginput.PluginID),
-		id.PluginExtensionID(ginput.ExtensionID),
+		id.WidgetID(ginput.WidgetID),
 		operator,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return &RemoveWidgetPayload{Scene: toScene(scene), PluginID: ginput.PluginID, ExtensionID: ginput.ExtensionID}, nil
+	return &RemoveWidgetPayload{Scene: toScene(scene), WidgetID: ginput.WidgetID}, nil
 }
 
 func (c *SceneController) InstallPlugin(ctx context.Context, ginput *InstallPluginInput, operator *usecase.Operator) (*InstallPluginPayload, error) {

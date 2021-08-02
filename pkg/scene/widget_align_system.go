@@ -125,7 +125,7 @@ func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
 }
 
 // WidgetIds will return a slice of widget ids from a specific area.
-func (was *WidgetAlignSystem) WidgetIds(z, s, a string) []*id.WidgetID {
+func (was *WidgetAlignSystem) WidgetIDs(z, s, a string) []*id.WidgetID {
 	area := was.Area(z, s, a)
 	return area.widgetIds
 }
@@ -212,12 +212,13 @@ func removeInt(array []*id.WidgetID, index int) []*id.WidgetID {
 }
 
 // WidgetAreaFrom will add a slice of widget ids to a specific area of an align system.
-func (was *WidgetAlignSystem) WidgetAreaFrom(wids []*id.WidgetID, align, z, s, a string) {
+func (was *WidgetAlignSystem) AddAll(wids []*id.WidgetID, align, z, s, a string) {
 	if was == nil {
 		return
 	}
 	wa := was.Area(z, s, a)
 	wa.widgetIds = wids
+	wa.align = align
 }
 
 // Has will check a widget area's slice of widgetIds for the specified ID and return a bool value.

@@ -250,7 +250,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	}
 
 	ws := scene.WidgetSystem()
-	widget := ws.Widget(param.PluginID, param.ExtensionID)
+	widget := ws.Widget(param.WidgetID)
 	if widget == nil {
 		return nil, nil, rerror.ErrNotFound
 	}
@@ -294,7 +294,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	return scene, widget, nil
 }
 
-func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID, eid id.PluginExtensionID, operator *usecase.Operator) (_ *scene.Scene, err error) {
+func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, wid id.WidgetID, operator *usecase.Operator) (_ *scene.Scene, err error) {
 
 	tx, err := i.transaction.Begin()
 	if err != nil {
@@ -325,13 +325,12 @@ func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID
 
 	ws := scene.WidgetSystem()
 
-	widget := ws.Widget(pid, eid)
-	wid := widget.ID()
+	widget := ws.Widget(wid)
 	if widget == nil {
 		return nil, rerror.ErrNotFound
 	}
 
-	ws.Remove(pid, eid)
+	ws.Remove(wid)
 
 	if !widget.WidgetLayout().Floating {
 		scene.WidgetAlignSystem().Remove(wid)
@@ -471,7 +470,7 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 	// remove widgets
 	for _, w := range scene.WidgetSystem().Widgets() {
 		if w.Plugin().Equal(pid) {
-			scene.WidgetSystem().Remove(pid, w.Extension())
+			scene.WidgetSystem().Remove(w.ID())
 			removedProperties = append(removedProperties, w.Property())
 		}
 	}

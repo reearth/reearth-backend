@@ -247,14 +247,12 @@ func TestWidgetSystem_Remove(t *testing.T) {
 	wid := id.NewWidgetID().Ref()
 	testCases := []struct {
 		Name         string
-		PID          id.PluginID
-		EID          id.PluginExtensionID
+		WID          id.WidgetID
 		WS, Expected *WidgetSystem
 	}{
 		{
 			Name:     "remove a widget",
-			PID:      pid,
-			EID:      "eee",
+			WID:      *wid,
 			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, nil)}),
 			Expected: NewWidgetSystem([]*Widget{}),
 		},
@@ -268,7 +266,7 @@ func TestWidgetSystem_Remove(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.WS.Remove(tc.PID, tc.EID)
+			tc.WS.Remove(tc.WID)
 			assert.Equal(tt, tc.Expected, tc.WS)
 		})
 	}
@@ -392,22 +390,19 @@ func TestWidgetSystem_Widget(t *testing.T) {
 	wid := id.NewWidgetID().Ref()
 	testCases := []struct {
 		Name     string
-		PID      id.PluginID
-		EID      id.PluginExtensionID
+		WID      id.WidgetID
 		WS       *WidgetSystem
 		Expected *Widget
 	}{
 		{
 			Name:     "get a widget",
-			PID:      pid,
-			EID:      "eee",
+			WID:      *wid,
 			WS:       NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, nil)}),
 			Expected: MustNewWidget(wid, pid, "eee", pr, true, nil),
 		},
 		{
 			Name:     "dont has the widget",
-			PID:      pid,
-			EID:      "eee",
+			WID:      *wid,
 			WS:       NewWidgetSystem([]*Widget{}),
 			Expected: nil,
 		},
@@ -421,7 +416,7 @@ func TestWidgetSystem_Widget(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := tc.WS.Widget(tc.PID, tc.EID)
+			res := tc.WS.Widget(tc.WID)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}

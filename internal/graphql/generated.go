@@ -776,9 +776,8 @@ type ComplexityRoot struct {
 	}
 
 	RemoveWidgetPayload struct {
-		ExtensionID func(childComplexity int) int
-		PluginID    func(childComplexity int) int
-		Scene       func(childComplexity int) int
+		Scene    func(childComplexity int) int
+		WidgetID func(childComplexity int) int
 	}
 
 	Scene struct {
@@ -4924,26 +4923,19 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.RemoveMemberFromTeamPayload.Team(childComplexity), true
 
-	case "RemoveWidgetPayload.extensionId":
-		if e.complexity.RemoveWidgetPayload.ExtensionID == nil {
-			break
-		}
-
-		return e.complexity.RemoveWidgetPayload.ExtensionID(childComplexity), true
-
-	case "RemoveWidgetPayload.pluginId":
-		if e.complexity.RemoveWidgetPayload.PluginID == nil {
-			break
-		}
-
-		return e.complexity.RemoveWidgetPayload.PluginID(childComplexity), true
-
 	case "RemoveWidgetPayload.scene":
 		if e.complexity.RemoveWidgetPayload.Scene == nil {
 			break
 		}
 
 		return e.complexity.RemoveWidgetPayload.Scene(childComplexity), true
+
+	case "RemoveWidgetPayload.widgetId":
+		if e.complexity.RemoveWidgetPayload.WidgetID == nil {
+			break
+		}
+
+		return e.complexity.RemoveWidgetPayload.WidgetID(childComplexity), true
 
 	case "Scene.createdAt":
 		if e.complexity.Scene.CreatedAt == nil {
@@ -6578,16 +6570,14 @@ input AddWidgetInput {
 
 input UpdateWidgetInput {
   sceneId: ID!
-  pluginId: PluginID!
-  extensionId: PluginExtensionID!
+  widgetId: ID!
   enabled: Boolean
   layout: WidgetLayoutInput
 }
 
 input RemoveWidgetInput {
   sceneId: ID!
-  pluginId: PluginID!
-  extensionId: PluginExtensionID!
+  widgetId: ID!
 }
 
 input InstallPluginInput {
@@ -6920,8 +6910,7 @@ type UpdateWidgetPayload {
 
 type RemoveWidgetPayload {
   scene: Scene!
-  pluginId: PluginID!
-  extensionId: PluginExtensionID!
+  widgetId: ID!
 }
 
 type InstallPluginPayload {
@@ -25313,7 +25302,7 @@ func (ec *executionContext) _RemoveWidgetPayload_scene(ctx context.Context, fiel
 	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveWidgetPayload_pluginId(ctx context.Context, field graphql.CollectedField, obj *graphql1.RemoveWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveWidgetPayload_widgetId(ctx context.Context, field graphql.CollectedField, obj *graphql1.RemoveWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25331,7 +25320,7 @@ func (ec *executionContext) _RemoveWidgetPayload_pluginId(ctx context.Context, f
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.PluginID, nil
+		return obj.WidgetID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -25343,44 +25332,9 @@ func (ec *executionContext) _RemoveWidgetPayload_pluginId(ctx context.Context, f
 		}
 		return graphql.Null
 	}
-	res := resTmp.(id.PluginID)
+	res := resTmp.(id.ID)
 	fc.Result = res
-	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _RemoveWidgetPayload_extensionId(ctx context.Context, field graphql.CollectedField, obj *graphql1.RemoveWidgetPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "RemoveWidgetPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.ExtensionID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(id.PluginExtensionID)
-	fc.Result = res
-	return ec.marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Scene_id(ctx context.Context, field graphql.CollectedField, obj *graphql1.Scene) (ret graphql.Marshaler) {
@@ -30945,19 +30899,11 @@ func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context,
 			if err != nil {
 				return it, err
 			}
-		case "pluginId":
+		case "widgetId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("pluginId"))
-			it.PluginID, err = ec.unmarshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "extensionId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extensionId"))
-			it.ExtensionID, err = ec.unmarshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("widgetId"))
+			it.WidgetID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -31937,19 +31883,11 @@ func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context,
 			if err != nil {
 				return it, err
 			}
-		case "pluginId":
+		case "widgetId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("pluginId"))
-			it.PluginID, err = ec.unmarshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "extensionId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extensionId"))
-			it.ExtensionID, err = ec.unmarshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("widgetId"))
+			it.WidgetID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -36669,13 +36607,8 @@ func (ec *executionContext) _RemoveWidgetPayload(ctx context.Context, sel ast.Se
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "pluginId":
-			out.Values[i] = ec._RemoveWidgetPayload_pluginId(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "extensionId":
-			out.Values[i] = ec._RemoveWidgetPayload_extensionId(ctx, field, obj)
+		case "widgetId":
+			out.Values[i] = ec._RemoveWidgetPayload_widgetId(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

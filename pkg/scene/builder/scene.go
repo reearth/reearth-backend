@@ -116,15 +116,15 @@ func buildWidgetZone(sas *scene.WidgetAlignSystem) widgetZone {
 func buildWidgetSection(sas *scene.WidgetAlignSystem) widgetSection {
 	return widgetSection{
 		Top: widgetArea{
-			WidgetIds: toString(sas.WidgetIds("outer", "right", "top")),
+			WidgetIDs: toString(sas.WidgetIDs("outer", "right", "top")),
 			Align:     *sas.Alignment("outer", "right", "top"),
 		},
 		Middle: widgetArea{
-			WidgetIds: toString(sas.WidgetIds("outer", "right", "middle")),
+			WidgetIDs: toString(sas.WidgetIDs("outer", "right", "middle")),
 			Align:     *sas.Alignment("outer", "right", "middle"),
 		},
 		Bottom: widgetArea{
-			WidgetIds: toString(sas.WidgetIds("outer", "right", "bottom")),
+			WidgetIDs: toString(sas.WidgetIDs("outer", "right", "bottom")),
 			Align:     *sas.Alignment("outer", "right", "bottom"),
 		},
 	}

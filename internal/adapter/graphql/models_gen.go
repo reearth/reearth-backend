@@ -876,15 +876,13 @@ type RemovePropertyItemInput struct {
 }
 
 type RemoveWidgetInput struct {
-	SceneID     id.ID                `json:"sceneId"`
-	PluginID    id.PluginID          `json:"pluginId"`
-	ExtensionID id.PluginExtensionID `json:"extensionId"`
+	SceneID  id.ID `json:"sceneId"`
+	WidgetID id.ID `json:"widgetId"`
 }
 
 type RemoveWidgetPayload struct {
-	Scene       *Scene               `json:"scene"`
-	PluginID    id.PluginID          `json:"pluginId"`
-	ExtensionID id.PluginExtensionID `json:"extensionId"`
+	Scene    *Scene `json:"scene"`
+	WidgetID id.ID  `json:"widgetId"`
 }
 
 type Scene struct {
@@ -1145,11 +1143,10 @@ type UpdateTeamPayload struct {
 }
 
 type UpdateWidgetInput struct {
-	SceneID     id.ID                `json:"sceneId"`
-	PluginID    id.PluginID          `json:"pluginId"`
-	ExtensionID id.PluginExtensionID `json:"extensionId"`
-	Enabled     *bool                `json:"enabled"`
-	Layout      *WidgetLayoutInput   `json:"layout"`
+	SceneID  id.ID              `json:"sceneId"`
+	WidgetID id.ID              `json:"widgetId"`
+	Enabled  *bool              `json:"enabled"`
+	Layout   *WidgetLayoutInput `json:"layout"`
 }
 
 type UpdateWidgetPayload struct {

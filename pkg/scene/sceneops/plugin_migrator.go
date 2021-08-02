@@ -113,7 +113,7 @@ func (s *PluginMigrator) MigratePlugins(ctx context.Context, sc *scene.Scene, ol
 	for _, w := range sc.WidgetSystem().Widgets() {
 		if w.Plugin().Equal(newPluginID) {
 			if newPlugin.Extension(w.Extension()) == nil {
-				sc.WidgetSystem().Remove(oldPluginID, w.Extension())
+				sc.WidgetSystem().Remove(w.ID())
 			} else {
 				propertyIDs = append(propertyIDs, w.Property())
 			}

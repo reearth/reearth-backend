@@ -894,16 +894,14 @@ input AddWidgetInput {
 
 input UpdateWidgetInput {
   sceneId: ID!
-  pluginId: PluginID!
-  extensionId: PluginExtensionID!
+  widgetId: ID!
   enabled: Boolean
   layout: WidgetLayoutInput
 }
 
 input RemoveWidgetInput {
   sceneId: ID!
-  pluginId: PluginID!
-  extensionId: PluginExtensionID!
+  widgetId: ID!
 }
 
 input InstallPluginInput {
@@ -1236,8 +1234,7 @@ type UpdateWidgetPayload {
 
 type RemoveWidgetPayload {
   scene: Scene!
-  pluginId: PluginID!
-  extensionId: PluginExtensionID!
+  widgetId: ID!
 }
 
 type InstallPluginPayload {

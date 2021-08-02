@@ -45,12 +45,12 @@ func (w *WidgetSystem) Widgets() []*Widget {
 	return append([]*Widget{}, w.widgets...)
 }
 
-func (w *WidgetSystem) Widget(p id.PluginID, e id.PluginExtensionID) *Widget {
+func (w *WidgetSystem) Widget(wid id.WidgetID) *Widget {
 	if w == nil {
 		return nil
 	}
 	for _, ww := range w.widgets {
-		if ww.plugin.Equal(p) && ww.extension == e {
+		if ww.id.Equal(wid) {
 			return ww
 		}
 	}
@@ -77,12 +77,12 @@ func (w *WidgetSystem) Add(sw *Widget) {
 	w.widgets = append(w.widgets, &sw2)
 }
 
-func (w *WidgetSystem) Remove(p id.PluginID, e id.PluginExtensionID) {
+func (w *WidgetSystem) Remove(wid id.WidgetID) {
 	if w == nil {
 		return
 	}
 	for i, ww := range w.widgets {
-		if ww.plugin.Equal(p) && ww.extension == e {
+		if ww.id.Equal(wid) {
 			w.widgets = append(w.widgets[:i], w.widgets[i+1:]...)
 			return
 		}
