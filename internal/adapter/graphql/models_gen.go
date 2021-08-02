@@ -1216,12 +1216,10 @@ type WidgetLayout struct {
 }
 
 type WidgetLayoutInput struct {
-	Extended    *bool                `json:"extended"`
-	Location    *WidgetLocationInput `json:"Location"`
-	NewLocation *WidgetLocationInput `json:"newLocation"`
-	OldIndex    *int                 `json:"oldIndex"`
-	NewIndex    *int                 `json:"newIndex"`
-	Align       *string              `json:"align"`
+	Extended *bool                `json:"extended"`
+	Location *WidgetLocationInput `json:"location"`
+	Index    *int                 `json:"index"`
+	Align    *string              `json:"align"`
 }
 
 type WidgetLocation struct {

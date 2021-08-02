@@ -34,7 +34,7 @@ func AddSceneAlignSystem(ctx context.Context, c DBClient) error {
 					dl := w.WidgetLayout.DefaultLocation
 					mdl := scene.WidgetLocation{Zone: dl.Zone, Section: dl.Section, Area: dl.Area}
 					wid, _ := id.WidgetIDFrom(w.ID)
-					swas.Add(&wid, &mdl)
+					swas.Add(wid, &mdl)
 				}
 
 				mwas := *mongodoc.NewWidgetAlignSystem(*swas)

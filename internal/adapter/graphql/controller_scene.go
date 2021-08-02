@@ -63,17 +63,11 @@ func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidget
 		if l.Extended != nil {
 			layout.Extended = l.Extended
 		}
-		if l.OldIndex != nil {
-			layout.OldIndex = l.OldIndex
-		}
-		if l.NewIndex != nil {
-			layout.NewIndex = l.NewIndex
+		if l.Index != nil {
+			layout.Index = l.Index
 		}
 		if l.Location != nil {
 			layout.Location = &scene.WidgetLocation{Zone: l.Location.Zone, Section: l.Location.Section, Area: l.Location.Area}
-		}
-		if l.NewLocation != nil {
-			layout.NewLocation = &scene.WidgetLocation{Zone: l.NewLocation.Zone, Section: l.NewLocation.Section, Area: l.NewLocation.Area}
 		}
 		if l.Align != nil {
 			layout.Align = l.Align

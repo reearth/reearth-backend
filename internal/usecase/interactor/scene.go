@@ -201,8 +201,9 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 	}
 
 	s.WidgetSystem().Add(widget)
+
 	if !widget.WidgetLayout().Floating {
-		s.WidgetAlignSystem().Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
+		s.WidgetAlignSystem().Add(widget.ID(), widget.WidgetLayout().DefaultLocation)
 	}
 
 	err = i.propertyRepo.Save(ctx, property)
@@ -269,26 +270,18 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 					widget.SetExtended(*l.Extended)
 				}
 
-				if l.Location != nil && l.Align != nil {
-					was.Update(widget.ID().Ref(), l.Location, nil, nil, nil, l.Align)
-				} else if l.NewIndex != nil && l.OldIndex != nil && l.Location != nil {
-					was.Update(widget.ID().Ref(), l.Location, nil, l.OldIndex, l.NewIndex, nil)
-				} else if l.NewLocation != nil && l.Location != nil {
-					was.Update(widget.ID().Ref(), l.Location, l.NewLocation, nil, nil, nil)
+				if l.Align != nil {
+					was.Update(widget.ID(), nil, nil, l.Align)
+				} else if l.Index != nil {
+					was.Update(widget.ID(), nil, l.Index, nil)
+				} else if l.Location != nil {
+					was.Update(widget.ID(), l.Location, nil, nil)
 				} else {
-					if l.Location != nil {
-						was.Add(widget.ID().Ref(), l.Location)
-					} else {
-						was.Add(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
-					}
+					was.Add(widget.ID(), widget.WidgetLayout().DefaultLocation)
 				}
 			}
 		} else {
-			if param.Layout.Location != nil {
-				was.Remove(widget.ID().Ref(), param.Layout.Location)
-			} else {
-				was.Remove(widget.ID().Ref(), widget.WidgetLayout().DefaultLocation)
-			}
+			was.Remove(widget.ID())
 		}
 	}
 
@@ -333,7 +326,7 @@ func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID
 	ws := scene.WidgetSystem()
 
 	widget := ws.Widget(pid, eid)
-	wid := widget.ID().Ref()
+	wid := widget.ID()
 	if widget == nil {
 		return nil, rerror.ErrNotFound
 	}
@@ -341,11 +334,7 @@ func (i *Scene) RemoveWidget(ctx context.Context, id id.SceneID, pid id.PluginID
 	ws.Remove(pid, eid)
 
 	if !widget.WidgetLayout().Floating {
-		was := scene.WidgetAlignSystem()
-		area := was.FindWidgetIDsLocation(wid)
-		if area != nil {
-			was.Remove(wid, area)
-		}
+		scene.WidgetAlignSystem().Remove(wid)
 	}
 
 	err2 = i.propertyRepo.Remove(ctx, widget.Property())

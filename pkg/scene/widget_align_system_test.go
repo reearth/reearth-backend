@@ -49,8 +49,8 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 	testCases := []struct {
 		Name  string
 		Input struct {
-			id  *id.WidgetID
-			id2 *id.WidgetID
+			id  id.WidgetID
+			id2 id.WidgetID
 			loc *WidgetLocation
 		}
 		WAS, Expected *WidgetAlignSystem
@@ -58,10 +58,10 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 		{
 			Name: "Add a widget to widget align system",
 			Input: struct {
-				id  *id.WidgetID
-				id2 *id.WidgetID
+				id  id.WidgetID
+				id2 id.WidgetID
 				loc *WidgetLocation
-			}{&wid, &wid2, &loc},
+			}{wid, wid2, &loc},
 			WAS:      was,
 			Expected: was2,
 		},
@@ -79,7 +79,6 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 
 func TestWidgetAlignSystem_Remove(t *testing.T) {
 	wid := id.NewWidgetID()
-	loc := WidgetLocation{"inner", "left", "top"}
 	was := NewWidgetAlignSystem()
 	oldWidgets := was.inner.left.top.widgetIds
 	was2 := NewWidgetAlignSystem()
@@ -91,17 +90,15 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 	testCases := []struct {
 		Name  string
 		Input struct {
-			id  *id.WidgetID
-			loc *WidgetLocation
+			id id.WidgetID
 		}
 		WAS, Expected *WidgetAlignSystem
 	}{
 		{
 			Name: "Remove a widget from widget align system",
 			Input: struct {
-				id  *id.WidgetID
-				loc *WidgetLocation
-			}{&wid, &loc},
+				id id.WidgetID
+			}{wid},
 			WAS:      was,
 			Expected: was2,
 		},
@@ -110,7 +107,7 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.WAS.Remove(tc.Input.id, tc.Input.loc)
+			tc.WAS.Remove(tc.Input.id)
 			assert.Equal(tt, tc.Expected, tc.WAS)
 		})
 	}
@@ -124,16 +121,15 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	oloc := WidgetLocation{"outer", "right", "middle"}
 	nloc := WidgetLocation{"inner", "left", "top"}
 	was := NewWidgetAlignSystem()
-	was.Add(&wid, &oloc)
+	was.Add(wid, &oloc)
 
 	was2 := NewWidgetAlignSystem()
-	was2.Add(&wid, &oloc)
-	was2.Remove(&wid, &oloc)
-	was2.Add(&wid, &nloc)
+	was2.Add(wid, &oloc)
+	was2.Remove(wid)
+	was2.Add(wid, &nloc)
 
 	// for reordering
-	i := 2
-	ni := 0
+	i := 0
 	wid2 := id.NewWidgetID()
 	wid3 := id.NewWidgetID()
 	wids := []*id.WidgetID{&wid2, &wid3, &wid}
@@ -148,11 +144,9 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	testCases := []struct {
 		Name  string
 		Input struct {
-			id *id.WidgetID
-			ol *WidgetLocation
-			nl *WidgetLocation
+			id id.WidgetID
+			l  *WidgetLocation
 			i  *int
-			ni *int
 			a  *string
 		}
 		WAS, Expected *WidgetAlignSystem
@@ -160,26 +154,22 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 		{
 			Name: "Move a widget from one location to another",
 			Input: struct {
-				id *id.WidgetID
-				ol *WidgetLocation
-				nl *WidgetLocation
+				id id.WidgetID
+				l  *WidgetLocation
 				i  *int
-				ni *int
 				a  *string
-			}{&wid, &oloc, &nloc, nil, nil, nil},
+			}{wid, &nloc, nil, nil},
 			WAS:      was,
 			Expected: was2,
 		},
 		{
 			Name: "Reorder a widget in one location",
 			Input: struct {
-				id *id.WidgetID
-				ol *WidgetLocation
-				nl *WidgetLocation
+				id id.WidgetID
+				l  *WidgetLocation
 				i  *int
-				ni *int
 				a  *string
-			}{&wid, &oloc, nil, &i, &ni, &align},
+			}{wid, nil, &i, &align},
 			WAS:      was3,
 			Expected: was4,
 		},
@@ -188,7 +178,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.WAS.Update(tc.Input.id, tc.Input.ol, tc.Input.nl, tc.Input.i, tc.Input.ni, tc.Input.a)
+			tc.WAS.Update(tc.Input.id, tc.Input.l, tc.Input.i, tc.Input.a)
 			assert.Equal(tt, tc.Expected, tc.WAS)
 		})
 	}

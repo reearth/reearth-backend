@@ -11,11 +11,9 @@ import (
 
 type LayoutParams struct {
 	Extended *bool
-	Location,
-	NewLocation *scene.WidgetLocation
-	OldIndex,
-	NewIndex *int
-	Align *string
+	Location *scene.WidgetLocation
+	Index    *int
+	Align    *string
 }
 
 type UpdateWidgetParam struct {

@@ -6565,10 +6565,8 @@ input WidgetLocationInput {
 
 input WidgetLayoutInput {
   extended: Boolean
-	Location: WidgetLocationInput!
-	newLocation: WidgetLocationInput
-	oldIndex: Int
-	newIndex: Int
+	location: WidgetLocationInput
+	index: Int
   align: String
 }
 
@@ -32096,35 +32094,19 @@ func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context,
 			if err != nil {
 				return it, err
 			}
-		case "Location":
+		case "location":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Location"))
-			it.Location, err = ec.unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("location"))
+			it.Location, err = ec.unmarshalOWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "newLocation":
+		case "index":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newLocation"))
-			it.NewLocation, err = ec.unmarshalOWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "oldIndex":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("oldIndex"))
-			it.OldIndex, err = ec.unmarshalOInt2ᚖint(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "newIndex":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIndex"))
-			it.NewIndex, err = ec.unmarshalOInt2ᚖint(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("index"))
+			it.Index, err = ec.unmarshalOInt2ᚖint(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -40458,11 +40440,6 @@ func (ec *executionContext) marshalNWidgetLayout2ᚖgithubᚗcomᚋreearthᚋree
 		return graphql.Null
 	}
 	return ec._WidgetLayout(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLocationInput(ctx context.Context, v interface{}) (*graphql1.WidgetLocationInput, error) {
-	res, err := ec.unmarshalInputWidgetLocationInput(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {
