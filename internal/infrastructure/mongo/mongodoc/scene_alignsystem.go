@@ -5,7 +5,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-type WidgetLocation struct {
+type WidgetLocationDocument struct {
 	Zone    string
 	Section string
 	Area    string
@@ -15,7 +15,7 @@ type WidgetLayout struct {
 	Extendable      bool
 	Extended        bool
 	Floating        bool
-	DefaultLocation *WidgetLocation
+	DefaultLocation *WidgetLocationDocument
 }
 
 type WidgetArea struct {
@@ -114,16 +114,16 @@ func buildWidgetZone(sas *scene.WidgetAlignSystem, z string) WidgetZone {
 func buildWidgetSection(was *scene.WidgetAlignSystem, z, s string) WidgetSection {
 	return WidgetSection{
 		Top: WidgetArea{
-			WidgetIDs: widgetIDsToStrings(was.WidgetIDs(z, s, "top")),
-			Align:     *was.Alignment(z, s, "top"),
+			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "top").WidgetIDs()),
+			Align:     *was.Area(z, s, "top").Alignment(),
 		},
 		Middle: WidgetArea{
-			WidgetIDs: widgetIDsToStrings(was.WidgetIDs(z, s, "middle")),
-			Align:     *was.Alignment(z, s, "middle"),
+			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "middle").WidgetIDs()),
+			Align:     *was.Area(z, s, "middle").Alignment(),
 		},
 		Bottom: WidgetArea{
-			WidgetIDs: widgetIDsToStrings(was.WidgetIDs(z, s, "bottom")),
-			Align:     *was.Alignment(z, s, "bottom"),
+			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "bottom").WidgetIDs()),
+			Align:     *was.Area(z, s, "bottom").Alignment(),
 		},
 	}
 }

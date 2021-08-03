@@ -6,93 +6,10 @@ import (
 )
 
 func toAlignSystem(sas *scene.WidgetAlignSystem) *WidgetAlignSystem {
-	widgetAlignDoc := WidgetAlignSystem{Inner: &WidgetZone{
-		Left: &WidgetSection{
-			Top: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "left", "top")),
-				Align:     sas.Alignment("inner", "left", "top"),
-			},
-			Middle: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "left", "middle")),
-				Align:     sas.Alignment("inner", "left", "middle"),
-			},
-			Bottom: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "left", "bottom")),
-				Align:     sas.Alignment("inner", "left", "bottom"),
-			},
-		},
-		Center: &WidgetSection{
-			Top: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "center", "top")),
-				Align:     sas.Alignment("inner", "center", "top"),
-			},
-			Middle: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "center", "middle")),
-				Align:     sas.Alignment("inner", "center", "middle"),
-			},
-			Bottom: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "center", "bottom")),
-				Align:     sas.Alignment("inner", "center", "bottom"),
-			},
-		},
-		Right: &WidgetSection{
-			Top: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "right", "top")),
-				Align:     sas.Alignment("inner", "right", "top"),
-			},
-			Middle: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "right", "middle")),
-				Align:     sas.Alignment("inner", "right", "middle"),
-			},
-			Bottom: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("inner", "right", "bottom")),
-				Align:     sas.Alignment("inner", "right", "bottom"),
-			},
-		},
-	}, Outer: &WidgetZone{
-		Left: &WidgetSection{
-			Top: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "left", "top")),
-				Align:     sas.Alignment("outer", "left", "top"),
-			},
-			Middle: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "left", "middle")),
-				Align:     sas.Alignment("outer", "left", "middle"),
-			},
-			Bottom: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "left", "bottom")),
-				Align:     sas.Alignment("outer", "left", "bottom"),
-			},
-		},
-		Center: &WidgetSection{
-			Top: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "center", "top")),
-				Align:     sas.Alignment("outer", "center", "top"),
-			},
-			Middle: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "center", "middle")),
-				Align:     sas.Alignment("outer", "center", "middle"),
-			},
-			Bottom: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "center", "bottom")),
-				Align:     sas.Alignment("outer", "center", "bottom"),
-			},
-		},
-		Right: &WidgetSection{
-			Top: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "right", "top")),
-				Align:     sas.Alignment("outer", "right", "top"),
-			},
-			Middle: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "right", "middle")),
-				Align:     sas.Alignment("outer", "right", "middle"),
-			},
-			Bottom: &WidgetArea{
-				WidgetIds: IDsFrom(sas.WidgetIDs("outer", "right", "bottom")),
-				Align:     sas.Alignment("outer", "right", "bottom"),
-			},
-		},
-	}}
+	widgetAlignDoc := WidgetAlignSystem{
+		Inner: toWidgetZone(sas.Zone("inner")),
+		Outer: toWidgetZone(sas.Zone("outer")),
+	}
 	return &widgetAlignDoc
 }
 
@@ -102,4 +19,36 @@ func IDsFrom(wids []*id.WidgetID) []*id.ID {
 		nids = append(nids, w.IDRef())
 	}
 	return nids
+}
+
+func toWidgetZone(z *scene.WidgetZone) *WidgetZone {
+	if z == nil {
+		return nil
+	}
+	return &WidgetZone{
+		Left:   toWidgetSection(z.Section(scene.SectionLeft)),
+		Center: toWidgetSection(z.Section(scene.SectionCenter)),
+		Right:  toWidgetSection(z.Section(scene.SectionRight)),
+	}
+}
+
+func toWidgetSection(s *scene.WidgetSection) *WidgetSection {
+	if s == nil {
+		return nil
+	}
+	return &WidgetSection{
+		Top:    toWidgetArea(s.Area(scene.AreaTop)),
+		Middle: toWidgetArea(s.Area(scene.AreaMiddle)),
+		Bottom: toWidgetArea(s.Area(scene.AreaBottom)),
+	}
+}
+
+func toWidgetArea(a *scene.WidgetArea) *WidgetArea {
+	if a == nil {
+		return nil
+	}
+	return &WidgetArea{
+		WidgetIds: IDsFrom(a.WidgetIDs()),
+		Align:     a.Alignment(),
+	}
 }

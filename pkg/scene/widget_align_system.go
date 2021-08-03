@@ -40,6 +40,17 @@ const (
 	AlignStart  = "start"
 	AlignCenter = "center"
 	AlignEnd    = "end"
+
+	ZoneInner = "inner"
+	ZoneOuter = "outer"
+
+	SectionLeft   = "left"
+	SectionCenter = "center"
+	SectionRight  = "right"
+
+	AreaTop    = "top"
+	AreaMiddle = "middle"
+	AreaBottom = "bottom"
 )
 
 var Areas = []string{
@@ -130,16 +141,38 @@ func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
 	return nil
 }
 
+func (wz *WidgetZone) Section(s string) *WidgetSection {
+	switch s {
+	case SectionLeft:
+		return &wz.left
+	case SectionCenter:
+		return &wz.center
+	case SectionRight:
+		return &wz.right
+	}
+	return nil
+}
+
+func (ws *WidgetSection) Area(a string) *WidgetArea {
+	switch a {
+	case AreaTop:
+		return &ws.top
+	case AreaMiddle:
+		return &ws.middle
+	case AreaBottom:
+		return &ws.bottom
+	}
+	return nil
+}
+
 // WidgetIds will return a slice of widget ids from a specific area.
-func (was *WidgetAlignSystem) WidgetIDs(z, s, a string) []*id.WidgetID {
-	area := was.Area(z, s, a)
-	return area.widgetIds
+func (wa *WidgetArea) WidgetIDs() []*id.WidgetID {
+	return wa.widgetIds
 }
 
 // Alignment will return the alignment of a specific area.
-func (was *WidgetAlignSystem) Alignment(z, s, a string) *string {
-	area := was.Area(z, s, a)
-	return &area.align
+func (wa *WidgetArea) Alignment() *string {
+	return &wa.align
 }
 
 // Add a widget to the align system.
@@ -159,6 +192,16 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, l *WidgetLocation) {
 	if a.align == "" {
 		a.align = "start"
 	}
+}
+
+// AddAll will add a slice of widget IDs and alignment to a WidgetArea
+func (was *WidgetAlignSystem) AddAll(wids []*id.WidgetID, align, z, s, a string) {
+	if was == nil {
+		return
+	}
+	wa := was.Area(z, s, a)
+	wa.widgetIds = wids
+	wa.align = align
 }
 
 // Remove a widget from the align system.
@@ -224,16 +267,6 @@ func insertInt(array []*id.WidgetID, value *id.WidgetID, index int) []*id.Widget
 // removeInt is used in moveInt to remove the widgetID from original position(index).
 func removeInt(array []*id.WidgetID, index int) []*id.WidgetID {
 	return append(array[:index], array[index+1:]...)
-}
-
-// WidgetAreaFrom will add a slice of widget ids to a specific area of an align system.
-func (was *WidgetAlignSystem) AddAll(wids []*id.WidgetID, align, z, s, a string) {
-	if was == nil {
-		return
-	}
-	wa := was.Area(z, s, a)
-	wa.widgetIds = wids
-	wa.align = align
 }
 
 // Has will check a widget area's slice of widgetIds for the specified ID and return a bool value.

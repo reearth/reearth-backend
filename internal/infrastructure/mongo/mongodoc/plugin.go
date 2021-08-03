@@ -67,7 +67,7 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 				Extendable:      e.Layout().Extendable,
 				Extended:        e.Layout().Extended,
 				Floating:        e.Layout().Floating,
-				DefaultLocation: (*WidgetLocation)(e.Layout().DefaultLocation)},
+				DefaultLocation: (*WidgetLocationDocument)(e.Layout().DefaultLocation)},
 		})
 	}
 

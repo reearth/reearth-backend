@@ -41,7 +41,7 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 							Extendable: wl.Extendable,
 							Extended:   false,
 							Floating:   wl.Floating,
-							DefaultLocation: &mongodoc.WidgetLocation{
+							DefaultLocation: &mongodoc.WidgetLocationDocument{
 								Zone:    wl.DefaultLocation.Zone,
 								Section: wl.DefaultLocation.Section,
 								Area:    wl.DefaultLocation.Area,

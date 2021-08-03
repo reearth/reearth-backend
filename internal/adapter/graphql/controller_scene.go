@@ -59,18 +59,11 @@ func (c *SceneController) AddWidget(ctx context.Context, ginput *AddWidgetInput,
 func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidgetInput, operator *usecase.Operator) (*UpdateWidgetPayload, error) {
 	var layout interfaces.LayoutParams
 	if ginput.Layout != nil {
-		l := ginput.Layout
-		if l.Extended != nil {
-			layout.Extended = l.Extended
-		}
-		if l.Index != nil {
-			layout.Index = l.Index
-		}
-		if l.Location != nil {
-			layout.Location = &scene.WidgetLocation{Zone: l.Location.Zone, Section: l.Location.Section, Area: l.Location.Area}
-		}
-		if l.Align != nil {
-			layout.Align = l.Align
+		layout = interfaces.LayoutParams{
+			Extended: ginput.Layout.Extended,
+			Index:    ginput.Layout.Index,
+			Location: (*scene.WidgetLocation)(ginput.Layout.Location),
+			Align:    ginput.Layout.Align,
 		}
 	}
 	scene, widget, err := c.usecase().UpdateWidget(ctx, interfaces.UpdateWidgetParam{

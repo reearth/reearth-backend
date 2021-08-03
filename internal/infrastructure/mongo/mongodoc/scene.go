@@ -92,7 +92,12 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 	alignSysDoc := NewWidgetAlignSystem(was)
 
 	for _, w := range widgets {
-		layout := WidgetLayout{Extendable: w.WidgetLayout().Extendable, Extended: w.WidgetLayout().Extended, Floating: w.WidgetLayout().Floating, DefaultLocation: (*WidgetLocation)(w.WidgetLayout().DefaultLocation)}
+		layout := WidgetLayout{
+			Extendable:      w.WidgetLayout().Extendable,
+			Extended:        w.WidgetLayout().Extended,
+			Floating:        w.WidgetLayout().Floating,
+			DefaultLocation: (*WidgetLocationDocument)(w.WidgetLayout().DefaultLocation),
+		}
 		widgetsDoc = append(widgetsDoc, SceneWidgetDocument{
 			ID:           w.ID().String(),
 			Plugin:       w.Plugin().String(),
