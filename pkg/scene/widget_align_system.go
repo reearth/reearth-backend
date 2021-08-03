@@ -36,6 +36,12 @@ type WidgetLocation struct {
 	Area    string
 }
 
+const (
+	AlignStart  = "start"
+	AlignCenter = "center"
+	AlignEnd    = "end"
+)
+
 var Areas = []string{
 	"top",
 	"middle",
@@ -181,9 +187,18 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 	a := was.Area(oldL.Zone, oldL.Section, oldL.Area)
 
 	if align != nil {
-		a.align = *align
+		switch *align {
+		case AlignStart:
+			a.align = AlignStart
+		case AlignCenter:
+			a.align = AlignCenter
+		case AlignEnd:
+			a.align = AlignEnd
+		default:
+			a.align = AlignStart
+		}
 	} else {
-		a.align = "start"
+		a.align = AlignStart
 	}
 
 	if index != nil {
