@@ -5984,30 +5984,6 @@ type PluginExtension {
   translatedDescription(lang: String): String! @goField(forceResolver: true)
 }
 
-# Widget Align System
-
-type WidgetAlignSystem {
-  inner: WidgetZone
-  outer: WidgetZone
-}
-
-type WidgetZone {
-  left: WidgetSection
-  center: WidgetSection
-  right: WidgetSection
-}
-
-type WidgetSection {
-  top: WidgetArea
-  middle: WidgetArea
-  bottom: WidgetArea
-}
-
-type WidgetArea {
-  widgetIds: [ID!]!
-  align: String
-}
-
 # Scene
 
 type Scene implements Node {
@@ -6060,6 +6036,28 @@ type ScenePlugin {
   propertyId: ID
   plugin: Plugin @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
+}
+
+type WidgetAlignSystem {
+  inner: WidgetZone
+  outer: WidgetZone
+}
+
+type WidgetZone {
+  left: WidgetSection
+  center: WidgetSection
+  right: WidgetSection
+}
+
+type WidgetSection {
+  top: WidgetArea
+  middle: WidgetArea
+  bottom: WidgetArea
+}
+
+type WidgetArea {
+  widgetIds: [ID!]!
+  align: String
 }
 
 # Property

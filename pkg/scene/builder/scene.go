@@ -91,15 +91,12 @@ func findProperty(pp []*property.Property, i id.PropertyID) *property.Property {
 	return nil
 }
 
-func toString(wids []*id.WidgetID) []string {
+func toString(wids []id.WidgetID) []string {
 	if wids == nil {
 		return nil
 	}
 	docids := make([]string, 0, len(wids))
 	for _, wid := range wids {
-		if wid == nil {
-			continue
-		}
 		docids = append(docids, wid.String())
 	}
 	return docids

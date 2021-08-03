@@ -13,7 +13,7 @@ func toAlignSystem(sas *scene.WidgetAlignSystem) *WidgetAlignSystem {
 	return &widgetAlignDoc
 }
 
-func IDsFrom(wids []*id.WidgetID) []*id.ID {
+func IDsFrom(wids []id.WidgetID) []*id.ID {
 	var nids []*id.ID
 	for _, w := range wids {
 		nids = append(nids, w.IDRef())

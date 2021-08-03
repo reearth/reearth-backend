@@ -42,8 +42,8 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 	loc := WidgetLocation{"inner", "left", "top"}
 	was := NewWidgetAlignSystem()
 	was2 := NewWidgetAlignSystem()
-	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, &wid)
-	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, &wid2)
+	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, wid)
+	was2.inner.left.top.widgetIds = append(was2.inner.left.top.widgetIds, wid2)
 	was2.inner.left.top.align = "start"
 
 	testCases := []struct {
@@ -132,8 +132,8 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	i := 0
 	wid2 := id.NewWidgetID()
 	wid3 := id.NewWidgetID()
-	wids := []*id.WidgetID{&wid2, &wid3, &wid}
-	nwids := []*id.WidgetID{&wid, &wid2, &wid3}
+	wids := []id.WidgetID{wid2, wid3, wid}
+	nwids := []id.WidgetID{wid, wid2, wid3}
 
 	was3 := NewWidgetAlignSystem()
 	was3.outer.right.middle.widgetIds = wids

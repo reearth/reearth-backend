@@ -26,7 +26,7 @@ type WidgetSection struct {
 
 // WidgetArea has the widgets and alignment information found in each part area of a section.
 type WidgetArea struct {
-	widgetIds []*id.WidgetID
+	widgetIds []id.WidgetID
 	align     string
 }
 
@@ -54,20 +54,20 @@ const (
 )
 
 var Areas = []string{
-	"top",
-	"middle",
-	"bottom",
+	AreaTop,
+	AreaMiddle,
+	AreaBottom,
 }
 
 var Sections = map[string][]string{
-	"left":   Areas,
-	"center": Areas,
-	"right":  Areas,
+	SectionLeft:   Areas,
+	SectionCenter: Areas,
+	SectionRight:  Areas,
 }
 
 var Zones = map[string]map[string][]string{
-	"inner": Sections,
-	"outer": Sections,
+	ZoneInner: Sections,
+	ZoneOuter: Sections,
 }
 
 func (was *WidgetAlignSystem) FindWidgetIDLocation(wid id.WidgetID) (*int, *WidgetLocation) {
@@ -95,9 +95,9 @@ func (was *WidgetAlignSystem) Zone(zone string) *WidgetZone {
 		return nil
 	}
 	switch zone {
-	case "inner":
+	case ZoneInner:
 		return &was.inner
-	case "outer":
+	case ZoneOuter:
 		return &was.outer
 	}
 	return nil
@@ -112,11 +112,11 @@ func (was *WidgetAlignSystem) Section(zone, section string) *WidgetSection {
 	z := was.Zone(zone)
 
 	switch section {
-	case "left":
+	case SectionLeft:
 		return &z.left
-	case "center":
+	case SectionCenter:
 		return &z.center
-	case "right":
+	case SectionRight:
 		return &z.right
 	}
 	return nil
@@ -131,11 +131,11 @@ func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
 	s := was.Section(zone, section)
 
 	switch area {
-	case "top":
+	case AreaTop:
 		return &s.top
-	case "middle":
+	case AreaMiddle:
 		return &s.middle
-	case "bottom":
+	case AreaBottom:
 		return &s.bottom
 	}
 	return nil
@@ -166,7 +166,7 @@ func (ws *WidgetSection) Area(a string) *WidgetArea {
 }
 
 // WidgetIds will return a slice of widget ids from a specific area.
-func (wa *WidgetArea) WidgetIDs() []*id.WidgetID {
+func (wa *WidgetArea) WidgetIDs() []id.WidgetID {
 	return wa.widgetIds
 }
 
@@ -176,30 +176,30 @@ func (wa *WidgetArea) Alignment() *string {
 }
 
 // Add a widget to the align system.
-func (was *WidgetAlignSystem) Add(wid id.WidgetID, l *WidgetLocation) {
+func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc *WidgetLocation) {
 	if was == nil {
 		return
 	}
 
-	a := was.Area(l.Zone, l.Section, l.Area)
+	a := was.Area(loc.Zone, loc.Section, loc.Area)
 	nIds := a.widgetIds
 
 	if _, b := a.Has(wid); !b {
-		nIds = append(a.widgetIds, &wid)
+		nIds = append(a.widgetIds, wid)
 	}
 	a.widgetIds = nIds
 
 	if a.align == "" {
-		a.align = "start"
+		a.align = AlignStart
 	}
 }
 
 // AddAll will add a slice of widget IDs and alignment to a WidgetArea
-func (was *WidgetAlignSystem) AddAll(wids []*id.WidgetID, align, z, s, a string) {
+func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc *WidgetLocation) {
 	if was == nil {
 		return
 	}
-	wa := was.Area(z, s, a)
+	wa := was.Area(loc.Zone, loc.Section, loc.Area)
 	wa.widgetIds = wids
 	wa.align = align
 }
@@ -209,7 +209,7 @@ func (was *WidgetAlignSystem) Remove(wid id.WidgetID) {
 	if was == nil {
 		return
 	}
-	var nwids []*id.WidgetID
+	var nwids []id.WidgetID
 	i, loc := was.FindWidgetIDLocation(wid)
 	if loc != nil {
 		a := was.Area(loc.Zone, loc.Section, loc.Area)
@@ -254,18 +254,18 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 }
 
 // moveInt moves a widget's index.
-func moveInt(array []*id.WidgetID, srcIndex int, dstIndex int) []*id.WidgetID {
+func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
 	value := array[srcIndex]
 	return insertInt(removeInt(array, srcIndex), value, dstIndex)
 }
 
 // insertInt is used in moveInt to add the widgetID to a new position(index).
-func insertInt(array []*id.WidgetID, value *id.WidgetID, index int) []*id.WidgetID {
-	return append(array[:index], append([]*id.WidgetID{value}, array[index:]...)...)
+func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
+	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
 }
 
 // removeInt is used in moveInt to remove the widgetID from original position(index).
-func removeInt(array []*id.WidgetID, index int) []*id.WidgetID {
+func removeInt(array []id.WidgetID, index int) []id.WidgetID {
 	return append(array[:index], array[index+1:]...)
 }
 
