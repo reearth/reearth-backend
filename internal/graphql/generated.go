@@ -5926,27 +5926,27 @@ type PluginMetadata {
   createdAt: DateTime!
 }
 
-enum WZone {
+enum WidgetZoneType {
   INNER
   OUTER
 }
 
-enum WSection {
+enum WidgetSectionType {
   LEFT
   CENTER
   RIGHT
 }
 
-enum WArea {
+enum WidgetAreaType {
   TOP
   MIDDLE
   BOTTOM
 }
 
 type WidgetLocation {
-  zone: WZone
-  section: WSection
-  area: WArea
+  zone: WidgetZoneType
+  section: WidgetSectionType
+  area: WidgetAreaType
 }
 
 type WidgetLayout {
@@ -28285,9 +28285,9 @@ func (ec *executionContext) _WidgetLocation_zone(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*graphql1.WZone)
+	res := resTmp.(*graphql1.WidgetZoneType)
 	fc.Result = res
-	return ec.marshalOWZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWZone(ctx, field.Selections, res)
+	return ec.marshalOWidgetZoneType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetZoneType(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLocation_section(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLocation) (ret graphql.Marshaler) {
@@ -28317,9 +28317,9 @@ func (ec *executionContext) _WidgetLocation_section(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*graphql1.WSection)
+	res := resTmp.(*graphql1.WidgetSectionType)
 	fc.Result = res
-	return ec.marshalOWSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWSection(ctx, field.Selections, res)
+	return ec.marshalOWidgetSectionType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetSectionType(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLocation_area(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLocation) (ret graphql.Marshaler) {
@@ -28349,9 +28349,9 @@ func (ec *executionContext) _WidgetLocation_area(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*graphql1.WArea)
+	res := resTmp.(*graphql1.WidgetAreaType)
 	fc.Result = res
-	return ec.marshalOWArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWArea(ctx, field.Selections, res)
+	return ec.marshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetAreaType(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetSection_top(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetSection) (ret graphql.Marshaler) {
@@ -41604,54 +41604,6 @@ func (ec *executionContext) marshalOValueType2ᚖgithubᚗcomᚋreearthᚋreeart
 	return v
 }
 
-func (ec *executionContext) unmarshalOWArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWArea(ctx context.Context, v interface{}) (*graphql1.WArea, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var res = new(graphql1.WArea)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOWArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWArea(ctx context.Context, sel ast.SelectionSet, v *graphql1.WArea) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return v
-}
-
-func (ec *executionContext) unmarshalOWSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWSection(ctx context.Context, v interface{}) (*graphql1.WSection, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var res = new(graphql1.WSection)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOWSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWSection(ctx context.Context, sel ast.SelectionSet, v *graphql1.WSection) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return v
-}
-
-func (ec *executionContext) unmarshalOWZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWZone(ctx context.Context, v interface{}) (*graphql1.WZone, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var res = new(graphql1.WZone)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOWZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWZone(ctx context.Context, sel ast.SelectionSet, v *graphql1.WZone) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return v
-}
-
 func (ec *executionContext) marshalOWidgetAlignSystem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetAlignSystem(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetAlignSystem) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -41664,6 +41616,22 @@ func (ec *executionContext) marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreear
 		return graphql.Null
 	}
 	return ec._WidgetArea(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetAreaType(ctx context.Context, v interface{}) (*graphql1.WidgetAreaType, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var res = new(graphql1.WidgetAreaType)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetAreaType(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetAreaType) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return v
 }
 
 func (ec *executionContext) unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayoutInput(ctx context.Context, v interface{}) (*graphql1.WidgetLayoutInput, error) {
@@ -41696,11 +41664,43 @@ func (ec *executionContext) marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋre
 	return ec._WidgetSection(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalOWidgetSectionType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetSectionType(ctx context.Context, v interface{}) (*graphql1.WidgetSectionType, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var res = new(graphql1.WidgetSectionType)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOWidgetSectionType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetSectionType(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetSectionType) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return v
+}
+
 func (ec *executionContext) marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetZone(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetZone) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._WidgetZone(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOWidgetZoneType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetZoneType(ctx context.Context, v interface{}) (*graphql1.WidgetZoneType, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var res = new(graphql1.WidgetZoneType)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOWidgetZoneType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetZoneType(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetZoneType) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return v
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {

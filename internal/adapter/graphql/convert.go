@@ -60,7 +60,7 @@ func toWidgetLayout(w *scene.WidgetLayout) *WidgetLayout {
 	if w == nil {
 		return nil
 	}
-	l := WidgetLocation{Zone: (*WZone)(&w.DefaultLocation.Zone), Section: (*WSection)(&w.DefaultLocation.Section), Area: (*WArea)(&w.DefaultLocation.Area)}
+	l := WidgetLocation{Zone: (*WidgetZoneType)(&w.DefaultLocation.Zone), Section: (*WidgetSectionType)(&w.DefaultLocation.Section), Area: (*WidgetAreaType)(&w.DefaultLocation.Area)}
 	wl := WidgetLayout{Extendable: w.Extendable, Extended: w.Extended, Floating: w.Floating, DefaultLocation: &l}
 	return &wl
 }

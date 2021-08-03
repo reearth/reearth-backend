@@ -1220,9 +1220,9 @@ type WidgetLayoutInput struct {
 }
 
 type WidgetLocation struct {
-	Zone    *WZone    `json:"zone"`
-	Section *WSection `json:"section"`
-	Area    *WArea    `json:"area"`
+	Zone    *WidgetZoneType    `json:"zone"`
+	Section *WidgetSectionType `json:"section"`
+	Area    *WidgetAreaType    `json:"area"`
 }
 
 type WidgetLocationInput struct {
@@ -1817,129 +1817,129 @@ func (e Visualizer) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
-type WArea string
+type WidgetAreaType string
 
 const (
-	WAreaTop    WArea = "TOP"
-	WAreaMiddle WArea = "MIDDLE"
-	WAreaBottom WArea = "BOTTOM"
+	WidgetAreaTypeTop    WidgetAreaType = "TOP"
+	WidgetAreaTypeMiddle WidgetAreaType = "MIDDLE"
+	WidgetAreaTypeBottom WidgetAreaType = "BOTTOM"
 )
 
-var AllWArea = []WArea{
-	WAreaTop,
-	WAreaMiddle,
-	WAreaBottom,
+var AllWidgetAreaType = []WidgetAreaType{
+	WidgetAreaTypeTop,
+	WidgetAreaTypeMiddle,
+	WidgetAreaTypeBottom,
 }
 
-func (e WArea) IsValid() bool {
+func (e WidgetAreaType) IsValid() bool {
 	switch e {
-	case WAreaTop, WAreaMiddle, WAreaBottom:
+	case WidgetAreaTypeTop, WidgetAreaTypeMiddle, WidgetAreaTypeBottom:
 		return true
 	}
 	return false
 }
 
-func (e WArea) String() string {
+func (e WidgetAreaType) String() string {
 	return string(e)
 }
 
-func (e *WArea) UnmarshalGQL(v interface{}) error {
+func (e *WidgetAreaType) UnmarshalGQL(v interface{}) error {
 	str, ok := v.(string)
 	if !ok {
 		return fmt.Errorf("enums must be strings")
 	}
 
-	*e = WArea(str)
+	*e = WidgetAreaType(str)
 	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid WArea", str)
+		return fmt.Errorf("%s is not a valid WidgetAreaType", str)
 	}
 	return nil
 }
 
-func (e WArea) MarshalGQL(w io.Writer) {
+func (e WidgetAreaType) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
-type WSection string
+type WidgetSectionType string
 
 const (
-	WSectionLeft   WSection = "LEFT"
-	WSectionCenter WSection = "CENTER"
-	WSectionRight  WSection = "RIGHT"
+	WidgetSectionTypeLeft   WidgetSectionType = "LEFT"
+	WidgetSectionTypeCenter WidgetSectionType = "CENTER"
+	WidgetSectionTypeRight  WidgetSectionType = "RIGHT"
 )
 
-var AllWSection = []WSection{
-	WSectionLeft,
-	WSectionCenter,
-	WSectionRight,
+var AllWidgetSectionType = []WidgetSectionType{
+	WidgetSectionTypeLeft,
+	WidgetSectionTypeCenter,
+	WidgetSectionTypeRight,
 }
 
-func (e WSection) IsValid() bool {
+func (e WidgetSectionType) IsValid() bool {
 	switch e {
-	case WSectionLeft, WSectionCenter, WSectionRight:
+	case WidgetSectionTypeLeft, WidgetSectionTypeCenter, WidgetSectionTypeRight:
 		return true
 	}
 	return false
 }
 
-func (e WSection) String() string {
+func (e WidgetSectionType) String() string {
 	return string(e)
 }
 
-func (e *WSection) UnmarshalGQL(v interface{}) error {
+func (e *WidgetSectionType) UnmarshalGQL(v interface{}) error {
 	str, ok := v.(string)
 	if !ok {
 		return fmt.Errorf("enums must be strings")
 	}
 
-	*e = WSection(str)
+	*e = WidgetSectionType(str)
 	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid WSection", str)
+		return fmt.Errorf("%s is not a valid WidgetSectionType", str)
 	}
 	return nil
 }
 
-func (e WSection) MarshalGQL(w io.Writer) {
+func (e WidgetSectionType) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 
-type WZone string
+type WidgetZoneType string
 
 const (
-	WZoneInner WZone = "INNER"
-	WZoneOuter WZone = "OUTER"
+	WidgetZoneTypeInner WidgetZoneType = "INNER"
+	WidgetZoneTypeOuter WidgetZoneType = "OUTER"
 )
 
-var AllWZone = []WZone{
-	WZoneInner,
-	WZoneOuter,
+var AllWidgetZoneType = []WidgetZoneType{
+	WidgetZoneTypeInner,
+	WidgetZoneTypeOuter,
 }
 
-func (e WZone) IsValid() bool {
+func (e WidgetZoneType) IsValid() bool {
 	switch e {
-	case WZoneInner, WZoneOuter:
+	case WidgetZoneTypeInner, WidgetZoneTypeOuter:
 		return true
 	}
 	return false
 }
 
-func (e WZone) String() string {
+func (e WidgetZoneType) String() string {
 	return string(e)
 }
 
-func (e *WZone) UnmarshalGQL(v interface{}) error {
+func (e *WidgetZoneType) UnmarshalGQL(v interface{}) error {
 	str, ok := v.(string)
 	if !ok {
 		return fmt.Errorf("enums must be strings")
 	}
 
-	*e = WZone(str)
+	*e = WidgetZoneType(str)
 	if !e.IsValid() {
-		return fmt.Errorf("%s is not a valid WZone", str)
+		return fmt.Errorf("%s is not a valid WidgetZoneType", str)
 	}
 	return nil
 }
 
-func (e WZone) MarshalGQL(w io.Writer) {
+func (e WidgetZoneType) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
