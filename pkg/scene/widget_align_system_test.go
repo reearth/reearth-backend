@@ -115,7 +115,7 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 
 func TestWidgetAlignSystem_Update(t *testing.T) {
 	wid := id.NewWidgetID()
-	align := "left"
+	align := "start"
 
 	// for move
 	oloc := WidgetLocation{"outer", "right", "middle"}
