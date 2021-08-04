@@ -1,37 +1,33 @@
 package fs
 
 import (
-	"os"
 	"path/filepath"
 
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"github.com/spf13/afero"
 )
 
 const (
 	assetDir         = "assets"
 	pluginDir        = "plugins"
 	publishedDir     = "published"
-	manifestFilePath = "reearth.json"
+	manifestFilePath = "reearth.yml"
 )
 
-func readManifest(base string, pid id.PluginID) (*manifest.Manifest, error) {
-	file, err := os.Open(filepath.Join(base, pluginDir, pid.String(), manifestFilePath))
+func readManifest(fs afero.Fs, pid id.PluginID) (*manifest.Manifest, error) {
+	f, err := fs.Open(filepath.Join(pluginDir, pid.String(), manifestFilePath))
 	if err != nil {
-		if os.IsNotExist(err) {
-			return nil, rerror.ErrNotFound
-		}
 		return nil, rerror.ErrInternalBy(err)
 	}
-
 	defer func() {
-		_ = file.Close()
+		_ = f.Close()
 	}()
 
-	m, err := manifest.Parse(file, nil)
+	m, err := manifest.Parse(f, nil)
 	if err != nil {
-		return nil, rerror.ErrInternalBy(err)
+		return nil, err
 	}
 
 	return m, nil

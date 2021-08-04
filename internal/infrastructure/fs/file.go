@@ -9,18 +9,20 @@ import (
 	"path"
 	"path/filepath"
 
+	"github.com/kennygrant/sanitize"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/pkg/file"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"github.com/spf13/afero"
 )
 
 type fileRepo struct {
-	basePath string
-	urlBase  *url.URL
+	fs      afero.Fs
+	urlBase *url.URL
 }
 
-func NewFile(basePath, urlBase string) (gateway.File, error) {
+func NewFile(fs afero.Fs, urlBase string) (gateway.File, error) {
 	var b *url.URL
 	var err error
 	b, err = url.Parse(urlBase)
@@ -29,19 +31,19 @@ func NewFile(basePath, urlBase string) (gateway.File, error) {
 	}
 
 	return &fileRepo{
-		basePath: basePath,
-		urlBase:  b,
+		fs:      fs,
+		urlBase: b,
 	}, nil
 }
 
 // asset
 
 func (f *fileRepo) ReadAsset(ctx context.Context, filename string) (io.ReadCloser, error) {
-	return f.read(ctx, filepath.Join(assetDir, filename))
+	return f.read(ctx, filepath.Join(assetDir, sanitize.Path(filename)))
 }
 
 func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, error) {
-	filename := id.New().String() + path.Ext(file.Path)
+	filename := sanitize.Path(id.New().String() + path.Ext(file.Path))
 	if err := f.upload(ctx, filepath.Join(assetDir, filename), file.Content); err != nil {
 		return nil, err
 	}
@@ -49,20 +51,20 @@ func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, 
 }
 
 func (f *fileRepo) RemoveAsset(ctx context.Context, u *url.URL) error {
-	if u == nil {
+	if u == nil || f.urlBase == nil || u.Scheme != f.urlBase.Scheme || u.Host != f.urlBase.Host || path.Dir(u.Path) != f.urlBase.Path {
 		return gateway.ErrInvalidFile
 	}
-	return f.delete(ctx, filepath.Join(assetDir, getAssetFilePathFromURL(u)))
+	return f.delete(ctx, filepath.Join(assetDir, path.Base(sanitize.Path(u.Path))))
 }
 
 // plugin
 
 func (f *fileRepo) ReadPluginFile(ctx context.Context, pid id.PluginID, filename string) (io.ReadCloser, error) {
-	return f.read(ctx, filepath.Join(pluginDir, pid.String(), filename))
+	return f.read(ctx, filepath.Join(pluginDir, pid.String(), sanitize.Path(filename)))
 }
 
 func (f *fileRepo) UploadPluginFile(ctx context.Context, pid id.PluginID, file *file.File) error {
-	return f.upload(ctx, filepath.Join(pluginDir, pid.String(), file.Path), file.Content)
+	return f.upload(ctx, filepath.Join(pluginDir, pid.String(), sanitize.Path(file.Path)), file.Content)
 }
 
 func (f *fileRepo) RemovePlugin(ctx context.Context, pid id.PluginID) error {
@@ -72,25 +74,33 @@ func (f *fileRepo) RemovePlugin(ctx context.Context, pid id.PluginID) error {
 // built scene
 
 func (f *fileRepo) ReadBuiltSceneFile(ctx context.Context, name string) (io.ReadCloser, error) {
-	return f.read(ctx, filepath.Join(publishedDir, name+".json"))
+	return f.read(ctx, filepath.Join(publishedDir, sanitize.Path(name+".json")))
 }
 
 func (f *fileRepo) UploadBuiltScene(ctx context.Context, reader io.Reader, name string) error {
-	return f.upload(ctx, filepath.Join(publishedDir, name+".json"), reader)
+	return f.upload(ctx, filepath.Join(publishedDir, sanitize.Path(name+".json")), reader)
 }
 
 func (f *fileRepo) MoveBuiltScene(ctx context.Context, oldName, name string) error {
-	return f.move(ctx, filepath.Join(publishedDir, oldName+".json"), filepath.Join(publishedDir, name+".json"))
+	return f.move(
+		ctx,
+		filepath.Join(publishedDir, sanitize.Path(oldName+".json")),
+		filepath.Join(publishedDir, sanitize.Path(name+".json")),
+	)
 }
 
 func (f *fileRepo) RemoveBuiltScene(ctx context.Context, name string) error {
-	return f.delete(ctx, filepath.Join(publishedDir, name+".json"))
+	return f.delete(ctx, filepath.Join(publishedDir, sanitize.Path(name+".json")))
 }
 
 // helpers
 
 func (f *fileRepo) read(ctx context.Context, filename string) (io.ReadCloser, error) {
-	file, err := os.Open(f.filename(filename))
+	if filename == "" {
+		return nil, rerror.ErrNotFound
+	}
+
+	file, err := f.fs.Open(filename)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, rerror.ErrNotFound
@@ -101,11 +111,17 @@ func (f *fileRepo) read(ctx context.Context, filename string) (io.ReadCloser, er
 }
 
 func (f *fileRepo) upload(ctx context.Context, filename string, content io.Reader) error {
-	if err := os.MkdirAll(path.Dir(f.filename(filename)), 0755); err != nil {
-		return rerror.ErrInternalBy(err)
+	if filename == "" {
+		return gateway.ErrFailedToUploadFile
 	}
 
-	dest, err := os.Create(f.filename(filename))
+	if fnd := path.Dir(filename); fnd != "" {
+		if err := f.fs.MkdirAll(fnd, 0755); err != nil {
+			return rerror.ErrInternalBy(err)
+		}
+	}
+
+	dest, err := f.fs.Create(filename)
 	if err != nil {
 		return rerror.ErrInternalBy(err)
 	}
@@ -125,12 +141,14 @@ func (f *fileRepo) move(ctx context.Context, from, dest string) error {
 		return gateway.ErrInvalidFile
 	}
 
-	if err := os.MkdirAll(path.Dir(f.filename(dest)), 0755); err != nil {
-		return rerror.ErrInternalBy(err)
+	if destd := path.Dir(dest); destd != "" {
+		if err := f.fs.MkdirAll(destd, 0755); err != nil {
+			return rerror.ErrInternalBy(err)
+		}
 	}
 
-	if err := os.Rename(f.filename(from), f.filename(dest)); err != nil {
-		if errors.Is(err, os.ErrNotExist) {
+	if err := f.fs.Rename(from, dest); err != nil {
+		if os.IsNotExist(err) {
 			return rerror.ErrNotFound
 		}
 		return rerror.ErrInternalBy(err)
@@ -140,17 +158,17 @@ func (f *fileRepo) move(ctx context.Context, from, dest string) error {
 }
 
 func (f *fileRepo) delete(ctx context.Context, filename string) error {
-	if err := os.RemoveAll(f.filename(filename)); err != nil {
-		if errors.Is(err, os.ErrNotExist) {
+	if filename == "" {
+		return gateway.ErrFailedToUploadFile
+	}
+
+	if err := f.fs.RemoveAll(filename); err != nil {
+		if os.IsNotExist(err) {
 			return nil
 		}
 		return rerror.ErrInternalBy(err)
 	}
 	return nil
-}
-
-func (f *fileRepo) filename(name string) string {
-	return filepath.Join(f.basePath, filepath.Clean(name))
 }
 
 func getAssetFileURL(base *url.URL, filename string) *url.URL {
@@ -161,11 +179,4 @@ func getAssetFileURL(base *url.URL, filename string) *url.URL {
 	b := *base
 	b.Path = path.Join(b.Path, filename)
 	return &b
-}
-
-func getAssetFilePathFromURL(u *url.URL) string {
-	if u == nil {
-		return ""
-	}
-	return path.Base(u.Path)
 }

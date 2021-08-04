@@ -8,22 +8,23 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"github.com/spf13/afero"
 )
 
 type pluginRepo struct {
-	basePath string
+	fs afero.Fs
 }
 
-func NewPlugin(basePath string) repo.Plugin {
+func NewPlugin(fs afero.Fs) repo.Plugin {
 	return &pluginRepo{
-		basePath: basePath,
+		fs: fs,
 	}
 }
 
 func (r *pluginRepo) FindByID(ctx context.Context, pid id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
-	m, err := readManifest(r.basePath, pid)
+	m, err := readManifest(r.fs, pid)
 	if err != nil {
-		return nil, rerror.ErrInternalBy(err)
+		return nil, err
 	}
 
 	sid := m.Plugin.ID().Scene()

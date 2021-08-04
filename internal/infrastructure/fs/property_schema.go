@@ -8,15 +8,16 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"github.com/spf13/afero"
 )
 
 type propertySchema struct {
-	basePath string
+	fs afero.Fs
 }
 
-func NewPropertySchema(basePath string) repo.PropertySchema {
+func NewPropertySchema(fs afero.Fs) repo.PropertySchema {
 	return &propertySchema{
-		basePath: basePath,
+		fs: fs,
 	}
 }
 
@@ -26,9 +27,9 @@ func (r *propertySchema) FindByID(ctx context.Context, i id.PropertySchemaID) (*
 		return nil, rerror.ErrNotFound
 	}
 
-	m, err := readManifest(r.basePath, pid)
+	m, err := readManifest(r.fs, pid)
 	if err != nil {
-		return nil, rerror.ErrInternalBy(err)
+		return nil, err
 	}
 
 	if m.Schema != nil && m.Schema.ID() == i {
