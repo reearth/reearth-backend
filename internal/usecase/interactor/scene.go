@@ -203,7 +203,7 @@ func (i *Scene) AddWidget(ctx context.Context, id id.SceneID, pid id.PluginID, e
 	s.WidgetSystem().Add(widget)
 
 	if !widget.WidgetLayout().Floating {
-		s.WidgetAlignSystem().Add(widget.ID(), widget.WidgetLayout().DefaultLocation)
+		s.WidgetAlignSystem().Add(widget.ID(), *widget.WidgetLayout().DefaultLocation)
 	}
 
 	err = i.propertyRepo.Save(ctx, property)
@@ -266,8 +266,8 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 			if param.Layout != nil {
 				l := param.Layout
 
-				if l.Extended != nil && widget.WidgetLayout().Extendable {
-					widget.SetExtended(*l.Extended)
+				if *widget.WidgetLayout().Extendable {
+					widget.SetExtended(l.Extended)
 				}
 
 				if l.Align != nil {
@@ -277,7 +277,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 				} else if l.Location != nil {
 					was.Update(widget.ID(), l.Location, nil, nil)
 				} else {
-					was.Add(widget.ID(), widget.WidgetLayout().DefaultLocation)
+					was.Add(widget.ID(), *widget.WidgetLayout().DefaultLocation)
 				}
 			}
 		} else {

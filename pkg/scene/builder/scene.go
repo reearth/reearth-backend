@@ -24,7 +24,7 @@ type widgetJSON struct {
 	PluginID    string       `json:"pluginId"`
 	ExtensionID string       `json:"extensionId"`
 	Property    propertyJSON `json:"property"`
-	Extended    bool         `json:"extended"`
+	Extended    *bool        `json:"extended"`
 }
 
 func (b *Builder) scene(ctx context.Context, s *scene.Scene, publishedAt time.Time, l []*layerJSON, p []*property.Property) *sceneJSON {

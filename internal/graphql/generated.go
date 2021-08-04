@@ -5950,8 +5950,8 @@ type WidgetLocation {
 }
 
 type WidgetLayout {
-  extendable: Boolean!
-  extended: Boolean!
+  extendable: Boolean
+  extended: Boolean
   floating: Boolean!
   defaultLocation: WidgetLocation
 }
@@ -5972,7 +5972,7 @@ type PluginExtension {
   name: String!
   description: String!
   icon: String!
-  widgetLayout: WidgetLayout!
+  widgetLayout: WidgetLayout
   visualizer: Visualizer!
   propertySchemaId: PropertySchemaID!
   allTranslatedName: TranslatedString
@@ -6025,7 +6025,7 @@ type SceneWidget {
   extensionId: PluginExtensionID!
   propertyId: ID!
   enabled: Boolean!
-  extended: Boolean!
+  extended: Boolean
   plugin: Plugin @goField(forceResolver: true)
   extension: PluginExtension @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
@@ -19499,14 +19499,11 @@ func (ec *executionContext) _PluginExtension_widgetLayout(ctx context.Context, f
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*graphql1.WidgetLayout)
 	fc.Result = res
-	return ec.marshalNWidgetLayout2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayout(ctx, field.Selections, res)
+	return ec.marshalOWidgetLayout2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayout(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PluginExtension_visualizer(ctx context.Context, field graphql.CollectedField, obj *graphql1.PluginExtension) (ret graphql.Marshaler) {
@@ -26253,14 +26250,11 @@ func (ec *executionContext) _SceneWidget_extended(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
-	res := resTmp.(bool)
+	res := resTmp.(*bool)
 	fc.Result = res
-	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _SceneWidget_plugin(ctx context.Context, field graphql.CollectedField, obj *graphql1.SceneWidget) (ret graphql.Marshaler) {
@@ -28144,14 +28138,11 @@ func (ec *executionContext) _WidgetLayout_extendable(ctx context.Context, field 
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
-	res := resTmp.(bool)
+	res := resTmp.(*bool)
 	fc.Result = res
-	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLayout_extended(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
@@ -28179,14 +28170,11 @@ func (ec *executionContext) _WidgetLayout_extended(ctx context.Context, field gr
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
-	res := resTmp.(bool)
+	res := resTmp.(*bool)
 	fc.Result = res
-	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLayout_floating(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
@@ -34925,9 +34913,6 @@ func (ec *executionContext) _PluginExtension(ctx context.Context, sel ast.Select
 			}
 		case "widgetLayout":
 			out.Values[i] = ec._PluginExtension_widgetLayout(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
 		case "visualizer":
 			out.Values[i] = ec._PluginExtension_visualizer(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -36856,9 +36841,6 @@ func (ec *executionContext) _SceneWidget(ctx context.Context, sel ast.SelectionS
 			}
 		case "extended":
 			out.Values[i] = ec._SceneWidget_extended(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
 		case "plugin":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -37573,14 +37555,8 @@ func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.Selection
 			out.Values[i] = graphql.MarshalString("WidgetLayout")
 		case "extendable":
 			out.Values[i] = ec._WidgetLayout_extendable(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "extended":
 			out.Values[i] = ec._WidgetLayout_extended(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "floating":
 			out.Values[i] = ec._WidgetLayout_floating(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -40369,16 +40345,6 @@ func (ec *executionContext) marshalNVisualizer2githubᚗcomᚋreearthᚋreearth�
 	return v
 }
 
-func (ec *executionContext) marshalNWidgetLayout2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayout(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetLayout) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._WidgetLayout(ctx, sel, v)
-}
-
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {
 	return ec.___Directive(ctx, sel, &v)
 }
@@ -41630,6 +41596,13 @@ func (ec *executionContext) marshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋr
 		return graphql.Null
 	}
 	return v
+}
+
+func (ec *executionContext) marshalOWidgetLayout2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayout(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetLayout) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._WidgetLayout(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayoutInput(ctx context.Context, v interface{}) (*graphql1.WidgetLayoutInput, error) {

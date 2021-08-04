@@ -14,6 +14,8 @@ import (
 )
 
 func TestSceneBuilder(t *testing.T) {
+	fa := false
+	tr := true
 	// ids
 	sceneID := id.NewSceneID()
 	scenePropertyID := id.NewPropertyID()
@@ -387,12 +389,12 @@ func TestSceneBuilder(t *testing.T) {
 		scenePropertyID,
 		false,
 		&scene.WidgetLayout{
-			Extendable: false,
-			Extended:   true,
+			Extendable: &fa,
+			Extended:   &tr,
 			DefaultLocation: &scene.WidgetLocation{
-				Zone:    "outer",
-				Section: "left",
-				Area:    "top",
+				Zone:    scene.WidgetZoneOuter,
+				Section: scene.WidgetSectionLeft,
+				Area:    scene.WidgetAreaTop,
 			},
 		})
 	sceneWidget2 := scene.MustNewWidget(
@@ -402,12 +404,12 @@ func TestSceneBuilder(t *testing.T) {
 		scenePropertyID,
 		true,
 		&scene.WidgetLayout{
-			Extendable: false,
-			Extended:   true,
+			Extendable: &fa,
+			Extended:   &tr,
 			DefaultLocation: &scene.WidgetLocation{
-				Zone:    "outer",
-				Section: "left",
-				Area:    "top",
+				Zone:    scene.WidgetZoneOuter,
+				Section: scene.WidgetSectionLeft,
+				Area:    scene.WidgetAreaTop,
 			},
 		})
 	scenePlugin1 := scene.NewPlugin(pluginID, &scenePropertyID)

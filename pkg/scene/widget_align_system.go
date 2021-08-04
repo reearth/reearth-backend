@@ -176,7 +176,7 @@ func (wa *WidgetArea) Alignment() *string {
 }
 
 // Add a widget to the align system.
-func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc *WidgetLocation) {
+func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 	if was == nil {
 		return
 	}
@@ -195,7 +195,7 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc *WidgetLocation) {
 }
 
 // AddAll will add a slice of widget IDs and alignment to a WidgetArea
-func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc *WidgetLocation) {
+func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc WidgetLocation) {
 	if was == nil {
 		return
 	}
@@ -249,7 +249,7 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 	}
 	if l != nil {
 		was.Remove(wid)
-		was.Add(wid, l)
+		was.Add(wid, *l)
 	}
 }
 

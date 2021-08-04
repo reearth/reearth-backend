@@ -920,7 +920,7 @@ type SceneWidget struct {
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
 	PropertyID  id.ID                `json:"propertyId"`
 	Enabled     bool                 `json:"enabled"`
-	Extended    bool                 `json:"extended"`
+	Extended    *bool                `json:"extended"`
 	Plugin      *Plugin              `json:"plugin"`
 	Extension   *PluginExtension     `json:"extension"`
 	Property    *Property            `json:"property"`
@@ -1206,8 +1206,8 @@ type WidgetArea struct {
 }
 
 type WidgetLayout struct {
-	Extendable      bool            `json:"extendable"`
-	Extended        bool            `json:"extended"`
+	Extendable      *bool           `json:"extendable"`
+	Extended        *bool           `json:"extended"`
 	Floating        bool            `json:"floating"`
 	DefaultLocation *WidgetLocation `json:"defaultLocation"`
 }

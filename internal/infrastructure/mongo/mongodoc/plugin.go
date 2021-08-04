@@ -67,7 +67,8 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 				Extendable:      e.Layout().Extendable,
 				Extended:        e.Layout().Extended,
 				Floating:        e.Layout().Floating,
-				DefaultLocation: (*WidgetLocationDocument)(e.Layout().DefaultLocation)},
+				DefaultLocation: (*WidgetLocationDocument)(e.Layout().DefaultLocation),
+			},
 		})
 	}
 
@@ -105,7 +106,8 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 				Extendable:      e.WidgetLayout.Extendable,
 				Extended:        e.WidgetLayout.Extended,
 				Floating:        e.WidgetLayout.Floating,
-				DefaultLocation: (*scene.WidgetLocation)(e.WidgetLayout.DefaultLocation)}).
+				DefaultLocation: (*scene.WidgetLocation)(e.WidgetLayout.DefaultLocation),
+			}).
 			Schema(psid).
 			Build()
 		if err != nil {

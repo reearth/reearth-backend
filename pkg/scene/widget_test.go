@@ -12,6 +12,8 @@ func TestNewWidget(t *testing.T) {
 	pid := id.MustPluginID("xxx#1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
+	fa := false
+	tr := true
 	testCases := []struct {
 		Name         string
 		Id           *id.WidgetID
@@ -38,12 +40,12 @@ func TestNewWidget(t *testing.T) {
 			Property:  pr,
 			Enabled:   true,
 			WidgetLayout: &WidgetLayout{
-				Extendable: false,
-				Extended:   true,
+				Extendable: &fa,
+				Extended:   &tr,
 				DefaultLocation: &WidgetLocation{
-					Zone:    "outer",
-					Section: "left",
-					Area:    "top",
+					Zone:    WidgetZoneOuter,
+					Section: WidgetSectionLeft,
+					Area:    WidgetAreaTop,
 				},
 			},
 			Expected: struct {
@@ -60,12 +62,12 @@ func TestNewWidget(t *testing.T) {
 				Property:  pr,
 				Enabled:   true,
 				WidgetLayout: &WidgetLayout{
-					Extendable: false,
-					Extended:   true,
+					Extendable: &fa,
+					Extended:   &tr,
 					DefaultLocation: &WidgetLocation{
-						Zone:    "outer",
-						Section: "left",
-						Area:    "top",
+						Zone:    WidgetZoneOuter,
+						Section: WidgetSectionLeft,
+						Area:    WidgetAreaTop,
 					},
 				},
 			},

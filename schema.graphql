@@ -274,8 +274,8 @@ type WidgetLocation {
 }
 
 type WidgetLayout {
-  extendable: Boolean!
-  extended: Boolean!
+  extendable: Boolean
+  extended: Boolean
   floating: Boolean!
   defaultLocation: WidgetLocation
 }
@@ -296,7 +296,7 @@ type PluginExtension {
   name: String!
   description: String!
   icon: String!
-  widgetLayout: WidgetLayout!
+  widgetLayout: WidgetLayout
   visualizer: Visualizer!
   propertySchemaId: PropertySchemaID!
   allTranslatedName: TranslatedString
@@ -349,7 +349,7 @@ type SceneWidget {
   extensionId: PluginExtensionID!
   propertyId: ID!
   enabled: Boolean!
-  extended: Boolean!
+  extended: Boolean
   plugin: Plugin @goField(forceResolver: true)
   extension: PluginExtension @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)

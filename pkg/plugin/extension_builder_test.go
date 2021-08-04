@@ -55,13 +55,16 @@ func TestExtensionBuilder_Visualizer(t *testing.T) {
 
 func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 	var b = NewExtension()
-	wl := &scene.WidgetLayout{Extendable: true}
+	ex := true
+	wl := &scene.WidgetLayout{Extendable: &ex}
 	wl2 := wl
 	res := b.ID("xxx").WidgetLayout(wl).MustBuild()
 	assert.Same(t, wl2, res.Layout())
 }
 
 func TestExtensionBuilder_Build(t *testing.T) {
+	extendable := false
+	extended := true
 	testCases := []struct {
 		name, icon    string
 		id            id.PluginExtensionID
@@ -86,12 +89,12 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
 			widgetLayout: &scene.WidgetLayout{
-				Extendable: false,
-				Extended:   true,
+				Extendable: &extendable,
+				Extended:   &extended,
 				DefaultLocation: &scene.WidgetLocation{
-					Zone:    "outer",
-					Section: "left",
-					Area:    "top",
+					Zone:    scene.WidgetZoneOuter,
+					Section: scene.WidgetSectionLeft,
+					Area:    scene.WidgetAreaTop,
 				}},
 			expected: &Extension{
 				id:            "xxx",
@@ -102,12 +105,12 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
 				widgetLayout: &scene.WidgetLayout{
-					Extendable: false,
-					Extended:   true,
+					Extendable: &extendable,
+					Extended:   &extended,
 					DefaultLocation: &scene.WidgetLocation{
-						Zone:    "outer",
-						Section: "left",
-						Area:    "top",
+						Zone:    scene.WidgetZoneOuter,
+						Section: scene.WidgetSectionLeft,
+						Area:    scene.WidgetAreaTop,
 					}},
 			},
 			err: nil,
@@ -153,6 +156,8 @@ func TestExtensionBuilder_Build(t *testing.T) {
 }
 
 func TestExtensionBuilder_MustBuild(t *testing.T) {
+	extendable := false
+	extended := true
 	testCases := []struct {
 		name, icon    string
 		id            id.PluginExtensionID
@@ -176,12 +181,12 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 			visualizer:    "vvv",
 			widgetLayout: &scene.WidgetLayout{
-				Extendable: false,
-				Extended:   true,
+				Extendable: &extendable,
+				Extended:   &extended,
 				DefaultLocation: &scene.WidgetLocation{
-					Zone:    "outer",
-					Section: "left",
-					Area:    "top",
+					Zone:    scene.WidgetZoneOuter,
+					Section: scene.WidgetSectionLeft,
+					Area:    scene.WidgetAreaTop,
 				}},
 			expected: &Extension{
 				id:            "xxx",
@@ -192,12 +197,12 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
 				visualizer:    "vvv",
 				widgetLayout: &scene.WidgetLayout{
-					Extendable: false,
-					Extended:   true,
+					Extendable: &extendable,
+					Extended:   &extended,
 					DefaultLocation: &scene.WidgetLocation{
-						Zone:    "outer",
-						Section: "left",
-						Area:    "top",
+						Zone:    scene.WidgetZoneOuter,
+						Section: scene.WidgetSectionLeft,
+						Area:    scene.WidgetAreaTop,
 					}},
 			},
 		},

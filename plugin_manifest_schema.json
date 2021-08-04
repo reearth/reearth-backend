@@ -338,10 +338,7 @@
               ]
             },
             "floating": {
-              "type": [
-                "boolean",
-                "null"
-              ]
+              "type": "boolean"
             },
             "defaultLocation": {
               "$ref": "#/definitions/location"

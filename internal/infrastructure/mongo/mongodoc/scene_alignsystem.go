@@ -12,8 +12,8 @@ type WidgetLocationDocument struct {
 }
 
 type WidgetLayoutDocument struct {
-	Extendable      bool
-	Extended        bool
+	Extendable      *bool
+	Extended        *bool
 	Floating        bool
 	DefaultLocation *WidgetLocationDocument
 }
@@ -52,81 +52,81 @@ func (*SceneAlignSystemDocument) ToModelAlignSystem(d SceneAlignSystemDocument) 
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Left.Top.WidgetIDs),
 		d.Inner.Left.Top.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "left", Area: "top"})
+		scene.WidgetLocation{Zone: "inner", Section: "left", Area: "top"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Left.Middle.WidgetIDs),
 		d.Inner.Left.Middle.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "left", Area: "middle"},
+		scene.WidgetLocation{Zone: "inner", Section: "left", Area: "middle"},
 	)
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Left.Bottom.WidgetIDs),
 		d.Inner.Left.Bottom.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "left", Area: "bottom"})
+		scene.WidgetLocation{Zone: "inner", Section: "left", Area: "bottom"})
 	// Inner Center
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Center.Top.WidgetIDs),
 		d.Inner.Center.Top.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "center", Area: "top"})
+		scene.WidgetLocation{Zone: "inner", Section: "center", Area: "top"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Center.Middle.WidgetIDs),
 		d.Inner.Center.Middle.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "center", Area: "middle"})
+		scene.WidgetLocation{Zone: "inner", Section: "center", Area: "middle"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Center.Bottom.WidgetIDs),
 		d.Inner.Center.Bottom.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "center", Area: "bottom"})
+		scene.WidgetLocation{Zone: "inner", Section: "center", Area: "bottom"})
 	// Inner Right
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Right.Top.WidgetIDs),
 		d.Inner.Right.Top.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "right", Area: "top"})
+		scene.WidgetLocation{Zone: "inner", Section: "right", Area: "top"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Right.Middle.WidgetIDs),
 		d.Inner.Right.Middle.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "right", Area: "middle"})
+		scene.WidgetLocation{Zone: "inner", Section: "right", Area: "middle"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Inner.Right.Bottom.WidgetIDs),
 		d.Inner.Right.Bottom.Align,
-		&scene.WidgetLocation{Zone: "inner", Section: "right", Area: "bottom"})
+		scene.WidgetLocation{Zone: "inner", Section: "right", Area: "bottom"})
 	// Outer Left
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Left.Top.WidgetIDs),
 		d.Outer.Left.Top.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "left", Area: "top"})
+		scene.WidgetLocation{Zone: "outer", Section: "left", Area: "top"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Left.Middle.WidgetIDs),
 		d.Outer.Left.Middle.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "left", Area: "middle"})
+		scene.WidgetLocation{Zone: "outer", Section: "left", Area: "middle"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Left.Bottom.WidgetIDs),
 		d.Outer.Left.Bottom.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "left", Area: "bottom"})
+		scene.WidgetLocation{Zone: "outer", Section: "left", Area: "bottom"})
 	// Outer Center
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Center.Top.WidgetIDs),
 		d.Outer.Center.Top.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "center", Area: "top"})
+		scene.WidgetLocation{Zone: "outer", Section: "center", Area: "top"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Center.Middle.WidgetIDs),
 		d.Outer.Center.Middle.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "center", Area: "middle"})
+		scene.WidgetLocation{Zone: "outer", Section: "center", Area: "middle"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Center.Bottom.WidgetIDs),
 		d.Outer.Center.Bottom.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "center", Area: "bottom"})
+		scene.WidgetLocation{Zone: "outer", Section: "center", Area: "bottom"})
 	// Outer Right
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Right.Top.WidgetIDs),
 		d.Outer.Right.Top.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "right", Area: "top"})
+		scene.WidgetLocation{Zone: "outer", Section: "right", Area: "top"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Right.Middle.WidgetIDs),
 		d.Outer.Right.Middle.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "right", Area: "middle"})
+		scene.WidgetLocation{Zone: "outer", Section: "right", Area: "middle"})
 	was.AddAll(
 		stringsToWidgetIDs(d.Outer.Right.Bottom.WidgetIDs),
 		d.Outer.Right.Bottom.Align,
-		&scene.WidgetLocation{Zone: "outer", Section: "right", Area: "bottom"})
+		scene.WidgetLocation{Zone: "outer", Section: "right", Area: "bottom"})
 	return was
 }
 

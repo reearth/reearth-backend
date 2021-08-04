@@ -962,7 +962,6 @@ extensions:
     title: Splash screen
     description: A unique start screen that will display on load of your archive(ex. display the archive's title).
     widgetLayout:
-      extendable: false
       floating: true
     schema:
       groups:

@@ -5,8 +5,8 @@ import (
 )
 
 type WidgetLayout struct {
-	Extendable      bool
-	Extended        bool
+	Extendable      *bool
+	Extended        *bool
 	Floating        bool
 	DefaultLocation *WidgetLocation
 }
@@ -79,6 +79,6 @@ func (w *Widget) SetEnabled(enabled bool) {
 	w.enabled = enabled
 }
 
-func (w *Widget) SetExtended(extended bool) {
+func (w *Widget) SetExtended(extended *bool) {
 	w.widgetLayout.Extended = extended
 }
