@@ -188,6 +188,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#AssetID.Contains">func (d AssetID) Contains(ids []AssetID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#AssetID.CopyRef">func (d *AssetID) CopyRef() *AssetID</a></dd>
 				
 					
@@ -283,6 +286,9 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#NewDatasetID">func NewDatasetID() DatasetID</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#DatasetID.Contains">func (d DatasetID) Contains(ids []DatasetID) bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#DatasetID.CopyRef">func (d *DatasetID) CopyRef() *DatasetID</a></dd>
@@ -382,6 +388,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#DatasetSchemaFieldID.Contains">func (d DatasetSchemaFieldID) Contains(ids []DatasetSchemaFieldID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#DatasetSchemaFieldID.CopyRef">func (d *DatasetSchemaFieldID) CopyRef() *DatasetSchemaFieldID</a></dd>
 				
 					
@@ -477,6 +486,9 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#NewDatasetSchemaID">func NewDatasetSchemaID() DatasetSchemaID</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#DatasetSchemaID.Contains">func (d DatasetSchemaID) Contains(ids []DatasetSchemaID) bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#DatasetSchemaID.CopyRef">func (d *DatasetSchemaID) CopyRef() *DatasetSchemaID</a></dd>
@@ -701,6 +713,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldID.Contains">func (d InfoboxFieldID) Contains(ids []InfoboxFieldID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#InfoboxFieldID.CopyRef">func (d *InfoboxFieldID) CopyRef() *InfoboxFieldID</a></dd>
 				
 					
@@ -798,6 +813,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#LayerID.Contains">func (d LayerID) Contains(ids []LayerID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#LayerID.CopyRef">func (d *LayerID) CopyRef() *LayerID</a></dd>
 				
 					
@@ -893,6 +911,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#MustPluginID">func MustPluginID(id string) PluginID</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewPluginID">func NewPluginID(name string, version string, scene *SceneID) (PluginID, error)</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#PluginIDFrom">func PluginIDFrom(id string) (PluginID, error)</a></dd>
 				
 					
@@ -918,7 +939,10 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#PluginID.Ref">func (d PluginID) Ref() *PluginID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#PluginID.String">func (d PluginID) String() string</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginID.Scene">func (d PluginID) Scene() *SceneID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PluginID.String">func (d PluginID) String() (s string)</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#PluginID.StringRef">func (d *PluginID) StringRef() *string</a></dd>
@@ -963,6 +987,9 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#ProjectIDsFromIDRef">func ProjectIDsFromIDRef(ids []*ID) []ProjectID</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ProjectID.Contains">func (d ProjectID) Contains(ids []ProjectID) bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#ProjectID.CopyRef">func (d *ProjectID) CopyRef() *ProjectID</a></dd>
@@ -1062,6 +1089,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertyID.Contains">func (d PropertyID) Contains(ids []PropertyID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#PropertyID.CopyRef">func (d *PropertyID) CopyRef() *PropertyID</a></dd>
 				
 					
@@ -1157,6 +1187,9 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#PropertyItemIDsFromIDRef">func PropertyItemIDsFromIDRef(ids []*ID) []PropertyItemID</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertyItemID.Contains">func (d PropertyItemID) Contains(ids []PropertyItemID) bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#PropertyItemID.CopyRef">func (d *PropertyItemID) CopyRef() *PropertyItemID</a></dd>
@@ -1282,7 +1315,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaID.MarshalText">func (d *PropertySchemaID) MarshalText() ([]byte, error)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaID.Plugin">func (d PropertySchemaID) Plugin() string</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaID.Plugin">func (d PropertySchemaID) Plugin() PluginID</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaID.Ref">func (d PropertySchemaID) Ref() *PropertySchemaID</a></dd>
@@ -1327,6 +1360,9 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#SceneIDsFromIDRef">func SceneIDsFromIDRef(ids []*ID) []SceneID</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SceneID.Contains">func (d SceneID) Contains(ids []SceneID) bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#SceneID.CopyRef">func (d *SceneID) CopyRef() *SceneID</a></dd>
@@ -1426,6 +1462,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#TeamID.Contains">func (d TeamID) Contains(ids []TeamID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#TeamID.CopyRef">func (d *TeamID) CopyRef() *TeamID</a></dd>
 				
 					
@@ -1523,6 +1562,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#UserID.Contains">func (d UserID) Contains(ids []UserID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#UserID.CopyRef">func (d *UserID) CopyRef() *UserID</a></dd>
 				
 					
@@ -1618,6 +1660,9 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#WidgetIDsFromIDRef">func WidgetIDsFromIDRef(ids []*ID) []WidgetID</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetID.Contains">func (d WidgetID) Contains(ids []WidgetID) bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#WidgetID.CopyRef">func (d *WidgetID) CopyRef() *WidgetID</a></dd>
@@ -1754,17 +1799,16 @@
     <span id="ErrInvalidID">ErrInvalidID</span> = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid ID&#34;)
 )</pre>
 			
-				<p>
-OfficialPluginID _
-</p>
-
-				<pre>var <span id="OfficialPluginID">OfficialPluginID</span> = <a href="index.html#PluginID">PluginID</a>{<span class="comment">/* contains filtered or unexported fields */</span>}</pre>
+				
+				<pre>var (
+    <span id="OfficialPluginID">OfficialPluginID</span> = <a href="index.html#PluginID">PluginID</a>{<span class="comment">/* contains filtered or unexported fields */</span>}
+)</pre>
 			
 		
 		
 			
 			
-			<h2 id="AssetIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2855:2897#L133">AssetIDToKeys</a>
+			<h2 id="AssetIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3057:3099#L143">AssetIDToKeys</a>
 				<a class="permalink" href="index.html#AssetIDToKeys">&#xb6;</a>
 				
 				
@@ -1780,7 +1824,7 @@ AssetIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="DatasetIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2949:2995#L133">DatasetIDToKeys</a>
+			<h2 id="DatasetIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3155:3201#L143">DatasetIDToKeys</a>
 				<a class="permalink" href="index.html#DatasetIDToKeys">&#xb6;</a>
 				
 				
@@ -1796,7 +1840,7 @@ DatasetIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="DatasetSchemaFieldIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3466:3534#L133">DatasetSchemaFieldIDToKeys</a>
+			<h2 id="DatasetSchemaFieldIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3694:3762#L143">DatasetSchemaFieldIDToKeys</a>
 				<a class="permalink" href="index.html#DatasetSchemaFieldIDToKeys">&#xb6;</a>
 				
 				
@@ -1812,7 +1856,7 @@ DatasetSchemaFieldIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="DatasetSchemaIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3231:3289#L133">DatasetSchemaIDToKeys</a>
+			<h2 id="DatasetSchemaIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3449:3507#L143">DatasetSchemaIDToKeys</a>
 				<a class="permalink" href="index.html#DatasetSchemaIDToKeys">&#xb6;</a>
 				
 				
@@ -1828,7 +1872,7 @@ DatasetSchemaIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="InfoboxFieldIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3184:3240#L133">InfoboxFieldIDToKeys</a>
+			<h2 id="InfoboxFieldIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3400:3456#L143">InfoboxFieldIDToKeys</a>
 				<a class="permalink" href="index.html#InfoboxFieldIDToKeys">&#xb6;</a>
 				
 				
@@ -1844,7 +1888,7 @@ InfoboxFieldIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="LayerIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2855:2897#L133">LayerIDToKeys</a>
+			<h2 id="LayerIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3057:3099#L143">LayerIDToKeys</a>
 				<a class="permalink" href="index.html#LayerIDToKeys">&#xb6;</a>
 				
 				
@@ -1860,7 +1904,7 @@ LayerIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="PluginIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3043:3087#L140">PluginIDToKeys</a>
+			<h2 id="PluginIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=4049:4093#L194">PluginIDToKeys</a>
 				<a class="permalink" href="index.html#PluginIDToKeys">&#xb6;</a>
 				
 				
@@ -1876,7 +1920,7 @@ PluginIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="ProjectIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2949:2995#L133">ProjectIDToKeys</a>
+			<h2 id="ProjectIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3155:3201#L143">ProjectIDToKeys</a>
 				<a class="permalink" href="index.html#ProjectIDToKeys">&#xb6;</a>
 				
 				
@@ -1892,7 +1936,7 @@ ProjectIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="PropertyIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2996:3044#L133">PropertyIDToKeys</a>
+			<h2 id="PropertyIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3204:3252#L143">PropertyIDToKeys</a>
 				<a class="permalink" href="index.html#PropertyIDToKeys">&#xb6;</a>
 				
 				
@@ -1908,7 +1952,7 @@ PropertyIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="PropertyItemIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3184:3240#L133">PropertyItemIDToKeys</a>
+			<h2 id="PropertyItemIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3400:3456#L143">PropertyItemIDToKeys</a>
 				<a class="permalink" href="index.html#PropertyItemIDToKeys">&#xb6;</a>
 				
 				
@@ -1924,7 +1968,7 @@ PropertyItemIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="PropertySchemaIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3244:3304#L116">PropertySchemaIDToKeys</a>
+			<h2 id="PropertySchemaIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3276:3336#L117">PropertySchemaIDToKeys</a>
 				<a class="permalink" href="index.html#PropertySchemaIDToKeys">&#xb6;</a>
 				
 				
@@ -1940,7 +1984,7 @@ PropertySchemaIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="SceneIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2855:2897#L133">SceneIDToKeys</a>
+			<h2 id="SceneIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3057:3099#L143">SceneIDToKeys</a>
 				<a class="permalink" href="index.html#SceneIDToKeys">&#xb6;</a>
 				
 				
@@ -1956,7 +2000,7 @@ SceneIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="TeamIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2808:2848#L133">TeamIDToKeys</a>
+			<h2 id="TeamIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3008:3048#L143">TeamIDToKeys</a>
 				<a class="permalink" href="index.html#TeamIDToKeys">&#xb6;</a>
 				
 				
@@ -1972,7 +2016,7 @@ TeamIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="UserIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2808:2848#L133">UserIDToKeys</a>
+			<h2 id="UserIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3008:3048#L143">UserIDToKeys</a>
 				<a class="permalink" href="index.html#UserIDToKeys">&#xb6;</a>
 				
 				
@@ -1988,7 +2032,7 @@ UserIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="WidgetIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2902:2946#L133">WidgetIDToKeys</a>
+			<h2 id="WidgetIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3106:3150#L143">WidgetIDToKeys</a>
 				<a class="permalink" href="index.html#WidgetIDToKeys">&#xb6;</a>
 				
 				
@@ -2068,7 +2112,7 @@ AssetIDFromRefID generates a new AssetID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="AssetIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3072:3122#L142">AssetIDsFrom</a>
+				<h3 id="AssetIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3274:3324#L152">AssetIDsFrom</a>
 					<a class="permalink" href="index.html#AssetIDsFrom">&#xb6;</a>
 					
 					
@@ -2082,7 +2126,7 @@ AssetIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="AssetIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3372:3411#L155">AssetIDsFromID</a>
+				<h3 id="AssetIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3574:3613#L165">AssetIDsFromID</a>
 					<a class="permalink" href="index.html#AssetIDsFromID">&#xb6;</a>
 					
 					
@@ -2096,7 +2140,7 @@ AssetIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="AssetIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3605:3648#L164">AssetIDsFromIDRef</a>
+				<h3 id="AssetIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3807:3850#L174">AssetIDsFromIDRef</a>
 					<a class="permalink" href="index.html#AssetIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -2140,7 +2184,22 @@ NewAssetID generates a new AssetId.
 
 			
 				
-				<h3 id="AssetID.CopyRef">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=1575:1611#L72">CopyRef</a>
+				<h3 id="AssetID.Contains">func (AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=1595:1640#L72">Contains</a>
+					<a class="permalink" href="index.html#AssetID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#AssetID">AssetID</a>) Contains(ids []<a href="index.html#AssetID">AssetID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="AssetID.CopyRef">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=1777:1813#L82">CopyRef</a>
 					<a class="permalink" href="index.html#AssetID.CopyRef">&#xb6;</a>
 					
 					
@@ -2185,7 +2244,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="AssetID.IDRef">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=1715:1744#L81">IDRef</a>
+				<h3 id="AssetID.IDRef">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=1917:1946#L91">IDRef</a>
 					<a class="permalink" href="index.html#AssetID.IDRef">&#xb6;</a>
 					
 					
@@ -2200,7 +2259,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="AssetID.IsNil">func (AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2747:2776#L128">IsNil</a>
+				<h3 id="AssetID.IsNil">func (AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2949:2978#L138">IsNil</a>
 					<a class="permalink" href="index.html#AssetID.IsNil">&#xb6;</a>
 					
 					
@@ -2215,7 +2274,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="AssetID.MarhsalJSON">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2028:2075#L99">MarhsalJSON</a>
+				<h3 id="AssetID.MarhsalJSON">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2230:2277#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#AssetID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -2230,7 +2289,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="AssetID.MarshalText">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2407:2454#L114">MarshalText</a>
+				<h3 id="AssetID.MarshalText">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2609:2656#L124">MarshalText</a>
 					<a class="permalink" href="index.html#AssetID.MarshalText">&#xb6;</a>
 					
 					
@@ -2290,7 +2349,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="AssetID.StringRef">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=1868:1905#L90">StringRef</a>
+				<h3 id="AssetID.StringRef">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2070:2107#L100">StringRef</a>
 					<a class="permalink" href="index.html#AssetID.StringRef">&#xb6;</a>
 					
 					
@@ -2305,7 +2364,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="AssetID.UnmarhsalJSON">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2169:2223#L104">UnmarhsalJSON</a>
+				<h3 id="AssetID.UnmarhsalJSON">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2371:2425#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#AssetID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -2320,7 +2379,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="AssetID.UnmarshalText">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2591:2647#L122">UnmarshalText</a>
+				<h3 id="AssetID.UnmarshalText">func (*AssetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=2793:2849#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#AssetID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -2337,7 +2396,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="AssetIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4268:4331#L193">AssetIDSet</a>
+			<h2 id="AssetIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4470:4533#L203">AssetIDSet</a>
 				<a class="permalink" href="index.html#AssetIDSet">&#xb6;</a>
 				
 				
@@ -2361,7 +2420,7 @@ AssetIDSet represents a set of AssetIDs
 
 			
 				
-				<h3 id="NewAssetIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4375:4407#L199">NewAssetIDSet</a>
+				<h3 id="NewAssetIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4577:4609#L209">NewAssetIDSet</a>
 					<a class="permalink" href="index.html#NewAssetIDSet">&#xb6;</a>
 					
 					
@@ -2377,7 +2436,7 @@ NewAssetIDSet creates a new AssetIDSet
 
 			
 				
-				<h3 id="AssetIDSet.Add">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4489:4527#L204">Add</a>
+				<h3 id="AssetIDSet.Add">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4691:4729#L214">Add</a>
 					<a class="permalink" href="index.html#AssetIDSet.Add">&#xb6;</a>
 					
 					
@@ -2392,7 +2451,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="AssetIDSet.AddRef">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4835:4874#L223">AddRef</a>
+				<h3 id="AssetIDSet.AddRef">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5037:5076#L233">AddRef</a>
 					<a class="permalink" href="index.html#AssetIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -2407,7 +2466,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="AssetIDSet.All">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5248:5284#L249">All</a>
+				<h3 id="AssetIDSet.All">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5450:5486#L259">All</a>
 					<a class="permalink" href="index.html#AssetIDSet.All">&#xb6;</a>
 					
 					
@@ -2422,7 +2481,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="AssetIDSet.Clear">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5124:5152#L240">Clear</a>
+				<h3 id="AssetIDSet.Clear">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5326:5354#L250">Clear</a>
 					<a class="permalink" href="index.html#AssetIDSet.Clear">&#xb6;</a>
 					
 					
@@ -2437,7 +2496,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="AssetIDSet.Clone">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5387:5427#L257">Clone</a>
+				<h3 id="AssetIDSet.Clone">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5589:5629#L267">Clone</a>
 					<a class="permalink" href="index.html#AssetIDSet.Clone">&#xb6;</a>
 					
 					
@@ -2452,7 +2511,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="AssetIDSet.Has">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4972:5012#L231">Has</a>
+				<h3 id="AssetIDSet.Has">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5174:5214#L241">Has</a>
 					<a class="permalink" href="index.html#AssetIDSet.Has">&#xb6;</a>
 					
 					
@@ -2467,7 +2526,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="AssetIDSet.Merge">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5556:5610#L267">Merge</a>
+				<h3 id="AssetIDSet.Merge">func (*AssetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=5758:5812#L277">Merge</a>
 					<a class="permalink" href="index.html#AssetIDSet.Merge">&#xb6;</a>
 					
 					
@@ -2547,7 +2606,7 @@ DatasetIDFromRefID generates a new DatasetID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="DatasetIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3172:3226#L142">DatasetIDsFrom</a>
+				<h3 id="DatasetIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3378:3432#L152">DatasetIDsFrom</a>
 					<a class="permalink" href="index.html#DatasetIDsFrom">&#xb6;</a>
 					
 					
@@ -2561,7 +2620,7 @@ DatasetIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="DatasetIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3482:3525#L155">DatasetIDsFromID</a>
+				<h3 id="DatasetIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3688:3731#L165">DatasetIDsFromID</a>
 					<a class="permalink" href="index.html#DatasetIDsFromID">&#xb6;</a>
 					
 					
@@ -2575,7 +2634,7 @@ DatasetIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="DatasetIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3725:3772#L164">DatasetIDsFromIDRef</a>
+				<h3 id="DatasetIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3931:3978#L174">DatasetIDsFromIDRef</a>
 					<a class="permalink" href="index.html#DatasetIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -2619,7 +2678,22 @@ NewDatasetID generates a new DatasetId.
 
 			
 				
-				<h3 id="DatasetID.CopyRef">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=1645:1685#L72">CopyRef</a>
+				<h3 id="DatasetID.Contains">func (DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=1665:1714#L72">Contains</a>
+					<a class="permalink" href="index.html#DatasetID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#DatasetID">DatasetID</a>) Contains(ids []<a href="index.html#DatasetID">DatasetID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="DatasetID.CopyRef">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=1851:1891#L82">CopyRef</a>
 					<a class="permalink" href="index.html#DatasetID.CopyRef">&#xb6;</a>
 					
 					
@@ -2664,7 +2738,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="DatasetID.IDRef">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=1789:1820#L81">IDRef</a>
+				<h3 id="DatasetID.IDRef">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=1995:2026#L91">IDRef</a>
 					<a class="permalink" href="index.html#DatasetID.IDRef">&#xb6;</a>
 					
 					
@@ -2679,7 +2753,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="DatasetID.IsNil">func (DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2837:2868#L128">IsNil</a>
+				<h3 id="DatasetID.IsNil">func (DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3043:3074#L138">IsNil</a>
 					<a class="permalink" href="index.html#DatasetID.IsNil">&#xb6;</a>
 					
 					
@@ -2694,7 +2768,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="DatasetID.MarhsalJSON">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2106:2155#L99">MarhsalJSON</a>
+				<h3 id="DatasetID.MarhsalJSON">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2312:2361#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#DatasetID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -2709,7 +2783,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="DatasetID.MarshalText">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2491:2540#L114">MarshalText</a>
+				<h3 id="DatasetID.MarshalText">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2697:2746#L124">MarshalText</a>
 					<a class="permalink" href="index.html#DatasetID.MarshalText">&#xb6;</a>
 					
 					
@@ -2769,7 +2843,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="DatasetID.StringRef">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=1944:1983#L90">StringRef</a>
+				<h3 id="DatasetID.StringRef">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2150:2189#L100">StringRef</a>
 					<a class="permalink" href="index.html#DatasetID.StringRef">&#xb6;</a>
 					
 					
@@ -2784,7 +2858,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="DatasetID.UnmarhsalJSON">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2249:2305#L104">UnmarhsalJSON</a>
+				<h3 id="DatasetID.UnmarhsalJSON">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2455:2511#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#DatasetID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -2799,7 +2873,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="DatasetID.UnmarshalText">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2677:2735#L122">UnmarshalText</a>
+				<h3 id="DatasetID.UnmarshalText">func (*DatasetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=2883:2941#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#DatasetID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -2816,7 +2890,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="DatasetIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4412:4481#L193">DatasetIDSet</a>
+			<h2 id="DatasetIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4618:4687#L203">DatasetIDSet</a>
 				<a class="permalink" href="index.html#DatasetIDSet">&#xb6;</a>
 				
 				
@@ -2840,7 +2914,7 @@ DatasetIDSet represents a set of DatasetIDs
 
 			
 				
-				<h3 id="NewDatasetIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4529:4565#L199">NewDatasetIDSet</a>
+				<h3 id="NewDatasetIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4735:4771#L209">NewDatasetIDSet</a>
 					<a class="permalink" href="index.html#NewDatasetIDSet">&#xb6;</a>
 					
 					
@@ -2856,7 +2930,7 @@ NewDatasetIDSet creates a new DatasetIDSet
 
 			
 				
-				<h3 id="DatasetIDSet.Add">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4649:4691#L204">Add</a>
+				<h3 id="DatasetIDSet.Add">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4855:4897#L214">Add</a>
 					<a class="permalink" href="index.html#DatasetIDSet.Add">&#xb6;</a>
 					
 					
@@ -2871,7 +2945,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="DatasetIDSet.AddRef">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5003:5046#L223">AddRef</a>
+				<h3 id="DatasetIDSet.AddRef">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5209:5252#L233">AddRef</a>
 					<a class="permalink" href="index.html#DatasetIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -2886,7 +2960,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="DatasetIDSet.All">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5426:5466#L249">All</a>
+				<h3 id="DatasetIDSet.All">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5632:5672#L259">All</a>
 					<a class="permalink" href="index.html#DatasetIDSet.All">&#xb6;</a>
 					
 					
@@ -2901,7 +2975,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="DatasetIDSet.Clear">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5300:5330#L240">Clear</a>
+				<h3 id="DatasetIDSet.Clear">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5506:5536#L250">Clear</a>
 					<a class="permalink" href="index.html#DatasetIDSet.Clear">&#xb6;</a>
 					
 					
@@ -2916,7 +2990,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="DatasetIDSet.Clone">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5571:5615#L257">Clone</a>
+				<h3 id="DatasetIDSet.Clone">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5777:5821#L267">Clone</a>
 					<a class="permalink" href="index.html#DatasetIDSet.Clone">&#xb6;</a>
 					
 					
@@ -2931,7 +3005,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="DatasetIDSet.Has">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5144:5188#L231">Has</a>
+				<h3 id="DatasetIDSet.Has">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5350:5394#L241">Has</a>
 					<a class="permalink" href="index.html#DatasetIDSet.Has">&#xb6;</a>
 					
 					
@@ -2946,7 +3020,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="DatasetIDSet.Merge">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5748:5808#L267">Merge</a>
+				<h3 id="DatasetIDSet.Merge">func (*DatasetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=5954:6014#L277">Merge</a>
 					<a class="permalink" href="index.html#DatasetIDSet.Merge">&#xb6;</a>
 					
 					
@@ -3026,7 +3100,7 @@ DatasetSchemaFieldIDFromRefID generates a new DatasetSchemaFieldID from a ref of
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3722:3798#L142">DatasetSchemaFieldIDsFrom</a>
+				<h3 id="DatasetSchemaFieldIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3950:4026#L152">DatasetSchemaFieldIDsFrom</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDsFrom">&#xb6;</a>
 					
 					
@@ -3040,7 +3114,7 @@ DatasetSchemaFieldIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=4087:4152#L155">DatasetSchemaFieldIDsFromID</a>
+				<h3 id="DatasetSchemaFieldIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=4315:4380#L165">DatasetSchemaFieldIDsFromID</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDsFromID">&#xb6;</a>
 					
 					
@@ -3054,7 +3128,7 @@ DatasetSchemaFieldIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=4385:4454#L164">DatasetSchemaFieldIDsFromIDRef</a>
+				<h3 id="DatasetSchemaFieldIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=4613:4682#L174">DatasetSchemaFieldIDsFromIDRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -3098,7 +3172,22 @@ NewDatasetSchemaFieldID generates a new DatasetSchemaFieldId.
 
 			
 				
-				<h3 id="DatasetSchemaFieldID.CopyRef">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2030:2092#L72">CopyRef</a>
+				<h3 id="DatasetSchemaFieldID.Contains">func (DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2050:2121#L72">Contains</a>
+					<a class="permalink" href="index.html#DatasetSchemaFieldID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) Contains(ids []<a href="index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="DatasetSchemaFieldID.CopyRef">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2258:2320#L82">CopyRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.CopyRef">&#xb6;</a>
 					
 					
@@ -3143,7 +3232,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldID.IDRef">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2196:2238#L81">IDRef</a>
+				<h3 id="DatasetSchemaFieldID.IDRef">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2424:2466#L91">IDRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.IDRef">&#xb6;</a>
 					
 					
@@ -3158,7 +3247,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldID.IsNil">func (DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3332:3374#L128">IsNil</a>
+				<h3 id="DatasetSchemaFieldID.IsNil">func (DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3560:3602#L138">IsNil</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.IsNil">&#xb6;</a>
 					
 					
@@ -3173,7 +3262,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="DatasetSchemaFieldID.MarhsalJSON">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2535:2595#L99">MarhsalJSON</a>
+				<h3 id="DatasetSchemaFieldID.MarhsalJSON">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2763:2823#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -3188,7 +3277,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="DatasetSchemaFieldID.MarshalText">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2953:3013#L114">MarshalText</a>
+				<h3 id="DatasetSchemaFieldID.MarshalText">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3181:3241#L124">MarshalText</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.MarshalText">&#xb6;</a>
 					
 					
@@ -3248,7 +3337,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldID.StringRef">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2362:2412#L90">StringRef</a>
+				<h3 id="DatasetSchemaFieldID.StringRef">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2590:2640#L100">StringRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.StringRef">&#xb6;</a>
 					
 					
@@ -3263,7 +3352,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldID.UnmarhsalJSON">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2689:2756#L104">UnmarhsalJSON</a>
+				<h3 id="DatasetSchemaFieldID.UnmarhsalJSON">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=2917:2984#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -3278,7 +3367,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="DatasetSchemaFieldID.UnmarshalText">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3150:3219#L122">UnmarshalText</a>
+				<h3 id="DatasetSchemaFieldID.UnmarshalText">func (*DatasetSchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=3378:3447#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -3295,7 +3384,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="DatasetSchemaFieldIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5204:5306#L193">DatasetSchemaFieldIDSet</a>
+			<h2 id="DatasetSchemaFieldIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5432:5534#L203">DatasetSchemaFieldIDSet</a>
 				<a class="permalink" href="index.html#DatasetSchemaFieldIDSet">&#xb6;</a>
 				
 				
@@ -3319,7 +3408,7 @@ DatasetSchemaFieldIDSet represents a set of DatasetSchemaFieldIDs
 
 			
 				
-				<h3 id="NewDatasetSchemaFieldIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5376:5434#L199">NewDatasetSchemaFieldIDSet</a>
+				<h3 id="NewDatasetSchemaFieldIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5604:5662#L209">NewDatasetSchemaFieldIDSet</a>
 					<a class="permalink" href="index.html#NewDatasetSchemaFieldIDSet">&#xb6;</a>
 					
 					
@@ -3335,7 +3424,7 @@ NewDatasetSchemaFieldIDSet creates a new DatasetSchemaFieldIDSet
 
 			
 				
-				<h3 id="DatasetSchemaFieldIDSet.Add">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5529:5593#L204">Add</a>
+				<h3 id="DatasetSchemaFieldIDSet.Add">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5757:5821#L214">Add</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDSet.Add">&#xb6;</a>
 					
 					
@@ -3350,7 +3439,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDSet.AddRef">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5927:5992#L223">AddRef</a>
+				<h3 id="DatasetSchemaFieldIDSet.AddRef">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6155:6220#L233">AddRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -3365,7 +3454,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDSet.All">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6405:6467#L249">All</a>
+				<h3 id="DatasetSchemaFieldIDSet.All">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6633:6695#L259">All</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDSet.All">&#xb6;</a>
 					
 					
@@ -3380,7 +3469,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDSet.Clear">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6268:6309#L240">Clear</a>
+				<h3 id="DatasetSchemaFieldIDSet.Clear">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6496:6537#L250">Clear</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDSet.Clear">&#xb6;</a>
 					
 					
@@ -3395,7 +3484,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDSet.Clone">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6583:6649#L257">Clone</a>
+				<h3 id="DatasetSchemaFieldIDSet.Clone">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6811:6877#L267">Clone</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDSet.Clone">&#xb6;</a>
 					
 					
@@ -3410,7 +3499,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDSet.Has">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6090:6156#L231">Has</a>
+				<h3 id="DatasetSchemaFieldIDSet.Has">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6318:6384#L241">Has</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDSet.Has">&#xb6;</a>
 					
 					
@@ -3425,7 +3514,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDSet.Merge">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=6804:6897#L267">Merge</a>
+				<h3 id="DatasetSchemaFieldIDSet.Merge">func (*DatasetSchemaFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=7032:7125#L277">Merge</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDSet.Merge">&#xb6;</a>
 					
 					
@@ -3505,7 +3594,7 @@ DatasetSchemaIDFromRefID generates a new DatasetSchemaID from a ref of a generic
 				
 			
 				
-				<h3 id="DatasetSchemaIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3472:3538#L142">DatasetSchemaIDsFrom</a>
+				<h3 id="DatasetSchemaIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3690:3756#L152">DatasetSchemaIDsFrom</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDsFrom">&#xb6;</a>
 					
 					
@@ -3519,7 +3608,7 @@ DatasetSchemaIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="DatasetSchemaIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3812:3867#L155">DatasetSchemaIDsFromID</a>
+				<h3 id="DatasetSchemaIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4030:4085#L165">DatasetSchemaIDsFromID</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDsFromID">&#xb6;</a>
 					
 					
@@ -3533,7 +3622,7 @@ DatasetSchemaIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="DatasetSchemaIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4085:4144#L164">DatasetSchemaIDsFromIDRef</a>
+				<h3 id="DatasetSchemaIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4303:4362#L174">DatasetSchemaIDsFromIDRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -3577,7 +3666,22 @@ NewDatasetSchemaID generates a new DatasetSchemaId.
 
 			
 				
-				<h3 id="DatasetSchemaID.CopyRef">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=1855:1907#L72">CopyRef</a>
+				<h3 id="DatasetSchemaID.Contains">func (DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=1875:1936#L72">Contains</a>
+					<a class="permalink" href="index.html#DatasetSchemaID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#DatasetSchemaID">DatasetSchemaID</a>) Contains(ids []<a href="index.html#DatasetSchemaID">DatasetSchemaID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="DatasetSchemaID.CopyRef">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2073:2125#L82">CopyRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.CopyRef">&#xb6;</a>
 					
 					
@@ -3622,7 +3726,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="DatasetSchemaID.IDRef">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2011:2048#L81">IDRef</a>
+				<h3 id="DatasetSchemaID.IDRef">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2229:2266#L91">IDRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.IDRef">&#xb6;</a>
 					
 					
@@ -3637,7 +3741,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="DatasetSchemaID.IsNil">func (DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3107:3144#L128">IsNil</a>
+				<h3 id="DatasetSchemaID.IsNil">func (DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3325:3362#L138">IsNil</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.IsNil">&#xb6;</a>
 					
 					
@@ -3652,7 +3756,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="DatasetSchemaID.MarhsalJSON">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2340:2395#L99">MarhsalJSON</a>
+				<h3 id="DatasetSchemaID.MarhsalJSON">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2558:2613#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -3667,7 +3771,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="DatasetSchemaID.MarshalText">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2743:2798#L114">MarshalText</a>
+				<h3 id="DatasetSchemaID.MarshalText">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2961:3016#L124">MarshalText</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.MarshalText">&#xb6;</a>
 					
 					
@@ -3727,7 +3831,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="DatasetSchemaID.StringRef">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2172:2217#L90">StringRef</a>
+				<h3 id="DatasetSchemaID.StringRef">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2390:2435#L100">StringRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.StringRef">&#xb6;</a>
 					
 					
@@ -3742,7 +3846,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="DatasetSchemaID.UnmarhsalJSON">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2489:2551#L104">UnmarhsalJSON</a>
+				<h3 id="DatasetSchemaID.UnmarhsalJSON">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2707:2769#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -3757,7 +3861,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="DatasetSchemaID.UnmarshalText">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=2935:2999#L122">UnmarshalText</a>
+				<h3 id="DatasetSchemaID.UnmarshalText">func (*DatasetSchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=3153:3217#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#DatasetSchemaID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -3774,7 +3878,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="DatasetSchemaIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4844:4931#L193">DatasetSchemaIDSet</a>
+			<h2 id="DatasetSchemaIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5062:5149#L203">DatasetSchemaIDSet</a>
 				<a class="permalink" href="index.html#DatasetSchemaIDSet">&#xb6;</a>
 				
 				
@@ -3798,7 +3902,7 @@ DatasetSchemaIDSet represents a set of DatasetSchemaIDs
 
 			
 				
-				<h3 id="NewDatasetSchemaIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4991:5039#L199">NewDatasetSchemaIDSet</a>
+				<h3 id="NewDatasetSchemaIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5209:5257#L209">NewDatasetSchemaIDSet</a>
 					<a class="permalink" href="index.html#NewDatasetSchemaIDSet">&#xb6;</a>
 					
 					
@@ -3814,7 +3918,7 @@ NewDatasetSchemaIDSet creates a new DatasetSchemaIDSet
 
 			
 				
-				<h3 id="DatasetSchemaIDSet.Add">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5129:5183#L204">Add</a>
+				<h3 id="DatasetSchemaIDSet.Add">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5347:5401#L214">Add</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDSet.Add">&#xb6;</a>
 					
 					
@@ -3829,7 +3933,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="DatasetSchemaIDSet.AddRef">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5507:5562#L223">AddRef</a>
+				<h3 id="DatasetSchemaIDSet.AddRef">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5725:5780#L233">AddRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -3844,7 +3948,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="DatasetSchemaIDSet.All">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5960:6012#L249">All</a>
+				<h3 id="DatasetSchemaIDSet.All">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=6178:6230#L259">All</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDSet.All">&#xb6;</a>
 					
 					
@@ -3859,7 +3963,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="DatasetSchemaIDSet.Clear">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5828:5864#L240">Clear</a>
+				<h3 id="DatasetSchemaIDSet.Clear">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=6046:6082#L250">Clear</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDSet.Clear">&#xb6;</a>
 					
 					
@@ -3874,7 +3978,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="DatasetSchemaIDSet.Clone">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=6123:6179#L257">Clone</a>
+				<h3 id="DatasetSchemaIDSet.Clone">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=6341:6397#L267">Clone</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDSet.Clone">&#xb6;</a>
 					
 					
@@ -3889,7 +3993,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="DatasetSchemaIDSet.Has">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5660:5716#L231">Has</a>
+				<h3 id="DatasetSchemaIDSet.Has">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=5878:5934#L241">Has</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDSet.Has">&#xb6;</a>
 					
 					
@@ -3904,7 +4008,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="DatasetSchemaIDSet.Merge">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=6324:6402#L267">Merge</a>
+				<h3 id="DatasetSchemaIDSet.Merge">func (*DatasetSchemaIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=6542:6620#L277">Merge</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDSet.Merge">&#xb6;</a>
 					
 					
@@ -3942,7 +4046,7 @@ Merge returns a merged set
 
 			
 				
-				<h3 id="AssetIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=3850:3887#L175">AssetIDsToID</a>
+				<h3 id="AssetIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4052:4089#L185">AssetIDsToID</a>
 					<a class="permalink" href="index.html#AssetIDsToID">&#xb6;</a>
 					
 					
@@ -3956,7 +4060,7 @@ AssetIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="AssetIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4069:4111#L184">AssetIDsToIDRef</a>
+				<h3 id="AssetIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go?s=4271:4313#L194">AssetIDsToIDRef</a>
 					<a class="permalink" href="index.html#AssetIDsToIDRef">&#xb6;</a>
 					
 					
@@ -3970,7 +4074,7 @@ AssetIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="DatasetIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=3980:4021#L175">DatasetIDsToID</a>
+				<h3 id="DatasetIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4186:4227#L185">DatasetIDsToID</a>
 					<a class="permalink" href="index.html#DatasetIDsToID">&#xb6;</a>
 					
 					
@@ -3984,7 +4088,7 @@ DatasetIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="DatasetIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4205:4251#L184">DatasetIDsToIDRef</a>
+				<h3 id="DatasetIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go?s=4411:4457#L194">DatasetIDsToIDRef</a>
 					<a class="permalink" href="index.html#DatasetIDsToIDRef">&#xb6;</a>
 					
 					
@@ -3998,7 +4102,7 @@ DatasetIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=4695:4758#L175">DatasetSchemaFieldIDsToID</a>
+				<h3 id="DatasetSchemaFieldIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=4923:4986#L185">DatasetSchemaFieldIDsToID</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDsToID">&#xb6;</a>
 					
 					
@@ -4012,7 +4116,7 @@ DatasetSchemaFieldIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="DatasetSchemaFieldIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=4953:5021#L184">DatasetSchemaFieldIDsToIDRef</a>
+				<h3 id="DatasetSchemaFieldIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go?s=5181:5249#L194">DatasetSchemaFieldIDsToIDRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaFieldIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4026,7 +4130,7 @@ DatasetSchemaFieldIDsToIDRef converts a ID ref slice into a generic ID ref slice
 				
 			
 				
-				<h3 id="DatasetSchemaIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4370:4423#L175">DatasetSchemaIDsToID</a>
+				<h3 id="DatasetSchemaIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4588:4641#L185">DatasetSchemaIDsToID</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDsToID">&#xb6;</a>
 					
 					
@@ -4040,7 +4144,7 @@ DatasetSchemaIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="DatasetSchemaIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4613:4671#L184">DatasetSchemaIDsToIDRef</a>
+				<h3 id="DatasetSchemaIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_gen.go?s=4831:4889#L194">DatasetSchemaIDsToIDRef</a>
 					<a class="permalink" href="index.html#DatasetSchemaIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4076,7 +4180,7 @@ DatasetSchemaIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="InfoboxFieldIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4305:4356#L175">InfoboxFieldIDsToID</a>
+				<h3 id="InfoboxFieldIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4521:4572#L185">InfoboxFieldIDsToID</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDsToID">&#xb6;</a>
 					
 					
@@ -4090,7 +4194,7 @@ InfoboxFieldIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="InfoboxFieldIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4545:4601#L184">InfoboxFieldIDsToIDRef</a>
+				<h3 id="InfoboxFieldIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4761:4817#L194">InfoboxFieldIDsToIDRef</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4104,7 +4208,7 @@ InfoboxFieldIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="LayerIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3850:3887#L175">LayerIDsToID</a>
+				<h3 id="LayerIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4052:4089#L185">LayerIDsToID</a>
 					<a class="permalink" href="index.html#LayerIDsToID">&#xb6;</a>
 					
 					
@@ -4118,7 +4222,7 @@ LayerIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="LayerIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4069:4111#L184">LayerIDsToIDRef</a>
+				<h3 id="LayerIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4271:4313#L194">LayerIDsToIDRef</a>
 					<a class="permalink" href="index.html#LayerIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4176,7 +4280,7 @@ LayerIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="ProjectIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3980:4021#L175">ProjectIDsToID</a>
+				<h3 id="ProjectIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4186:4227#L185">ProjectIDsToID</a>
 					<a class="permalink" href="index.html#ProjectIDsToID">&#xb6;</a>
 					
 					
@@ -4190,7 +4294,7 @@ ProjectIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="ProjectIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4205:4251#L184">ProjectIDsToIDRef</a>
+				<h3 id="ProjectIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4411:4457#L194">ProjectIDsToIDRef</a>
 					<a class="permalink" href="index.html#ProjectIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4204,7 +4308,7 @@ ProjectIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="PropertyIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4045:4088#L175">PropertyIDsToID</a>
+				<h3 id="PropertyIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4253:4296#L185">PropertyIDsToID</a>
 					<a class="permalink" href="index.html#PropertyIDsToID">&#xb6;</a>
 					
 					
@@ -4218,7 +4322,7 @@ PropertyIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="PropertyIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4273:4321#L184">PropertyIDsToIDRef</a>
+				<h3 id="PropertyIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4481:4529#L194">PropertyIDsToIDRef</a>
 					<a class="permalink" href="index.html#PropertyIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4232,7 +4336,7 @@ PropertyIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="PropertyItemIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4305:4356#L175">PropertyItemIDsToID</a>
+				<h3 id="PropertyItemIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4521:4572#L185">PropertyItemIDsToID</a>
 					<a class="permalink" href="index.html#PropertyItemIDsToID">&#xb6;</a>
 					
 					
@@ -4246,7 +4350,7 @@ PropertyItemIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="PropertyItemIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4545:4601#L184">PropertyItemIDsToIDRef</a>
+				<h3 id="PropertyItemIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4761:4817#L194">PropertyItemIDsToIDRef</a>
 					<a class="permalink" href="index.html#PropertyItemIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4260,7 +4364,7 @@ PropertyItemIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="SceneIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3850:3887#L175">SceneIDsToID</a>
+				<h3 id="SceneIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4052:4089#L185">SceneIDsToID</a>
 					<a class="permalink" href="index.html#SceneIDsToID">&#xb6;</a>
 					
 					
@@ -4274,7 +4378,7 @@ SceneIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="SceneIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4069:4111#L184">SceneIDsToIDRef</a>
+				<h3 id="SceneIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4271:4313#L194">SceneIDsToIDRef</a>
 					<a class="permalink" href="index.html#SceneIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4288,7 +4392,7 @@ SceneIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="TeamIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3785:3820#L175">TeamIDsToID</a>
+				<h3 id="TeamIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3985:4020#L185">TeamIDsToID</a>
 					<a class="permalink" href="index.html#TeamIDsToID">&#xb6;</a>
 					
 					
@@ -4302,7 +4406,7 @@ TeamIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="TeamIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4001:4041#L184">TeamIDsToIDRef</a>
+				<h3 id="TeamIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4201:4241#L194">TeamIDsToIDRef</a>
 					<a class="permalink" href="index.html#TeamIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4316,7 +4420,7 @@ TeamIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="UserIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3785:3820#L175">UserIDsToID</a>
+				<h3 id="UserIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3985:4020#L185">UserIDsToID</a>
 					<a class="permalink" href="index.html#UserIDsToID">&#xb6;</a>
 					
 					
@@ -4330,7 +4434,7 @@ UserIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="UserIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4001:4041#L184">UserIDsToIDRef</a>
+				<h3 id="UserIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4201:4241#L194">UserIDsToIDRef</a>
 					<a class="permalink" href="index.html#UserIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4344,7 +4448,7 @@ UserIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 				
 			
 				
-				<h3 id="WidgetIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3915:3954#L175">WidgetIDsToID</a>
+				<h3 id="WidgetIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4119:4158#L185">WidgetIDsToID</a>
 					<a class="permalink" href="index.html#WidgetIDsToID">&#xb6;</a>
 					
 					
@@ -4358,7 +4462,7 @@ WidgetIDsToID converts a ID slice into a generic ID slice.
 				
 			
 				
-				<h3 id="WidgetIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4137:4181#L184">WidgetIDsToIDRef</a>
+				<h3 id="WidgetIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4341:4385#L194">WidgetIDsToIDRef</a>
 					<a class="permalink" href="index.html#WidgetIDsToIDRef">&#xb6;</a>
 					
 					
@@ -4541,7 +4645,7 @@ InfoboxFieldIDFromRefID generates a new InfoboxFieldID from a ref of a generic I
 				
 			
 				
-				<h3 id="InfoboxFieldIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3422:3486#L142">InfoboxFieldIDsFrom</a>
+				<h3 id="InfoboxFieldIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3638:3702#L152">InfoboxFieldIDsFrom</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDsFrom">&#xb6;</a>
 					
 					
@@ -4555,7 +4659,7 @@ InfoboxFieldIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="InfoboxFieldIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3757:3810#L155">InfoboxFieldIDsFromID</a>
+				<h3 id="InfoboxFieldIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3973:4026#L165">InfoboxFieldIDsFromID</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDsFromID">&#xb6;</a>
 					
 					
@@ -4569,7 +4673,7 @@ InfoboxFieldIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="InfoboxFieldIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4025:4082#L164">InfoboxFieldIDsFromIDRef</a>
+				<h3 id="InfoboxFieldIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4241:4298#L174">InfoboxFieldIDsFromIDRef</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -4613,7 +4717,22 @@ NewInfoboxFieldID generates a new InfoboxFieldId.
 
 			
 				
-				<h3 id="InfoboxFieldID.CopyRef">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=1820:1870#L72">CopyRef</a>
+				<h3 id="InfoboxFieldID.Contains">func (InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=1840:1899#L72">Contains</a>
+					<a class="permalink" href="index.html#InfoboxFieldID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#InfoboxFieldID">InfoboxFieldID</a>) Contains(ids []<a href="index.html#InfoboxFieldID">InfoboxFieldID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="InfoboxFieldID.CopyRef">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2036:2086#L82">CopyRef</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.CopyRef">&#xb6;</a>
 					
 					
@@ -4658,7 +4777,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="InfoboxFieldID.IDRef">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=1974:2010#L81">IDRef</a>
+				<h3 id="InfoboxFieldID.IDRef">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2190:2226#L91">IDRef</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.IDRef">&#xb6;</a>
 					
 					
@@ -4673,7 +4792,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="InfoboxFieldID.IsNil">func (InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3062:3098#L128">IsNil</a>
+				<h3 id="InfoboxFieldID.IsNil">func (InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3278:3314#L138">IsNil</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.IsNil">&#xb6;</a>
 					
 					
@@ -4688,7 +4807,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="InfoboxFieldID.MarhsalJSON">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2301:2355#L99">MarhsalJSON</a>
+				<h3 id="InfoboxFieldID.MarhsalJSON">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2517:2571#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -4703,7 +4822,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="InfoboxFieldID.MarshalText">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2701:2755#L114">MarshalText</a>
+				<h3 id="InfoboxFieldID.MarshalText">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2917:2971#L124">MarshalText</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.MarshalText">&#xb6;</a>
 					
 					
@@ -4763,7 +4882,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="InfoboxFieldID.StringRef">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2134:2178#L90">StringRef</a>
+				<h3 id="InfoboxFieldID.StringRef">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2350:2394#L100">StringRef</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.StringRef">&#xb6;</a>
 					
 					
@@ -4778,7 +4897,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="InfoboxFieldID.UnmarhsalJSON">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2449:2510#L104">UnmarhsalJSON</a>
+				<h3 id="InfoboxFieldID.UnmarhsalJSON">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2665:2726#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -4793,7 +4912,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="InfoboxFieldID.UnmarshalText">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=2892:2955#L122">UnmarshalText</a>
+				<h3 id="InfoboxFieldID.UnmarshalText">func (*InfoboxFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=3108:3171#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#InfoboxFieldID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -4810,7 +4929,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="InfoboxFieldIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4772:4856#L193">InfoboxFieldIDSet</a>
+			<h2 id="InfoboxFieldIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4988:5072#L203">InfoboxFieldIDSet</a>
 				<a class="permalink" href="index.html#InfoboxFieldIDSet">&#xb6;</a>
 				
 				
@@ -4834,7 +4953,7 @@ InfoboxFieldIDSet represents a set of InfoboxFieldIDs
 
 			
 				
-				<h3 id="NewInfoboxFieldIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=4914:4960#L199">NewInfoboxFieldIDSet</a>
+				<h3 id="NewInfoboxFieldIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5130:5176#L209">NewInfoboxFieldIDSet</a>
 					<a class="permalink" href="index.html#NewInfoboxFieldIDSet">&#xb6;</a>
 					
 					
@@ -4850,7 +4969,7 @@ NewInfoboxFieldIDSet creates a new InfoboxFieldIDSet
 
 			
 				
-				<h3 id="InfoboxFieldIDSet.Add">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5049:5101#L204">Add</a>
+				<h3 id="InfoboxFieldIDSet.Add">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5265:5317#L214">Add</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDSet.Add">&#xb6;</a>
 					
 					
@@ -4865,7 +4984,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="InfoboxFieldIDSet.AddRef">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5423:5476#L223">AddRef</a>
+				<h3 id="InfoboxFieldIDSet.AddRef">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5639:5692#L233">AddRef</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -4880,7 +4999,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="InfoboxFieldIDSet.All">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5871:5921#L249">All</a>
+				<h3 id="InfoboxFieldIDSet.All">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=6087:6137#L259">All</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDSet.All">&#xb6;</a>
 					
 					
@@ -4895,7 +5014,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="InfoboxFieldIDSet.Clear">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5740:5775#L240">Clear</a>
+				<h3 id="InfoboxFieldIDSet.Clear">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5956:5991#L250">Clear</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDSet.Clear">&#xb6;</a>
 					
 					
@@ -4910,7 +5029,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="InfoboxFieldIDSet.Clone">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=6031:6085#L257">Clone</a>
+				<h3 id="InfoboxFieldIDSet.Clone">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=6247:6301#L267">Clone</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDSet.Clone">&#xb6;</a>
 					
 					
@@ -4925,7 +5044,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="InfoboxFieldIDSet.Has">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5574:5628#L231">Has</a>
+				<h3 id="InfoboxFieldIDSet.Has">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=5790:5844#L241">Has</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDSet.Has">&#xb6;</a>
 					
 					
@@ -4940,7 +5059,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="InfoboxFieldIDSet.Merge">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=6228:6303#L267">Merge</a>
+				<h3 id="InfoboxFieldIDSet.Merge">func (*InfoboxFieldIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/infobox_field_gen.go?s=6444:6519#L277">Merge</a>
 					<a class="permalink" href="index.html#InfoboxFieldIDSet.Merge">&#xb6;</a>
 					
 					
@@ -5020,7 +5139,7 @@ LayerIDFromRefID generates a new LayerID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="LayerIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3072:3122#L142">LayerIDsFrom</a>
+				<h3 id="LayerIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3274:3324#L152">LayerIDsFrom</a>
 					<a class="permalink" href="index.html#LayerIDsFrom">&#xb6;</a>
 					
 					
@@ -5034,7 +5153,7 @@ LayerIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="LayerIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3372:3411#L155">LayerIDsFromID</a>
+				<h3 id="LayerIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3574:3613#L165">LayerIDsFromID</a>
 					<a class="permalink" href="index.html#LayerIDsFromID">&#xb6;</a>
 					
 					
@@ -5048,7 +5167,7 @@ LayerIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="LayerIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3605:3648#L164">LayerIDsFromIDRef</a>
+				<h3 id="LayerIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=3807:3850#L174">LayerIDsFromIDRef</a>
 					<a class="permalink" href="index.html#LayerIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -5092,7 +5211,22 @@ NewLayerID generates a new LayerId.
 
 			
 				
-				<h3 id="LayerID.CopyRef">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=1575:1611#L72">CopyRef</a>
+				<h3 id="LayerID.Contains">func (LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=1595:1640#L72">Contains</a>
+					<a class="permalink" href="index.html#LayerID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#LayerID">LayerID</a>) Contains(ids []<a href="index.html#LayerID">LayerID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="LayerID.CopyRef">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=1777:1813#L82">CopyRef</a>
 					<a class="permalink" href="index.html#LayerID.CopyRef">&#xb6;</a>
 					
 					
@@ -5137,7 +5271,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="LayerID.IDRef">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=1715:1744#L81">IDRef</a>
+				<h3 id="LayerID.IDRef">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=1917:1946#L91">IDRef</a>
 					<a class="permalink" href="index.html#LayerID.IDRef">&#xb6;</a>
 					
 					
@@ -5152,7 +5286,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="LayerID.IsNil">func (LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2747:2776#L128">IsNil</a>
+				<h3 id="LayerID.IsNil">func (LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2949:2978#L138">IsNil</a>
 					<a class="permalink" href="index.html#LayerID.IsNil">&#xb6;</a>
 					
 					
@@ -5167,7 +5301,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="LayerID.MarhsalJSON">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2028:2075#L99">MarhsalJSON</a>
+				<h3 id="LayerID.MarhsalJSON">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2230:2277#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#LayerID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -5182,7 +5316,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="LayerID.MarshalText">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2407:2454#L114">MarshalText</a>
+				<h3 id="LayerID.MarshalText">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2609:2656#L124">MarshalText</a>
 					<a class="permalink" href="index.html#LayerID.MarshalText">&#xb6;</a>
 					
 					
@@ -5242,7 +5376,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="LayerID.StringRef">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=1868:1905#L90">StringRef</a>
+				<h3 id="LayerID.StringRef">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2070:2107#L100">StringRef</a>
 					<a class="permalink" href="index.html#LayerID.StringRef">&#xb6;</a>
 					
 					
@@ -5257,7 +5391,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="LayerID.UnmarhsalJSON">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2169:2223#L104">UnmarhsalJSON</a>
+				<h3 id="LayerID.UnmarhsalJSON">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2371:2425#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#LayerID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -5272,7 +5406,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="LayerID.UnmarshalText">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2591:2647#L122">UnmarshalText</a>
+				<h3 id="LayerID.UnmarshalText">func (*LayerID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=2793:2849#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#LayerID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -5289,7 +5423,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="LayerIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4268:4331#L193">LayerIDSet</a>
+			<h2 id="LayerIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4470:4533#L203">LayerIDSet</a>
 				<a class="permalink" href="index.html#LayerIDSet">&#xb6;</a>
 				
 				
@@ -5313,7 +5447,7 @@ LayerIDSet represents a set of LayerIDs
 
 			
 				
-				<h3 id="NewLayerIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4375:4407#L199">NewLayerIDSet</a>
+				<h3 id="NewLayerIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4577:4609#L209">NewLayerIDSet</a>
 					<a class="permalink" href="index.html#NewLayerIDSet">&#xb6;</a>
 					
 					
@@ -5329,7 +5463,7 @@ NewLayerIDSet creates a new LayerIDSet
 
 			
 				
-				<h3 id="LayerIDSet.Add">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4489:4527#L204">Add</a>
+				<h3 id="LayerIDSet.Add">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4691:4729#L214">Add</a>
 					<a class="permalink" href="index.html#LayerIDSet.Add">&#xb6;</a>
 					
 					
@@ -5344,7 +5478,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="LayerIDSet.AddRef">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4835:4874#L223">AddRef</a>
+				<h3 id="LayerIDSet.AddRef">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5037:5076#L233">AddRef</a>
 					<a class="permalink" href="index.html#LayerIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -5359,7 +5493,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="LayerIDSet.All">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5248:5284#L249">All</a>
+				<h3 id="LayerIDSet.All">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5450:5486#L259">All</a>
 					<a class="permalink" href="index.html#LayerIDSet.All">&#xb6;</a>
 					
 					
@@ -5374,7 +5508,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="LayerIDSet.Clear">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5124:5152#L240">Clear</a>
+				<h3 id="LayerIDSet.Clear">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5326:5354#L250">Clear</a>
 					<a class="permalink" href="index.html#LayerIDSet.Clear">&#xb6;</a>
 					
 					
@@ -5389,7 +5523,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="LayerIDSet.Clone">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5387:5427#L257">Clone</a>
+				<h3 id="LayerIDSet.Clone">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5589:5629#L267">Clone</a>
 					<a class="permalink" href="index.html#LayerIDSet.Clone">&#xb6;</a>
 					
 					
@@ -5404,7 +5538,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="LayerIDSet.Has">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=4972:5012#L231">Has</a>
+				<h3 id="LayerIDSet.Has">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5174:5214#L241">Has</a>
 					<a class="permalink" href="index.html#LayerIDSet.Has">&#xb6;</a>
 					
 					
@@ -5419,7 +5553,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="LayerIDSet.Merge">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5556:5610#L267">Merge</a>
+				<h3 id="LayerIDSet.Merge">func (*LayerIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/layer_gen.go?s=5758:5812#L277">Merge</a>
 					<a class="permalink" href="index.html#LayerIDSet.Merge">&#xb6;</a>
 					
 					
@@ -5535,7 +5669,7 @@ StringRef _
 		
 			
 			
-			<h2 id="PluginID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=257:327#L7">PluginID</a>
+			<h2 id="PluginID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=106:194#L1">PluginID</a>
 				<a class="permalink" href="index.html#PluginID">&#xb6;</a>
 				
 				
@@ -5559,7 +5693,7 @@ PluginID is an ID for Plugin.
 
 			
 				
-				<h3 id="MustPluginID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1145:1182#L41">MustPluginID</a>
+				<h3 id="MustPluginID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1761:1798#L78">MustPluginID</a>
 					<a class="permalink" href="index.html#MustPluginID">&#xb6;</a>
 					
 					
@@ -5573,7 +5707,18 @@ MustPluginID generates a new id.PluginID from a string, but panics if the string
 				
 			
 				
-				<h3 id="PluginIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=626:672#L23">PluginIDFrom</a>
+				<h3 id="NewPluginID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=599:678#L26">NewPluginID</a>
+					<a class="permalink" href="index.html#NewPluginID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewPluginID(name <a href="/reearth-backend/main/pkg/builtin/#string">string</a>, version <a href="http://localhost:8080/pkg/builtin/#string">string</a>, scene *<a href="index.html#SceneID">SceneID</a>) (<a href="index.html#PluginID">PluginID</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+				
+				<h3 id="PluginIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1097:1143#L48">PluginIDFrom</a>
 					<a class="permalink" href="index.html#PluginIDFrom">&#xb6;</a>
 					
 					
@@ -5587,7 +5732,7 @@ PluginIDFrom generates a new id.PluginID from a string.
 				
 			
 				
-				<h3 id="PluginIDFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1329:1371#L50">PluginIDFromRef</a>
+				<h3 id="PluginIDFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1945:1987#L87">PluginIDFromRef</a>
 					<a class="permalink" href="index.html#PluginIDFromRef">&#xb6;</a>
 					
 					
@@ -5601,7 +5746,7 @@ PluginIDFromRef generates a new id.PluginID from a string ref.
 				
 			
 				
-				<h3 id="PluginIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3265:3317#L149">PluginIDsFrom</a>
+				<h3 id="PluginIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=4271:4323#L203">PluginIDsFrom</a>
 					<a class="permalink" href="index.html#PluginIDsFrom">&#xb6;</a>
 					
 					
@@ -5617,7 +5762,7 @@ PluginIDsFrom converts a string slice into a ID slice.
 
 			
 				
-				<h3 id="PluginID.CopyRef">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2265:2303#L106">CopyRef</a>
+				<h3 id="PluginID.CopyRef">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3148:3186#L152">CopyRef</a>
 					<a class="permalink" href="index.html#PluginID.CopyRef">&#xb6;</a>
 					
 					
@@ -5632,7 +5777,7 @@ CopyRef _
 				
 			
 				
-				<h3 id="PluginID.Equal">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2574:2615#L124">Equal</a>
+				<h3 id="PluginID.Equal">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3457:3498#L170">Equal</a>
 					<a class="permalink" href="index.html#PluginID.Equal">&#xb6;</a>
 					
 					
@@ -5647,7 +5792,7 @@ Equal returns if two IDs are quivarent.
 				
 			
 				
-				<h3 id="PluginID.MarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2733:2781#L129">MarshalText</a>
+				<h3 id="PluginID.MarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3739:3787#L183">MarshalText</a>
 					<a class="permalink" href="index.html#PluginID.MarshalText">&#xb6;</a>
 					
 					
@@ -5662,7 +5807,7 @@ MarshalText implements encoding.TextMarshaler interface
 				
 			
 				
-				<h3 id="PluginID.Name">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1510:1541#L62">Name</a>
+				<h3 id="PluginID.Name">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2126:2157#L99">Name</a>
 					<a class="permalink" href="index.html#PluginID.Name">&#xb6;</a>
 					
 					
@@ -5677,7 +5822,7 @@ Name returns a name.
 				
 			
 				
-				<h3 id="PluginID.Ref">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2192:2225#L100">Ref</a>
+				<h3 id="PluginID.Ref">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3075:3108#L146">Ref</a>
 					<a class="permalink" href="index.html#PluginID.Ref">&#xb6;</a>
 					
 					
@@ -5692,12 +5837,27 @@ Ref returns a reference.
 				
 			
 				
-				<h3 id="PluginID.String">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2061:2094#L92">String</a>
+				<h3 id="PluginID.Scene">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2612:2646#L121">Scene</a>
+					<a class="permalink" href="index.html#PluginID.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#PluginID">PluginID</a>) Scene() *<a href="index.html#SceneID">SceneID</a></pre>
+				<p>
+Scene returns a scene ID of the plugin. It indicates this plugin is private and available for only the specific scene.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PluginID.String">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2865:2902#L134">String</a>
 					<a class="permalink" href="index.html#PluginID.String">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (d <a href="index.html#PluginID">PluginID</a>) String() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (d <a href="index.html#PluginID">PluginID</a>) String() (s <a href="/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
 				<p>
 String returns a string representation.
 </p>
@@ -5707,7 +5867,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="PluginID.StringRef">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2423:2461#L115">StringRef</a>
+				<h3 id="PluginID.StringRef">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3306:3344#L161">StringRef</a>
 					<a class="permalink" href="index.html#PluginID.StringRef">&#xb6;</a>
 					
 					
@@ -5722,7 +5882,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="PluginID.System">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1823:1854#L79">System</a>
+				<h3 id="PluginID.System">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2439:2470#L116">System</a>
 					<a class="permalink" href="index.html#PluginID.System">&#xb6;</a>
 					
 					
@@ -5737,7 +5897,7 @@ System returns if the ID is built-in.
 				
 			
 				
-				<h3 id="PluginID.UnmarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2882:2939#L134">UnmarshalText</a>
+				<h3 id="PluginID.UnmarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3888:3945#L188">UnmarshalText</a>
 					<a class="permalink" href="index.html#PluginID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -5752,7 +5912,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 				
 			
 				
-				<h3 id="PluginID.Validate">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1915:1948#L84">Validate</a>
+				<h3 id="PluginID.Validate">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2719:2752#L126">Validate</a>
 					<a class="permalink" href="index.html#PluginID.Validate">&#xb6;</a>
 					
 					
@@ -5767,7 +5927,7 @@ Validate returns true if id is valid.
 				
 			
 				
-				<h3 id="PluginID.Version">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=1592:1634#L67">Version</a>
+				<h3 id="PluginID.Version">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=2208:2250#L104">Version</a>
 					<a class="permalink" href="index.html#PluginID.Version">&#xb6;</a>
 					
 					
@@ -5875,7 +6035,7 @@ ProjectIDFromRefID generates a new ProjectID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="ProjectIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3172:3226#L142">ProjectIDsFrom</a>
+				<h3 id="ProjectIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3378:3432#L152">ProjectIDsFrom</a>
 					<a class="permalink" href="index.html#ProjectIDsFrom">&#xb6;</a>
 					
 					
@@ -5889,7 +6049,7 @@ ProjectIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="ProjectIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3482:3525#L155">ProjectIDsFromID</a>
+				<h3 id="ProjectIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3688:3731#L165">ProjectIDsFromID</a>
 					<a class="permalink" href="index.html#ProjectIDsFromID">&#xb6;</a>
 					
 					
@@ -5903,7 +6063,7 @@ ProjectIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="ProjectIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3725:3772#L164">ProjectIDsFromIDRef</a>
+				<h3 id="ProjectIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3931:3978#L174">ProjectIDsFromIDRef</a>
 					<a class="permalink" href="index.html#ProjectIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -5919,7 +6079,22 @@ ProjectIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
 
 			
 				
-				<h3 id="ProjectID.CopyRef">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=1645:1685#L72">CopyRef</a>
+				<h3 id="ProjectID.Contains">func (ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=1665:1714#L72">Contains</a>
+					<a class="permalink" href="index.html#ProjectID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ProjectID">ProjectID</a>) Contains(ids []<a href="index.html#ProjectID">ProjectID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ProjectID.CopyRef">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=1851:1891#L82">CopyRef</a>
 					<a class="permalink" href="index.html#ProjectID.CopyRef">&#xb6;</a>
 					
 					
@@ -5964,7 +6139,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="ProjectID.IDRef">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=1789:1820#L81">IDRef</a>
+				<h3 id="ProjectID.IDRef">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=1995:2026#L91">IDRef</a>
 					<a class="permalink" href="index.html#ProjectID.IDRef">&#xb6;</a>
 					
 					
@@ -5979,7 +6154,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="ProjectID.IsNil">func (ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2837:2868#L128">IsNil</a>
+				<h3 id="ProjectID.IsNil">func (ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=3043:3074#L138">IsNil</a>
 					<a class="permalink" href="index.html#ProjectID.IsNil">&#xb6;</a>
 					
 					
@@ -5994,7 +6169,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="ProjectID.MarhsalJSON">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2106:2155#L99">MarhsalJSON</a>
+				<h3 id="ProjectID.MarhsalJSON">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2312:2361#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#ProjectID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -6009,7 +6184,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="ProjectID.MarshalText">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2491:2540#L114">MarshalText</a>
+				<h3 id="ProjectID.MarshalText">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2697:2746#L124">MarshalText</a>
 					<a class="permalink" href="index.html#ProjectID.MarshalText">&#xb6;</a>
 					
 					
@@ -6069,7 +6244,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="ProjectID.StringRef">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=1944:1983#L90">StringRef</a>
+				<h3 id="ProjectID.StringRef">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2150:2189#L100">StringRef</a>
 					<a class="permalink" href="index.html#ProjectID.StringRef">&#xb6;</a>
 					
 					
@@ -6084,7 +6259,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="ProjectID.UnmarhsalJSON">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2249:2305#L104">UnmarhsalJSON</a>
+				<h3 id="ProjectID.UnmarhsalJSON">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2455:2511#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#ProjectID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -6099,7 +6274,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="ProjectID.UnmarshalText">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2677:2735#L122">UnmarshalText</a>
+				<h3 id="ProjectID.UnmarshalText">func (*ProjectID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=2883:2941#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#ProjectID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -6116,7 +6291,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="ProjectIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4412:4481#L193">ProjectIDSet</a>
+			<h2 id="ProjectIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4618:4687#L203">ProjectIDSet</a>
 				<a class="permalink" href="index.html#ProjectIDSet">&#xb6;</a>
 				
 				
@@ -6140,7 +6315,7 @@ ProjectIDSet represents a set of ProjectIDs
 
 			
 				
-				<h3 id="NewProjectIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4529:4565#L199">NewProjectIDSet</a>
+				<h3 id="NewProjectIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4735:4771#L209">NewProjectIDSet</a>
 					<a class="permalink" href="index.html#NewProjectIDSet">&#xb6;</a>
 					
 					
@@ -6156,7 +6331,7 @@ NewProjectIDSet creates a new ProjectIDSet
 
 			
 				
-				<h3 id="ProjectIDSet.Add">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4649:4691#L204">Add</a>
+				<h3 id="ProjectIDSet.Add">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=4855:4897#L214">Add</a>
 					<a class="permalink" href="index.html#ProjectIDSet.Add">&#xb6;</a>
 					
 					
@@ -6171,7 +6346,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="ProjectIDSet.AddRef">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5003:5046#L223">AddRef</a>
+				<h3 id="ProjectIDSet.AddRef">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5209:5252#L233">AddRef</a>
 					<a class="permalink" href="index.html#ProjectIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -6186,7 +6361,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="ProjectIDSet.All">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5426:5466#L249">All</a>
+				<h3 id="ProjectIDSet.All">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5632:5672#L259">All</a>
 					<a class="permalink" href="index.html#ProjectIDSet.All">&#xb6;</a>
 					
 					
@@ -6201,7 +6376,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="ProjectIDSet.Clear">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5300:5330#L240">Clear</a>
+				<h3 id="ProjectIDSet.Clear">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5506:5536#L250">Clear</a>
 					<a class="permalink" href="index.html#ProjectIDSet.Clear">&#xb6;</a>
 					
 					
@@ -6216,7 +6391,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="ProjectIDSet.Clone">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5571:5615#L257">Clone</a>
+				<h3 id="ProjectIDSet.Clone">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5777:5821#L267">Clone</a>
 					<a class="permalink" href="index.html#ProjectIDSet.Clone">&#xb6;</a>
 					
 					
@@ -6231,7 +6406,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="ProjectIDSet.Has">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5144:5188#L231">Has</a>
+				<h3 id="ProjectIDSet.Has">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5350:5394#L241">Has</a>
 					<a class="permalink" href="index.html#ProjectIDSet.Has">&#xb6;</a>
 					
 					
@@ -6246,7 +6421,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="ProjectIDSet.Merge">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5748:5808#L267">Merge</a>
+				<h3 id="ProjectIDSet.Merge">func (*ProjectIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/project_gen.go?s=5954:6014#L277">Merge</a>
 					<a class="permalink" href="index.html#ProjectIDSet.Merge">&#xb6;</a>
 					
 					
@@ -6354,7 +6529,7 @@ PropertyIDFromRefID generates a new PropertyID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="PropertyIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3222:3278#L142">PropertyIDsFrom</a>
+				<h3 id="PropertyIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3430:3486#L152">PropertyIDsFrom</a>
 					<a class="permalink" href="index.html#PropertyIDsFrom">&#xb6;</a>
 					
 					
@@ -6368,7 +6543,7 @@ PropertyIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="PropertyIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3537:3582#L155">PropertyIDsFromID</a>
+				<h3 id="PropertyIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3745:3790#L165">PropertyIDsFromID</a>
 					<a class="permalink" href="index.html#PropertyIDsFromID">&#xb6;</a>
 					
 					
@@ -6382,7 +6557,7 @@ PropertyIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="PropertyIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3785:3834#L164">PropertyIDsFromIDRef</a>
+				<h3 id="PropertyIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3993:4042#L174">PropertyIDsFromIDRef</a>
 					<a class="permalink" href="index.html#PropertyIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -6398,7 +6573,22 @@ PropertyIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
 
 			
 				
-				<h3 id="PropertyID.CopyRef">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=1680:1722#L72">CopyRef</a>
+				<h3 id="PropertyID.Contains">func (PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=1700:1751#L72">Contains</a>
+					<a class="permalink" href="index.html#PropertyID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#PropertyID">PropertyID</a>) Contains(ids []<a href="index.html#PropertyID">PropertyID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PropertyID.CopyRef">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=1888:1930#L82">CopyRef</a>
 					<a class="permalink" href="index.html#PropertyID.CopyRef">&#xb6;</a>
 					
 					
@@ -6443,7 +6633,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="PropertyID.IDRef">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=1826:1858#L81">IDRef</a>
+				<h3 id="PropertyID.IDRef">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2034:2066#L91">IDRef</a>
 					<a class="permalink" href="index.html#PropertyID.IDRef">&#xb6;</a>
 					
 					
@@ -6458,7 +6648,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="PropertyID.IsNil">func (PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2882:2914#L128">IsNil</a>
+				<h3 id="PropertyID.IsNil">func (PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=3090:3122#L138">IsNil</a>
 					<a class="permalink" href="index.html#PropertyID.IsNil">&#xb6;</a>
 					
 					
@@ -6473,7 +6663,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="PropertyID.MarhsalJSON">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2145:2195#L99">MarhsalJSON</a>
+				<h3 id="PropertyID.MarhsalJSON">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2353:2403#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#PropertyID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -6488,7 +6678,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="PropertyID.MarshalText">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2533:2583#L114">MarshalText</a>
+				<h3 id="PropertyID.MarshalText">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2741:2791#L124">MarshalText</a>
 					<a class="permalink" href="index.html#PropertyID.MarshalText">&#xb6;</a>
 					
 					
@@ -6548,7 +6738,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="PropertyID.StringRef">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=1982:2022#L90">StringRef</a>
+				<h3 id="PropertyID.StringRef">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2190:2230#L100">StringRef</a>
 					<a class="permalink" href="index.html#PropertyID.StringRef">&#xb6;</a>
 					
 					
@@ -6563,7 +6753,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="PropertyID.UnmarhsalJSON">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2289:2346#L104">UnmarhsalJSON</a>
+				<h3 id="PropertyID.UnmarhsalJSON">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2497:2554#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#PropertyID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -6578,7 +6768,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="PropertyID.UnmarshalText">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2720:2779#L122">UnmarshalText</a>
+				<h3 id="PropertyID.UnmarshalText">func (*PropertyID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=2928:2987#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#PropertyID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -6595,7 +6785,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="PropertyIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4484:4556#L193">PropertyIDSet</a>
+			<h2 id="PropertyIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4692:4764#L203">PropertyIDSet</a>
 				<a class="permalink" href="index.html#PropertyIDSet">&#xb6;</a>
 				
 				
@@ -6619,7 +6809,7 @@ PropertyIDSet represents a set of PropertyIDs
 
 			
 				
-				<h3 id="NewPropertyIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4606:4644#L199">NewPropertyIDSet</a>
+				<h3 id="NewPropertyIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4814:4852#L209">NewPropertyIDSet</a>
 					<a class="permalink" href="index.html#NewPropertyIDSet">&#xb6;</a>
 					
 					
@@ -6635,7 +6825,7 @@ NewPropertyIDSet creates a new PropertyIDSet
 
 			
 				
-				<h3 id="PropertyIDSet.Add">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4729:4773#L204">Add</a>
+				<h3 id="PropertyIDSet.Add">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=4937:4981#L214">Add</a>
 					<a class="permalink" href="index.html#PropertyIDSet.Add">&#xb6;</a>
 					
 					
@@ -6650,7 +6840,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="PropertyIDSet.AddRef">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5087:5132#L223">AddRef</a>
+				<h3 id="PropertyIDSet.AddRef">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5295:5340#L233">AddRef</a>
 					<a class="permalink" href="index.html#PropertyIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -6665,7 +6855,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="PropertyIDSet.All">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5515:5557#L249">All</a>
+				<h3 id="PropertyIDSet.All">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5723:5765#L259">All</a>
 					<a class="permalink" href="index.html#PropertyIDSet.All">&#xb6;</a>
 					
 					
@@ -6680,7 +6870,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="PropertyIDSet.Clear">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5388:5419#L240">Clear</a>
+				<h3 id="PropertyIDSet.Clear">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5596:5627#L250">Clear</a>
 					<a class="permalink" href="index.html#PropertyIDSet.Clear">&#xb6;</a>
 					
 					
@@ -6695,7 +6885,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="PropertyIDSet.Clone">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5663:5709#L257">Clone</a>
+				<h3 id="PropertyIDSet.Clone">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5871:5917#L267">Clone</a>
 					<a class="permalink" href="index.html#PropertyIDSet.Clone">&#xb6;</a>
 					
 					
@@ -6710,7 +6900,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="PropertyIDSet.Has">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5230:5276#L231">Has</a>
+				<h3 id="PropertyIDSet.Has">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5438:5484#L241">Has</a>
 					<a class="permalink" href="index.html#PropertyIDSet.Has">&#xb6;</a>
 					
 					
@@ -6725,7 +6915,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="PropertyIDSet.Merge">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=5844:5907#L267">Merge</a>
+				<h3 id="PropertyIDSet.Merge">func (*PropertyIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_gen.go?s=6052:6115#L277">Merge</a>
 					<a class="permalink" href="index.html#PropertyIDSet.Merge">&#xb6;</a>
 					
 					
@@ -6833,7 +7023,7 @@ PropertyItemIDFromRefID generates a new PropertyItemID from a ref of a generic I
 				
 			
 				
-				<h3 id="PropertyItemIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3422:3486#L142">PropertyItemIDsFrom</a>
+				<h3 id="PropertyItemIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3638:3702#L152">PropertyItemIDsFrom</a>
 					<a class="permalink" href="index.html#PropertyItemIDsFrom">&#xb6;</a>
 					
 					
@@ -6847,7 +7037,7 @@ PropertyItemIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="PropertyItemIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3757:3810#L155">PropertyItemIDsFromID</a>
+				<h3 id="PropertyItemIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3973:4026#L165">PropertyItemIDsFromID</a>
 					<a class="permalink" href="index.html#PropertyItemIDsFromID">&#xb6;</a>
 					
 					
@@ -6861,7 +7051,7 @@ PropertyItemIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="PropertyItemIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4025:4082#L164">PropertyItemIDsFromIDRef</a>
+				<h3 id="PropertyItemIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4241:4298#L174">PropertyItemIDsFromIDRef</a>
 					<a class="permalink" href="index.html#PropertyItemIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -6877,7 +7067,22 @@ PropertyItemIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
 
 			
 				
-				<h3 id="PropertyItemID.CopyRef">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=1820:1870#L72">CopyRef</a>
+				<h3 id="PropertyItemID.Contains">func (PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=1840:1899#L72">Contains</a>
+					<a class="permalink" href="index.html#PropertyItemID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#PropertyItemID">PropertyItemID</a>) Contains(ids []<a href="index.html#PropertyItemID">PropertyItemID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PropertyItemID.CopyRef">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2036:2086#L82">CopyRef</a>
 					<a class="permalink" href="index.html#PropertyItemID.CopyRef">&#xb6;</a>
 					
 					
@@ -6922,7 +7127,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="PropertyItemID.IDRef">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=1974:2010#L81">IDRef</a>
+				<h3 id="PropertyItemID.IDRef">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2190:2226#L91">IDRef</a>
 					<a class="permalink" href="index.html#PropertyItemID.IDRef">&#xb6;</a>
 					
 					
@@ -6937,7 +7142,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="PropertyItemID.IsNil">func (PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3062:3098#L128">IsNil</a>
+				<h3 id="PropertyItemID.IsNil">func (PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3278:3314#L138">IsNil</a>
 					<a class="permalink" href="index.html#PropertyItemID.IsNil">&#xb6;</a>
 					
 					
@@ -6952,7 +7157,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="PropertyItemID.MarhsalJSON">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2301:2355#L99">MarhsalJSON</a>
+				<h3 id="PropertyItemID.MarhsalJSON">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2517:2571#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#PropertyItemID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -6967,7 +7172,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="PropertyItemID.MarshalText">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2701:2755#L114">MarshalText</a>
+				<h3 id="PropertyItemID.MarshalText">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2917:2971#L124">MarshalText</a>
 					<a class="permalink" href="index.html#PropertyItemID.MarshalText">&#xb6;</a>
 					
 					
@@ -7027,7 +7232,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="PropertyItemID.StringRef">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2134:2178#L90">StringRef</a>
+				<h3 id="PropertyItemID.StringRef">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2350:2394#L100">StringRef</a>
 					<a class="permalink" href="index.html#PropertyItemID.StringRef">&#xb6;</a>
 					
 					
@@ -7042,7 +7247,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="PropertyItemID.UnmarhsalJSON">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2449:2510#L104">UnmarhsalJSON</a>
+				<h3 id="PropertyItemID.UnmarhsalJSON">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2665:2726#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#PropertyItemID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -7057,7 +7262,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="PropertyItemID.UnmarshalText">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=2892:2955#L122">UnmarshalText</a>
+				<h3 id="PropertyItemID.UnmarshalText">func (*PropertyItemID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=3108:3171#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#PropertyItemID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -7074,7 +7279,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="PropertyItemIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4772:4856#L193">PropertyItemIDSet</a>
+			<h2 id="PropertyItemIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4988:5072#L203">PropertyItemIDSet</a>
 				<a class="permalink" href="index.html#PropertyItemIDSet">&#xb6;</a>
 				
 				
@@ -7098,7 +7303,7 @@ PropertyItemIDSet represents a set of PropertyItemIDs
 
 			
 				
-				<h3 id="NewPropertyItemIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=4914:4960#L199">NewPropertyItemIDSet</a>
+				<h3 id="NewPropertyItemIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5130:5176#L209">NewPropertyItemIDSet</a>
 					<a class="permalink" href="index.html#NewPropertyItemIDSet">&#xb6;</a>
 					
 					
@@ -7114,7 +7319,7 @@ NewPropertyItemIDSet creates a new PropertyItemIDSet
 
 			
 				
-				<h3 id="PropertyItemIDSet.Add">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5049:5101#L204">Add</a>
+				<h3 id="PropertyItemIDSet.Add">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5265:5317#L214">Add</a>
 					<a class="permalink" href="index.html#PropertyItemIDSet.Add">&#xb6;</a>
 					
 					
@@ -7129,7 +7334,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="PropertyItemIDSet.AddRef">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5423:5476#L223">AddRef</a>
+				<h3 id="PropertyItemIDSet.AddRef">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5639:5692#L233">AddRef</a>
 					<a class="permalink" href="index.html#PropertyItemIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -7144,7 +7349,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="PropertyItemIDSet.All">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5871:5921#L249">All</a>
+				<h3 id="PropertyItemIDSet.All">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=6087:6137#L259">All</a>
 					<a class="permalink" href="index.html#PropertyItemIDSet.All">&#xb6;</a>
 					
 					
@@ -7159,7 +7364,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="PropertyItemIDSet.Clear">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5740:5775#L240">Clear</a>
+				<h3 id="PropertyItemIDSet.Clear">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5956:5991#L250">Clear</a>
 					<a class="permalink" href="index.html#PropertyItemIDSet.Clear">&#xb6;</a>
 					
 					
@@ -7174,7 +7379,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="PropertyItemIDSet.Clone">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=6031:6085#L257">Clone</a>
+				<h3 id="PropertyItemIDSet.Clone">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=6247:6301#L267">Clone</a>
 					<a class="permalink" href="index.html#PropertyItemIDSet.Clone">&#xb6;</a>
 					
 					
@@ -7189,7 +7394,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="PropertyItemIDSet.Has">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5574:5628#L231">Has</a>
+				<h3 id="PropertyItemIDSet.Has">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=5790:5844#L241">Has</a>
 					<a class="permalink" href="index.html#PropertyItemIDSet.Has">&#xb6;</a>
 					
 					
@@ -7204,7 +7409,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="PropertyItemIDSet.Merge">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=6228:6303#L267">Merge</a>
+				<h3 id="PropertyItemIDSet.Merge">func (*PropertyItemIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_item_gen.go?s=6444:6519#L277">Merge</a>
 					<a class="permalink" href="index.html#PropertyItemIDSet.Merge">&#xb6;</a>
 					
 					
@@ -7320,7 +7525,7 @@ StringRef _
 		
 			
 			
-			<h2 id="PropertySchemaID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=194:256#L3">PropertySchemaID</a>
+			<h2 id="PropertySchemaID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=193:257#L3">PropertySchemaID</a>
 				<a class="permalink" href="index.html#PropertySchemaID">&#xb6;</a>
 				
 				
@@ -7344,7 +7549,7 @@ PropertySchemaID is an ID for PropertySchema.
 
 			
 				
-				<h3 id="MustPropertySchemaID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1019:1072#L23">MustPropertySchemaID</a>
+				<h3 id="MustPropertySchemaID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1070:1123#L27">MustPropertySchemaID</a>
 					<a class="permalink" href="index.html#MustPropertySchemaID">&#xb6;</a>
 					
 					
@@ -7358,7 +7563,7 @@ MustPropertySchemaID generates a new PropertySchemaID from a string, but panics 
 				
 			
 				
-				<h3 id="MustPropertySchemaIDFromExtension">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1312:1400#L32">MustPropertySchemaIDFromExtension</a>
+				<h3 id="MustPropertySchemaIDFromExtension">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1363:1451#L36">MustPropertySchemaIDFromExtension</a>
 					<a class="permalink" href="index.html#MustPropertySchemaIDFromExtension">&#xb6;</a>
 					
 					
@@ -7372,7 +7577,7 @@ MustPropertySchemaIDFromExtension generates a new PropertySchemaID from a plugin
 				
 			
 				
-				<h3 id="PropertySchemaIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=330:392#L9">PropertySchemaIDFrom</a>
+				<h3 id="PropertySchemaIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=331:393#L9">PropertySchemaIDFrom</a>
 					<a class="permalink" href="index.html#PropertySchemaIDFrom">&#xb6;</a>
 					
 					
@@ -7386,7 +7591,7 @@ PropertySchemaIDFrom generates a new PropertySchemaID from a string.
 				
 			
 				
-				<h3 id="PropertySchemaIDFromExtension">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=739:832#L18">PropertySchemaIDFromExtension</a>
+				<h3 id="PropertySchemaIDFromExtension">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=799:892#L22">PropertySchemaIDFromExtension</a>
 					<a class="permalink" href="index.html#PropertySchemaIDFromExtension">&#xb6;</a>
 					
 					
@@ -7400,7 +7605,7 @@ PropertySchemaIDFromExtension generates a new PropertySchemaID from a plugin ID 
 				
 			
 				
-				<h3 id="PropertySchemaIDFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1579:1637#L41">PropertySchemaIDFromRef</a>
+				<h3 id="PropertySchemaIDFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1630:1688#L45">PropertySchemaIDFromRef</a>
 					<a class="permalink" href="index.html#PropertySchemaIDFromRef">&#xb6;</a>
 					
 					
@@ -7414,7 +7619,7 @@ PropertySchemaIDFromRef generates a new PropertySchemaID from a string ref.
 				
 			
 				
-				<h3 id="PropertySchemaIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3490:3558#L125">PropertySchemaIDsFrom</a>
+				<h3 id="PropertySchemaIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3522:3590#L126">PropertySchemaIDsFrom</a>
 					<a class="permalink" href="index.html#PropertySchemaIDsFrom">&#xb6;</a>
 					
 					
@@ -7430,7 +7635,7 @@ PropertySchemaIDsFrom converts a string slice into a ID slice.
 
 			
 				
-				<h3 id="PropertySchemaID.CopyRef">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2436:2490#L82">CopyRef</a>
+				<h3 id="PropertySchemaID.CopyRef">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2460:2514#L83">CopyRef</a>
 					<a class="permalink" href="index.html#PropertySchemaID.CopyRef">&#xb6;</a>
 					
 					
@@ -7445,7 +7650,7 @@ CopyRef returns a copy of a reference.
 				
 			
 				
-				<h3 id="PropertySchemaID.ID">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1797:1834#L53">ID</a>
+				<h3 id="PropertySchemaID.ID">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1848:1885#L57">ID</a>
 					<a class="permalink" href="index.html#PropertySchemaID.ID">&#xb6;</a>
 					
 					
@@ -7460,7 +7665,7 @@ ID returns a fragment of just ID.
 				
 			
 				
-				<h3 id="PropertySchemaID.IsNil">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2588:2626#L91">IsNil</a>
+				<h3 id="PropertySchemaID.IsNil">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2612:2650#L92">IsNil</a>
 					<a class="permalink" href="index.html#PropertySchemaID.IsNil">&#xb6;</a>
 					
 					
@@ -7475,7 +7680,7 @@ IsNil checks if ID is empty or not.
 				
 			
 				
-				<h3 id="PropertySchemaID.MarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2902:2958#L105">MarshalText</a>
+				<h3 id="PropertySchemaID.MarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2934:2990#L106">MarshalText</a>
 					<a class="permalink" href="index.html#PropertySchemaID.MarshalText">&#xb6;</a>
 					
 					
@@ -7490,12 +7695,12 @@ MarshalText implements encoding.TextMarshaler interface
 				
 			
 				
-				<h3 id="PropertySchemaID.Plugin">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1896:1937#L58">Plugin</a>
+				<h3 id="PropertySchemaID.Plugin">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1947:1990#L62">Plugin</a>
 					<a class="permalink" href="index.html#PropertySchemaID.Plugin">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (d <a href="index.html#PropertySchemaID">PropertySchemaID</a>) Plugin() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (d <a href="index.html#PropertySchemaID">PropertySchemaID</a>) Plugin() <a href="index.html#PluginID">PluginID</a></pre>
 				<p>
 Plugin returns a fragment of plugin ID.
 </p>
@@ -7505,7 +7710,7 @@ Plugin returns a fragment of plugin ID.
 				
 			
 				
-				<h3 id="PropertySchemaID.Ref">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2318:2367#L76">Ref</a>
+				<h3 id="PropertySchemaID.Ref">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2342:2391#L77">Ref</a>
 					<a class="permalink" href="index.html#PropertySchemaID.Ref">&#xb6;</a>
 					
 					
@@ -7520,7 +7725,7 @@ Ref returns a reference.
 				
 			
 				
-				<h3 id="PropertySchemaID.String">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2175:2216#L68">String</a>
+				<h3 id="PropertySchemaID.String">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2228:2269#L72">String</a>
 					<a class="permalink" href="index.html#PropertySchemaID.String">&#xb6;</a>
 					
 					
@@ -7535,7 +7740,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="PropertySchemaID.StringRef">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2730:2776#L96">StringRef</a>
+				<h3 id="PropertySchemaID.StringRef">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2762:2808#L97">StringRef</a>
 					<a class="permalink" href="index.html#PropertySchemaID.StringRef">&#xb6;</a>
 					
 					
@@ -7550,7 +7755,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="PropertySchemaID.System">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=1997:2036#L63">System</a>
+				<h3 id="PropertySchemaID.System">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2050:2089#L67">System</a>
 					<a class="permalink" href="index.html#PropertySchemaID.System">&#xb6;</a>
 					
 					
@@ -7565,7 +7770,7 @@ System returns if it is system ID
 				
 			
 				
-				<h3 id="PropertySchemaID.UnmarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3059:3124#L110">UnmarshalText</a>
+				<h3 id="PropertySchemaID.UnmarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3091:3156#L111">UnmarshalText</a>
 					<a class="permalink" href="index.html#PropertySchemaID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -7673,7 +7878,7 @@ SceneIDFromRefID generates a new SceneID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="SceneIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3072:3122#L142">SceneIDsFrom</a>
+				<h3 id="SceneIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3274:3324#L152">SceneIDsFrom</a>
 					<a class="permalink" href="index.html#SceneIDsFrom">&#xb6;</a>
 					
 					
@@ -7687,7 +7892,7 @@ SceneIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="SceneIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3372:3411#L155">SceneIDsFromID</a>
+				<h3 id="SceneIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3574:3613#L165">SceneIDsFromID</a>
 					<a class="permalink" href="index.html#SceneIDsFromID">&#xb6;</a>
 					
 					
@@ -7701,7 +7906,7 @@ SceneIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="SceneIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3605:3648#L164">SceneIDsFromIDRef</a>
+				<h3 id="SceneIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=3807:3850#L174">SceneIDsFromIDRef</a>
 					<a class="permalink" href="index.html#SceneIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -7717,7 +7922,22 @@ SceneIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
 
 			
 				
-				<h3 id="SceneID.CopyRef">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=1575:1611#L72">CopyRef</a>
+				<h3 id="SceneID.Contains">func (SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=1595:1640#L72">Contains</a>
+					<a class="permalink" href="index.html#SceneID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#SceneID">SceneID</a>) Contains(ids []<a href="index.html#SceneID">SceneID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="SceneID.CopyRef">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=1777:1813#L82">CopyRef</a>
 					<a class="permalink" href="index.html#SceneID.CopyRef">&#xb6;</a>
 					
 					
@@ -7762,7 +7982,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="SceneID.IDRef">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=1715:1744#L81">IDRef</a>
+				<h3 id="SceneID.IDRef">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=1917:1946#L91">IDRef</a>
 					<a class="permalink" href="index.html#SceneID.IDRef">&#xb6;</a>
 					
 					
@@ -7777,7 +7997,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="SceneID.IsNil">func (SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2747:2776#L128">IsNil</a>
+				<h3 id="SceneID.IsNil">func (SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2949:2978#L138">IsNil</a>
 					<a class="permalink" href="index.html#SceneID.IsNil">&#xb6;</a>
 					
 					
@@ -7792,7 +8012,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="SceneID.MarhsalJSON">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2028:2075#L99">MarhsalJSON</a>
+				<h3 id="SceneID.MarhsalJSON">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2230:2277#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#SceneID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -7807,7 +8027,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="SceneID.MarshalText">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2407:2454#L114">MarshalText</a>
+				<h3 id="SceneID.MarshalText">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2609:2656#L124">MarshalText</a>
 					<a class="permalink" href="index.html#SceneID.MarshalText">&#xb6;</a>
 					
 					
@@ -7867,7 +8087,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="SceneID.StringRef">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=1868:1905#L90">StringRef</a>
+				<h3 id="SceneID.StringRef">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2070:2107#L100">StringRef</a>
 					<a class="permalink" href="index.html#SceneID.StringRef">&#xb6;</a>
 					
 					
@@ -7882,7 +8102,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="SceneID.UnmarhsalJSON">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2169:2223#L104">UnmarhsalJSON</a>
+				<h3 id="SceneID.UnmarhsalJSON">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2371:2425#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#SceneID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -7897,7 +8117,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="SceneID.UnmarshalText">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2591:2647#L122">UnmarshalText</a>
+				<h3 id="SceneID.UnmarshalText">func (*SceneID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=2793:2849#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#SceneID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -7914,7 +8134,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="SceneIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4268:4331#L193">SceneIDSet</a>
+			<h2 id="SceneIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4470:4533#L203">SceneIDSet</a>
 				<a class="permalink" href="index.html#SceneIDSet">&#xb6;</a>
 				
 				
@@ -7938,7 +8158,7 @@ SceneIDSet represents a set of SceneIDs
 
 			
 				
-				<h3 id="NewSceneIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4375:4407#L199">NewSceneIDSet</a>
+				<h3 id="NewSceneIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4577:4609#L209">NewSceneIDSet</a>
 					<a class="permalink" href="index.html#NewSceneIDSet">&#xb6;</a>
 					
 					
@@ -7954,7 +8174,7 @@ NewSceneIDSet creates a new SceneIDSet
 
 			
 				
-				<h3 id="SceneIDSet.Add">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4489:4527#L204">Add</a>
+				<h3 id="SceneIDSet.Add">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4691:4729#L214">Add</a>
 					<a class="permalink" href="index.html#SceneIDSet.Add">&#xb6;</a>
 					
 					
@@ -7969,7 +8189,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="SceneIDSet.AddRef">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4835:4874#L223">AddRef</a>
+				<h3 id="SceneIDSet.AddRef">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5037:5076#L233">AddRef</a>
 					<a class="permalink" href="index.html#SceneIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -7984,7 +8204,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="SceneIDSet.All">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5248:5284#L249">All</a>
+				<h3 id="SceneIDSet.All">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5450:5486#L259">All</a>
 					<a class="permalink" href="index.html#SceneIDSet.All">&#xb6;</a>
 					
 					
@@ -7999,7 +8219,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="SceneIDSet.Clear">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5124:5152#L240">Clear</a>
+				<h3 id="SceneIDSet.Clear">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5326:5354#L250">Clear</a>
 					<a class="permalink" href="index.html#SceneIDSet.Clear">&#xb6;</a>
 					
 					
@@ -8014,7 +8234,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="SceneIDSet.Clone">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5387:5427#L257">Clone</a>
+				<h3 id="SceneIDSet.Clone">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5589:5629#L267">Clone</a>
 					<a class="permalink" href="index.html#SceneIDSet.Clone">&#xb6;</a>
 					
 					
@@ -8029,7 +8249,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="SceneIDSet.Has">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=4972:5012#L231">Has</a>
+				<h3 id="SceneIDSet.Has">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5174:5214#L241">Has</a>
 					<a class="permalink" href="index.html#SceneIDSet.Has">&#xb6;</a>
 					
 					
@@ -8044,7 +8264,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="SceneIDSet.Merge">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5556:5610#L267">Merge</a>
+				<h3 id="SceneIDSet.Merge">func (*SceneIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go?s=5758:5812#L277">Merge</a>
 					<a class="permalink" href="index.html#SceneIDSet.Merge">&#xb6;</a>
 					
 					
@@ -8152,7 +8372,7 @@ TeamIDFromRefID generates a new TeamID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="TeamIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3022:3070#L142">TeamIDsFrom</a>
+				<h3 id="TeamIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3222:3270#L152">TeamIDsFrom</a>
 					<a class="permalink" href="index.html#TeamIDsFrom">&#xb6;</a>
 					
 					
@@ -8166,7 +8386,7 @@ TeamIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="TeamIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3317:3354#L155">TeamIDsFromID</a>
+				<h3 id="TeamIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3517:3554#L165">TeamIDsFromID</a>
 					<a class="permalink" href="index.html#TeamIDsFromID">&#xb6;</a>
 					
 					
@@ -8180,7 +8400,7 @@ TeamIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="TeamIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3545:3586#L164">TeamIDsFromIDRef</a>
+				<h3 id="TeamIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=3745:3786#L174">TeamIDsFromIDRef</a>
 					<a class="permalink" href="index.html#TeamIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -8196,7 +8416,22 @@ TeamIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
 
 			
 				
-				<h3 id="TeamID.CopyRef">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=1540:1574#L72">CopyRef</a>
+				<h3 id="TeamID.Contains">func (TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=1560:1603#L72">Contains</a>
+					<a class="permalink" href="index.html#TeamID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TeamID">TeamID</a>) Contains(ids []<a href="index.html#TeamID">TeamID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TeamID.CopyRef">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=1740:1774#L82">CopyRef</a>
 					<a class="permalink" href="index.html#TeamID.CopyRef">&#xb6;</a>
 					
 					
@@ -8241,7 +8476,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="TeamID.IDRef">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=1678:1706#L81">IDRef</a>
+				<h3 id="TeamID.IDRef">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=1878:1906#L91">IDRef</a>
 					<a class="permalink" href="index.html#TeamID.IDRef">&#xb6;</a>
 					
 					
@@ -8256,7 +8491,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="TeamID.IsNil">func (TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2702:2730#L128">IsNil</a>
+				<h3 id="TeamID.IsNil">func (TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2902:2930#L138">IsNil</a>
 					<a class="permalink" href="index.html#TeamID.IsNil">&#xb6;</a>
 					
 					
@@ -8271,7 +8506,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="TeamID.MarhsalJSON">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=1989:2035#L99">MarhsalJSON</a>
+				<h3 id="TeamID.MarhsalJSON">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2189:2235#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#TeamID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -8286,7 +8521,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="TeamID.MarshalText">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2365:2411#L114">MarshalText</a>
+				<h3 id="TeamID.MarshalText">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2565:2611#L124">MarshalText</a>
 					<a class="permalink" href="index.html#TeamID.MarshalText">&#xb6;</a>
 					
 					
@@ -8346,7 +8581,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="TeamID.StringRef">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=1830:1866#L90">StringRef</a>
+				<h3 id="TeamID.StringRef">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2030:2066#L100">StringRef</a>
 					<a class="permalink" href="index.html#TeamID.StringRef">&#xb6;</a>
 					
 					
@@ -8361,7 +8596,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="TeamID.UnmarhsalJSON">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2129:2182#L104">UnmarhsalJSON</a>
+				<h3 id="TeamID.UnmarhsalJSON">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2329:2382#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#TeamID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -8376,7 +8611,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="TeamID.UnmarshalText">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2548:2603#L122">UnmarshalText</a>
+				<h3 id="TeamID.UnmarshalText">func (*TeamID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=2748:2803#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#TeamID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -8393,7 +8628,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="TeamIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4196:4256#L193">TeamIDSet</a>
+			<h2 id="TeamIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4396:4456#L203">TeamIDSet</a>
 				<a class="permalink" href="index.html#TeamIDSet">&#xb6;</a>
 				
 				
@@ -8417,7 +8652,7 @@ TeamIDSet represents a set of TeamIDs
 
 			
 				
-				<h3 id="NewTeamIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4298:4328#L199">NewTeamIDSet</a>
+				<h3 id="NewTeamIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4498:4528#L209">NewTeamIDSet</a>
 					<a class="permalink" href="index.html#NewTeamIDSet">&#xb6;</a>
 					
 					
@@ -8433,7 +8668,7 @@ NewTeamIDSet creates a new TeamIDSet
 
 			
 				
-				<h3 id="TeamIDSet.Add">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4409:4445#L204">Add</a>
+				<h3 id="TeamIDSet.Add">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4609:4645#L214">Add</a>
 					<a class="permalink" href="index.html#TeamIDSet.Add">&#xb6;</a>
 					
 					
@@ -8448,7 +8683,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="TeamIDSet.AddRef">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4751:4788#L223">AddRef</a>
+				<h3 id="TeamIDSet.AddRef">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4951:4988#L233">AddRef</a>
 					<a class="permalink" href="index.html#TeamIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -8463,7 +8698,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="TeamIDSet.All">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5159:5193#L249">All</a>
+				<h3 id="TeamIDSet.All">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5359:5393#L259">All</a>
 					<a class="permalink" href="index.html#TeamIDSet.All">&#xb6;</a>
 					
 					
@@ -8478,7 +8713,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="TeamIDSet.Clear">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5036:5063#L240">Clear</a>
+				<h3 id="TeamIDSet.Clear">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5236:5263#L250">Clear</a>
 					<a class="permalink" href="index.html#TeamIDSet.Clear">&#xb6;</a>
 					
 					
@@ -8493,7 +8728,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="TeamIDSet.Clone">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5295:5333#L257">Clone</a>
+				<h3 id="TeamIDSet.Clone">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5495:5533#L267">Clone</a>
 					<a class="permalink" href="index.html#TeamIDSet.Clone">&#xb6;</a>
 					
 					
@@ -8508,7 +8743,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="TeamIDSet.Has">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=4886:4924#L231">Has</a>
+				<h3 id="TeamIDSet.Has">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5086:5124#L241">Has</a>
 					<a class="permalink" href="index.html#TeamIDSet.Has">&#xb6;</a>
 					
 					
@@ -8523,7 +8758,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="TeamIDSet.Merge">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5460:5511#L267">Merge</a>
+				<h3 id="TeamIDSet.Merge">func (*TeamIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go?s=5660:5711#L277">Merge</a>
 					<a class="permalink" href="index.html#TeamIDSet.Merge">&#xb6;</a>
 					
 					
@@ -8631,7 +8866,7 @@ UserIDFromRefID generates a new UserID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="UserIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3022:3070#L142">UserIDsFrom</a>
+				<h3 id="UserIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3222:3270#L152">UserIDsFrom</a>
 					<a class="permalink" href="index.html#UserIDsFrom">&#xb6;</a>
 					
 					
@@ -8645,7 +8880,7 @@ UserIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="UserIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3317:3354#L155">UserIDsFromID</a>
+				<h3 id="UserIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3517:3554#L165">UserIDsFromID</a>
 					<a class="permalink" href="index.html#UserIDsFromID">&#xb6;</a>
 					
 					
@@ -8659,7 +8894,7 @@ UserIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="UserIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3545:3586#L164">UserIDsFromIDRef</a>
+				<h3 id="UserIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=3745:3786#L174">UserIDsFromIDRef</a>
 					<a class="permalink" href="index.html#UserIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -8675,7 +8910,22 @@ UserIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
 
 			
 				
-				<h3 id="UserID.CopyRef">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=1540:1574#L72">CopyRef</a>
+				<h3 id="UserID.Contains">func (UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=1560:1603#L72">Contains</a>
+					<a class="permalink" href="index.html#UserID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#UserID">UserID</a>) Contains(ids []<a href="index.html#UserID">UserID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="UserID.CopyRef">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=1740:1774#L82">CopyRef</a>
 					<a class="permalink" href="index.html#UserID.CopyRef">&#xb6;</a>
 					
 					
@@ -8720,7 +8970,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="UserID.IDRef">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=1678:1706#L81">IDRef</a>
+				<h3 id="UserID.IDRef">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=1878:1906#L91">IDRef</a>
 					<a class="permalink" href="index.html#UserID.IDRef">&#xb6;</a>
 					
 					
@@ -8735,7 +8985,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="UserID.IsNil">func (UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2702:2730#L128">IsNil</a>
+				<h3 id="UserID.IsNil">func (UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2902:2930#L138">IsNil</a>
 					<a class="permalink" href="index.html#UserID.IsNil">&#xb6;</a>
 					
 					
@@ -8750,7 +9000,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="UserID.MarhsalJSON">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=1989:2035#L99">MarhsalJSON</a>
+				<h3 id="UserID.MarhsalJSON">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2189:2235#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#UserID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -8765,7 +9015,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="UserID.MarshalText">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2365:2411#L114">MarshalText</a>
+				<h3 id="UserID.MarshalText">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2565:2611#L124">MarshalText</a>
 					<a class="permalink" href="index.html#UserID.MarshalText">&#xb6;</a>
 					
 					
@@ -8825,7 +9075,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="UserID.StringRef">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=1830:1866#L90">StringRef</a>
+				<h3 id="UserID.StringRef">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2030:2066#L100">StringRef</a>
 					<a class="permalink" href="index.html#UserID.StringRef">&#xb6;</a>
 					
 					
@@ -8840,7 +9090,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="UserID.UnmarhsalJSON">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2129:2182#L104">UnmarhsalJSON</a>
+				<h3 id="UserID.UnmarhsalJSON">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2329:2382#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#UserID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -8855,7 +9105,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="UserID.UnmarshalText">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2548:2603#L122">UnmarshalText</a>
+				<h3 id="UserID.UnmarshalText">func (*UserID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=2748:2803#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#UserID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -8872,7 +9122,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="UserIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4196:4256#L193">UserIDSet</a>
+			<h2 id="UserIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4396:4456#L203">UserIDSet</a>
 				<a class="permalink" href="index.html#UserIDSet">&#xb6;</a>
 				
 				
@@ -8896,7 +9146,7 @@ UserIDSet represents a set of UserIDs
 
 			
 				
-				<h3 id="NewUserIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4298:4328#L199">NewUserIDSet</a>
+				<h3 id="NewUserIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4498:4528#L209">NewUserIDSet</a>
 					<a class="permalink" href="index.html#NewUserIDSet">&#xb6;</a>
 					
 					
@@ -8912,7 +9162,7 @@ NewUserIDSet creates a new UserIDSet
 
 			
 				
-				<h3 id="UserIDSet.Add">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4409:4445#L204">Add</a>
+				<h3 id="UserIDSet.Add">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4609:4645#L214">Add</a>
 					<a class="permalink" href="index.html#UserIDSet.Add">&#xb6;</a>
 					
 					
@@ -8927,7 +9177,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="UserIDSet.AddRef">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4751:4788#L223">AddRef</a>
+				<h3 id="UserIDSet.AddRef">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4951:4988#L233">AddRef</a>
 					<a class="permalink" href="index.html#UserIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -8942,7 +9192,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="UserIDSet.All">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5159:5193#L249">All</a>
+				<h3 id="UserIDSet.All">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5359:5393#L259">All</a>
 					<a class="permalink" href="index.html#UserIDSet.All">&#xb6;</a>
 					
 					
@@ -8957,7 +9207,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="UserIDSet.Clear">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5036:5063#L240">Clear</a>
+				<h3 id="UserIDSet.Clear">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5236:5263#L250">Clear</a>
 					<a class="permalink" href="index.html#UserIDSet.Clear">&#xb6;</a>
 					
 					
@@ -8972,7 +9222,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="UserIDSet.Clone">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5295:5333#L257">Clone</a>
+				<h3 id="UserIDSet.Clone">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5495:5533#L267">Clone</a>
 					<a class="permalink" href="index.html#UserIDSet.Clone">&#xb6;</a>
 					
 					
@@ -8987,7 +9237,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="UserIDSet.Has">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=4886:4924#L231">Has</a>
+				<h3 id="UserIDSet.Has">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5086:5124#L241">Has</a>
 					<a class="permalink" href="index.html#UserIDSet.Has">&#xb6;</a>
 					
 					
@@ -9002,7 +9252,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="UserIDSet.Merge">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5460:5511#L267">Merge</a>
+				<h3 id="UserIDSet.Merge">func (*UserIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go?s=5660:5711#L277">Merge</a>
 					<a class="permalink" href="index.html#UserIDSet.Merge">&#xb6;</a>
 					
 					
@@ -9110,7 +9360,7 @@ WidgetIDFromRefID generates a new WidgetID from a ref of a generic ID.
 				
 			
 				
-				<h3 id="WidgetIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3122:3174#L142">WidgetIDsFrom</a>
+				<h3 id="WidgetIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3326:3378#L152">WidgetIDsFrom</a>
 					<a class="permalink" href="index.html#WidgetIDsFrom">&#xb6;</a>
 					
 					
@@ -9124,7 +9374,7 @@ WidgetIDsFrom converts a string slice into a ID slice.
 				
 			
 				
-				<h3 id="WidgetIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3427:3468#L155">WidgetIDsFromID</a>
+				<h3 id="WidgetIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3631:3672#L165">WidgetIDsFromID</a>
 					<a class="permalink" href="index.html#WidgetIDsFromID">&#xb6;</a>
 					
 					
@@ -9138,7 +9388,7 @@ WidgetIDsFromID converts a generic ID slice into a ID slice.
 				
 			
 				
-				<h3 id="WidgetIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3665:3710#L164">WidgetIDsFromIDRef</a>
+				<h3 id="WidgetIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=3869:3914#L174">WidgetIDsFromIDRef</a>
 					<a class="permalink" href="index.html#WidgetIDsFromIDRef">&#xb6;</a>
 					
 					
@@ -9154,7 +9404,22 @@ WidgetIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
 
 			
 				
-				<h3 id="WidgetID.CopyRef">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=1610:1648#L72">CopyRef</a>
+				<h3 id="WidgetID.Contains">func (WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=1630:1677#L72">Contains</a>
+					<a class="permalink" href="index.html#WidgetID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#WidgetID">WidgetID</a>) Contains(ids []<a href="index.html#WidgetID">WidgetID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="WidgetID.CopyRef">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=1814:1852#L82">CopyRef</a>
 					<a class="permalink" href="index.html#WidgetID.CopyRef">&#xb6;</a>
 					
 					
@@ -9199,7 +9464,7 @@ ID returns a domain ID.
 				
 			
 				
-				<h3 id="WidgetID.IDRef">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=1752:1782#L81">IDRef</a>
+				<h3 id="WidgetID.IDRef">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=1956:1986#L91">IDRef</a>
 					<a class="permalink" href="index.html#WidgetID.IDRef">&#xb6;</a>
 					
 					
@@ -9214,7 +9479,7 @@ IDRef returns a reference of a domain id.
 				
 			
 				
-				<h3 id="WidgetID.IsNil">func (WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2792:2822#L128">IsNil</a>
+				<h3 id="WidgetID.IsNil">func (WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2996:3026#L138">IsNil</a>
 					<a class="permalink" href="index.html#WidgetID.IsNil">&#xb6;</a>
 					
 					
@@ -9229,7 +9494,7 @@ Ref returns true if a ID is nil or zero-value
 				
 			
 				
-				<h3 id="WidgetID.MarhsalJSON">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2067:2115#L99">MarhsalJSON</a>
+				<h3 id="WidgetID.MarhsalJSON">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2271:2319#L109">MarhsalJSON</a>
 					<a class="permalink" href="index.html#WidgetID.MarhsalJSON">&#xb6;</a>
 					
 					
@@ -9244,7 +9509,7 @@ MarhsalJSON implements json.Marhsaler interface
 				
 			
 				
-				<h3 id="WidgetID.MarshalText">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2449:2497#L114">MarshalText</a>
+				<h3 id="WidgetID.MarshalText">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2653:2701#L124">MarshalText</a>
 					<a class="permalink" href="index.html#WidgetID.MarshalText">&#xb6;</a>
 					
 					
@@ -9304,7 +9569,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="WidgetID.StringRef">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=1906:1944#L90">StringRef</a>
+				<h3 id="WidgetID.StringRef">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2110:2148#L100">StringRef</a>
 					<a class="permalink" href="index.html#WidgetID.StringRef">&#xb6;</a>
 					
 					
@@ -9319,7 +9584,7 @@ StringRef returns a reference of a string representation.
 				
 			
 				
-				<h3 id="WidgetID.UnmarhsalJSON">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2209:2264#L104">UnmarhsalJSON</a>
+				<h3 id="WidgetID.UnmarhsalJSON">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2413:2468#L114">UnmarhsalJSON</a>
 					<a class="permalink" href="index.html#WidgetID.UnmarhsalJSON">&#xb6;</a>
 					
 					
@@ -9334,7 +9599,7 @@ UnmarhsalJSON implements json.Unmarshaler interface
 				
 			
 				
-				<h3 id="WidgetID.UnmarshalText">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2634:2691#L122">UnmarshalText</a>
+				<h3 id="WidgetID.UnmarshalText">func (*WidgetID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=2838:2895#L132">UnmarshalText</a>
 					<a class="permalink" href="index.html#WidgetID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -9351,7 +9616,7 @@ UnmarshalText implements encoding.TextUnmarshaler interface
 		
 			
 			
-			<h2 id="WidgetIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4340:4406#L193">WidgetIDSet</a>
+			<h2 id="WidgetIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4544:4610#L203">WidgetIDSet</a>
 				<a class="permalink" href="index.html#WidgetIDSet">&#xb6;</a>
 				
 				
@@ -9375,7 +9640,7 @@ WidgetIDSet represents a set of WidgetIDs
 
 			
 				
-				<h3 id="NewWidgetIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4452:4486#L199">NewWidgetIDSet</a>
+				<h3 id="NewWidgetIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4656:4690#L209">NewWidgetIDSet</a>
 					<a class="permalink" href="index.html#NewWidgetIDSet">&#xb6;</a>
 					
 					
@@ -9391,7 +9656,7 @@ NewWidgetIDSet creates a new WidgetIDSet
 
 			
 				
-				<h3 id="WidgetIDSet.Add">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4569:4609#L204">Add</a>
+				<h3 id="WidgetIDSet.Add">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4773:4813#L214">Add</a>
 					<a class="permalink" href="index.html#WidgetIDSet.Add">&#xb6;</a>
 					
 					
@@ -9406,7 +9671,7 @@ Add adds a new ID if it does not exists in the set
 				
 			
 				
-				<h3 id="WidgetIDSet.AddRef">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=4919:4960#L223">AddRef</a>
+				<h3 id="WidgetIDSet.AddRef">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5123:5164#L233">AddRef</a>
 					<a class="permalink" href="index.html#WidgetIDSet.AddRef">&#xb6;</a>
 					
 					
@@ -9421,7 +9686,7 @@ AddRef adds a new ID ref if it does not exists in the set
 				
 			
 				
-				<h3 id="WidgetIDSet.All">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5337:5375#L249">All</a>
+				<h3 id="WidgetIDSet.All">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5541:5579#L259">All</a>
 					<a class="permalink" href="index.html#WidgetIDSet.All">&#xb6;</a>
 					
 					
@@ -9436,7 +9701,7 @@ All returns stored all IDs as a slice
 				
 			
 				
-				<h3 id="WidgetIDSet.Clear">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5212:5241#L240">Clear</a>
+				<h3 id="WidgetIDSet.Clear">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5416:5445#L250">Clear</a>
 					<a class="permalink" href="index.html#WidgetIDSet.Clear">&#xb6;</a>
 					
 					
@@ -9451,7 +9716,7 @@ Clear clears all stored IDs
 				
 			
 				
-				<h3 id="WidgetIDSet.Clone">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5479:5521#L257">Clone</a>
+				<h3 id="WidgetIDSet.Clone">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5683:5725#L267">Clone</a>
 					<a class="permalink" href="index.html#WidgetIDSet.Clone">&#xb6;</a>
 					
 					
@@ -9466,7 +9731,7 @@ Clone returns a cloned set
 				
 			
 				
-				<h3 id="WidgetIDSet.Has">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5058:5100#L231">Has</a>
+				<h3 id="WidgetIDSet.Has">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5262:5304#L241">Has</a>
 					<a class="permalink" href="index.html#WidgetIDSet.Has">&#xb6;</a>
 					
 					
@@ -9481,7 +9746,7 @@ Has checks if the ID exists in the set
 				
 			
 				
-				<h3 id="WidgetIDSet.Merge">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5652:5709#L267">Merge</a>
+				<h3 id="WidgetIDSet.Merge">func (*WidgetIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/widget_gen.go?s=5856:5913#L277">Merge</a>
 					<a class="permalink" href="index.html#WidgetIDSet.Merge">&#xb6;</a>
 					
 					

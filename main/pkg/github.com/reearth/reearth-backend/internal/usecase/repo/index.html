@@ -335,7 +335,7 @@
 		
 			
 			
-			<h2 id="PluginLoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/plugin.go?s=337:382#L6">PluginLoaderFrom</a>
+			<h2 id="PluginLoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/plugin.go?s=409:454#L7">PluginLoaderFrom</a>
 				<a class="permalink" href="index.html#PluginLoaderFrom">&#xb6;</a>
 				
 				
@@ -361,7 +361,7 @@
 		
 			
 			
-			<h2 id="PropertySchemaLoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/property_schema.go?s=423:492#L7">PropertySchemaLoaderFrom</a>
+			<h2 id="PropertySchemaLoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/property_schema.go?s=532:601#L9">PropertySchemaLoaderFrom</a>
 				<a class="permalink" href="index.html#PropertySchemaLoaderFrom">&#xb6;</a>
 				
 				
@@ -572,16 +572,17 @@
 		
 			
 			
-			<h2 id="Plugin">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/plugin.go?s=132:335#L1">Plugin</a>
+			<h2 id="Plugin">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/plugin.go?s=132:407#L1">Plugin</a>
 				<a class="permalink" href="index.html#Plugin">&#xb6;</a>
 				
 				
 			</h2>
 			
 			<pre>type Plugin interface {
-    FindByID(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PluginID">PluginID</a>) (*<a href="../../../pkg/plugin/index.html">plugin</a>.<a href="../../../pkg/plugin/index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
-    FindByIDs(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PluginID">PluginID</a>) ([]*<a href="../../../pkg/plugin/index.html">plugin</a>.<a href="../../../pkg/plugin/index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindByID(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PluginID">PluginID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (*<a href="../../../pkg/plugin/index.html">plugin</a>.<a href="../../../pkg/plugin/index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindByIDs(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PluginID">PluginID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]*<a href="../../../pkg/plugin/index.html">plugin</a>.<a href="../../../pkg/plugin/index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
     Save(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, *<a href="../../../pkg/plugin/index.html">plugin</a>.<a href="../../../pkg/plugin/index.html#Plugin">Plugin</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+    Remove(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PluginID">PluginID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
 }</pre>
 
 			
@@ -660,7 +661,7 @@
 		
 			
 			
-			<h2 id="PropertySchema">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/property_schema.go?s=134:421#L1">PropertySchema</a>
+			<h2 id="PropertySchema">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/property_schema.go?s=134:530#L1">PropertySchema</a>
 				<a class="permalink" href="index.html#PropertySchema">&#xb6;</a>
 				
 				
@@ -671,6 +672,8 @@
     FindByIDs(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PropertySchemaID">PropertySchemaID</a>) (<a href="../../../pkg/property/index.html">property</a>.<a href="../../../pkg/property/index.html#SchemaList">SchemaList</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
     Save(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, *<a href="../../../pkg/property/index.html">property</a>.<a href="../../../pkg/property/index.html#Schema">Schema</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
     SaveAll(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/property/index.html">property</a>.<a href="../../../pkg/property/index.html#SchemaList">SchemaList</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+    Remove(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PropertySchemaID">PropertySchemaID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+    RemoveAll(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PropertySchemaID">PropertySchemaID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
 }</pre>
 
 			

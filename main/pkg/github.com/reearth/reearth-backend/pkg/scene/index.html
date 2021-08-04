@@ -262,10 +262,10 @@
 				<dd><a href="index.html#Widget">type Widget</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#MustNewWidget">func MustNewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) *Widget</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#MustNewWidget">func MustNewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) *Widget</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#NewWidget">func NewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) (*Widget, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidget">func NewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) (*Widget, error)</a></dd>
 				
 				
 					
@@ -305,6 +305,9 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Remove">func (w *WidgetSystem) Remove(p id.PluginID, e id.PluginExtensionID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.RemoveAllByPlugin">func (w *WidgetSystem) RemoveAllByPlugin(p id.PluginID) (res []id.PropertyID)</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Replace">func (w *WidgetSystem) Replace(oldp, newp id.PluginID)</a></dd>
@@ -754,7 +757,7 @@ NewPluginSystem _
 
 			
 				
-				<h3 id="PluginSystem.Add">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1244:1282#L65">Add</a>
+				<h3 id="PluginSystem.Add">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1240:1278#L64">Add</a>
 					<a class="permalink" href="index.html#PluginSystem.Add">&#xb6;</a>
 					
 					
@@ -769,7 +772,7 @@ Add _
 				
 			
 				
-				<h3 id="PluginSystem.Has">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=894:941#L44">Has</a>
+				<h3 id="PluginSystem.Has">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=890:937#L43">Has</a>
 					<a class="permalink" href="index.html#PluginSystem.Has">&#xb6;</a>
 					
 					
@@ -784,7 +787,7 @@ Has _
 				
 			
 				
-				<h3 id="PluginSystem.HasPlugin">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1057:1110#L54">HasPlugin</a>
+				<h3 id="PluginSystem.HasPlugin">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1053:1106#L53">HasPlugin</a>
 					<a class="permalink" href="index.html#PluginSystem.HasPlugin">&#xb6;</a>
 					
 					
@@ -799,7 +802,7 @@ HasPlugin _
 				
 			
 				
-				<h3 id="PluginSystem.Plugin">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=2211:2270#L113">Plugin</a>
+				<h3 id="PluginSystem.Plugin">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=2207:2266#L112">Plugin</a>
 					<a class="permalink" href="index.html#PluginSystem.Plugin">&#xb6;</a>
 					
 					
@@ -826,7 +829,7 @@ Plugins _
 				
 			
 				
-				<h3 id="PluginSystem.Properties">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1962:2013#L100">Properties</a>
+				<h3 id="PluginSystem.Properties">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1958:2009#L99">Properties</a>
 					<a class="permalink" href="index.html#PluginSystem.Properties">&#xb6;</a>
 					
 					
@@ -856,7 +859,7 @@ Property _
 				
 			
 				
-				<h3 id="PluginSystem.Remove">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1437:1483#L74">Remove</a>
+				<h3 id="PluginSystem.Remove">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1433:1479#L73">Remove</a>
 					<a class="permalink" href="index.html#PluginSystem.Remove">&#xb6;</a>
 					
 					
@@ -871,7 +874,7 @@ Remove _
 				
 			
 				
-				<h3 id="PluginSystem.Upgrade">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1685:1739#L87">Upgrade</a>
+				<h3 id="PluginSystem.Upgrade">func (*PluginSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin_system.go?s=1681:1735#L86">Upgrade</a>
 					<a class="permalink" href="index.html#PluginSystem.Upgrade">&#xb6;</a>
 					
 					
@@ -1078,23 +1081,23 @@ Upgrade _
 
 			
 				
-				<h3 id="MustNewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=677:811#L23">MustNewWidget</a>
+				<h3 id="MustNewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=605:738#L19">MustNewWidget</a>
 					<a class="permalink" href="index.html#MustNewWidget">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func MustNewWidget(wid *<a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Widget">Widget</a></pre>
+				<pre>func MustNewWidget(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Widget">Widget</a></pre>
 				
 				
 				
 			
 				
-				<h3 id="NewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=215:354#L5">NewWidget</a>
+				<h3 id="NewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=215:353#L5">NewWidget</a>
 					<a class="permalink" href="index.html#NewWidget">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func NewWidget(wid *<a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) (*<a href="index.html#Widget">Widget</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func NewWidget(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) (*<a href="index.html#Widget">Widget</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -1102,7 +1105,7 @@ Upgrade _
 
 			
 				
-				<h3 id="Widget.Enabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1177:1208#L47">Enabled</a>
+				<h3 id="Widget.Enabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1104:1135#L43">Enabled</a>
 					<a class="permalink" href="index.html#Widget.Enabled">&#xb6;</a>
 					
 					
@@ -1114,7 +1117,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.Extension">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1036:1085#L39">Extension</a>
+				<h3 id="Widget.Extension">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=963:1012#L35">Extension</a>
 					<a class="permalink" href="index.html#Widget.Extension">&#xb6;</a>
 					
 					
@@ -1126,7 +1129,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.ID">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=924:957#L31">ID</a>
+				<h3 id="Widget.ID">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=851:884#L27">ID</a>
 					<a class="permalink" href="index.html#Widget.ID">&#xb6;</a>
 					
 					
@@ -1138,7 +1141,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.Plugin">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=976:1013#L35">Plugin</a>
+				<h3 id="Widget.Plugin">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=903:940#L31">Plugin</a>
 					<a class="permalink" href="index.html#Widget.Plugin">&#xb6;</a>
 					
 					
@@ -1150,7 +1153,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.Property">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1111:1152#L43">Property</a>
+				<h3 id="Widget.Property">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1038:1079#L39">Property</a>
 					<a class="permalink" href="index.html#Widget.Property">&#xb6;</a>
 					
 					
@@ -1162,7 +1165,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.SetEnabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1232:1273#L51">SetEnabled</a>
+				<h3 id="Widget.SetEnabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1159:1200#L47">SetEnabled</a>
 					<a class="permalink" href="index.html#Widget.SetEnabled">&#xb6;</a>
 					
 					
@@ -1234,7 +1237,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="WidgetSystem.Properties">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1819:1870#L93">Properties</a>
+				<h3 id="WidgetSystem.Properties">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=2161:2212#L107">Properties</a>
 					<a class="permalink" href="index.html#WidgetSystem.Properties">&#xb6;</a>
 					
 					
@@ -1258,7 +1261,19 @@ Upgrade _
 				
 			
 				
-				<h3 id="WidgetSystem.Replace">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1624:1678#L82">Replace</a>
+				<h3 id="WidgetSystem.RemoveAllByPlugin">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1648:1725#L82">RemoveAllByPlugin</a>
+					<a class="permalink" href="index.html#WidgetSystem.RemoveAllByPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetSystem">WidgetSystem</a>) RemoveAllByPlugin(p <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) (res []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSystem.Replace">func (*WidgetSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go?s=1966:2020#L96">Replace</a>
 					<a class="permalink" href="index.html#WidgetSystem.Replace">&#xb6;</a>
 					
 					

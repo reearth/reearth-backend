@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#375EAB">
 
-  <title>initializer - Go Documentation Server</title>
+  <title>pluginpack - Go Documentation Server</title>
 
 <link type="text/css" rel="stylesheet" href="../../../../../../../lib/godoc/style.css">
 
@@ -43,7 +43,7 @@
 
 
   <h1>
-    Package initializer
+    Package pluginpack
     <span class="text-muted"></span>
   </h1>
 
@@ -77,7 +77,7 @@
 		
 		<div id="short-nav">
 			<dl>
-			<dd><code>import "github.com/reearth/reearth-backend/pkg/layer/initializer"</code></dd>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/plugin/pluginpack"</code></dd>
 			</dl>
 			<dl>
 			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
@@ -110,16 +110,14 @@
 			<dl>
 			
 			
-				<dd><a href="index.html#pkg-variables">Variables</a></dd>
-			
 			
 			
 				
-				<dd><a href="index.html#LayerItem">type LayerItem</a></dd>
-				
+				<dd><a href="index.html#Package">type Package</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#LayerItem.Initialize">func (i LayerItem) Initialize() (*layer.Item, *property.Property, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#PackageFromZip">func PackageFromZip(r io.Reader, scene *id.SceneID, sizeLimit int64) (*Package, error)</a></dd>
+				
 				
 			
 			
@@ -133,7 +131,7 @@
 			<p>
 			<span style="font-size:90%">
 			
-				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer/initializer.go">initializer.go</a>
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/pluginpack/package.go">package.go</a>
 			
 			</span>
 			</p>
@@ -145,34 +143,19 @@
 
 		
 		
-			<h2 id="pkg-variables">Variables</h2>
-			
-				
-				<pre>var (
-    <span id="ErrExtensionTypeMustBePrimitive">ErrExtensionTypeMustBePrimitive</span> <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;extension type must be primitive&#34;)
-)</pre>
-			
-		
 		
 		
 			
 			
-			<h2 id="LayerItem">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer/initializer.go?s=237:597#L2">LayerItem</a>
-				<a class="permalink" href="index.html#LayerItem">&#xb6;</a>
+			<h2 id="Package">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/pluginpack/package.go?s=278:354#L7">Package</a>
+				<a class="permalink" href="index.html#Package">&#xb6;</a>
 				
 				
 			</h2>
 			
-			<pre>type LayerItem struct {
-<span id="LayerItem.SceneID"></span>    SceneID                <a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>
-<span id="LayerItem.ParentLayerID"></span>    ParentLayerID          <a href="../../id/index.html">id</a>.<a href="../../id/index.html#LayerID">LayerID</a>
-<span id="LayerItem.Plugin"></span>    Plugin                 *<a href="../../plugin/index.html">plugin</a>.<a href="../../plugin/index.html#Plugin">Plugin</a>
-<span id="LayerItem.ExtensionID"></span>    ExtensionID            *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#PluginExtensionID">PluginExtensionID</a>
-<span id="LayerItem.Index"></span>    Index                  *<a href="/reearth-backend/main/pkg/builtin/#int">int</a>
-<span id="LayerItem.LinkedDatasetID"></span>    LinkedDatasetID        *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#DatasetID">DatasetID</a>
-<span id="LayerItem.Name"></span>    Name                   <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
-<span id="LayerItem.LinkablePropertySchema"></span>    LinkablePropertySchema *<a href="../../property/index.html">property</a>.<a href="../../property/index.html#Schema">Schema</a>
-<span id="LayerItem.LatLng"></span>    LatLng                 *<a href="../../property/index.html">property</a>.<a href="../../property/index.html#LatLng">LatLng</a>
+			<pre>type Package struct {
+<span id="Package.Manifest"></span>    Manifest *<a href="../manifest/index.html">manifest</a>.<a href="../manifest/index.html#Manifest">Manifest</a>
+<span id="Package.Files"></span>    Files    <a href="../../file/index.html">file</a>.<a href="../../file/index.html#Iterator">Iterator</a>
 }
 </pre>
 
@@ -185,19 +168,18 @@
 			
 
 			
-
-			
 				
-				<h3 id="LayerItem.Initialize">func (LayerItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/initializer/initializer.go?s=696:768#L18">Initialize</a>
-					<a class="permalink" href="index.html#LayerItem.Initialize">&#xb6;</a>
+				<h3 id="PackageFromZip">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/pluginpack/package.go?s=356:442#L12">PackageFromZip</a>
+					<a class="permalink" href="index.html#PackageFromZip">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (i <a href="index.html#LayerItem">LayerItem</a>) Initialize() (*<a href="../index.html">layer</a>.<a href="../index.html#Item">Item</a>, *<a href="../../property/index.html">property</a>.<a href="../../property/index.html#Property">Property</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				<pre>func PackageFromZip(r <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>, scene *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>, sizeLimit <a href="http://localhost:8080/pkg/builtin/#int64">int64</a>) (*<a href="index.html#Package">Package</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
-				
+			
+
 			
 		
 	

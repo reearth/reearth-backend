@@ -307,6 +307,9 @@
 				
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.Last">func (ll GroupList) Last() *Group</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.ToLayerList">func (ll GroupList) ToLayerList() List</a></dd>
 				
 			
@@ -405,6 +408,9 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.Remove">func (i *Infobox) Remove(field id.InfoboxFieldID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.RemoveAllByPlugin">func (i *Infobox) RemoveAllByPlugin(pid id.PluginID) []id.PropertyID</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Infobox.RemoveAt">func (i *Infobox) RemoveAt(index int)</a></dd>
@@ -653,6 +659,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#ItemList.FindByDataset">func (ll ItemList) FindByDataset(ds id.DatasetID) *Item</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemList.Last">func (ll ItemList) Last() *Item</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#ItemList.ToLayerList">func (ll ItemList) ToLayerList() List</a></dd>
 				
 			
@@ -675,6 +684,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#List.FindByDataset">func (ll List) FindByDataset(ds id.DatasetID) *Item</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Last">func (ll List) Last() *Layer</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#List.Loader">func (ll List) Loader() Loader</a></dd>
 				
 					
@@ -682,6 +694,9 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#List.Pick">func (ll List) Pick(il *IDList) List</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Remove">func (ll List) Remove(lids ...id.LayerID) List</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#List.SeparateLayerItemAndGroup">func (ll List) SeparateLayerItemAndGroup() (ItemList, GroupList)</a></dd>
@@ -702,6 +717,9 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#LoaderFromMap">func LoaderFromMap(data map[id.LayerID]Layer) Loader</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Loader.Walk">func (l Loader) Walk(ctx context.Context, walker func(Layer, GroupList) error, init []id.LayerID) error</a></dd>
 				
 			
 				
@@ -829,6 +847,9 @@
     <span id="ErrInitializationProperty">ErrInitializationProperty</span>     = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;property&#34;)
     <span id="ErrInitializationPropertyWith">ErrInitializationPropertyWith</span> = <a href="../rerror/index.html">rerror</a>.<a href="../rerror/index.html#With">With</a>(<a href="index.html#ErrInitializationProperty">ErrInitializationProperty</a>)
 )</pre>
+			
+				
+				<pre>var <span id="WalkerSkipChildren">WalkerSkipChildren</span> = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;LAYER_WALKER_SKIP_CHILDREN&#34;)</pre>
 			
 		
 		
@@ -1588,7 +1609,7 @@
 		
 			
 			
-			<h2 id="GroupList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2198:2221#L118">GroupList</a>
+			<h2 id="GroupList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2715:2738#L158">GroupList</a>
 				<a class="permalink" href="index.html#GroupList">&#xb6;</a>
 				
 				
@@ -1608,7 +1629,19 @@
 
 			
 				
-				<h3 id="GroupList.ToLayerList">func (GroupList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2223:2261#L120">ToLayerList</a>
+				<h3 id="GroupList.Last">func (GroupList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2904:2937#L169">Last</a>
+					<a class="permalink" href="index.html#GroupList.Last">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#GroupList">GroupList</a>) Last() *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupList.ToLayerList">func (GroupList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2740:2778#L160">ToLayerList</a>
 					<a class="permalink" href="index.html#GroupList.ToLayerList">&#xb6;</a>
 					
 					
@@ -2061,7 +2094,19 @@ RemoveLayerAt _
 				
 			
 				
-				<h3 id="Infobox.RemoveAt">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=2492:2529#L118">RemoveAt</a>
+				<h3 id="Infobox.RemoveAllByPlugin">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=2492:2560#L118">RemoveAllByPlugin</a>
+					<a class="permalink" href="index.html#Infobox.RemoveAllByPlugin">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Infobox">Infobox</a>) RemoveAllByPlugin(pid <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Infobox.RemoveAt">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=2851:2888#L134">RemoveAt</a>
 					<a class="permalink" href="index.html#Infobox.RemoveAt">&#xb6;</a>
 					
 					
@@ -2073,7 +2118,7 @@ RemoveLayerAt _
 				
 			
 				
-				<h3 id="Infobox.ValidateProperties">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=2767:2826#L133">ValidateProperties</a>
+				<h3 id="Infobox.ValidateProperties">func (*Infobox) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/infobox.go?s=3126:3185#L149">ValidateProperties</a>
 					<a class="permalink" href="index.html#Infobox.ValidateProperties">&#xb6;</a>
 					
 					
@@ -3071,7 +3116,7 @@ InfoboxFieldBuilder _
 		
 			
 			
-			<h2 id="ItemList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1831:1852#L97">ItemList</a>
+			<h2 id="ItemList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2254:2275#L130">ItemList</a>
 				<a class="permalink" href="index.html#ItemList">&#xb6;</a>
 				
 				
@@ -3091,7 +3136,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="ItemList.FindByDataset">func (ItemList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1854:1909#L99">FindByDataset</a>
+				<h3 id="ItemList.FindByDataset">func (ItemList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2277:2332#L132">FindByDataset</a>
 					<a class="permalink" href="index.html#ItemList.FindByDataset">&#xb6;</a>
 					
 					
@@ -3103,7 +3148,19 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemList.ToLayerList">func (ItemList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2035:2072#L109">ToLayerList</a>
+				<h3 id="ItemList.Last">func (ItemList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2621:2652#L151">Last</a>
+					<a class="permalink" href="index.html#ItemList.Last">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#ItemList">ItemList</a>) Last() *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemList.ToLayerList">func (ItemList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2458:2495#L142">ToLayerList</a>
 					<a class="permalink" href="index.html#ItemList.ToLayerList">&#xb6;</a>
 					
 					
@@ -3176,7 +3233,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="List.Deref">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1462:1492#L72">Deref</a>
+				<h3 id="List.Deref">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1553:1583#L79">Deref</a>
 					<a class="permalink" href="index.html#List.Deref">&#xb6;</a>
 					
 					
@@ -3188,7 +3245,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.Find">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=340:382#L15">Find</a>
+				<h3 id="List.Find">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=431:473#L22">Find</a>
 					<a class="permalink" href="index.html#List.Find">&#xb6;</a>
 					
 					
@@ -3200,7 +3257,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.FindByDataset">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=499:550#L27">FindByDataset</a>
+				<h3 id="List.FindByDataset">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=590:641#L34">FindByDataset</a>
 					<a class="permalink" href="index.html#List.FindByDataset">&#xb6;</a>
 					
 					
@@ -3212,7 +3269,19 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.Loader">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1685:1715#L87">Loader</a>
+				<h3 id="List.Last">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=101:129#L1">Last</a>
+					<a class="permalink" href="index.html#List.Last">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) Last() *<a href="index.html#Layer">Layer</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Loader">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1776:1806#L94">Loader</a>
 					<a class="permalink" href="index.html#List.Loader">&#xb6;</a>
 					
 					
@@ -3224,7 +3293,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.Map">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1752:1776#L91">Map</a>
+				<h3 id="List.Map">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1843:1867#L98">Map</a>
 					<a class="permalink" href="index.html#List.Map">&#xb6;</a>
 					
 					
@@ -3236,7 +3305,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.Pick">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=101:137#L1">Pick</a>
+				<h3 id="List.Pick">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=192:228#L8">Pick</a>
 					<a class="permalink" href="index.html#List.Pick">&#xb6;</a>
 					
 					
@@ -3248,7 +3317,19 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.SeparateLayerItemAndGroup">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1119:1183#L59">SeparateLayerItemAndGroup</a>
+				<h3 id="List.Remove">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1922:1968#L104">Remove</a>
+					<a class="permalink" href="index.html#List.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ll <a href="index.html#List">List</a>) Remove(lids ...<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) <a href="index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.SeparateLayerItemAndGroup">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1210:1274#L66">SeparateLayerItemAndGroup</a>
 					<a class="permalink" href="index.html#List.SeparateLayerItemAndGroup">&#xb6;</a>
 					
 					
@@ -3260,7 +3341,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.ToLayerGroupList">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=921:964#L49">ToLayerGroupList</a>
+				<h3 id="List.ToLayerGroupList">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=1012:1055#L56">ToLayerGroupList</a>
 					<a class="permalink" href="index.html#List.ToLayerGroupList">&#xb6;</a>
 					
 					
@@ -3272,7 +3353,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="List.ToLayerItemList">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=727:768#L39">ToLayerItemList</a>
+				<h3 id="List.ToLayerItemList">func (List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=818:859#L46">ToLayerItemList</a>
 					<a class="permalink" href="index.html#List.ToLayerItemList">&#xb6;</a>
 					
 					
@@ -3286,7 +3367,7 @@ InfoboxFieldBuilder _
 		
 			
 			
-			<h2 id="Loader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=84:146#L1">Loader</a>
+			<h2 id="Loader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=94:156#L1">Loader</a>
 				<a class="permalink" href="index.html#Loader">&#xb6;</a>
 				
 				
@@ -3304,7 +3385,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="LoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=215:251#L2">LoaderFrom</a>
+				<h3 id="LoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=292:328#L5">LoaderFrom</a>
 					<a class="permalink" href="index.html#LoaderFrom">&#xb6;</a>
 					
 					
@@ -3315,7 +3396,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="LoaderFromMap">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=595:647#L22">LoaderFromMap</a>
+				<h3 id="LoaderFromMap">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=672:724#L25">LoaderFromMap</a>
 					<a class="permalink" href="index.html#LoaderFromMap">&#xb6;</a>
 					
 					
@@ -3327,10 +3408,22 @@ InfoboxFieldBuilder _
 			
 
 			
+				
+				<h3 id="Loader.Walk">func (Loader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=986:1089#L39">Walk</a>
+					<a class="permalink" href="index.html#Loader.Walk">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#Loader">Loader</a>) Walk(ctx <a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, walker func(<a href="index.html#Layer">Layer</a>, <a href="index.html#GroupList">GroupList</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>, init []<a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
 		
 			
 			
-			<h2 id="LoaderByScene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=147:213#L1">LoaderByScene</a>
+			<h2 id="LoaderByScene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/loader.go?s=157:223#L1">LoaderByScene</a>
 				<a class="permalink" href="index.html#LoaderByScene">&#xb6;</a>
 				
 				
@@ -3352,7 +3445,7 @@ InfoboxFieldBuilder _
 		
 			
 			
-			<h2 id="Map">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2387:2417#L129">Map</a>
+			<h2 id="Map">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3000:3030#L176">Map</a>
 				<a class="permalink" href="index.html#Map">&#xb6;</a>
 				
 				
@@ -3370,7 +3463,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="MapFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2419:2444#L131">MapFrom</a>
+				<h3 id="MapFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3032:3057#L178">MapFrom</a>
 					<a class="permalink" href="index.html#MapFrom">&#xb6;</a>
 					
 					
@@ -3383,7 +3476,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="Map.Add">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2473:2511#L135">Add</a>
+				<h3 id="Map.Add">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3086:3124#L182">Add</a>
 					<a class="permalink" href="index.html#Map.Add">&#xb6;</a>
 					
 					
@@ -3395,7 +3488,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Clone">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2855:2879#L163">Clone</a>
+				<h3 id="Map.Clone">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3468:3492#L210">Clone</a>
 					<a class="permalink" href="index.html#Map.Clone">&#xb6;</a>
 					
 					
@@ -3407,7 +3500,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Group">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3586:3625#L214">Group</a>
+				<h3 id="Map.Group">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=4199:4238#L261">Group</a>
 					<a class="permalink" href="index.html#Map.Group">&#xb6;</a>
 					
 					
@@ -3419,7 +3512,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Item">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3472:3509#L207">Item</a>
+				<h3 id="Map.Item">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=4085:4122#L254">Item</a>
 					<a class="permalink" href="index.html#Map.Item">&#xb6;</a>
 					
 					
@@ -3431,7 +3524,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Keys">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3703:3735#L221">Keys</a>
+				<h3 id="Map.Keys">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=4316:4348#L268">Keys</a>
 					<a class="permalink" href="index.html#Map.Keys">&#xb6;</a>
 					
 					
@@ -3443,7 +3536,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Layer">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3375:3413#L200">Layer</a>
+				<h3 id="Map.Layer">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3988:4026#L247">Layer</a>
 					<a class="permalink" href="index.html#Map.Layer">&#xb6;</a>
 					
 					
@@ -3455,7 +3548,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Len">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3943:3965#L232">Len</a>
+				<h3 id="Map.Len">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=4556:4578#L279">Len</a>
 					<a class="permalink" href="index.html#Map.Len">&#xb6;</a>
 					
 					
@@ -3467,7 +3560,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.List">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2699:2723#L152">List</a>
+				<h3 id="Map.List">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3312:3336#L199">List</a>
 					<a class="permalink" href="index.html#Map.List">&#xb6;</a>
 					
 					
@@ -3479,7 +3572,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Merge">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=2992:3022#L174">Merge</a>
+				<h3 id="Map.Merge">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3605:3635#L221">Merge</a>
 					<a class="permalink" href="index.html#Map.Merge">&#xb6;</a>
 					
 					
@@ -3491,7 +3584,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Map.Pick">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3144:3178#L186">Pick</a>
+				<h3 id="Map.Pick">func (Map) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/list.go?s=3757:3791#L233">Pick</a>
 					<a class="permalink" href="index.html#Map.Pick">&#xb6;</a>
 					
 					
@@ -3692,7 +3785,7 @@ MergedInfoboxField represents a field of MergedInfobox
 				<tr>
 				
 					<td class="pkg-name" style="padding-left: 0px;">
-						<a href="initializer/index.html">initializer</a>
+						<a href="layerops/index.html">layerops</a>
 					</td>
 				
 					<td class="pkg-synopsis">

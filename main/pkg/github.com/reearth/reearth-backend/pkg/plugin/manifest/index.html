@@ -141,14 +141,17 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#MergeManifestTranslation">func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Manifest</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#MustParseSystemFromBytes">func MustParseSystemFromBytes(source []byte) *Manifest</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#MustParseSystemFromBytes">func MustParseSystemFromBytes(source []byte, scene *id.SceneID) *Manifest</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Parse">func Parse(source io.Reader) (*Manifest, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Parse">func Parse(source io.Reader, scene *id.SceneID) (*Manifest, error)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#ParseSystemFromBytes">func ParseSystemFromBytes(source []byte) (*Manifest, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#ParseSystemFromBytes">func ParseSystemFromBytes(source []byte, scene *id.SceneID) (*Manifest, error)</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Manifest.PropertySchemas">func (m Manifest) PropertySchemas() []*property.Schema</a></dd>
 				
 			
 				
@@ -414,39 +417,51 @@
 				
 			
 				
-				<h3 id="MustParseSystemFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=1194:1248#L41">MustParseSystemFromBytes</a>
+				<h3 id="MustParseSystemFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=1287:1360#L42">MustParseSystemFromBytes</a>
 					<a class="permalink" href="index.html#MustParseSystemFromBytes">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func MustParseSystemFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) *<a href="index.html#Manifest">Manifest</a></pre>
+				<pre>func MustParseSystemFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>, scene *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) *<a href="index.html#Manifest">Manifest</a></pre>
 				
 				
 				
 			
 				
-				<h3 id="Parse">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=435:482#L8">Parse</a>
+				<h3 id="Parse">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=480:546#L9">Parse</a>
 					<a class="permalink" href="index.html#Parse">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func Parse(source <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func Parse(source <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>, scene *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
 			
 				
-				<h3 id="ParseSystemFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=848:907#L26">ParseSystemFromBytes</a>
+				<h3 id="ParseSystemFromBytes">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/parser.go?s=917:995#L27">ParseSystemFromBytes</a>
 					<a class="permalink" href="index.html#ParseSystemFromBytes">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func ParseSystemFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func ParseSystemFromBytes(source []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>, scene *<a href="../../id/index.html">id</a>.<a href="../../id/index.html#SceneID">SceneID</a>) (*<a href="index.html#Manifest">Manifest</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
 			
 
+			
+				
+				<h3 id="Manifest.PropertySchemas">func (Manifest) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/manifest.go?s=258:312#L4">PropertySchemas</a>
+					<a class="permalink" href="index.html#Manifest.PropertySchemas">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (m <a href="index.html#Manifest">Manifest</a>) PropertySchemas() []*<a href="../../property/index.html">property</a>.<a href="../../property/index.html#Schema">Schema</a></pre>
+				
+				
+				
+				
 			
 		
 			

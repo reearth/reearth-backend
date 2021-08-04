@@ -93,7 +93,10 @@
 			</div>
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
-				
+				<p>
+Package file provides convenient helpers for files and abstractions of files
+</p>
+
 				
 			</div>
 		</div>
@@ -110,18 +113,94 @@
 			<dl>
 			
 			
-				<dd><a href="index.html#pkg-variables">Variables</a></dd>
-			
-			
 			
 				
-				<dd><a href="index.html#Archive">type Archive</a></dd>
+				<dd><a href="index.html#MockZipReader">func MockZipReader(files []string) *zip.Reader</a></dd>
+			
 				
-				
+				<dd><a href="index.html#ZipBasePath">func ZipBasePath(zr *zip.Reader) (b string)</a></dd>
+			
 			
 				
 				<dd><a href="index.html#File">type File</a></dd>
 				
+				
+			
+				
+				<dd><a href="index.html#FilteredIterator">type FilteredIterator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewFilteredIterator">func NewFilteredIterator(a Iterator, skipper func(p string) bool) *FilteredIterator</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#FilteredIterator.Next">func (s *FilteredIterator) Next() (*File, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#FsIterator">type FsIterator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewFsIterator">func NewFsIterator(afs afero.Fs) (*FsIterator, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#FsIterator.Next">func (a *FsIterator) Next() (*File, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Iterator">type Iterator</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#PrefixIterator">type PrefixIterator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewPrefixIterator">func NewPrefixIterator(a Iterator, prefix string) *PrefixIterator</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PrefixIterator.Next">func (s *PrefixIterator) Next() (*File, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#SimpleIterator">type SimpleIterator</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewSimpleIterator">func NewSimpleIterator(files []File) *SimpleIterator</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SimpleIterator.Next">func (s *SimpleIterator) Next() (*File, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#TarReader">type TarReader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewTarReader">func NewTarReader(tr *tar.Reader) *TarReader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TarReaderFromTarGz">func TarReaderFromTarGz(r io.Reader) (*TarReader, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TarReader.Next">func (r *TarReader) Next() (*File, error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ZipReader">type ZipReader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewZipReader">func NewZipReader(zr *zip.Reader) *ZipReader</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ZipReaderFrom">func ZipReaderFrom(r io.Reader, n int64) (*ZipReader, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ZipReader.Next">func (r *ZipReader) Next() (*File, error)</a></dd>
 				
 			
 			
@@ -137,6 +216,10 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go">file.go</a>
 			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/targz.go">targz.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/zip.go">zip.go</a>
+			
 			</span>
 			</p>
 		
@@ -147,33 +230,176 @@
 
 		
 		
-			<h2 id="pkg-variables">Variables</h2>
+		
 			
+			
+			<h2 id="MockZipReader">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/zip.go?s=832:878#L48">MockZipReader</a>
+				<a class="permalink" href="index.html#MockZipReader">&#xb6;</a>
 				
-				<pre>var (
-    <span class="comment">// EOF _</span>
-    <span id="EOF">EOF</span> <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;eof&#34;)
-)</pre>
-			
-		
-		
-		
+				
+			</h2>
+			<pre>func MockZipReader(files []<a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="http://localhost:8080/pkg/archive/zip/">zip</a>.<a href="http://localhost:8080/pkg/archive/zip/#Reader">Reader</a></pre>
 			
 			
-			<h2 id="Archive">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=261:354#L13">Archive</a>
-				<a class="permalink" href="index.html#Archive">&#xb6;</a>
+			
+
+		
+			
+			
+			<h2 id="ZipBasePath">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/zip.go?s=1086:1129#L60">ZipBasePath</a>
+				<a class="permalink" href="index.html#ZipBasePath">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func ZipBasePath(zr *<a href="/reearth-backend/main/pkg/archive/zip/">zip</a>.<a href="http://localhost:8080/pkg/archive/zip/#Reader">Reader</a>) (b <a href="http://localhost:8080/pkg/builtin/#string">string</a>)</pre>
+			
+			
+			
+
+		
+		
+			
+			
+			<h2 id="File">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=194:377#L3">File</a>
+				<a class="permalink" href="index.html#File">&#xb6;</a>
 				
 				
 			</h2>
 			<p>
-Archive is a file like tarball.
+File abstracts an abstract file
 </p>
 
-			<pre>type Archive interface {
-    Name() <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
-    Size() <a href="/reearth-backend/main/pkg/builtin/#int64">int64</a>
+			<pre>type File struct {
+<span id="File.Content"></span>    Content <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#ReadCloser">ReadCloser</a>
+<span id="File.Path"></span>    Path    <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
+<span id="File.Size"></span>    Size    <a href="/reearth-backend/main/pkg/builtin/#int64">int64</a>
+    <span class="comment">// If the content type is not explicitly specified, ContenType will be an empty string.</span>
+<span id="File.ContentType"></span>    ContentType <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="FilteredIterator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=1470:1549#L72">FilteredIterator</a>
+				<a class="permalink" href="index.html#FilteredIterator">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type FilteredIterator struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewFilteredIterator">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=1551:1634#L77">NewFilteredIterator</a>
+					<a class="permalink" href="index.html#NewFilteredIterator">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewFilteredIterator(a <a href="index.html#Iterator">Iterator</a>, skipper func(p <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>) *<a href="index.html#FilteredIterator">FilteredIterator</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="FilteredIterator.Next">func (*FilteredIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=1704:1752#L84">Next</a>
+					<a class="permalink" href="index.html#FilteredIterator.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#FilteredIterator">FilteredIterator</a>) Next() (*<a href="index.html#File">File</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="FsIterator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=1918:1987#L99">FsIterator</a>
+				<a class="permalink" href="index.html#FsIterator">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type FsIterator struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewFsIterator">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=1989:2042#L105">NewFsIterator</a>
+					<a class="permalink" href="index.html#NewFsIterator">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewFsIterator(afs <a href="/reearth-backend/main/pkg/github.com/spf13/afero/">afero</a>.<a href="http://localhost:8080/pkg/github.com/spf13/afero/#Fs">Fs</a>) (*<a href="index.html#FsIterator">FsIterator</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="FsIterator.Next">func (*FsIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=2385:2427#L127">Next</a>
+					<a class="permalink" href="index.html#FsIterator.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#FsIterator">FsIterator</a>) Next() (*<a href="index.html#File">File</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Iterator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=415:554#L12">Iterator</a>
+				<a class="permalink" href="index.html#Iterator">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Iterator is an iterator of files
+</p>
+
+			<pre>type Iterator interface {
+    <span class="comment">// Next returns the next File. If there is no next File, returns nil file and nil error</span>
     Next() (*<a href="index.html#File">File</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)
-    Close() <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
 }</pre>
 
 			
@@ -190,21 +416,14 @@ Archive is a file like tarball.
 		
 			
 			
-			<h2 id="File">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=102:224#L4">File</a>
-				<a class="permalink" href="index.html#File">&#xb6;</a>
+			<h2 id="PrefixIterator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=931:993#L40">PrefixIterator</a>
+				<a class="permalink" href="index.html#PrefixIterator">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-File _
-</p>
-
-			<pre>type File struct {
-<span id="File.Content"></span>    Content     <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>
-<span id="File.Name"></span>    Name        <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
-<span id="File.Fullpath"></span>    Fullpath    <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
-<span id="File.Size"></span>    Size        <a href="/reearth-backend/main/pkg/builtin/#int64">int64</a>
-<span id="File.ContentType"></span>    ContentType <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
+			
+			<pre>type PrefixIterator struct {
+    <span class="comment">// contains filtered or unexported fields</span>
 }
 </pre>
 
@@ -217,7 +436,199 @@ File _
 			
 
 			
+				
+				<h3 id="NewPrefixIterator">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=995:1060#L45">NewPrefixIterator</a>
+					<a class="permalink" href="index.html#NewPrefixIterator">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewPrefixIterator(a <a href="index.html#Iterator">Iterator</a>, prefix <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#PrefixIterator">PrefixIterator</a></pre>
+				
+				
+				
+			
 
+			
+				
+				<h3 id="PrefixIterator.Next">func (*PrefixIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=1125:1171#L52">Next</a>
+					<a class="permalink" href="index.html#PrefixIterator.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#PrefixIterator">PrefixIterator</a>) Next() (*<a href="index.html#File">File</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SimpleIterator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=573:628#L18">SimpleIterator</a>
+				<a class="permalink" href="index.html#SimpleIterator">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+For debugging
+</p>
+
+			<pre>type SimpleIterator struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewSimpleIterator">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=630:682#L23">NewSimpleIterator</a>
+					<a class="permalink" href="index.html#NewSimpleIterator">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewSimpleIterator(files []<a href="index.html#File">File</a>) *<a href="index.html#SimpleIterator">SimpleIterator</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="SimpleIterator.Next">func (*SimpleIterator) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/file.go?s=790:836#L31">Next</a>
+					<a class="permalink" href="index.html#SimpleIterator.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#SimpleIterator">SimpleIterator</a>) Next() (*<a href="index.html#File">File</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TarReader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/targz.go?s=74:115#L1">TarReader</a>
+				<a class="permalink" href="index.html#TarReader">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TarReader struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewTarReader">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/targz.go?s=117:161#L4">NewTarReader</a>
+					<a class="permalink" href="index.html#NewTarReader">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewTarReader(tr *<a href="/reearth-backend/main/pkg/archive/tar/">tar</a>.<a href="http://localhost:8080/pkg/archive/tar/#Reader">Reader</a>) *<a href="index.html#TarReader">TarReader</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="TarReaderFromTarGz">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/targz.go?s=194:250#L8">TarReaderFromTarGz</a>
+					<a class="permalink" href="index.html#TarReaderFromTarGz">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TarReaderFromTarGz(r <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>) (*<a href="index.html#TarReader">TarReader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="TarReader.Next">func (*TarReader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/targz.go?s=387:428#L16">Next</a>
+					<a class="permalink" href="index.html#TarReader.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#TarReader">TarReader</a>) Next() (*<a href="index.html#File">File</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ZipReader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/zip.go?s=67:116#L1">ZipReader</a>
+				<a class="permalink" href="index.html#ZipReader">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ZipReader struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewZipReader">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/zip.go?s=118:162#L5">NewZipReader</a>
+					<a class="permalink" href="index.html#NewZipReader">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewZipReader(zr *<a href="/reearth-backend/main/pkg/archive/zip/">zip</a>.<a href="http://localhost:8080/pkg/archive/zip/#Reader">Reader</a>) *<a href="index.html#ZipReader">ZipReader</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ZipReaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/zip.go?s=195:255#L9">ZipReaderFrom</a>
+					<a class="permalink" href="index.html#ZipReaderFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ZipReaderFrom(r <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>, n <a href="http://localhost:8080/pkg/builtin/#int64">int64</a>) (*<a href="index.html#ZipReader">ZipReader</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="ZipReader.Next">func (*ZipReader) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/file/zip.go?s=474:515#L23">Next</a>
+					<a class="permalink" href="index.html#ZipReader.Next">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="index.html#ZipReader">ZipReader</a>) Next() (*<a href="index.html#File">File</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
 			
 		
 	

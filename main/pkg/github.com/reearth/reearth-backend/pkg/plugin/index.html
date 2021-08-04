@@ -259,6 +259,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Name">func (p *Plugin) Name() i18n.String</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.PropertySchemas">func (p *Plugin) PropertySchemas() []id.PropertySchemaID</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#Plugin.Rename">func (p *Plugin) Rename(name i18n.String)</a></dd>
 				
 					
@@ -854,13 +857,13 @@ ExtensionType _
 		
 			
 			
-			<h2 id="Loader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/loader.go?s=85:153#L1">Loader</a>
+			<h2 id="Loader">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/loader.go?s=85:166#L1">Loader</a>
 				<a class="permalink" href="index.html#Loader">&#xb6;</a>
 				
 				
 			</h2>
 			
-			<pre>type Loader func(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>) ([]*<a href="index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+			<pre>type Loader func(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, []<a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) ([]*<a href="index.html#Plugin">Plugin</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 
 			
 
@@ -1021,16 +1024,25 @@ Name _
 				
 			
 				
-				<h3 id="Plugin.Rename">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1410:1451#L68">Rename</a>
+				<h3 id="Plugin.PropertySchemas">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1398:1454#L67">PropertySchemas</a>
+					<a class="permalink" href="index.html#Plugin.PropertySchemas">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) PropertySchemas() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Plugin.Rename">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1701:1742#L82">Rename</a>
 					<a class="permalink" href="index.html#Plugin.Rename">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Plugin">Plugin</a>) Rename(name <a href="../i18n/index.html">i18n</a>.<a href="../i18n/index.html#String">String</a>)</pre>
-				<p>
-Rename _
-</p>
-
+				
 				
 				
 				
@@ -1066,7 +1078,7 @@ Schema _
 				
 			
 				
-				<h3 id="Plugin.SetDescription">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1500:1548#L74">SetDescription</a>
+				<h3 id="Plugin.SetDescription">func (*Plugin) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/plugin.go?s=1790:1838#L87">SetDescription</a>
 					<a class="permalink" href="index.html#Plugin.SetDescription">&#xb6;</a>
 					
 					
@@ -1126,6 +1138,28 @@ Version _
 				
 					<td class="pkg-name" style="padding-left: 0px;">
 						<a href="manifest/index.html">manifest</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="pluginpack/index.html">pluginpack</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="repourl/index.html">repourl</a>
 					</td>
 				
 					<td class="pkg-synopsis">
