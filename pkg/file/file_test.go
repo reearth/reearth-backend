@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"testing"
@@ -79,9 +78,61 @@ func TestReaders(t *testing.T) {
 	}
 }
 
+func TestSimpleIterator(t *testing.T) {
+	a := NewSimpleIterator([]File{{Path: "a"}, {Path: "b"}, {Path: "c"}})
+	n, err := a.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "a"}, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "b"}, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "c"}, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Nil(t, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Nil(t, n)
+}
+
+func TestPrefixIterator(t *testing.T) {
+	ba := NewSimpleIterator([]File{
+		{Path: "a"}, {Path: "b"}, {Path: "c/d"}, {Path: "e"}, {Path: "f/g/h"}, {Path: "c/i/j"},
+	})
+	a := NewPrefixIterator(ba, "c")
+	n, err := a.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "d"}, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "i/j"}, n)
+	n, err = a.Next()
+	assert.Nil(t, err)
+	assert.Nil(t, n)
+
+	ba2 := NewSimpleIterator([]File{
+		{Path: "a"}, {Path: "b"},
+	})
+	a2 := NewPrefixIterator(ba2, "")
+	n2, err := a2.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "a"}, n2)
+	n2, err = a2.Next()
+	assert.Nil(t, err)
+	assert.Equal(t, &File{Path: "b"}, n2)
+	n2, err = a2.Next()
+	assert.Nil(t, err)
+	assert.Nil(t, n2)
+}
+
 func TestFilteredIterator(t *testing.T) {
 	var paths []string
-	a := NewFilteredIterator(&testArchive{}, func(p string) bool {
+	ba := NewSimpleIterator([]File{
+		{Path: "0"}, {Path: "1"}, {Path: "2"},
+	})
+	a := NewFilteredIterator(ba, func(p string) bool {
 		paths = append(paths, p)
 		return p == "1"
 	})
@@ -95,19 +146,4 @@ func TestFilteredIterator(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Nil(t, n)
 	assert.Equal(t, []string{"0", "1", "2"}, paths)
-}
-
-type testArchive struct {
-	c int
-}
-
-func (a *testArchive) Next() (*File, error) {
-	if a.c >= 3 {
-		return nil, nil
-	}
-	f := &File{
-		Path: fmt.Sprintf("%d", a.c),
-	}
-	a.c++
-	return f, nil
 }
