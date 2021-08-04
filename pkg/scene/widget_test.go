@@ -245,3 +245,10 @@ func TestWidget_SetEnabled(t *testing.T) {
 	res.SetEnabled(true)
 	assert.True(t, res.Enabled())
 }
+
+func TestWidget_SetExtended(t *testing.T) {
+	res := MustNewWidget(id.NewWidgetID().Ref(), id.MustPluginID("xxx#1.1.1"), "eee", id.NewPropertyID(), false, nil)
+	tr := true
+	res.SetExtended(&tr)
+	assert.True(t, *res.WidgetLayout().Extended)
+}

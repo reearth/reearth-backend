@@ -759,10 +759,24 @@ func TestLayout(t *testing.T) {
 	wl := WidgetLayout{
 		Extendable: nil,
 		Extended:   nil,
-		Floating:   true,
+		Floating:   false,
+		DefaultLocation: &Location{
+			Zone:    "outer",
+			Section: "left",
+			Area:    "top",
+		},
 	}
 	swl := scene.WidgetLayout{}
-	swl.Floating = true
+	swl.Floating = false
+	swl.DefaultLocation = &scene.WidgetLocation{
+		Zone:    "outer",
+		Section: "left",
+		Area:    "top",
+	}
+
+	wl2 := WidgetLayout{Floating: true}
+	swl2 := scene.WidgetLayout{}
+	swl2.Floating = true
 	testCases := []struct {
 		name         string
 		widgetLayout WidgetLayout
@@ -773,13 +787,18 @@ func TestLayout(t *testing.T) {
 			widgetLayout: wl,
 			expected:     &swl,
 		},
+		{
+			name:         "nil default location",
+			widgetLayout: wl2,
+			expected:     &swl2,
+		},
 	}
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			swl2 := tc.widgetLayout.layout()
-			assert.Equal(tt, tc.expected, swl2)
+			res := tc.widgetLayout.layout()
+			assert.Equal(tt, tc.expected, res)
 		})
 	}
 }
