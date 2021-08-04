@@ -22,7 +22,7 @@ func TestPluginIDValidator(t *testing.T) {
 	}{
 		{
 			name:     "accepted name",
-			input:    "1cc.1_c-d",
+			input:    "1cc1_c-d",
 			expected: true,
 		},
 		{
@@ -87,11 +87,11 @@ func TestNewPluginID(t *testing.T) {
 	}{
 		{
 			name:       "success:accepted name",
-			pluginName: "1ccc.1_c-d",
+			pluginName: "1ccc1_c-d",
 			version:    "1.0.0",
 			scene:      nil,
 			expected: PluginID{
-				name:    "1ccc.1_c-d",
+				name:    "1ccc1_c-d",
 				version: "1.0.0",
 				sys:     false,
 				scene:   nil,
@@ -121,21 +121,21 @@ func TestNewPluginID(t *testing.T) {
 		},
 		{
 			name:          "fail:invalid name1",
-			pluginName:    "1cc.1_c-d",
+			pluginName:    "1cc1_c-d",
 			version:       "",
 			scene:         nil,
 			expectedError: true,
 		},
 		{
 			name:          "fail:invalid name2",
-			pluginName:    "1cc.1_c-d/?s",
+			pluginName:    "1cc1_c-d/?s",
 			version:       "1.0.0",
 			scene:         nil,
 			expectedError: true,
 		},
 		{
 			name:          "fail:invalid name3",
-			pluginName:    "1cc.1_c-d/?s",
+			pluginName:    "1cc1_c-d/?s",
 			version:       "_1",
 			scene:         nil,
 			expectedError: true,
@@ -165,9 +165,9 @@ func TestPluginIDFrom(t *testing.T) {
 	}{
 		{
 			name:  "success:accepted name",
-			input: "1cc.1_c-d#1.0.0",
+			input: "1cc1_c-d~1.0.0",
 			expected: PluginID{
-				name:    "1cc.1_c-d",
+				name:    "1cc1_c-d",
 				version: "1.0.0",
 				sys:     false,
 				scene:   nil,
@@ -175,7 +175,7 @@ func TestPluginIDFrom(t *testing.T) {
 		},
 		{
 			name:  "success:with scene id",
-			input: "01fbpdqax0ttrftj3gb5gm4rw7~aaaaa#0.1.0",
+			input: "01fbpdqax0ttrftj3gb5gm4rw7~aaaaa~0.1.0",
 			expected: PluginID{
 				name:    "aaaaa",
 				version: "0.1.0",
@@ -195,22 +195,22 @@ func TestPluginIDFrom(t *testing.T) {
 		},
 		{
 			name:          "fail:invalid name1",
-			input:         "1cc.1_c-d",
+			input:         "1cc1_c-d",
 			expectedError: true,
 		},
 		{
 			name:          "fail:invalid name2",
-			input:         "1cc.1_c-d/?s#1.0.0",
+			input:         "1cc1_c-d/?s~1.0.0",
 			expectedError: true,
 		},
 		{
 			name:          "fail:invalid name3",
-			input:         "1cc.1_c-d/?s#1",
+			input:         "1cc1_c-d/?s~1",
 			expectedError: true,
 		},
 		{
 			name:          "fail:invalid scene id",
-			input:         "xxxx~ssss#1.0.0",
+			input:         "xxxx~ssss~1.0.0",
 			expectedError: true,
 		},
 	}
@@ -238,9 +238,9 @@ func TestMustPluginID(t *testing.T) {
 	}{
 		{
 			name:  "success:accepted name",
-			input: "1cc.1_c-d#1.0.0",
+			input: "1cc1_c-d~1.0.0",
 			expected: PluginID{
-				name:    "1cc.1_c-d",
+				name:    "1cc1_c-d",
 				version: "1.0.0",
 				sys:     false,
 			},
@@ -252,17 +252,17 @@ func TestMustPluginID(t *testing.T) {
 		},
 		{
 			name:          "fail:invalid name2",
-			input:         "1cc.1_c-d/?s#1.0.0",
+			input:         "1cc.1_c-d/?s~1.0.0",
 			expectedError: true,
 		},
 		{
 			name:          "fail:invalid name3",
-			input:         "1cc.1_c-d/?s#1",
+			input:         "1cc.1_c-d/?s~1",
 			expectedError: true,
 		},
 		{
 			name:          "fail:invalid scene id",
-			input:         "xxxx~ssss#1.0.0",
+			input:         "xxxx~ssss~1.0.0",
 			expectedError: true,
 		},
 	}
@@ -291,28 +291,28 @@ func TestPluginIDFromRef(t *testing.T) {
 	}{
 		{
 			name:  "success:accepted name",
-			input: "1cc.1_c-d#1.0.0",
+			input: "1cc1_c-d~1.0.0",
 			expected: &PluginID{
-				name:    "1cc.1_c-d",
+				name:    "1cc1_c-d",
 				version: "1.0.0",
 				sys:     false,
 			},
 		},
 		{
 			name:  "fail:invalid name1",
-			input: "1cc.1_c-d",
+			input: "1cc1_c-d",
 		},
 		{
 			name:  "fail:invalid name2",
-			input: "1cc.1_c-d/?s#1.0.0",
+			input: "1cc1_c-d/?s~1.0.0",
 		},
 		{
 			name:  "fail:invalid name3",
-			input: "1cc.1_c-d/?s#1",
+			input: "1cc1_c-d/?s~1",
 		},
 		{
 			name:  "fail:invalid scene id",
-			input: "xxxx~ssss#1.0.0",
+			input: "xxxx~ssss~1.0.0",
 		},
 	}
 	for _, tc := range testCases {
@@ -331,13 +331,13 @@ func TestPluginIDFromRef(t *testing.T) {
 }
 
 func TestPluginID_Name(t *testing.T) {
-	plugin := MustPluginID("MyPlugin#1.0.0")
+	plugin := MustPluginID("MyPlugin~1.0.0")
 
 	assert.Equal(t, "MyPlugin", plugin.Name())
 }
 
 func TestPluginID_Version(t *testing.T) {
-	plugin := MustPluginID("MyPlugin#1.0.0")
+	plugin := MustPluginID("MyPlugin~1.0.0")
 
 	assert.Equal(t, semver.MustParse("1.0.0"), plugin.Version())
 }
@@ -352,7 +352,7 @@ func TestPluginID_Scene(t *testing.T) {
 }
 
 func TestPluginID_System(t *testing.T) {
-	plugin := MustPluginID("MyPlugin#1.0.0")
+	plugin := MustPluginID("MyPlugin~1.0.0")
 
 	assert.False(t, plugin.System())
 
@@ -371,7 +371,7 @@ func TestPluginID_Validate(t *testing.T) {
 		{
 			name: "success:accepted name",
 			input: PluginID{
-				name:    "1cc.1_c-d",
+				name:    "1cc1_c-d",
 				version: "1.0.0",
 				sys:     false,
 			},
@@ -380,7 +380,7 @@ func TestPluginID_Validate(t *testing.T) {
 		{
 			name: "success:accepted name",
 			input: PluginID{
-				name:    "1cc.1/?_c-d",
+				name:    "1cc1/?_c-d",
 				version: "1.0.0",
 				sys:     false,
 			},
@@ -410,7 +410,7 @@ func TestPluginID_String(t *testing.T) {
 				scene:   nil,
 				sys:     false,
 			},
-			expected: "ppl#1.0.0",
+			expected: "ppl~1.0.0",
 		},
 		{
 			name: "accepted name2",
@@ -420,7 +420,7 @@ func TestPluginID_String(t *testing.T) {
 				scene:   nil,
 				sys:     false,
 			},
-			expected: "plg#2.1.0-beta",
+			expected: "plg~2.1.0-beta",
 		},
 		{
 			name: "with scene id",
@@ -430,7 +430,7 @@ func TestPluginID_String(t *testing.T) {
 				scene:   MustSceneID("01fbpdqax0ttrftj3gb5gm4rw7").Ref(),
 				sys:     false,
 			},
-			expected: "01fbpdqax0ttrftj3gb5gm4rw7~plg#2.1.0-beta",
+			expected: "01fbpdqax0ttrftj3gb5gm4rw7~plg~2.1.0-beta",
 		},
 		{
 			name: "system",
@@ -452,7 +452,7 @@ func TestPluginID_String(t *testing.T) {
 }
 
 func TestPluginID_Ref(t *testing.T) {
-	pluginID := MustPluginID("Test#1.0.0")
+	pluginID := MustPluginID("Test~1.0.0")
 
 	ref := pluginID.Ref()
 
@@ -460,7 +460,7 @@ func TestPluginID_Ref(t *testing.T) {
 }
 
 func TestPluginID_CopyRef(t *testing.T) {
-	pluginID := MustPluginID("Test#1.0.0")
+	pluginID := MustPluginID("Test~1.0.0")
 
 	ref := pluginID.Ref()
 
@@ -472,7 +472,7 @@ func TestPluginID_CopyRef(t *testing.T) {
 }
 
 func TestPluginID_StringRef(t *testing.T) {
-	pluginID := MustPluginID("Test#1.0.0")
+	pluginID := MustPluginID("Test~1.0.0")
 
 	ref := pluginID.Ref()
 
@@ -498,37 +498,37 @@ func TestPluginID_Equal(t *testing.T) {
 		{
 			name:     "system and normal",
 			input1:   MustPluginID("reearth"),
-			input2:   MustPluginID("Test#1.0.0"),
+			input2:   MustPluginID("Test~1.0.0"),
 			expected: false,
 		},
 		{
 			name:     "same",
-			input1:   MustPluginID("Test#1.0.0"),
-			input2:   MustPluginID("Test#1.0.0"),
+			input1:   MustPluginID("Test~1.0.0"),
+			input2:   MustPluginID("Test~1.0.0"),
 			expected: true,
 		},
 		{
 			name:     "diff version",
-			input1:   MustPluginID("Test#1.0.0"),
-			input2:   MustPluginID("Test#1.0.1"),
+			input1:   MustPluginID("Test~1.0.0"),
+			input2:   MustPluginID("Test~1.0.1"),
 			expected: false,
 		},
 		{
 			name:     "diff name",
-			input1:   MustPluginID("Test0#1.0.0"),
-			input2:   MustPluginID("Test1#1.0.0"),
+			input1:   MustPluginID("Test0~1.0.0"),
+			input2:   MustPluginID("Test1~1.0.0"),
 			expected: false,
 		},
 		{
 			name:     "same scene",
-			input1:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test#1.0.0"),
-			input2:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test#1.0.0"),
+			input1:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test~1.0.0"),
+			input2:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test~1.0.0"),
 			expected: true,
 		},
 		{
 			name:     "diff scene",
-			input1:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test#1.0.0"),
-			input2:   MustPluginID("01fbprc3j929w0a3h16nh8rqy7~Test#1.0.0"),
+			input1:   MustPluginID("01fbprc3j929w0a3h16nh8rqy6~Test~1.0.0"),
+			input2:   MustPluginID("01fbprc3j929w0a3h16nh8rqy7~Test~1.0.0"),
 			expected: false,
 		},
 	}
@@ -544,23 +544,23 @@ func TestPluginID_Equal(t *testing.T) {
 }
 
 func TestPluginID_MarshalText(t *testing.T) {
-	pluginIdRef := MustPluginID("Test#1.0.0").Ref()
+	pluginIdRef := MustPluginID("Test~1.0.0").Ref()
 
 	res, err := pluginIdRef.MarshalText()
 
 	assert.Nil(t, err)
-	assert.Equal(t, []byte("Test#1.0.0"), res)
+	assert.Equal(t, []byte("Test~1.0.0"), res)
 }
 
 func TestPluginID_UnmarshalText(t *testing.T) {
-	text := []byte("Test#1.0.0")
+	text := []byte("Test~1.0.0")
 
 	pluginId := &PluginID{}
 
 	err := pluginId.UnmarshalText(text)
 
 	assert.Nil(t, err)
-	assert.Equal(t, "Test#1.0.0", pluginId.String())
+	assert.Equal(t, "Test~1.0.0", pluginId.String())
 
 }
 
@@ -578,20 +578,20 @@ func TestPluginIDToKeys(t *testing.T) {
 		},
 		{
 			name:     "1 element",
-			input:    []PluginID{MustPluginID("Test#1.0.0")},
-			expected: []string{"Test#1.0.0"},
+			input:    []PluginID{MustPluginID("Test~1.0.0")},
+			expected: []string{"Test~1.0.0"},
 		},
 		{
 			name: "multiple elements",
 			input: []PluginID{
-				MustPluginID("Test#1.0.0"),
-				MustPluginID("Test#1.0.1"),
-				MustPluginID("Test#1.0.2"),
+				MustPluginID("Test~1.0.0"),
+				MustPluginID("Test~1.0.1"),
+				MustPluginID("Test~1.0.2"),
 			},
 			expected: []string{
-				"Test#1.0.0",
-				"Test#1.0.1",
-				"Test#1.0.2",
+				"Test~1.0.0",
+				"Test~1.0.1",
+				"Test~1.0.2",
 			},
 		},
 	}
@@ -629,30 +629,30 @@ func TestPluginIDsFrom(t *testing.T) {
 		},
 		{
 			name:  "1 element",
-			input: []string{"Test#1.0.0"},
+			input: []string{"Test~1.0.0"},
 			expected: struct {
 				res []PluginID
 				err error
 			}{
-				res: []PluginID{MustPluginID("Test#1.0.0")},
+				res: []PluginID{MustPluginID("Test~1.0.0")},
 				err: nil,
 			},
 		},
 		{
 			name: "multiple elements",
 			input: []string{
-				"Test#1.0.0",
-				"Test#1.0.1",
-				"Test#1.0.2",
+				"Test~1.0.0",
+				"Test~1.0.1",
+				"Test~1.0.2",
 			},
 			expected: struct {
 				res []PluginID
 				err error
 			}{
 				res: []PluginID{
-					MustPluginID("Test#1.0.0"),
-					MustPluginID("Test#1.0.1"),
-					MustPluginID("Test#1.0.2"),
+					MustPluginID("Test~1.0.0"),
+					MustPluginID("Test~1.0.1"),
+					MustPluginID("Test~1.0.2"),
 				},
 				err: nil,
 			},
@@ -660,9 +660,9 @@ func TestPluginIDsFrom(t *testing.T) {
 		{
 			name: "multiple elements",
 			input: []string{
-				"Test#1.0.0",
-				"Test#1.0.1",
-				"Test#1.0.2",
+				"Test~1.0.0",
+				"Test~1.0.1",
+				"Test~1.0.2",
 			},
 			expected: struct {
 				res []PluginID

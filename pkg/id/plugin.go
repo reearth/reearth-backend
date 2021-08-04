@@ -7,12 +7,6 @@ import (
 	"github.com/blang/semver"
 )
 
-// MUST NOT CHANGE
-const officialPluginIDStr = "reearth"
-
-// OfficialPluginID _
-var OfficialPluginID = PluginID{name: officialPluginIDStr, sys: true}
-
 // PluginID is an ID for Plugin.
 type PluginID struct {
 	name    string
@@ -21,7 +15,16 @@ type PluginID struct {
 	scene   *SceneID
 }
 
-var pluginNameRe = regexp.MustCompile("^[a-zA-Z0-9._-]+$")
+// MUST NOT CHANGE
+const (
+	officialPluginIDStr = "reearth"
+	sepPluginID         = "~"
+)
+
+var (
+	OfficialPluginID = PluginID{name: officialPluginIDStr, sys: true}
+	pluginNameRe     = regexp.MustCompile("^[a-zA-Z0-9_-]+$")
+)
 
 func validatePluginName(s string) bool {
 	if len(s) == 0 || len(s) > 100 || s == "reearth" || strings.Contains(s, "/") {
@@ -58,25 +61,27 @@ func PluginIDFrom(id string) (PluginID, error) {
 		return PluginID{name: id, sys: true}, nil
 	}
 
-	// scene id
+	var name, version string
 	var sceneID *SceneID
-	scene := strings.SplitN(id, "~", 2)
-	if len(scene) == 2 {
-		sceneID2, err := SceneIDFrom(scene[0])
+
+	ids := strings.SplitN(id, sepPluginID, 3)
+	switch len(ids) {
+	case 2:
+		name = ids[0]
+		version = ids[1]
+	case 3:
+		sceneID2, err := SceneIDFrom(ids[0])
 		if err != nil {
 			return PluginID{}, ErrInvalidID
 		}
 		sceneID = &sceneID2
-		id = scene[1]
-	}
-
-	// name and version
-	ids := strings.SplitN(id, "#", 2)
-	if len(ids) != 2 {
+		name = ids[1]
+		version = ids[2]
+	default:
 		return PluginID{}, ErrInvalidID
 	}
 
-	return NewPluginID(ids[0], ids[1], sceneID)
+	return NewPluginID(name, version, sceneID)
 }
 
 // MustPluginID generates a new id.PluginID from a string, but panics if the string cannot be parsed.
@@ -141,9 +146,9 @@ func (d PluginID) String() (s string) {
 		return d.name
 	}
 	if d.scene != nil {
-		s = d.scene.String() + "~"
+		s = d.scene.String() + sepPluginID
 	}
-	s += d.name + "#" + d.version
+	s += d.name + sepPluginID + d.version
 	return
 }
 
