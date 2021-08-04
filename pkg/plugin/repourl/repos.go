@@ -48,7 +48,7 @@ func github(p string) *URL {
 	return &URL{
 		Host:  "github.com",
 		Owner: s[0],
-		Repo:  s[1],
+		Repo:  strings.TrimSuffix(s[1], ".git"),
 		Ref:   ref,
 	}
 }

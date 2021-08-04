@@ -23,6 +23,15 @@ var cases = []struct {
 		},
 	},
 	{
+		Name:  "github.com/aaaa/bbbb.git",
+		Input: "https://github.com/aaaa/bbbb.git",
+		Expected: &URL{
+			Host:  "github.com",
+			Owner: "aaaa",
+			Repo:  "bbbb",
+		},
+	},
+	{
 		Name:  "github.com/aaaa/bbbb/tree/cccc",
 		Input: "https://github.com/aaaa/bbbb/tree/cccc",
 		Expected: &URL{
