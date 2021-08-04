@@ -16,6 +16,7 @@ type Plugin struct {
 	commonScene
 	pluginRepo         repo.Plugin
 	propertySchemaRepo repo.PropertySchema
+	propertyRepo       repo.Property
 	file               gateway.File
 	pluginRepository   gateway.PluginRepository
 	transaction        repo.Transaction
@@ -29,6 +30,7 @@ func NewPlugin(r *repo.Container, gr *gateway.Container) interfaces.Plugin {
 		},
 		pluginRepo:         r.Plugin,
 		propertySchemaRepo: r.PropertySchema,
+		propertyRepo:       r.Property,
 		transaction:        r.Transaction,
 		pluginRepository:   gr.PluginRepository,
 		file:               gr.File,

@@ -13,7 +13,9 @@ import (
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/plugin/pluginpack"
 	"github.com/reearth/reearth-backend/pkg/plugin/repourl"
+	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
 var pluginPackageSizeLimit int64 = 10 * 1024 * 1024 // 10MB
@@ -84,6 +86,11 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 		return nil, err
 	}
 
+	s, err := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
+	if err != nil {
+		return nil, err
+	}
+
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, ru.ArchiveURL().String(), nil)
 	if err != nil {
 		return nil, interfaces.ErrInvalidPluginPackage
@@ -132,6 +139,26 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 		}
 	}
 	if err := i.pluginRepo.Save(ctx, p.Manifest.Plugin); err != nil {
+		return nil, err
+	}
+
+	// install the plugin to the scene
+	var ppid *id.PropertyID
+	var pp *property.Property
+	if psid := p.Manifest.Plugin.Schema(); psid != nil {
+		pp, err = property.New().NewID().Schema(*psid).Build()
+		if err != nil {
+			return nil, err
+		}
+	}
+	s.PluginSystem().Add(scene.NewPlugin(p.Manifest.Plugin.ID(), ppid))
+
+	if pp != nil {
+		if err := i.propertyRepo.Save(ctx, pp); err != nil {
+			return nil, err
+		}
+	}
+	if err := i.sceneRepo.Save(ctx, s); err != nil {
 		return nil, err
 	}
 
