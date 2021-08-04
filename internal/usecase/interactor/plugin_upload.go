@@ -2,6 +2,7 @@ package interactor
 
 import (
 	"context"
+	"errors"
 	"io"
 	"net/http"
 	"net/url"
@@ -106,6 +107,12 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 		return nil, interfaces.ErrInvalidPluginPackage
 	}
 
+	if p, err := i.pluginRepo.FindByID(ctx, p.Manifest.Plugin.ID(), []id.SceneID{sid}); err != nil && !errors.Is(err, rerror.ErrNotFound) {
+		return nil, err
+	} else if p != nil {
+		return nil, interfaces.ErrPluginAlreadyInstalled
+	}
+
 	for {
 		f, err := p.Files.Next()
 		if err != nil {
@@ -129,5 +136,5 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 	}
 
 	tx.Commit()
-	return nil, nil
+	return p.Manifest.Plugin, nil
 }
