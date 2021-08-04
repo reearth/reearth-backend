@@ -152,6 +152,63 @@ extensions:
               type: string
               title: Tracking ID
               description: Paste your Google Analytics tracking ID here. This will be embedded in your published project.
+        - id: reTheme
+          title: Publish Theme
+          description: Set your theme.
+          fields:
+            - id: reThemeMode
+              type: string
+              title: Mode
+              defaultValue: premadetheme
+              description: Select the theme mode.
+              choices:
+                - key: premadetheme
+                  label: Pre-made theme
+                - key: customtheme
+                  label: Custom theme
+            - id: premadethemeid
+              type: string
+              title: Pre-made theme
+              description: Select a theme.
+              defaultValue: reearthdark
+              choices:
+                - key: reearthdark
+                  label: Re:Earth Dark
+                - key: reearthlight
+                  label: Re:Earth Light
+                - key: forest
+                  label: Forest
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: premadetheme
+            - id: textcolor
+              type: string
+              ui: color
+              title: Text color
+              description: Select a color.
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: customtheme
+            - id: selectcolor
+              type: string
+              ui: color
+              title: Select color
+              description: Select a color.
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: customtheme
+            - id: backgroundcolor
+              type: string
+              ui: color
+              title: Background color
+              description: Select a color.
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: customtheme
   - id: infobox
     title: Infobox
     visualizer: cesium
