@@ -274,22 +274,22 @@ func TestURL_ArchiveURL(t *testing.T) {
 		{
 			Name:     "github.com/aaaa/bbbb",
 			Input:    &URL{Host: "github.com", Owner: "aaaa", Repo: "bbbb", Ref: ""},
-			Expected: "https://github.com/aaaa/bbbb/archives/refs/heads/main.zip",
+			Expected: "https://github.com/aaaa/bbbb/archive/refs/heads/main.zip",
 		},
 		{
 			Name:     "github.com/aaaa/ccc",
 			Input:    &URL{Host: "github.com", Owner: "aaaa", Repo: "bbbb", Ref: "ccc"},
-			Expected: "https://github.com/aaaa/bbbb/archives/ccc.zip",
+			Expected: "https://github.com/aaaa/bbbb/archive/ccc.zip",
 		},
 		{
 			Name:     "github.com/aaaa/bbbb/heads/cccc",
 			Input:    &URL{Host: "github.com", Owner: "aaaa", Repo: "bbbb", Ref: "heads/ccc"},
-			Expected: "https://github.com/aaaa/bbbb/archives/refs/heads/ccc.zip",
+			Expected: "https://github.com/aaaa/bbbb/archive/refs/heads/ccc.zip",
 		},
 		{
 			Name:     "github.com/aaaa/bbbb/tags/ccc",
 			Input:    &URL{Host: "github.com", Owner: "aaaa", Repo: "bbbb", Ref: "tags/ccc"},
-			Expected: "https://github.com/aaaa/bbbb/archives/refs/tags/ccc.zip",
+			Expected: "https://github.com/aaaa/bbbb/archive/refs/tags/ccc.zip",
 		},
 	}
 

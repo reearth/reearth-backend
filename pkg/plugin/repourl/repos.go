@@ -64,7 +64,7 @@ func githubArchive(u *URL) *url.URL {
 	return &url.URL{
 		Scheme: "https",
 		Host:   "github.com",
-		Path:   fmt.Sprintf("%s/%s/archives/%s.zip", u.Owner, u.Repo, r),
+		Path:   fmt.Sprintf("%s/%s/archive/%s.zip", u.Owner, u.Repo, r),
 	}
 }
 
