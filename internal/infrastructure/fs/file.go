@@ -140,7 +140,7 @@ func (f *fileRepo) move(ctx context.Context, from, dest string) error {
 }
 
 func (f *fileRepo) delete(ctx context.Context, filename string) error {
-	if err := os.Remove(f.filename(filename)); err != nil {
+	if err := os.RemoveAll(f.filename(filename)); err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return nil
 		}
