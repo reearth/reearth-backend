@@ -86,6 +86,32 @@ extensions:
           trackingCode:
             title: トラッキングID
             description: ここにグーグルアナリティクスのトラッキングIDを貼り付けることで、公開プロジェクトにこのコードが埋め込まれます。
+      reTheme:
+        title: Publish Theme
+        description: Set your theme.
+        fields:
+          reThemeMode:
+            title: Mode
+            description: Select the theme mode.
+            choices:
+              premadetheme: Pre-made theme
+              customtheme: Custom theme
+          premadethemeid:
+            title: Pre-made theme
+            description: Select a theme.
+            choices:
+              reearthdark: Re:Earth Dark
+              reearthlight: Re:Earth Light
+              forest: Forest
+          textcolor:
+            title: Text color
+            description: Select a color.
+          selectcolor:
+            title: Select color
+            description: Select a color.
+          backgroundcolor:
+            title: Background color
+            description: Select a color.
   infobox:
     title: インフォボックス
     description: 閲覧者が地図上のレイヤーをクリックした時に表示されるボックスです。テキストや画像、動画などのコンテンツを表示することができます。
