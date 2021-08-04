@@ -56,13 +56,26 @@ func (e *CZMLEncoder) encodeSingleLayer(li *merging.SealedLayerItem) (*czml.Feat
 		if li.Property.Field("location") != nil {
 			latlng, ok = li.Property.Field("location").PropertyValue.ValueLatLng()
 			if !ok {
-				return nil, errors.New("invalid value type")
+				dsll := li.Property.Field("location").DatasetValue.ValueLatLng()
+				if dsll != nil {
+					latlng = property.LatLng{
+						Lat: dsll.Lat,
+						Lng: dsll.Lng,
+					}
+				} else {
+					return nil, errors.New("invalid value type")
+				}
 			}
 
 			if li.Property.Field("height") != nil {
 				height, ok = li.Property.Field("height").PropertyValue.ValueNumber()
 				if !ok {
-					return nil, errors.New("invalid value type")
+					dsHeight := li.Property.Field("height").DatasetValue.ValueNumber()
+					if dsHeight != nil {
+						height = *dsHeight
+					} else {
+						return nil, errors.New("invalid value type")
+					}
 				}
 				position := czml.Position{
 					CartographicDegrees: []float64{latlng.Lng, latlng.Lat, height},

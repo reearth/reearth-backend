@@ -89,7 +89,15 @@ func (e *SHPEncoder) encodeLayer(li *merging.SealedLayerItem) (shp.Shape, shp.Sh
 		if li.Property.Field("location") != nil {
 			latlng, ok = li.Property.Field("location").PropertyValue.ValueLatLng()
 			if !ok {
-				return nil, 0, errors.New("invalid value type")
+				dsll := li.Property.Field("location").DatasetValue.ValueLatLng()
+				if dsll != nil {
+					latlng = property.LatLng{
+						Lat: dsll.Lat,
+						Lng: dsll.Lng,
+					}
+				} else {
+					return nil, 0, errors.New("invalid value type")
+				}
 			}
 			sh = &shp.Point{
 				X: latlng.Lng,
