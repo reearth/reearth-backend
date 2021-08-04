@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"io"
+	"path"
 	"path/filepath"
 
 	"github.com/reearth/reearth-backend/pkg/file"
@@ -29,7 +30,8 @@ func PackageFromZip(r io.Reader, scene *id.SceneID, sizeLimit int64) (*Package, 
 		return nil, err
 	}
 
-	f, err := zr.Open(manfiestFilePath)
+	basePath := file.ZipBasePath(zr)
+	f, err := zr.Open(path.Join(basePath, manfiestFilePath))
 	if err != nil {
 		return nil, err
 	}
@@ -44,12 +46,12 @@ func PackageFromZip(r io.Reader, scene *id.SceneID, sizeLimit int64) (*Package, 
 
 	return &Package{
 		Manifest: m,
-		Files:    filter(file.NewZipReader(zr)),
+		Files:    iterator(file.NewZipReader(zr), basePath),
 	}, nil
 }
 
-func filter(a file.Iterator) file.Iterator {
-	return file.NewFilteredIterator(a, func(p string) bool {
+func iterator(a file.Iterator, prefix string) file.Iterator {
+	return file.NewFilteredIterator(file.NewPrefixIterator(a, prefix), func(p string) bool {
 		return p == manfiestFilePath || filepath.Ext(p) != ".js"
 	})
 }
