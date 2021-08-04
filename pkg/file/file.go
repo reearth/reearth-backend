@@ -113,7 +113,6 @@ type FsIterator struct {
 }
 
 func NewFsIterator(afs afero.Fs) (*FsIterator, error) {
-	// files, size, err := dirwalk(bp, "", 0)
 	var files []string
 	var size int64
 
