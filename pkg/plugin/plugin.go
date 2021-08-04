@@ -83,15 +83,14 @@ func (p *Plugin) PropertySchemas() []id.PropertySchemaID {
 	if p.schema != nil {
 		ps = append(ps, *p.schema)
 	}
-	for _, e := range p.extensions {
-		ps = append(ps, e.Schema())
+	for _, e := range p.extensionOrder {
+		ps = append(ps, p.extensions[e].Schema())
 	}
 	return ps
 }
 
 func (p *Plugin) Rename(name i18n.String) {
 	p.name = name.Copy()
-
 }
 
 // SetDescription _
