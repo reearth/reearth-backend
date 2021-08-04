@@ -97,6 +97,10 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 		_ = res.Body.Close()
 	}()
 
+	if res.StatusCode != 200 {
+		return nil, interfaces.ErrInvalidPluginPackage
+	}
+
 	p, err := pluginpack.PackageFromZip(res.Body, &sid, pluginPackageSizeLimit)
 	if err != nil {
 		return nil, interfaces.ErrInvalidPluginPackage
