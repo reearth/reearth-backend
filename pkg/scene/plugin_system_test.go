@@ -80,6 +80,12 @@ func TestPluginSystem_Property(t *testing.T) {
 			Expected: pr,
 		},
 		{
+			Name:     "property is nil",
+			Input:    pid,
+			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, nil)}),
+			Expected: nil,
+		},
+		{
 			Name:     "property is not found",
 			Input:    pid,
 			PS:       NewPluginSystem([]*Plugin{NewPlugin(id.MustPluginID("zzz#1.1.1"), pr)}),
