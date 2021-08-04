@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"cloud.google.com/go/storage"
+	"github.com/kennygrant/sanitize"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/pkg/file"
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -55,10 +56,11 @@ func NewFile(bucketName, base string, cacheControl string) (gateway.File, error)
 }
 
 func (f *fileRepo) ReadAsset(ctx context.Context, name string) (io.ReadCloser, error) {
-	if name == "" {
+	sn := sanitize.Path(name)
+	if sn == "" {
 		return nil, rerror.ErrNotFound
 	}
-	return f.read(ctx, path.Join(gcsAssetBasePath, name))
+	return f.read(ctx, path.Join(gcsAssetBasePath, sn))
 }
 
 func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, error) {
@@ -69,7 +71,12 @@ func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, 
 		return nil, gateway.ErrFileTooLarge
 	}
 
-	filename := path.Join(gcsAssetBasePath, id.New().String()+path.Ext(file.Path))
+	sn := sanitize.Path(id.New().String() + path.Ext(file.Path))
+	if sn == "" {
+		return nil, gateway.ErrInvalidFile
+	}
+
+	filename := path.Join(gcsAssetBasePath, sn)
 	u := getGCSObjectURL(f.base, filename)
 	if u == nil {
 		return nil, gateway.ErrInvalidFile
@@ -82,20 +89,29 @@ func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, 
 }
 
 func (f *fileRepo) RemoveAsset(ctx context.Context, u *url.URL) error {
-	return f.delete(ctx, getGCSObjectNameFromURL(f.base, u))
+	sn := getGCSObjectNameFromURL(f.base, u)
+	if sn == "" {
+		return gateway.ErrInvalidFile
+	}
+	return f.delete(ctx, sn)
 }
 
 // plugin
 
 func (f *fileRepo) ReadPluginFile(ctx context.Context, pid id.PluginID, filename string) (io.ReadCloser, error) {
-	if filename == "" {
+	sn := sanitize.Path(filename)
+	if sn == "" {
 		return nil, rerror.ErrNotFound
 	}
-	return f.read(ctx, path.Join(gcsPluginBasePath, pid.String(), filename))
+	return f.read(ctx, path.Join(gcsPluginBasePath, pid.String(), sn))
 }
 
 func (f *fileRepo) UploadPluginFile(ctx context.Context, pid id.PluginID, file *file.File) error {
-	return f.upload(ctx, path.Join(gcsPluginBasePath, pid.String(), file.Path), file.Content)
+	sn := sanitize.Path(file.Path)
+	if sn == "" {
+		return gateway.ErrInvalidFile
+	}
+	return f.upload(ctx, path.Join(gcsPluginBasePath, pid.String(), sanitize.Path(file.Path)), file.Content)
 }
 
 func (f *fileRepo) RemovePlugin(ctx context.Context, pid id.PluginID) error {
@@ -108,19 +124,32 @@ func (f *fileRepo) ReadBuiltSceneFile(ctx context.Context, name string) (io.Read
 	if name == "" {
 		return nil, rerror.ErrNotFound
 	}
-	return f.read(ctx, path.Join(gcsMapBasePath, name+".json"))
+	return f.read(ctx, path.Join(gcsMapBasePath, sanitize.Path(name)+".json"))
 }
 
 func (f *fileRepo) UploadBuiltScene(ctx context.Context, content io.Reader, name string) error {
-	return f.upload(ctx, path.Join(gcsMapBasePath, name+".json"), content)
+	sn := sanitize.Path(name + ".json")
+	if sn == "" {
+		return gateway.ErrInvalidFile
+	}
+	return f.upload(ctx, path.Join(gcsMapBasePath, sn), content)
 }
 
 func (f *fileRepo) MoveBuiltScene(ctx context.Context, oldName, name string) error {
-	return f.move(ctx, path.Join(gcsMapBasePath, oldName+".json"), path.Join(gcsMapBasePath, name+".json"))
+	from := sanitize.Path(oldName + ".json")
+	dest := sanitize.Path(name + ".json")
+	if from == "" || dest == "" {
+		return gateway.ErrInvalidFile
+	}
+	return f.move(ctx, path.Join(gcsMapBasePath, from), path.Join(gcsMapBasePath, dest))
 }
 
 func (f *fileRepo) RemoveBuiltScene(ctx context.Context, name string) error {
-	return f.delete(ctx, path.Join(gcsMapBasePath, name+".json"))
+	sn := sanitize.Path(name + ".json")
+	if sn == "" {
+		return gateway.ErrInvalidFile
+	}
+	return f.delete(ctx, path.Join(gcsMapBasePath, sn))
 }
 
 // helpers
@@ -287,9 +316,13 @@ func getGCSObjectNameFromURL(base, u *url.URL) string {
 	if u == nil {
 		return ""
 	}
-	bp := ""
-	if base != nil {
-		bp = base.Path
+	if base == nil {
+		base = &url.URL{}
 	}
-	return strings.TrimPrefix(strings.TrimPrefix(u.Path, bp), "/")
+	p := sanitize.Path(strings.TrimPrefix(u.Path, "/"))
+	if p == "" || u.Host != base.Host || u.Scheme != base.Scheme || !strings.HasPrefix(p, gcsAssetBasePath+"/") {
+		return ""
+	}
+
+	return p
 }

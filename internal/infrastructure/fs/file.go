@@ -51,10 +51,14 @@ func (f *fileRepo) UploadAsset(ctx context.Context, file *file.File) (*url.URL, 
 }
 
 func (f *fileRepo) RemoveAsset(ctx context.Context, u *url.URL) error {
-	if u == nil || f.urlBase == nil || u.Scheme != f.urlBase.Scheme || u.Host != f.urlBase.Host || path.Dir(u.Path) != f.urlBase.Path {
+	if u == nil {
+		return nil
+	}
+	p := sanitize.Path(u.Path)
+	if p == "" || f.urlBase == nil || u.Scheme != f.urlBase.Scheme || u.Host != f.urlBase.Host || path.Dir(p) != f.urlBase.Path {
 		return gateway.ErrInvalidFile
 	}
-	return f.delete(ctx, filepath.Join(assetDir, path.Base(sanitize.Path(u.Path))))
+	return f.delete(ctx, filepath.Join(assetDir, path.Base(p)))
 }
 
 // plugin
