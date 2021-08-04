@@ -25,7 +25,7 @@ func (i *Plugin) Delete(ctx context.Context, pid id.PluginID, operator *usecase.
 	}
 
 	sid := p.ID().Scene()
-	if sid == nil {
+	if sid == nil || p.ID().System() {
 		return interfaces.ErrCannotDeletePublicPlugin
 	}
 
@@ -41,13 +41,13 @@ func (i *Plugin) Delete(ctx context.Context, pid id.PluginID, operator *usecase.
 		return interfaces.ErrCannotDeleteUsedPlugin
 	}
 
+	if err := i.pluginRepo.Remove(ctx, p.ID()); err != nil {
+		return err
+	}
 	if ps := p.PropertySchemas(); len(ps) > 0 {
 		if err := i.propertySchemaRepo.RemoveAll(ctx, ps); err != nil {
 			return err
 		}
-	}
-	if err := i.pluginRepo.Remove(ctx, p.ID()); err != nil {
-		return err
 	}
 	if err := i.file.RemovePlugin(ctx, p.ID()); err != nil {
 		return err

@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
+	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/builtin"
@@ -31,9 +32,10 @@ type Scene struct {
 	layerRepo          repo.Layer
 	datasetRepo        repo.Dataset
 	transaction        repo.Transaction
+	file               gateway.File
 }
 
-func NewScene(r *repo.Container) interfaces.Scene {
+func NewScene(r *repo.Container, g *gateway.Container) interfaces.Scene {
 	return &Scene{
 		commonScene:        commonScene{sceneRepo: r.Scene},
 		commonSceneLock:    commonSceneLock{sceneLockRepo: r.SceneLock},
@@ -46,6 +48,7 @@ func NewScene(r *repo.Container) interfaces.Scene {
 		layerRepo:          r.Layer,
 		datasetRepo:        r.Dataset,
 		transaction:        r.Transaction,
+		file:               g.File,
 	}
 }
 
@@ -387,6 +390,10 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 }
 
 func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, err error) {
+	if pid.System() {
+		return nil, rerror.ErrNotFound
+	}
+
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -406,6 +413,11 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 		return nil, err
 	}
 	if err := i.CanWriteTeam(scene.Team(), operator); err != nil {
+		return nil, err
+	}
+
+	pl, err := i.pluginRepo.FindByID(ctx, pid, []id.SceneID{sid})
+	if err != nil {
 		return nil, err
 	}
 
@@ -462,6 +474,21 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 
 	if err := i.sceneRepo.Save(ctx, scene); err != nil {
 		return nil, err
+	}
+
+	// if the plugin is private, uninstall it
+	if psid := pid.Scene(); psid != nil && *psid == sid {
+		if err := i.pluginRepo.Remove(ctx, pl.ID()); err != nil {
+			return nil, err
+		}
+		if ps := pl.PropertySchemas(); len(ps) > 0 {
+			if err := i.propertySchemaRepo.RemoveAll(ctx, ps); err != nil {
+				return nil, err
+			}
+		}
+		if err := i.file.RemovePlugin(ctx, pl.ID()); err != nil {
+			return nil, err
+		}
 	}
 
 	tx.Commit()
