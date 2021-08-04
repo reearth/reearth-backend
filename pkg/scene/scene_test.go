@@ -63,10 +63,20 @@ func TestScene_SetUpdatedAt(t *testing.T) {
 func TestScene_Properties(t *testing.T) {
 	pid1 := id.NewPropertyID()
 	pid2 := id.NewPropertyID()
-	s := New().NewID().Team(id.NewTeamID()).RootLayer(id.NewLayerID()).Property(pid1).WidgetSystem(
-		NewWidgetSystem([]*Widget{
-			MustNewWidget(id.NewWidgetID().Ref(), id.MustPluginID("xxx#1.1.1"), "eee", pid2, true, nil),
-		})).MustBuild()
+	s := New().
+		NewID().
+		Team(id.NewTeamID()).
+		RootLayer(id.NewLayerID()).
+		Property(pid1).
+		WidgetSystem(
+			NewWidgetSystem(
+				[]*Widget{
+					MustNewWidget(id.NewWidgetID().Ref(), id.MustPluginID("xxx#1.1.1"), "eee", pid2, true, nil),
+				},
+			),
+		).
+		WidgetAlignSystem(NewWidgetAlignSystem()).
+		MustBuild()
 
 	assert.Equal(t, []id.PropertyID{pid1, pid2}, s.Properties())
 

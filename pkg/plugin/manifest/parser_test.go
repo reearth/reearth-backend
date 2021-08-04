@@ -34,9 +34,9 @@ var normalExpected = &Manifest{
 				Extended:   false,
 				Floating:   false,
 				DefaultLocation: &scene.WidgetLocation{
-					Zone:    "outer",
-					Section: "left",
-					Area:    "top",
+					Zone:    scene.WidgetZoneOuter,
+					Section: scene.WidgetSectionLeft,
+					Area:    scene.WidgetAreaTop,
 				},
 			}).
 			Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).

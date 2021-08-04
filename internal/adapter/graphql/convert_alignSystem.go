@@ -26,9 +26,9 @@ func toWidgetZone(z *scene.WidgetZone) *WidgetZone {
 		return nil
 	}
 	return &WidgetZone{
-		Left:   toWidgetSection(z.Section(scene.SectionLeft)),
-		Center: toWidgetSection(z.Section(scene.SectionCenter)),
-		Right:  toWidgetSection(z.Section(scene.SectionRight)),
+		Left:   toWidgetSection(z.Section(scene.WidgetSectionLeft)),
+		Center: toWidgetSection(z.Section(scene.WidgetSectionCenter)),
+		Right:  toWidgetSection(z.Section(scene.WidgetSectionRight)),
 	}
 }
 
@@ -37,9 +37,9 @@ func toWidgetSection(s *scene.WidgetSection) *WidgetSection {
 		return nil
 	}
 	return &WidgetSection{
-		Top:    toWidgetArea(s.Area(scene.AreaTop)),
-		Middle: toWidgetArea(s.Area(scene.AreaMiddle)),
-		Bottom: toWidgetArea(s.Area(scene.AreaBottom)),
+		Top:    toWidgetArea(s.Area(scene.WidgetAreaTop)),
+		Middle: toWidgetArea(s.Area(scene.WidgetAreaMiddle)),
+		Bottom: toWidgetArea(s.Area(scene.WidgetAreaBottom)),
 	}
 }
 

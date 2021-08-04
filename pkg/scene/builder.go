@@ -80,8 +80,7 @@ func (b *Builder) WidgetSystem(widgetSystem *WidgetSystem) *Builder {
 }
 
 func (b *Builder) WidgetAlignSystem(widgetAlignSystem *WidgetAlignSystem) *Builder {
-	widgetAlignSystem2 := *widgetAlignSystem
-	b.scene.widgetAlignSystem = &widgetAlignSystem2
+	b.scene.widgetAlignSystem = widgetAlignSystem
 	return b
 }
 

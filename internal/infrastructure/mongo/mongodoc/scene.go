@@ -16,7 +16,7 @@ type SceneWidgetDocument struct {
 	Extension    string
 	Property     string
 	Enabled      bool
-	WidgetLayout *WidgetLayout
+	WidgetLayout *WidgetLayoutDocument
 }
 
 type ScenePluginDocument struct {
@@ -92,7 +92,7 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 	alignSysDoc := NewWidgetAlignSystem(was)
 
 	for _, w := range widgets {
-		layout := WidgetLayout{
+		layout := WidgetLayoutDocument{
 			Extendable:      w.WidgetLayout().Extendable,
 			Extended:        w.WidgetLayout().Extended,
 			Floating:        w.WidgetLayout().Floating,

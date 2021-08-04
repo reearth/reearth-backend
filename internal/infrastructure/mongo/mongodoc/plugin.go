@@ -15,7 +15,7 @@ type PluginExtensionDocument struct {
 	Icon         string
 	Schema       string
 	Visualizer   string
-	WidgetLayout *WidgetLayout
+	WidgetLayout *WidgetLayoutDocument
 }
 
 type PluginDocument struct {
@@ -63,7 +63,7 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 			Icon:        e.Icon(),
 			Schema:      e.Schema().String(),
 			Visualizer:  string(e.Visualizer()),
-			WidgetLayout: &WidgetLayout{
+			WidgetLayout: &WidgetLayoutDocument{
 				Extendable:      e.Layout().Extendable,
 				Extended:        e.Layout().Extended,
 				Floating:        e.Layout().Floating,

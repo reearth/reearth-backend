@@ -11,33 +11,33 @@ type WidgetLocationDocument struct {
 	Area    string
 }
 
-type WidgetLayout struct {
+type WidgetLayoutDocument struct {
 	Extendable      bool
 	Extended        bool
 	Floating        bool
 	DefaultLocation *WidgetLocationDocument
 }
 
-type WidgetArea struct {
+type WidgetAreaDocument struct {
 	WidgetIDs []string
 	Align     string
 }
 
-type WidgetSection struct {
-	Top    WidgetArea
-	Middle WidgetArea
-	Bottom WidgetArea
+type WidgetSectionDocument struct {
+	Top    WidgetAreaDocument
+	Middle WidgetAreaDocument
+	Bottom WidgetAreaDocument
 }
 
-type WidgetZone struct {
-	Left   WidgetSection
-	Center WidgetSection
-	Right  WidgetSection
+type WidgetZoneDocument struct {
+	Left   WidgetSectionDocument
+	Center WidgetSectionDocument
+	Right  WidgetSectionDocument
 }
 
 type SceneAlignSystemDocument struct {
-	Inner WidgetZone
-	Outer WidgetZone
+	Inner WidgetZoneDocument
+	Outer WidgetZoneDocument
 }
 
 func NewWidgetAlignSystem(was *scene.WidgetAlignSystem) *SceneAlignSystemDocument {
@@ -156,25 +156,25 @@ func stringsToWidgetIDs(wids []string) []id.WidgetID {
 	return docids
 }
 
-func buildWidgetZone(sas *scene.WidgetAlignSystem, z string) WidgetZone {
-	return WidgetZone{
+func buildWidgetZone(sas *scene.WidgetAlignSystem, z string) WidgetZoneDocument {
+	return WidgetZoneDocument{
 		Left:   buildWidgetSection(sas, z, "left"),
 		Center: buildWidgetSection(sas, z, "center"),
 		Right:  buildWidgetSection(sas, z, "right"),
 	}
 }
 
-func buildWidgetSection(was *scene.WidgetAlignSystem, z, s string) WidgetSection {
-	return WidgetSection{
-		Top: WidgetArea{
+func buildWidgetSection(was *scene.WidgetAlignSystem, z, s string) WidgetSectionDocument {
+	return WidgetSectionDocument{
+		Top: WidgetAreaDocument{
 			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "top").WidgetIDs()),
 			Align:     *was.Area(z, s, "top").Alignment(),
 		},
-		Middle: WidgetArea{
+		Middle: WidgetAreaDocument{
 			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "middle").WidgetIDs()),
 			Align:     *was.Area(z, s, "middle").Alignment(),
 		},
-		Bottom: WidgetArea{
+		Bottom: WidgetAreaDocument{
 			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "bottom").WidgetIDs()),
 			Align:     *was.Area(z, s, "bottom").Alignment(),
 		},

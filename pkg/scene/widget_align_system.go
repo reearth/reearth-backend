@@ -37,37 +37,37 @@ type WidgetLocation struct {
 }
 
 const (
-	AlignStart  = "start"
-	AlignCenter = "center"
-	AlignEnd    = "end"
+	WidgetAlignStart  = "start"
+	WidgetAlignCenter = "center"
+	WidgetAlignEnd    = "end"
 
-	ZoneInner = "inner"
-	ZoneOuter = "outer"
+	WidgetZoneInner = "inner"
+	WidgetZoneOuter = "outer"
 
-	SectionLeft   = "left"
-	SectionCenter = "center"
-	SectionRight  = "right"
+	WidgetSectionLeft   = "left"
+	WidgetSectionCenter = "center"
+	WidgetSectionRight  = "right"
 
-	AreaTop    = "top"
-	AreaMiddle = "middle"
-	AreaBottom = "bottom"
+	WidgetAreaTop    = "top"
+	WidgetAreaMiddle = "middle"
+	WidgetAreaBottom = "bottom"
 )
 
 var Areas = []string{
-	AreaTop,
-	AreaMiddle,
-	AreaBottom,
+	WidgetAreaTop,
+	WidgetAreaMiddle,
+	WidgetAreaBottom,
 }
 
 var Sections = map[string][]string{
-	SectionLeft:   Areas,
-	SectionCenter: Areas,
-	SectionRight:  Areas,
+	WidgetSectionLeft:   Areas,
+	WidgetSectionCenter: Areas,
+	WidgetSectionRight:  Areas,
 }
 
 var Zones = map[string]map[string][]string{
-	ZoneInner: Sections,
-	ZoneOuter: Sections,
+	WidgetZoneInner: Sections,
+	WidgetZoneOuter: Sections,
 }
 
 func (was *WidgetAlignSystem) FindWidgetIDLocation(wid id.WidgetID) (*int, *WidgetLocation) {
@@ -95,9 +95,9 @@ func (was *WidgetAlignSystem) Zone(zone string) *WidgetZone {
 		return nil
 	}
 	switch zone {
-	case ZoneInner:
+	case WidgetZoneInner:
 		return &was.inner
-	case ZoneOuter:
+	case WidgetZoneOuter:
 		return &was.outer
 	}
 	return nil
@@ -112,11 +112,11 @@ func (was *WidgetAlignSystem) Section(zone, section string) *WidgetSection {
 	z := was.Zone(zone)
 
 	switch section {
-	case SectionLeft:
+	case WidgetSectionLeft:
 		return &z.left
-	case SectionCenter:
+	case WidgetSectionCenter:
 		return &z.center
-	case SectionRight:
+	case WidgetSectionRight:
 		return &z.right
 	}
 	return nil
@@ -131,11 +131,11 @@ func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
 	s := was.Section(zone, section)
 
 	switch area {
-	case AreaTop:
+	case WidgetAreaTop:
 		return &s.top
-	case AreaMiddle:
+	case WidgetAreaMiddle:
 		return &s.middle
-	case AreaBottom:
+	case WidgetAreaBottom:
 		return &s.bottom
 	}
 	return nil
@@ -143,11 +143,11 @@ func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
 
 func (wz *WidgetZone) Section(s string) *WidgetSection {
 	switch s {
-	case SectionLeft:
+	case WidgetSectionLeft:
 		return &wz.left
-	case SectionCenter:
+	case WidgetSectionCenter:
 		return &wz.center
-	case SectionRight:
+	case WidgetSectionRight:
 		return &wz.right
 	}
 	return nil
@@ -155,11 +155,11 @@ func (wz *WidgetZone) Section(s string) *WidgetSection {
 
 func (ws *WidgetSection) Area(a string) *WidgetArea {
 	switch a {
-	case AreaTop:
+	case WidgetAreaTop:
 		return &ws.top
-	case AreaMiddle:
+	case WidgetAreaMiddle:
 		return &ws.middle
-	case AreaBottom:
+	case WidgetAreaBottom:
 		return &ws.bottom
 	}
 	return nil
@@ -190,7 +190,7 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc *WidgetLocation) {
 	a.widgetIds = nIds
 
 	if a.align == "" {
-		a.align = AlignStart
+		a.align = WidgetAlignStart
 	}
 }
 
@@ -231,17 +231,17 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 
 	if align != nil {
 		switch *align {
-		case AlignStart:
-			a.align = AlignStart
-		case AlignCenter:
-			a.align = AlignCenter
-		case AlignEnd:
-			a.align = AlignEnd
+		case WidgetAlignStart:
+			a.align = WidgetAlignStart
+		case WidgetAlignCenter:
+			a.align = WidgetAlignCenter
+		case WidgetAlignEnd:
+			a.align = WidgetAlignEnd
 		default:
-			a.align = AlignStart
+			a.align = WidgetAlignStart
 		}
 	} else {
-		a.align = AlignStart
+		a.align = WidgetAlignStart
 	}
 
 	if index != nil {

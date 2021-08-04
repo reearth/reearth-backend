@@ -37,7 +37,7 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 							Extension(id.PluginExtensionID(w.Extension)).
 							Layout()
 
-						wldoc := mongodoc.WidgetLayout{
+						wldoc := mongodoc.WidgetLayoutDocument{
 							Extendable: wl.Extendable,
 							Extended:   false,
 							Floating:   wl.Floating,

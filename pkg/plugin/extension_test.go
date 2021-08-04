@@ -12,7 +12,7 @@ import (
 
 func TestExtension(t *testing.T) {
 	expected := struct {
-		Id           id.PluginExtensionID
+		ID           id.PluginExtensionID
 		Type         ExtensionType
 		Name         i18n.String
 		Description  i18n.String
@@ -21,7 +21,7 @@ func TestExtension(t *testing.T) {
 		Visualizer   visualizer.Visualizer
 		WidgetLayout *scene.WidgetLayout
 	}{
-		Id:           "xxx",
+		ID:           "xxx",
 		Type:         ExtensionTypePrimitive,
 		Name:         i18n.StringFrom("aaa"),
 		Description:  i18n.StringFrom("ddd"),
@@ -49,7 +49,7 @@ func TestExtension(t *testing.T) {
 	assert.Equal(t, expected.Icon, actual.Icon())
 	assert.Equal(t, expected.WidgetLayout, actual.Layout())
 	assert.Equal(t, expected.Schema, actual.Schema())
-	assert.Equal(t, expected.Id, actual.ID())
+	assert.Equal(t, expected.ID, actual.ID())
 }
 
 func TestExtension_Rename(t *testing.T) {

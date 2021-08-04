@@ -113,15 +113,13 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 		icon = *i.Icon
 	}
 
-	wl := i.WidgetLayout.layout()
-
 	ext, err := plugin.NewExtension().
 		ID(id.PluginExtensionID(eid)).
 		Name(i18n.StringFrom(i.Title)).
 		Description(i18n.StringFrom(desc)).
 		Visualizer(viz).
 		Type(typ).
-		WidgetLayout(wl).
+		WidgetLayout(i.WidgetLayout.layout()).
 		Icon(icon).
 		Schema(schema.ID()).
 		System(sys).
@@ -164,9 +162,9 @@ func (l *WidgetLayout) layout() *scene.WidgetLayout {
 	var dl scene.WidgetLocation
 	if l.DefaultLocation == nil {
 		dl = scene.WidgetLocation{
-			Zone:    "outer",
-			Section: "left",
-			Area:    "top",
+			Zone:    scene.WidgetZoneOuter,
+			Section: scene.WidgetSectionLeft,
+			Area:    scene.WidgetAreaTop,
 		}
 	} else {
 		dl = scene.WidgetLocation{

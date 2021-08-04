@@ -52,6 +52,7 @@ func TestExtensionBuilder_Visualizer(t *testing.T) {
 	res := b.ID("xxx").Visualizer("ccc").MustBuild()
 	assert.Equal(t, visualizer.Visualizer("ccc"), res.Visualizer())
 }
+
 func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 	var b = NewExtension()
 	wl := &scene.WidgetLayout{Extendable: true}
