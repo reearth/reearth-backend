@@ -3,7 +3,10 @@ package file
 
 import (
 	"io"
+	"io/fs"
 	"strings"
+
+	"github.com/spf13/afero"
 )
 
 // File abstracts an abstract file
@@ -101,4 +104,57 @@ func (s *FilteredIterator) Next() (*File, error) {
 			return n, nil
 		}
 	}
+}
+
+type FsIterator struct {
+	fs    afero.Fs
+	files []string
+	c     int
+}
+
+func NewFsIterator(afs afero.Fs) (*FsIterator, error) {
+	// files, size, err := dirwalk(bp, "", 0)
+	var files []string
+	var size int64
+
+	if err := afero.Walk(afs, "", func(path string, info fs.FileInfo, err error) error {
+		if info.IsDir() {
+			return nil
+		}
+		files = append(files, path)
+		size += info.Size()
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+
+	return &FsIterator{
+		fs:    afs,
+		files: files,
+		c:     0,
+	}, nil
+}
+
+func (a *FsIterator) Next() (*File, error) {
+	if len(a.files) <= a.c {
+		return nil, nil
+	}
+
+	next := a.files[a.c]
+	a.c++
+	fi, err := a.fs.Open(next)
+	if err != nil {
+		return nil, err
+	}
+
+	stat, err := fi.Stat()
+	if err != nil {
+		return nil, err
+	}
+
+	return &File{
+		Content: fi,
+		Path:    next,
+		Size:    stat.Size(),
+	}, nil
 }
