@@ -11,7 +11,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 )
 
-const manfiestFilePath = "reearth.json"
+const manfiestFilePath = "reearth.yml"
 
 type Package struct {
 	Manifest *manifest.Manifest

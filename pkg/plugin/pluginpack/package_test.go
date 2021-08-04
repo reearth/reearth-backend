@@ -1,6 +1,7 @@
 package pluginpack
 
 import (
+	"archive/zip"
 	"os"
 	"testing"
 
@@ -39,4 +40,15 @@ func TestPackageFromZip(t *testing.T) {
 		files = append(files, n.Path)
 	}
 	assert.Equal(t, []string{"index.js"}, files)
+}
+
+func TestPackageFromZip2(t *testing.T) {
+	f, err := os.Open("testdata/test.zip")
+	assert.NoError(t, err)
+	defer func() {
+		_ = f.Close()
+	}()
+
+	_, err = PackageFromZip(f, nil, 100)
+	assert.ErrorIs(t, err, zip.ErrFormat)
 }
