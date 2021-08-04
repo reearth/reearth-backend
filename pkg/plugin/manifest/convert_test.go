@@ -9,6 +9,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
+	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -750,6 +751,35 @@ func TestSchemaField(t *testing.T) {
 			} else {
 				assert.True(tt, errors.As(tc.err, &err))
 			}
+		})
+	}
+}
+
+func TestLayout(t *testing.T) {
+	wl := WidgetLayout{
+		Extendable: nil,
+		Extended:   nil,
+		Floating:   true,
+	}
+	swl := scene.WidgetLayout{}
+	swl.Floating = true
+	testCases := []struct {
+		name         string
+		widgetLayout WidgetLayout
+		expected     *scene.WidgetLayout
+	}{
+		{
+			name:         "convert manifest widget layout to scene widget layout",
+			widgetLayout: wl,
+			expected:     &swl,
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+			swl2 := tc.widgetLayout.layout()
+			assert.Equal(tt, tc.expected, swl2)
 		})
 	}
 }
