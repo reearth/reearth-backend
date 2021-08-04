@@ -22,8 +22,6 @@ type PluginDocument struct {
 	Author        string
 	Description   map[string]string
 	RepositoryURL string
-	Deprecated    bool
-	Public        bool
 	Extensions    []PluginExtensionDocument
 	Schema        *string
 	Scene         *string `bson:",omitempty"`
