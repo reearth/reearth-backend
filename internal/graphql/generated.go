@@ -899,7 +899,9 @@ type ComplexityRoot struct {
 	}
 
 	UploadPluginPayload struct {
-		Plugin func(childComplexity int) int
+		Plugin      func(childComplexity int) int
+		Scene       func(childComplexity int) int
+		ScenePlugin func(childComplexity int) int
 	}
 
 	User struct {
@@ -5395,6 +5397,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.UploadPluginPayload.Plugin(childComplexity), true
 
+	case "UploadPluginPayload.scene":
+		if e.complexity.UploadPluginPayload.Scene == nil {
+			break
+		}
+
+		return e.complexity.UploadPluginPayload.Scene(childComplexity), true
+
+	case "UploadPluginPayload.scenePlugin":
+		if e.complexity.UploadPluginPayload.ScenePlugin == nil {
+			break
+		}
+
+		return e.complexity.UploadPluginPayload.ScenePlugin(childComplexity), true
+
 	case "User.auths":
 		if e.complexity.User.Auths == nil {
 			break
@@ -6674,6 +6690,8 @@ type DeleteProjectPayload {
 
 type UploadPluginPayload {
   plugin: Plugin!
+  scene: Scene!
+  scenePlugin: ScenePlugin!
 }
 
 type CreateScenePayload {
@@ -27455,6 +27473,76 @@ func (ec *executionContext) _UploadPluginPayload_plugin(ctx context.Context, fie
 	return ec.marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐPlugin(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _UploadPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.UploadPluginPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "UploadPluginPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Scene, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.Scene)
+	fc.Result = res
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _UploadPluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *graphql1.UploadPluginPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "UploadPluginPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ScenePlugin, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*graphql1.ScenePlugin)
+	fc.Result = res
+	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScenePlugin(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *graphql1.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -36582,6 +36670,16 @@ func (ec *executionContext) _UploadPluginPayload(ctx context.Context, sel ast.Se
 			out.Values[i] = graphql.MarshalString("UploadPluginPayload")
 		case "plugin":
 			out.Values[i] = ec._UploadPluginPayload_plugin(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "scene":
+			out.Values[i] = ec._UploadPluginPayload_scene(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "scenePlugin":
+			out.Values[i] = ec._UploadPluginPayload_scenePlugin(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

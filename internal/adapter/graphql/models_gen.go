@@ -1181,7 +1181,9 @@ type UploadPluginInput struct {
 }
 
 type UploadPluginPayload struct {
-	Plugin *Plugin `json:"plugin"`
+	Plugin      *Plugin      `json:"plugin"`
+	Scene       *Scene       `json:"scene"`
+	ScenePlugin *ScenePlugin `json:"scenePlugin"`
 }
 
 type User struct {

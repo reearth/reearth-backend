@@ -1150,6 +1150,8 @@ type DeleteProjectPayload {
 
 type UploadPluginPayload {
   plugin: Plugin!
+  scene: Scene!
+  scenePlugin: ScenePlugin!
 }
 
 type CreateScenePayload {
