@@ -38,9 +38,9 @@ func TestPlugin_Extension(t *testing.T) {
 }
 
 func TestPlugin_PropertySchemas(t *testing.T) {
-	ps1 := id.MustPropertySchemaID("hoge#0.1.0/a")
-	ps2 := id.MustPropertySchemaID("hoge#0.1.0/b")
-	ps3 := id.MustPropertySchemaID("hoge#0.1.0/c")
+	ps1 := id.MustPropertySchemaID("hoge~0.1.0/a")
+	ps2 := id.MustPropertySchemaID("hoge~0.1.0/b")
+	ps3 := id.MustPropertySchemaID("hoge~0.1.0/c")
 
 	testCases := []struct {
 		name     string
@@ -90,5 +90,5 @@ func TestPlugin_Author(t *testing.T) {
 }
 
 func TestPlugin_ID(t *testing.T) {
-	assert.Equal(t, New().ID(id.MustPluginID("xxx#1.1.1")).MustBuild().ID(), id.MustPluginID("xxx#1.1.1"))
+	assert.Equal(t, New().ID(id.MustPluginID("xxx~1.1.1")).MustBuild().ID(), id.MustPluginID("xxx~1.1.1"))
 }

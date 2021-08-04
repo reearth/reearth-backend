@@ -17,8 +17,8 @@ func TestSceneBuilder(t *testing.T) {
 	// ids
 	sceneID := id.NewSceneID()
 	scenePropertyID := id.NewPropertyID()
-	propertySchemaID := id.MustPropertySchemaID("hoge#0.1.0/foobar")
-	pluginID := id.MustPluginID("hoge#0.1.0")
+	propertySchemaID := id.MustPropertySchemaID("hoge~0.1.0/foobar")
+	pluginID := id.MustPluginID("hoge~0.1.0")
 	pluginExtension1ID := id.PluginExtensionID("ext")
 	pluginExtension2ID := id.PluginExtensionID("ext2")
 	propertySchemaField1ID := id.PropertySchemaFieldID("a")

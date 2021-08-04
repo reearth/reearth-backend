@@ -8,7 +8,7 @@ import (
 )
 
 func TestNewWidget(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
@@ -78,7 +78,7 @@ func TestNewWidget(t *testing.T) {
 	}
 }
 func TestMustNewWidget(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
@@ -150,7 +150,7 @@ func TestMustNewWidget(t *testing.T) {
 }
 
 func TestWidget_SetEnabled(t *testing.T) {
-	res := MustNewWidget(id.NewWidgetID(), id.MustPluginID("xxx#1.1.1"), "eee", id.NewPropertyID(), false)
+	res := MustNewWidget(id.NewWidgetID(), id.MustPluginID("xxx~1.1.1"), "eee", id.NewPropertyID(), false)
 	res.SetEnabled(true)
 	assert.True(t, res.Enabled())
 }

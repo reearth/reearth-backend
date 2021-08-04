@@ -116,22 +116,22 @@ func TestFile_RemoveAsset(t *testing.T) {
 func TestFile_ReadPluginFile(t *testing.T) {
 	f, _ := NewFile(mockFs(), "")
 
-	r, err := f.ReadPluginFile(context.Background(), id.MustPluginID("aaa#1.0.0"), "foo.js")
+	r, err := f.ReadPluginFile(context.Background(), id.MustPluginID("aaa~1.0.0"), "foo.js")
 	assert.NoError(t, err)
 	c, err := io.ReadAll(r)
 	assert.NoError(t, err)
 	assert.Equal(t, "bar", string(c))
 	assert.NoError(t, r.Close())
 
-	r, err = f.ReadPluginFile(context.Background(), id.MustPluginID("aaa#1.0.0"), "aaa.txt")
+	r, err = f.ReadPluginFile(context.Background(), id.MustPluginID("aaa~1.0.0"), "aaa.txt")
 	assert.ErrorIs(t, err, rerror.ErrNotFound)
 	assert.Nil(t, r)
 
-	r, err = f.ReadPluginFile(context.Background(), id.MustPluginID("aaa#1.0.1"), "foo.js")
+	r, err = f.ReadPluginFile(context.Background(), id.MustPluginID("aaa~1.0.1"), "foo.js")
 	assert.ErrorIs(t, err, rerror.ErrNotFound)
 	assert.Nil(t, r)
 
-	r, err = f.ReadPluginFile(context.Background(), id.MustPluginID("aaa#1.0.1"), "../../assets/xxx.txt")
+	r, err = f.ReadPluginFile(context.Background(), id.MustPluginID("aaa~1.0.1"), "../../assets/xxx.txt")
 	assert.ErrorIs(t, err, rerror.ErrNotFound)
 	assert.Nil(t, r)
 }
@@ -140,13 +140,13 @@ func TestFile_UploadPluginFile(t *testing.T) {
 	fs := mockFs()
 	f, _ := NewFile(fs, "")
 
-	err := f.UploadPluginFile(context.Background(), id.MustPluginID("aaa#1.0.1"), &file.File{
+	err := f.UploadPluginFile(context.Background(), id.MustPluginID("aaa~1.0.1"), &file.File{
 		Path:    "aaa.js",
 		Content: io.NopCloser(strings.NewReader("aaa")),
 	})
 	assert.NoError(t, err)
 
-	uf, _ := fs.Open(filepath.Join("plugins", "aaa#1.0.1", "aaa.js"))
+	uf, _ := fs.Open(filepath.Join("plugins", "aaa~1.0.1", "aaa.js"))
 	c, _ := io.ReadAll(uf)
 	assert.Equal(t, "aaa", string(c))
 }
@@ -155,16 +155,16 @@ func TestFile_RemovePluginFile(t *testing.T) {
 	fs := mockFs()
 	f, _ := NewFile(fs, "")
 
-	err := f.RemovePlugin(context.Background(), id.MustPluginID("aaa#1.0.1"))
+	err := f.RemovePlugin(context.Background(), id.MustPluginID("aaa~1.0.1"))
 	assert.NoError(t, err)
 
-	_, err = fs.Stat(filepath.Join("plugins", "aaa#1.0.0"))
+	_, err = fs.Stat(filepath.Join("plugins", "aaa~1.0.0"))
 	assert.NoError(t, err)
 
-	err = f.RemovePlugin(context.Background(), id.MustPluginID("aaa#1.0.0"))
+	err = f.RemovePlugin(context.Background(), id.MustPluginID("aaa~1.0.0"))
 	assert.NoError(t, err)
 
-	_, err = fs.Stat(filepath.Join("plugins", "aaa#1.0.0"))
+	_, err = fs.Stat(filepath.Join("plugins", "aaa~1.0.0"))
 	assert.ErrorIs(t, err, os.ErrNotExist)
 }
 
@@ -253,7 +253,7 @@ func mockFs() afero.Fs {
 	f, _ := fs.Create("assets/xxx.txt")
 	_, _ = f.WriteString("hello")
 	_ = f.Close()
-	f, _ = fs.Create("plugins/aaa#1.0.0/foo.js")
+	f, _ = fs.Create("plugins/aaa~1.0.0/foo.js")
 	_, _ = f.WriteString("bar")
 	_ = f.Close()
 	f, _ = fs.Create("published/s.json")

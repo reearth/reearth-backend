@@ -446,7 +446,7 @@ func TestSchema(t *testing.T) {
 				Linkable: nil,
 				Version:  0,
 			},
-			pid:      id.MustPluginID("aaa#1.1.1"),
+			pid:      id.MustPluginID("aaa~1.1.1"),
 			expected: nil,
 			err:      id.ErrInvalidID,
 		},

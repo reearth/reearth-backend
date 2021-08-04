@@ -16,23 +16,23 @@ import (
 //go:embed testdata/minimum.yml
 var minimum string
 var minimumExpected = &Manifest{
-	Plugin: plugin.New().ID(id.MustPluginID("aaa#1.1.1")).MustBuild(),
+	Plugin: plugin.New().ID(id.MustPluginID("aaa~1.1.1")).MustBuild(),
 }
 
 //go:embed testdata/test.yml
 var normal string
 var normalExpected = &Manifest{
-	Plugin: plugin.New().ID(id.MustPluginID("aaa#1.1.1")).Name(i18n.StringFrom("bbb")).Extensions([]*plugin.Extension{
+	Plugin: plugin.New().ID(id.MustPluginID("aaa~1.1.1")).Name(i18n.StringFrom("bbb")).Extensions([]*plugin.Extension{
 		plugin.NewExtension().ID(id.PluginExtensionID("hoge")).
 			Visualizer(visualizer.VisualizerCesium).
 			Type(plugin.ExtensionTypePrimitive).
-			Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).
+			Schema(id.MustPropertySchemaID("aaa~1.1.1/hoge")).
 			MustBuild(),
 	}).MustBuild(),
 	ExtensionSchema: []*property.Schema{
-		property.NewSchema().ID(id.MustPropertySchemaID("aaa#1.1.1/hoge")).Groups([]*property.SchemaGroup{
+		property.NewSchema().ID(id.MustPropertySchemaID("aaa~1.1.1/hoge")).Groups([]*property.SchemaGroup{
 			property.NewSchemaGroup().ID(id.PropertySchemaFieldID("default")).
-				Schema(id.MustPropertySchemaID("aaa#1.1.1/hoge")).
+				Schema(id.MustPropertySchemaID("aaa~1.1.1/hoge")).
 				RepresentativeField(id.PropertySchemaFieldID("a").Ref()).
 				Fields([]*property.SchemaField{
 					property.NewSchemaField().ID(id.PropertySchemaFieldID("a")).

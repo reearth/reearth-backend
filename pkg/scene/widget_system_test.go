@@ -8,7 +8,7 @@ import (
 )
 
 func TestNewWidgetSystem(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
@@ -75,7 +75,7 @@ func TestNewWidgetSystem(t *testing.T) {
 }
 
 func TestWidgetSystem_Add(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
@@ -137,8 +137,8 @@ func TestWidgetSystem_Add(t *testing.T) {
 }
 
 func TestWidgetSystem_Remove(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
-	pid2 := id.MustPluginID("xxx#1.1.2")
+	pid := id.MustPluginID("xxx~1.1.1")
+	pid2 := id.MustPluginID("xxx~1.1.2")
 	pr := id.NewPropertyID()
 	w1 := MustNewWidget(id.NewWidgetID(), pid, "e1", pr, true)
 	w2 := MustNewWidget(id.NewWidgetID(), pid, "e1", pr, true)
@@ -175,8 +175,8 @@ func TestWidgetSystem_Remove(t *testing.T) {
 }
 
 func TestWidgetSystem_RemoveAllByPlugin(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
-	pid2 := id.MustPluginID("xxx#1.1.2")
+	pid := id.MustPluginID("xxx~1.1.1")
+	pid2 := id.MustPluginID("xxx~1.1.2")
 	w1 := MustNewWidget(id.NewWidgetID(), pid, "e1", id.NewPropertyID(), true)
 	w2 := MustNewWidget(id.NewWidgetID(), pid, "e2", id.NewPropertyID(), true)
 	w3 := MustNewWidget(id.NewWidgetID(), pid2, "e1", id.NewPropertyID(), true)
@@ -212,8 +212,8 @@ func TestWidgetSystem_RemoveAllByPlugin(t *testing.T) {
 }
 
 func TestWidgetSystem_Replace(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
-	pid2 := id.MustPluginID("zzz#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
+	pid2 := id.MustPluginID("zzz~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
@@ -251,7 +251,7 @@ func TestWidgetSystem_Replace(t *testing.T) {
 }
 
 func TestWidgetSystem_Properties(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	pr2 := id.NewPropertyID()
 	wid := id.NewWidgetID()
@@ -286,7 +286,7 @@ func TestWidgetSystem_Properties(t *testing.T) {
 }
 
 func TestWidgetSystem_Widgets(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	pr2 := id.NewPropertyID()
 	wid := id.NewWidgetID()
@@ -324,7 +324,7 @@ func TestWidgetSystem_Widgets(t *testing.T) {
 }
 
 func TestWidgetSystem_Widget(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
@@ -365,7 +365,7 @@ func TestWidgetSystem_Widget(t *testing.T) {
 }
 
 func TestWidgetSystem_Has(t *testing.T) {
-	pid := id.MustPluginID("xxx#1.1.1")
+	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {

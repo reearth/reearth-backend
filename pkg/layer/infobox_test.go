@@ -52,8 +52,8 @@ func TestInfobox(t *testing.T) {
 }
 
 func TestInfobox_RemoveAllByPlugin(t *testing.T) {
-	pid1 := id.MustPluginID("xxx#1.1.1")
-	pid2 := id.MustPluginID("xxy#1.1.1")
+	pid1 := id.MustPluginID("xxx~1.1.1")
+	pid2 := id.MustPluginID("xxy~1.1.1")
 	f1 := &InfoboxField{id: id.NewInfoboxFieldID(), plugin: pid1, extension: "a", property: id.NewPropertyID()}
 	f2 := &InfoboxField{id: id.NewInfoboxFieldID(), plugin: pid2, extension: "b", property: id.NewPropertyID()}
 	f3 := &InfoboxField{id: id.NewInfoboxFieldID(), plugin: pid1, extension: "c", property: id.NewPropertyID()}

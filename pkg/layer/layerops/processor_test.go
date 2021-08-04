@@ -11,8 +11,8 @@ import (
 
 func TestProcessor_UninstallPlugin(t *testing.T) {
 	sid := id.NewSceneID()
-	pid := id.MustPluginID("hoge#1.0.0")
-	pid2 := id.MustPluginID("hoge#1.0.1")
+	pid := id.MustPluginID("hoge~1.0.0")
+	pid2 := id.MustPluginID("hoge~1.0.1")
 	ibf1 := layer.NewInfoboxField().NewID().Plugin(pid).Extension("a").Property(id.NewPropertyID()).MustBuild()
 	ibf2 := layer.NewInfoboxField().NewID().Plugin(pid2).Extension("a").Property(id.NewPropertyID()).MustBuild()
 	ib := layer.NewInfobox([]*layer.InfoboxField{ibf1, ibf2}, id.NewPropertyID())
