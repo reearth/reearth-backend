@@ -864,8 +864,8 @@ type ComplexityRoot struct {
 	}
 
 	UninstallPluginPayload struct {
-		Scene       func(childComplexity int) int
-		ScenePlugin func(childComplexity int) int
+		PluginID func(childComplexity int) int
+		Scene    func(childComplexity int) int
 	}
 
 	UpdateDatasetSchemaPayload struct {
@@ -5311,19 +5311,19 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Typography.Underline(childComplexity), true
 
+	case "UninstallPluginPayload.pluginId":
+		if e.complexity.UninstallPluginPayload.PluginID == nil {
+			break
+		}
+
+		return e.complexity.UninstallPluginPayload.PluginID(childComplexity), true
+
 	case "UninstallPluginPayload.scene":
 		if e.complexity.UninstallPluginPayload.Scene == nil {
 			break
 		}
 
 		return e.complexity.UninstallPluginPayload.Scene(childComplexity), true
-
-	case "UninstallPluginPayload.scenePlugin":
-		if e.complexity.UninstallPluginPayload.ScenePlugin == nil {
-			break
-		}
-
-		return e.complexity.UninstallPluginPayload.ScenePlugin(childComplexity), true
 
 	case "UpdateDatasetSchemaPayload.datasetSchema":
 		if e.complexity.UpdateDatasetSchemaPayload.DatasetSchema == nil {
@@ -6702,8 +6702,8 @@ type InstallPluginPayload {
 }
 
 type UninstallPluginPayload {
+  pluginId: PluginID!
   scene: Scene!
-  scenePlugin: ScenePlugin!
 }
 
 type UpgradePluginPayload {
@@ -27038,6 +27038,41 @@ func (ec *executionContext) _Typography_underline(ctx context.Context, field gra
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _UninstallPluginPayload_pluginId(ctx context.Context, field graphql.CollectedField, obj *graphql1.UninstallPluginPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "UninstallPluginPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.PluginID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(id.PluginID)
+	fc.Result = res
+	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _UninstallPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *graphql1.UninstallPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -27071,41 +27106,6 @@ func (ec *executionContext) _UninstallPluginPayload_scene(ctx context.Context, f
 	res := resTmp.(*graphql1.Scene)
 	fc.Result = res
 	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScene(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _UninstallPluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *graphql1.UninstallPluginPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "UninstallPluginPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.ScenePlugin, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(*graphql1.ScenePlugin)
-	fc.Result = res
-	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐScenePlugin(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _UpdateDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *graphql1.UpdateDatasetSchemaPayload) (ret graphql.Marshaler) {
@@ -36352,13 +36352,13 @@ func (ec *executionContext) _UninstallPluginPayload(ctx context.Context, sel ast
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("UninstallPluginPayload")
-		case "scene":
-			out.Values[i] = ec._UninstallPluginPayload_scene(ctx, field, obj)
+		case "pluginId":
+			out.Values[i] = ec._UninstallPluginPayload_pluginId(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "scenePlugin":
-			out.Values[i] = ec._UninstallPluginPayload_scenePlugin(ctx, field, obj)
+		case "scene":
+			out.Values[i] = ec._UninstallPluginPayload_scene(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

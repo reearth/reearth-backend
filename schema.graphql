@@ -1178,8 +1178,8 @@ type InstallPluginPayload {
 }
 
 type UninstallPluginPayload {
+  pluginId: PluginID!
   scene: Scene!
-  scenePlugin: ScenePlugin!
 }
 
 type UpgradePluginPayload {

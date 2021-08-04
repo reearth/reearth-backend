@@ -992,8 +992,8 @@ type UninstallPluginInput struct {
 }
 
 type UninstallPluginPayload struct {
-	Scene       *Scene       `json:"scene"`
-	ScenePlugin *ScenePlugin `json:"scenePlugin"`
+	PluginID id.PluginID `json:"pluginId"`
+	Scene    *Scene      `json:"scene"`
 }
 
 type UnlinkPropertyValueInput struct {
