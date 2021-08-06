@@ -24,12 +24,6 @@ type WidgetSection struct {
 	bottom WidgetArea
 }
 
-// WidgetArea has the widgets and alignment information found in each part area of a section.
-type WidgetArea struct {
-	widgetIds []id.WidgetID
-	align     string
-}
-
 type WidgetLocation struct {
 	Zone    string
 	Section string
@@ -47,10 +41,6 @@ const (
 	WidgetSectionLeft   = "left"
 	WidgetSectionCenter = "center"
 	WidgetSectionRight  = "right"
-
-	WidgetAreaTop    = "top"
-	WidgetAreaMiddle = "middle"
-	WidgetAreaBottom = "bottom"
 )
 
 var Areas = []string{
@@ -68,20 +58,6 @@ var Sections = map[string][]string{
 var Zones = map[string]map[string][]string{
 	WidgetZoneInner: Sections,
 	WidgetZoneOuter: Sections,
-}
-
-func (was *WidgetAlignSystem) FindWidgetIDLocation(wid id.WidgetID) (*int, *WidgetLocation) {
-	for z, s := range Zones {
-		for s2, a := range s {
-			for _, a2 := range a {
-				if i, h := was.Area(z, s2, a2).Has(wid); h {
-					wloc := WidgetLocation{z, s2, a2}
-					return i, &wloc
-				}
-			}
-		}
-	}
-	return nil, nil
 }
 
 // NewWidgetAlignSystem returns a new widget align system.
@@ -165,16 +141,6 @@ func (ws *WidgetSection) Area(a string) *WidgetArea {
 	return nil
 }
 
-// WidgetIds will return a slice of widget ids from a specific area.
-func (wa *WidgetArea) WidgetIDs() []id.WidgetID {
-	return wa.widgetIds
-}
-
-// Alignment will return the alignment of a specific area.
-func (wa *WidgetArea) Alignment() *string {
-	return &wa.align
-}
-
 // Add a widget to the align system.
 func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 	if was == nil {
@@ -202,22 +168,6 @@ func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc Widge
 	wa := was.Area(loc.Zone, loc.Section, loc.Area)
 	wa.widgetIds = wids
 	wa.align = align
-}
-
-// Remove a widget from the align system.
-func (was *WidgetAlignSystem) Remove(wid id.WidgetID) {
-	if was == nil {
-		return
-	}
-	var nwids []id.WidgetID
-	i, loc := was.FindWidgetIDLocation(wid)
-	if loc != nil {
-		a := was.Area(loc.Zone, loc.Section, loc.Area)
-		if len(a.widgetIds) > 0 {
-			nwids = append(a.widgetIds[:*i], a.widgetIds[*i+1:]...)
-		}
-		a.widgetIds = nwids
-	}
 }
 
 // Update a widget in the align system.
@@ -253,6 +203,50 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 	}
 }
 
+// Remove a widget from the align system.
+func (was *WidgetAlignSystem) Remove(wid id.WidgetID) {
+	if was == nil {
+		return
+	}
+
+	was.inner.Remove(wid)
+	was.outer.Remove(wid)
+}
+
+func (was *WidgetAlignSystem) FindWidgetIDLocation(wid id.WidgetID) (*int, *WidgetLocation) {
+	for z, s := range Zones {
+		for s2, a := range s {
+			for _, a2 := range a {
+				if i, h := was.Area(z, s2, a2).Has(wid); h {
+					wloc := WidgetLocation{z, s2, a2}
+					return i, &wloc
+				}
+			}
+		}
+	}
+	return nil, nil
+}
+
+func (z *WidgetZone) Remove(wid id.WidgetID) {
+	if z == nil {
+		return
+	}
+
+	z.left.Remove(wid)
+	z.center.Remove(wid)
+	z.right.Remove(wid)
+}
+
+func (s *WidgetSection) Remove(wid id.WidgetID) {
+	if s == nil {
+		return
+	}
+
+	s.top.Remove(wid)
+	s.middle.Remove(wid)
+	s.bottom.Remove(wid)
+}
+
 // moveInt moves a widget's index.
 func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
 	value := array[srcIndex]
@@ -267,17 +261,4 @@ func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID 
 // removeInt is used in moveInt to remove the widgetID from original position(index).
 func removeInt(array []id.WidgetID, index int) []id.WidgetID {
 	return append(array[:index], array[index+1:]...)
-}
-
-// Has will check a widget area's slice of widgetIds for the specified ID and return a bool value.
-func (wa *WidgetArea) Has(wid id.WidgetID) (*int, bool) {
-	if wa == nil {
-		return nil, false
-	}
-	for i, id := range wa.widgetIds {
-		if id.Equal(wid) {
-			return &i, true
-		}
-	}
-	return nil, false
 }
