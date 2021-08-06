@@ -94,22 +94,22 @@ extensions:
             title: Mode
             description: Select the theme mode.
             choices:
-              premadetheme: Pre-made theme
-              customtheme: Custom theme
-          premadethemeid:
+              preMadeTheme: Pre-made theme
+              customTheme: Custom theme
+          preMadeThemeId:
             title: Pre-made theme
             description: Select a theme.
             choices:
-              reearthdark: Re:Earth Dark
-              reearthlight: Re:Earth Light
+              reEarthDark: Re:Earth Dark
+              reEarthLight: Re:Earth Light
               forest: Forest
-          textcolor:
+          textColor:
             title: Text color
             description: Select a color.
-          selectcolor:
+          selectColor:
             title: Select color
             description: Select a color.
-          backgroundcolor:
+          backgroundColor:
             title: Background color
             description: Select a color.
   infobox:

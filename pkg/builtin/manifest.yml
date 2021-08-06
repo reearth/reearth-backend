@@ -159,30 +159,30 @@ extensions:
             - id: reThemeMode
               type: string
               title: Mode
-              defaultValue: premadetheme
+              defaultValue: preMadeTheme
               description: Select the theme mode.
               choices:
-                - key: premadetheme
+                - key: preMadeTheme
                   label: Pre-made theme
-                - key: customtheme
+                - key: customTheme
                   label: Custom theme
-            - id: premadethemeid
+            - id: preMadeThemeId
               type: string
               title: Pre-made theme
               description: Select a theme.
-              defaultValue: reearthdark
+              defaultValue: reEarthDark
               choices:
-                - key: reearthdark
+                - key: reEarthDark
                   label: Re:Earth Dark
-                - key: reearthlight
+                - key: reEarthLight
                   label: Re:Earth Light
                 - key: forest
                   label: Forest
               availableIf:
                 field: reThemeMode
                 type: string
-                value: premadetheme
-            - id: textcolor
+                value: preMadeTheme
+            - id: textColor
               type: string
               ui: color
               title: Text color
@@ -190,8 +190,8 @@ extensions:
               availableIf:
                 field: reThemeMode
                 type: string
-                value: customtheme
-            - id: selectcolor
+                value: customTheme
+            - id: selectColor
               type: string
               ui: color
               title: Select color
@@ -199,8 +199,8 @@ extensions:
               availableIf:
                 field: reThemeMode
                 type: string
-                value: customtheme
-            - id: backgroundcolor
+                value: customTheme
+            - id: backgroundColor
               type: string
               ui: color
               title: Background color
@@ -208,7 +208,7 @@ extensions:
               availableIf:
                 field: reThemeMode
                 type: string
-                value: customtheme
+                value: customTheme
   - id: infobox
     title: Infobox
     visualizer: cesium
