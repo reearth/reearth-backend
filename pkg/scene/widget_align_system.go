@@ -10,20 +10,6 @@ type WidgetAlignSystem struct {
 	outer WidgetZone
 }
 
-// WidgetZone is the structure of each layer (inner and outer) of the align system.
-type WidgetZone struct {
-	left   WidgetSection
-	center WidgetSection
-	right  WidgetSection
-}
-
-// WidgetSection is the structure of each section of the align system.
-type WidgetSection struct {
-	top    WidgetArea
-	middle WidgetArea
-	bottom WidgetArea
-}
-
 type WidgetLocation struct {
 	Zone    string
 	Section string
@@ -32,7 +18,7 @@ type WidgetLocation struct {
 
 const (
 	WidgetAlignStart  = "start"
-	WidgetAlignCenter = "center"
+	WidgetAlignCenter = "centered"
 	WidgetAlignEnd    = "end"
 
 	WidgetZoneInner = "inner"
@@ -117,30 +103,6 @@ func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
 	return nil
 }
 
-func (wz *WidgetZone) Section(s string) *WidgetSection {
-	switch s {
-	case WidgetSectionLeft:
-		return &wz.left
-	case WidgetSectionCenter:
-		return &wz.center
-	case WidgetSectionRight:
-		return &wz.right
-	}
-	return nil
-}
-
-func (ws *WidgetSection) Area(a string) *WidgetArea {
-	switch a {
-	case WidgetAreaTop:
-		return &ws.top
-	case WidgetAreaMiddle:
-		return &ws.middle
-	case WidgetAreaBottom:
-		return &ws.bottom
-	}
-	return nil
-}
-
 // Add a widget to the align system.
 func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 	if was == nil {
@@ -176,8 +138,7 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 		return
 	}
 
-	i, oldL := was.FindWidgetIDLocation(wid)
-	a := was.Area(oldL.Zone, oldL.Section, oldL.Area)
+	i, a := was.FindWidgetLocation(wid)
 
 	if align != nil {
 		switch *align {
@@ -213,38 +174,20 @@ func (was *WidgetAlignSystem) Remove(wid id.WidgetID) {
 	was.outer.Remove(wid)
 }
 
-func (was *WidgetAlignSystem) FindWidgetIDLocation(wid id.WidgetID) (*int, *WidgetLocation) {
-	for z, s := range Zones {
-		for s2, a := range s {
-			for _, a2 := range a {
-				if i, h := was.Area(z, s2, a2).Has(wid); h {
-					wloc := WidgetLocation{z, s2, a2}
-					return i, &wloc
-				}
-			}
-		}
+func (was *WidgetAlignSystem) FindWidgetLocation(wid id.WidgetID) (*int, *WidgetArea) {
+	if was == nil {
+		return nil, nil
 	}
+	i, wa := was.inner.Find(wid)
+	if wa != nil && i != nil {
+		return i, wa
+	}
+	i2, wa2 := was.outer.Find(wid)
+	if wa2 != nil && i2 != nil {
+		return i2, wa2
+	}
+
 	return nil, nil
-}
-
-func (z *WidgetZone) Remove(wid id.WidgetID) {
-	if z == nil {
-		return
-	}
-
-	z.left.Remove(wid)
-	z.center.Remove(wid)
-	z.right.Remove(wid)
-}
-
-func (s *WidgetSection) Remove(wid id.WidgetID) {
-	if s == nil {
-		return
-	}
-
-	s.top.Remove(wid)
-	s.middle.Remove(wid)
-	s.bottom.Remove(wid)
 }
 
 // moveInt moves a widget's index.

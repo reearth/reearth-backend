@@ -21,10 +21,12 @@ type sceneJSON struct {
 }
 
 type widgetJSON struct {
+	ID          string       `json:"id"`
 	PluginID    string       `json:"pluginId"`
 	ExtensionID string       `json:"extensionId"`
 	Property    propertyJSON `json:"property"`
 	Extended    *bool        `json:"extended"`
+	Floating    bool         `json:"floating"`
 }
 
 func (b *Builder) scene(ctx context.Context, s *scene.Scene, publishedAt time.Time, l []*layerJSON, p []*property.Property) *sceneJSON {
@@ -62,10 +64,12 @@ func (b *Builder) widgets(ctx context.Context, s *scene.Scene, p []*property.Pro
 			continue
 		}
 		res = append(res, &widgetJSON{
+			ID:          w.ID().String(),
 			PluginID:    w.Plugin().String(),
 			ExtensionID: string(w.Extension()),
 			Property:    b.property(ctx, findProperty(p, w.Property())),
 			Extended:    w.WidgetLayout().Extended,
+			Floating:    w.WidgetLayout().Floating,
 		})
 	}
 	return res
@@ -74,7 +78,7 @@ func (b *Builder) widgets(ctx context.Context, s *scene.Scene, p []*property.Pro
 func (b *Builder) widgetAlignSystem(ctx context.Context, s *scene.Scene) *widgetAlignSystemJSON {
 	sas := s.WidgetAlignSystem()
 
-	res := widgetAlignSystemJSON{Inner: buildWidgetZone(sas), Outer: buildWidgetZone(sas)}
+	res := widgetAlignSystemJSON{Inner: buildWidgetZone(sas.Zone("inner")), Outer: buildWidgetZone(sas.Zone("outer"))}
 	return &res
 }
 
@@ -102,27 +106,28 @@ func toString(wids []id.WidgetID) []string {
 	return docids
 }
 
-func buildWidgetZone(sas *scene.WidgetAlignSystem) widgetZone {
+func buildWidgetZone(z *scene.WidgetZone) widgetZone {
+	if z == nil {
+		return widgetZone{}
+	}
 	return widgetZone{
-		Left:   buildWidgetSection(sas),
-		Center: buildWidgetSection(sas),
-		Right:  buildWidgetSection(sas),
+		Left:   buildWidgetSection(*z.Section(scene.WidgetSectionLeft)),
+		Center: buildWidgetSection(*z.Section(scene.WidgetSectionCenter)),
+		Right:  buildWidgetSection(*z.Section(scene.WidgetSectionRight)),
 	}
 }
 
-func buildWidgetSection(sas *scene.WidgetAlignSystem) widgetSection {
+func buildWidgetSection(s scene.WidgetSection) widgetSection {
 	return widgetSection{
-		Top: widgetArea{
-			WidgetIDs: toString(sas.Area("outer", "right", "top").WidgetIDs()),
-			Align:     *sas.Area("outer", "right", "top").Alignment(),
-		},
-		Middle: widgetArea{
-			WidgetIDs: toString(sas.Area("outer", "right", "middle").WidgetIDs()),
-			Align:     *sas.Area("outer", "right", "middle").Alignment(),
-		},
-		Bottom: widgetArea{
-			WidgetIDs: toString(sas.Area("outer", "right", "bottom").WidgetIDs()),
-			Align:     *sas.Area("outer", "right", "bottom").Alignment(),
-		},
+		Top:    buildWidgetArea(*s.Area(scene.WidgetAreaTop)),
+		Middle: buildWidgetArea(*s.Area(scene.WidgetAreaMiddle)),
+		Bottom: buildWidgetArea(*s.Area(scene.WidgetAreaBottom)),
+	}
+}
+
+func buildWidgetArea(a scene.WidgetArea) widgetArea {
+	return widgetArea{
+		WidgetIDs: toString(a.WidgetIDs()),
+		Align:     *a.Alignment(),
 	}
 }

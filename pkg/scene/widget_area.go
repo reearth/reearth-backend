@@ -37,6 +37,19 @@ func (a *WidgetArea) Remove(wid id.WidgetID) {
 	}
 }
 
+func (a *WidgetArea) Find(wid id.WidgetID) (*int, *WidgetArea) {
+	if a == nil {
+		return nil, nil
+	}
+
+	for i, w := range a.widgetIds {
+		if w == wid {
+			return &i, a
+		}
+	}
+	return nil, nil
+}
+
 // Has will check a widget area's slice of widgetIds for the specified ID and return a bool value.
 func (wa *WidgetArea) Has(wid id.WidgetID) (*int, bool) {
 	if wa == nil {
