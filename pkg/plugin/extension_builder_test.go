@@ -43,8 +43,8 @@ func TestExtensionBuilder_Icon(t *testing.T) {
 
 func TestExtensionBuilder_Schema(t *testing.T) {
 	var b = NewExtension()
-	res := b.ID("xxx").Schema(id.MustPropertySchemaID("hoge#0.1.0/fff")).MustBuild()
-	assert.Equal(t, id.MustPropertySchemaID("hoge#0.1.0/fff"), res.Schema())
+	res := b.ID("xxx").Schema(id.MustPropertySchemaID("hoge~0.1.0/fff")).MustBuild()
+	assert.Equal(t, id.MustPropertySchemaID("hoge~0.1.0/fff"), res.Schema())
 }
 
 func TestExtensionBuilder_Visualizer(t *testing.T) {
@@ -86,7 +86,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			system:        false,
 			ename:         i18n.StringFrom("nnn"),
 			description:   i18n.StringFrom("ddd"),
-			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
+			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 			visualizer:    "vvv",
 			widgetLayout: &scene.WidgetLayout{
 				Extendable: &extendable,
@@ -102,7 +102,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				name:          i18n.StringFrom("nnn"),
 				description:   i18n.StringFrom("ddd"),
 				icon:          "ttt",
-				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
+				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
 				widgetLayout: &scene.WidgetLayout{
 					Extendable: &extendable,
@@ -178,7 +178,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			system:        false,
 			ename:         i18n.StringFrom("nnn"),
 			description:   i18n.StringFrom("ddd"),
-			schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
+			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 			visualizer:    "vvv",
 			widgetLayout: &scene.WidgetLayout{
 				Extendable: &extendable,
@@ -194,7 +194,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				name:          i18n.StringFrom("nnn"),
 				description:   i18n.StringFrom("ddd"),
 				icon:          "ttt",
-				schema:        id.MustPropertySchemaID("foo#1.1.1/hhh"),
+				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
 				widgetLayout: &scene.WidgetLayout{
 					Extendable: &extendable,

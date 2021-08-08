@@ -11,7 +11,7 @@ import (
 func TestMerge(t *testing.T) {
 	scene := id.NewSceneID()
 	dataset1 := id.NewDatasetID()
-	p := id.MustPluginID("xxx#1.1.1")
+	p := id.MustPluginID("xxx~1.1.1")
 	e := id.PluginExtensionID("foo")
 
 	itemProperty := id.NewPropertyID()
@@ -292,28 +292,7 @@ func TestMerge(t *testing.T) {
 				Parent:        &ib2pr,
 				LinkedDataset: &dataset1,
 			},
-			Fields: []*MergedInfoboxField{
-				{
-					ID:        f2.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f2pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-				{
-					ID:        f3.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f3pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-			},
+			Fields: []*MergedInfoboxField{},
 		},
 	}
 

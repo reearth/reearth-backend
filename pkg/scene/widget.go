@@ -20,13 +20,9 @@ type Widget struct {
 	widgetLayout *WidgetLayout
 }
 
-func NewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, widgetLayout *WidgetLayout) (*Widget, error) {
+func NewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, widgetLayout *WidgetLayout) (*Widget, error) {
 	if !plugin.Validate() || string(extension) == "" || id.ID(property).IsNil() {
 		return nil, id.ErrInvalidID
-	}
-
-	if wid == nil || (*wid).IsNil() {
-		wid = id.NewWidgetID().Ref()
 	}
 
 	if widgetLayout == nil {
@@ -34,7 +30,7 @@ func NewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensio
 	}
 
 	return &Widget{
-		id:           *wid,
+		id:           wid,
 		plugin:       plugin,
 		extension:    extension,
 		property:     property,
@@ -43,7 +39,7 @@ func NewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensio
 	}, nil
 }
 
-func MustNewWidget(wid *id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, widgetLayout *WidgetLayout) *Widget {
+func MustNewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, widgetLayout *WidgetLayout) *Widget {
 	w, err := NewWidget(wid, plugin, extension, property, enabled, widgetLayout)
 	if err != nil {
 		panic(err)

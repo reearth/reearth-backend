@@ -19,8 +19,8 @@ func TestSceneBuilder(t *testing.T) {
 	// ids
 	sceneID := id.NewSceneID()
 	scenePropertyID := id.NewPropertyID()
-	propertySchemaID := id.MustPropertySchemaID("hoge#0.1.0/foobar")
-	pluginID := id.MustPluginID("hoge#0.1.0")
+	propertySchemaID := id.MustPropertySchemaID("hoge~0.1.0/foobar")
+	pluginID := id.MustPluginID("hoge~0.1.0")
 	pluginExtension1ID := id.PluginExtensionID("ext")
 	pluginExtension2ID := id.PluginExtensionID("ext2")
 	propertySchemaField1ID := id.PropertySchemaFieldID("a")
@@ -383,7 +383,7 @@ func TestSceneBuilder(t *testing.T) {
 	sceneWidgetID1 := id.NewWidgetID()
 	sceneWidgetID2 := id.NewWidgetID()
 	sceneWidget1 := scene.MustNewWidget(
-		&sceneWidgetID1,
+		sceneWidgetID1,
 		pluginID,
 		pluginExtension1ID,
 		scenePropertyID,
@@ -398,7 +398,7 @@ func TestSceneBuilder(t *testing.T) {
 			},
 		})
 	sceneWidget2 := scene.MustNewWidget(
-		&sceneWidgetID2,
+		sceneWidgetID2,
 		pluginID,
 		pluginExtension2ID,
 		scenePropertyID,

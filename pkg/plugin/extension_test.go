@@ -26,7 +26,7 @@ func TestExtension(t *testing.T) {
 		Name:         i18n.StringFrom("aaa"),
 		Description:  i18n.StringFrom("ddd"),
 		Icon:         "test",
-		Schema:       id.MustPropertySchemaID("hoge#0.1.0/fff"),
+		Schema:       id.MustPropertySchemaID("hoge~0.1.0/fff"),
 		Visualizer:   "vvv",
 		WidgetLayout: &scene.WidgetLayout{},
 	}
@@ -35,7 +35,7 @@ func TestExtension(t *testing.T) {
 		ID("xxx").
 		Name(i18n.StringFrom("aaa")).
 		Description(i18n.StringFrom("ddd")).
-		Schema(id.MustPropertySchemaID("hoge#0.1.0/fff")).
+		Schema(id.MustPropertySchemaID("hoge~0.1.0/fff")).
 		Icon("test").
 		WidgetLayout(&scene.WidgetLayout{}).
 		Visualizer("vvv").

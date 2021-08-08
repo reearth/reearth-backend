@@ -30,6 +30,7 @@ func toPlugin(p *plugin.Plugin) *Plugin {
 
 	return &Plugin{
 		ID:                       pid,
+		SceneID:                  pid.Scene().IDRef(),
 		Name:                     p.Name().String(),
 		Description:              p.Description().String(),
 		AllTranslatedDescription: p.Description(),
