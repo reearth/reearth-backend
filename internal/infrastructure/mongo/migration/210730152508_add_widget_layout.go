@@ -37,15 +37,21 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 							Extension(id.PluginExtensionID(w.Extension)).
 							Layout()
 
-						wldoc := mongodoc.WidgetLayoutDocument{
-							Extendable: wl.Extendable,
-							Extended:   wl.Extended,
-							Floating:   wl.Floating,
-							DefaultLocation: &mongodoc.WidgetLocationDocument{
+						var loc *mongodoc.WidgetLocationDocument
+						if wl.DefaultLocation != nil {
+							wld := mongodoc.WidgetLocationDocument{
 								Zone:    wl.DefaultLocation.Zone,
 								Section: wl.DefaultLocation.Section,
 								Area:    wl.DefaultLocation.Area,
-							},
+							}
+							loc = &wld
+						}
+
+						wldoc := mongodoc.WidgetLayoutDocument{
+							Extendable:      wl.Extendable,
+							Extended:        wl.Extended,
+							Floating:        wl.Floating,
+							DefaultLocation: loc,
 						}
 
 						w.WidgetLayout = &wldoc
