@@ -112,7 +112,7 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 	a := was.Area(loc.Zone, loc.Section, loc.Area)
 	nIds := a.widgetIds
 
-	if _, b := a.Has(wid); !b {
+	if b := a.Has(wid); !b {
 		nIds = append(a.widgetIds, wid)
 	}
 	a.widgetIds = nIds

@@ -84,11 +84,13 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 func TestWidgetAlignSystem_Remove(t *testing.T) {
 	wid := id.NewWidgetID()
 	was := NewWidgetAlignSystem()
+	was.Add(wid, WidgetLocation{Zone: "inner", Section: "left", Area: "top"})
 	oldWidgets := was.inner.left.top.widgetIds
 	was2 := NewWidgetAlignSystem()
+	was2.Add(wid, WidgetLocation{Zone: "inner", Section: "left", Area: "top"})
 	for i, w := range oldWidgets {
 		if w.ID().Equal(wid.ID()) {
-			was2.inner.left.top.widgetIds = append(oldWidgets[:i], oldWidgets[i+1])
+			was2.inner.left.top.widgetIds = append(oldWidgets[:i], oldWidgets[i+1:]...)
 		}
 	}
 	testCases := []struct {
@@ -188,6 +190,40 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	}
 }
 
+func TestWidgetAlignSystem_FindWidgetLocation(t *testing.T) {
+	wid := id.NewWidgetID()
+
+	was := NewWidgetAlignSystem()
+	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
+	e := was.outer.left.top
+
+	testCases := []struct {
+		Name  string
+		Input struct {
+			id id.WidgetID
+		}
+		WAS      *WidgetAlignSystem
+		Expected *WidgetArea
+	}{
+		{
+			Name: "Find the location of a widgetID and return the WidgetArea",
+			Input: struct {
+				id id.WidgetID
+			}{wid},
+			WAS:      was,
+			Expected: &e,
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			_, res := tc.WAS.FindWidgetLocation(tc.Input.id)
+			assert.Equal(tt, tc.Expected, res)
+		})
+	}
+}
+
 func TestWidgetAlignSystem_Zone(t *testing.T) {
 	wid := id.NewWidgetID()
 	loc := WidgetLocation{
@@ -219,33 +255,69 @@ func TestWidgetAlignSystem_Zone(t *testing.T) {
 	}
 }
 
-// func TestWidgetAlignSystem_Section(t *testing.T) {
-// 	wid := id.NewWidgetID()
-// 	loc := WidgetLocation{
-// 		Zone:    WidgetZoneInner,
-// 		Section: WidgetSectionCenter,
-// 		Area:    WidgetAreaBottom,
-// 	}
-// 	was := NewWidgetAlignSystem()
-// 	was.Add(wid, &loc)
-// 	testCases := []struct {
-// 		Name     string
-// 		Input
-// 		WAS      *WidgetAlignSystem
-// 		Expected *WidgetSection
-// 	}{
-// 		{
-// 			Input:    "inner",
-// 			WAS:      was,
-// 			Expected: &was.inner.center,
-// 		},
-// 	}
-// 	for _, tc := range testCases {
-// 		tc := tc
-// 		t.Run(tc.Name, func(tt *testing.T) {
-// 			tt.Parallel()
-// 			res := tc.WAS.Section(tc.Input)
-// 			assert.Equal(tt, tc.Expected, res)
-// 		})
-// 	}
-// }
+func TestWidgetAlignSystem_Section(t *testing.T) {
+	wid := id.NewWidgetID()
+	loc := WidgetLocation{
+		Zone:    WidgetZoneInner,
+		Section: WidgetSectionCenter,
+		Area:    WidgetAreaBottom,
+	}
+	was := NewWidgetAlignSystem()
+	was.Add(wid, loc)
+	testCases := []struct {
+		Name           string
+		Input1, Input2 string
+		WAS            *WidgetAlignSystem
+		Expected       *WidgetSection
+	}{
+		{
+			Input1:   "inner",
+			Input2:   "center",
+			WAS:      was,
+			Expected: &was.inner.center,
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			res := tc.WAS.Section(tc.Input1, tc.Input2)
+			assert.Equal(tt, tc.Expected, res)
+		})
+	}
+}
+
+func TestWidgetAlignSystem_Area(t *testing.T) {
+	wid := id.NewWidgetID()
+	loc := WidgetLocation{
+		Zone:    WidgetZoneInner,
+		Section: WidgetSectionCenter,
+		Area:    WidgetAreaBottom,
+	}
+	was := NewWidgetAlignSystem()
+	was.Add(wid, loc)
+	testCases := []struct {
+		Name string
+		Input1,
+		Input2,
+		Input3 string
+		WAS      *WidgetAlignSystem
+		Expected *WidgetArea
+	}{
+		{
+			Input1:   "inner",
+			Input2:   "center",
+			Input3:   "bottom",
+			WAS:      was,
+			Expected: &was.inner.center.bottom,
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			res := tc.WAS.Area(tc.Input1, tc.Input2, tc.Input3)
+			assert.Equal(tt, tc.Expected, res)
+		})
+	}
+}

@@ -51,14 +51,14 @@ func (a *WidgetArea) Find(wid id.WidgetID) (*int, *WidgetArea) {
 }
 
 // Has will check a widget area's slice of widgetIds for the specified ID and return a bool value.
-func (wa *WidgetArea) Has(wid id.WidgetID) (*int, bool) {
+func (wa *WidgetArea) Has(wid id.WidgetID) bool {
 	if wa == nil {
-		return nil, false
+		return false
 	}
-	for i, id := range wa.widgetIds {
+	for _, id := range wa.widgetIds {
 		if id.Equal(wid) {
-			return &i, true
+			return true
 		}
 	}
-	return nil, false
+	return false
 }
