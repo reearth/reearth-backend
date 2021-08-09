@@ -79,7 +79,6 @@ func TestScene_Properties(t *testing.T) {
 		MustBuild()
 
 	assert.Equal(t, []id.PropertyID{pid1, pid2}, s.Properties())
-
 }
 
 func TestSceneNil(t *testing.T) {
@@ -87,6 +86,7 @@ func TestSceneNil(t *testing.T) {
 	assert.Nil(t, s.Properties())
 	assert.True(t, s.ID().IsNil())
 	assert.Nil(t, s.WidgetSystem())
+	assert.Nil(t, s.WidgetAlignSystem())
 	assert.True(t, s.Project().IsNil())
 	assert.True(t, s.Team().IsNil())
 	assert.True(t, s.RootLayer().IsNil())

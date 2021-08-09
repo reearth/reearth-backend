@@ -69,6 +69,16 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 			WAS:      was,
 			Expected: was2,
 		},
+		{
+			Name: "Return nil if align system is nil",
+			Input: struct {
+				id  id.WidgetID
+				id2 id.WidgetID
+				loc WidgetLocation
+			}{wid, wid2, loc},
+			WAS:      nil,
+			Expected: nil,
+		},
 	}
 	for _, tc := range testCases {
 		tc := tc
@@ -76,6 +86,62 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 			tt.Parallel()
 			tc.WAS.Add(tc.Input.id, tc.Input.loc)
 			tc.WAS.Add(tc.Input.id2, tc.Input.loc)
+			assert.Equal(tt, tc.Expected, tc.WAS)
+		})
+	}
+}
+
+func TestWidgetAlignSystem_AddAll(t *testing.T) {
+	wid := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
+	wids := []id.WidgetID{wid, wid2}
+	a := "center"
+	loc := WidgetLocation{
+		Zone:    WidgetZoneOuter,
+		Section: WidgetSectionLeft,
+		Area:    WidgetAreaTop,
+	}
+	was := NewWidgetAlignSystem()
+	was2 := NewWidgetAlignSystem()
+	was2.outer.left.top.widgetIds = append(was2.outer.left.top.widgetIds, wid)
+	was2.outer.left.top.widgetIds = append(was2.outer.left.top.widgetIds, wid2)
+	was2.outer.left.top.align = "center"
+
+	testCases := []struct {
+		Name  string
+		Input struct {
+			ids   []id.WidgetID
+			align string
+			loc   WidgetLocation
+		}
+		WAS, Expected *WidgetAlignSystem
+	}{
+		{
+			Name: "Add a widget to widget align system",
+			Input: struct {
+				ids   []id.WidgetID
+				align string
+				loc   WidgetLocation
+			}{wids, a, loc},
+			WAS:      was,
+			Expected: was2,
+		},
+		{
+			Name: "Return nil if align system is nil",
+			Input: struct {
+				ids   []id.WidgetID
+				align string
+				loc   WidgetLocation
+			}{wids, a, loc},
+			WAS:      nil,
+			Expected: nil,
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			tc.WAS.AddAll(tc.Input.ids, tc.Input.align, tc.Input.loc)
 			assert.Equal(tt, tc.Expected, tc.WAS)
 		})
 	}
@@ -108,6 +174,14 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 			WAS:      was,
 			Expected: was2,
 		},
+		{
+			Name: "Return nil if no align system",
+			Input: struct {
+				id id.WidgetID
+			}{wid},
+			WAS:      nil,
+			Expected: nil,
+		},
 	}
 	for _, tc := range testCases {
 		tc := tc
@@ -121,7 +195,9 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 
 func TestWidgetAlignSystem_Update(t *testing.T) {
 	wid := id.NewWidgetID()
-	align := "start"
+	alignStart := "start"
+	alignCenter := "centered"
+	alignEnd := "end"
 
 	// for move
 	oloc := WidgetLocation{"outer", "right", "middle"}
@@ -145,7 +221,21 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	was3.outer.right.middle.widgetIds = wids
 	was4 := NewWidgetAlignSystem()
 	was4.outer.right.middle.widgetIds = nwids
-	was4.outer.right.middle.align = align
+	was4.outer.right.middle.align = alignStart
+
+	was5 := NewWidgetAlignSystem()
+	was5.outer.right.middle.widgetIds = wids
+	was5.outer.right.middle.align = alignCenter
+	was6 := NewWidgetAlignSystem()
+	was6.outer.right.middle.widgetIds = wids
+	was6.outer.right.middle.align = alignCenter
+
+	was7 := NewWidgetAlignSystem()
+	was7.outer.right.middle.widgetIds = wids
+	was7.outer.right.middle.align = alignEnd
+	was8 := NewWidgetAlignSystem()
+	was8.outer.right.middle.widgetIds = wids
+	was8.outer.right.middle.align = alignEnd
 
 	testCases := []struct {
 		Name  string
@@ -175,9 +265,42 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				l  *WidgetLocation
 				i  *int
 				a  *string
-			}{wid, nil, &i, &align},
+			}{wid, nil, &i, &alignStart},
 			WAS:      was3,
 			Expected: was4,
+		},
+		{
+			Name: "Change a widgets alignment to center in one location",
+			Input: struct {
+				id id.WidgetID
+				l  *WidgetLocation
+				i  *int
+				a  *string
+			}{wid, nil, nil, &alignCenter},
+			WAS:      was5,
+			Expected: was6,
+		},
+		{
+			Name: "Change a widgets alignment to end in one location",
+			Input: struct {
+				id id.WidgetID
+				l  *WidgetLocation
+				i  *int
+				a  *string
+			}{wid, nil, nil, &alignEnd},
+			WAS:      was7,
+			Expected: was8,
+		},
+		{
+			Name: "Return without doing anything if no align system",
+			Input: struct {
+				id id.WidgetID
+				l  *WidgetLocation
+				i  *int
+				a  *string
+			}{wid, nil, nil, nil},
+			WAS:      nil,
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
@@ -192,10 +315,14 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 
 func TestWidgetAlignSystem_FindWidgetLocation(t *testing.T) {
 	wid := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
+	wid3 := id.NewWidgetID()
 
 	was := NewWidgetAlignSystem()
 	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
+	was.inner.left.top.widgetIds = append(was.inner.left.top.widgetIds, wid2)
 	e := was.outer.left.top
+	e2 := was.inner.left.top
 
 	testCases := []struct {
 		Name  string
@@ -206,12 +333,36 @@ func TestWidgetAlignSystem_FindWidgetLocation(t *testing.T) {
 		Expected *WidgetArea
 	}{
 		{
-			Name: "Find the location of a widgetID and return the WidgetArea",
+			Name: "Find the location of a widgetID and return the WidgetArea in the Inner Widget Zone",
+			Input: struct {
+				id id.WidgetID
+			}{wid2},
+			WAS:      was,
+			Expected: &e2,
+		},
+		{
+			Name: "Find the location of a widgetID and return the WidgetArea in the Outer Widget Zone",
 			Input: struct {
 				id id.WidgetID
 			}{wid},
 			WAS:      was,
 			Expected: &e,
+		},
+		{
+			Name: "Return nil if no align system",
+			Input: struct {
+				id id.WidgetID
+			}{wid},
+			WAS:      nil,
+			Expected: nil,
+		},
+		{
+			Name: "Return nil if nothing found",
+			Input: struct {
+				id id.WidgetID
+			}{wid3},
+			WAS:      was,
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
@@ -240,9 +391,22 @@ func TestWidgetAlignSystem_Zone(t *testing.T) {
 		Expected *WidgetZone
 	}{
 		{
+			Name:     "Return the Widget Zone of a Widget Align System",
 			Input:    "inner",
 			WAS:      was,
 			Expected: &was.inner,
+		},
+		{
+			Name:     "Return nil if inputted zone doesn't exist",
+			Input:    "pinner",
+			WAS:      was,
+			Expected: nil,
+		},
+		{
+			Name:     "Return nil when no Widget Align System",
+			Input:    "inner",
+			WAS:      nil,
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
@@ -271,10 +435,25 @@ func TestWidgetAlignSystem_Section(t *testing.T) {
 		Expected       *WidgetSection
 	}{
 		{
+			Name:     "Return the Widget Section of a Widget Align System",
 			Input1:   "inner",
 			Input2:   "center",
 			WAS:      was,
 			Expected: &was.inner.center,
+		},
+		{
+			Name:     "Return nil if Section doesn't exist",
+			Input1:   "pinner",
+			Input2:   "centered",
+			WAS:      was,
+			Expected: nil,
+		},
+		{
+			Name:     "Return nil when no Widget Align System",
+			Input1:   "inner",
+			Input2:   "left",
+			WAS:      nil,
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
@@ -305,11 +484,28 @@ func TestWidgetAlignSystem_Area(t *testing.T) {
 		Expected *WidgetArea
 	}{
 		{
+			Name:     "Return the Widget Area of a Widget Align System",
 			Input1:   "inner",
 			Input2:   "center",
 			Input3:   "bottom",
 			WAS:      was,
 			Expected: &was.inner.center.bottom,
+		},
+		{
+			Name:     "Return nil if Area doesn't exist",
+			Input1:   "icnner",
+			Input2:   "ceenter",
+			Input3:   "bottoms",
+			WAS:      was,
+			Expected: nil,
+		},
+		{
+			Name:     "Return nil when no Widget Align System",
+			Input1:   "inner",
+			Input2:   "center",
+			Input3:   "bottom",
+			WAS:      nil,
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {

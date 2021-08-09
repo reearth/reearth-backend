@@ -30,6 +30,14 @@ func TestWidgetZone_Find(t *testing.T) {
 			WAS:      &was.outer,
 			Expected: &e,
 		},
+		{
+			Name: "Return nil if no Zone",
+			Input: struct {
+				id id.WidgetID
+			}{wid},
+			WAS:      nil,
+			Expected: nil,
+		},
 	}
 	for _, tc := range testCases {
 		tc := tc
