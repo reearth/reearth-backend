@@ -1306,6 +1306,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaID.CopyRef">func (d *PropertySchemaID) CopyRef() *PropertySchemaID</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaID.Equal">func (d PropertySchemaID) Equal(d2 PropertySchemaID) bool</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaID.ID">func (d PropertySchemaID) ID() string</a></dd>
 				
 					
@@ -1904,7 +1907,7 @@ LayerIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="PluginIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=4049:4093#L194">PluginIDToKeys</a>
+			<h2 id="PluginIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=4050:4094#L194">PluginIDToKeys</a>
 				<a class="permalink" href="index.html#PluginIDToKeys">&#xb6;</a>
 				
 				
@@ -1968,7 +1971,7 @@ PropertyItemIDToKeys converts IDs into a string slice.
 		
 			
 			
-			<h2 id="PropertySchemaIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3276:3336#L117">PropertySchemaIDToKeys</a>
+			<h2 id="PropertySchemaIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3434:3494#L122">PropertySchemaIDToKeys</a>
 				<a class="permalink" href="index.html#PropertySchemaIDToKeys">&#xb6;</a>
 				
 				
@@ -5746,7 +5749,7 @@ PluginIDFromRef generates a new id.PluginID from a string ref.
 				
 			
 				
-				<h3 id="PluginIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=4271:4323#L203">PluginIDsFrom</a>
+				<h3 id="PluginIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=4272:4324#L203">PluginIDsFrom</a>
 					<a class="permalink" href="index.html#PluginIDsFrom">&#xb6;</a>
 					
 					
@@ -5777,14 +5780,14 @@ CopyRef _
 				
 			
 				
-				<h3 id="PluginID.Equal">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3457:3498#L170">Equal</a>
+				<h3 id="PluginID.Equal">func (PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3458:3499#L170">Equal</a>
 					<a class="permalink" href="index.html#PluginID.Equal">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (d <a href="index.html#PluginID">PluginID</a>) Equal(d2 <a href="index.html#PluginID">PluginID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				<p>
-Equal returns if two IDs are quivarent.
+Equal returns true if two IDs are equal.
 </p>
 
 				
@@ -5792,7 +5795,7 @@ Equal returns if two IDs are quivarent.
 				
 			
 				
-				<h3 id="PluginID.MarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3739:3787#L183">MarshalText</a>
+				<h3 id="PluginID.MarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3740:3788#L183">MarshalText</a>
 					<a class="permalink" href="index.html#PluginID.MarshalText">&#xb6;</a>
 					
 					
@@ -5897,7 +5900,7 @@ System returns if the ID is built-in.
 				
 			
 				
-				<h3 id="PluginID.UnmarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3888:3945#L188">UnmarshalText</a>
+				<h3 id="PluginID.UnmarshalText">func (*PluginID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/plugin.go?s=3889:3946#L188">UnmarshalText</a>
 					<a class="permalink" href="index.html#PluginID.UnmarshalText">&#xb6;</a>
 					
 					
@@ -7619,7 +7622,7 @@ PropertySchemaIDFromRef generates a new PropertySchemaID from a string ref.
 				
 			
 				
-				<h3 id="PropertySchemaIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3522:3590#L126">PropertySchemaIDsFrom</a>
+				<h3 id="PropertySchemaIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3680:3748#L131">PropertySchemaIDsFrom</a>
 					<a class="permalink" href="index.html#PropertySchemaIDsFrom">&#xb6;</a>
 					
 					
@@ -7643,6 +7646,21 @@ PropertySchemaIDsFrom converts a string slice into a ID slice.
 				<pre>func (d *<a href="index.html#PropertySchemaID">PropertySchemaID</a>) CopyRef() *<a href="index.html#PropertySchemaID">PropertySchemaID</a></pre>
 				<p>
 CopyRef returns a copy of a reference.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="PropertySchemaID.Equal">func (PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2745:2802#L97">Equal</a>
+					<a class="permalink" href="index.html#PropertySchemaID.Equal">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#PropertySchemaID">PropertySchemaID</a>) Equal(d2 <a href="index.html#PropertySchemaID">PropertySchemaID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Equal returns true if two IDs are equal.
 </p>
 
 				
@@ -7680,7 +7698,7 @@ IsNil checks if ID is empty or not.
 				
 			
 				
-				<h3 id="PropertySchemaID.MarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2934:2990#L106">MarshalText</a>
+				<h3 id="PropertySchemaID.MarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3092:3148#L111">MarshalText</a>
 					<a class="permalink" href="index.html#PropertySchemaID.MarshalText">&#xb6;</a>
 					
 					
@@ -7740,7 +7758,7 @@ String returns a string representation.
 				
 			
 				
-				<h3 id="PropertySchemaID.StringRef">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2762:2808#L97">StringRef</a>
+				<h3 id="PropertySchemaID.StringRef">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=2920:2966#L102">StringRef</a>
 					<a class="permalink" href="index.html#PropertySchemaID.StringRef">&#xb6;</a>
 					
 					
@@ -7770,7 +7788,7 @@ System returns if it is system ID
 				
 			
 				
-				<h3 id="PropertySchemaID.UnmarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3091:3156#L111">UnmarshalText</a>
+				<h3 id="PropertySchemaID.UnmarshalText">func (*PropertySchemaID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go?s=3249:3314#L116">UnmarshalText</a>
 					<a class="permalink" href="index.html#PropertySchemaID.UnmarshalText">&#xb6;</a>
 					
 					
