@@ -56,9 +56,9 @@ func (r *propertySchemaRepo) FindByIDs(ctx context.Context, ids []id.PropertySch
 
 	if len(ids2) > 0 {
 		filter := bson.D{{Key: "id", Value: bson.D{{
-			Key: "$in", Value: id.PropertySchemaIDToKeys(ids),
+			Key: "$in", Value: id.PropertySchemaIDToKeys(ids2),
 		}}}}
-		dst := make(property.SchemaList, 0, len(ids))
+		dst := make(property.SchemaList, 0, len(ids2))
 		res, err = r.find(ctx, dst, filter)
 		if err != nil {
 			return nil, err
@@ -74,7 +74,7 @@ func (r *propertySchemaRepo) FindByIDs(ctx context.Context, ids []id.PropertySch
 		}
 		found := false
 		for _, p := range res {
-			if p != nil && p.ID() == id {
+			if p != nil && p.ID().Equal(id) {
 				results = append(results, p)
 				found = true
 				break
@@ -85,7 +85,7 @@ func (r *propertySchemaRepo) FindByIDs(ctx context.Context, ids []id.PropertySch
 		}
 	}
 
-	return filterPropertySchemas(ids, results), nil
+	return results, nil
 }
 
 func (r *propertySchemaRepo) Save(ctx context.Context, m *property.Schema) error {
@@ -112,6 +112,17 @@ func (r *propertySchemaRepo) SaveAll(ctx context.Context, m property.SchemaList)
 	return r.client.SaveAll(ctx, ids, docs)
 }
 
+func (r *propertySchemaRepo) Remove(ctx context.Context, id id.PropertySchemaID) error {
+	return r.client.RemoveOne(ctx, id.String())
+}
+
+func (r *propertySchemaRepo) RemoveAll(ctx context.Context, ids []id.PropertySchemaID) error {
+	if len(ids) == 0 {
+		return nil
+	}
+	return r.client.RemoveAll(ctx, id.PropertySchemaIDToKeys(ids))
+}
+
 func (r *propertySchemaRepo) find(ctx context.Context, dst property.SchemaList, filter bson.D) (property.SchemaList, error) {
 	c := mongodoc.PropertySchemaConsumer{
 		Rows: dst,
@@ -131,23 +142,4 @@ func (r *propertySchemaRepo) findOne(ctx context.Context, filter bson.D) (*prope
 		return nil, err
 	}
 	return c.Rows[0], nil
-}
-
-func filterPropertySchemas(ids []id.PropertySchemaID, rows property.SchemaList) property.SchemaList {
-	res := make(property.SchemaList, 0, len(ids))
-	for _, id := range ids {
-		var r2 *property.Schema
-		if ps := builtin.GetPropertySchema(id); ps != nil {
-			r2 = ps
-		} else {
-			for _, r := range rows {
-				if r.ID() == id {
-					r2 = r
-					break
-				}
-			}
-		}
-		res = append(res, r2)
-	}
-	return res
 }
