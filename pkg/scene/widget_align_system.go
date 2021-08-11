@@ -151,8 +151,6 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 		default:
 			a.align = WidgetAlignStart
 		}
-	} else {
-		a.align = WidgetAlignStart
 	}
 
 	if index != nil {
