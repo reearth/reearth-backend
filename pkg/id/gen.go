@@ -11,6 +11,7 @@
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=user_gen.go --name=User
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=dataset_schema_field_gen.go --name=DatasetSchemaField
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=infobox_field_gen.go --name=InfoboxField
+//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=tag_gen.go --name=Tag
 
 // Testing
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=asset_gen_test.go --name=Asset
