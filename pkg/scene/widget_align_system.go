@@ -139,6 +139,9 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 	}
 
 	i, a := was.FindWidgetLocation(wid)
+	if a == nil {
+		return
+	}
 
 	if align != nil {
 		switch *align {

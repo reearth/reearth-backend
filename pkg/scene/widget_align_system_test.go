@@ -195,6 +195,10 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 
 func TestWidgetAlignSystem_Update(t *testing.T) {
 	wid := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
+	wid3 := id.NewWidgetID()
+	wids := []id.WidgetID{wid2, wid3, wid}
+	nwids := []id.WidgetID{wid, wid2, wid3}
 	alignStart := "start"
 	alignCenter := "centered"
 	alignEnd := "end"
@@ -202,38 +206,24 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	// for move
 	oloc := WidgetLocation{"outer", "right", "middle"}
 	nloc := WidgetLocation{"inner", "left", "top"}
-	was := NewWidgetAlignSystem()
-	was.Add(wid, oloc)
 
 	was2 := NewWidgetAlignSystem()
-	was2.Add(wid, oloc)
+	was2.AddAll(wids, WidgetAlignStart, oloc)
 	was2.Remove(wid)
 	was2.Add(wid, nloc)
 
 	// for reordering
 	i := 0
-	wid2 := id.NewWidgetID()
-	wid3 := id.NewWidgetID()
-	wids := []id.WidgetID{wid2, wid3, wid}
-	nwids := []id.WidgetID{wid, wid2, wid3}
 
-	was3 := NewWidgetAlignSystem()
-	was3.outer.right.middle.widgetIds = wids
-	was4 := NewWidgetAlignSystem()
+	was4 := &WidgetAlignSystem{}
 	was4.outer.right.middle.widgetIds = nwids
 	was4.outer.right.middle.align = alignStart
 
-	was5 := NewWidgetAlignSystem()
-	was5.outer.right.middle.widgetIds = wids
-	was5.outer.right.middle.align = alignCenter
-	was6 := NewWidgetAlignSystem()
+	was6 := &WidgetAlignSystem{}
 	was6.outer.right.middle.widgetIds = wids
 	was6.outer.right.middle.align = alignCenter
 
-	was7 := NewWidgetAlignSystem()
-	was7.outer.right.middle.widgetIds = wids
-	was7.outer.right.middle.align = alignEnd
-	was8 := NewWidgetAlignSystem()
+	was8 := &WidgetAlignSystem{}
 	was8.outer.right.middle.widgetIds = wids
 	was8.outer.right.middle.align = alignEnd
 
@@ -245,7 +235,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 			i  *int
 			a  *string
 		}
-		WAS, Expected *WidgetAlignSystem
+		Expected *WidgetAlignSystem
 	}{
 		{
 			Name: "Move a widget from one location to another",
@@ -255,7 +245,6 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, &nloc, nil, nil},
-			WAS:      was,
 			Expected: was2,
 		},
 		{
@@ -266,7 +255,6 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, nil, &i, &alignStart},
-			WAS:      was3,
 			Expected: was4,
 		},
 		{
@@ -277,7 +265,6 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, nil, nil, &alignCenter},
-			WAS:      was5,
 			Expected: was6,
 		},
 		{
@@ -288,27 +275,17 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, nil, nil, &alignEnd},
-			WAS:      was7,
 			Expected: was8,
-		},
-		{
-			Name: "Return without doing anything if no align system",
-			Input: struct {
-				id id.WidgetID
-				l  *WidgetLocation
-				i  *int
-				a  *string
-			}{wid, nil, nil, nil},
-			WAS:      nil,
-			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			tc.WAS.Update(tc.Input.id, tc.Input.l, tc.Input.i, tc.Input.a)
-			assert.Equal(tt, tc.Expected, tc.WAS)
+			was := &WidgetAlignSystem{}
+			was.AddAll(wids, WidgetAlignStart, oloc)
+
+			was.Update(tc.Input.id, tc.Input.l, tc.Input.i, tc.Input.a)
+			assert.Equal(tt, tc.Expected, was)
 		})
 	}
 }
