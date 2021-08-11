@@ -8,6 +8,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var _ Tag = &Group{}
+
 func TestGroupBuilder_Build(t *testing.T) {
 	tid := id.NewTagID()
 	sid := id.NewSceneID()
