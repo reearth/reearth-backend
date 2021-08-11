@@ -4,7 +4,7 @@ package id
 
 import "encoding/json"
 
-// TagID is an ID for tag.
+// TagID is an ID for Tag.
 type TagID ID
 
 // NewTagID generates a new TagId.

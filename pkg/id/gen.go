@@ -15,6 +15,7 @@
 
 // Testing
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=asset_gen_test.go --name=Asset
+//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=tag_gen_test.go --name=Tag
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=dataset_gen_test.go --name=Dataset
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=dataset_schema_gen_test.go --name=DatasetSchema
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=layer_gen_test.go --name=Layer
