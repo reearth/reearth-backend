@@ -269,7 +269,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 			if param.Layout != nil {
 				l := param.Layout
 
-				if *widget.WidgetLayout().Extendable {
+				if *widget.WidgetLayout().Extendable && l.Extended != nil {
 					widget.SetExtended(l.Extended)
 				} else if l.Align != nil {
 					was.Update(widget.ID(), nil, nil, l.Align)
