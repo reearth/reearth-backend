@@ -215,6 +215,7 @@ extensions:
               ui: color
               title: Text color
               description: Select a color.
+              defaultValue: '#434343'
               availableIf:
                 field: reThemeMode
                 type: string
@@ -224,6 +225,7 @@ extensions:
               ui: color
               title: Select color
               description: Select a color.
+              defaultValue: '#C52C63'
               availableIf:
                 field: reThemeMode
                 type: string
@@ -233,6 +235,7 @@ extensions:
               ui: color
               title: Background color
               description: Select a color.
+              defaultValue: '#DFE5F0'
               availableIf:
                 field: reThemeMode
                 type: string
