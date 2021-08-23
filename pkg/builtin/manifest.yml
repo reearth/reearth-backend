@@ -100,6 +100,66 @@ extensions:
               title: Maximum zoom level
               min: 0
               max: 30
+        - id: reTheme
+          title: Publish Theme
+          description: Set your theme.
+          fields:
+            - id: reThemeMode
+              type: string
+              title: Mode
+              defaultValue: preMadeTheme
+              description: Select the theme mode.
+              choices:
+                - key: preMadeTheme
+                  label: Pre-made theme
+                - key: customTheme
+                  label: Custom theme
+            - id: preMadeThemeId
+              type: string
+              title: Pre-made theme
+              description: Select a theme.
+              defaultValue: reEarthDark
+              choices:
+                - key: reEarthDark
+                  label: Re:Earth Dark
+                - key: reEarthLight
+                  label: Re:Earth Light
+                - key: forest
+                  label: Forest
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: preMadeTheme
+            - id: textColor
+              type: string
+              ui: color
+              title: Text color
+              description: Select a color.
+              defaultValue: '#434343'
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: customTheme
+            - id: selectColor
+              type: string
+              ui: color
+              title: Select color
+              description: Select a color.
+              defaultValue: '#C52C63'
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: customTheme
+            - id: backgroundColor
+              type: string
+              ui: color
+              title: Background color
+              description: Select a color.
+              defaultValue: '#DFE5F0'
+              availableIf:
+                field: reThemeMode
+                type: string
+                value: customTheme
         - id: atmosphere
           title: Atmospheric Conditions
           description: Set the look and feel of the Earth.
@@ -180,66 +240,6 @@ extensions:
               type: string
               title: Tracking ID
               description: Paste your Google Analytics tracking ID here. This will be embedded in your published project.
-        - id: reTheme
-          title: Publish Theme
-          description: Set your theme.
-          fields:
-            - id: reThemeMode
-              type: string
-              title: Mode
-              defaultValue: preMadeTheme
-              description: Select the theme mode.
-              choices:
-                - key: preMadeTheme
-                  label: Pre-made theme
-                - key: customTheme
-                  label: Custom theme
-            - id: preMadeThemeId
-              type: string
-              title: Pre-made theme
-              description: Select a theme.
-              defaultValue: reEarthDark
-              choices:
-                - key: reEarthDark
-                  label: Re:Earth Dark
-                - key: reEarthLight
-                  label: Re:Earth Light
-                - key: forest
-                  label: Forest
-              availableIf:
-                field: reThemeMode
-                type: string
-                value: preMadeTheme
-            - id: textColor
-              type: string
-              ui: color
-              title: Text color
-              description: Select a color.
-              defaultValue: '#434343'
-              availableIf:
-                field: reThemeMode
-                type: string
-                value: customTheme
-            - id: selectColor
-              type: string
-              ui: color
-              title: Select color
-              description: Select a color.
-              defaultValue: '#C52C63'
-              availableIf:
-                field: reThemeMode
-                type: string
-                value: customTheme
-            - id: backgroundColor
-              type: string
-              ui: color
-              title: Background color
-              description: Select a color.
-              defaultValue: '#DFE5F0'
-              availableIf:
-                field: reThemeMode
-                type: string
-                value: customTheme
   - id: infobox
     title: Infobox
     visualizer: cesium
