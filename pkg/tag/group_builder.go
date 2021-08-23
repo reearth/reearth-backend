@@ -37,7 +37,7 @@ func (b *GroupBuilder) ID(tid id.TagID) *GroupBuilder {
 	return b
 }
 
-func (b *GroupBuilder) NewID(tid id.TagID) *GroupBuilder {
+func (b *GroupBuilder) NewID() *GroupBuilder {
 	b.g.id = id.NewTagID()
 	return b
 }

@@ -28,7 +28,7 @@ func (b *ItemBuilder) ID(tid id.TagID) *ItemBuilder {
 	return b
 }
 
-func (b *ItemBuilder) NewID(tid id.TagID) *ItemBuilder {
+func (b *ItemBuilder) NewID() *ItemBuilder {
 	b.i.id = id.NewTagID()
 	return b
 }
