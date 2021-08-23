@@ -46,7 +46,7 @@ func TestItemBuilder_Build(t *testing.T) {
 				Item  Item
 				Error error
 			}{
-				Error: id.ErrInvalidID,
+				Error: ErrEmptyLabel,
 			},
 		},
 		{

@@ -45,7 +45,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 				Group Group
 				Error error
 			}{
-				Error: id.ErrInvalidID,
+				Error: ErrEmptyLabel,
 			},
 		},
 		{

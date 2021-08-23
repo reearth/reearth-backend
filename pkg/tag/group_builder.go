@@ -27,7 +27,7 @@ func (b *GroupBuilder) Build() (*Group, error) {
 		return nil, ErrEmptyLabel
 	}
 	if len(b.g.tags.tags) == 0 {
-		return nil, ErrEmptyLabel
+		return nil, ErrEmptyTagList
 	}
 	return b.g, nil
 }
