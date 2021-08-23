@@ -10,13 +10,13 @@ type Item struct {
 }
 
 func (i *Item) LinkedDatasetFieldID() *id.DatasetSchemaFieldID {
-	return i.linkedDatasetFieldID
+	return i.linkedDatasetFieldID.CopyRef()
 }
 
 func (i *Item) LinkedDatasetID() *id.DatasetID {
-	return i.linkedDatasetID
+	return i.linkedDatasetID.CopyRef()
 }
 
 func (i *Item) LinkedDatasetSchemaID() *id.DatasetSchemaID {
-	return i.linkedDatasetSchemaID
+	return i.linkedDatasetSchemaID.CopyRef()
 }

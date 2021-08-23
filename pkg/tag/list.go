@@ -15,7 +15,7 @@ func NewListFromTags(tags []id.TagID) *List {
 }
 
 func (tl *List) Tags() []id.TagID {
-	return tl.tags
+	return append([]id.TagID{}, tl.tags...)
 }
 
 func (tl *List) Has(tid id.TagID) bool {
@@ -41,18 +41,13 @@ func (tl *List) Remove(tags ...id.TagID) {
 	if tl == nil || tl.tags == nil {
 		return
 	}
-	res := make([]id.TagID, 0)
-	for _, t := range tl.tags {
-		found := false
+	for i := 0; i < len(tl.tags); i++ {
 		for _, tid := range tags {
-			if t == tid {
-				found = true
+			if tl.tags[i] == tid {
+				tl.tags = append(tl.tags[:i], tl.tags[i+1:]...)
+				i--
 				break
 			}
 		}
-		if !found {
-			res = append(res, t)
-		}
 	}
-	tl.tags = res
 }

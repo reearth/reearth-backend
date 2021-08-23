@@ -1,7 +1,6 @@
 package tag
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -107,13 +106,13 @@ func TestGroupBuilder_Build(t *testing.T) {
 				Label(tc.Label).
 				Tags(tc.Tags).
 				Build()
-			if err == nil {
+			if tc.Expected.Error == nil {
 				assert.Equal(tt, tc.Expected.Group.ID(), res.ID())
 				assert.Equal(tt, tc.Expected.Group.Scene(), res.Scene())
 				assert.Equal(tt, tc.Expected.Group.Label(), res.Label())
 				assert.Equal(tt, tc.Expected.Group.Tags(), res.Tags())
 			} else {
-				assert.True(tt, errors.As(tc.Expected.Error, &err))
+				assert.Equal(tt, tc.Expected.Error, err)
 			}
 		})
 	}

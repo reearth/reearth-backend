@@ -1,7 +1,6 @@
 package tag
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -98,7 +97,7 @@ func TestItemBuilder_Build(t *testing.T) {
 				LinkedDatasetID(tc.LinkedDatasetID).
 				LinkedDatasetFieldID(tc.LinkedDatasetFieldID).
 				Build()
-			if err == nil {
+			if tc.Expected.Error == nil {
 				assert.Equal(tt, tc.Expected.Item.ID(), res.ID())
 				assert.Equal(tt, tc.Expected.Item.Scene(), res.Scene())
 				assert.Equal(tt, tc.Expected.Item.Label(), res.Label())
@@ -106,7 +105,7 @@ func TestItemBuilder_Build(t *testing.T) {
 				assert.Equal(tt, tc.Expected.Item.LinkedDatasetSchemaID(), res.LinkedDatasetSchemaID())
 				assert.Equal(tt, tc.Expected.Item.LinkedDatasetID(), res.LinkedDatasetID())
 			} else {
-				assert.True(tt, errors.As(tc.Expected.Error, &err))
+				assert.Equal(tt, tc.Expected.Error, err)
 			}
 		})
 	}
