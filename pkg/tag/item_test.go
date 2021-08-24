@@ -11,7 +11,7 @@ var _ Tag = &Item{}
 
 func TestItemBuilder_NewID(t *testing.T) {
 	b := NewItem().NewID()
-	assert.NotNil(t, b.i.id)
+	assert.NotEqual(t, id.TagID{}, b.i.id)
 }
 
 func TestItemBuilder_Build(t *testing.T) {

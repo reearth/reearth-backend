@@ -3,26 +3,23 @@ package tag
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestToTagGroup(t *testing.T) {
-	tag := tag{
-		id:      id.NewTagID(),
-		label:   "xxx",
-		sceneId: id.SceneID{},
-	}
+	tag := Item{}
 	group := ToTagGroup(&tag)
-	assert.IsType(t, &Group{}, group)
+	assert.Nil(t, group)
+	tag2 := Group{}
+	group2 := ToTagGroup(&tag2)
+	assert.NotNil(t, group2)
 }
 
 func TestToTagItem(t *testing.T) {
-	tag := tag{
-		id:      id.NewTagID(),
-		label:   "xxx",
-		sceneId: id.SceneID{},
-	}
+	tag := Group{}
 	item := ToTagItem(&tag)
-	assert.IsType(t, &Item{}, item)
+	assert.Nil(t, item)
+	tag2 := Item{}
+	item2 := ToTagItem(&tag2)
+	assert.NotNil(t, item2)
 }

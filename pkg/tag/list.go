@@ -15,6 +15,9 @@ func NewListFromTags(tags []id.TagID) *List {
 }
 
 func (tl *List) Tags() []id.TagID {
+	if tl == nil || tl.tags == nil {
+		return nil
+	}
 	return append([]id.TagID{}, tl.tags...)
 }
 

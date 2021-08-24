@@ -11,7 +11,7 @@ var _ Tag = &Group{}
 
 func TestGroupBuilder_NewID(t *testing.T) {
 	b := NewGroup().NewID()
-	assert.NotNil(t, b.g.id)
+	assert.NotEqual(t, id.TagID{}, b.g.id)
 }
 
 func TestGroupBuilder_Build(t *testing.T) {
