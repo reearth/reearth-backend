@@ -98,32 +98,32 @@ extensions:
           trackingCode:
             title: トラッキングID
             description: ここにグーグルアナリティクスのトラッキングIDを貼り付けることで、公開プロジェクトにこのコードが埋め込まれます。
-      reTheme:
-        title: Publish Theme
-        description: Set your theme.
+      theme:
+        title: 公開用テーマ
+        description: 公開用のテーマを設定することができます。
         fields:
-          reThemeMode:
-            title: Mode
-            description: Select the theme mode.
+          themeType:
+            title: テーマ
+            description: テーマの種類を選択します。より細かくテーマを指定したい場合はカスタムを選択します。
             choices:
-              preMadeTheme: Pre-made theme
-              customTheme: Custom theme
-          preMadeThemeId:
-            title: Pre-made theme
-            description: Select a theme.
+              preMade: 既成のテーマ
+              custom: カスタム
+          themePreMadeId:
+            title: 既成のテーマ
+            description: テーマを選択します。
             choices:
-              reEarthDark: Re:Earth Dark
-              reEarthLight: Re:Earth Light
-              forest: Forest
-          textColor:
-            title: Text color
-            description: Select a color.
-          selectColor:
-            title: Select color
-            description: Select a color.
-          backgroundColor:
-            title: Background color
-            description: Select a color.
+              dark: Re:Earth ダーク
+              light: Re:Earth ライト
+              forest: 森
+          themeTextColor:
+            title: 文字色
+            description: 文字色を設定します。
+          themeSelectColor:
+            title: 選択色
+            description: 選択色を設定します。
+          themeBackgroundColor:
+            title: 背景色
+            description: 背景色を設定します。
   infobox:
     title: インフォボックス
     description: 閲覧者が地図上のレイヤーをクリックした時に表示されるボックスです。テキストや画像、動画などのコンテンツを表示することができます。

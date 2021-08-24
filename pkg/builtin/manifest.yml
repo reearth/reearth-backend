@@ -100,66 +100,66 @@ extensions:
               title: Maximum zoom level
               min: 0
               max: 30
-        - id: reTheme
+        - id: theme
           title: Publish Theme
           description: Set your theme.
           fields:
-            - id: reThemeMode
+            - id: themeType
               type: string
               title: Mode
-              defaultValue: preMadeTheme
+              defaultValue: preMade
               description: Select the theme mode.
               choices:
-                - key: preMadeTheme
+                - key: preMade
                   label: Pre-made theme
-                - key: customTheme
+                - key: custom
                   label: Custom theme
-            - id: preMadeThemeId
+            - id: themePreMadeId
               type: string
               title: Pre-made theme
               description: Select a theme.
-              defaultValue: reEarthDark
+              defaultValue: dark
               choices:
-                - key: reEarthDark
+                - key: dark
                   label: Re:Earth Dark
-                - key: reEarthLight
+                - key: light
                   label: Re:Earth Light
                 - key: forest
                   label: Forest
               availableIf:
-                field: reThemeMode
+                field: themeType
                 type: string
-                value: preMadeTheme
-            - id: textColor
+                value: preMade
+            - id: themeTextColor
               type: string
               ui: color
               title: Text color
               description: Select a color.
               defaultValue: '#434343'
               availableIf:
-                field: reThemeMode
+                field: themeType
                 type: string
-                value: customTheme
-            - id: selectColor
+                value: custom
+            - id: themeSelectColor
               type: string
               ui: color
               title: Select color
               description: Select a color.
               defaultValue: '#C52C63'
               availableIf:
-                field: reThemeMode
+                field: themeType
                 type: string
-                value: customTheme
-            - id: backgroundColor
+                value: custom
+            - id: themeBackgroundColor
               type: string
               ui: color
               title: Background color
               description: Select a color.
               defaultValue: '#DFE5F0'
               availableIf:
-                field: reThemeMode
+                field: themeType
                 type: string
-                value: customTheme
+                value: custom
         - id: atmosphere
           title: Atmospheric Conditions
           description: Set the look and feel of the Earth.
