@@ -146,9 +146,7 @@ func (l *WidgetLayout) layout() *scene.WidgetLayout {
 	swl.Floating = l.Floating
 
 	var ext *scene.Extendable
-	if l.Extendable == nil {
-		ext = nil
-	} else {
+	if l.Extendable != nil {
 		ext = &scene.Extendable{
 			Vertically:   l.Extendable.Vertically,
 			Horizontally: l.Extendable.Horizontally,

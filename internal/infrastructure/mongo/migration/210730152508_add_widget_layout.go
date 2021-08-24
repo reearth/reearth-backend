@@ -39,21 +39,19 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 
 						var loc *mongodoc.WidgetLocationDocument
 						if wl.DefaultLocation != nil {
-							wld := mongodoc.WidgetLocationDocument{
+							loc = &mongodoc.WidgetLocationDocument{
 								Zone:    wl.DefaultLocation.Zone,
 								Section: wl.DefaultLocation.Section,
 								Area:    wl.DefaultLocation.Area,
 							}
-							loc = &wld
 						}
 
 						var ext *mongodoc.WidgetExtendableDocument
 						if wl.Extendable != nil {
-							wed := mongodoc.WidgetExtendableDocument{
+							ext = &mongodoc.WidgetExtendableDocument{
 								Vertically:   wl.Extendable.Vertically,
 								Horizontally: wl.Extendable.Horizontally,
 							}
-							ext = &wed
 						}
 
 						wldoc := mongodoc.WidgetLayoutDocument{

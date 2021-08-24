@@ -38,9 +38,8 @@ func TestNewWidgetSystem(t *testing.T) {
 					property:  pr,
 					enabled:   true,
 					widgetLayout: &WidgetLayout{
-						Extendable: &Extendable{
-							Vertically: &tr},
-						Extended: &fa,
+						Extendable: &Extendable{Vertically: &tr},
+						Extended:   &fa,
 						DefaultLocation: &WidgetLocation{
 							Zone:    WidgetZoneOuter,
 							Section: WidgetSectionLeft,

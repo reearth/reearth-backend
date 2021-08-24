@@ -1213,11 +1213,10 @@ extensions:
     title: Menu
     description: Menu widgets
     widgetLayout:
-      floating: false
       defaultLocation:
-        zone: "outer"
-        section: "left"
-        area: "top"
+        zone: outer
+        section: left
+        area: top
     schema:
       groups:
         - id: buttons
@@ -1397,11 +1396,10 @@ extensions:
     widgetLayout:
       extendable:
         horizontally: true
-      floating: false
       defaultLocation:
-        zone: "outer"
-        section: "left"
-        area: "bottom"
+        zone: outer
+        section: left
+        area: bottom
     schema:
       groups:
         - id: default

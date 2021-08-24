@@ -83,7 +83,10 @@ func TestScene_ToString(t *testing.T) {
 }
 
 func TestScene_BuildWidgetZone(t *testing.T) {
-	wz := scene.WidgetZone{}
+	wid := id.NewWidgetID()
+	was := scene.NewWidgetAlignSystem()
+	was.Add(wid, scene.WidgetLocation{Zone: "inner", Section: "left", Area: "top"})
+	wz := was.Zone("inner")
 
 	testCases := []struct {
 		Name     string
@@ -91,9 +94,16 @@ func TestScene_BuildWidgetZone(t *testing.T) {
 		Expected widgetZone
 	}{
 		{
-			Name:     "Convert a scene WidgetZone struct to a builder WidgetZone struct",
-			Input:    &wz,
-			Expected: widgetZone{},
+			Name:  "Convert a scene WidgetZone struct to a builder WidgetZone struct",
+			Input: wz,
+			Expected: widgetZone{
+				Left: widgetSection{
+					Top: widgetArea{
+						WidgetIDs: []string{wid.String()},
+						Align:     "start",
+					},
+				},
+			},
 		},
 		{
 			Name:     "Return empty widgetZone when no scene WidgetZone is inputted",

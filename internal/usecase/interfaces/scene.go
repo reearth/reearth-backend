@@ -9,7 +9,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-type LayoutParams struct {
+type WidgetLayoutParams struct {
 	Extendable *scene.Extendable
 	Extended   *bool
 	Location   *scene.WidgetLocation
@@ -21,7 +21,7 @@ type UpdateWidgetParam struct {
 	SceneID  id.SceneID
 	WidgetID id.WidgetID
 	Enabled  *bool
-	Layout   *LayoutParams
+	Layout   *WidgetLayoutParams
 }
 
 var (

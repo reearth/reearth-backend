@@ -70,15 +70,14 @@ func toWidgetLayout(w *scene.WidgetLayout) *WidgetLayout {
 			Area:    (*WidgetAreaType)(&w.DefaultLocation.Area),
 		}
 	}
-	var e *WidgetExtendable
+
 	var wl WidgetLayout
 	if w.Extendable != nil {
-		e = &WidgetExtendable{
-			Vertically:   w.Extendable.Vertically,
-			Horizontally: w.Extendable.Horizontally,
-		}
 		wl = WidgetLayout{
-			Extendable:      e,
+			Extendable: &WidgetExtendable{
+				Vertically:   w.Extendable.Vertically,
+				Horizontally: w.Extendable.Horizontally,
+			},
 			Extended:        w.Extended,
 			Floating:        w.Floating,
 			DefaultLocation: l,

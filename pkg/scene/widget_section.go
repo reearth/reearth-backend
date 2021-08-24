@@ -9,6 +9,12 @@ type WidgetSection struct {
 	bottom WidgetArea
 }
 
+const (
+	WidgetSectionLeft   = "left"
+	WidgetSectionCenter = "center"
+	WidgetSectionRight  = "right"
+)
+
 func (s *WidgetSection) Remove(wid id.WidgetID) {
 	if s == nil {
 		return

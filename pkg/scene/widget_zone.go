@@ -9,6 +9,11 @@ type WidgetZone struct {
 	right  WidgetSection
 }
 
+const (
+	WidgetZoneInner = "inner"
+	WidgetZoneOuter = "outer"
+)
+
 func (z *WidgetZone) Remove(wid id.WidgetID) {
 	if z == nil {
 		return

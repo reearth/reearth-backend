@@ -20,13 +20,6 @@ const (
 	WidgetAlignStart  = "start"
 	WidgetAlignCenter = "centered"
 	WidgetAlignEnd    = "end"
-
-	WidgetZoneInner = "inner"
-	WidgetZoneOuter = "outer"
-
-	WidgetSectionLeft   = "left"
-	WidgetSectionCenter = "center"
-	WidgetSectionRight  = "right"
 )
 
 var Areas = []string{
