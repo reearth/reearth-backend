@@ -1213,7 +1213,6 @@ extensions:
     title: Menu
     description: Menu widgets
     widgetLayout:
-      extendable: false
       floating: false
       defaultLocation:
         zone: "outer"
@@ -1396,7 +1395,8 @@ extensions:
     title: Storytelling
     description: SA feature that enables you to create a story. Connect points in a meaningful way so that your information can be consumed and understood easily.
     widgetLayout:
-      extendable: true
+      extendable:
+        horizontally: true
       floating: false
       defaultLocation:
         zone: "outer"

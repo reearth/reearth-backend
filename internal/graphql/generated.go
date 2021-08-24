@@ -928,6 +928,11 @@ type ComplexityRoot struct {
 		WidgetIds func(childComplexity int) int
 	}
 
+	WidgetExtendable struct {
+		Horizontally func(childComplexity int) int
+		Vertically   func(childComplexity int) int
+	}
+
 	WidgetLayout struct {
 		DefaultLocation func(childComplexity int) int
 		Extendable      func(childComplexity int) int
@@ -5553,6 +5558,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.WidgetArea.WidgetIds(childComplexity), true
 
+	case "WidgetExtendable.horizontally":
+		if e.complexity.WidgetExtendable.Horizontally == nil {
+			break
+		}
+
+		return e.complexity.WidgetExtendable.Horizontally(childComplexity), true
+
+	case "WidgetExtendable.vertically":
+		if e.complexity.WidgetExtendable.Vertically == nil {
+			break
+		}
+
+		return e.complexity.WidgetExtendable.Vertically(childComplexity), true
+
 	case "WidgetLayout.defaultLocation":
 		if e.complexity.WidgetLayout.DefaultLocation == nil {
 			break
@@ -5985,8 +6004,13 @@ type WidgetLocation {
   area: WidgetAreaType
 }
 
+type WidgetExtendable {
+  vertically: Boolean
+  horizontally: Boolean
+}
+
 type WidgetLayout {
-  extendable: Boolean
+  extendable: WidgetExtendable
   extended: Boolean
   floating: Boolean!
   defaultLocation: WidgetLocation
@@ -28287,6 +28311,70 @@ func (ec *executionContext) _WidgetArea_align(ctx context.Context, field graphql
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _WidgetExtendable_vertically(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetExtendable) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetExtendable",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Vertically, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _WidgetExtendable_horizontally(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetExtendable) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "WidgetExtendable",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Horizontally, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _WidgetLayout_extendable(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -28314,9 +28402,9 @@ func (ec *executionContext) _WidgetLayout_extendable(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*bool)
+	res := resTmp.(*graphql1.WidgetExtendable)
 	fc.Result = res
-	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+	return ec.marshalOWidgetExtendable2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetExtendable(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLayout_extended(ctx context.Context, field graphql.CollectedField, obj *graphql1.WidgetLayout) (ret graphql.Marshaler) {
@@ -37755,6 +37843,32 @@ func (ec *executionContext) _WidgetArea(ctx context.Context, sel ast.SelectionSe
 	return out
 }
 
+var widgetExtendableImplementors = []string{"WidgetExtendable"}
+
+func (ec *executionContext) _WidgetExtendable(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetExtendable) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, widgetExtendableImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("WidgetExtendable")
+		case "vertically":
+			out.Values[i] = ec._WidgetExtendable_vertically(ctx, field, obj)
+		case "horizontally":
+			out.Values[i] = ec._WidgetExtendable_horizontally(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var widgetLayoutImplementors = []string{"WidgetLayout"}
 
 func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.SelectionSet, obj *graphql1.WidgetLayout) graphql.Marshaler {
@@ -41824,6 +41938,13 @@ func (ec *executionContext) marshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋr
 		return graphql.Null
 	}
 	return v
+}
+
+func (ec *executionContext) marshalOWidgetExtendable2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetExtendable(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetExtendable) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._WidgetExtendable(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOWidgetLayout2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgraphqlᚐWidgetLayout(ctx context.Context, sel ast.SelectionSet, v *graphql1.WidgetLayout) graphql.Marshaler {

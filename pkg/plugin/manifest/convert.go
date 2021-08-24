@@ -143,8 +143,18 @@ func (l *WidgetLayout) layout() *scene.WidgetLayout {
 
 	var swl scene.WidgetLayout
 	swl.Extended = l.Extended
-	swl.Extendable = l.Extendable
 	swl.Floating = l.Floating
+
+	var ext *scene.Extendable
+	if l.Extendable == nil {
+		ext = nil
+	} else {
+		ext = &scene.Extendable{
+			Vertically:   l.Extendable.Vertically,
+			Horizontally: l.Extendable.Horizontally,
+		}
+	}
+	swl.Extendable = ext
 
 	var dl *scene.WidgetLocation
 	if l.DefaultLocation == nil {
@@ -157,6 +167,7 @@ func (l *WidgetLayout) layout() *scene.WidgetLayout {
 		}
 	}
 	swl.DefaultLocation = dl
+
 	return &swl
 }
 

@@ -5,6 +5,11 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
+type WidgetExtendableDocument struct {
+	Vertically   *bool
+	Horizontally *bool
+}
+
 type WidgetLocationDocument struct {
 	Zone    string
 	Section string
@@ -12,7 +17,7 @@ type WidgetLocationDocument struct {
 }
 
 type WidgetLayoutDocument struct {
-	Extendable      *bool
+	Extendable      *WidgetExtendableDocument
 	Extended        *bool
 	Floating        bool
 	DefaultLocation *WidgetLocationDocument

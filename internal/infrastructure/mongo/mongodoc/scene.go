@@ -92,8 +92,15 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 	alignSysDoc := NewWidgetAlignSystem(was)
 
 	for _, w := range widgets {
+		var ext *WidgetExtendableDocument
+		if w.WidgetLayout().Extendable != nil {
+			ext = &WidgetExtendableDocument{
+				Vertically:   w.WidgetLayout().Extendable.Vertically,
+				Horizontally: w.WidgetLayout().Extendable.Horizontally,
+			}
+		}
 		layout := WidgetLayoutDocument{
-			Extendable:      w.WidgetLayout().Extendable,
+			Extendable:      ext,
 			Extended:        w.WidgetLayout().Extended,
 			Floating:        w.WidgetLayout().Floating,
 			DefaultLocation: (*WidgetLocationDocument)(w.WidgetLayout().DefaultLocation),
@@ -170,8 +177,15 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 		}
 		wl := scene.WidgetLayout{}
 		if w.WidgetLayout != nil {
+			var ext *scene.Extendable
+			if w.WidgetLayout.Extendable != nil {
+				ext = &scene.Extendable{
+					Vertically:   w.WidgetLayout.Extendable.Vertically,
+					Horizontally: w.WidgetLayout.Extendable.Horizontally,
+				}
+			}
 			wl = scene.WidgetLayout{
-				Extendable:      w.WidgetLayout.Extendable,
+				Extendable:      ext,
 				Extended:        w.WidgetLayout.Extended,
 				Floating:        w.WidgetLayout.Floating,
 				DefaultLocation: (*scene.WidgetLocation)(w.WidgetLayout.DefaultLocation),

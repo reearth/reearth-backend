@@ -1211,11 +1211,16 @@ type WidgetArea struct {
 	Align     *string  `json:"align"`
 }
 
+type WidgetExtendable struct {
+	Vertically   *bool `json:"vertically"`
+	Horizontally *bool `json:"horizontally"`
+}
+
 type WidgetLayout struct {
-	Extendable      *bool           `json:"extendable"`
-	Extended        *bool           `json:"extended"`
-	Floating        bool            `json:"floating"`
-	DefaultLocation *WidgetLocation `json:"defaultLocation"`
+	Extendable      *WidgetExtendable `json:"extendable"`
+	Extended        *bool             `json:"extended"`
+	Floating        bool              `json:"floating"`
+	DefaultLocation *WidgetLocation   `json:"defaultLocation"`
 }
 
 type WidgetLayoutInput struct {

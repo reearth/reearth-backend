@@ -198,7 +198,19 @@ func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, 
 
 	widgetLayout := extension.Layout()
 
-	widget, err = scene.NewWidget(id.NewWidgetID(), pid, eid, property.ID(), true, &scene.WidgetLayout{Extendable: widgetLayout.Extendable, Extended: widgetLayout.Extended, Floating: widgetLayout.Floating, DefaultLocation: widgetLayout.DefaultLocation})
+	widget, err = scene.NewWidget(
+		id.NewWidgetID(),
+		pid,
+		eid,
+		property.ID(),
+		true,
+		&scene.WidgetLayout{
+			Extendable:      widgetLayout.Extendable,
+			Extended:        widgetLayout.Extended,
+			Floating:        widgetLayout.Floating,
+			DefaultLocation: widgetLayout.DefaultLocation,
+		},
+	)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -269,7 +281,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 			if param.Layout != nil {
 				l := param.Layout
 
-				if *widget.WidgetLayout().Extendable && l.Extended != nil {
+				if widget.WidgetLayout().Extendable != nil && l.Extended != nil {
 					widget.SetExtended(l.Extended)
 				} else if l.Align != nil {
 					was.Update(widget.ID(), nil, nil, l.Align)

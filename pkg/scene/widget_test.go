@@ -39,8 +39,9 @@ func TestNewWidget(t *testing.T) {
 			Property:  pr,
 			Enabled:   true,
 			WidgetLayout: &WidgetLayout{
-				Extendable: &fa,
-				Extended:   &tr,
+				Extendable: &Extendable{
+					Vertically: &tr},
+				Extended: &fa,
 				DefaultLocation: &WidgetLocation{
 					Zone:    WidgetZoneOuter,
 					Section: WidgetSectionLeft,
@@ -61,8 +62,9 @@ func TestNewWidget(t *testing.T) {
 				Property:  pr,
 				Enabled:   true,
 				WidgetLayout: &WidgetLayout{
-					Extendable: &fa,
-					Extended:   &tr,
+					Extendable: &Extendable{
+						Vertically: &tr},
+					Extended: &fa,
 					DefaultLocation: &WidgetLocation{
 						Zone:    WidgetZoneOuter,
 						Section: WidgetSectionLeft,

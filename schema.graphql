@@ -275,8 +275,13 @@ type WidgetLocation {
   area: WidgetAreaType
 }
 
+type WidgetExtendable {
+  vertically: Boolean
+  horizontally: Boolean
+}
+
 type WidgetLayout {
-  extendable: Boolean
+  extendable: WidgetExtendable
   extended: Boolean
   floating: Boolean!
   defaultLocation: WidgetLocation

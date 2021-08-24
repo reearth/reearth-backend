@@ -389,8 +389,10 @@ func TestSceneBuilder(t *testing.T) {
 		scenePropertyID,
 		false,
 		&scene.WidgetLayout{
-			Extendable: &fa,
-			Extended:   &tr,
+			Extendable: &scene.Extendable{
+				Vertically: &fa,
+			},
+			Extended: &tr,
 			DefaultLocation: &scene.WidgetLocation{
 				Zone:    scene.WidgetZoneOuter,
 				Section: scene.WidgetSectionLeft,
@@ -404,8 +406,10 @@ func TestSceneBuilder(t *testing.T) {
 		scenePropertyID,
 		true,
 		&scene.WidgetLayout{
-			Extendable: &fa,
-			Extended:   &tr,
+			Extendable: &scene.Extendable{
+				Vertically: &fa,
+			},
+			Extended: &tr,
 			DefaultLocation: &scene.WidgetLocation{
 				Zone:    scene.WidgetZoneOuter,
 				Section: scene.WidgetSectionLeft,

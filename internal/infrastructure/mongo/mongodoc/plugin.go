@@ -63,7 +63,10 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 			Schema:      e.Schema().String(),
 			Visualizer:  string(e.Visualizer()),
 			WidgetLayout: &WidgetLayoutDocument{
-				Extendable:      e.Layout().Extendable,
+				Extendable: &WidgetExtendableDocument{
+					Vertically:   e.Layout().Extendable.Vertically,
+					Horizontally: e.Layout().Extendable.Horizontally,
+				},
 				Extended:        e.Layout().Extended,
 				Floating:        e.Layout().Floating,
 				DefaultLocation: (*WidgetLocationDocument)(e.Layout().DefaultLocation),
@@ -103,7 +106,10 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 			Description(d.Description).
 			Icon(e.Icon).
 			WidgetLayout(&scene.WidgetLayout{
-				Extendable:      e.WidgetLayout.Extendable,
+				Extendable: &scene.Extendable{
+					Vertically:   e.WidgetLayout.Extendable.Vertically,
+					Horizontally: e.WidgetLayout.Extendable.Horizontally,
+				},
 				Extended:        e.WidgetLayout.Extended,
 				Floating:        e.WidgetLayout.Floating,
 				DefaultLocation: (*scene.WidgetLocation)(e.WidgetLayout.DefaultLocation),

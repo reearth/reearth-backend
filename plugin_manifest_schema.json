@@ -327,9 +327,23 @@
           "properties": {
             "extendable": {
               "type": [
-                "boolean",
+                "object",
                 "null"
-              ]
+              ],
+              "properties": {
+                "vertically": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "horizontally": {
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                }
+              }
             },
             "extended": {
               "type": [

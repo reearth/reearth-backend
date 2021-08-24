@@ -4,8 +4,13 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
+type Extendable struct {
+	Horizontally *bool
+	Vertically   *bool
+}
+
 type WidgetLayout struct {
-	Extendable      *bool
+	Extendable      *Extendable
 	Extended        *bool
 	Floating        bool
 	DefaultLocation *WidgetLocation

@@ -56,7 +56,11 @@ func TestExtensionBuilder_Visualizer(t *testing.T) {
 func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 	var b = NewExtension()
 	ex := true
-	wl := &scene.WidgetLayout{Extendable: &ex}
+	wl := &scene.WidgetLayout{
+		Extendable: &scene.Extendable{
+			Vertically: &ex,
+		},
+	}
 	wl2 := wl
 	res := b.ID("xxx").WidgetLayout(wl).MustBuild()
 	assert.Same(t, wl2, res.Layout())
@@ -89,8 +93,10 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 			visualizer:    "vvv",
 			widgetLayout: &scene.WidgetLayout{
-				Extendable: &extendable,
-				Extended:   &extended,
+				Extendable: &scene.Extendable{
+					Vertically: &extendable,
+				},
+				Extended: &extended,
 				DefaultLocation: &scene.WidgetLocation{
 					Zone:    scene.WidgetZoneOuter,
 					Section: scene.WidgetSectionLeft,
@@ -105,8 +111,10 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
 				widgetLayout: &scene.WidgetLayout{
-					Extendable: &extendable,
-					Extended:   &extended,
+					Extendable: &scene.Extendable{
+						Vertically: &extendable,
+					},
+					Extended: &extended,
 					DefaultLocation: &scene.WidgetLocation{
 						Zone:    scene.WidgetZoneOuter,
 						Section: scene.WidgetSectionLeft,
@@ -181,8 +189,10 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 			visualizer:    "vvv",
 			widgetLayout: &scene.WidgetLayout{
-				Extendable: &extendable,
-				Extended:   &extended,
+				Extendable: &scene.Extendable{
+					Vertically: &extendable,
+				},
+				Extended: &extended,
 				DefaultLocation: &scene.WidgetLocation{
 					Zone:    scene.WidgetZoneOuter,
 					Section: scene.WidgetSectionLeft,
@@ -197,8 +207,10 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
 				widgetLayout: &scene.WidgetLayout{
-					Extendable: &extendable,
-					Extended:   &extended,
+					Extendable: &scene.Extendable{
+						Vertically: &extendable,
+					},
+					Extended: &extended,
 					DefaultLocation: &scene.WidgetLocation{
 						Zone:    scene.WidgetZoneOuter,
 						Section: scene.WidgetSectionLeft,
