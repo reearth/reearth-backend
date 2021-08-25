@@ -44,6 +44,12 @@ func TestWidgetSection_Find(t *testing.T) {
 			WS:       ws,
 			Expected: &bot,
 		},
+		{
+			Name:     "Return nil if no widget section",
+			Input:    wid3,
+			WS:       nil,
+			Expected: nil,
+		},
 	}
 	for _, tc := range testCases {
 		tc := tc
