@@ -323,7 +323,6 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
 			var was *WidgetAlignSystem
 			if tc.WAS {
 				was = &WidgetAlignSystem{}
