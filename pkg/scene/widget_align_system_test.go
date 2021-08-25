@@ -202,10 +202,14 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	alignStart := "start"
 	alignCenter := "centered"
 	alignEnd := "end"
+	alignNoNo := "notCool"
 
 	// for move
 	oloc := WidgetLocation{"outer", "right", "middle"}
 	nloc := WidgetLocation{"inner", "left", "top"}
+
+	was := &WidgetAlignSystem{}
+	was.AddAll(wids, WidgetAlignStart, oloc)
 
 	was2 := NewWidgetAlignSystem()
 	was2.AddAll(wids, WidgetAlignStart, oloc)
@@ -235,6 +239,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 			i  *int
 			a  *string
 		}
+		WAS      bool
 		Expected *WidgetAlignSystem
 	}{
 		{
@@ -245,6 +250,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, &nloc, nil, nil},
+			WAS:      true,
 			Expected: was2,
 		},
 		{
@@ -255,6 +261,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, nil, &i, &alignStart},
+			WAS:      true,
 			Expected: was4,
 		},
 		{
@@ -265,6 +272,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, nil, nil, &alignCenter},
+			WAS:      true,
 			Expected: was6,
 		},
 		{
@@ -275,15 +283,52 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				i  *int
 				a  *string
 			}{wid, nil, nil, &alignEnd},
+			WAS:      true,
 			Expected: was8,
+		},
+		{
+			Name: "Use default alignment if align param not appropriate",
+			Input: struct {
+				id id.WidgetID
+				l  *WidgetLocation
+				i  *int
+				a  *string
+			}{id.NewWidgetID(), nil, nil, &alignNoNo},
+			WAS:      true,
+			Expected: was,
+		},
+		{
+			Name: "Return nil if widget id not found",
+			Input: struct {
+				id id.WidgetID
+				l  *WidgetLocation
+				i  *int
+				a  *string
+			}{id.NewWidgetID(), nil, nil, &alignEnd},
+			WAS:      false,
+			Expected: nil,
+		},
+		{
+			Name: "Return nil if no widget align system",
+			Input: struct {
+				id id.WidgetID
+				l  *WidgetLocation
+				i  *int
+				a  *string
+			}{wid, nil, nil, &alignEnd},
+			WAS:      false,
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
-			was := &WidgetAlignSystem{}
-			was.AddAll(wids, WidgetAlignStart, oloc)
-
+			tt.Parallel()
+			var was *WidgetAlignSystem
+			if tc.WAS {
+				was = &WidgetAlignSystem{}
+				was.AddAll(wids, WidgetAlignStart, oloc)
+			}
 			was.Update(tc.Input.id, tc.Input.l, tc.Input.i, tc.Input.a)
 			assert.Equal(tt, tc.Expected, was)
 		})

@@ -31,6 +31,12 @@ func TestWidgetArea_Find(t *testing.T) {
 			WA:       wa,
 			Expected: nil,
 		},
+		{
+			Name:     "Return nil if WidgetArea is nil",
+			Input:    id.NewWidgetID(),
+			WA:       nil,
+			Expected: nil,
+		},
 	}
 	for _, tc := range testCases {
 		tc := tc
@@ -38,6 +44,45 @@ func TestWidgetArea_Find(t *testing.T) {
 			tt.Parallel()
 			_, res := tc.WA.Find(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
+		})
+	}
+}
+
+func TestWidgetArea_Remove(t *testing.T) {
+	wid := id.NewWidgetID()
+	wa := NewWidgetArea()
+	wa.widgetIds = append(wa.widgetIds, wid)
+
+	testCases := []struct {
+		Name  string
+		Input struct {
+			id id.WidgetID
+		}
+		WA, Expected *WidgetArea
+	}{
+		{
+			Name: "Remove a widget from widget area",
+			Input: struct {
+				id id.WidgetID
+			}{wid},
+			WA:       wa,
+			Expected: &WidgetArea{widgetIds: []id.WidgetID{}},
+		},
+		{
+			Name: "Return nil if no widget area",
+			Input: struct {
+				id id.WidgetID
+			}{wid},
+			WA:       nil,
+			Expected: nil,
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			tc.WA.Remove(tc.Input.id)
+			assert.Equal(tt, tc.Expected, tc.WA)
 		})
 	}
 }
@@ -115,9 +160,15 @@ func TestWidgetArea_Has(t *testing.T) {
 			Expected: true,
 		},
 		{
-			Name:     "Return true if Widget Area has widgetID",
+			Name:     "Return false if Widget Area does not have widgetID",
 			Input:    wid,
 			WA:       wa2,
+			Expected: false,
+		},
+		{
+			Name:     "Return false if Widget Area is nil",
+			Input:    wid,
+			WA:       nil,
 			Expected: false,
 		},
 	}
