@@ -106,15 +106,10 @@ extensions:
             title: テーマ
             description: テーマの種類を選択します。より細かくテーマを指定したい場合はカスタムを選択します。
             choices:
-              preMade: 既成のテーマ
-              custom: カスタム
-          themePreMadeId:
-            title: 既成のテーマ
-            description: テーマを選択します。
-            choices:
               dark: Re:Earth ダーク
               light: Re:Earth ライト
               forest: 森
+              custom: カスタム
           themeTextColor:
             title: 文字色
             description: 文字色を設定します。

@@ -106,19 +106,9 @@ extensions:
           fields:
             - id: themeType
               type: string
-              title: Mode
-              defaultValue: preMade
-              description: Select the theme mode.
-              choices:
-                - key: preMade
-                  label: Pre-made theme
-                - key: custom
-                  label: Custom theme
-            - id: themePreMadeId
-              type: string
-              title: Pre-made theme
-              description: Select a theme.
+              title: Theme
               defaultValue: dark
+              description: Select the theme.
               choices:
                 - key: dark
                   label: Re:Earth Dark
@@ -126,10 +116,8 @@ extensions:
                   label: Re:Earth Light
                 - key: forest
                   label: Forest
-              availableIf:
-                field: themeType
-                type: string
-                value: preMade
+                - key: custom
+                  label: Custom theme
             - id: themeTextColor
               type: string
               ui: color
