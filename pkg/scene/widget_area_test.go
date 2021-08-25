@@ -10,32 +10,33 @@ import (
 func TestWidgetArea_Find(t *testing.T) {
 	wid := id.NewWidgetID()
 
-	was := NewWidgetAlignSystem()
-	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
-	e := was.outer.left.top
+	wa := NewWidgetArea()
+	wa.widgetIds = append(wa.widgetIds, wid)
 
 	testCases := []struct {
-		Name  string
-		Input struct {
-			id id.WidgetID
-		}
+		Name     string
+		Input    id.WidgetID
 		WA       *WidgetArea
 		Expected *WidgetArea
 	}{
 		{
-			Name: "Find the location of a widgetID and return the WidgetArea",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
-			WA:       &was.outer.left.top,
-			Expected: &e,
+			Name:     "Return WidgetArea if contains widget id",
+			Input:    wid,
+			WA:       wa,
+			Expected: wa,
+		},
+		{
+			Name:     "Return nil if doesn't contain widget id",
+			Input:    id.NewWidgetID(),
+			WA:       wa,
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			_, res := tc.WA.Find(tc.Input.id)
+			_, res := tc.WA.Find(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}
@@ -44,8 +45,8 @@ func TestWidgetArea_Find(t *testing.T) {
 func TestWidgetArea_WidgetIDs(t *testing.T) {
 	wid := id.NewWidgetID()
 
-	was := NewWidgetAlignSystem()
-	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
+	wa := NewWidgetArea()
+	wa.widgetIds = append(wa.widgetIds, wid)
 
 	testCases := []struct {
 		Name     string
@@ -54,8 +55,8 @@ func TestWidgetArea_WidgetIDs(t *testing.T) {
 	}{
 		{
 			Name:     "Return the WidgetIDs of the Widget Area",
-			WA:       &was.outer.left.top,
-			Expected: was.outer.left.top.widgetIds,
+			WA:       wa,
+			Expected: wa.widgetIds,
 		},
 	}
 	for _, tc := range testCases {
@@ -69,12 +70,8 @@ func TestWidgetArea_WidgetIDs(t *testing.T) {
 }
 
 func TestWidgetArea_Alignment(t *testing.T) {
-	was := NewWidgetAlignSystem()
-	was.outer.left.top.align = "end"
-
-	was2 := NewWidgetAlignSystem()
-	was2.Add(id.NewWidgetID(), WidgetLocation{Zone: "outer", Section: "left", Area: "top"})
-	d := "start"
+	wa := NewWidgetArea()
+	wa.align = "end"
 
 	testCases := []struct {
 		Name     string
@@ -83,13 +80,8 @@ func TestWidgetArea_Alignment(t *testing.T) {
 	}{
 		{
 			Name:     "Return the alignment of the Widget Area",
-			WA:       &was.outer.left.top,
-			Expected: &was.outer.left.top.align,
-		},
-		{
-			Name:     "Default alignment on adding widget",
-			WA:       &was2.outer.left.top,
-			Expected: &d,
+			WA:       wa,
+			Expected: &wa.align,
 		},
 	}
 	for _, tc := range testCases {
@@ -104,31 +96,28 @@ func TestWidgetArea_Alignment(t *testing.T) {
 
 func TestWidgetArea_Has(t *testing.T) {
 	wid := id.NewWidgetID()
-	was := NewWidgetAlignSystem()
-	was.Add(wid, WidgetLocation{Zone: "outer", Section: "left", Area: "top"})
+
+	wa := NewWidgetArea()
+	wa.widgetIds = append(wa.widgetIds, wid)
+
+	wa2 := NewWidgetArea()
 
 	testCases := []struct {
-		Name  string
-		Input struct {
-			id id.WidgetID
-		}
+		Name     string
+		Input    id.WidgetID
 		WA       *WidgetArea
 		Expected bool
 	}{
 		{
-			Name: "Return true if Widget Area has widgetID",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
-			WA:       &was.outer.left.top,
+			Name:     "Return true if Widget Area has widgetID",
+			Input:    wid,
+			WA:       wa,
 			Expected: true,
 		},
 		{
-			Name: "Return true if Widget Area has widgetID",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
-			WA:       &was.outer.left.middle,
+			Name:     "Return true if Widget Area has widgetID",
+			Input:    wid,
+			WA:       wa2,
 			Expected: false,
 		},
 	}

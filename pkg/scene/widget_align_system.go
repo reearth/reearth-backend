@@ -150,7 +150,7 @@ func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *
 	}
 
 	if index != nil {
-		moveInt(a.widgetIds, *i, *index)
+		moveInt(a.widgetIds, i, *index)
 	}
 	if l != nil {
 		was.Remove(wid)
@@ -168,20 +168,20 @@ func (was *WidgetAlignSystem) Remove(wid id.WidgetID) {
 	was.outer.Remove(wid)
 }
 
-func (was *WidgetAlignSystem) FindWidgetLocation(wid id.WidgetID) (*int, *WidgetArea) {
+func (was *WidgetAlignSystem) FindWidgetLocation(wid id.WidgetID) (int, *WidgetArea) {
 	if was == nil {
-		return nil, nil
+		return -1, nil
 	}
 	i, wa := was.inner.Find(wid)
-	if wa != nil && i != nil {
+	if wa != nil && i != -1 {
 		return i, wa
 	}
 	i2, wa2 := was.outer.Find(wid)
-	if wa2 != nil && i2 != nil {
+	if wa2 != nil && i2 != -1 {
 		return i2, wa2
 	}
 
-	return nil, nil
+	return -1, nil
 }
 
 // moveInt moves a widget's index.

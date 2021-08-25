@@ -10,20 +10,20 @@ import (
 func TestWidgetSection_Find(t *testing.T) {
 	wid := id.NewWidgetID()
 
-	was := NewWidgetAlignSystem()
-	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
-	e := was.outer.left.top
+	ws := NewWidgetSection()
+	ws.top.widgetIds = append(ws.top.widgetIds, wid)
+	e := ws.top
 
 	testCases := []struct {
 		Name     string
 		Input    id.WidgetID
-		WAS      *WidgetSection
+		WS       *WidgetSection
 		Expected *WidgetArea
 	}{
 		{
 			Name:     "Find the location of a widgetID and return the WidgetArea",
 			Input:    wid,
-			WAS:      &was.outer.left,
+			WS:       ws,
 			Expected: &e,
 		},
 	}
@@ -31,7 +31,7 @@ func TestWidgetSection_Find(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			_, res := tc.WAS.Find(tc.Input)
+			_, res := tc.WS.Find(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}
@@ -40,16 +40,16 @@ func TestWidgetSection_Find(t *testing.T) {
 func TestWidgetSection_Area(t *testing.T) {
 	wid := id.NewWidgetID()
 
-	was := NewWidgetAlignSystem()
-	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
-	e := was.outer.left.top
+	ws := NewWidgetSection()
+	ws.top.widgetIds = append(ws.top.widgetIds, wid)
+	e := ws.top
 
 	testCases := []struct {
 		Name  string
 		Input struct {
 			s string
 		}
-		WAS      *WidgetSection
+		WS       *WidgetSection
 		Expected *WidgetArea
 	}{
 		{
@@ -57,7 +57,7 @@ func TestWidgetSection_Area(t *testing.T) {
 			Input: struct {
 				s string
 			}{"top"},
-			WAS:      &was.outer.left,
+			WS:       ws,
 			Expected: &e,
 		},
 	}
@@ -65,7 +65,7 @@ func TestWidgetSection_Area(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := tc.WAS.Area(tc.Input.s)
+			res := tc.WS.Area(tc.Input.s)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}

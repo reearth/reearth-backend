@@ -15,6 +15,10 @@ const (
 	WidgetSectionRight  = "right"
 )
 
+func NewWidgetSection() *WidgetSection {
+	return &WidgetSection{}
+}
+
 func (s *WidgetSection) Remove(wid id.WidgetID) {
 	if s == nil {
 		return
@@ -25,24 +29,24 @@ func (s *WidgetSection) Remove(wid id.WidgetID) {
 	s.bottom.Remove(wid)
 }
 
-func (s *WidgetSection) Find(wid id.WidgetID) (*int, *WidgetArea) {
+func (s *WidgetSection) Find(wid id.WidgetID) (int, *WidgetArea) {
 	if s == nil {
-		return nil, nil
+		return -1, nil
 	}
 
 	i, wa := s.top.Find(wid)
-	if wa != nil && i != nil {
+	if wa != nil && i != -1 {
 		return i, wa
 	}
 	i2, wa2 := s.middle.Find(wid)
-	if wa2 != nil && i2 != nil {
+	if wa2 != nil && i2 != -1 {
 		return i2, wa2
 	}
 	i3, wa3 := s.bottom.Find(wid)
-	if wa3 != nil && i3 != nil {
+	if wa3 != nil && i3 != -1 {
 		return i3, wa3
 	}
-	return nil, nil
+	return -1, nil
 }
 
 func (ws *WidgetSection) Area(a string) *WidgetArea {

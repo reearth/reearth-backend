@@ -14,6 +14,10 @@ const (
 	WidgetZoneOuter = "outer"
 )
 
+func NewWidgetZone() *WidgetZone {
+	return &WidgetZone{}
+}
+
 func (z *WidgetZone) Remove(wid id.WidgetID) {
 	if z == nil {
 		return
@@ -24,24 +28,24 @@ func (z *WidgetZone) Remove(wid id.WidgetID) {
 	z.right.Remove(wid)
 }
 
-func (z *WidgetZone) Find(wid id.WidgetID) (*int, *WidgetArea) {
+func (z *WidgetZone) Find(wid id.WidgetID) (int, *WidgetArea) {
 	if z == nil {
-		return nil, nil
+		return -1, nil
 	}
 
 	i, wa := z.left.Find(wid)
-	if wa != nil && i != nil {
+	if wa != nil && i != -1 {
 		return i, wa
 	}
 	i2, wa2 := z.center.Find(wid)
-	if wa2 != nil && i2 != nil {
+	if wa2 != nil && i2 != -1 {
 		return i2, wa2
 	}
 	i3, wa3 := z.right.Find(wid)
-	if wa3 != nil && i3 != nil {
+	if wa3 != nil && i3 != -1 {
 		return i3, wa3
 	}
-	return nil, nil
+	return -1, nil
 }
 
 func (wz *WidgetZone) Section(s string) *WidgetSection {

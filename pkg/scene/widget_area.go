@@ -14,6 +14,10 @@ var (
 	WidgetAreaBottom = "bottom"
 )
 
+func NewWidgetArea() *WidgetArea {
+	return &WidgetArea{}
+}
+
 // WidgetIds will return a slice of widget ids from a specific area.
 func (wa *WidgetArea) WidgetIDs() []id.WidgetID {
 	return wa.widgetIds
@@ -37,17 +41,17 @@ func (a *WidgetArea) Remove(wid id.WidgetID) {
 	}
 }
 
-func (a *WidgetArea) Find(wid id.WidgetID) (*int, *WidgetArea) {
+func (a *WidgetArea) Find(wid id.WidgetID) (int, *WidgetArea) {
 	if a == nil {
-		return nil, nil
+		return -1, nil
 	}
 
 	for i, w := range a.widgetIds {
 		if w == wid {
-			return &i, a
+			return i, a
 		}
 	}
-	return nil, nil
+	return -1, nil
 }
 
 // Has will check a widget area's slice of widgetIds for the specified ID and return a bool value.

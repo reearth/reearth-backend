@@ -10,26 +10,26 @@ import (
 func TestWidgetZone_Find(t *testing.T) {
 	wid := id.NewWidgetID()
 
-	was := NewWidgetAlignSystem()
-	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
-	e := was.outer.left.top
+	wz := NewWidgetZone()
+	wz.left.top.widgetIds = append(wz.left.top.widgetIds, wid)
+	e := wz.left.top
 
 	testCases := []struct {
 		Name     string
 		Input    id.WidgetID
-		WAS      *WidgetZone
+		WZ       *WidgetZone
 		Expected *WidgetArea
 	}{
 		{
 			Name:     "Find the location of a widgetID and return the WidgetArea",
 			Input:    wid,
-			WAS:      &was.outer,
+			WZ:       wz,
 			Expected: &e,
 		},
 		{
 			Name:     "Return nil if no Zone",
 			Input:    wid,
-			WAS:      nil,
+			WZ:       nil,
 			Expected: nil,
 		},
 	}
@@ -37,7 +37,7 @@ func TestWidgetZone_Find(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			_, res := tc.WAS.Find(tc.Input)
+			_, res := tc.WZ.Find(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}
@@ -46,16 +46,16 @@ func TestWidgetZone_Find(t *testing.T) {
 func TestWidgetZone_Section(t *testing.T) {
 	wid := id.NewWidgetID()
 
-	was := NewWidgetAlignSystem()
-	was.outer.left.top.widgetIds = append(was.outer.left.top.widgetIds, wid)
-	e := was.outer.left
+	wz := NewWidgetZone()
+	wz.left.top.widgetIds = append(wz.left.top.widgetIds, wid)
+	e := wz.left
 
 	testCases := []struct {
 		Name  string
 		Input struct {
 			s string
 		}
-		WAS      *WidgetZone
+		WZ       *WidgetZone
 		Expected *WidgetSection
 	}{
 		{
@@ -63,7 +63,7 @@ func TestWidgetZone_Section(t *testing.T) {
 			Input: struct {
 				s string
 			}{"left"},
-			WAS:      &was.outer,
+			WZ:       wz,
 			Expected: &e,
 		},
 	}
@@ -71,7 +71,7 @@ func TestWidgetZone_Section(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := tc.WAS.Section(tc.Input.s)
+			res := tc.WZ.Section(tc.Input.s)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}
