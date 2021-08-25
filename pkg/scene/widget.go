@@ -81,5 +81,10 @@ func (w *Widget) SetEnabled(enabled bool) {
 }
 
 func (w *Widget) SetExtended(extended *bool) {
-	w.widgetLayout.Extended = extended
+	if extended == nil {
+		w.widgetLayout.Extended = nil
+	} else {
+		extended2 := *extended
+		w.widgetLayout.Extended = &extended2
+	}
 }
