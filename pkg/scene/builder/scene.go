@@ -20,13 +20,19 @@ type sceneJSON struct {
 	WidgetAlignSystem *widgetAlignSystemJSON  `json:"widgetAlignSystem"`
 }
 
+type extendableJSON struct {
+	Vertically   *bool `json:"vertically"`
+	Horizontally *bool `json:"horizontally"`
+}
+
 type widgetJSON struct {
-	ID          string       `json:"id"`
-	PluginID    string       `json:"pluginId"`
-	ExtensionID string       `json:"extensionId"`
-	Property    propertyJSON `json:"property"`
-	Extended    *bool        `json:"extended"`
-	Floating    bool         `json:"floating"`
+	ID          string         `json:"id"`
+	PluginID    string         `json:"pluginId"`
+	ExtensionID string         `json:"extensionId"`
+	Property    propertyJSON   `json:"property"`
+	Extended    *bool          `json:"extended"`
+	Extendable  extendableJSON `json:"extendable"`
+	Floating    bool           `json:"floating"`
 }
 
 func (b *Builder) scene(ctx context.Context, s *scene.Scene, publishedAt time.Time, l []*layerJSON, p []*property.Property) *sceneJSON {
@@ -38,7 +44,7 @@ func (b *Builder) scene(ctx context.Context, s *scene.Scene, publishedAt time.Ti
 		Plugins:           b.plugins(ctx, s, p),
 		Widgets:           b.widgets(ctx, s, p),
 		Layers:            l,
-		WidgetAlignSystem: b.widgetAlignSystem(ctx, s),
+		WidgetAlignSystem: b.widgetAlignSystem(s),
 	}
 }
 
@@ -63,19 +69,34 @@ func (b *Builder) widgets(ctx context.Context, s *scene.Scene, p []*property.Pro
 		if !w.Enabled() {
 			continue
 		}
-		res = append(res, &widgetJSON{
-			ID:          w.ID().String(),
-			PluginID:    w.Plugin().String(),
-			ExtensionID: string(w.Extension()),
-			Property:    b.property(ctx, findProperty(p, w.Property())),
-			Extended:    w.WidgetLayout().Extended,
-			Floating:    w.WidgetLayout().Floating,
-		})
+		if w.WidgetLayout().Extendable != nil {
+			res = append(res, &widgetJSON{
+				ID:          w.ID().String(),
+				PluginID:    w.Plugin().String(),
+				ExtensionID: string(w.Extension()),
+				Property:    b.property(ctx, findProperty(p, w.Property())),
+				Extended:    w.WidgetLayout().Extended,
+				Extendable: extendableJSON{
+					Vertically:   w.WidgetLayout().Extendable.Vertically,
+					Horizontally: w.WidgetLayout().Extendable.Horizontally,
+				},
+				Floating: w.WidgetLayout().Floating,
+			})
+		} else {
+			res = append(res, &widgetJSON{
+				ID:          w.ID().String(),
+				PluginID:    w.Plugin().String(),
+				ExtensionID: string(w.Extension()),
+				Property:    b.property(ctx, findProperty(p, w.Property())),
+				Extended:    w.WidgetLayout().Extended,
+				Floating:    w.WidgetLayout().Floating,
+			})
+		}
 	}
 	return res
 }
 
-func (b *Builder) widgetAlignSystem(ctx context.Context, s *scene.Scene) *widgetAlignSystemJSON {
+func (b *Builder) widgetAlignSystem(s *scene.Scene) *widgetAlignSystemJSON {
 	sas := s.WidgetAlignSystem()
 
 	res := widgetAlignSystemJSON{Inner: buildWidgetZone(sas.Zone("inner")), Outer: buildWidgetZone(sas.Zone("outer"))}
