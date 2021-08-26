@@ -888,8 +888,8 @@ input WidgetLocationInput {
 
 input WidgetLayoutInput {
   extended: Boolean
-	location: WidgetLocationInput
-	index: Int
+  location: WidgetLocationInput
+  index: Int
   align: String
 }
 
