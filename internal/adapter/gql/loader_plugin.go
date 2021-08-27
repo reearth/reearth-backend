@@ -10,15 +10,15 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type PluginController struct {
+type PluginLoader struct {
 	usecase interfaces.Plugin
 }
 
-func NewPluginController(usecase interfaces.Plugin) *PluginController {
-	return &PluginController{usecase: usecase}
+func NewPluginLoader(usecase interfaces.Plugin) *PluginLoader {
+	return &PluginLoader{usecase: usecase}
 }
 
-func (c *PluginController) Fetch(ctx context.Context, ids []id.PluginID, operator *usecase.Operator) ([]*gqlmodel.Plugin, []error) {
+func (c *PluginLoader) Fetch(ctx context.Context, ids []id.PluginID, operator *usecase.Operator) ([]*gqlmodel.Plugin, []error) {
 	res, err := c.usecase.Fetch(ctx, ids, operator)
 	if err != nil {
 		return nil, []error{err}
@@ -32,7 +32,7 @@ func (c *PluginController) Fetch(ctx context.Context, ids []id.PluginID, operato
 	return plugins, nil
 }
 
-func (c *PluginController) FetchPluginMetadata(ctx context.Context, operator *usecase.Operator) ([]*gqlmodel.PluginMetadata, error) {
+func (c *PluginLoader) FetchPluginMetadata(ctx context.Context, operator *usecase.Operator) ([]*gqlmodel.PluginMetadata, error) {
 	res, err := c.usecase.FetchPluginMetadata(ctx, operator)
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ type PluginDataLoader interface {
 	LoadAll([]id.PluginID) ([]*gqlmodel.Plugin, []error)
 }
 
-func (c *PluginController) DataLoader(ctx context.Context) PluginDataLoader {
+func (c *PluginLoader) DataLoader(ctx context.Context) PluginDataLoader {
 	return gqldataloader.NewPluginLoader(gqldataloader.PluginLoaderConfig{
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
@@ -67,7 +67,7 @@ func (c *PluginController) DataLoader(ctx context.Context) PluginDataLoader {
 	})
 }
 
-func (c *PluginController) OrdinaryDataLoader(ctx context.Context) PluginDataLoader {
+func (c *PluginLoader) OrdinaryDataLoader(ctx context.Context) PluginDataLoader {
 	return &ordinaryPluginLoader{
 		fetch: func(keys []id.PluginID) ([]*gqlmodel.Plugin, []error) {
 			return c.Fetch(ctx, keys, getOperator(ctx))

@@ -10,15 +10,15 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type AssetController struct {
+type AssetLoader struct {
 	usecase interfaces.Asset
 }
 
-func NewAssetController(usecase interfaces.Asset) *AssetController {
-	return &AssetController{usecase: usecase}
+func NewAssetLoader(usecase interfaces.Asset) *AssetLoader {
+	return &AssetLoader{usecase: usecase}
 }
 
-func (c *AssetController) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.Asset, []error) {
+func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.Asset, []error) {
 	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
@@ -32,7 +32,7 @@ func (c *AssetController) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmo
 	return assets, nil
 }
 
-func (c *AssetController) FindByTeam(ctx context.Context, teamID id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
+func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
 	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), p, getOperator(ctx))
 	if err != nil {
@@ -65,7 +65,7 @@ type AssetDataLoader interface {
 	LoadAll([]id.AssetID) ([]*gqlmodel.Asset, []error)
 }
 
-func (c *AssetController) DataLoader(ctx context.Context) AssetDataLoader {
+func (c *AssetLoader) DataLoader(ctx context.Context) AssetDataLoader {
 	return gqldataloader.NewAssetLoader(gqldataloader.AssetLoaderConfig{
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
@@ -75,13 +75,13 @@ func (c *AssetController) DataLoader(ctx context.Context) AssetDataLoader {
 	})
 }
 
-func (c *AssetController) OrdinaryDataLoader(ctx context.Context) AssetDataLoader {
+func (c *AssetLoader) OrdinaryDataLoader(ctx context.Context) AssetDataLoader {
 	return &ordinaryAssetLoader{ctx: ctx, c: c}
 }
 
 type ordinaryAssetLoader struct {
 	ctx context.Context
-	c   *AssetController
+	c   *AssetLoader
 }
 
 func (l *ordinaryAssetLoader) Load(key id.AssetID) (*gqlmodel.Asset, error) {

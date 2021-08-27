@@ -10,15 +10,15 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type ProjectController struct {
+type ProjectLoader struct {
 	usecase interfaces.Project
 }
 
-func NewProjectController(usecase interfaces.Project) *ProjectController {
-	return &ProjectController{usecase: usecase}
+func NewProjectLoader(usecase interfaces.Project) *ProjectLoader {
+	return &ProjectLoader{usecase: usecase}
 }
 
-func (c *ProjectController) Fetch(ctx context.Context, ids []id.ProjectID, operator *usecase.Operator) ([]*gqlmodel.Project, []error) {
+func (c *ProjectLoader) Fetch(ctx context.Context, ids []id.ProjectID, operator *usecase.Operator) ([]*gqlmodel.Project, []error) {
 	res, err := c.usecase.Fetch(ctx, ids, operator)
 	if err != nil {
 		return nil, []error{err}
@@ -32,7 +32,7 @@ func (c *ProjectController) Fetch(ctx context.Context, ids []id.ProjectID, opera
 	return projects, nil
 }
 
-func (c *ProjectController) FindByTeam(ctx context.Context, teamID id.TeamID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor, operator *usecase.Operator) (*gqlmodel.ProjectConnection, error) {
+func (c *ProjectLoader) FindByTeam(ctx context.Context, teamID id.TeamID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor, operator *usecase.Operator) (*gqlmodel.ProjectConnection, error) {
 	res, pi, err := c.usecase.FindByTeam(ctx, teamID, usecase.NewPagination(first, last, before, after), operator)
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (c *ProjectController) FindByTeam(ctx context.Context, teamID id.TeamID, fi
 	}, nil
 }
 
-func (c *ProjectController) CheckAlias(ctx context.Context, alias string) (*gqlmodel.CheckProjectAliasPayload, error) {
+func (c *ProjectLoader) CheckAlias(ctx context.Context, alias string) (*gqlmodel.CheckProjectAliasPayload, error) {
 	ok, err := c.usecase.CheckAlias(ctx, alias)
 	if err != nil {
 		return nil, err
@@ -73,7 +73,7 @@ type ProjectDataLoader interface {
 	LoadAll([]id.ProjectID) ([]*gqlmodel.Project, []error)
 }
 
-func (c *ProjectController) DataLoader(ctx context.Context) ProjectDataLoader {
+func (c *ProjectLoader) DataLoader(ctx context.Context) ProjectDataLoader {
 	return gqldataloader.NewProjectLoader(gqldataloader.ProjectLoaderConfig{
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
@@ -83,7 +83,7 @@ func (c *ProjectController) DataLoader(ctx context.Context) ProjectDataLoader {
 	})
 }
 
-func (c *ProjectController) OrdinaryDataLoader(ctx context.Context) ProjectDataLoader {
+func (c *ProjectLoader) OrdinaryDataLoader(ctx context.Context) ProjectDataLoader {
 	return &ordinaryProjectLoader{
 		fetch: func(keys []id.ProjectID) ([]*gqlmodel.Project, []error) {
 			return c.Fetch(ctx, keys, getOperator(ctx))

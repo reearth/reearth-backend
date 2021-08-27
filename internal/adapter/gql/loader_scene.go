@@ -10,15 +10,15 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type SceneController struct {
+type SceneLoader struct {
 	usecase interfaces.Scene
 }
 
-func NewSceneController(usecase interfaces.Scene) *SceneController {
-	return &SceneController{usecase: usecase}
+func NewSceneLoader(usecase interfaces.Scene) *SceneLoader {
+	return &SceneLoader{usecase: usecase}
 }
 
-func (c *SceneController) Fetch(ctx context.Context, ids []id.SceneID, operator *usecase.Operator) ([]*gqlmodel.Scene, []error) {
+func (c *SceneLoader) Fetch(ctx context.Context, ids []id.SceneID, operator *usecase.Operator) ([]*gqlmodel.Scene, []error) {
 	res, err := c.usecase.Fetch(ctx, ids, operator)
 	if err != nil {
 		return nil, []error{err}
@@ -31,7 +31,7 @@ func (c *SceneController) Fetch(ctx context.Context, ids []id.SceneID, operator 
 	return scenes, nil
 }
 
-func (c *SceneController) FindByProject(ctx context.Context, projectID id.ProjectID, operator *usecase.Operator) (*gqlmodel.Scene, error) {
+func (c *SceneLoader) FindByProject(ctx context.Context, projectID id.ProjectID, operator *usecase.Operator) (*gqlmodel.Scene, error) {
 	res, err := c.usecase.FindByProject(ctx, projectID, operator)
 	if err != nil {
 		return nil, err
@@ -40,7 +40,7 @@ func (c *SceneController) FindByProject(ctx context.Context, projectID id.Projec
 	return gqlmodel.ToScene(res), nil
 }
 
-func (c *SceneController) FetchLock(ctx context.Context, sid id.SceneID, operator *usecase.Operator) (*gqlmodel.SceneLockMode, error) {
+func (c *SceneLoader) FetchLock(ctx context.Context, sid id.SceneID, operator *usecase.Operator) (*gqlmodel.SceneLockMode, error) {
 	res, err := c.usecase.FetchLock(ctx, []id.SceneID{sid}, operator)
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (c *SceneController) FetchLock(ctx context.Context, sid id.SceneID, operato
 	return &sl, nil
 }
 
-func (c *SceneController) FetchLockAll(ctx context.Context, sid []id.SceneID, operator *usecase.Operator) ([]gqlmodel.SceneLockMode, []error) {
+func (c *SceneLoader) FetchLockAll(ctx context.Context, sid []id.SceneID, operator *usecase.Operator) ([]gqlmodel.SceneLockMode, []error) {
 	res, err := c.usecase.FetchLock(ctx, sid, operator)
 	if err != nil {
 		return nil, []error{err}
@@ -73,7 +73,7 @@ type SceneDataLoader interface {
 	LoadAll([]id.SceneID) ([]*gqlmodel.Scene, []error)
 }
 
-func (c *SceneController) DataLoader(ctx context.Context) SceneDataLoader {
+func (c *SceneLoader) DataLoader(ctx context.Context) SceneDataLoader {
 	return gqldataloader.NewSceneLoader(gqldataloader.SceneLoaderConfig{
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
@@ -83,7 +83,7 @@ func (c *SceneController) DataLoader(ctx context.Context) SceneDataLoader {
 	})
 }
 
-func (c *SceneController) OrdinaryDataLoader(ctx context.Context) SceneDataLoader {
+func (c *SceneLoader) OrdinaryDataLoader(ctx context.Context) SceneDataLoader {
 	return &ordinarySceneLoader{
 		fetch: func(keys []id.SceneID) ([]*gqlmodel.Scene, []error) {
 			return c.Fetch(ctx, keys, getOperator(ctx))

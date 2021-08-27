@@ -10,15 +10,15 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type TeamController struct {
+type TeamLoader struct {
 	usecase interfaces.Team
 }
 
-func NewTeamController(usecase interfaces.Team) *TeamController {
-	return &TeamController{usecase: usecase}
+func NewTeamLoader(usecase interfaces.Team) *TeamLoader {
+	return &TeamLoader{usecase: usecase}
 }
 
-func (c *TeamController) Fetch(ctx context.Context, ids []id.TeamID, operator *usecase.Operator) ([]*gqlmodel.Team, []error) {
+func (c *TeamLoader) Fetch(ctx context.Context, ids []id.TeamID, operator *usecase.Operator) ([]*gqlmodel.Team, []error) {
 	res, err := c.usecase.Fetch(ctx, ids, operator)
 	if err != nil {
 		return nil, []error{err}
@@ -31,7 +31,7 @@ func (c *TeamController) Fetch(ctx context.Context, ids []id.TeamID, operator *u
 	return teams, nil
 }
 
-func (c *TeamController) FindByUser(ctx context.Context, uid id.UserID, operator *usecase.Operator) ([]*gqlmodel.Team, error) {
+func (c *TeamLoader) FindByUser(ctx context.Context, uid id.UserID, operator *usecase.Operator) ([]*gqlmodel.Team, error) {
 	res, err := c.usecase.FindByUser(ctx, uid, operator)
 	if err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ type TeamDataLoader interface {
 	LoadAll([]id.TeamID) ([]*gqlmodel.Team, []error)
 }
 
-func (c *TeamController) DataLoader(ctx context.Context) TeamDataLoader {
+func (c *TeamLoader) DataLoader(ctx context.Context) TeamDataLoader {
 	return gqldataloader.NewTeamLoader(gqldataloader.TeamLoaderConfig{
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
@@ -60,7 +60,7 @@ func (c *TeamController) DataLoader(ctx context.Context) TeamDataLoader {
 	})
 }
 
-func (c *TeamController) OrdinaryDataLoader(ctx context.Context) TeamDataLoader {
+func (c *TeamLoader) OrdinaryDataLoader(ctx context.Context) TeamDataLoader {
 	return &ordinaryTeamLoader{
 		fetch: func(keys []id.TeamID) ([]*gqlmodel.Team, []error) {
 			return c.Fetch(ctx, keys, getOperator(ctx))
