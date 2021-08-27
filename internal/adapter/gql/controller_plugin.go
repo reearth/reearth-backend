@@ -47,3 +47,47 @@ func (c *PluginController) FetchPluginMetadata(ctx context.Context, operator *us
 
 	return pluginMetaList, nil
 }
+
+// data loader
+
+type PluginDataLoader interface {
+	Load(id.PluginID) (*Plugin, error)
+	LoadAll([]id.PluginID) ([]*Plugin, []error)
+}
+
+func (c *PluginController) DataLoader(ctx context.Context) *PluginLoader {
+	return NewPluginLoader(PluginLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.PluginID) ([]*Plugin, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *PluginController) OrdinaryDataLoader(ctx context.Context) PluginDataLoader {
+	return &ordinaryPluginLoader{
+		fetch: func(keys []id.PluginID) ([]*Plugin, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryPluginLoader struct {
+	fetch func(keys []id.PluginID) ([]*Plugin, []error)
+}
+
+func (l *ordinaryPluginLoader) Load(key id.PluginID) (*Plugin, error) {
+	res, errs := l.fetch([]id.PluginID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryPluginLoader) LoadAll(keys []id.PluginID) ([]*Plugin, []error) {
+	return l.fetch(keys)
+}

@@ -2,8 +2,7 @@ package gql
 
 import (
 	"context"
-
-	"github.com/reearth/reearth-backend/internal/usecase"
+	"time"
 )
 
 //go:generate go run github.com/vektah/dataloaden DatasetLoader github.com/reearth/reearth-backend/pkg/id.DatasetID *github.com/reearth/reearth-backend/internal/adapter/gql.Dataset
@@ -19,11 +18,10 @@ import (
 //go:generate go run github.com/vektah/dataloaden TeamLoader github.com/reearth/reearth-backend/pkg/id.TeamID *github.com/reearth/reearth-backend/internal/adapter/gql.Team
 //go:generate go run github.com/vektah/dataloaden UserLoader github.com/reearth/reearth-backend/pkg/id.UserID *github.com/reearth/reearth-backend/internal/adapter/gql.User
 
-//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen -template=loader.tmpl -output=loader_gen.go -m=Dataset -m=Layer -m=Plugin -m=Project -m=Property -m=Scene -m=Team -m=User
-//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen -template=loader.tmpl -output=loader_layer_item_gen.go -controller=Layer -method=FetchItem -id=LayerID -m=LayerItem
-//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen -template=loader.tmpl -output=loader_layer_group_gen.go -controller=Layer -method=FetchGroup -id=LayerID -m=LayerGroup
-//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen -template=loader.tmpl -output=loader_dataset_schema_gen.go -controller=Dataset -method=FetchSchema -m=DatasetSchema
-//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen -template=loader.tmpl -output=loader_property_schema_gen.go -controller=Property -method=FetchSchema -m=PropertySchema
+var (
+	dataLoaderWait     = 1 * time.Millisecond
+	dataLoaderMaxBatch = 100
+)
 
 type dataLoadersKey struct{}
 
@@ -50,36 +48,43 @@ func DataLoadersKey() interface{} {
 	return dataLoadersKey{}
 }
 
-func NewDataLoaders(ctx context.Context, c Container, o *usecase.Operator) DataLoaders {
+func (c Container) DataLoadersWith(ctx context.Context, enabled bool) DataLoaders {
+	if enabled {
+		return c.DataLoaders(ctx)
+	}
+	return c.OrdinaryDataLoaders(ctx)
+}
+
+func (c Container) DataLoaders(ctx context.Context) DataLoaders {
 	return DataLoaders{
-		Dataset:        newDataset(ctx, c.Dataset, o),
-		DatasetSchema:  newDatasetSchema(ctx, c.Dataset, o),
-		LayerItem:      newLayerItem(ctx, c.Layer, o),
-		LayerGroup:     newLayerGroup(ctx, c.Layer, o),
-		Layer:          newLayer(ctx, c.Layer, o),
-		Plugin:         newPlugin(ctx, c.Plugin, o),
-		Project:        newProject(ctx, c.Project, o),
-		Property:       newProperty(ctx, c.Property, o),
-		PropertySchema: newPropertySchema(ctx, c.Property, o),
-		Scene:          newScene(ctx, c.Scene, o),
-		Team:           newTeam(ctx, c.Team, o),
-		User:           newUser(ctx, c.User, o),
+		Dataset:        c.Dataset.DataLoader(ctx),
+		DatasetSchema:  c.Dataset.SchemaDataLoader(ctx),
+		LayerItem:      c.Layer.ItemDataLoader(ctx),
+		LayerGroup:     c.Layer.GroupDataLoader(ctx),
+		Layer:          c.Layer.DataLoader(ctx),
+		Plugin:         c.Plugin.DataLoader(ctx),
+		Project:        c.Project.DataLoader(ctx),
+		Property:       c.Property.DataLoader(ctx),
+		PropertySchema: c.Property.SchemaDataLoader(ctx),
+		Scene:          c.Scene.DataLoader(ctx),
+		Team:           c.Team.DataLoader(ctx),
+		User:           c.User.DataLoader(ctx),
 	}
 }
 
-func NewOrdinaryDataLoaders(ctx context.Context, c Container, o *usecase.Operator) DataLoaders {
+func (c Container) OrdinaryDataLoaders(ctx context.Context) DataLoaders {
 	return DataLoaders{
-		Dataset:        newOrdinaryDataset(ctx, c.Dataset, o),
-		DatasetSchema:  newOrdinaryDatasetSchema(ctx, c.Dataset, o),
-		LayerItem:      newOrdinaryLayerItem(ctx, c.Layer, o),
-		LayerGroup:     newOrdinaryLayerGroup(ctx, c.Layer, o),
-		Layer:          newOrdinaryLayer(ctx, c.Layer, o),
-		Plugin:         newOrdinaryPlugin(ctx, c.Plugin, o),
-		Project:        newOrdinaryProject(ctx, c.Project, o),
-		Property:       newOrdinaryProperty(ctx, c.Property, o),
-		PropertySchema: newOrdinaryPropertySchema(ctx, c.Property, o),
-		Scene:          newOrdinaryScene(ctx, c.Scene, o),
-		Team:           newOrdinaryTeam(ctx, c.Team, o),
-		User:           newOrdinaryUser(ctx, c.User, o),
+		Dataset:        c.Dataset.OrdinaryDataLoader(ctx),
+		DatasetSchema:  c.Dataset.SchemaOrdinaryDataLoader(ctx),
+		LayerItem:      c.Layer.ItemOrdinaryDataLoader(ctx),
+		LayerGroup:     c.Layer.GroupOrdinaryDataLoader(ctx),
+		Layer:          c.Layer.OrdinaryDataLoader(ctx),
+		Plugin:         c.Plugin.OrdinaryDataLoader(ctx),
+		Project:        c.Project.OrdinaryDataLoader(ctx),
+		Property:       c.Property.OrdinaryDataLoader(ctx),
+		PropertySchema: c.Property.SchemaOrdinaryDataLoader(ctx),
+		Scene:          c.Scene.OrdinaryDataLoader(ctx),
+		Team:           c.Team.OrdinaryDataLoader(ctx),
+		User:           c.User.OrdinaryDataLoader(ctx),
 	}
 }

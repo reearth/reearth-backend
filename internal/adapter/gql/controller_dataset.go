@@ -138,3 +138,86 @@ func (c *DatasetController) FindBySchema(ctx context.Context, dsid id.ID, first 
 
 	return conn, nil
 }
+
+// data loader
+
+type DatasetDataLoader interface {
+	Load(id.DatasetID) (*Dataset, error)
+	LoadAll([]id.DatasetID) ([]*Dataset, []error)
+}
+
+func (c *DatasetController) DataLoader(ctx context.Context) DatasetDataLoader {
+	return NewDatasetLoader(DatasetLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.DatasetID) ([]*Dataset, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *DatasetController) OrdinaryDataLoader(ctx context.Context) DatasetDataLoader {
+	return &ordinaryDatasetLoader{ctx: ctx, c: c}
+}
+
+type ordinaryDatasetLoader struct {
+	ctx context.Context
+	c   *DatasetController
+}
+
+func (l *ordinaryDatasetLoader) Load(key id.DatasetID) (*Dataset, error) {
+	res, errs := l.c.Fetch(l.ctx, []id.DatasetID{key}, getOperator(l.ctx))
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryDatasetLoader) LoadAll(keys []id.DatasetID) ([]*Dataset, []error) {
+	return l.c.Fetch(l.ctx, keys, getOperator(l.ctx))
+}
+
+type DatasetSchemaDataLoader interface {
+	Load(id.DatasetSchemaID) (*DatasetSchema, error)
+	LoadAll([]id.DatasetSchemaID) ([]*DatasetSchema, []error)
+}
+
+func (c *DatasetController) SchemaDataLoader(ctx context.Context) DatasetSchemaDataLoader {
+	return NewDatasetSchemaLoader(DatasetSchemaLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.DatasetSchemaID) ([]*DatasetSchema, []error) {
+			return c.FetchSchema(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *DatasetController) SchemaOrdinaryDataLoader(ctx context.Context) DatasetSchemaDataLoader {
+	return &ordinaryDatasetSchemaLoader{
+		fetch: func(keys []id.DatasetSchemaID) ([]*DatasetSchema, []error) {
+			return c.FetchSchema(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryDatasetSchemaLoader struct {
+	fetch func(keys []id.DatasetSchemaID) ([]*DatasetSchema, []error)
+}
+
+func (l *ordinaryDatasetSchemaLoader) Load(key id.DatasetSchemaID) (*DatasetSchema, error) {
+	res, errs := l.fetch([]id.DatasetSchemaID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryDatasetSchemaLoader) LoadAll(keys []id.DatasetSchemaID) ([]*DatasetSchema, []error) {
+	return l.fetch(keys)
+}

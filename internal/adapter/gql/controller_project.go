@@ -63,3 +63,47 @@ func (c *ProjectController) CheckAlias(ctx context.Context, alias string) (*Chec
 
 	return &CheckProjectAliasPayload{Alias: alias, Available: ok}, nil
 }
+
+// data loaders
+
+type ProjectDataLoader interface {
+	Load(id.ProjectID) (*Project, error)
+	LoadAll([]id.ProjectID) ([]*Project, []error)
+}
+
+func (c *ProjectController) DataLoader(ctx context.Context) ProjectDataLoader {
+	return NewProjectLoader(ProjectLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.ProjectID) ([]*Project, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *ProjectController) OrdinaryDataLoader(ctx context.Context) ProjectDataLoader {
+	return &ordinaryProjectLoader{
+		fetch: func(keys []id.ProjectID) ([]*Project, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryProjectLoader struct {
+	fetch func(keys []id.ProjectID) ([]*Project, []error)
+}
+
+func (l *ordinaryProjectLoader) Load(key id.ProjectID) (*Project, error) {
+	res, errs := l.fetch([]id.ProjectID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryProjectLoader) LoadAll(keys []id.ProjectID) ([]*Project, []error) {
+	return l.fetch(keys)
+}

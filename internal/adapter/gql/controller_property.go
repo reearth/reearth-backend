@@ -53,3 +53,89 @@ func (c *PropertyController) FetchMerged(ctx context.Context, org, parent, linke
 
 	return toMergedProperty(res), nil
 }
+
+// data loader
+
+type PropertyDataLoader interface {
+	Load(id.PropertyID) (*Property, error)
+	LoadAll([]id.PropertyID) ([]*Property, []error)
+}
+
+func (c *PropertyController) DataLoader(ctx context.Context) *PropertyLoader {
+	return NewPropertyLoader(PropertyLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.PropertyID) ([]*Property, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *PropertyController) OrdinaryDataLoader(ctx context.Context) PropertyDataLoader {
+	return &ordinaryPropertyLoader{
+		fetch: func(keys []id.PropertyID) ([]*Property, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryPropertyLoader struct {
+	fetch func(keys []id.PropertyID) ([]*Property, []error)
+}
+
+func (l *ordinaryPropertyLoader) Load(key id.PropertyID) (*Property, error) {
+	res, errs := l.fetch([]id.PropertyID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryPropertyLoader) LoadAll(keys []id.PropertyID) ([]*Property, []error) {
+	return l.fetch(keys)
+}
+
+type PropertySchemaDataLoader interface {
+	Load(id.PropertySchemaID) (*PropertySchema, error)
+	LoadAll([]id.PropertySchemaID) ([]*PropertySchema, []error)
+}
+
+func (c *PropertyController) SchemaDataLoader(ctx context.Context) PropertySchemaDataLoader {
+	return NewPropertySchemaLoader(PropertySchemaLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.PropertySchemaID) ([]*PropertySchema, []error) {
+			return c.FetchSchema(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *PropertyController) SchemaOrdinaryDataLoader(ctx context.Context) PropertySchemaDataLoader {
+	return &ordinaryPropertySchemaLoader{
+		fetch: func(keys []id.PropertySchemaID) ([]*PropertySchema, []error) {
+			return c.FetchSchema(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryPropertySchemaLoader struct {
+	fetch func(keys []id.PropertySchemaID) ([]*PropertySchema, []error)
+}
+
+func (l *ordinaryPropertySchemaLoader) Load(key id.PropertySchemaID) (*PropertySchema, error) {
+	res, errs := l.fetch([]id.PropertySchemaID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryPropertySchemaLoader) LoadAll(keys []id.PropertySchemaID) ([]*PropertySchema, []error) {
+	return l.fetch(keys)
+}

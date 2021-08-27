@@ -40,3 +40,47 @@ func (c *TeamController) FindByUser(ctx context.Context, uid id.UserID, operator
 	}
 	return teams, nil
 }
+
+// data loader
+
+type TeamDataLoader interface {
+	Load(id.TeamID) (*Team, error)
+	LoadAll([]id.TeamID) ([]*Team, []error)
+}
+
+func (c *TeamController) DataLoader(ctx context.Context) TeamDataLoader {
+	return NewTeamLoader(TeamLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.TeamID) ([]*Team, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *TeamController) OrdinaryDataLoader(ctx context.Context) TeamDataLoader {
+	return &ordinaryTeamLoader{
+		fetch: func(keys []id.TeamID) ([]*Team, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryTeamLoader struct {
+	fetch func(keys []id.TeamID) ([]*Team, []error)
+}
+
+func (l *ordinaryTeamLoader) Load(key id.TeamID) (*Team, error) {
+	res, errs := l.fetch([]id.TeamID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryTeamLoader) LoadAll(keys []id.TeamID) ([]*Team, []error) {
+	return l.fetch(keys)
+}

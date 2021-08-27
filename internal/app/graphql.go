@@ -15,20 +15,11 @@ import (
 	"github.com/vektah/gqlparser/v2/gqlerror"
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql"
-	"github.com/reearth/reearth-backend/internal/usecase"
+	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 )
 
 const enableDataLoaders = true
-
-func getOperator(ctx context.Context) *usecase.Operator {
-	if v := ctx.Value(gql.ContextOperator); v != nil {
-		if v2, ok := v.(*usecase.Operator); ok {
-			return v2
-		}
-	}
-	return nil
-}
 
 func dataLoaderMiddleware(container gql.Container) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
@@ -36,14 +27,7 @@ func dataLoaderMiddleware(container gql.Container) echo.MiddlewareFunc {
 			req := echoCtx.Request()
 			ctx := req.Context()
 
-			var dl gql.DataLoaders
-			if enableDataLoaders {
-				dl = gql.NewDataLoaders(ctx, container, getOperator(ctx))
-			} else {
-				dl = gql.NewOrdinaryDataLoaders(ctx, container, getOperator(ctx))
-			}
-
-			ctx = context.WithValue(ctx, gql.DataLoadersKey(), dl)
+			ctx = context.WithValue(ctx, gql.DataLoadersKey(), container.DataLoadersWith(ctx, enableDataLoaders))
 			echoCtx.SetRequest(req.WithContext(ctx))
 			return next(echoCtx)
 		}
@@ -70,9 +54,10 @@ func graphqlAPI(
 	ec *echo.Echo,
 	r *echo.Group,
 	conf *ServerConfig,
-	controllers gql.Container,
+	usecases interfaces.Container,
 ) {
 	playgroundEnabled := conf.Debug || conf.Config.Dev
+	controllers := gql.NewContainer(usecases)
 
 	if playgroundEnabled {
 		r.GET("/graphql", echo.WrapHandler(
@@ -81,10 +66,7 @@ func graphqlAPI(
 	}
 
 	schema := gql.NewExecutableSchema(gql.Config{
-		Resolvers: gql.NewResolver(
-			controllers,
-			conf.Debug,
-		),
+		Resolvers: gql.NewResolver(controllers, conf.Debug),
 	})
 
 	srv := handler.NewDefaultServer(schema)

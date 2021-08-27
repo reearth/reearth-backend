@@ -63,3 +63,47 @@ func (c *SceneController) FetchLockAll(ctx context.Context, sid []id.SceneID, op
 
 	return res2, nil
 }
+
+// data loader
+
+type SceneDataLoader interface {
+	Load(id.SceneID) (*Scene, error)
+	LoadAll([]id.SceneID) ([]*Scene, []error)
+}
+
+func (c *SceneController) DataLoader(ctx context.Context) SceneDataLoader {
+	return NewSceneLoader(SceneLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.SceneID) ([]*Scene, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *SceneController) OrdinaryDataLoader(ctx context.Context) SceneDataLoader {
+	return &ordinarySceneLoader{
+		fetch: func(keys []id.SceneID) ([]*Scene, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinarySceneLoader struct {
+	fetch func(keys []id.SceneID) ([]*Scene, []error)
+}
+
+func (l *ordinarySceneLoader) Load(key id.SceneID) (*Scene, error) {
+	res, errs := l.fetch([]id.SceneID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinarySceneLoader) LoadAll(keys []id.SceneID) ([]*Scene, []error) {
+	return l.fetch(keys)
+}

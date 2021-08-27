@@ -98,3 +98,131 @@ func (c *LayerController) FetchParentAndMerged(ctx context.Context, org id.Layer
 
 	return toMergedLayer(res), nil
 }
+
+// data loader
+
+type LayerDataLoader interface {
+	Load(id.LayerID) (*Layer, error)
+	LoadAll([]id.LayerID) ([]*Layer, []error)
+}
+
+func (c *LayerController) DataLoader(ctx context.Context) LayerDataLoader {
+	return NewLayerLoader(LayerLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.LayerID) ([]*Layer, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *LayerController) OrdinaryDataLoader(ctx context.Context) LayerDataLoader {
+	return &ordinaryLayerLoader{
+		fetch: func(keys []id.LayerID) ([]*Layer, []error) {
+			return c.Fetch(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryLayerLoader struct {
+	fetch func(keys []id.LayerID) ([]*Layer, []error)
+}
+
+func (l *ordinaryLayerLoader) Load(key id.LayerID) (*Layer, error) {
+	res, errs := l.fetch([]id.LayerID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryLayerLoader) LoadAll(keys []id.LayerID) ([]*Layer, []error) {
+	return l.fetch(keys)
+}
+
+type LayerItemDataLoader interface {
+	Load(id.LayerID) (*LayerItem, error)
+	LoadAll([]id.LayerID) ([]*LayerItem, []error)
+}
+
+func (c *LayerController) ItemDataLoader(ctx context.Context) LayerItemDataLoader {
+	return NewLayerItemLoader(LayerItemLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.LayerID) ([]*LayerItem, []error) {
+			return c.FetchItem(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *LayerController) ItemOrdinaryDataLoader(ctx context.Context) LayerItemDataLoader {
+	return &ordinaryLayerItemLoader{
+		fetch: func(keys []id.LayerID) ([]*LayerItem, []error) {
+			return c.FetchItem(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryLayerItemLoader struct {
+	fetch func(keys []id.LayerID) ([]*LayerItem, []error)
+}
+
+func (l *ordinaryLayerItemLoader) Load(key id.LayerID) (*LayerItem, error) {
+	res, errs := l.fetch([]id.LayerID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryLayerItemLoader) LoadAll(keys []id.LayerID) ([]*LayerItem, []error) {
+	return l.fetch(keys)
+}
+
+type LayerGroupDataLoader interface {
+	Load(id.LayerID) (*LayerGroup, error)
+	LoadAll([]id.LayerID) ([]*LayerGroup, []error)
+}
+
+func (c *LayerController) GroupDataLoader(ctx context.Context) LayerGroupDataLoader {
+	return NewLayerGroupLoader(LayerGroupLoaderConfig{
+		Wait:     dataLoaderWait,
+		MaxBatch: dataLoaderMaxBatch,
+		Fetch: func(keys []id.LayerID) ([]*LayerGroup, []error) {
+			return c.FetchGroup(ctx, keys, getOperator(ctx))
+		},
+	})
+}
+
+func (c *LayerController) GroupOrdinaryDataLoader(ctx context.Context) LayerGroupDataLoader {
+	return &ordinaryLayerGroupLoader{
+		fetch: func(keys []id.LayerID) ([]*LayerGroup, []error) {
+			return c.FetchGroup(ctx, keys, getOperator(ctx))
+		},
+	}
+}
+
+type ordinaryLayerGroupLoader struct {
+	fetch func(keys []id.LayerID) ([]*LayerGroup, []error)
+}
+
+func (l *ordinaryLayerGroupLoader) Load(key id.LayerID) (*LayerGroup, error) {
+	res, errs := l.fetch([]id.LayerID{key})
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	if len(res) > 0 {
+		return res[0], nil
+	}
+	return nil, nil
+}
+
+func (l *ordinaryLayerGroupLoader) LoadAll(keys []id.LayerID) ([]*LayerGroup, []error) {
+	return l.fetch(keys)
+}
