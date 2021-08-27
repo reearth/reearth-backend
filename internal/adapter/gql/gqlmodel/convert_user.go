@@ -1,15 +1,10 @@
-package gql
+package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/pkg/user"
 )
 
-// ToUser _
 func ToUser(user *user.User) *User {
-	return toUser(user)
-}
-
-func toUser(user *user.User) *User {
 	if user == nil {
 		return nil
 	}
@@ -29,7 +24,7 @@ func toUser(user *user.User) *User {
 	}
 }
 
-func toSearchedUser(u *user.User) *SearchedUser {
+func ToSearchedUser(u *user.User) *SearchedUser {
 	if u == nil {
 		return nil
 	}
@@ -40,7 +35,7 @@ func toSearchedUser(u *user.User) *SearchedUser {
 	}
 }
 
-func toTheme(t *Theme) *user.Theme {
+func ToTheme(t *Theme) *user.Theme {
 	th := user.ThemeDefault
 
 	if t == nil {

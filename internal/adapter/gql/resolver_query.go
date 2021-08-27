@@ -3,6 +3,7 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -13,14 +14,14 @@ func (r *Resolver) Query() QueryResolver {
 
 type queryResolver struct{ *Resolver }
 
-func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*AssetConnection, error) {
+func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Asset.FindByTeam(ctx, teamID, first, last, before, after, getOperator(ctx))
 }
 
-func (r *queryResolver) Me(ctx context.Context) (*User, error) {
+func (r *queryResolver) Me(ctx context.Context) (*gqlmodel.User, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -28,64 +29,64 @@ func (r *queryResolver) Me(ctx context.Context) (*User, error) {
 	if u == nil {
 		return nil, nil
 	}
-	return ToUser(u), nil
+	return gqlmodel.ToUser(u), nil
 }
 
-func (r *queryResolver) Node(ctx context.Context, i id.ID, typeArg NodeType) (Node, error) {
+func (r *queryResolver) Node(ctx context.Context, i id.ID, typeArg gqlmodel.NodeType) (gqlmodel.Node, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	dataloaders := DataLoadersFromContext(ctx)
 	switch typeArg {
-	case NodeTypeDataset:
+	case gqlmodel.NodeTypeDataset:
 		result, err := dataloaders.Dataset.Load(id.DatasetID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeDatasetSchema:
+	case gqlmodel.NodeTypeDatasetSchema:
 		result, err := dataloaders.DatasetSchema.Load(id.DatasetSchemaID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeLayerItem:
+	case gqlmodel.NodeTypeLayerItem:
 		result, err := dataloaders.LayerItem.Load(id.LayerID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeLayerGroup:
+	case gqlmodel.NodeTypeLayerGroup:
 		result, err := dataloaders.LayerGroup.Load(id.LayerID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeProject:
+	case gqlmodel.NodeTypeProject:
 		result, err := dataloaders.Project.Load(id.ProjectID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeProperty:
+	case gqlmodel.NodeTypeProperty:
 		result, err := dataloaders.Property.Load(id.PropertyID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeScene:
+	case gqlmodel.NodeTypeScene:
 		result, err := dataloaders.Scene.Load(id.SceneID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeTeam:
+	case gqlmodel.NodeTypeTeam:
 		result, err := dataloaders.Team.Load(id.TeamID(i))
 		if result == nil {
 			return nil, nil
 		}
 		return result, err
-	case NodeTypeUser:
+	case gqlmodel.NodeTypeUser:
 		result, err := dataloaders.User.Load(id.UserID(i))
 		if result == nil {
 			return nil, nil
@@ -95,98 +96,98 @@ func (r *queryResolver) Node(ctx context.Context, i id.ID, typeArg NodeType) (No
 	return nil, nil
 }
 
-func (r *queryResolver) Nodes(ctx context.Context, ids []*id.ID, typeArg NodeType) ([]Node, error) {
+func (r *queryResolver) Nodes(ctx context.Context, ids []*id.ID, typeArg gqlmodel.NodeType) ([]gqlmodel.Node, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	dataloaders := DataLoadersFromContext(ctx)
 	switch typeArg {
-	case NodeTypeDataset:
+	case gqlmodel.NodeTypeDataset:
 		data, err := dataloaders.Dataset.LoadAll(id.DatasetIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = data[i]
 		}
 		return nodes, nil
-	case NodeTypeDatasetSchema:
+	case gqlmodel.NodeTypeDatasetSchema:
 		data, err := dataloaders.DatasetSchema.LoadAll(id.DatasetSchemaIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = data[i]
 		}
 		return nodes, nil
-	case NodeTypeLayerItem:
+	case gqlmodel.NodeTypeLayerItem:
 		data, err := dataloaders.LayerItem.LoadAll(id.LayerIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = *data[i]
 		}
 		return nodes, nil
-	case NodeTypeLayerGroup:
+	case gqlmodel.NodeTypeLayerGroup:
 		data, err := dataloaders.LayerGroup.LoadAll(id.LayerIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = *data[i]
 		}
 		return nodes, nil
-	case NodeTypeProject:
+	case gqlmodel.NodeTypeProject:
 		data, err := dataloaders.Project.LoadAll(id.ProjectIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = data[i]
 		}
 		return nodes, nil
-	case NodeTypeProperty:
+	case gqlmodel.NodeTypeProperty:
 		data, err := dataloaders.Property.LoadAll(id.PropertyIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = data[i]
 		}
 		return nodes, nil
-	case NodeTypeScene:
+	case gqlmodel.NodeTypeScene:
 		data, err := dataloaders.Scene.LoadAll(id.SceneIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = data[i]
 		}
 		return nodes, nil
-	case NodeTypeTeam:
+	case gqlmodel.NodeTypeTeam:
 		data, err := dataloaders.Team.LoadAll(id.TeamIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = data[i]
 		}
 		return nodes, nil
-	case NodeTypeUser:
+	case gqlmodel.NodeTypeUser:
 		data, err := dataloaders.User.LoadAll(id.UserIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {
 			return nil, err[0]
 		}
-		nodes := make([]Node, len(data))
+		nodes := make([]gqlmodel.Node, len(data))
 		for i := range data {
 			nodes[i] = data[i]
 		}
@@ -196,14 +197,14 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []*id.ID, typeArg NodeTyp
 	}
 }
 
-func (r *queryResolver) PropertySchema(ctx context.Context, i id.PropertySchemaID) (*PropertySchema, error) {
+func (r *queryResolver) PropertySchema(ctx context.Context, i id.PropertySchemaID) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(i)
 }
 
-func (r *queryResolver) PropertySchemas(ctx context.Context, ids []*id.PropertySchemaID) ([]*PropertySchema, error) {
+func (r *queryResolver) PropertySchemas(ctx context.Context, ids []*id.PropertySchemaID) ([]*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -222,14 +223,14 @@ func (r *queryResolver) PropertySchemas(ctx context.Context, ids []*id.PropertyS
 	return data, nil
 }
 
-func (r *queryResolver) Plugin(ctx context.Context, id id.PluginID) (*Plugin, error) {
+func (r *queryResolver) Plugin(ctx context.Context, id id.PluginID) (*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Plugin.Load(id)
 }
 
-func (r *queryResolver) Plugins(ctx context.Context, ids []*id.PluginID) ([]*Plugin, error) {
+func (r *queryResolver) Plugins(ctx context.Context, ids []*id.PluginID) ([]*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -248,7 +249,7 @@ func (r *queryResolver) Plugins(ctx context.Context, ids []*id.PluginID) ([]*Plu
 	return data, nil
 }
 
-func (r *queryResolver) Layer(ctx context.Context, layerID id.ID) (Layer, error) {
+func (r *queryResolver) Layer(ctx context.Context, layerID id.ID) (gqlmodel.Layer, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -260,63 +261,63 @@ func (r *queryResolver) Layer(ctx context.Context, layerID id.ID) (Layer, error)
 	return *result, err
 }
 
-func (r *queryResolver) Scene(ctx context.Context, projectID id.ID) (*Scene, error) {
+func (r *queryResolver) Scene(ctx context.Context, projectID id.ID) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Scene.FindByProject(ctx, id.ProjectID(projectID), getOperator(ctx))
 }
 
-func (r *queryResolver) Projects(ctx context.Context, teamID id.ID, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*ProjectConnection, error) {
+func (r *queryResolver) Projects(ctx context.Context, teamID id.ID, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.ProjectConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Project.FindByTeam(ctx, id.TeamID(teamID), first, last, before, after, getOperator(ctx))
 }
 
-func (r *queryResolver) DatasetSchemas(ctx context.Context, sceneID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetSchemaConnection, error) {
+func (r *queryResolver) DatasetSchemas(ctx context.Context, sceneID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Dataset.FindSchemaByScene(ctx, sceneID, first, last, before, after, getOperator(ctx))
 }
 
-func (r *queryResolver) DynamicDatasetSchemas(ctx context.Context, sceneID id.ID) ([]*DatasetSchema, error) {
+func (r *queryResolver) DynamicDatasetSchemas(ctx context.Context, sceneID id.ID) ([]*gqlmodel.DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Dataset.FindDynamicSchemasByScene(ctx, sceneID)
 }
 
-func (r *queryResolver) Datasets(ctx context.Context, datasetSchemaID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetConnection, error) {
+func (r *queryResolver) Datasets(ctx context.Context, datasetSchemaID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Dataset.FindBySchema(ctx, datasetSchemaID, first, last, before, after, getOperator(ctx))
 }
 
-func (r *queryResolver) SceneLock(ctx context.Context, sceneID id.ID) (*SceneLockMode, error) {
+func (r *queryResolver) SceneLock(ctx context.Context, sceneID id.ID) (*gqlmodel.SceneLockMode, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Scene.FetchLock(ctx, id.SceneID(sceneID), getOperator(ctx))
 }
 
-func (r *queryResolver) SearchUser(ctx context.Context, nameOrEmail string) (*SearchedUser, error) {
+func (r *queryResolver) SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.User.SearchUser(ctx, nameOrEmail, getOperator(ctx))
 }
 
-func (r *queryResolver) CheckProjectAlias(ctx context.Context, alias string) (*CheckProjectAliasPayload, error) {
+func (r *queryResolver) CheckProjectAlias(ctx context.Context, alias string) (*gqlmodel.CheckProjectAliasPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Project.CheckAlias(ctx, alias)
 }
 
-func (r *queryResolver) InstallablePlugins(ctx context.Context) ([]*PluginMetadata, error) {
+func (r *queryResolver) InstallablePlugins(ctx context.Context) ([]*gqlmodel.PluginMetadata, error) {
 	exit := trace(ctx)
 	defer exit()
 

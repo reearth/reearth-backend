@@ -3,6 +3,7 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -21,28 +22,28 @@ func (r *Resolver) SceneWidget() SceneWidgetResolver {
 
 type sceneResolver struct{ *Resolver }
 
-func (r *sceneResolver) Project(ctx context.Context, obj *Scene) (*Project, error) {
+func (r *sceneResolver) Project(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Project, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Project.Load(id.ProjectID(obj.ProjectID))
 }
 
-func (r *sceneResolver) Team(ctx context.Context, obj *Scene) (*Team, error) {
+func (r *sceneResolver) Team(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Team, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Team.Load(id.TeamID(obj.TeamID))
 }
 
-func (r *sceneResolver) Property(ctx context.Context, obj *Scene) (*Property, error) {
+func (r *sceneResolver) Property(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(obj.PropertyID))
 }
 
-func (r *sceneResolver) RootLayer(ctx context.Context, obj *Scene) (*LayerGroup, error) {
+func (r *sceneResolver) RootLayer(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.LayerGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -53,40 +54,40 @@ func (r *sceneResolver) RootLayer(ctx context.Context, obj *Scene) (*LayerGroup,
 	if layer == nil {
 		return nil, nil
 	}
-	layerGroup, ok := (*layer).(*LayerGroup)
+	layerGroup, ok := (*layer).(*gqlmodel.LayerGroup)
 	if !ok {
 		return nil, nil
 	}
 	return layerGroup, nil
 }
 
-func (r *sceneResolver) DatasetSchemas(ctx context.Context, obj *Scene, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetSchemaConnection, error) {
+func (r *sceneResolver) DatasetSchemas(ctx context.Context, obj *gqlmodel.Scene, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Dataset.FindSchemaByScene(ctx, obj.ID, first, last, before, after, getOperator(ctx))
 }
 
-func (r *sceneResolver) LockMode(ctx context.Context, obj *Scene) (SceneLockMode, error) {
+func (r *sceneResolver) LockMode(ctx context.Context, obj *gqlmodel.Scene) (gqlmodel.SceneLockMode, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	sl, err := r.controllers.Scene.FetchLock(ctx, id.SceneID(obj.ID), getOperator(ctx))
 	if err != nil {
-		return SceneLockModeFree, err
+		return gqlmodel.SceneLockModeFree, err
 	}
 	return *sl, nil
 }
 
 type scenePluginResolver struct{ *Resolver }
 
-func (r *scenePluginResolver) Plugin(ctx context.Context, obj *ScenePlugin) (*Plugin, error) {
+func (r *scenePluginResolver) Plugin(ctx context.Context, obj *gqlmodel.ScenePlugin) (*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Plugin.Load(obj.PluginID)
 }
-func (r *scenePluginResolver) Property(ctx context.Context, obj *ScenePlugin) (*Property, error) {
+func (r *scenePluginResolver) Property(ctx context.Context, obj *gqlmodel.ScenePlugin) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -98,14 +99,14 @@ func (r *scenePluginResolver) Property(ctx context.Context, obj *ScenePlugin) (*
 
 type sceneWidgetResolver struct{ *Resolver }
 
-func (r *sceneWidgetResolver) Plugin(ctx context.Context, obj *SceneWidget) (*Plugin, error) {
+func (r *sceneWidgetResolver) Plugin(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Plugin.Load(obj.PluginID)
 }
 
-func (r *sceneWidgetResolver) Extension(ctx context.Context, obj *SceneWidget) (*PluginExtension, error) {
+func (r *sceneWidgetResolver) Extension(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.PluginExtension, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -121,7 +122,7 @@ func (r *sceneWidgetResolver) Extension(ctx context.Context, obj *SceneWidget) (
 	return nil, nil
 }
 
-func (r *sceneWidgetResolver) Property(ctx context.Context, obj *SceneWidget) (*Property, error) {
+func (r *sceneWidgetResolver) Property(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 

@@ -3,6 +3,7 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
@@ -12,7 +13,7 @@ func (r *Resolver) Asset() AssetResolver {
 
 type assetResolver struct{ *Resolver }
 
-func (r *assetResolver) Team(ctx context.Context, obj *Asset) (*Team, error) {
+func (r *assetResolver) Team(ctx context.Context, obj *gqlmodel.Asset) (*gqlmodel.Team, error) {
 	exit := trace(ctx)
 	defer exit()
 

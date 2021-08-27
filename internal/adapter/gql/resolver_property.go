@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 )
@@ -42,14 +43,14 @@ func (r *Resolver) PropertyGroup() PropertyGroupResolver {
 
 type propertyResolver struct{ *Resolver }
 
-func (r *propertyResolver) Schema(ctx context.Context, obj *Property) (*PropertySchema, error) {
+func (r *propertyResolver) Schema(ctx context.Context, obj *gqlmodel.Property) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
-func (r *propertyResolver) Layer(ctx context.Context, obj *Property) (Layer, error) {
+func (r *propertyResolver) Layer(ctx context.Context, obj *gqlmodel.Property) (gqlmodel.Layer, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -60,7 +61,7 @@ func (r *propertyResolver) Layer(ctx context.Context, obj *Property) (Layer, err
 	return l, err
 }
 
-func (r *propertyResolver) Merged(ctx context.Context, obj *Property) (*MergedProperty, error) {
+func (r *propertyResolver) Merged(ctx context.Context, obj *gqlmodel.Property) (*gqlmodel.MergedProperty, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -71,7 +72,7 @@ func (r *propertyResolver) Merged(ctx context.Context, obj *Property) (*MergedPr
 		}
 		return nil, err
 	}
-	li, ok := l.(*LayerItem)
+	li, ok := l.(*gqlmodel.LayerItem)
 	if !ok {
 		return nil, nil
 	}
@@ -92,21 +93,21 @@ func (r *propertyResolver) Merged(ctx context.Context, obj *Property) (*MergedPr
 
 type propertyFieldResolver struct{ *Resolver }
 
-func (r *propertyFieldResolver) Parent(ctx context.Context, obj *PropertyField) (*Property, error) {
+func (r *propertyFieldResolver) Parent(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(obj.ParentID))
 }
 
-func (r *propertyFieldResolver) Schema(ctx context.Context, obj *PropertyField) (*PropertySchema, error) {
+func (r *propertyFieldResolver) Schema(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
-func (r *propertyFieldResolver) Field(ctx context.Context, obj *PropertyField) (*PropertySchemaField, error) {
+func (r *propertyFieldResolver) Field(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.PropertySchemaField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -117,7 +118,7 @@ func (r *propertyFieldResolver) Field(ctx context.Context, obj *PropertyField) (
 	return schema.Field(obj.FieldID), nil
 }
 
-func (r *propertyFieldResolver) ActualValue(ctx context.Context, obj *PropertyField) (interface{}, error) {
+func (r *propertyFieldResolver) ActualValue(ctx context.Context, obj *gqlmodel.PropertyField) (interface{}, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -127,7 +128,7 @@ func (r *propertyFieldResolver) ActualValue(ctx context.Context, obj *PropertyFi
 
 type propertyFieldLinkResolver struct{ *Resolver }
 
-func (r *propertyFieldLinkResolver) Dataset(ctx context.Context, obj *PropertyFieldLink) (*Dataset, error) {
+func (r *propertyFieldLinkResolver) Dataset(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.Dataset, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -137,7 +138,7 @@ func (r *propertyFieldLinkResolver) Dataset(ctx context.Context, obj *PropertyFi
 	return DataLoadersFromContext(ctx).Dataset.Load(id.DatasetID(*obj.DatasetID))
 }
 
-func (r *propertyFieldLinkResolver) DatasetField(ctx context.Context, obj *PropertyFieldLink) (*DatasetField, error) {
+func (r *propertyFieldLinkResolver) DatasetField(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -151,14 +152,14 @@ func (r *propertyFieldLinkResolver) DatasetField(ctx context.Context, obj *Prope
 	return d.Field(obj.DatasetSchemaFieldID), nil
 }
 
-func (r *propertyFieldLinkResolver) DatasetSchema(ctx context.Context, obj *PropertyFieldLink) (*DatasetSchema, error) {
+func (r *propertyFieldLinkResolver) DatasetSchema(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.DatasetSchemaID))
 }
 
-func (r *propertyFieldLinkResolver) DatasetSchemaField(ctx context.Context, obj *PropertyFieldLink) (*DatasetSchemaField, error) {
+func (r *propertyFieldLinkResolver) DatasetSchemaField(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetSchemaField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -168,7 +169,7 @@ func (r *propertyFieldLinkResolver) DatasetSchemaField(ctx context.Context, obj 
 
 type mergedPropertyResolver struct{ *Resolver }
 
-func (r *mergedPropertyResolver) Original(ctx context.Context, obj *MergedProperty) (*Property, error) {
+func (r *mergedPropertyResolver) Original(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -178,7 +179,7 @@ func (r *mergedPropertyResolver) Original(ctx context.Context, obj *MergedProper
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
 }
 
-func (r *mergedPropertyResolver) Parent(ctx context.Context, obj *MergedProperty) (*Property, error) {
+func (r *mergedPropertyResolver) Parent(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -188,7 +189,7 @@ func (r *mergedPropertyResolver) Parent(ctx context.Context, obj *MergedProperty
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(*obj.ParentID))
 }
 
-func (r *mergedPropertyResolver) Schema(ctx context.Context, obj *MergedProperty) (*PropertySchema, error) {
+func (r *mergedPropertyResolver) Schema(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -208,7 +209,7 @@ func (r *mergedPropertyResolver) Schema(ctx context.Context, obj *MergedProperty
 	return DataLoadersFromContext(ctx).PropertySchema.Load(*obj.SchemaID)
 }
 
-func (r *mergedPropertyResolver) LinkedDataset(ctx context.Context, obj *MergedProperty) (*Dataset, error) {
+func (r *mergedPropertyResolver) LinkedDataset(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Dataset, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -218,7 +219,7 @@ func (r *mergedPropertyResolver) LinkedDataset(ctx context.Context, obj *MergedP
 	return DataLoadersFromContext(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
 }
 
-func (r *mergedPropertyResolver) Groups(ctx context.Context, obj *MergedProperty) ([]*MergedPropertyGroup, error) {
+func (r *mergedPropertyResolver) Groups(ctx context.Context, obj *gqlmodel.MergedProperty) ([]*gqlmodel.MergedPropertyGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -234,7 +235,7 @@ func (r *mergedPropertyResolver) Groups(ctx context.Context, obj *MergedProperty
 
 type mergedPropertyGroupResolver struct{ *Resolver }
 
-func (r *mergedPropertyGroupResolver) Original(ctx context.Context, obj *MergedPropertyGroup) (*PropertyGroup, error) {
+func (r *mergedPropertyGroupResolver) Original(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.PropertyGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -245,13 +246,13 @@ func (r *mergedPropertyGroupResolver) Original(ctx context.Context, obj *MergedP
 	if err != nil {
 		return nil, err
 	}
-	if i, ok := p.Item(*obj.OriginalID).(*PropertyGroup); ok {
+	if i, ok := p.Item(*obj.OriginalID).(*gqlmodel.PropertyGroup); ok {
 		return i, nil
 	}
 	return nil, nil
 }
 
-func (r *mergedPropertyGroupResolver) Parent(ctx context.Context, obj *MergedPropertyGroup) (*PropertyGroup, error) {
+func (r *mergedPropertyGroupResolver) Parent(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.PropertyGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -262,13 +263,13 @@ func (r *mergedPropertyGroupResolver) Parent(ctx context.Context, obj *MergedPro
 	if err != nil {
 		return nil, err
 	}
-	if i, ok := p.Item(*obj.ParentID).(*PropertyGroup); ok {
+	if i, ok := p.Item(*obj.ParentID).(*gqlmodel.PropertyGroup); ok {
 		return i, nil
 	}
 	return nil, nil
 }
 
-func (r *mergedPropertyGroupResolver) OriginalProperty(ctx context.Context, obj *MergedPropertyGroup) (*Property, error) {
+func (r *mergedPropertyGroupResolver) OriginalProperty(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -278,7 +279,7 @@ func (r *mergedPropertyGroupResolver) OriginalProperty(ctx context.Context, obj 
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
 }
 
-func (r *mergedPropertyGroupResolver) ParentProperty(ctx context.Context, obj *MergedPropertyGroup) (*Property, error) {
+func (r *mergedPropertyGroupResolver) ParentProperty(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -288,7 +289,7 @@ func (r *mergedPropertyGroupResolver) ParentProperty(ctx context.Context, obj *M
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(*obj.ParentID))
 }
 
-func (r *mergedPropertyGroupResolver) Schema(ctx context.Context, obj *MergedPropertyGroup) (*PropertySchema, error) {
+func (r *mergedPropertyGroupResolver) Schema(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -308,7 +309,7 @@ func (r *mergedPropertyGroupResolver) Schema(ctx context.Context, obj *MergedPro
 	return DataLoadersFromContext(ctx).PropertySchema.Load(*obj.SchemaID)
 }
 
-func (r *mergedPropertyGroupResolver) LinkedDataset(ctx context.Context, obj *MergedPropertyGroup) (*Dataset, error) {
+func (r *mergedPropertyGroupResolver) LinkedDataset(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Dataset, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -320,14 +321,14 @@ func (r *mergedPropertyGroupResolver) LinkedDataset(ctx context.Context, obj *Me
 
 type mergedPropertyFieldResolver struct{ *Resolver }
 
-func (r *mergedPropertyFieldResolver) Schema(ctx context.Context, obj *MergedPropertyField) (*PropertySchema, error) {
+func (r *mergedPropertyFieldResolver) Schema(ctx context.Context, obj *gqlmodel.MergedPropertyField) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
-func (r *mergedPropertyFieldResolver) Field(ctx context.Context, obj *MergedPropertyField) (*PropertySchemaField, error) {
+func (r *mergedPropertyFieldResolver) Field(ctx context.Context, obj *gqlmodel.MergedPropertyField) (*gqlmodel.PropertySchemaField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -335,7 +336,7 @@ func (r *mergedPropertyFieldResolver) Field(ctx context.Context, obj *MergedProp
 	return s.Field(obj.FieldID), err
 }
 
-func (r *mergedPropertyFieldResolver) ActualValue(ctx context.Context, obj *MergedPropertyField) (interface{}, error) {
+func (r *mergedPropertyFieldResolver) ActualValue(ctx context.Context, obj *gqlmodel.MergedPropertyField) (interface{}, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -345,14 +346,14 @@ func (r *mergedPropertyFieldResolver) ActualValue(ctx context.Context, obj *Merg
 
 type propertyGroupListResolver struct{ *Resolver }
 
-func (*propertyGroupListResolver) Schema(ctx context.Context, obj *PropertyGroupList) (*PropertySchema, error) {
+func (*propertyGroupListResolver) Schema(ctx context.Context, obj *gqlmodel.PropertyGroupList) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
-func (*propertyGroupListResolver) SchemaGroup(ctx context.Context, obj *PropertyGroupList) (*PropertySchemaGroup, error) {
+func (*propertyGroupListResolver) SchemaGroup(ctx context.Context, obj *gqlmodel.PropertyGroupList) (*gqlmodel.PropertySchemaGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -365,14 +366,14 @@ func (*propertyGroupListResolver) SchemaGroup(ctx context.Context, obj *Property
 
 type propertyGroupResolver struct{ *Resolver }
 
-func (*propertyGroupResolver) Schema(ctx context.Context, obj *PropertyGroup) (*PropertySchema, error) {
+func (*propertyGroupResolver) Schema(ctx context.Context, obj *gqlmodel.PropertyGroup) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
-func (*propertyGroupResolver) SchemaGroup(ctx context.Context, obj *PropertyGroup) (*PropertySchemaGroup, error) {
+func (*propertyGroupResolver) SchemaGroup(ctx context.Context, obj *gqlmodel.PropertyGroup) (*gqlmodel.PropertySchemaGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -383,7 +384,7 @@ func (*propertyGroupResolver) SchemaGroup(ctx context.Context, obj *PropertyGrou
 	return s.Group(obj.SchemaGroupID), nil
 }
 
-func actualValue(datasetLoader DatasetDataLoader, value interface{}, links []*PropertyFieldLink, overridden bool) (interface{}, error) {
+func actualValue(datasetLoader DatasetDataLoader, value interface{}, links []*gqlmodel.PropertyFieldLink, overridden bool) (interface{}, error) {
 	if len(links) == 0 || overridden {
 		return &value, nil
 	}
@@ -399,7 +400,7 @@ func actualValue(datasetLoader DatasetDataLoader, value interface{}, links []*Pr
 			if field != nil {
 				if i == len(links)-1 {
 					return &value, nil
-				} else if field.Type != ValueTypeRef {
+				} else if field.Type != gqlmodel.ValueTypeRef {
 					return nil, nil
 				}
 				if field.Value != nil {

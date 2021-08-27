@@ -3,6 +3,7 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -17,14 +18,14 @@ func (r *Resolver) DatasetSchemaField() DatasetSchemaFieldResolver {
 
 type datasetSchemaResolver struct{ *Resolver }
 
-func (r *datasetSchemaResolver) Scene(ctx context.Context, obj *DatasetSchema) (*Scene, error) {
+func (r *datasetSchemaResolver) Scene(ctx context.Context, obj *gqlmodel.DatasetSchema) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
 }
 
-func (r *datasetSchemaResolver) RepresentativeField(ctx context.Context, obj *DatasetSchema) (*DatasetSchemaField, error) {
+func (r *datasetSchemaResolver) RepresentativeField(ctx context.Context, obj *gqlmodel.DatasetSchema) (*gqlmodel.DatasetSchemaField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -40,7 +41,7 @@ func (r *datasetSchemaResolver) RepresentativeField(ctx context.Context, obj *Da
 	return nil, nil
 }
 
-func (r *datasetSchemaResolver) Datasets(ctx context.Context, obj *DatasetSchema, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetConnection, error) {
+func (r *datasetSchemaResolver) Datasets(ctx context.Context, obj *gqlmodel.DatasetSchema, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -49,14 +50,14 @@ func (r *datasetSchemaResolver) Datasets(ctx context.Context, obj *DatasetSchema
 
 type datasetSchemaFieldResolver struct{ *Resolver }
 
-func (r *datasetSchemaFieldResolver) Schema(ctx context.Context, obj *DatasetSchemaField) (*DatasetSchema, error) {
+func (r *datasetSchemaFieldResolver) Schema(ctx context.Context, obj *gqlmodel.DatasetSchemaField) (*gqlmodel.DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.SchemaID))
 }
 
-func (r *datasetSchemaFieldResolver) Ref(ctx context.Context, obj *DatasetSchemaField) (*DatasetSchema, error) {
+func (r *datasetSchemaFieldResolver) Ref(ctx context.Context, obj *gqlmodel.DatasetSchemaField) (*gqlmodel.DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 

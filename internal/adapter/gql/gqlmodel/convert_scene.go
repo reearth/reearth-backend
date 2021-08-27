@@ -1,10 +1,10 @@
-package gql
+package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-func toSceneWidget(w *scene.Widget) *SceneWidget {
+func ToSceneWidget(w *scene.Widget) *SceneWidget {
 	if w == nil {
 		return nil
 	}
@@ -18,7 +18,7 @@ func toSceneWidget(w *scene.Widget) *SceneWidget {
 	}
 }
 
-func toScenePlugin(sp *scene.Plugin) *ScenePlugin {
+func ToScenePlugin(sp *scene.Plugin) *ScenePlugin {
 	if sp == nil {
 		return nil
 	}
@@ -29,7 +29,7 @@ func toScenePlugin(sp *scene.Plugin) *ScenePlugin {
 	}
 }
 
-func toScene(scene *scene.Scene) *Scene {
+func ToScene(scene *scene.Scene) *Scene {
 	if scene == nil {
 		return nil
 	}
@@ -37,13 +37,13 @@ func toScene(scene *scene.Scene) *Scene {
 	sceneWidgets := scene.WidgetSystem().Widgets()
 	widgets := make([]*SceneWidget, 0, len(sceneWidgets))
 	for _, w := range sceneWidgets {
-		widgets = append(widgets, toSceneWidget(w))
+		widgets = append(widgets, ToSceneWidget(w))
 	}
 
 	scenePlugins := scene.PluginSystem().Plugins()
 	plugins := make([]*ScenePlugin, 0, len(scenePlugins))
 	for _, sp := range scenePlugins {
-		plugins = append(plugins, toScenePlugin(sp))
+		plugins = append(plugins, ToScenePlugin(sp))
 	}
 
 	return &Scene{
@@ -59,7 +59,7 @@ func toScene(scene *scene.Scene) *Scene {
 	}
 }
 
-func toSceneLockMode(lm scene.LockMode) SceneLockMode {
+func ToSceneLockMode(lm scene.LockMode) SceneLockMode {
 	switch lm {
 	case scene.LockModeFree:
 		return SceneLockModeFree

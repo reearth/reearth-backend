@@ -1,4 +1,4 @@
-package gql
+package gqlmodel
 
 import (
 	"net/url"
@@ -8,7 +8,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/property"
 )
 
-func toPropertyValue(v *property.Value) *interface{} {
+func ToPropertyValue(v *property.Value) *interface{} {
 	var res interface{}
 	if v == nil {
 		return nil
@@ -51,7 +51,7 @@ func toPropertyValue(v *property.Value) *interface{} {
 			FontSize:   v2.FontSize,
 			FontWeight: v2.FontWeight,
 			Color:      v2.Color,
-			TextAlign:  toTextAlign(v2.TextAlign),
+			TextAlign:  ToTextAlign(v2.TextAlign),
 			Bold:       v2.Bold,
 			Italic:     v2.Italic,
 			Underline:  v2.Underline,
@@ -84,7 +84,7 @@ func toPropertyValue(v *property.Value) *interface{} {
 	return &res
 }
 
-func toTextAlign(t *property.TextAlign) *TextAlign {
+func ToTextAlign(t *property.TextAlign) *TextAlign {
 	if t == nil {
 		return nil
 	}
@@ -106,7 +106,7 @@ func toTextAlign(t *property.TextAlign) *TextAlign {
 	return &t3
 }
 
-func toPropertyValueType(t property.ValueType) ValueType {
+func ToPropertyValueType(t property.ValueType) ValueType {
 	switch t {
 	case property.ValueTypeBool:
 		return ValueTypeBool
@@ -136,7 +136,7 @@ func toPropertyValueType(t property.ValueType) ValueType {
 	return ""
 }
 
-func fromPropertyValueType(t ValueType) property.ValueType {
+func FromPropertyValueType(t ValueType) property.ValueType {
 	switch t {
 	case ValueTypeBool:
 		return property.ValueTypeBool
@@ -166,7 +166,7 @@ func fromPropertyValueType(t ValueType) property.ValueType {
 	return ""
 }
 
-func fromPropertyValueAndType(v interface{}, t ValueType) (*property.Value, bool) {
+func FromPropertyValueAndType(v interface{}, t ValueType) (*property.Value, bool) {
 	switch v2 := v.(type) {
 	case LatLng:
 		v = property.LatLng{
@@ -241,7 +241,7 @@ func fromPropertyValueAndType(v interface{}, t ValueType) (*property.Value, bool
 			South: v2.South,
 		}
 	}
-	return fromPropertyValueType(t).ValueFrom(v)
+	return FromPropertyValueType(t).ValueFrom(v)
 }
 
 func fromTextAlign(t *TextAlign) *property.TextAlign {
@@ -266,7 +266,7 @@ func fromTextAlign(t *TextAlign) *property.TextAlign {
 	return &t2
 }
 
-func toPropertyField(f *property.Field, parent *property.Property, gl *property.GroupList, g *property.Group) *PropertyField {
+func ToPropertyField(f *property.Field, parent *property.Property, gl *property.GroupList, g *property.Group) *PropertyField {
 	if f == nil {
 		return nil
 	}
@@ -275,7 +275,7 @@ func toPropertyField(f *property.Field, parent *property.Property, gl *property.
 	if flinks := f.Links(); flinks != nil {
 		links = make([]*PropertyFieldLink, 0, flinks.Len())
 		for _, l := range flinks.Links() {
-			links = append(links, toPropertyFieldLink(l))
+			links = append(links, ToPropertyFieldLink(l))
 		}
 	}
 
@@ -285,25 +285,25 @@ func toPropertyField(f *property.Field, parent *property.Property, gl *property.
 		ParentID: parent.ID().ID(),
 		SchemaID: parent.Schema(),
 		FieldID:  f.Field(),
-		Value:    toPropertyValue(f.Value()),
-		Type:     toPropertyValueType(f.Type()),
+		Value:    ToPropertyValue(f.Value()),
+		Type:     ToPropertyValueType(f.Type()),
 		Links:    links,
 	}
 }
 
-func toPropertyFieldLinks(flinks *property.Links) []*PropertyFieldLink {
+func ToPropertyFieldLinks(flinks *property.Links) []*PropertyFieldLink {
 	if flinks == nil {
 		return nil
 	}
 	var links []*PropertyFieldLink
 	links = make([]*PropertyFieldLink, 0, flinks.Len())
 	for _, l := range flinks.Links() {
-		links = append(links, toPropertyFieldLink(l))
+		links = append(links, ToPropertyFieldLink(l))
 	}
 	return links
 }
 
-func fromPropertyFieldLink(datasetSchema, ds, fields []*id.ID) *property.Links {
+func FromPropertyFieldLink(datasetSchema, ds, fields []*id.ID) *property.Links {
 	if len(datasetSchema) != len(fields) || (ds != nil && len(ds) != len(fields) && len(ds) > 1) {
 		return nil
 	}
@@ -330,7 +330,7 @@ func fromPropertyFieldLink(datasetSchema, ds, fields []*id.ID) *property.Links {
 	return property.NewLinks(links)
 }
 
-func toPropertyFieldLink(link *property.Link) *PropertyFieldLink {
+func ToPropertyFieldLink(link *property.Link) *PropertyFieldLink {
 	return &PropertyFieldLink{
 		DatasetID:            link.Dataset().IDRef(),
 		DatasetSchemaID:      link.DatasetSchema().ID(),
@@ -338,7 +338,7 @@ func toPropertyFieldLink(link *property.Link) *PropertyFieldLink {
 	}
 }
 
-func toProperty(property *property.Property) *Property {
+func ToProperty(property *property.Property) *Property {
 	if property == nil {
 		return nil
 	}
@@ -346,7 +346,7 @@ func toProperty(property *property.Property) *Property {
 	pitems := property.Items()
 	items := make([]PropertyItem, 0, len(pitems))
 	for _, i := range pitems {
-		items = append(items, toPropertyItem(i, property, nil))
+		items = append(items, ToPropertyItem(i, property, nil))
 	}
 
 	return &Property{
@@ -356,7 +356,7 @@ func toProperty(property *property.Property) *Property {
 	}
 }
 
-func toPropertySchema(propertySchema *property.Schema) *PropertySchema {
+func ToPropertySchema(propertySchema *property.Schema) *PropertySchema {
 	if propertySchema == nil {
 		return nil
 	}
@@ -364,17 +364,17 @@ func toPropertySchema(propertySchema *property.Schema) *PropertySchema {
 	pgroups := propertySchema.Groups()
 	groups := make([]*PropertySchemaGroup, 0, len(pgroups))
 	for _, g := range pgroups {
-		groups = append(groups, toPropertySchemaGroup(g))
+		groups = append(groups, ToPropertySchemaGroup(g))
 	}
 
 	return &PropertySchema{
 		ID:             propertySchema.ID(),
 		Groups:         groups,
-		LinkableFields: toPropertyLinkableFields(propertySchema.ID(), propertySchema.LinkableFields()),
+		LinkableFields: ToPropertyLinkableFields(propertySchema.ID(), propertySchema.LinkableFields()),
 	}
 }
 
-func toPropertyLinkableFields(sid id.PropertySchemaID, l property.LinkableFields) *PropertyLinkableFields {
+func ToPropertyLinkableFields(sid id.PropertySchemaID, l property.LinkableFields) *PropertyLinkableFields {
 	return &PropertyLinkableFields{
 		SchemaID: sid,
 		Latlng:   l.LatLng.FieldRef(),
@@ -382,7 +382,7 @@ func toPropertyLinkableFields(sid id.PropertySchemaID, l property.LinkableFields
 	}
 }
 
-func toPropertySchemaField(f *property.SchemaField) *PropertySchemaField {
+func ToPropertySchemaField(f *property.SchemaField) *PropertySchemaField {
 	if f == nil {
 		return nil
 	}
@@ -404,25 +404,25 @@ func toPropertySchemaField(f *property.SchemaField) *PropertySchemaField {
 
 	return &PropertySchemaField{
 		FieldID:                  f.ID(),
-		Type:                     toPropertyValueType(f.Type()),
+		Type:                     ToPropertyValueType(f.Type()),
 		Title:                    f.Title().String(),
 		Name:                     f.Title().String(), // deprecated
 		Description:              f.Description().String(),
 		Prefix:                   stringToRef(f.Prefix()),
 		Suffix:                   stringToRef(f.Suffix()),
-		DefaultValue:             toPropertyValue(f.DefaultValue()),
-		UI:                       toPropertySchemaFieldUI(f.UI()),
+		DefaultValue:             ToPropertyValue(f.DefaultValue()),
+		UI:                       ToPropertySchemaFieldUI(f.UI()),
 		Min:                      f.Min(),
 		Max:                      f.Max(),
 		Choices:                  choices,
-		IsAvailableIf:            toPropertyConditon(f.IsAvailableIf()),
+		IsAvailableIf:            ToPropertyConditon(f.IsAvailableIf()),
 		AllTranslatedTitle:       f.Title(),
 		AllTranslatedName:        f.Title(), // deprecated
 		AllTranslatedDescription: f.Description(),
 	}
 }
 
-func toPropertySchemaFieldUI(ui *property.SchemaFieldUI) *PropertySchemaFieldUI {
+func ToPropertySchemaFieldUI(ui *property.SchemaFieldUI) *PropertySchemaFieldUI {
 	if ui == nil {
 		return nil
 	}
@@ -453,7 +453,7 @@ func toPropertySchemaFieldUI(ui *property.SchemaFieldUI) *PropertySchemaFieldUI 
 	return nil
 }
 
-func toMergedPropertyFromMetadata(m *property.MergedMetadata) *MergedProperty {
+func ToMergedPropertyFromMetadata(m *property.MergedMetadata) *MergedProperty {
 	if m == nil {
 		return nil
 	}
@@ -465,13 +465,13 @@ func toMergedPropertyFromMetadata(m *property.MergedMetadata) *MergedProperty {
 	}
 }
 
-func toMergedProperty(m *property.Merged) *MergedProperty {
+func ToMergedProperty(m *property.Merged) *MergedProperty {
 	if m == nil {
 		return nil
 	}
 	groups := make([]*MergedPropertyGroup, 0, len(m.Groups))
 	for _, f := range m.Groups {
-		groups = append(groups, toMergedPropertyGroup(f, m))
+		groups = append(groups, ToMergedPropertyGroup(f, m))
 	}
 	return &MergedProperty{
 		OriginalID:      m.Original.IDRef(),
@@ -482,17 +482,17 @@ func toMergedProperty(m *property.Merged) *MergedProperty {
 	}
 }
 
-func toMergedPropertyGroup(f *property.MergedGroup, p *property.Merged) *MergedPropertyGroup {
+func ToMergedPropertyGroup(f *property.MergedGroup, p *property.Merged) *MergedPropertyGroup {
 	if f == nil {
 		return nil
 	}
 	fields := make([]*MergedPropertyField, 0, len(f.Fields))
 	for _, f2 := range f.Fields {
-		fields = append(fields, toMergedPropertyField(f2, p.Schema))
+		fields = append(fields, ToMergedPropertyField(f2, p.Schema))
 	}
 	groups := make([]*MergedPropertyGroup, 0, len(f.Groups))
 	for _, f2 := range f.Groups {
-		groups = append(groups, toMergedPropertyGroup(f2, p))
+		groups = append(groups, ToMergedPropertyGroup(f2, p))
 	}
 	return &MergedPropertyGroup{
 		OriginalPropertyID: p.Original.IDRef(),
@@ -507,21 +507,21 @@ func toMergedPropertyGroup(f *property.MergedGroup, p *property.Merged) *MergedP
 	}
 }
 
-func toMergedPropertyField(f *property.MergedField, s id.PropertySchemaID) *MergedPropertyField {
+func ToMergedPropertyField(f *property.MergedField, s id.PropertySchemaID) *MergedPropertyField {
 	if f == nil {
 		return nil
 	}
 	return &MergedPropertyField{
 		FieldID:    f.ID,
 		SchemaID:   s,
-		Links:      toPropertyFieldLinks(f.Links),
-		Value:      toPropertyValue(f.Value),
-		Type:       toPropertyValueType(f.Type),
+		Links:      ToPropertyFieldLinks(f.Links),
+		Value:      ToPropertyValue(f.Value),
+		Type:       ToPropertyValueType(f.Type),
 		Overridden: f.Overridden,
 	}
 }
 
-func toPropertySchemaGroup(g *property.SchemaGroup) *PropertySchemaGroup {
+func ToPropertySchemaGroup(g *property.SchemaGroup) *PropertySchemaGroup {
 	if g == nil {
 		return nil
 	}
@@ -530,7 +530,7 @@ func toPropertySchemaGroup(g *property.SchemaGroup) *PropertySchemaGroup {
 	var representativeField *PropertySchemaField
 	representativeFieldID := g.RepresentativeFieldID()
 	for _, f := range gfields {
-		f2 := toPropertySchemaField(f)
+		f2 := ToPropertySchemaField(f)
 		fields = append(fields, f2)
 		if representativeFieldID != nil && f.ID() == *representativeFieldID {
 			representativeField = f2
@@ -546,11 +546,11 @@ func toPropertySchemaGroup(g *property.SchemaGroup) *PropertySchemaGroup {
 		RepresentativeFieldID: representativeFieldID,
 		RepresentativeField:   representativeField,
 		AllTranslatedTitle:    g.Title(),
-		IsAvailableIf:         toPropertyConditon(g.IsAvailableIf()),
+		IsAvailableIf:         ToPropertyConditon(g.IsAvailableIf()),
 	}
 }
 
-func toPropertyGroup(g *property.Group, p *property.Property, gl *property.GroupList) *PropertyGroup {
+func ToPropertyGroup(g *property.Group, p *property.Property, gl *property.GroupList) *PropertyGroup {
 	if g == nil {
 		return nil
 	}
@@ -558,7 +558,7 @@ func toPropertyGroup(g *property.Group, p *property.Property, gl *property.Group
 	gfields := g.Fields()
 	fields := make([]*PropertyField, 0, len(gfields))
 	for _, f := range gfields {
-		fields = append(fields, toPropertyField(f, p, gl, g))
+		fields = append(fields, ToPropertyField(f, p, gl, g))
 	}
 
 	return &PropertyGroup{
@@ -569,7 +569,7 @@ func toPropertyGroup(g *property.Group, p *property.Property, gl *property.Group
 	}
 }
 
-func toPropertyGroupList(g *property.GroupList, p *property.Property) *PropertyGroupList {
+func ToPropertyGroupList(g *property.GroupList, p *property.Property) *PropertyGroupList {
 	if g == nil {
 		return nil
 	}
@@ -577,7 +577,7 @@ func toPropertyGroupList(g *property.GroupList, p *property.Property) *PropertyG
 	ggroups := g.Groups()
 	groups := make([]*PropertyGroup, 0, len(ggroups))
 	for _, f := range ggroups {
-		groups = append(groups, toPropertyGroup(f, p, g))
+		groups = append(groups, ToPropertyGroup(f, p, g))
 	}
 
 	return &PropertyGroupList{
@@ -588,37 +588,37 @@ func toPropertyGroupList(g *property.GroupList, p *property.Property) *PropertyG
 	}
 }
 
-func toPropertyItem(i property.Item, p *property.Property, pgl *property.GroupList) PropertyItem {
+func ToPropertyItem(i property.Item, p *property.Property, pgl *property.GroupList) PropertyItem {
 	if i == nil {
 		return nil
 	}
 
 	if g := property.ToGroup(i); g != nil {
-		return toPropertyGroup(g, p, pgl)
+		return ToPropertyGroup(g, p, pgl)
 	} else if gl := property.ToGroupList(i); gl != nil {
-		return toPropertyGroupList(gl, p)
+		return ToPropertyGroupList(gl, p)
 	}
 	return nil
 }
 
-func toPropertyConditon(c *property.Condition) *PropertyCondition {
+func ToPropertyConditon(c *property.Condition) *PropertyCondition {
 	if c == nil {
 		return nil
 	}
 
 	return &PropertyCondition{
 		FieldID: c.Field,
-		Value:   toPropertyValue(c.Value),
-		Type:    toPropertyValueType(c.Value.Type()),
+		Value:   ToPropertyValue(c.Value),
+		Type:    ToPropertyValueType(c.Value.Type()),
 	}
 }
 
-func fromPointer(schemaItem *id.PropertySchemaFieldID, item *id.ID, field *id.PropertySchemaFieldID) *property.Pointer {
+func FromPointer(schemaItem *id.PropertySchemaFieldID, item *id.ID, field *id.PropertySchemaFieldID) *property.Pointer {
 	i := id.PropertyItemIDFromRefID(item)
 	return property.NewPointer(schemaItem, i, field)
 }
 
-func toPropertyLatLng(lat, lng *float64) *property.LatLng {
+func ToPropertyLatLng(lat, lng *float64) *property.LatLng {
 	var latlng *property.LatLng
 	if lat != nil && lng != nil {
 		latlng2 := property.LatLng{Lat: *lat, Lng: *lng}

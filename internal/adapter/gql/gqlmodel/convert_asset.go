@@ -1,10 +1,10 @@
-package gql
+package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/pkg/asset"
 )
 
-func toAsset(a *asset.Asset) *Asset {
+func ToAsset(a *asset.Asset) *Asset {
 	if a == nil {
 		return nil
 	}

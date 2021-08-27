@@ -1,10 +1,10 @@
-package gql
+package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/pkg/plugin"
 )
 
-func toPlugin(p *plugin.Plugin) *Plugin {
+func ToPlugin(p *plugin.Plugin) *Plugin {
 	if p == nil {
 		return nil
 	}
@@ -16,8 +16,8 @@ func toPlugin(p *plugin.Plugin) *Plugin {
 		extensions = append(extensions, &PluginExtension{
 			ExtensionID:              pe.ID(),
 			PluginID:                 pid,
-			Type:                     toPluginExtensionType(pe.Type()),
-			Visualizer:               toVisualizer(pe.Visualizer()),
+			Type:                     ToPluginExtensionType(pe.Type()),
+			Visualizer:               ToVisualizer(pe.Visualizer()),
 			Name:                     pe.Name().String(),
 			Description:              pe.Description().String(),
 			Icon:                     pe.Icon(),
@@ -42,7 +42,7 @@ func toPlugin(p *plugin.Plugin) *Plugin {
 	}
 }
 
-func toPluginExtensionType(t plugin.ExtensionType) PluginExtensionType {
+func ToPluginExtensionType(t plugin.ExtensionType) PluginExtensionType {
 	switch t {
 	case plugin.ExtensionTypePrimitive:
 		return PluginExtensionTypePrimitive
@@ -58,7 +58,7 @@ func toPluginExtensionType(t plugin.ExtensionType) PluginExtensionType {
 	return PluginExtensionType("")
 }
 
-func toPluginMetadata(t *plugin.Metadata) (*PluginMetadata, error) {
+func ToPluginMetadata(t *plugin.Metadata) (*PluginMetadata, error) {
 	if t == nil {
 		return nil, nil
 	}

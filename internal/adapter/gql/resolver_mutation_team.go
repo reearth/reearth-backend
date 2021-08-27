@@ -3,10 +3,11 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-func (r *mutationResolver) CreateTeam(ctx context.Context, input CreateTeamInput) (*CreateTeamPayload, error) {
+func (r *mutationResolver) CreateTeam(ctx context.Context, input gqlmodel.CreateTeamInput) (*gqlmodel.CreateTeamPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -15,10 +16,10 @@ func (r *mutationResolver) CreateTeam(ctx context.Context, input CreateTeamInput
 		return nil, err
 	}
 
-	return &CreateTeamPayload{Team: toTeam(res)}, nil
+	return &gqlmodel.CreateTeamPayload{Team: gqlmodel.ToTeam(res)}, nil
 }
 
-func (r *mutationResolver) DeleteTeam(ctx context.Context, input DeleteTeamInput) (*DeleteTeamPayload, error) {
+func (r *mutationResolver) DeleteTeam(ctx context.Context, input gqlmodel.DeleteTeamInput) (*gqlmodel.DeleteTeamPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -26,10 +27,10 @@ func (r *mutationResolver) DeleteTeam(ctx context.Context, input DeleteTeamInput
 		return nil, err
 	}
 
-	return &DeleteTeamPayload{TeamID: input.TeamID}, nil
+	return &gqlmodel.DeleteTeamPayload{TeamID: input.TeamID}, nil
 }
 
-func (r *mutationResolver) UpdateTeam(ctx context.Context, input UpdateTeamInput) (*UpdateTeamPayload, error) {
+func (r *mutationResolver) UpdateTeam(ctx context.Context, input gqlmodel.UpdateTeamInput) (*gqlmodel.UpdateTeamPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -38,22 +39,22 @@ func (r *mutationResolver) UpdateTeam(ctx context.Context, input UpdateTeamInput
 		return nil, err
 	}
 
-	return &UpdateTeamPayload{Team: toTeam(res)}, nil
+	return &gqlmodel.UpdateTeamPayload{Team: gqlmodel.ToTeam(res)}, nil
 }
 
-func (r *mutationResolver) AddMemberToTeam(ctx context.Context, input AddMemberToTeamInput) (*AddMemberToTeamPayload, error) {
+func (r *mutationResolver) AddMemberToTeam(ctx context.Context, input gqlmodel.AddMemberToTeamInput) (*gqlmodel.AddMemberToTeamPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	res, err := r.usecases.Team.AddMember(ctx, id.TeamID(input.TeamID), id.UserID(input.UserID), fromRole(input.Role), getOperator(ctx))
+	res, err := r.usecases.Team.AddMember(ctx, id.TeamID(input.TeamID), id.UserID(input.UserID), gqlmodel.FromRole(input.Role), getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return &AddMemberToTeamPayload{Team: toTeam(res)}, nil
+	return &gqlmodel.AddMemberToTeamPayload{Team: gqlmodel.ToTeam(res)}, nil
 }
 
-func (r *mutationResolver) RemoveMemberFromTeam(ctx context.Context, input RemoveMemberFromTeamInput) (*RemoveMemberFromTeamPayload, error) {
+func (r *mutationResolver) RemoveMemberFromTeam(ctx context.Context, input gqlmodel.RemoveMemberFromTeamInput) (*gqlmodel.RemoveMemberFromTeamPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -62,17 +63,17 @@ func (r *mutationResolver) RemoveMemberFromTeam(ctx context.Context, input Remov
 		return nil, err
 	}
 
-	return &RemoveMemberFromTeamPayload{Team: toTeam(res)}, nil
+	return &gqlmodel.RemoveMemberFromTeamPayload{Team: gqlmodel.ToTeam(res)}, nil
 }
 
-func (r *mutationResolver) UpdateMemberOfTeam(ctx context.Context, input UpdateMemberOfTeamInput) (*UpdateMemberOfTeamPayload, error) {
+func (r *mutationResolver) UpdateMemberOfTeam(ctx context.Context, input gqlmodel.UpdateMemberOfTeamInput) (*gqlmodel.UpdateMemberOfTeamPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	res, err := r.usecases.Team.UpdateMember(ctx, id.TeamID(input.TeamID), id.UserID(input.UserID), fromRole(input.Role), getOperator(ctx))
+	res, err := r.usecases.Team.UpdateMember(ctx, id.TeamID(input.TeamID), id.UserID(input.UserID), gqlmodel.FromRole(input.Role), getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return &UpdateMemberOfTeamPayload{Team: toTeam(res)}, nil
+	return &gqlmodel.UpdateMemberOfTeamPayload{Team: gqlmodel.ToTeam(res)}, nil
 }

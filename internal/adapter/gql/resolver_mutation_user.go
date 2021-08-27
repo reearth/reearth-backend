@@ -3,11 +3,12 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-func (r *mutationResolver) Signup(ctx context.Context, input SignupInput) (*SignupPayload, error) {
+func (r *mutationResolver) Signup(ctx context.Context, input gqlmodel.SignupInput) (*gqlmodel.SignupPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -19,7 +20,7 @@ func (r *mutationResolver) Signup(ctx context.Context, input SignupInput) (*Sign
 	u, team, err := r.usecases.User.Signup(ctx, interfaces.SignupParam{
 		Sub:    getSub(ctx),
 		Lang:   input.Lang,
-		Theme:  toTheme(input.Theme),
+		Theme:  gqlmodel.ToTheme(input.Theme),
 		UserID: id.UserIDFromRefID(input.UserID),
 		TeamID: id.TeamIDFromRefID(input.TeamID),
 		Secret: secret,
@@ -28,10 +29,10 @@ func (r *mutationResolver) Signup(ctx context.Context, input SignupInput) (*Sign
 		return nil, err
 	}
 
-	return &SignupPayload{User: ToUser(u), Team: toTeam(team)}, nil
+	return &gqlmodel.SignupPayload{User: gqlmodel.ToUser(u), Team: gqlmodel.ToTeam(team)}, nil
 }
 
-func (r *mutationResolver) UpdateMe(ctx context.Context, input UpdateMeInput) (*UpdateMePayload, error) {
+func (r *mutationResolver) UpdateMe(ctx context.Context, input gqlmodel.UpdateMeInput) (*gqlmodel.UpdateMePayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -39,7 +40,7 @@ func (r *mutationResolver) UpdateMe(ctx context.Context, input UpdateMeInput) (*
 		Name:                 input.Name,
 		Email:                input.Email,
 		Lang:                 input.Lang,
-		Theme:                toTheme(input.Theme),
+		Theme:                gqlmodel.ToTheme(input.Theme),
 		Password:             input.Password,
 		PasswordConfirmation: input.PasswordConfirmation,
 	}, getOperator(ctx))
@@ -47,10 +48,10 @@ func (r *mutationResolver) UpdateMe(ctx context.Context, input UpdateMeInput) (*
 		return nil, err
 	}
 
-	return &UpdateMePayload{User: ToUser(res)}, nil
+	return &gqlmodel.UpdateMePayload{User: gqlmodel.ToUser(res)}, nil
 }
 
-func (r *mutationResolver) RemoveMyAuth(ctx context.Context, input RemoveMyAuthInput) (*UpdateMePayload, error) {
+func (r *mutationResolver) RemoveMyAuth(ctx context.Context, input gqlmodel.RemoveMyAuthInput) (*gqlmodel.UpdateMePayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -59,10 +60,10 @@ func (r *mutationResolver) RemoveMyAuth(ctx context.Context, input RemoveMyAuthI
 		return nil, err
 	}
 
-	return &UpdateMePayload{User: ToUser(res)}, nil
+	return &gqlmodel.UpdateMePayload{User: gqlmodel.ToUser(res)}, nil
 }
 
-func (r *mutationResolver) DeleteMe(ctx context.Context, input DeleteMeInput) (*DeleteMePayload, error) {
+func (r *mutationResolver) DeleteMe(ctx context.Context, input gqlmodel.DeleteMeInput) (*gqlmodel.DeleteMePayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -70,5 +71,5 @@ func (r *mutationResolver) DeleteMe(ctx context.Context, input DeleteMeInput) (*
 		return nil, err
 	}
 
-	return &DeleteMePayload{UserID: input.UserID}, nil
+	return &gqlmodel.DeleteMePayload{UserID: input.UserID}, nil
 }

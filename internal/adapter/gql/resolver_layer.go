@@ -3,6 +3,7 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
@@ -36,14 +37,14 @@ func (r *Resolver) MergedInfoboxField() MergedInfoboxFieldResolver {
 
 type infoboxResolver struct{ *Resolver }
 
-func (r *infoboxResolver) Property(ctx context.Context, obj *Infobox) (*Property, error) {
+func (r *infoboxResolver) Property(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(obj.PropertyID))
 }
 
-func (r *infoboxResolver) Layer(ctx context.Context, obj *Infobox) (Layer, error) {
+func (r *infoboxResolver) Layer(ctx context.Context, obj *gqlmodel.Infobox) (gqlmodel.Layer, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -54,7 +55,7 @@ func (r *infoboxResolver) Layer(ctx context.Context, obj *Infobox) (Layer, error
 	return *layer, nil
 }
 
-func (r *infoboxResolver) LinkedDataset(ctx context.Context, obj *Infobox) (*Dataset, error) {
+func (r *infoboxResolver) LinkedDataset(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.Dataset, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -64,7 +65,7 @@ func (r *infoboxResolver) LinkedDataset(ctx context.Context, obj *Infobox) (*Dat
 	return DataLoadersFromContext(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
 }
 
-func (r *infoboxResolver) Merged(ctx context.Context, obj *Infobox) (*MergedInfobox, error) {
+func (r *infoboxResolver) Merged(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.MergedInfobox, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -75,14 +76,14 @@ func (r *infoboxResolver) Merged(ctx context.Context, obj *Infobox) (*MergedInfo
 	return ml.Infobox, nil
 }
 
-func (r *infoboxResolver) Scene(ctx context.Context, obj *Infobox) (*Scene, error) {
+func (r *infoboxResolver) Scene(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
 }
 
-func (r *infoboxResolver) ScenePlugin(ctx context.Context, obj *Infobox) (*ScenePlugin, error) {
+func (r *infoboxResolver) ScenePlugin(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.ScenePlugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -91,9 +92,9 @@ func (r *infoboxResolver) ScenePlugin(ctx context.Context, obj *Infobox) (*Scene
 		return nil, err
 	}
 	var pluginID *id.PluginID
-	if lg, ok := (*layer).(*LayerGroup); ok {
+	if lg, ok := (*layer).(*gqlmodel.LayerGroup); ok {
 		pluginID = lg.PluginID
-	} else if li, ok := (*layer).(*LayerItem); ok {
+	} else if li, ok := (*layer).(*gqlmodel.LayerItem); ok {
 		pluginID = li.PluginID
 	}
 	if pluginID == nil {
@@ -109,7 +110,7 @@ func (r *infoboxResolver) ScenePlugin(ctx context.Context, obj *Infobox) (*Scene
 
 type infoboxFieldResolver struct{ *Resolver }
 
-func (r *infoboxFieldResolver) Layer(ctx context.Context, obj *InfoboxField) (Layer, error) {
+func (r *infoboxFieldResolver) Layer(ctx context.Context, obj *gqlmodel.InfoboxField) (gqlmodel.Layer, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -120,7 +121,7 @@ func (r *infoboxFieldResolver) Layer(ctx context.Context, obj *InfoboxField) (La
 	return *layer, nil
 }
 
-func (r *infoboxFieldResolver) Infobox(ctx context.Context, obj *InfoboxField) (*Infobox, error) {
+func (r *infoboxFieldResolver) Infobox(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Infobox, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -128,28 +129,28 @@ func (r *infoboxFieldResolver) Infobox(ctx context.Context, obj *InfoboxField) (
 	if err != nil || layer == nil {
 		return nil, err
 	}
-	layer2 := (*layer).(*LayerItem)
+	layer2 := (*layer).(*gqlmodel.LayerItem)
 	if layer2 == nil {
 		return nil, nil
 	}
 	return layer2.Infobox, nil
 }
 
-func (r *infoboxFieldResolver) Property(ctx context.Context, obj *InfoboxField) (*Property, error) {
+func (r *infoboxFieldResolver) Property(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(obj.PropertyID))
 }
 
-func (r *infoboxFieldResolver) Plugin(ctx context.Context, obj *InfoboxField) (*Plugin, error) {
+func (r *infoboxFieldResolver) Plugin(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Plugin.Load(obj.PluginID)
 }
 
-func (r *infoboxFieldResolver) Extension(ctx context.Context, obj *InfoboxField) (*PluginExtension, error) {
+func (r *infoboxFieldResolver) Extension(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.PluginExtension, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -160,7 +161,7 @@ func (r *infoboxFieldResolver) Extension(ctx context.Context, obj *InfoboxField)
 	return plugin.Extension(obj.ExtensionID), nil
 }
 
-func (r *infoboxFieldResolver) LinkedDataset(ctx context.Context, obj *InfoboxField) (*Dataset, error) {
+func (r *infoboxFieldResolver) LinkedDataset(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Dataset, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -170,7 +171,7 @@ func (r *infoboxFieldResolver) LinkedDataset(ctx context.Context, obj *InfoboxFi
 	return DataLoadersFromContext(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
 }
 
-func (r *infoboxFieldResolver) Merged(ctx context.Context, obj *InfoboxField) (*MergedInfoboxField, error) {
+func (r *infoboxFieldResolver) Merged(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.MergedInfoboxField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -181,14 +182,14 @@ func (r *infoboxFieldResolver) Merged(ctx context.Context, obj *InfoboxField) (*
 	return ml.Infobox.Field(obj.ID), nil
 }
 
-func (r *infoboxFieldResolver) Scene(ctx context.Context, obj *InfoboxField) (*Scene, error) {
+func (r *infoboxFieldResolver) Scene(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
 }
 
-func (r *infoboxFieldResolver) ScenePlugin(ctx context.Context, obj *InfoboxField) (*ScenePlugin, error) {
+func (r *infoboxFieldResolver) ScenePlugin(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.ScenePlugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -201,7 +202,7 @@ func (r *infoboxFieldResolver) ScenePlugin(ctx context.Context, obj *InfoboxFiel
 
 type layerGroupResolver struct{ *Resolver }
 
-func (r *layerGroupResolver) Parent(ctx context.Context, obj *LayerGroup) (*LayerGroup, error) {
+func (r *layerGroupResolver) Parent(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.LayerGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -211,7 +212,7 @@ func (r *layerGroupResolver) Parent(ctx context.Context, obj *LayerGroup) (*Laye
 	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
 }
 
-func (r *layerGroupResolver) Property(ctx context.Context, obj *LayerGroup) (*Property, error) {
+func (r *layerGroupResolver) Property(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -221,7 +222,7 @@ func (r *layerGroupResolver) Property(ctx context.Context, obj *LayerGroup) (*Pr
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(*obj.PropertyID))
 }
 
-func (r *layerGroupResolver) Plugin(ctx context.Context, obj *LayerGroup) (*Plugin, error) {
+func (r *layerGroupResolver) Plugin(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -231,7 +232,7 @@ func (r *layerGroupResolver) Plugin(ctx context.Context, obj *LayerGroup) (*Plug
 	return DataLoadersFromContext(ctx).Plugin.Load(*obj.PluginID)
 }
 
-func (r *layerGroupResolver) Extension(ctx context.Context, obj *LayerGroup) (*PluginExtension, error) {
+func (r *layerGroupResolver) Extension(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.PluginExtension, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -245,14 +246,14 @@ func (r *layerGroupResolver) Extension(ctx context.Context, obj *LayerGroup) (*P
 	return plugin.Extension(*obj.ExtensionID), nil
 }
 
-func (r *layerGroupResolver) ParentLayer(ctx context.Context, obj *LayerItem) (*LayerGroup, error) {
+func (r *layerGroupResolver) ParentLayer(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.LayerGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
 }
 
-func (r *layerGroupResolver) LinkedDatasetSchema(ctx context.Context, obj *LayerGroup) (*DatasetSchema, error) {
+func (r *layerGroupResolver) LinkedDatasetSchema(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -262,7 +263,7 @@ func (r *layerGroupResolver) LinkedDatasetSchema(ctx context.Context, obj *Layer
 	return DataLoadersFromContext(ctx).DatasetSchema.Load(id.DatasetSchemaID(*obj.LinkedDatasetSchemaID))
 }
 
-func (r *layerGroupResolver) Layers(ctx context.Context, obj *LayerGroup) ([]Layer, error) {
+func (r *layerGroupResolver) Layers(ctx context.Context, obj *gqlmodel.LayerGroup) ([]gqlmodel.Layer, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -270,17 +271,17 @@ func (r *layerGroupResolver) Layers(ctx context.Context, obj *LayerGroup) ([]Lay
 	if len(err) > 0 && err[0] != nil {
 		return nil, err[0]
 	}
-	return AttachParentLayer(layers, obj.ID), nil
+	return gqlmodel.AttachParentLayer(layers, obj.ID), nil
 }
 
-func (r *layerGroupResolver) Scene(ctx context.Context, obj *LayerGroup) (*Scene, error) {
+func (r *layerGroupResolver) Scene(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
 }
 
-func (r *layerGroupResolver) ScenePlugin(ctx context.Context, obj *LayerGroup) (*ScenePlugin, error) {
+func (r *layerGroupResolver) ScenePlugin(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.ScenePlugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -296,7 +297,7 @@ func (r *layerGroupResolver) ScenePlugin(ctx context.Context, obj *LayerGroup) (
 
 type layerItemResolver struct{ *Resolver }
 
-func (r *layerItemResolver) Parent(ctx context.Context, obj *LayerItem) (*LayerGroup, error) {
+func (r *layerItemResolver) Parent(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.LayerGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -306,7 +307,7 @@ func (r *layerItemResolver) Parent(ctx context.Context, obj *LayerItem) (*LayerG
 	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
 }
 
-func (r *layerItemResolver) Property(ctx context.Context, obj *LayerItem) (*Property, error) {
+func (r *layerItemResolver) Property(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -316,7 +317,7 @@ func (r *layerItemResolver) Property(ctx context.Context, obj *LayerItem) (*Prop
 	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(*obj.PropertyID))
 }
 
-func (r *layerItemResolver) Plugin(ctx context.Context, obj *LayerItem) (*Plugin, error) {
+func (r *layerItemResolver) Plugin(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -326,7 +327,7 @@ func (r *layerItemResolver) Plugin(ctx context.Context, obj *LayerItem) (*Plugin
 	return DataLoadersFromContext(ctx).Plugin.Load(*obj.PluginID)
 }
 
-func (r *layerItemResolver) Extension(ctx context.Context, obj *LayerItem) (*PluginExtension, error) {
+func (r *layerItemResolver) Extension(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.PluginExtension, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -340,7 +341,7 @@ func (r *layerItemResolver) Extension(ctx context.Context, obj *LayerItem) (*Plu
 	return plugin.Extension(*obj.ExtensionID), nil
 }
 
-func (r *layerItemResolver) LinkedDataset(ctx context.Context, obj *LayerItem) (*Dataset, error) {
+func (r *layerItemResolver) LinkedDataset(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Dataset, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -350,7 +351,7 @@ func (r *layerItemResolver) LinkedDataset(ctx context.Context, obj *LayerItem) (
 	return DataLoadersFromContext(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
 }
 
-func (r *layerItemResolver) Merged(ctx context.Context, obj *LayerItem) (*MergedLayer, error) {
+func (r *layerItemResolver) Merged(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.MergedLayer, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -360,14 +361,14 @@ func (r *layerItemResolver) Merged(ctx context.Context, obj *LayerItem) (*Merged
 	return r.controllers.Layer.FetchMerged(ctx, id.LayerID(obj.ID), id.LayerIDFromRefID(obj.ParentID), getOperator(ctx))
 }
 
-func (r *layerItemResolver) Scene(ctx context.Context, obj *LayerItem) (*Scene, error) {
+func (r *layerItemResolver) Scene(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
 }
 
-func (r *layerItemResolver) ScenePlugin(ctx context.Context, obj *LayerItem) (*ScenePlugin, error) {
+func (r *layerItemResolver) ScenePlugin(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.ScenePlugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -383,14 +384,14 @@ func (r *layerItemResolver) ScenePlugin(ctx context.Context, obj *LayerItem) (*S
 
 type mergedLayerResolver struct{ *Resolver }
 
-func (r *mergedLayerResolver) Original(ctx context.Context, obj *MergedLayer) (*LayerItem, error) {
+func (r *mergedLayerResolver) Original(ctx context.Context, obj *gqlmodel.MergedLayer) (*gqlmodel.LayerItem, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).LayerItem.Load(id.LayerID(obj.OriginalID))
 }
 
-func (r *mergedLayerResolver) Parent(ctx context.Context, obj *MergedLayer) (*LayerGroup, error) {
+func (r *mergedLayerResolver) Parent(ctx context.Context, obj *gqlmodel.MergedLayer) (*gqlmodel.LayerGroup, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -400,7 +401,7 @@ func (r *mergedLayerResolver) Parent(ctx context.Context, obj *MergedLayer) (*La
 	return DataLoadersFromContext(ctx).LayerGroup.Load(id.LayerID(*obj.ParentID))
 }
 
-func (r *mergedLayerResolver) Scene(ctx context.Context, obj *MergedLayer) (*Scene, error) {
+func (r *mergedLayerResolver) Scene(ctx context.Context, obj *gqlmodel.MergedLayer) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -412,7 +413,7 @@ func (r *mergedLayerResolver) Scene(ctx context.Context, obj *MergedLayer) (*Sce
 
 type mergedInfoboxResolver struct{ *Resolver }
 
-func (r *mergedInfoboxResolver) Scene(ctx context.Context, obj *MergedInfobox) (*Scene, error) {
+func (r *mergedInfoboxResolver) Scene(ctx context.Context, obj *gqlmodel.MergedInfobox) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -421,14 +422,14 @@ func (r *mergedInfoboxResolver) Scene(ctx context.Context, obj *MergedInfobox) (
 
 type mergedInfoboxFieldResolver struct{ *Resolver }
 
-func (r *mergedInfoboxFieldResolver) Plugin(ctx context.Context, obj *MergedInfoboxField) (*Plugin, error) {
+func (r *mergedInfoboxFieldResolver) Plugin(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.Plugin, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Plugin.Load(obj.PluginID)
 }
 
-func (r *mergedInfoboxFieldResolver) Extension(ctx context.Context, obj *MergedInfoboxField) (*PluginExtension, error) {
+func (r *mergedInfoboxFieldResolver) Extension(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.PluginExtension, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -439,14 +440,14 @@ func (r *mergedInfoboxFieldResolver) Extension(ctx context.Context, obj *MergedI
 	return plugin.Extension(obj.ExtensionID), nil
 }
 
-func (r *mergedInfoboxFieldResolver) Scene(ctx context.Context, obj *MergedInfoboxField) (*Scene, error) {
+func (r *mergedInfoboxFieldResolver) Scene(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.Scene, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
 }
 
-func (r *mergedInfoboxFieldResolver) ScenePlugin(ctx context.Context, obj *MergedInfoboxField) (*ScenePlugin, error) {
+func (r *mergedInfoboxFieldResolver) ScenePlugin(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.ScenePlugin, error) {
 	exit := trace(ctx)
 	defer exit()
 

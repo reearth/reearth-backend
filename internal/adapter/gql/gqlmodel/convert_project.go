@@ -1,4 +1,4 @@
-package gql
+package gqlmodel
 
 import (
 	"time"
@@ -6,7 +6,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/project"
 )
 
-func fromPublishmentStatus(v PublishmentStatus) project.PublishmentStatus {
+func FromPublishmentStatus(v PublishmentStatus) project.PublishmentStatus {
 	switch v {
 	case PublishmentStatusPublic:
 		return project.PublishmentStatusPublic
@@ -18,7 +18,7 @@ func fromPublishmentStatus(v PublishmentStatus) project.PublishmentStatus {
 	return project.PublishmentStatus("")
 }
 
-func toPublishmentStatus(v project.PublishmentStatus) PublishmentStatus {
+func ToPublishmentStatus(v project.PublishmentStatus) PublishmentStatus {
 	switch v {
 	case project.PublishmentStatusPublic:
 		return PublishmentStatusPublic
@@ -30,7 +30,7 @@ func toPublishmentStatus(v project.PublishmentStatus) PublishmentStatus {
 	return PublishmentStatus("")
 }
 
-func toProject(p *project.Project) *Project {
+func ToProject(p *project.Project) *Project {
 	if p == nil {
 		return nil
 	}
@@ -55,7 +55,7 @@ func toProject(p *project.Project) *Project {
 		UpdatedAt:         p.UpdatedAt(),
 		Visualizer:        Visualizer(p.Visualizer()),
 		TeamID:            p.Team().ID(),
-		PublishmentStatus: toPublishmentStatus(p.PublishmentStatus()),
+		PublishmentStatus: ToPublishmentStatus(p.PublishmentStatus()),
 		PublicTitle:       p.PublicTitle(),
 		PublicDescription: p.PublicDescription(),
 		PublicImage:       p.PublicImage(),

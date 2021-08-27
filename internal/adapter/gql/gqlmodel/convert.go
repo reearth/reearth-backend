@@ -1,4 +1,4 @@
-package gql
+package gqlmodel
 
 import (
 	"io"
@@ -10,28 +10,14 @@ import (
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
-// func refToBool(s *bool) bool {
-// 	if s == nil {
-// 		return false
-// 	}
-// 	return *s
-// }
-
-// func refToInt(s *int) int {
-// 	if s == nil {
-// 		return 0
-// 	}
-// 	return *s
-// }
-
-func refToIndex(s *int) int {
-	if s == nil {
+func RefToIndex(i *int) int {
+	if i == nil {
 		return -1
 	}
-	return *s
+	return *i
 }
 
-func refToString(s *string) string {
+func RefToString(s *string) string {
 	if s == nil {
 		return ""
 	}
@@ -45,7 +31,7 @@ func stringToRef(s string) *string {
 	return &s
 }
 
-func toPageInfo(p *usecase.PageInfo) *PageInfo {
+func ToPageInfo(p *usecase.PageInfo) *PageInfo {
 	if p == nil {
 		return &PageInfo{}
 	}
@@ -57,7 +43,7 @@ func toPageInfo(p *usecase.PageInfo) *PageInfo {
 	}
 }
 
-func toVisualizer(v visualizer.Visualizer) Visualizer {
+func ToVisualizer(v visualizer.Visualizer) Visualizer {
 	switch v {
 	case visualizer.VisualizerCesium:
 		return VisualizerCesium
@@ -65,7 +51,7 @@ func toVisualizer(v visualizer.Visualizer) Visualizer {
 	return Visualizer("")
 }
 
-func fromFile(f *graphql.Upload) *file.File {
+func FromFile(f *graphql.Upload) *file.File {
 	if f == nil {
 		return nil
 	}
@@ -77,7 +63,7 @@ func fromFile(f *graphql.Upload) *file.File {
 	}
 }
 
-func fromListOperation(op ListOperation) interfaces.ListOperation {
+func FromListOperation(op ListOperation) interfaces.ListOperation {
 	if op == ListOperationAdd {
 		return interfaces.ListOperationAdd
 	} else if op == ListOperationMove {

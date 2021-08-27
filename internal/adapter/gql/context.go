@@ -7,7 +7,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/user"
 )
 
-// ContextKey _
 type ContextKey string
 
 const (

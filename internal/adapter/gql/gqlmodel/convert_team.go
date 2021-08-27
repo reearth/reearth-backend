@@ -1,10 +1,10 @@
-package gql
+package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/pkg/user"
 )
 
-func toTeam(t *user.Team) *Team {
+func ToTeam(t *user.Team) *Team {
 	if t == nil {
 		return nil
 	}
@@ -26,7 +26,7 @@ func toTeam(t *user.Team) *Team {
 	}
 }
 
-func fromRole(r Role) user.Role {
+func FromRole(r Role) user.Role {
 	switch r {
 	case RoleReader:
 		return user.RoleReader

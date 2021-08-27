@@ -1,4 +1,4 @@
-package gql
+package gqlmodel
 
 import (
 	"net/url"
@@ -7,7 +7,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-func toDatasetValue(v *dataset.Value) *interface{} {
+func ToDatasetValue(v *dataset.Value) *interface{} {
 	var res interface{}
 	if v == nil {
 		return nil
@@ -38,7 +38,7 @@ func toDatasetValue(v *dataset.Value) *interface{} {
 	return &res
 }
 
-func toDatasetValueType(t dataset.ValueType) ValueType {
+func ToDatasetValueType(t dataset.ValueType) ValueType {
 	switch t {
 	case dataset.ValueTypeBool:
 		return ValueTypeBool
@@ -58,11 +58,11 @@ func toDatasetValueType(t dataset.ValueType) ValueType {
 	return ""
 }
 
-func toDatasetSource(ds dataset.Source) string {
+func ToDatasetSource(ds dataset.Source) string {
 	return ds.String()
 }
 
-func toDatasetField(f *dataset.Field, parent *dataset.Dataset) *DatasetField {
+func ToDatasetField(f *dataset.Field, parent *dataset.Dataset) *DatasetField {
 	if f == nil || parent == nil {
 		return nil
 	}
@@ -70,13 +70,13 @@ func toDatasetField(f *dataset.Field, parent *dataset.Dataset) *DatasetField {
 	return &DatasetField{
 		SchemaID: parent.Schema().ID(),
 		FieldID:  f.Field().ID(),
-		Type:     toDatasetValueType(f.Type()),
-		Value:    toDatasetValue(f.Value()),
-		Source:   toDatasetSource(f.Source()),
+		Type:     ToDatasetValueType(f.Type()),
+		Value:    ToDatasetValue(f.Value()),
+		Source:   ToDatasetSource(f.Source()),
 	}
 }
 
-func toDataset(ds *dataset.Dataset) *Dataset {
+func ToDataset(ds *dataset.Dataset) *Dataset {
 	if ds == nil {
 		return nil
 	}
@@ -84,18 +84,18 @@ func toDataset(ds *dataset.Dataset) *Dataset {
 	dsFields := ds.Fields()
 	fields := make([]*DatasetField, 0, len(dsFields))
 	for _, f := range dsFields {
-		fields = append(fields, toDatasetField(f, ds))
+		fields = append(fields, ToDatasetField(f, ds))
 	}
 
 	return &Dataset{
 		ID:       ds.ID().ID(),
 		SchemaID: ds.Schema().ID(),
-		Source:   toDatasetSource(ds.Source()),
+		Source:   ToDatasetSource(ds.Source()),
 		Fields:   fields,
 	}
 }
 
-func toDatasetSchema(ds *dataset.Schema) *DatasetSchema {
+func ToDatasetSchema(ds *dataset.Schema) *DatasetSchema {
 	if ds == nil {
 		return nil
 	}
@@ -106,16 +106,16 @@ func toDatasetSchema(ds *dataset.Schema) *DatasetSchema {
 		fields = append(fields, &DatasetSchemaField{
 			ID:       f.ID().ID(),
 			Name:     f.Name(),
-			Type:     toDatasetValueType(f.Type()),
+			Type:     ToDatasetValueType(f.Type()),
 			SchemaID: ds.ID().ID(),
-			Source:   toDatasetSource(f.Source()),
+			Source:   ToDatasetSource(f.Source()),
 			RefID:    f.Ref().IDRef(),
 		})
 	}
 
 	return &DatasetSchema{
 		ID:                    ds.ID().ID(),
-		Source:                toDatasetSource(ds.Source()),
+		Source:                ToDatasetSource(ds.Source()),
 		Name:                  ds.Name(),
 		SceneID:               ds.Scene().ID(),
 		RepresentativeFieldID: ds.RepresentativeField().IDRef().IDRef(),

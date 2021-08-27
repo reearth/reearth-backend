@@ -2,6 +2,8 @@ package gql
 
 import (
 	"context"
+
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 )
 
 func (r *Resolver) PropertySchemaField() PropertySchemaFieldResolver {
@@ -22,7 +24,7 @@ func (r *Resolver) PropertySchemaGroup() PropertySchemaGroupResolver {
 
 type propertySchemaFieldResolver struct{ *Resolver }
 
-func (r *propertySchemaFieldResolver) TranslatedTitle(ctx context.Context, obj *PropertySchemaField, lang *string) (string, error) {
+func (r *propertySchemaFieldResolver) TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -33,7 +35,7 @@ func (r *propertySchemaFieldResolver) TranslatedTitle(ctx context.Context, obj *
 }
 
 // deprecated
-func (r *propertySchemaFieldResolver) TranslatedName(ctx context.Context, obj *PropertySchemaField, lang *string) (string, error) {
+func (r *propertySchemaFieldResolver) TranslatedName(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -43,7 +45,7 @@ func (r *propertySchemaFieldResolver) TranslatedName(ctx context.Context, obj *P
 	return obj.Name, nil
 }
 
-func (r *propertySchemaFieldResolver) TranslatedDescription(ctx context.Context, obj *PropertySchemaField, lang *string) (string, error) {
+func (r *propertySchemaFieldResolver) TranslatedDescription(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -55,14 +57,14 @@ func (r *propertySchemaFieldResolver) TranslatedDescription(ctx context.Context,
 
 type propertyLinkableFieldsResolver struct{ *Resolver }
 
-func (r *propertyLinkableFieldsResolver) Schema(ctx context.Context, obj *PropertyLinkableFields) (*PropertySchema, error) {
+func (r *propertyLinkableFieldsResolver) Schema(ctx context.Context, obj *gqlmodel.PropertyLinkableFields) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
-func (r *propertyLinkableFieldsResolver) LatlngField(ctx context.Context, obj *PropertyLinkableFields) (*PropertySchemaField, error) {
+func (r *propertyLinkableFieldsResolver) LatlngField(ctx context.Context, obj *gqlmodel.PropertyLinkableFields) (*gqlmodel.PropertySchemaField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -73,7 +75,7 @@ func (r *propertyLinkableFieldsResolver) LatlngField(ctx context.Context, obj *P
 	return ps.Field(*obj.Latlng), err
 }
 
-func (r *propertyLinkableFieldsResolver) URLField(ctx context.Context, obj *PropertyLinkableFields) (*PropertySchemaField, error) {
+func (r *propertyLinkableFieldsResolver) URLField(ctx context.Context, obj *gqlmodel.PropertyLinkableFields) (*gqlmodel.PropertySchemaField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -86,14 +88,14 @@ func (r *propertyLinkableFieldsResolver) URLField(ctx context.Context, obj *Prop
 
 type propertySchemaGroupResolver struct{ *Resolver }
 
-func (r *propertySchemaGroupResolver) Schema(ctx context.Context, obj *PropertySchemaGroup) (*PropertySchema, error) {
+func (r *propertySchemaGroupResolver) Schema(ctx context.Context, obj *gqlmodel.PropertySchemaGroup) (*gqlmodel.PropertySchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
-func (r *propertySchemaGroupResolver) TranslatedTitle(ctx context.Context, obj *PropertySchemaGroup, lang *string) (string, error) {
+func (r *propertySchemaGroupResolver) TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaGroup, lang *string) (string, error) {
 	if s, ok := obj.AllTranslatedTitle[getLang(ctx, lang)]; ok {
 		return s, nil
 	}
@@ -106,7 +108,7 @@ func (r *propertySchemaGroupResolver) TranslatedTitle(ctx context.Context, obj *
 
 type propertySchemaFieldChoiceResolver struct{ *Resolver }
 
-func (r *propertySchemaFieldChoiceResolver) TranslatedTitle(ctx context.Context, obj *PropertySchemaFieldChoice, lang *string) (string, error) {
+func (r *propertySchemaFieldChoiceResolver) TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *string) (string, error) {
 	if s, ok := obj.AllTranslatedTitle[getLang(ctx, lang)]; ok {
 		return s, nil
 	}
@@ -114,7 +116,7 @@ func (r *propertySchemaFieldChoiceResolver) TranslatedTitle(ctx context.Context,
 }
 
 // deprecated
-func (r *propertySchemaFieldChoiceResolver) TranslatedLabel(ctx context.Context, obj *PropertySchemaFieldChoice, lang *string) (string, error) {
+func (r *propertySchemaFieldChoiceResolver) TranslatedLabel(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *string) (string, error) {
 	if s, ok := obj.AllTranslatedLabel[getLang(ctx, lang)]; ok {
 		return s, nil
 	}

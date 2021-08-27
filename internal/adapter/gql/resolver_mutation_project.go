@@ -3,12 +3,13 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
-func (r *mutationResolver) CreateProject(ctx context.Context, input CreateProjectInput) (*ProjectPayload, error) {
+func (r *mutationResolver) CreateProject(ctx context.Context, input gqlmodel.CreateProjectInput) (*gqlmodel.ProjectPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -25,10 +26,10 @@ func (r *mutationResolver) CreateProject(ctx context.Context, input CreateProjec
 		return nil, err
 	}
 
-	return &ProjectPayload{Project: toProject(res)}, nil
+	return &gqlmodel.ProjectPayload{Project: gqlmodel.ToProject(res)}, nil
 }
 
-func (r *mutationResolver) UpdateProject(ctx context.Context, input UpdateProjectInput) (*ProjectPayload, error) {
+func (r *mutationResolver) UpdateProject(ctx context.Context, input gqlmodel.UpdateProjectInput) (*gqlmodel.ProjectPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -63,26 +64,26 @@ func (r *mutationResolver) UpdateProject(ctx context.Context, input UpdateProjec
 		return nil, err
 	}
 
-	return &ProjectPayload{Project: toProject(res)}, nil
+	return &gqlmodel.ProjectPayload{Project: gqlmodel.ToProject(res)}, nil
 }
 
-func (r *mutationResolver) PublishProject(ctx context.Context, input PublishProjectInput) (*ProjectPayload, error) {
+func (r *mutationResolver) PublishProject(ctx context.Context, input gqlmodel.PublishProjectInput) (*gqlmodel.ProjectPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	res, err := r.usecases.Project.Publish(ctx, interfaces.PublishProjectParam{
 		ID:     id.ProjectID(input.ProjectID),
 		Alias:  input.Alias,
-		Status: fromPublishmentStatus(input.Status),
+		Status: gqlmodel.FromPublishmentStatus(input.Status),
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return &ProjectPayload{Project: toProject(res)}, nil
+	return &gqlmodel.ProjectPayload{Project: gqlmodel.ToProject(res)}, nil
 }
 
-func (r *mutationResolver) DeleteProject(ctx context.Context, input DeleteProjectInput) (*DeleteProjectPayload, error) {
+func (r *mutationResolver) DeleteProject(ctx context.Context, input gqlmodel.DeleteProjectInput) (*gqlmodel.DeleteProjectPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -91,5 +92,5 @@ func (r *mutationResolver) DeleteProject(ctx context.Context, input DeleteProjec
 		return nil, err
 	}
 
-	return &DeleteProjectPayload{ProjectID: input.ProjectID}, nil
+	return &gqlmodel.DeleteProjectPayload{ProjectID: input.ProjectID}, nil
 }

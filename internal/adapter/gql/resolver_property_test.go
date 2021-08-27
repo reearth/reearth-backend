@@ -3,6 +3,7 @@ package gql
 import (
 	"testing"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,7 +13,7 @@ func Test_actualValue(t *testing.T) {
 	type args struct {
 		datasetLoader DatasetDataLoader
 		value         interface{}
-		links         []*PropertyFieldLink
+		links         []*gqlmodel.PropertyFieldLink
 		overridden    bool
 	}
 	var tests = []struct {

@@ -1,4 +1,4 @@
-package gql
+package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/internal/usecase"
@@ -137,7 +137,7 @@ func AttachParentLayer(layers []*Layer, parent id.ID) []Layer {
 }
 
 func NewEmptyPageInfo() *PageInfo {
-	return toPageInfo(usecase.NewPageInfo(0, nil, nil, false, false))
+	return ToPageInfo(usecase.NewPageInfo(0, nil, nil, false, false))
 }
 
 func (d *PropertyGroup) Field(id id.PropertySchemaFieldID) *PropertyField {

@@ -3,26 +3,27 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-func (r *mutationResolver) CreateAsset(ctx context.Context, input CreateAssetInput) (*CreateAssetPayload, error) {
+func (r *mutationResolver) CreateAsset(ctx context.Context, input gqlmodel.CreateAssetInput) (*gqlmodel.CreateAssetPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	res, err := r.usecases.Asset.Create(ctx, interfaces.CreateAssetParam{
 		TeamID: id.TeamID(input.TeamID),
-		File:   fromFile(&input.File),
+		File:   gqlmodel.FromFile(&input.File),
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return &CreateAssetPayload{Asset: toAsset(res)}, nil
+	return &gqlmodel.CreateAssetPayload{Asset: gqlmodel.ToAsset(res)}, nil
 }
 
-func (r *mutationResolver) RemoveAsset(ctx context.Context, input RemoveAssetInput) (*RemoveAssetPayload, error) {
+func (r *mutationResolver) RemoveAsset(ctx context.Context, input gqlmodel.RemoveAssetInput) (*gqlmodel.RemoveAssetPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -31,5 +32,5 @@ func (r *mutationResolver) RemoveAsset(ctx context.Context, input RemoveAssetInp
 		return nil, err2
 	}
 
-	return &RemoveAssetPayload{AssetID: res.ID()}, nil
+	return &gqlmodel.RemoveAssetPayload{AssetID: res.ID()}, nil
 }

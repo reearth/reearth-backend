@@ -3,11 +3,12 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-func (r *mutationResolver) AddLayerItem(ctx context.Context, input AddLayerItemInput) (*AddLayerItemPayload, error) {
+func (r *mutationResolver) AddLayerItem(ctx context.Context, input gqlmodel.AddLayerItemInput) (*gqlmodel.AddLayerItemPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -16,22 +17,22 @@ func (r *mutationResolver) AddLayerItem(ctx context.Context, input AddLayerItemI
 		PluginID:      &input.PluginID,
 		ExtensionID:   &input.ExtensionID,
 		Index:         input.Index,
-		Name:          refToString(input.Name),
-		LatLng:        toPropertyLatLng(input.Lat, input.Lng),
+		Name:          gqlmodel.RefToString(input.Name),
+		LatLng:        gqlmodel.ToPropertyLatLng(input.Lat, input.Lng),
 		// LinkedDatasetID: input.LinkedDatasetID,
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return &AddLayerItemPayload{
-		Layer:       toLayerItem(layer, parent.IDRef()),
-		ParentLayer: toLayerGroup(parent, nil),
+	return &gqlmodel.AddLayerItemPayload{
+		Layer:       gqlmodel.ToLayerItem(layer, parent.IDRef()),
+		ParentLayer: gqlmodel.ToLayerGroup(parent, nil),
 		Index:       input.Index,
 	}, nil
 }
 
-func (r *mutationResolver) AddLayerGroup(ctx context.Context, input AddLayerGroupInput) (*AddLayerGroupPayload, error) {
+func (r *mutationResolver) AddLayerGroup(ctx context.Context, input gqlmodel.AddLayerGroupInput) (*gqlmodel.AddLayerGroupPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -40,7 +41,7 @@ func (r *mutationResolver) AddLayerGroup(ctx context.Context, input AddLayerGrou
 		PluginID:              input.PluginID,
 		ExtensionID:           input.ExtensionID,
 		Index:                 input.Index,
-		Name:                  refToString(input.Name),
+		Name:                  gqlmodel.RefToString(input.Name),
 		LinkedDatasetSchemaID: id.DatasetSchemaIDFromRefID(input.LinkedDatasetSchemaID),
 		RepresentativeFieldId: input.RepresentativeFieldID,
 	}, getOperator(ctx))
@@ -48,14 +49,14 @@ func (r *mutationResolver) AddLayerGroup(ctx context.Context, input AddLayerGrou
 		return nil, err
 	}
 
-	return &AddLayerGroupPayload{
-		Layer:       toLayerGroup(layer, parent.IDRef()),
-		ParentLayer: toLayerGroup(parent, nil),
+	return &gqlmodel.AddLayerGroupPayload{
+		Layer:       gqlmodel.ToLayerGroup(layer, parent.IDRef()),
+		ParentLayer: gqlmodel.ToLayerGroup(parent, nil),
 		Index:       input.Index,
 	}, nil
 }
 
-func (r *mutationResolver) RemoveLayer(ctx context.Context, input RemoveLayerInput) (*RemoveLayerPayload, error) {
+func (r *mutationResolver) RemoveLayer(ctx context.Context, input gqlmodel.RemoveLayerInput) (*gqlmodel.RemoveLayerPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -64,13 +65,13 @@ func (r *mutationResolver) RemoveLayer(ctx context.Context, input RemoveLayerInp
 		return nil, err
 	}
 
-	return &RemoveLayerPayload{
+	return &gqlmodel.RemoveLayerPayload{
 		LayerID:     id.ID(),
-		ParentLayer: toLayerGroup(layer, nil),
+		ParentLayer: gqlmodel.ToLayerGroup(layer, nil),
 	}, nil
 }
 
-func (r *mutationResolver) UpdateLayer(ctx context.Context, input UpdateLayerInput) (*UpdateLayerPayload, error) {
+func (r *mutationResolver) UpdateLayer(ctx context.Context, input gqlmodel.UpdateLayerInput) (*gqlmodel.UpdateLayerPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -83,33 +84,33 @@ func (r *mutationResolver) UpdateLayer(ctx context.Context, input UpdateLayerInp
 		return nil, err
 	}
 
-	return &UpdateLayerPayload{
-		Layer: toLayer(layer, nil),
+	return &gqlmodel.UpdateLayerPayload{
+		Layer: gqlmodel.ToLayer(layer, nil),
 	}, nil
 }
 
-func (r *mutationResolver) MoveLayer(ctx context.Context, input MoveLayerInput) (*MoveLayerPayload, error) {
+func (r *mutationResolver) MoveLayer(ctx context.Context, input gqlmodel.MoveLayerInput) (*gqlmodel.MoveLayerPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	targetLayerID, layerGroupFrom, layerGroupTo, index, err := r.usecases.Layer.Move(ctx, interfaces.MoveLayerInput{
 		LayerID:     id.LayerID(input.LayerID),
 		DestLayerID: id.LayerIDFromRefID(input.DestLayerID),
-		Index:       refToIndex(input.Index),
+		Index:       gqlmodel.RefToIndex(input.Index),
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return &MoveLayerPayload{
+	return &gqlmodel.MoveLayerPayload{
 		LayerID:         targetLayerID.ID(),
-		FromParentLayer: toLayerGroup(layerGroupFrom, nil),
-		ToParentLayer:   toLayerGroup(layerGroupTo, nil),
+		FromParentLayer: gqlmodel.ToLayerGroup(layerGroupFrom, nil),
+		ToParentLayer:   gqlmodel.ToLayerGroup(layerGroupTo, nil),
 		Index:           index,
 	}, nil
 }
 
-func (r *mutationResolver) CreateInfobox(ctx context.Context, input CreateInfoboxInput) (*CreateInfoboxPayload, error) {
+func (r *mutationResolver) CreateInfobox(ctx context.Context, input gqlmodel.CreateInfoboxInput) (*gqlmodel.CreateInfoboxPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -118,12 +119,12 @@ func (r *mutationResolver) CreateInfobox(ctx context.Context, input CreateInfobo
 		return nil, err
 	}
 
-	return &CreateInfoboxPayload{
-		Layer: toLayer(layer, nil),
+	return &gqlmodel.CreateInfoboxPayload{
+		Layer: gqlmodel.ToLayer(layer, nil),
 	}, nil
 }
 
-func (r *mutationResolver) RemoveInfobox(ctx context.Context, input RemoveInfoboxInput) (*RemoveInfoboxPayload, error) {
+func (r *mutationResolver) RemoveInfobox(ctx context.Context, input gqlmodel.RemoveInfoboxInput) (*gqlmodel.RemoveInfoboxPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -132,12 +133,12 @@ func (r *mutationResolver) RemoveInfobox(ctx context.Context, input RemoveInfobo
 		return nil, err
 	}
 
-	return &RemoveInfoboxPayload{
-		Layer: toLayer(layer, nil),
+	return &gqlmodel.RemoveInfoboxPayload{
+		Layer: gqlmodel.ToLayer(layer, nil),
 	}, nil
 }
 
-func (r *mutationResolver) AddInfoboxField(ctx context.Context, input AddInfoboxFieldInput) (*AddInfoboxFieldPayload, error) {
+func (r *mutationResolver) AddInfoboxField(ctx context.Context, input gqlmodel.AddInfoboxFieldInput) (*gqlmodel.AddInfoboxFieldPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -151,13 +152,13 @@ func (r *mutationResolver) AddInfoboxField(ctx context.Context, input AddInfobox
 		return nil, err
 	}
 
-	return &AddInfoboxFieldPayload{
-		InfoboxField: toInfoboxField(infoboxField, layer.Scene(), nil),
-		Layer:        toLayer(layer, nil),
+	return &gqlmodel.AddInfoboxFieldPayload{
+		InfoboxField: gqlmodel.ToInfoboxField(infoboxField, layer.Scene(), nil),
+		Layer:        gqlmodel.ToLayer(layer, nil),
 	}, nil
 }
 
-func (r *mutationResolver) MoveInfoboxField(ctx context.Context, input MoveInfoboxFieldInput) (*MoveInfoboxFieldPayload, error) {
+func (r *mutationResolver) MoveInfoboxField(ctx context.Context, input gqlmodel.MoveInfoboxFieldInput) (*gqlmodel.MoveInfoboxFieldPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -170,14 +171,14 @@ func (r *mutationResolver) MoveInfoboxField(ctx context.Context, input MoveInfob
 		return nil, err
 	}
 
-	return &MoveInfoboxFieldPayload{
+	return &gqlmodel.MoveInfoboxFieldPayload{
 		InfoboxFieldID: infoboxField.ID(),
-		Layer:          toLayer(layer, nil),
+		Layer:          gqlmodel.ToLayer(layer, nil),
 		Index:          index,
 	}, nil
 }
 
-func (r *mutationResolver) RemoveInfoboxField(ctx context.Context, input RemoveInfoboxFieldInput) (*RemoveInfoboxFieldPayload, error) {
+func (r *mutationResolver) RemoveInfoboxField(ctx context.Context, input gqlmodel.RemoveInfoboxFieldInput) (*gqlmodel.RemoveInfoboxFieldPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -189,27 +190,27 @@ func (r *mutationResolver) RemoveInfoboxField(ctx context.Context, input RemoveI
 		return nil, err
 	}
 
-	return &RemoveInfoboxFieldPayload{
+	return &gqlmodel.RemoveInfoboxFieldPayload{
 		InfoboxFieldID: infoboxField.ID(),
-		Layer:          toLayer(layer, nil),
+		Layer:          gqlmodel.ToLayer(layer, nil),
 	}, nil
 }
 
-func (r *mutationResolver) ImportLayer(ctx context.Context, input ImportLayerInput) (*ImportLayerPayload, error) {
+func (r *mutationResolver) ImportLayer(ctx context.Context, input gqlmodel.ImportLayerInput) (*gqlmodel.ImportLayerPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	l, l2, err := r.usecases.Layer.ImportLayer(ctx, interfaces.ImportLayerParam{
 		LayerID: id.LayerID(input.LayerID),
-		File:    fromFile(&input.File),
-		Format:  fromLayerEncodingFormat(input.Format),
+		File:    gqlmodel.FromFile(&input.File),
+		Format:  gqlmodel.FromLayerEncodingFormat(input.Format),
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return &ImportLayerPayload{
-		Layers:      toLayers(l, l2.IDRef()),
-		ParentLayer: toLayerGroup(l2, nil),
+	return &gqlmodel.ImportLayerPayload{
+		Layers:      gqlmodel.ToLayers(l, l2.IDRef()),
+		ParentLayer: gqlmodel.ToLayerGroup(l2, nil),
 	}, err
 }

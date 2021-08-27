@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-func (r *mutationResolver) CreateScene(ctx context.Context, input CreateSceneInput) (*CreateScenePayload, error) {
+func (r *mutationResolver) CreateScene(ctx context.Context, input gqlmodel.CreateSceneInput) (*gqlmodel.CreateScenePayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -23,12 +24,12 @@ func (r *mutationResolver) CreateScene(ctx context.Context, input CreateSceneInp
 		return nil, err
 	}
 
-	return &CreateScenePayload{
-		Scene: toScene(res),
+	return &gqlmodel.CreateScenePayload{
+		Scene: gqlmodel.ToScene(res),
 	}, nil
 }
 
-func (r *mutationResolver) AddWidget(ctx context.Context, input AddWidgetInput) (*AddWidgetPayload, error) {
+func (r *mutationResolver) AddWidget(ctx context.Context, input gqlmodel.AddWidgetInput) (*gqlmodel.AddWidgetPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -43,13 +44,13 @@ func (r *mutationResolver) AddWidget(ctx context.Context, input AddWidgetInput) 
 		return nil, err
 	}
 
-	return &AddWidgetPayload{
-		Scene:       toScene(scene),
-		SceneWidget: toSceneWidget(widget),
+	return &gqlmodel.AddWidgetPayload{
+		Scene:       gqlmodel.ToScene(scene),
+		SceneWidget: gqlmodel.ToSceneWidget(widget),
 	}, nil
 }
 
-func (r *mutationResolver) UpdateWidget(ctx context.Context, input UpdateWidgetInput) (*UpdateWidgetPayload, error) {
+func (r *mutationResolver) UpdateWidget(ctx context.Context, input gqlmodel.UpdateWidgetInput) (*gqlmodel.UpdateWidgetPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -63,13 +64,13 @@ func (r *mutationResolver) UpdateWidget(ctx context.Context, input UpdateWidgetI
 		return nil, err
 	}
 
-	return &UpdateWidgetPayload{
-		Scene:       toScene(scene),
-		SceneWidget: toSceneWidget(widget),
+	return &gqlmodel.UpdateWidgetPayload{
+		Scene:       gqlmodel.ToScene(scene),
+		SceneWidget: gqlmodel.ToSceneWidget(widget),
 	}, nil
 }
 
-func (r *mutationResolver) RemoveWidget(ctx context.Context, input RemoveWidgetInput) (*RemoveWidgetPayload, error) {
+func (r *mutationResolver) RemoveWidget(ctx context.Context, input gqlmodel.RemoveWidgetInput) (*gqlmodel.RemoveWidgetPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -83,14 +84,14 @@ func (r *mutationResolver) RemoveWidget(ctx context.Context, input RemoveWidgetI
 		return nil, err
 	}
 
-	return &RemoveWidgetPayload{
-		Scene:       toScene(scene),
+	return &gqlmodel.RemoveWidgetPayload{
+		Scene:       gqlmodel.ToScene(scene),
 		PluginID:    input.PluginID,
 		ExtensionID: input.ExtensionID,
 	}, nil
 }
 
-func (r *mutationResolver) InstallPlugin(ctx context.Context, input InstallPluginInput) (*InstallPluginPayload, error) {
+func (r *mutationResolver) InstallPlugin(ctx context.Context, input gqlmodel.InstallPluginInput) (*gqlmodel.InstallPluginPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -103,15 +104,15 @@ func (r *mutationResolver) InstallPlugin(ctx context.Context, input InstallPlugi
 		return nil, err
 	}
 
-	return &InstallPluginPayload{
-		Scene: toScene(scene), ScenePlugin: &ScenePlugin{
+	return &gqlmodel.InstallPluginPayload{
+		Scene: gqlmodel.ToScene(scene), ScenePlugin: &gqlmodel.ScenePlugin{
 			PluginID:   pl,
 			PropertyID: pr.IDRef(),
 		},
 	}, nil
 }
 
-func (r *mutationResolver) UploadPlugin(ctx context.Context, input UploadPluginInput) (*UploadPluginPayload, error) {
+func (r *mutationResolver) UploadPlugin(ctx context.Context, input gqlmodel.UploadPluginInput) (*gqlmodel.UploadPluginPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -131,14 +132,14 @@ func (r *mutationResolver) UploadPlugin(ctx context.Context, input UploadPluginI
 		return nil, err
 	}
 
-	return &UploadPluginPayload{
-		Plugin:      toPlugin(p),
-		Scene:       toScene(s),
-		ScenePlugin: toScenePlugin(s.PluginSystem().Plugin(p.ID())),
+	return &gqlmodel.UploadPluginPayload{
+		Plugin:      gqlmodel.ToPlugin(p),
+		Scene:       gqlmodel.ToScene(s),
+		ScenePlugin: gqlmodel.ToScenePlugin(s.PluginSystem().Plugin(p.ID())),
 	}, nil
 }
 
-func (r *mutationResolver) UninstallPlugin(ctx context.Context, input UninstallPluginInput) (*UninstallPluginPayload, error) {
+func (r *mutationResolver) UninstallPlugin(ctx context.Context, input gqlmodel.UninstallPluginInput) (*gqlmodel.UninstallPluginPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -151,13 +152,13 @@ func (r *mutationResolver) UninstallPlugin(ctx context.Context, input UninstallP
 		return nil, err
 	}
 
-	return &UninstallPluginPayload{
+	return &gqlmodel.UninstallPluginPayload{
 		PluginID: input.PluginID,
-		Scene:    toScene(scene),
+		Scene:    gqlmodel.ToScene(scene),
 	}, nil
 }
 
-func (r *mutationResolver) UpgradePlugin(ctx context.Context, input UpgradePluginInput) (*UpgradePluginPayload, error) {
+func (r *mutationResolver) UpgradePlugin(ctx context.Context, input gqlmodel.UpgradePluginInput) (*gqlmodel.UpgradePluginPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -171,8 +172,8 @@ func (r *mutationResolver) UpgradePlugin(ctx context.Context, input UpgradePlugi
 		return nil, err
 	}
 
-	return &UpgradePluginPayload{
-		Scene:       toScene(s),
-		ScenePlugin: toScenePlugin(s.PluginSystem().Plugin(input.ToPluginID)),
+	return &gqlmodel.UpgradePluginPayload{
+		Scene:       gqlmodel.ToScene(s),
+		ScenePlugin: gqlmodel.ToScenePlugin(s.PluginSystem().Plugin(input.ToPluginID)),
 	}, nil
 }

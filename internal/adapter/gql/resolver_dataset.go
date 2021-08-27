@@ -3,6 +3,7 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
@@ -16,14 +17,14 @@ func (r *Resolver) DatasetField() DatasetFieldResolver {
 
 type datasetResolver struct{ *Resolver }
 
-func (r *datasetResolver) Schema(ctx context.Context, obj *Dataset) (*DatasetSchema, error) {
+func (r *datasetResolver) Schema(ctx context.Context, obj *gqlmodel.Dataset) (*gqlmodel.DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.SchemaID))
 }
 
-func (r *datasetResolver) Name(ctx context.Context, obj *Dataset) (*string, error) {
+func (r *datasetResolver) Name(ctx context.Context, obj *gqlmodel.Dataset) (*string, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -44,7 +45,7 @@ func (r *datasetResolver) Name(ctx context.Context, obj *Dataset) (*string, erro
 
 type datasetFieldResolver struct{ *Resolver }
 
-func (r *datasetFieldResolver) Field(ctx context.Context, obj *DatasetField) (*DatasetSchemaField, error) {
+func (r *datasetFieldResolver) Field(ctx context.Context, obj *gqlmodel.DatasetField) (*gqlmodel.DatasetSchemaField, error) {
 	exit := trace(ctx)
 	defer exit()
 
@@ -52,14 +53,14 @@ func (r *datasetFieldResolver) Field(ctx context.Context, obj *DatasetField) (*D
 	return ds.Field(obj.FieldID), err
 }
 
-func (r *datasetFieldResolver) Schema(ctx context.Context, obj *DatasetField) (*DatasetSchema, error) {
+func (r *datasetFieldResolver) Schema(ctx context.Context, obj *gqlmodel.DatasetField) (*gqlmodel.DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
 	return DataLoadersFromContext(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.SchemaID))
 }
 
-func (r *datasetFieldResolver) ValueRef(ctx context.Context, obj *DatasetField) (*Dataset, error) {
+func (r *datasetFieldResolver) ValueRef(ctx context.Context, obj *gqlmodel.DatasetField) (*gqlmodel.Dataset, error) {
 	exit := trace(ctx)
 	defer exit()
 

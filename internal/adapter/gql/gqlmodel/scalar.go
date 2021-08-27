@@ -1,4 +1,4 @@
-package gql
+package gqlmodel
 
 import (
 	"encoding/json"

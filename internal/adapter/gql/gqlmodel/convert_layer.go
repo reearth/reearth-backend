@@ -1,4 +1,4 @@
-package gql
+package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -6,7 +6,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/layer/decoding"
 )
 
-func toLayerItem(l *layer.Item, parent *id.LayerID) *LayerItem {
+func ToLayerItem(l *layer.Item, parent *id.LayerID) *LayerItem {
 	if l == nil {
 		return nil
 	}
@@ -19,13 +19,13 @@ func toLayerItem(l *layer.Item, parent *id.LayerID) *LayerItem {
 		PropertyID:      l.Property().IDRef(),
 		PluginID:        l.Plugin(),
 		ExtensionID:     l.Extension(),
-		Infobox:         toInfobox(l.Infobox(), l.ID(), l.Scene(), l.LinkedDataset()),
+		Infobox:         ToInfobox(l.Infobox(), l.ID(), l.Scene(), l.LinkedDataset()),
 		LinkedDatasetID: l.LinkedDataset().IDRef(),
 		ParentID:        parent.IDRef(),
 	}
 }
 
-func toLayerGroup(l *layer.Group, parent *id.LayerID) *LayerGroup {
+func ToLayerGroup(l *layer.Group, parent *id.LayerID) *LayerGroup {
 	if l == nil {
 		return nil
 	}
@@ -44,7 +44,7 @@ func toLayerGroup(l *layer.Group, parent *id.LayerID) *LayerGroup {
 		PropertyID:            l.Property().IDRef(),
 		PluginID:              l.Plugin(),
 		ExtensionID:           l.Extension(),
-		Infobox:               toInfobox(l.Infobox(), l.ID(), l.Scene(), nil),
+		Infobox:               ToInfobox(l.Infobox(), l.ID(), l.Scene(), nil),
 		LinkedDatasetSchemaID: l.LinkedDatasetSchema().IDRef(),
 		LayerIds:              layers,
 		Root:                  l.IsRoot(),
@@ -52,20 +52,20 @@ func toLayerGroup(l *layer.Group, parent *id.LayerID) *LayerGroup {
 	}
 }
 
-func toLayer(l layer.Layer, parent *id.LayerID) Layer {
+func ToLayer(l layer.Layer, parent *id.LayerID) Layer {
 	if l == nil {
 		return nil
 	}
 	switch la := l.(type) {
 	case *layer.Item:
-		return toLayerItem(la, parent)
+		return ToLayerItem(la, parent)
 	case *layer.Group:
-		return toLayerGroup(la, parent)
+		return ToLayerGroup(la, parent)
 	}
 	return nil
 }
 
-func toLayers(layers layer.List, parent *id.LayerID) []Layer {
+func ToLayers(layers layer.List, parent *id.LayerID) []Layer {
 	if len(layers) == 0 {
 		return nil
 	}
@@ -75,13 +75,13 @@ func toLayers(layers layer.List, parent *id.LayerID) []Layer {
 		if l == nil {
 			continue
 		}
-		result = append(result, toLayer(*l, parent))
+		result = append(result, ToLayer(*l, parent))
 	}
 
 	return result
 }
 
-func toInfoboxField(ibf *layer.InfoboxField, parentSceneID id.SceneID, parentDatasetID *id.DatasetID) *InfoboxField {
+func ToInfoboxField(ibf *layer.InfoboxField, parentSceneID id.SceneID, parentDatasetID *id.DatasetID) *InfoboxField {
 	if ibf == nil {
 		return nil
 	}
@@ -95,14 +95,14 @@ func toInfoboxField(ibf *layer.InfoboxField, parentSceneID id.SceneID, parentDat
 	}
 }
 
-func toInfobox(ib *layer.Infobox, parent id.LayerID, parentSceneID id.SceneID, parentDatasetID *id.DatasetID) *Infobox {
+func ToInfobox(ib *layer.Infobox, parent id.LayerID, parentSceneID id.SceneID, parentDatasetID *id.DatasetID) *Infobox {
 	if ib == nil {
 		return nil
 	}
 	ibFields := ib.Fields()
 	fields := make([]*InfoboxField, 0, len(ibFields))
 	for _, ibf := range ibFields {
-		fields = append(fields, toInfoboxField(ibf, parentSceneID, parentDatasetID))
+		fields = append(fields, ToInfoboxField(ibf, parentSceneID, parentDatasetID))
 	}
 
 	return &Infobox{
@@ -114,7 +114,7 @@ func toInfobox(ib *layer.Infobox, parent id.LayerID, parentSceneID id.SceneID, p
 	}
 }
 
-func toMergedLayer(layer *layer.Merged) *MergedLayer {
+func ToMergedLayer(layer *layer.Merged) *MergedLayer {
 	if layer == nil {
 		return nil
 	}
@@ -123,29 +123,29 @@ func toMergedLayer(layer *layer.Merged) *MergedLayer {
 		SceneID:    layer.Scene.ID(),
 		OriginalID: layer.Original.ID(),
 		ParentID:   layer.Parent.IDRef(),
-		Infobox:    toMergedInfobox(layer.Infobox, layer.Scene),
-		Property:   toMergedPropertyFromMetadata(layer.Property),
+		Infobox:    ToMergedInfobox(layer.Infobox, layer.Scene),
+		Property:   ToMergedPropertyFromMetadata(layer.Property),
 	}
 }
 
-func toMergedInfobox(ib *layer.MergedInfobox, sceneID id.SceneID) *MergedInfobox {
+func ToMergedInfobox(ib *layer.MergedInfobox, sceneID id.SceneID) *MergedInfobox {
 	if ib == nil {
 		return nil
 	}
 
 	fields := make([]*MergedInfoboxField, 0, len(ib.Fields))
 	for _, f := range ib.Fields {
-		fields = append(fields, toMergedInfoboxField(f, sceneID))
+		fields = append(fields, ToMergedInfoboxField(f, sceneID))
 	}
 
 	return &MergedInfobox{
 		SceneID:  sceneID.ID(),
 		Fields:   fields,
-		Property: toMergedPropertyFromMetadata(ib.Property),
+		Property: ToMergedPropertyFromMetadata(ib.Property),
 	}
 }
 
-func toMergedInfoboxField(ibf *layer.MergedInfoboxField, sceneID id.SceneID) *MergedInfoboxField {
+func ToMergedInfoboxField(ibf *layer.MergedInfoboxField, sceneID id.SceneID) *MergedInfoboxField {
 	if ibf == nil {
 		return nil
 	}
@@ -155,10 +155,10 @@ func toMergedInfoboxField(ibf *layer.MergedInfoboxField, sceneID id.SceneID) *Me
 		OriginalID:  ibf.ID.ID(),
 		PluginID:    ibf.Plugin,
 		ExtensionID: ibf.Extension,
-		Property:    toMergedPropertyFromMetadata(ibf.Property),
+		Property:    ToMergedPropertyFromMetadata(ibf.Property),
 	}
 }
-func fromLayerEncodingFormat(v LayerEncodingFormat) decoding.LayerEncodingFormat {
+func FromLayerEncodingFormat(v LayerEncodingFormat) decoding.LayerEncodingFormat {
 	switch v {
 	case LayerEncodingFormatKml:
 		return decoding.LayerEncodingFormatKML

@@ -15,6 +15,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
 	gqlparser "github.com/vektah/gqlparser/v2"
@@ -441,62 +442,62 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		AddDatasetSchema                func(childComplexity int, input AddDatasetSchemaInput) int
-		AddDynamicDataset               func(childComplexity int, input AddDynamicDatasetInput) int
-		AddDynamicDatasetSchema         func(childComplexity int, input AddDynamicDatasetSchemaInput) int
-		AddInfoboxField                 func(childComplexity int, input AddInfoboxFieldInput) int
-		AddLayerGroup                   func(childComplexity int, input AddLayerGroupInput) int
-		AddLayerItem                    func(childComplexity int, input AddLayerItemInput) int
-		AddMemberToTeam                 func(childComplexity int, input AddMemberToTeamInput) int
-		AddPropertyItem                 func(childComplexity int, input AddPropertyItemInput) int
-		AddWidget                       func(childComplexity int, input AddWidgetInput) int
-		CreateAsset                     func(childComplexity int, input CreateAssetInput) int
-		CreateInfobox                   func(childComplexity int, input CreateInfoboxInput) int
-		CreateProject                   func(childComplexity int, input CreateProjectInput) int
-		CreateScene                     func(childComplexity int, input CreateSceneInput) int
-		CreateTeam                      func(childComplexity int, input CreateTeamInput) int
-		DeleteMe                        func(childComplexity int, input DeleteMeInput) int
-		DeleteProject                   func(childComplexity int, input DeleteProjectInput) int
-		DeleteTeam                      func(childComplexity int, input DeleteTeamInput) int
-		ImportDataset                   func(childComplexity int, input ImportDatasetInput) int
-		ImportDatasetFromGoogleSheet    func(childComplexity int, input ImportDatasetFromGoogleSheetInput) int
-		ImportLayer                     func(childComplexity int, input ImportLayerInput) int
-		InstallPlugin                   func(childComplexity int, input InstallPluginInput) int
-		LinkDatasetToPropertyValue      func(childComplexity int, input LinkDatasetToPropertyValueInput) int
-		MoveInfoboxField                func(childComplexity int, input MoveInfoboxFieldInput) int
-		MoveLayer                       func(childComplexity int, input MoveLayerInput) int
-		MovePropertyItem                func(childComplexity int, input MovePropertyItemInput) int
-		PublishProject                  func(childComplexity int, input PublishProjectInput) int
-		RemoveAsset                     func(childComplexity int, input RemoveAssetInput) int
-		RemoveDatasetSchema             func(childComplexity int, input RemoveDatasetSchemaInput) int
-		RemoveInfobox                   func(childComplexity int, input RemoveInfoboxInput) int
-		RemoveInfoboxField              func(childComplexity int, input RemoveInfoboxFieldInput) int
-		RemoveLayer                     func(childComplexity int, input RemoveLayerInput) int
-		RemoveMemberFromTeam            func(childComplexity int, input RemoveMemberFromTeamInput) int
-		RemoveMyAuth                    func(childComplexity int, input RemoveMyAuthInput) int
-		RemovePropertyField             func(childComplexity int, input RemovePropertyFieldInput) int
-		RemovePropertyItem              func(childComplexity int, input RemovePropertyItemInput) int
-		RemoveWidget                    func(childComplexity int, input RemoveWidgetInput) int
-		Signup                          func(childComplexity int, input SignupInput) int
-		SyncDataset                     func(childComplexity int, input SyncDatasetInput) int
-		UninstallPlugin                 func(childComplexity int, input UninstallPluginInput) int
-		UnlinkPropertyValue             func(childComplexity int, input UnlinkPropertyValueInput) int
-		UpdateDatasetSchema             func(childComplexity int, input UpdateDatasetSchemaInput) int
-		UpdateLayer                     func(childComplexity int, input UpdateLayerInput) int
-		UpdateMe                        func(childComplexity int, input UpdateMeInput) int
-		UpdateMemberOfTeam              func(childComplexity int, input UpdateMemberOfTeamInput) int
-		UpdateProject                   func(childComplexity int, input UpdateProjectInput) int
-		UpdatePropertyItems             func(childComplexity int, input UpdatePropertyItemInput) int
-		UpdatePropertyValue             func(childComplexity int, input UpdatePropertyValueInput) int
-		UpdatePropertyValueCamera       func(childComplexity int, input UpdatePropertyValueCameraInput) int
-		UpdatePropertyValueLatLng       func(childComplexity int, input UpdatePropertyValueLatLngInput) int
-		UpdatePropertyValueLatLngHeight func(childComplexity int, input UpdatePropertyValueLatLngHeightInput) int
-		UpdatePropertyValueTypography   func(childComplexity int, input UpdatePropertyValueTypographyInput) int
-		UpdateTeam                      func(childComplexity int, input UpdateTeamInput) int
-		UpdateWidget                    func(childComplexity int, input UpdateWidgetInput) int
-		UpgradePlugin                   func(childComplexity int, input UpgradePluginInput) int
-		UploadFileToProperty            func(childComplexity int, input UploadFileToPropertyInput) int
-		UploadPlugin                    func(childComplexity int, input UploadPluginInput) int
+		AddDatasetSchema                func(childComplexity int, input gqlmodel.AddDatasetSchemaInput) int
+		AddDynamicDataset               func(childComplexity int, input gqlmodel.AddDynamicDatasetInput) int
+		AddDynamicDatasetSchema         func(childComplexity int, input gqlmodel.AddDynamicDatasetSchemaInput) int
+		AddInfoboxField                 func(childComplexity int, input gqlmodel.AddInfoboxFieldInput) int
+		AddLayerGroup                   func(childComplexity int, input gqlmodel.AddLayerGroupInput) int
+		AddLayerItem                    func(childComplexity int, input gqlmodel.AddLayerItemInput) int
+		AddMemberToTeam                 func(childComplexity int, input gqlmodel.AddMemberToTeamInput) int
+		AddPropertyItem                 func(childComplexity int, input gqlmodel.AddPropertyItemInput) int
+		AddWidget                       func(childComplexity int, input gqlmodel.AddWidgetInput) int
+		CreateAsset                     func(childComplexity int, input gqlmodel.CreateAssetInput) int
+		CreateInfobox                   func(childComplexity int, input gqlmodel.CreateInfoboxInput) int
+		CreateProject                   func(childComplexity int, input gqlmodel.CreateProjectInput) int
+		CreateScene                     func(childComplexity int, input gqlmodel.CreateSceneInput) int
+		CreateTeam                      func(childComplexity int, input gqlmodel.CreateTeamInput) int
+		DeleteMe                        func(childComplexity int, input gqlmodel.DeleteMeInput) int
+		DeleteProject                   func(childComplexity int, input gqlmodel.DeleteProjectInput) int
+		DeleteTeam                      func(childComplexity int, input gqlmodel.DeleteTeamInput) int
+		ImportDataset                   func(childComplexity int, input gqlmodel.ImportDatasetInput) int
+		ImportDatasetFromGoogleSheet    func(childComplexity int, input gqlmodel.ImportDatasetFromGoogleSheetInput) int
+		ImportLayer                     func(childComplexity int, input gqlmodel.ImportLayerInput) int
+		InstallPlugin                   func(childComplexity int, input gqlmodel.InstallPluginInput) int
+		LinkDatasetToPropertyValue      func(childComplexity int, input gqlmodel.LinkDatasetToPropertyValueInput) int
+		MoveInfoboxField                func(childComplexity int, input gqlmodel.MoveInfoboxFieldInput) int
+		MoveLayer                       func(childComplexity int, input gqlmodel.MoveLayerInput) int
+		MovePropertyItem                func(childComplexity int, input gqlmodel.MovePropertyItemInput) int
+		PublishProject                  func(childComplexity int, input gqlmodel.PublishProjectInput) int
+		RemoveAsset                     func(childComplexity int, input gqlmodel.RemoveAssetInput) int
+		RemoveDatasetSchema             func(childComplexity int, input gqlmodel.RemoveDatasetSchemaInput) int
+		RemoveInfobox                   func(childComplexity int, input gqlmodel.RemoveInfoboxInput) int
+		RemoveInfoboxField              func(childComplexity int, input gqlmodel.RemoveInfoboxFieldInput) int
+		RemoveLayer                     func(childComplexity int, input gqlmodel.RemoveLayerInput) int
+		RemoveMemberFromTeam            func(childComplexity int, input gqlmodel.RemoveMemberFromTeamInput) int
+		RemoveMyAuth                    func(childComplexity int, input gqlmodel.RemoveMyAuthInput) int
+		RemovePropertyField             func(childComplexity int, input gqlmodel.RemovePropertyFieldInput) int
+		RemovePropertyItem              func(childComplexity int, input gqlmodel.RemovePropertyItemInput) int
+		RemoveWidget                    func(childComplexity int, input gqlmodel.RemoveWidgetInput) int
+		Signup                          func(childComplexity int, input gqlmodel.SignupInput) int
+		SyncDataset                     func(childComplexity int, input gqlmodel.SyncDatasetInput) int
+		UninstallPlugin                 func(childComplexity int, input gqlmodel.UninstallPluginInput) int
+		UnlinkPropertyValue             func(childComplexity int, input gqlmodel.UnlinkPropertyValueInput) int
+		UpdateDatasetSchema             func(childComplexity int, input gqlmodel.UpdateDatasetSchemaInput) int
+		UpdateLayer                     func(childComplexity int, input gqlmodel.UpdateLayerInput) int
+		UpdateMe                        func(childComplexity int, input gqlmodel.UpdateMeInput) int
+		UpdateMemberOfTeam              func(childComplexity int, input gqlmodel.UpdateMemberOfTeamInput) int
+		UpdateProject                   func(childComplexity int, input gqlmodel.UpdateProjectInput) int
+		UpdatePropertyItems             func(childComplexity int, input gqlmodel.UpdatePropertyItemInput) int
+		UpdatePropertyValue             func(childComplexity int, input gqlmodel.UpdatePropertyValueInput) int
+		UpdatePropertyValueCamera       func(childComplexity int, input gqlmodel.UpdatePropertyValueCameraInput) int
+		UpdatePropertyValueLatLng       func(childComplexity int, input gqlmodel.UpdatePropertyValueLatLngInput) int
+		UpdatePropertyValueLatLngHeight func(childComplexity int, input gqlmodel.UpdatePropertyValueLatLngHeightInput) int
+		UpdatePropertyValueTypography   func(childComplexity int, input gqlmodel.UpdatePropertyValueTypographyInput) int
+		UpdateTeam                      func(childComplexity int, input gqlmodel.UpdateTeamInput) int
+		UpdateWidget                    func(childComplexity int, input gqlmodel.UpdateWidgetInput) int
+		UpgradePlugin                   func(childComplexity int, input gqlmodel.UpgradePluginInput) int
+		UploadFileToProperty            func(childComplexity int, input gqlmodel.UploadFileToPropertyInput) int
+		UploadPlugin                    func(childComplexity int, input gqlmodel.UploadPluginInput) int
 	}
 
 	PageInfo struct {
@@ -730,8 +731,8 @@ type ComplexityRoot struct {
 		InstallablePlugins    func(childComplexity int) int
 		Layer                 func(childComplexity int, id id.ID) int
 		Me                    func(childComplexity int) int
-		Node                  func(childComplexity int, id id.ID, typeArg NodeType) int
-		Nodes                 func(childComplexity int, id []*id.ID, typeArg NodeType) int
+		Node                  func(childComplexity int, id id.ID, typeArg gqlmodel.NodeType) int
+		Nodes                 func(childComplexity int, id []*id.ID, typeArg gqlmodel.NodeType) int
 		Plugin                func(childComplexity int, id id.PluginID) int
 		Plugins               func(childComplexity int, id []*id.PluginID) int
 		Projects              func(childComplexity int, teamID id.ID, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) int
@@ -917,262 +918,262 @@ type ComplexityRoot struct {
 }
 
 type AssetResolver interface {
-	Team(ctx context.Context, obj *Asset) (*Team, error)
+	Team(ctx context.Context, obj *gqlmodel.Asset) (*gqlmodel.Team, error)
 }
 type DatasetResolver interface {
-	Schema(ctx context.Context, obj *Dataset) (*DatasetSchema, error)
-	Name(ctx context.Context, obj *Dataset) (*string, error)
+	Schema(ctx context.Context, obj *gqlmodel.Dataset) (*gqlmodel.DatasetSchema, error)
+	Name(ctx context.Context, obj *gqlmodel.Dataset) (*string, error)
 }
 type DatasetFieldResolver interface {
-	Schema(ctx context.Context, obj *DatasetField) (*DatasetSchema, error)
-	Field(ctx context.Context, obj *DatasetField) (*DatasetSchemaField, error)
-	ValueRef(ctx context.Context, obj *DatasetField) (*Dataset, error)
+	Schema(ctx context.Context, obj *gqlmodel.DatasetField) (*gqlmodel.DatasetSchema, error)
+	Field(ctx context.Context, obj *gqlmodel.DatasetField) (*gqlmodel.DatasetSchemaField, error)
+	ValueRef(ctx context.Context, obj *gqlmodel.DatasetField) (*gqlmodel.Dataset, error)
 }
 type DatasetSchemaResolver interface {
-	Datasets(ctx context.Context, obj *DatasetSchema, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetConnection, error)
-	Scene(ctx context.Context, obj *DatasetSchema) (*Scene, error)
-	RepresentativeField(ctx context.Context, obj *DatasetSchema) (*DatasetSchemaField, error)
+	Datasets(ctx context.Context, obj *gqlmodel.DatasetSchema, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetConnection, error)
+	Scene(ctx context.Context, obj *gqlmodel.DatasetSchema) (*gqlmodel.Scene, error)
+	RepresentativeField(ctx context.Context, obj *gqlmodel.DatasetSchema) (*gqlmodel.DatasetSchemaField, error)
 }
 type DatasetSchemaFieldResolver interface {
-	Schema(ctx context.Context, obj *DatasetSchemaField) (*DatasetSchema, error)
-	Ref(ctx context.Context, obj *DatasetSchemaField) (*DatasetSchema, error)
+	Schema(ctx context.Context, obj *gqlmodel.DatasetSchemaField) (*gqlmodel.DatasetSchema, error)
+	Ref(ctx context.Context, obj *gqlmodel.DatasetSchemaField) (*gqlmodel.DatasetSchema, error)
 }
 type InfoboxResolver interface {
-	Layer(ctx context.Context, obj *Infobox) (Layer, error)
-	Property(ctx context.Context, obj *Infobox) (*Property, error)
-	LinkedDataset(ctx context.Context, obj *Infobox) (*Dataset, error)
-	Merged(ctx context.Context, obj *Infobox) (*MergedInfobox, error)
-	Scene(ctx context.Context, obj *Infobox) (*Scene, error)
+	Layer(ctx context.Context, obj *gqlmodel.Infobox) (gqlmodel.Layer, error)
+	Property(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.Property, error)
+	LinkedDataset(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.Dataset, error)
+	Merged(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.MergedInfobox, error)
+	Scene(ctx context.Context, obj *gqlmodel.Infobox) (*gqlmodel.Scene, error)
 }
 type InfoboxFieldResolver interface {
-	Layer(ctx context.Context, obj *InfoboxField) (Layer, error)
-	Infobox(ctx context.Context, obj *InfoboxField) (*Infobox, error)
-	Property(ctx context.Context, obj *InfoboxField) (*Property, error)
-	Plugin(ctx context.Context, obj *InfoboxField) (*Plugin, error)
-	Extension(ctx context.Context, obj *InfoboxField) (*PluginExtension, error)
-	LinkedDataset(ctx context.Context, obj *InfoboxField) (*Dataset, error)
-	Merged(ctx context.Context, obj *InfoboxField) (*MergedInfoboxField, error)
-	Scene(ctx context.Context, obj *InfoboxField) (*Scene, error)
-	ScenePlugin(ctx context.Context, obj *InfoboxField) (*ScenePlugin, error)
+	Layer(ctx context.Context, obj *gqlmodel.InfoboxField) (gqlmodel.Layer, error)
+	Infobox(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Infobox, error)
+	Property(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Property, error)
+	Plugin(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Plugin, error)
+	Extension(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.PluginExtension, error)
+	LinkedDataset(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Dataset, error)
+	Merged(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.MergedInfoboxField, error)
+	Scene(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.Scene, error)
+	ScenePlugin(ctx context.Context, obj *gqlmodel.InfoboxField) (*gqlmodel.ScenePlugin, error)
 }
 type LayerGroupResolver interface {
-	Parent(ctx context.Context, obj *LayerGroup) (*LayerGroup, error)
-	Property(ctx context.Context, obj *LayerGroup) (*Property, error)
-	Plugin(ctx context.Context, obj *LayerGroup) (*Plugin, error)
-	Extension(ctx context.Context, obj *LayerGroup) (*PluginExtension, error)
-	LinkedDatasetSchema(ctx context.Context, obj *LayerGroup) (*DatasetSchema, error)
-	Layers(ctx context.Context, obj *LayerGroup) ([]Layer, error)
-	Scene(ctx context.Context, obj *LayerGroup) (*Scene, error)
-	ScenePlugin(ctx context.Context, obj *LayerGroup) (*ScenePlugin, error)
+	Parent(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.LayerGroup, error)
+	Property(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Property, error)
+	Plugin(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Plugin, error)
+	Extension(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.PluginExtension, error)
+	LinkedDatasetSchema(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.DatasetSchema, error)
+	Layers(ctx context.Context, obj *gqlmodel.LayerGroup) ([]gqlmodel.Layer, error)
+	Scene(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Scene, error)
+	ScenePlugin(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.ScenePlugin, error)
 }
 type LayerItemResolver interface {
-	Parent(ctx context.Context, obj *LayerItem) (*LayerGroup, error)
-	Property(ctx context.Context, obj *LayerItem) (*Property, error)
-	Plugin(ctx context.Context, obj *LayerItem) (*Plugin, error)
-	Extension(ctx context.Context, obj *LayerItem) (*PluginExtension, error)
-	LinkedDataset(ctx context.Context, obj *LayerItem) (*Dataset, error)
-	Merged(ctx context.Context, obj *LayerItem) (*MergedLayer, error)
-	Scene(ctx context.Context, obj *LayerItem) (*Scene, error)
-	ScenePlugin(ctx context.Context, obj *LayerItem) (*ScenePlugin, error)
+	Parent(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.LayerGroup, error)
+	Property(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Property, error)
+	Plugin(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Plugin, error)
+	Extension(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.PluginExtension, error)
+	LinkedDataset(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Dataset, error)
+	Merged(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.MergedLayer, error)
+	Scene(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Scene, error)
+	ScenePlugin(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.ScenePlugin, error)
 }
 type MergedInfoboxResolver interface {
-	Scene(ctx context.Context, obj *MergedInfobox) (*Scene, error)
+	Scene(ctx context.Context, obj *gqlmodel.MergedInfobox) (*gqlmodel.Scene, error)
 }
 type MergedInfoboxFieldResolver interface {
-	Plugin(ctx context.Context, obj *MergedInfoboxField) (*Plugin, error)
-	Extension(ctx context.Context, obj *MergedInfoboxField) (*PluginExtension, error)
-	Scene(ctx context.Context, obj *MergedInfoboxField) (*Scene, error)
-	ScenePlugin(ctx context.Context, obj *MergedInfoboxField) (*ScenePlugin, error)
+	Plugin(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.Plugin, error)
+	Extension(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.PluginExtension, error)
+	Scene(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.Scene, error)
+	ScenePlugin(ctx context.Context, obj *gqlmodel.MergedInfoboxField) (*gqlmodel.ScenePlugin, error)
 }
 type MergedLayerResolver interface {
-	Original(ctx context.Context, obj *MergedLayer) (*LayerItem, error)
-	Parent(ctx context.Context, obj *MergedLayer) (*LayerGroup, error)
-	Scene(ctx context.Context, obj *MergedLayer) (*Scene, error)
+	Original(ctx context.Context, obj *gqlmodel.MergedLayer) (*gqlmodel.LayerItem, error)
+	Parent(ctx context.Context, obj *gqlmodel.MergedLayer) (*gqlmodel.LayerGroup, error)
+	Scene(ctx context.Context, obj *gqlmodel.MergedLayer) (*gqlmodel.Scene, error)
 }
 type MergedPropertyResolver interface {
-	Original(ctx context.Context, obj *MergedProperty) (*Property, error)
-	Parent(ctx context.Context, obj *MergedProperty) (*Property, error)
-	Schema(ctx context.Context, obj *MergedProperty) (*PropertySchema, error)
-	LinkedDataset(ctx context.Context, obj *MergedProperty) (*Dataset, error)
-	Groups(ctx context.Context, obj *MergedProperty) ([]*MergedPropertyGroup, error)
+	Original(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Property, error)
+	Parent(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Property, error)
+	Schema(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.PropertySchema, error)
+	LinkedDataset(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Dataset, error)
+	Groups(ctx context.Context, obj *gqlmodel.MergedProperty) ([]*gqlmodel.MergedPropertyGroup, error)
 }
 type MergedPropertyFieldResolver interface {
-	Schema(ctx context.Context, obj *MergedPropertyField) (*PropertySchema, error)
-	Field(ctx context.Context, obj *MergedPropertyField) (*PropertySchemaField, error)
-	ActualValue(ctx context.Context, obj *MergedPropertyField) (interface{}, error)
+	Schema(ctx context.Context, obj *gqlmodel.MergedPropertyField) (*gqlmodel.PropertySchema, error)
+	Field(ctx context.Context, obj *gqlmodel.MergedPropertyField) (*gqlmodel.PropertySchemaField, error)
+	ActualValue(ctx context.Context, obj *gqlmodel.MergedPropertyField) (interface{}, error)
 }
 type MergedPropertyGroupResolver interface {
-	OriginalProperty(ctx context.Context, obj *MergedPropertyGroup) (*Property, error)
-	ParentProperty(ctx context.Context, obj *MergedPropertyGroup) (*Property, error)
-	Original(ctx context.Context, obj *MergedPropertyGroup) (*PropertyGroup, error)
-	Parent(ctx context.Context, obj *MergedPropertyGroup) (*PropertyGroup, error)
-	Schema(ctx context.Context, obj *MergedPropertyGroup) (*PropertySchema, error)
-	LinkedDataset(ctx context.Context, obj *MergedPropertyGroup) (*Dataset, error)
+	OriginalProperty(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Property, error)
+	ParentProperty(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Property, error)
+	Original(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.PropertyGroup, error)
+	Parent(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.PropertyGroup, error)
+	Schema(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.PropertySchema, error)
+	LinkedDataset(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Dataset, error)
 }
 type MutationResolver interface {
-	CreateAsset(ctx context.Context, input CreateAssetInput) (*CreateAssetPayload, error)
-	RemoveAsset(ctx context.Context, input RemoveAssetInput) (*RemoveAssetPayload, error)
-	Signup(ctx context.Context, input SignupInput) (*SignupPayload, error)
-	UpdateMe(ctx context.Context, input UpdateMeInput) (*UpdateMePayload, error)
-	RemoveMyAuth(ctx context.Context, input RemoveMyAuthInput) (*UpdateMePayload, error)
-	DeleteMe(ctx context.Context, input DeleteMeInput) (*DeleteMePayload, error)
-	CreateTeam(ctx context.Context, input CreateTeamInput) (*CreateTeamPayload, error)
-	DeleteTeam(ctx context.Context, input DeleteTeamInput) (*DeleteTeamPayload, error)
-	UpdateTeam(ctx context.Context, input UpdateTeamInput) (*UpdateTeamPayload, error)
-	AddMemberToTeam(ctx context.Context, input AddMemberToTeamInput) (*AddMemberToTeamPayload, error)
-	RemoveMemberFromTeam(ctx context.Context, input RemoveMemberFromTeamInput) (*RemoveMemberFromTeamPayload, error)
-	UpdateMemberOfTeam(ctx context.Context, input UpdateMemberOfTeamInput) (*UpdateMemberOfTeamPayload, error)
-	CreateProject(ctx context.Context, input CreateProjectInput) (*ProjectPayload, error)
-	UpdateProject(ctx context.Context, input UpdateProjectInput) (*ProjectPayload, error)
-	PublishProject(ctx context.Context, input PublishProjectInput) (*ProjectPayload, error)
-	DeleteProject(ctx context.Context, input DeleteProjectInput) (*DeleteProjectPayload, error)
-	UploadPlugin(ctx context.Context, input UploadPluginInput) (*UploadPluginPayload, error)
-	CreateScene(ctx context.Context, input CreateSceneInput) (*CreateScenePayload, error)
-	AddWidget(ctx context.Context, input AddWidgetInput) (*AddWidgetPayload, error)
-	UpdateWidget(ctx context.Context, input UpdateWidgetInput) (*UpdateWidgetPayload, error)
-	RemoveWidget(ctx context.Context, input RemoveWidgetInput) (*RemoveWidgetPayload, error)
-	InstallPlugin(ctx context.Context, input InstallPluginInput) (*InstallPluginPayload, error)
-	UninstallPlugin(ctx context.Context, input UninstallPluginInput) (*UninstallPluginPayload, error)
-	UpgradePlugin(ctx context.Context, input UpgradePluginInput) (*UpgradePluginPayload, error)
-	UpdateDatasetSchema(ctx context.Context, input UpdateDatasetSchemaInput) (*UpdateDatasetSchemaPayload, error)
-	SyncDataset(ctx context.Context, input SyncDatasetInput) (*SyncDatasetPayload, error)
-	AddDynamicDatasetSchema(ctx context.Context, input AddDynamicDatasetSchemaInput) (*AddDynamicDatasetSchemaPayload, error)
-	AddDynamicDataset(ctx context.Context, input AddDynamicDatasetInput) (*AddDynamicDatasetPayload, error)
-	RemoveDatasetSchema(ctx context.Context, input RemoveDatasetSchemaInput) (*RemoveDatasetSchemaPayload, error)
-	ImportDataset(ctx context.Context, input ImportDatasetInput) (*ImportDatasetPayload, error)
-	ImportDatasetFromGoogleSheet(ctx context.Context, input ImportDatasetFromGoogleSheetInput) (*ImportDatasetPayload, error)
-	AddDatasetSchema(ctx context.Context, input AddDatasetSchemaInput) (*AddDatasetSchemaPayload, error)
-	UpdatePropertyValue(ctx context.Context, input UpdatePropertyValueInput) (*PropertyFieldPayload, error)
-	UpdatePropertyValueLatLng(ctx context.Context, input UpdatePropertyValueLatLngInput) (*PropertyFieldPayload, error)
-	UpdatePropertyValueLatLngHeight(ctx context.Context, input UpdatePropertyValueLatLngHeightInput) (*PropertyFieldPayload, error)
-	UpdatePropertyValueCamera(ctx context.Context, input UpdatePropertyValueCameraInput) (*PropertyFieldPayload, error)
-	UpdatePropertyValueTypography(ctx context.Context, input UpdatePropertyValueTypographyInput) (*PropertyFieldPayload, error)
-	RemovePropertyField(ctx context.Context, input RemovePropertyFieldInput) (*PropertyFieldPayload, error)
-	UploadFileToProperty(ctx context.Context, input UploadFileToPropertyInput) (*PropertyFieldPayload, error)
-	LinkDatasetToPropertyValue(ctx context.Context, input LinkDatasetToPropertyValueInput) (*PropertyFieldPayload, error)
-	UnlinkPropertyValue(ctx context.Context, input UnlinkPropertyValueInput) (*PropertyFieldPayload, error)
-	AddPropertyItem(ctx context.Context, input AddPropertyItemInput) (*PropertyItemPayload, error)
-	MovePropertyItem(ctx context.Context, input MovePropertyItemInput) (*PropertyItemPayload, error)
-	RemovePropertyItem(ctx context.Context, input RemovePropertyItemInput) (*PropertyItemPayload, error)
-	UpdatePropertyItems(ctx context.Context, input UpdatePropertyItemInput) (*PropertyItemPayload, error)
-	AddLayerItem(ctx context.Context, input AddLayerItemInput) (*AddLayerItemPayload, error)
-	AddLayerGroup(ctx context.Context, input AddLayerGroupInput) (*AddLayerGroupPayload, error)
-	RemoveLayer(ctx context.Context, input RemoveLayerInput) (*RemoveLayerPayload, error)
-	UpdateLayer(ctx context.Context, input UpdateLayerInput) (*UpdateLayerPayload, error)
-	MoveLayer(ctx context.Context, input MoveLayerInput) (*MoveLayerPayload, error)
-	CreateInfobox(ctx context.Context, input CreateInfoboxInput) (*CreateInfoboxPayload, error)
-	RemoveInfobox(ctx context.Context, input RemoveInfoboxInput) (*RemoveInfoboxPayload, error)
-	AddInfoboxField(ctx context.Context, input AddInfoboxFieldInput) (*AddInfoboxFieldPayload, error)
-	MoveInfoboxField(ctx context.Context, input MoveInfoboxFieldInput) (*MoveInfoboxFieldPayload, error)
-	RemoveInfoboxField(ctx context.Context, input RemoveInfoboxFieldInput) (*RemoveInfoboxFieldPayload, error)
-	ImportLayer(ctx context.Context, input ImportLayerInput) (*ImportLayerPayload, error)
+	CreateAsset(ctx context.Context, input gqlmodel.CreateAssetInput) (*gqlmodel.CreateAssetPayload, error)
+	RemoveAsset(ctx context.Context, input gqlmodel.RemoveAssetInput) (*gqlmodel.RemoveAssetPayload, error)
+	Signup(ctx context.Context, input gqlmodel.SignupInput) (*gqlmodel.SignupPayload, error)
+	UpdateMe(ctx context.Context, input gqlmodel.UpdateMeInput) (*gqlmodel.UpdateMePayload, error)
+	RemoveMyAuth(ctx context.Context, input gqlmodel.RemoveMyAuthInput) (*gqlmodel.UpdateMePayload, error)
+	DeleteMe(ctx context.Context, input gqlmodel.DeleteMeInput) (*gqlmodel.DeleteMePayload, error)
+	CreateTeam(ctx context.Context, input gqlmodel.CreateTeamInput) (*gqlmodel.CreateTeamPayload, error)
+	DeleteTeam(ctx context.Context, input gqlmodel.DeleteTeamInput) (*gqlmodel.DeleteTeamPayload, error)
+	UpdateTeam(ctx context.Context, input gqlmodel.UpdateTeamInput) (*gqlmodel.UpdateTeamPayload, error)
+	AddMemberToTeam(ctx context.Context, input gqlmodel.AddMemberToTeamInput) (*gqlmodel.AddMemberToTeamPayload, error)
+	RemoveMemberFromTeam(ctx context.Context, input gqlmodel.RemoveMemberFromTeamInput) (*gqlmodel.RemoveMemberFromTeamPayload, error)
+	UpdateMemberOfTeam(ctx context.Context, input gqlmodel.UpdateMemberOfTeamInput) (*gqlmodel.UpdateMemberOfTeamPayload, error)
+	CreateProject(ctx context.Context, input gqlmodel.CreateProjectInput) (*gqlmodel.ProjectPayload, error)
+	UpdateProject(ctx context.Context, input gqlmodel.UpdateProjectInput) (*gqlmodel.ProjectPayload, error)
+	PublishProject(ctx context.Context, input gqlmodel.PublishProjectInput) (*gqlmodel.ProjectPayload, error)
+	DeleteProject(ctx context.Context, input gqlmodel.DeleteProjectInput) (*gqlmodel.DeleteProjectPayload, error)
+	UploadPlugin(ctx context.Context, input gqlmodel.UploadPluginInput) (*gqlmodel.UploadPluginPayload, error)
+	CreateScene(ctx context.Context, input gqlmodel.CreateSceneInput) (*gqlmodel.CreateScenePayload, error)
+	AddWidget(ctx context.Context, input gqlmodel.AddWidgetInput) (*gqlmodel.AddWidgetPayload, error)
+	UpdateWidget(ctx context.Context, input gqlmodel.UpdateWidgetInput) (*gqlmodel.UpdateWidgetPayload, error)
+	RemoveWidget(ctx context.Context, input gqlmodel.RemoveWidgetInput) (*gqlmodel.RemoveWidgetPayload, error)
+	InstallPlugin(ctx context.Context, input gqlmodel.InstallPluginInput) (*gqlmodel.InstallPluginPayload, error)
+	UninstallPlugin(ctx context.Context, input gqlmodel.UninstallPluginInput) (*gqlmodel.UninstallPluginPayload, error)
+	UpgradePlugin(ctx context.Context, input gqlmodel.UpgradePluginInput) (*gqlmodel.UpgradePluginPayload, error)
+	UpdateDatasetSchema(ctx context.Context, input gqlmodel.UpdateDatasetSchemaInput) (*gqlmodel.UpdateDatasetSchemaPayload, error)
+	SyncDataset(ctx context.Context, input gqlmodel.SyncDatasetInput) (*gqlmodel.SyncDatasetPayload, error)
+	AddDynamicDatasetSchema(ctx context.Context, input gqlmodel.AddDynamicDatasetSchemaInput) (*gqlmodel.AddDynamicDatasetSchemaPayload, error)
+	AddDynamicDataset(ctx context.Context, input gqlmodel.AddDynamicDatasetInput) (*gqlmodel.AddDynamicDatasetPayload, error)
+	RemoveDatasetSchema(ctx context.Context, input gqlmodel.RemoveDatasetSchemaInput) (*gqlmodel.RemoveDatasetSchemaPayload, error)
+	ImportDataset(ctx context.Context, input gqlmodel.ImportDatasetInput) (*gqlmodel.ImportDatasetPayload, error)
+	ImportDatasetFromGoogleSheet(ctx context.Context, input gqlmodel.ImportDatasetFromGoogleSheetInput) (*gqlmodel.ImportDatasetPayload, error)
+	AddDatasetSchema(ctx context.Context, input gqlmodel.AddDatasetSchemaInput) (*gqlmodel.AddDatasetSchemaPayload, error)
+	UpdatePropertyValue(ctx context.Context, input gqlmodel.UpdatePropertyValueInput) (*gqlmodel.PropertyFieldPayload, error)
+	UpdatePropertyValueLatLng(ctx context.Context, input gqlmodel.UpdatePropertyValueLatLngInput) (*gqlmodel.PropertyFieldPayload, error)
+	UpdatePropertyValueLatLngHeight(ctx context.Context, input gqlmodel.UpdatePropertyValueLatLngHeightInput) (*gqlmodel.PropertyFieldPayload, error)
+	UpdatePropertyValueCamera(ctx context.Context, input gqlmodel.UpdatePropertyValueCameraInput) (*gqlmodel.PropertyFieldPayload, error)
+	UpdatePropertyValueTypography(ctx context.Context, input gqlmodel.UpdatePropertyValueTypographyInput) (*gqlmodel.PropertyFieldPayload, error)
+	RemovePropertyField(ctx context.Context, input gqlmodel.RemovePropertyFieldInput) (*gqlmodel.PropertyFieldPayload, error)
+	UploadFileToProperty(ctx context.Context, input gqlmodel.UploadFileToPropertyInput) (*gqlmodel.PropertyFieldPayload, error)
+	LinkDatasetToPropertyValue(ctx context.Context, input gqlmodel.LinkDatasetToPropertyValueInput) (*gqlmodel.PropertyFieldPayload, error)
+	UnlinkPropertyValue(ctx context.Context, input gqlmodel.UnlinkPropertyValueInput) (*gqlmodel.PropertyFieldPayload, error)
+	AddPropertyItem(ctx context.Context, input gqlmodel.AddPropertyItemInput) (*gqlmodel.PropertyItemPayload, error)
+	MovePropertyItem(ctx context.Context, input gqlmodel.MovePropertyItemInput) (*gqlmodel.PropertyItemPayload, error)
+	RemovePropertyItem(ctx context.Context, input gqlmodel.RemovePropertyItemInput) (*gqlmodel.PropertyItemPayload, error)
+	UpdatePropertyItems(ctx context.Context, input gqlmodel.UpdatePropertyItemInput) (*gqlmodel.PropertyItemPayload, error)
+	AddLayerItem(ctx context.Context, input gqlmodel.AddLayerItemInput) (*gqlmodel.AddLayerItemPayload, error)
+	AddLayerGroup(ctx context.Context, input gqlmodel.AddLayerGroupInput) (*gqlmodel.AddLayerGroupPayload, error)
+	RemoveLayer(ctx context.Context, input gqlmodel.RemoveLayerInput) (*gqlmodel.RemoveLayerPayload, error)
+	UpdateLayer(ctx context.Context, input gqlmodel.UpdateLayerInput) (*gqlmodel.UpdateLayerPayload, error)
+	MoveLayer(ctx context.Context, input gqlmodel.MoveLayerInput) (*gqlmodel.MoveLayerPayload, error)
+	CreateInfobox(ctx context.Context, input gqlmodel.CreateInfoboxInput) (*gqlmodel.CreateInfoboxPayload, error)
+	RemoveInfobox(ctx context.Context, input gqlmodel.RemoveInfoboxInput) (*gqlmodel.RemoveInfoboxPayload, error)
+	AddInfoboxField(ctx context.Context, input gqlmodel.AddInfoboxFieldInput) (*gqlmodel.AddInfoboxFieldPayload, error)
+	MoveInfoboxField(ctx context.Context, input gqlmodel.MoveInfoboxFieldInput) (*gqlmodel.MoveInfoboxFieldPayload, error)
+	RemoveInfoboxField(ctx context.Context, input gqlmodel.RemoveInfoboxFieldInput) (*gqlmodel.RemoveInfoboxFieldPayload, error)
+	ImportLayer(ctx context.Context, input gqlmodel.ImportLayerInput) (*gqlmodel.ImportLayerPayload, error)
 }
 type PluginResolver interface {
-	Scene(ctx context.Context, obj *Plugin) (*Scene, error)
+	Scene(ctx context.Context, obj *gqlmodel.Plugin) (*gqlmodel.Scene, error)
 
-	PropertySchema(ctx context.Context, obj *Plugin) (*PropertySchema, error)
+	PropertySchema(ctx context.Context, obj *gqlmodel.Plugin) (*gqlmodel.PropertySchema, error)
 }
 type PluginExtensionResolver interface {
-	Plugin(ctx context.Context, obj *PluginExtension) (*Plugin, error)
-	SceneWidget(ctx context.Context, obj *PluginExtension, sceneID id.ID) (*SceneWidget, error)
-	PropertySchema(ctx context.Context, obj *PluginExtension) (*PropertySchema, error)
-	TranslatedName(ctx context.Context, obj *PluginExtension, lang *string) (string, error)
-	TranslatedDescription(ctx context.Context, obj *PluginExtension, lang *string) (string, error)
+	Plugin(ctx context.Context, obj *gqlmodel.PluginExtension) (*gqlmodel.Plugin, error)
+	SceneWidget(ctx context.Context, obj *gqlmodel.PluginExtension, sceneID id.ID) (*gqlmodel.SceneWidget, error)
+	PropertySchema(ctx context.Context, obj *gqlmodel.PluginExtension) (*gqlmodel.PropertySchema, error)
+	TranslatedName(ctx context.Context, obj *gqlmodel.PluginExtension, lang *string) (string, error)
+	TranslatedDescription(ctx context.Context, obj *gqlmodel.PluginExtension, lang *string) (string, error)
 }
 type ProjectResolver interface {
-	Team(ctx context.Context, obj *Project) (*Team, error)
-	Scene(ctx context.Context, obj *Project) (*Scene, error)
+	Team(ctx context.Context, obj *gqlmodel.Project) (*gqlmodel.Team, error)
+	Scene(ctx context.Context, obj *gqlmodel.Project) (*gqlmodel.Scene, error)
 }
 type PropertyResolver interface {
-	Schema(ctx context.Context, obj *Property) (*PropertySchema, error)
-	Layer(ctx context.Context, obj *Property) (Layer, error)
-	Merged(ctx context.Context, obj *Property) (*MergedProperty, error)
+	Schema(ctx context.Context, obj *gqlmodel.Property) (*gqlmodel.PropertySchema, error)
+	Layer(ctx context.Context, obj *gqlmodel.Property) (gqlmodel.Layer, error)
+	Merged(ctx context.Context, obj *gqlmodel.Property) (*gqlmodel.MergedProperty, error)
 }
 type PropertyFieldResolver interface {
-	Parent(ctx context.Context, obj *PropertyField) (*Property, error)
-	Schema(ctx context.Context, obj *PropertyField) (*PropertySchema, error)
-	Field(ctx context.Context, obj *PropertyField) (*PropertySchemaField, error)
-	ActualValue(ctx context.Context, obj *PropertyField) (interface{}, error)
+	Parent(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.Property, error)
+	Schema(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.PropertySchema, error)
+	Field(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.PropertySchemaField, error)
+	ActualValue(ctx context.Context, obj *gqlmodel.PropertyField) (interface{}, error)
 }
 type PropertyFieldLinkResolver interface {
-	Dataset(ctx context.Context, obj *PropertyFieldLink) (*Dataset, error)
-	DatasetField(ctx context.Context, obj *PropertyFieldLink) (*DatasetField, error)
-	DatasetSchema(ctx context.Context, obj *PropertyFieldLink) (*DatasetSchema, error)
-	DatasetSchemaField(ctx context.Context, obj *PropertyFieldLink) (*DatasetSchemaField, error)
+	Dataset(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.Dataset, error)
+	DatasetField(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetField, error)
+	DatasetSchema(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetSchema, error)
+	DatasetSchemaField(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetSchemaField, error)
 }
 type PropertyGroupResolver interface {
-	Schema(ctx context.Context, obj *PropertyGroup) (*PropertySchema, error)
-	SchemaGroup(ctx context.Context, obj *PropertyGroup) (*PropertySchemaGroup, error)
+	Schema(ctx context.Context, obj *gqlmodel.PropertyGroup) (*gqlmodel.PropertySchema, error)
+	SchemaGroup(ctx context.Context, obj *gqlmodel.PropertyGroup) (*gqlmodel.PropertySchemaGroup, error)
 }
 type PropertyGroupListResolver interface {
-	Schema(ctx context.Context, obj *PropertyGroupList) (*PropertySchema, error)
-	SchemaGroup(ctx context.Context, obj *PropertyGroupList) (*PropertySchemaGroup, error)
+	Schema(ctx context.Context, obj *gqlmodel.PropertyGroupList) (*gqlmodel.PropertySchema, error)
+	SchemaGroup(ctx context.Context, obj *gqlmodel.PropertyGroupList) (*gqlmodel.PropertySchemaGroup, error)
 }
 type PropertyLinkableFieldsResolver interface {
-	LatlngField(ctx context.Context, obj *PropertyLinkableFields) (*PropertySchemaField, error)
-	URLField(ctx context.Context, obj *PropertyLinkableFields) (*PropertySchemaField, error)
-	Schema(ctx context.Context, obj *PropertyLinkableFields) (*PropertySchema, error)
+	LatlngField(ctx context.Context, obj *gqlmodel.PropertyLinkableFields) (*gqlmodel.PropertySchemaField, error)
+	URLField(ctx context.Context, obj *gqlmodel.PropertyLinkableFields) (*gqlmodel.PropertySchemaField, error)
+	Schema(ctx context.Context, obj *gqlmodel.PropertyLinkableFields) (*gqlmodel.PropertySchema, error)
 }
 type PropertySchemaFieldResolver interface {
-	TranslatedTitle(ctx context.Context, obj *PropertySchemaField, lang *string) (string, error)
-	TranslatedName(ctx context.Context, obj *PropertySchemaField, lang *string) (string, error)
-	TranslatedDescription(ctx context.Context, obj *PropertySchemaField, lang *string) (string, error)
+	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
+	TranslatedName(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
+	TranslatedDescription(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
 }
 type PropertySchemaFieldChoiceResolver interface {
-	TranslatedTitle(ctx context.Context, obj *PropertySchemaFieldChoice, lang *string) (string, error)
-	TranslatedLabel(ctx context.Context, obj *PropertySchemaFieldChoice, lang *string) (string, error)
+	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *string) (string, error)
+	TranslatedLabel(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *string) (string, error)
 }
 type PropertySchemaGroupResolver interface {
-	Schema(ctx context.Context, obj *PropertySchemaGroup) (*PropertySchema, error)
-	TranslatedTitle(ctx context.Context, obj *PropertySchemaGroup, lang *string) (string, error)
+	Schema(ctx context.Context, obj *gqlmodel.PropertySchemaGroup) (*gqlmodel.PropertySchema, error)
+	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaGroup, lang *string) (string, error)
 }
 type QueryResolver interface {
-	Me(ctx context.Context) (*User, error)
-	Node(ctx context.Context, id id.ID, typeArg NodeType) (Node, error)
-	Nodes(ctx context.Context, id []*id.ID, typeArg NodeType) ([]Node, error)
-	PropertySchema(ctx context.Context, id id.PropertySchemaID) (*PropertySchema, error)
-	PropertySchemas(ctx context.Context, id []*id.PropertySchemaID) ([]*PropertySchema, error)
-	Plugin(ctx context.Context, id id.PluginID) (*Plugin, error)
-	Plugins(ctx context.Context, id []*id.PluginID) ([]*Plugin, error)
-	Layer(ctx context.Context, id id.ID) (Layer, error)
-	Scene(ctx context.Context, projectID id.ID) (*Scene, error)
-	Assets(ctx context.Context, teamID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*AssetConnection, error)
-	Projects(ctx context.Context, teamID id.ID, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*ProjectConnection, error)
-	DatasetSchemas(ctx context.Context, sceneID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetSchemaConnection, error)
-	Datasets(ctx context.Context, datasetSchemaID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetConnection, error)
-	SceneLock(ctx context.Context, sceneID id.ID) (*SceneLockMode, error)
-	DynamicDatasetSchemas(ctx context.Context, sceneID id.ID) ([]*DatasetSchema, error)
-	SearchUser(ctx context.Context, nameOrEmail string) (*SearchedUser, error)
-	CheckProjectAlias(ctx context.Context, alias string) (*CheckProjectAliasPayload, error)
-	InstallablePlugins(ctx context.Context) ([]*PluginMetadata, error)
+	Me(ctx context.Context) (*gqlmodel.User, error)
+	Node(ctx context.Context, id id.ID, typeArg gqlmodel.NodeType) (gqlmodel.Node, error)
+	Nodes(ctx context.Context, id []*id.ID, typeArg gqlmodel.NodeType) ([]gqlmodel.Node, error)
+	PropertySchema(ctx context.Context, id id.PropertySchemaID) (*gqlmodel.PropertySchema, error)
+	PropertySchemas(ctx context.Context, id []*id.PropertySchemaID) ([]*gqlmodel.PropertySchema, error)
+	Plugin(ctx context.Context, id id.PluginID) (*gqlmodel.Plugin, error)
+	Plugins(ctx context.Context, id []*id.PluginID) ([]*gqlmodel.Plugin, error)
+	Layer(ctx context.Context, id id.ID) (gqlmodel.Layer, error)
+	Scene(ctx context.Context, projectID id.ID) (*gqlmodel.Scene, error)
+	Assets(ctx context.Context, teamID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error)
+	Projects(ctx context.Context, teamID id.ID, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.ProjectConnection, error)
+	DatasetSchemas(ctx context.Context, sceneID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error)
+	Datasets(ctx context.Context, datasetSchemaID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetConnection, error)
+	SceneLock(ctx context.Context, sceneID id.ID) (*gqlmodel.SceneLockMode, error)
+	DynamicDatasetSchemas(ctx context.Context, sceneID id.ID) ([]*gqlmodel.DatasetSchema, error)
+	SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error)
+	CheckProjectAlias(ctx context.Context, alias string) (*gqlmodel.CheckProjectAliasPayload, error)
+	InstallablePlugins(ctx context.Context) ([]*gqlmodel.PluginMetadata, error)
 }
 type SceneResolver interface {
-	Project(ctx context.Context, obj *Scene) (*Project, error)
-	Team(ctx context.Context, obj *Scene) (*Team, error)
-	Property(ctx context.Context, obj *Scene) (*Property, error)
-	RootLayer(ctx context.Context, obj *Scene) (*LayerGroup, error)
-	LockMode(ctx context.Context, obj *Scene) (SceneLockMode, error)
-	DatasetSchemas(ctx context.Context, obj *Scene, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetSchemaConnection, error)
+	Project(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Project, error)
+	Team(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Team, error)
+	Property(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Property, error)
+	RootLayer(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.LayerGroup, error)
+	LockMode(ctx context.Context, obj *gqlmodel.Scene) (gqlmodel.SceneLockMode, error)
+	DatasetSchemas(ctx context.Context, obj *gqlmodel.Scene, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error)
 }
 type ScenePluginResolver interface {
-	Plugin(ctx context.Context, obj *ScenePlugin) (*Plugin, error)
-	Property(ctx context.Context, obj *ScenePlugin) (*Property, error)
+	Plugin(ctx context.Context, obj *gqlmodel.ScenePlugin) (*gqlmodel.Plugin, error)
+	Property(ctx context.Context, obj *gqlmodel.ScenePlugin) (*gqlmodel.Property, error)
 }
 type SceneWidgetResolver interface {
-	Plugin(ctx context.Context, obj *SceneWidget) (*Plugin, error)
-	Extension(ctx context.Context, obj *SceneWidget) (*PluginExtension, error)
-	Property(ctx context.Context, obj *SceneWidget) (*Property, error)
+	Plugin(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Plugin, error)
+	Extension(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.PluginExtension, error)
+	Property(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Property, error)
 }
 type TeamResolver interface {
-	Assets(ctx context.Context, obj *Team, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*AssetConnection, error)
-	Projects(ctx context.Context, obj *Team, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*ProjectConnection, error)
+	Assets(ctx context.Context, obj *gqlmodel.Team, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error)
+	Projects(ctx context.Context, obj *gqlmodel.Team, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.ProjectConnection, error)
 }
 type TeamMemberResolver interface {
-	User(ctx context.Context, obj *TeamMember) (*User, error)
+	User(ctx context.Context, obj *gqlmodel.TeamMember) (*gqlmodel.User, error)
 }
 type UserResolver interface {
-	Teams(ctx context.Context, obj *User) ([]*Team, error)
-	MyTeam(ctx context.Context, obj *User) (*Team, error)
+	Teams(ctx context.Context, obj *gqlmodel.User) ([]*gqlmodel.Team, error)
+	MyTeam(ctx context.Context, obj *gqlmodel.User) (*gqlmodel.Team, error)
 }
 
 type executableSchema struct {
@@ -2773,7 +2774,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddDatasetSchema(childComplexity, args["input"].(AddDatasetSchemaInput)), true
+		return e.complexity.Mutation.AddDatasetSchema(childComplexity, args["input"].(gqlmodel.AddDatasetSchemaInput)), true
 
 	case "Mutation.addDynamicDataset":
 		if e.complexity.Mutation.AddDynamicDataset == nil {
@@ -2785,7 +2786,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddDynamicDataset(childComplexity, args["input"].(AddDynamicDatasetInput)), true
+		return e.complexity.Mutation.AddDynamicDataset(childComplexity, args["input"].(gqlmodel.AddDynamicDatasetInput)), true
 
 	case "Mutation.addDynamicDatasetSchema":
 		if e.complexity.Mutation.AddDynamicDatasetSchema == nil {
@@ -2797,7 +2798,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddDynamicDatasetSchema(childComplexity, args["input"].(AddDynamicDatasetSchemaInput)), true
+		return e.complexity.Mutation.AddDynamicDatasetSchema(childComplexity, args["input"].(gqlmodel.AddDynamicDatasetSchemaInput)), true
 
 	case "Mutation.addInfoboxField":
 		if e.complexity.Mutation.AddInfoboxField == nil {
@@ -2809,7 +2810,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddInfoboxField(childComplexity, args["input"].(AddInfoboxFieldInput)), true
+		return e.complexity.Mutation.AddInfoboxField(childComplexity, args["input"].(gqlmodel.AddInfoboxFieldInput)), true
 
 	case "Mutation.addLayerGroup":
 		if e.complexity.Mutation.AddLayerGroup == nil {
@@ -2821,7 +2822,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddLayerGroup(childComplexity, args["input"].(AddLayerGroupInput)), true
+		return e.complexity.Mutation.AddLayerGroup(childComplexity, args["input"].(gqlmodel.AddLayerGroupInput)), true
 
 	case "Mutation.addLayerItem":
 		if e.complexity.Mutation.AddLayerItem == nil {
@@ -2833,7 +2834,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddLayerItem(childComplexity, args["input"].(AddLayerItemInput)), true
+		return e.complexity.Mutation.AddLayerItem(childComplexity, args["input"].(gqlmodel.AddLayerItemInput)), true
 
 	case "Mutation.addMemberToTeam":
 		if e.complexity.Mutation.AddMemberToTeam == nil {
@@ -2845,7 +2846,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddMemberToTeam(childComplexity, args["input"].(AddMemberToTeamInput)), true
+		return e.complexity.Mutation.AddMemberToTeam(childComplexity, args["input"].(gqlmodel.AddMemberToTeamInput)), true
 
 	case "Mutation.addPropertyItem":
 		if e.complexity.Mutation.AddPropertyItem == nil {
@@ -2857,7 +2858,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddPropertyItem(childComplexity, args["input"].(AddPropertyItemInput)), true
+		return e.complexity.Mutation.AddPropertyItem(childComplexity, args["input"].(gqlmodel.AddPropertyItemInput)), true
 
 	case "Mutation.addWidget":
 		if e.complexity.Mutation.AddWidget == nil {
@@ -2869,7 +2870,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.AddWidget(childComplexity, args["input"].(AddWidgetInput)), true
+		return e.complexity.Mutation.AddWidget(childComplexity, args["input"].(gqlmodel.AddWidgetInput)), true
 
 	case "Mutation.createAsset":
 		if e.complexity.Mutation.CreateAsset == nil {
@@ -2881,7 +2882,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateAsset(childComplexity, args["input"].(CreateAssetInput)), true
+		return e.complexity.Mutation.CreateAsset(childComplexity, args["input"].(gqlmodel.CreateAssetInput)), true
 
 	case "Mutation.createInfobox":
 		if e.complexity.Mutation.CreateInfobox == nil {
@@ -2893,7 +2894,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateInfobox(childComplexity, args["input"].(CreateInfoboxInput)), true
+		return e.complexity.Mutation.CreateInfobox(childComplexity, args["input"].(gqlmodel.CreateInfoboxInput)), true
 
 	case "Mutation.createProject":
 		if e.complexity.Mutation.CreateProject == nil {
@@ -2905,7 +2906,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateProject(childComplexity, args["input"].(CreateProjectInput)), true
+		return e.complexity.Mutation.CreateProject(childComplexity, args["input"].(gqlmodel.CreateProjectInput)), true
 
 	case "Mutation.createScene":
 		if e.complexity.Mutation.CreateScene == nil {
@@ -2917,7 +2918,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateScene(childComplexity, args["input"].(CreateSceneInput)), true
+		return e.complexity.Mutation.CreateScene(childComplexity, args["input"].(gqlmodel.CreateSceneInput)), true
 
 	case "Mutation.createTeam":
 		if e.complexity.Mutation.CreateTeam == nil {
@@ -2929,7 +2930,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateTeam(childComplexity, args["input"].(CreateTeamInput)), true
+		return e.complexity.Mutation.CreateTeam(childComplexity, args["input"].(gqlmodel.CreateTeamInput)), true
 
 	case "Mutation.deleteMe":
 		if e.complexity.Mutation.DeleteMe == nil {
@@ -2941,7 +2942,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteMe(childComplexity, args["input"].(DeleteMeInput)), true
+		return e.complexity.Mutation.DeleteMe(childComplexity, args["input"].(gqlmodel.DeleteMeInput)), true
 
 	case "Mutation.deleteProject":
 		if e.complexity.Mutation.DeleteProject == nil {
@@ -2953,7 +2954,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteProject(childComplexity, args["input"].(DeleteProjectInput)), true
+		return e.complexity.Mutation.DeleteProject(childComplexity, args["input"].(gqlmodel.DeleteProjectInput)), true
 
 	case "Mutation.deleteTeam":
 		if e.complexity.Mutation.DeleteTeam == nil {
@@ -2965,7 +2966,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteTeam(childComplexity, args["input"].(DeleteTeamInput)), true
+		return e.complexity.Mutation.DeleteTeam(childComplexity, args["input"].(gqlmodel.DeleteTeamInput)), true
 
 	case "Mutation.importDataset":
 		if e.complexity.Mutation.ImportDataset == nil {
@@ -2977,7 +2978,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ImportDataset(childComplexity, args["input"].(ImportDatasetInput)), true
+		return e.complexity.Mutation.ImportDataset(childComplexity, args["input"].(gqlmodel.ImportDatasetInput)), true
 
 	case "Mutation.importDatasetFromGoogleSheet":
 		if e.complexity.Mutation.ImportDatasetFromGoogleSheet == nil {
@@ -2989,7 +2990,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ImportDatasetFromGoogleSheet(childComplexity, args["input"].(ImportDatasetFromGoogleSheetInput)), true
+		return e.complexity.Mutation.ImportDatasetFromGoogleSheet(childComplexity, args["input"].(gqlmodel.ImportDatasetFromGoogleSheetInput)), true
 
 	case "Mutation.importLayer":
 		if e.complexity.Mutation.ImportLayer == nil {
@@ -3001,7 +3002,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.ImportLayer(childComplexity, args["input"].(ImportLayerInput)), true
+		return e.complexity.Mutation.ImportLayer(childComplexity, args["input"].(gqlmodel.ImportLayerInput)), true
 
 	case "Mutation.installPlugin":
 		if e.complexity.Mutation.InstallPlugin == nil {
@@ -3013,7 +3014,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.InstallPlugin(childComplexity, args["input"].(InstallPluginInput)), true
+		return e.complexity.Mutation.InstallPlugin(childComplexity, args["input"].(gqlmodel.InstallPluginInput)), true
 
 	case "Mutation.linkDatasetToPropertyValue":
 		if e.complexity.Mutation.LinkDatasetToPropertyValue == nil {
@@ -3025,7 +3026,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.LinkDatasetToPropertyValue(childComplexity, args["input"].(LinkDatasetToPropertyValueInput)), true
+		return e.complexity.Mutation.LinkDatasetToPropertyValue(childComplexity, args["input"].(gqlmodel.LinkDatasetToPropertyValueInput)), true
 
 	case "Mutation.moveInfoboxField":
 		if e.complexity.Mutation.MoveInfoboxField == nil {
@@ -3037,7 +3038,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.MoveInfoboxField(childComplexity, args["input"].(MoveInfoboxFieldInput)), true
+		return e.complexity.Mutation.MoveInfoboxField(childComplexity, args["input"].(gqlmodel.MoveInfoboxFieldInput)), true
 
 	case "Mutation.moveLayer":
 		if e.complexity.Mutation.MoveLayer == nil {
@@ -3049,7 +3050,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.MoveLayer(childComplexity, args["input"].(MoveLayerInput)), true
+		return e.complexity.Mutation.MoveLayer(childComplexity, args["input"].(gqlmodel.MoveLayerInput)), true
 
 	case "Mutation.movePropertyItem":
 		if e.complexity.Mutation.MovePropertyItem == nil {
@@ -3061,7 +3062,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.MovePropertyItem(childComplexity, args["input"].(MovePropertyItemInput)), true
+		return e.complexity.Mutation.MovePropertyItem(childComplexity, args["input"].(gqlmodel.MovePropertyItemInput)), true
 
 	case "Mutation.publishProject":
 		if e.complexity.Mutation.PublishProject == nil {
@@ -3073,7 +3074,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.PublishProject(childComplexity, args["input"].(PublishProjectInput)), true
+		return e.complexity.Mutation.PublishProject(childComplexity, args["input"].(gqlmodel.PublishProjectInput)), true
 
 	case "Mutation.removeAsset":
 		if e.complexity.Mutation.RemoveAsset == nil {
@@ -3085,7 +3086,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveAsset(childComplexity, args["input"].(RemoveAssetInput)), true
+		return e.complexity.Mutation.RemoveAsset(childComplexity, args["input"].(gqlmodel.RemoveAssetInput)), true
 
 	case "Mutation.removeDatasetSchema":
 		if e.complexity.Mutation.RemoveDatasetSchema == nil {
@@ -3097,7 +3098,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveDatasetSchema(childComplexity, args["input"].(RemoveDatasetSchemaInput)), true
+		return e.complexity.Mutation.RemoveDatasetSchema(childComplexity, args["input"].(gqlmodel.RemoveDatasetSchemaInput)), true
 
 	case "Mutation.removeInfobox":
 		if e.complexity.Mutation.RemoveInfobox == nil {
@@ -3109,7 +3110,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveInfobox(childComplexity, args["input"].(RemoveInfoboxInput)), true
+		return e.complexity.Mutation.RemoveInfobox(childComplexity, args["input"].(gqlmodel.RemoveInfoboxInput)), true
 
 	case "Mutation.removeInfoboxField":
 		if e.complexity.Mutation.RemoveInfoboxField == nil {
@@ -3121,7 +3122,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveInfoboxField(childComplexity, args["input"].(RemoveInfoboxFieldInput)), true
+		return e.complexity.Mutation.RemoveInfoboxField(childComplexity, args["input"].(gqlmodel.RemoveInfoboxFieldInput)), true
 
 	case "Mutation.removeLayer":
 		if e.complexity.Mutation.RemoveLayer == nil {
@@ -3133,7 +3134,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveLayer(childComplexity, args["input"].(RemoveLayerInput)), true
+		return e.complexity.Mutation.RemoveLayer(childComplexity, args["input"].(gqlmodel.RemoveLayerInput)), true
 
 	case "Mutation.removeMemberFromTeam":
 		if e.complexity.Mutation.RemoveMemberFromTeam == nil {
@@ -3145,7 +3146,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveMemberFromTeam(childComplexity, args["input"].(RemoveMemberFromTeamInput)), true
+		return e.complexity.Mutation.RemoveMemberFromTeam(childComplexity, args["input"].(gqlmodel.RemoveMemberFromTeamInput)), true
 
 	case "Mutation.removeMyAuth":
 		if e.complexity.Mutation.RemoveMyAuth == nil {
@@ -3157,7 +3158,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveMyAuth(childComplexity, args["input"].(RemoveMyAuthInput)), true
+		return e.complexity.Mutation.RemoveMyAuth(childComplexity, args["input"].(gqlmodel.RemoveMyAuthInput)), true
 
 	case "Mutation.removePropertyField":
 		if e.complexity.Mutation.RemovePropertyField == nil {
@@ -3169,7 +3170,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemovePropertyField(childComplexity, args["input"].(RemovePropertyFieldInput)), true
+		return e.complexity.Mutation.RemovePropertyField(childComplexity, args["input"].(gqlmodel.RemovePropertyFieldInput)), true
 
 	case "Mutation.removePropertyItem":
 		if e.complexity.Mutation.RemovePropertyItem == nil {
@@ -3181,7 +3182,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemovePropertyItem(childComplexity, args["input"].(RemovePropertyItemInput)), true
+		return e.complexity.Mutation.RemovePropertyItem(childComplexity, args["input"].(gqlmodel.RemovePropertyItemInput)), true
 
 	case "Mutation.removeWidget":
 		if e.complexity.Mutation.RemoveWidget == nil {
@@ -3193,7 +3194,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.RemoveWidget(childComplexity, args["input"].(RemoveWidgetInput)), true
+		return e.complexity.Mutation.RemoveWidget(childComplexity, args["input"].(gqlmodel.RemoveWidgetInput)), true
 
 	case "Mutation.signup":
 		if e.complexity.Mutation.Signup == nil {
@@ -3205,7 +3206,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.Signup(childComplexity, args["input"].(SignupInput)), true
+		return e.complexity.Mutation.Signup(childComplexity, args["input"].(gqlmodel.SignupInput)), true
 
 	case "Mutation.syncDataset":
 		if e.complexity.Mutation.SyncDataset == nil {
@@ -3217,7 +3218,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.SyncDataset(childComplexity, args["input"].(SyncDatasetInput)), true
+		return e.complexity.Mutation.SyncDataset(childComplexity, args["input"].(gqlmodel.SyncDatasetInput)), true
 
 	case "Mutation.uninstallPlugin":
 		if e.complexity.Mutation.UninstallPlugin == nil {
@@ -3229,7 +3230,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UninstallPlugin(childComplexity, args["input"].(UninstallPluginInput)), true
+		return e.complexity.Mutation.UninstallPlugin(childComplexity, args["input"].(gqlmodel.UninstallPluginInput)), true
 
 	case "Mutation.unlinkPropertyValue":
 		if e.complexity.Mutation.UnlinkPropertyValue == nil {
@@ -3241,7 +3242,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UnlinkPropertyValue(childComplexity, args["input"].(UnlinkPropertyValueInput)), true
+		return e.complexity.Mutation.UnlinkPropertyValue(childComplexity, args["input"].(gqlmodel.UnlinkPropertyValueInput)), true
 
 	case "Mutation.updateDatasetSchema":
 		if e.complexity.Mutation.UpdateDatasetSchema == nil {
@@ -3253,7 +3254,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateDatasetSchema(childComplexity, args["input"].(UpdateDatasetSchemaInput)), true
+		return e.complexity.Mutation.UpdateDatasetSchema(childComplexity, args["input"].(gqlmodel.UpdateDatasetSchemaInput)), true
 
 	case "Mutation.updateLayer":
 		if e.complexity.Mutation.UpdateLayer == nil {
@@ -3265,7 +3266,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateLayer(childComplexity, args["input"].(UpdateLayerInput)), true
+		return e.complexity.Mutation.UpdateLayer(childComplexity, args["input"].(gqlmodel.UpdateLayerInput)), true
 
 	case "Mutation.updateMe":
 		if e.complexity.Mutation.UpdateMe == nil {
@@ -3277,7 +3278,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateMe(childComplexity, args["input"].(UpdateMeInput)), true
+		return e.complexity.Mutation.UpdateMe(childComplexity, args["input"].(gqlmodel.UpdateMeInput)), true
 
 	case "Mutation.updateMemberOfTeam":
 		if e.complexity.Mutation.UpdateMemberOfTeam == nil {
@@ -3289,7 +3290,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateMemberOfTeam(childComplexity, args["input"].(UpdateMemberOfTeamInput)), true
+		return e.complexity.Mutation.UpdateMemberOfTeam(childComplexity, args["input"].(gqlmodel.UpdateMemberOfTeamInput)), true
 
 	case "Mutation.updateProject":
 		if e.complexity.Mutation.UpdateProject == nil {
@@ -3301,7 +3302,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateProject(childComplexity, args["input"].(UpdateProjectInput)), true
+		return e.complexity.Mutation.UpdateProject(childComplexity, args["input"].(gqlmodel.UpdateProjectInput)), true
 
 	case "Mutation.updatePropertyItems":
 		if e.complexity.Mutation.UpdatePropertyItems == nil {
@@ -3313,7 +3314,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdatePropertyItems(childComplexity, args["input"].(UpdatePropertyItemInput)), true
+		return e.complexity.Mutation.UpdatePropertyItems(childComplexity, args["input"].(gqlmodel.UpdatePropertyItemInput)), true
 
 	case "Mutation.updatePropertyValue":
 		if e.complexity.Mutation.UpdatePropertyValue == nil {
@@ -3325,7 +3326,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdatePropertyValue(childComplexity, args["input"].(UpdatePropertyValueInput)), true
+		return e.complexity.Mutation.UpdatePropertyValue(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueInput)), true
 
 	case "Mutation.updatePropertyValueCamera":
 		if e.complexity.Mutation.UpdatePropertyValueCamera == nil {
@@ -3337,7 +3338,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdatePropertyValueCamera(childComplexity, args["input"].(UpdatePropertyValueCameraInput)), true
+		return e.complexity.Mutation.UpdatePropertyValueCamera(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueCameraInput)), true
 
 	case "Mutation.updatePropertyValueLatLng":
 		if e.complexity.Mutation.UpdatePropertyValueLatLng == nil {
@@ -3349,7 +3350,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdatePropertyValueLatLng(childComplexity, args["input"].(UpdatePropertyValueLatLngInput)), true
+		return e.complexity.Mutation.UpdatePropertyValueLatLng(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueLatLngInput)), true
 
 	case "Mutation.updatePropertyValueLatLngHeight":
 		if e.complexity.Mutation.UpdatePropertyValueLatLngHeight == nil {
@@ -3361,7 +3362,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdatePropertyValueLatLngHeight(childComplexity, args["input"].(UpdatePropertyValueLatLngHeightInput)), true
+		return e.complexity.Mutation.UpdatePropertyValueLatLngHeight(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueLatLngHeightInput)), true
 
 	case "Mutation.updatePropertyValueTypography":
 		if e.complexity.Mutation.UpdatePropertyValueTypography == nil {
@@ -3373,7 +3374,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdatePropertyValueTypography(childComplexity, args["input"].(UpdatePropertyValueTypographyInput)), true
+		return e.complexity.Mutation.UpdatePropertyValueTypography(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueTypographyInput)), true
 
 	case "Mutation.updateTeam":
 		if e.complexity.Mutation.UpdateTeam == nil {
@@ -3385,7 +3386,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateTeam(childComplexity, args["input"].(UpdateTeamInput)), true
+		return e.complexity.Mutation.UpdateTeam(childComplexity, args["input"].(gqlmodel.UpdateTeamInput)), true
 
 	case "Mutation.updateWidget":
 		if e.complexity.Mutation.UpdateWidget == nil {
@@ -3397,7 +3398,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateWidget(childComplexity, args["input"].(UpdateWidgetInput)), true
+		return e.complexity.Mutation.UpdateWidget(childComplexity, args["input"].(gqlmodel.UpdateWidgetInput)), true
 
 	case "Mutation.upgradePlugin":
 		if e.complexity.Mutation.UpgradePlugin == nil {
@@ -3409,7 +3410,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpgradePlugin(childComplexity, args["input"].(UpgradePluginInput)), true
+		return e.complexity.Mutation.UpgradePlugin(childComplexity, args["input"].(gqlmodel.UpgradePluginInput)), true
 
 	case "Mutation.uploadFileToProperty":
 		if e.complexity.Mutation.UploadFileToProperty == nil {
@@ -3421,7 +3422,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UploadFileToProperty(childComplexity, args["input"].(UploadFileToPropertyInput)), true
+		return e.complexity.Mutation.UploadFileToProperty(childComplexity, args["input"].(gqlmodel.UploadFileToPropertyInput)), true
 
 	case "Mutation.uploadPlugin":
 		if e.complexity.Mutation.UploadPlugin == nil {
@@ -3433,7 +3434,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UploadPlugin(childComplexity, args["input"].(UploadPluginInput)), true
+		return e.complexity.Mutation.UploadPlugin(childComplexity, args["input"].(gqlmodel.UploadPluginInput)), true
 
 	case "PageInfo.endCursor":
 		if e.complexity.PageInfo.EndCursor == nil {
@@ -4704,7 +4705,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Node(childComplexity, args["id"].(id.ID), args["type"].(NodeType)), true
+		return e.complexity.Query.Node(childComplexity, args["id"].(id.ID), args["type"].(gqlmodel.NodeType)), true
 
 	case "Query.nodes":
 		if e.complexity.Query.Nodes == nil {
@@ -4716,7 +4717,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Nodes(childComplexity, args["id"].([]*id.ID), args["type"].(NodeType)), true
+		return e.complexity.Query.Nodes(childComplexity, args["id"].([]*id.ID), args["type"].(gqlmodel.NodeType)), true
 
 	case "Query.plugin":
 		if e.complexity.Query.Plugin == nil {
@@ -7092,10 +7093,10 @@ func (ec *executionContext) field_DatasetSchema_datasets_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_addDatasetSchema_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddDatasetSchemaInput
+	var arg0 gqlmodel.AddDatasetSchemaInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDatasetSchemaInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDatasetSchemaInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7107,10 +7108,10 @@ func (ec *executionContext) field_Mutation_addDatasetSchema_args(ctx context.Con
 func (ec *executionContext) field_Mutation_addDynamicDatasetSchema_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddDynamicDatasetSchemaInput
+	var arg0 gqlmodel.AddDynamicDatasetSchemaInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddDynamicDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetSchemaInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddDynamicDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetSchemaInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7122,10 +7123,10 @@ func (ec *executionContext) field_Mutation_addDynamicDatasetSchema_args(ctx cont
 func (ec *executionContext) field_Mutation_addDynamicDataset_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddDynamicDatasetInput
+	var arg0 gqlmodel.AddDynamicDatasetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddDynamicDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddDynamicDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7137,10 +7138,10 @@ func (ec *executionContext) field_Mutation_addDynamicDataset_args(ctx context.Co
 func (ec *executionContext) field_Mutation_addInfoboxField_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddInfoboxFieldInput
+	var arg0 gqlmodel.AddInfoboxFieldInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddInfoboxFieldInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddInfoboxFieldInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7152,10 +7153,10 @@ func (ec *executionContext) field_Mutation_addInfoboxField_args(ctx context.Cont
 func (ec *executionContext) field_Mutation_addLayerGroup_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddLayerGroupInput
+	var arg0 gqlmodel.AddLayerGroupInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddLayerGroupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerGroupInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddLayerGroupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerGroupInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7167,10 +7168,10 @@ func (ec *executionContext) field_Mutation_addLayerGroup_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_addLayerItem_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddLayerItemInput
+	var arg0 gqlmodel.AddLayerItemInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddLayerItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerItemInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddLayerItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerItemInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7182,10 +7183,10 @@ func (ec *executionContext) field_Mutation_addLayerItem_args(ctx context.Context
 func (ec *executionContext) field_Mutation_addMemberToTeam_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddMemberToTeamInput
+	var arg0 gqlmodel.AddMemberToTeamInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddMemberToTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddMemberToTeamInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddMemberToTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddMemberToTeamInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7197,10 +7198,10 @@ func (ec *executionContext) field_Mutation_addMemberToTeam_args(ctx context.Cont
 func (ec *executionContext) field_Mutation_addPropertyItem_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddPropertyItemInput
+	var arg0 gqlmodel.AddPropertyItemInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddPropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddPropertyItemInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddPropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddPropertyItemInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7212,10 +7213,10 @@ func (ec *executionContext) field_Mutation_addPropertyItem_args(ctx context.Cont
 func (ec *executionContext) field_Mutation_addWidget_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 AddWidgetInput
+	var arg0 gqlmodel.AddWidgetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNAddWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddWidgetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNAddWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddWidgetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7227,10 +7228,10 @@ func (ec *executionContext) field_Mutation_addWidget_args(ctx context.Context, r
 func (ec *executionContext) field_Mutation_createAsset_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 CreateAssetInput
+	var arg0 gqlmodel.CreateAssetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateAssetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateAssetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7242,10 +7243,10 @@ func (ec *executionContext) field_Mutation_createAsset_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_createInfobox_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 CreateInfoboxInput
+	var arg0 gqlmodel.CreateInfoboxInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateInfoboxInput(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateInfoboxInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7257,10 +7258,10 @@ func (ec *executionContext) field_Mutation_createInfobox_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_createProject_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 CreateProjectInput
+	var arg0 gqlmodel.CreateProjectInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateProjectInput(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateProjectInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7272,10 +7273,10 @@ func (ec *executionContext) field_Mutation_createProject_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_createScene_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 CreateSceneInput
+	var arg0 gqlmodel.CreateSceneInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateSceneInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateSceneInput(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateSceneInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateSceneInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7287,10 +7288,10 @@ func (ec *executionContext) field_Mutation_createScene_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_createTeam_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 CreateTeamInput
+	var arg0 gqlmodel.CreateTeamInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateTeamInput(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateTeamInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7302,10 +7303,10 @@ func (ec *executionContext) field_Mutation_createTeam_args(ctx context.Context, 
 func (ec *executionContext) field_Mutation_deleteMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 DeleteMeInput
+	var arg0 gqlmodel.DeleteMeInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNDeleteMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteMeInput(ctx, tmp)
+		arg0, err = ec.unmarshalNDeleteMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteMeInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7317,10 +7318,10 @@ func (ec *executionContext) field_Mutation_deleteMe_args(ctx context.Context, ra
 func (ec *executionContext) field_Mutation_deleteProject_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 DeleteProjectInput
+	var arg0 gqlmodel.DeleteProjectInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNDeleteProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteProjectInput(ctx, tmp)
+		arg0, err = ec.unmarshalNDeleteProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteProjectInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7332,10 +7333,10 @@ func (ec *executionContext) field_Mutation_deleteProject_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_deleteTeam_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 DeleteTeamInput
+	var arg0 gqlmodel.DeleteTeamInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNDeleteTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteTeamInput(ctx, tmp)
+		arg0, err = ec.unmarshalNDeleteTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteTeamInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7347,10 +7348,10 @@ func (ec *executionContext) field_Mutation_deleteTeam_args(ctx context.Context, 
 func (ec *executionContext) field_Mutation_importDatasetFromGoogleSheet_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 ImportDatasetFromGoogleSheetInput
+	var arg0 gqlmodel.ImportDatasetFromGoogleSheetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNImportDatasetFromGoogleSheetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportDatasetFromGoogleSheetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNImportDatasetFromGoogleSheetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportDatasetFromGoogleSheetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7362,10 +7363,10 @@ func (ec *executionContext) field_Mutation_importDatasetFromGoogleSheet_args(ctx
 func (ec *executionContext) field_Mutation_importDataset_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 ImportDatasetInput
+	var arg0 gqlmodel.ImportDatasetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNImportDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportDatasetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNImportDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportDatasetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7377,10 +7378,10 @@ func (ec *executionContext) field_Mutation_importDataset_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_importLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 ImportLayerInput
+	var arg0 gqlmodel.ImportLayerInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNImportLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportLayerInput(ctx, tmp)
+		arg0, err = ec.unmarshalNImportLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportLayerInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7392,10 +7393,10 @@ func (ec *executionContext) field_Mutation_importLayer_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_installPlugin_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 InstallPluginInput
+	var arg0 gqlmodel.InstallPluginInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNInstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInstallPluginInput(ctx, tmp)
+		arg0, err = ec.unmarshalNInstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInstallPluginInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7407,10 +7408,10 @@ func (ec *executionContext) field_Mutation_installPlugin_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_linkDatasetToPropertyValue_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 LinkDatasetToPropertyValueInput
+	var arg0 gqlmodel.LinkDatasetToPropertyValueInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNLinkDatasetToPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLinkDatasetToPropertyValueInput(ctx, tmp)
+		arg0, err = ec.unmarshalNLinkDatasetToPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLinkDatasetToPropertyValueInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7422,10 +7423,10 @@ func (ec *executionContext) field_Mutation_linkDatasetToPropertyValue_args(ctx c
 func (ec *executionContext) field_Mutation_moveInfoboxField_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 MoveInfoboxFieldInput
+	var arg0 gqlmodel.MoveInfoboxFieldInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNMoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveInfoboxFieldInput(ctx, tmp)
+		arg0, err = ec.unmarshalNMoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveInfoboxFieldInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7437,10 +7438,10 @@ func (ec *executionContext) field_Mutation_moveInfoboxField_args(ctx context.Con
 func (ec *executionContext) field_Mutation_moveLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 MoveLayerInput
+	var arg0 gqlmodel.MoveLayerInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNMoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveLayerInput(ctx, tmp)
+		arg0, err = ec.unmarshalNMoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveLayerInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7452,10 +7453,10 @@ func (ec *executionContext) field_Mutation_moveLayer_args(ctx context.Context, r
 func (ec *executionContext) field_Mutation_movePropertyItem_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 MovePropertyItemInput
+	var arg0 gqlmodel.MovePropertyItemInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNMovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMovePropertyItemInput(ctx, tmp)
+		arg0, err = ec.unmarshalNMovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMovePropertyItemInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7467,10 +7468,10 @@ func (ec *executionContext) field_Mutation_movePropertyItem_args(ctx context.Con
 func (ec *executionContext) field_Mutation_publishProject_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 PublishProjectInput
+	var arg0 gqlmodel.PublishProjectInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNPublishProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPublishProjectInput(ctx, tmp)
+		arg0, err = ec.unmarshalNPublishProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPublishProjectInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7482,10 +7483,10 @@ func (ec *executionContext) field_Mutation_publishProject_args(ctx context.Conte
 func (ec *executionContext) field_Mutation_removeAsset_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveAssetInput
+	var arg0 gqlmodel.RemoveAssetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveAssetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveAssetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7497,10 +7498,10 @@ func (ec *executionContext) field_Mutation_removeAsset_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_removeDatasetSchema_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveDatasetSchemaInput
+	var arg0 gqlmodel.RemoveDatasetSchemaInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveDatasetSchemaInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveDatasetSchemaInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7512,10 +7513,10 @@ func (ec *executionContext) field_Mutation_removeDatasetSchema_args(ctx context.
 func (ec *executionContext) field_Mutation_removeInfoboxField_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveInfoboxFieldInput
+	var arg0 gqlmodel.RemoveInfoboxFieldInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxFieldInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxFieldInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7527,10 +7528,10 @@ func (ec *executionContext) field_Mutation_removeInfoboxField_args(ctx context.C
 func (ec *executionContext) field_Mutation_removeInfobox_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveInfoboxInput
+	var arg0 gqlmodel.RemoveInfoboxInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7542,10 +7543,10 @@ func (ec *executionContext) field_Mutation_removeInfobox_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_removeLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveLayerInput
+	var arg0 gqlmodel.RemoveLayerInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveLayerInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveLayerInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7557,10 +7558,10 @@ func (ec *executionContext) field_Mutation_removeLayer_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_removeMemberFromTeam_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveMemberFromTeamInput
+	var arg0 gqlmodel.RemoveMemberFromTeamInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveMemberFromTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveMemberFromTeamInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveMemberFromTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveMemberFromTeamInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7572,10 +7573,10 @@ func (ec *executionContext) field_Mutation_removeMemberFromTeam_args(ctx context
 func (ec *executionContext) field_Mutation_removeMyAuth_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveMyAuthInput
+	var arg0 gqlmodel.RemoveMyAuthInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveMyAuthInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveMyAuthInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveMyAuthInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveMyAuthInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7587,10 +7588,10 @@ func (ec *executionContext) field_Mutation_removeMyAuth_args(ctx context.Context
 func (ec *executionContext) field_Mutation_removePropertyField_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemovePropertyFieldInput
+	var arg0 gqlmodel.RemovePropertyFieldInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemovePropertyFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemovePropertyFieldInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemovePropertyFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemovePropertyFieldInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7602,10 +7603,10 @@ func (ec *executionContext) field_Mutation_removePropertyField_args(ctx context.
 func (ec *executionContext) field_Mutation_removePropertyItem_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemovePropertyItemInput
+	var arg0 gqlmodel.RemovePropertyItemInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemovePropertyItemInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemovePropertyItemInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7617,10 +7618,10 @@ func (ec *executionContext) field_Mutation_removePropertyItem_args(ctx context.C
 func (ec *executionContext) field_Mutation_removeWidget_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 RemoveWidgetInput
+	var arg0 gqlmodel.RemoveWidgetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRemoveWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveWidgetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRemoveWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveWidgetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7632,10 +7633,10 @@ func (ec *executionContext) field_Mutation_removeWidget_args(ctx context.Context
 func (ec *executionContext) field_Mutation_signup_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 SignupInput
+	var arg0 gqlmodel.SignupInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNSignupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSignupInput(ctx, tmp)
+		arg0, err = ec.unmarshalNSignupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSignupInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7647,10 +7648,10 @@ func (ec *executionContext) field_Mutation_signup_args(ctx context.Context, rawA
 func (ec *executionContext) field_Mutation_syncDataset_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 SyncDatasetInput
+	var arg0 gqlmodel.SyncDatasetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNSyncDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSyncDatasetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNSyncDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSyncDatasetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7662,10 +7663,10 @@ func (ec *executionContext) field_Mutation_syncDataset_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_uninstallPlugin_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UninstallPluginInput
+	var arg0 gqlmodel.UninstallPluginInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUninstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUninstallPluginInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUninstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUninstallPluginInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7677,10 +7678,10 @@ func (ec *executionContext) field_Mutation_uninstallPlugin_args(ctx context.Cont
 func (ec *executionContext) field_Mutation_unlinkPropertyValue_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UnlinkPropertyValueInput
+	var arg0 gqlmodel.UnlinkPropertyValueInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUnlinkPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUnlinkPropertyValueInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUnlinkPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUnlinkPropertyValueInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7692,10 +7693,10 @@ func (ec *executionContext) field_Mutation_unlinkPropertyValue_args(ctx context.
 func (ec *executionContext) field_Mutation_updateDatasetSchema_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdateDatasetSchemaInput
+	var arg0 gqlmodel.UpdateDatasetSchemaInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateDatasetSchemaInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateDatasetSchemaInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7707,10 +7708,10 @@ func (ec *executionContext) field_Mutation_updateDatasetSchema_args(ctx context.
 func (ec *executionContext) field_Mutation_updateLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdateLayerInput
+	var arg0 gqlmodel.UpdateLayerInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateLayerInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateLayerInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7722,10 +7723,10 @@ func (ec *executionContext) field_Mutation_updateLayer_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_updateMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdateMeInput
+	var arg0 gqlmodel.UpdateMeInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMeInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMeInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7737,10 +7738,10 @@ func (ec *executionContext) field_Mutation_updateMe_args(ctx context.Context, ra
 func (ec *executionContext) field_Mutation_updateMemberOfTeam_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdateMemberOfTeamInput
+	var arg0 gqlmodel.UpdateMemberOfTeamInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateMemberOfTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMemberOfTeamInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateMemberOfTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMemberOfTeamInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7752,10 +7753,10 @@ func (ec *executionContext) field_Mutation_updateMemberOfTeam_args(ctx context.C
 func (ec *executionContext) field_Mutation_updateProject_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdateProjectInput
+	var arg0 gqlmodel.UpdateProjectInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateProjectInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateProjectInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7767,10 +7768,10 @@ func (ec *executionContext) field_Mutation_updateProject_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_updatePropertyItems_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdatePropertyItemInput
+	var arg0 gqlmodel.UpdatePropertyItemInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyItemInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdatePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyItemInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7782,10 +7783,10 @@ func (ec *executionContext) field_Mutation_updatePropertyItems_args(ctx context.
 func (ec *executionContext) field_Mutation_updatePropertyValueCamera_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdatePropertyValueCameraInput
+	var arg0 gqlmodel.UpdatePropertyValueCameraInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueCameraInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueCameraInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdatePropertyValueCameraInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueCameraInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7797,10 +7798,10 @@ func (ec *executionContext) field_Mutation_updatePropertyValueCamera_args(ctx co
 func (ec *executionContext) field_Mutation_updatePropertyValueLatLngHeight_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdatePropertyValueLatLngHeightInput
+	var arg0 gqlmodel.UpdatePropertyValueLatLngHeightInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueLatLngHeightInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueLatLngHeightInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdatePropertyValueLatLngHeightInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngHeightInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7812,10 +7813,10 @@ func (ec *executionContext) field_Mutation_updatePropertyValueLatLngHeight_args(
 func (ec *executionContext) field_Mutation_updatePropertyValueLatLng_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdatePropertyValueLatLngInput
+	var arg0 gqlmodel.UpdatePropertyValueLatLngInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueLatLngInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueLatLngInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdatePropertyValueLatLngInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7827,10 +7828,10 @@ func (ec *executionContext) field_Mutation_updatePropertyValueLatLng_args(ctx co
 func (ec *executionContext) field_Mutation_updatePropertyValueTypography_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdatePropertyValueTypographyInput
+	var arg0 gqlmodel.UpdatePropertyValueTypographyInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueTypographyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueTypographyInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdatePropertyValueTypographyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueTypographyInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7842,10 +7843,10 @@ func (ec *executionContext) field_Mutation_updatePropertyValueTypography_args(ct
 func (ec *executionContext) field_Mutation_updatePropertyValue_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdatePropertyValueInput
+	var arg0 gqlmodel.UpdatePropertyValueInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdatePropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7857,10 +7858,10 @@ func (ec *executionContext) field_Mutation_updatePropertyValue_args(ctx context.
 func (ec *executionContext) field_Mutation_updateTeam_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdateTeamInput
+	var arg0 gqlmodel.UpdateTeamInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateTeamInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTeamInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7872,10 +7873,10 @@ func (ec *executionContext) field_Mutation_updateTeam_args(ctx context.Context, 
 func (ec *executionContext) field_Mutation_updateWidget_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpdateWidgetInput
+	var arg0 gqlmodel.UpdateWidgetInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateWidgetInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7887,10 +7888,10 @@ func (ec *executionContext) field_Mutation_updateWidget_args(ctx context.Context
 func (ec *executionContext) field_Mutation_upgradePlugin_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UpgradePluginInput
+	var arg0 gqlmodel.UpgradePluginInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpgradePluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpgradePluginInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUpgradePluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpgradePluginInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7902,10 +7903,10 @@ func (ec *executionContext) field_Mutation_upgradePlugin_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_uploadFileToProperty_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UploadFileToPropertyInput
+	var arg0 gqlmodel.UploadFileToPropertyInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUploadFileToPropertyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUploadFileToPropertyInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUploadFileToPropertyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadFileToPropertyInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -7917,10 +7918,10 @@ func (ec *executionContext) field_Mutation_uploadFileToProperty_args(ctx context
 func (ec *executionContext) field_Mutation_uploadPlugin_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 UploadPluginInput
+	var arg0 gqlmodel.UploadPluginInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUploadPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUploadPluginInput(ctx, tmp)
+		arg0, err = ec.unmarshalNUploadPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadPluginInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -8334,10 +8335,10 @@ func (ec *executionContext) field_Query_node_args(ctx context.Context, rawArgs m
 		}
 	}
 	args["id"] = arg0
-	var arg1 NodeType
+	var arg1 gqlmodel.NodeType
 	if tmp, ok := rawArgs["type"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
-		arg1, err = ec.unmarshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNodeType(ctx, tmp)
+		arg1, err = ec.unmarshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNodeType(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -8358,10 +8359,10 @@ func (ec *executionContext) field_Query_nodes_args(ctx context.Context, rawArgs 
 		}
 	}
 	args["id"] = arg0
-	var arg1 NodeType
+	var arg1 gqlmodel.NodeType
 	if tmp, ok := rawArgs["type"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
-		arg1, err = ec.unmarshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNodeType(ctx, tmp)
+		arg1, err = ec.unmarshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNodeType(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -8708,7 +8709,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _AddDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *AddDatasetSchemaPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddDatasetSchemaPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8735,12 +8736,12 @@ func (ec *executionContext) _AddDatasetSchemaPayload_datasetSchema(ctx context.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddDynamicDatasetPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *AddDynamicDatasetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddDynamicDatasetPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddDynamicDatasetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8767,12 +8768,12 @@ func (ec *executionContext) _AddDynamicDatasetPayload_datasetSchema(ctx context.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddDynamicDatasetPayload_dataset(ctx context.Context, field graphql.CollectedField, obj *AddDynamicDatasetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddDynamicDatasetPayload_dataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddDynamicDatasetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8799,12 +8800,12 @@ func (ec *executionContext) _AddDynamicDatasetPayload_dataset(ctx context.Contex
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddDynamicDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *AddDynamicDatasetSchemaPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddDynamicDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddDynamicDatasetSchemaPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8831,12 +8832,12 @@ func (ec *executionContext) _AddDynamicDatasetSchemaPayload_datasetSchema(ctx co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddInfoboxFieldPayload_infoboxField(ctx context.Context, field graphql.CollectedField, obj *AddInfoboxFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddInfoboxFieldPayload_infoboxField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddInfoboxFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8866,12 +8867,12 @@ func (ec *executionContext) _AddInfoboxFieldPayload_infoboxField(ctx context.Con
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*InfoboxField)
+	res := resTmp.(*gqlmodel.InfoboxField)
 	fc.Result = res
-	return ec.marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfoboxField(ctx, field.Selections, res)
+	return ec.marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfoboxField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddInfoboxFieldPayload_layer(ctx context.Context, field graphql.CollectedField, obj *AddInfoboxFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddInfoboxFieldPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddInfoboxFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8901,12 +8902,12 @@ func (ec *executionContext) _AddInfoboxFieldPayload_layer(ctx context.Context, f
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddLayerGroupPayload_layer(ctx context.Context, field graphql.CollectedField, obj *AddLayerGroupPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddLayerGroupPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddLayerGroupPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8936,12 +8937,12 @@ func (ec *executionContext) _AddLayerGroupPayload_layer(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddLayerGroupPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *AddLayerGroupPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddLayerGroupPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddLayerGroupPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -8971,12 +8972,12 @@ func (ec *executionContext) _AddLayerGroupPayload_parentLayer(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddLayerGroupPayload_index(ctx context.Context, field graphql.CollectedField, obj *AddLayerGroupPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddLayerGroupPayload_index(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddLayerGroupPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9008,7 +9009,7 @@ func (ec *executionContext) _AddLayerGroupPayload_index(ctx context.Context, fie
 	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddLayerItemPayload_layer(ctx context.Context, field graphql.CollectedField, obj *AddLayerItemPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddLayerItemPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddLayerItemPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9038,12 +9039,12 @@ func (ec *executionContext) _AddLayerItemPayload_layer(ctx context.Context, fiel
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerItem)
+	res := resTmp.(*gqlmodel.LayerItem)
 	fc.Result = res
-	return ec.marshalNLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerItem(ctx, field.Selections, res)
+	return ec.marshalNLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerItem(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddLayerItemPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *AddLayerItemPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddLayerItemPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddLayerItemPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9073,12 +9074,12 @@ func (ec *executionContext) _AddLayerItemPayload_parentLayer(ctx context.Context
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddLayerItemPayload_index(ctx context.Context, field graphql.CollectedField, obj *AddLayerItemPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddLayerItemPayload_index(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddLayerItemPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9110,7 +9111,7 @@ func (ec *executionContext) _AddLayerItemPayload_index(ctx context.Context, fiel
 	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddMemberToTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *AddMemberToTeamPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddMemberToTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddMemberToTeamPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9140,12 +9141,12 @@ func (ec *executionContext) _AddMemberToTeamPayload_team(ctx context.Context, fi
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *AddWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9175,12 +9176,12 @@ func (ec *executionContext) _AddWidgetPayload_scene(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AddWidgetPayload_sceneWidget(ctx context.Context, field graphql.CollectedField, obj *AddWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _AddWidgetPayload_sceneWidget(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9210,12 +9211,12 @@ func (ec *executionContext) _AddWidgetPayload_sceneWidget(ctx context.Context, f
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*SceneWidget)
+	res := resTmp.(*gqlmodel.SceneWidget)
 	fc.Result = res
-	return ec.marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidget(ctx, field.Selections, res)
+	return ec.marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidget(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_id(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9250,7 +9251,7 @@ func (ec *executionContext) _Asset_id(ctx context.Context, field graphql.Collect
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_createdAt(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_createdAt(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9285,7 +9286,7 @@ func (ec *executionContext) _Asset_createdAt(ctx context.Context, field graphql.
 	return ec.marshalNDateTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_teamId(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_teamId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9320,7 +9321,7 @@ func (ec *executionContext) _Asset_teamId(ctx context.Context, field graphql.Col
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_name(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9355,7 +9356,7 @@ func (ec *executionContext) _Asset_name(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_size(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_size(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9390,7 +9391,7 @@ func (ec *executionContext) _Asset_size(ctx context.Context, field graphql.Colle
 	return ec.marshalNFileSize2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_url(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_url(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9425,7 +9426,7 @@ func (ec *executionContext) _Asset_url(ctx context.Context, field graphql.Collec
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_contentType(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_contentType(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9460,7 +9461,7 @@ func (ec *executionContext) _Asset_contentType(ctx context.Context, field graphq
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Asset_team(ctx context.Context, field graphql.CollectedField, obj *Asset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Asset_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Asset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9487,12 +9488,12 @@ func (ec *executionContext) _Asset_team(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AssetConnection_edges(ctx context.Context, field graphql.CollectedField, obj *AssetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _AssetConnection_edges(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AssetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9522,12 +9523,12 @@ func (ec *executionContext) _AssetConnection_edges(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*AssetEdge)
+	res := resTmp.([]*gqlmodel.AssetEdge)
 	fc.Result = res
-	return ec.marshalNAssetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetEdgeᚄ(ctx, field.Selections, res)
+	return ec.marshalNAssetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetEdgeᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AssetConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *AssetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _AssetConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AssetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9557,12 +9558,12 @@ func (ec *executionContext) _AssetConnection_nodes(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Asset)
+	res := resTmp.([]*gqlmodel.Asset)
 	fc.Result = res
-	return ec.marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAsset(ctx, field.Selections, res)
+	return ec.marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAsset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AssetConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *AssetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _AssetConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AssetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9592,12 +9593,12 @@ func (ec *executionContext) _AssetConnection_pageInfo(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*PageInfo)
+	res := resTmp.(*gqlmodel.PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPageInfo(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AssetConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *AssetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _AssetConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AssetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9632,7 +9633,7 @@ func (ec *executionContext) _AssetConnection_totalCount(ctx context.Context, fie
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AssetEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *AssetEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _AssetEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AssetEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9667,7 +9668,7 @@ func (ec *executionContext) _AssetEdge_cursor(ctx context.Context, field graphql
 	return ec.marshalNCursor2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AssetEdge_node(ctx context.Context, field graphql.CollectedField, obj *AssetEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _AssetEdge_node(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AssetEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9694,12 +9695,12 @@ func (ec *executionContext) _AssetEdge_node(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Asset)
+	res := resTmp.(*gqlmodel.Asset)
 	fc.Result = res
-	return ec.marshalOAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAsset(ctx, field.Selections, res)
+	return ec.marshalOAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAsset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Camera_lat(ctx context.Context, field graphql.CollectedField, obj *Camera) (ret graphql.Marshaler) {
+func (ec *executionContext) _Camera_lat(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9734,7 +9735,7 @@ func (ec *executionContext) _Camera_lat(ctx context.Context, field graphql.Colle
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Camera_lng(ctx context.Context, field graphql.CollectedField, obj *Camera) (ret graphql.Marshaler) {
+func (ec *executionContext) _Camera_lng(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9769,7 +9770,7 @@ func (ec *executionContext) _Camera_lng(ctx context.Context, field graphql.Colle
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Camera_altitude(ctx context.Context, field graphql.CollectedField, obj *Camera) (ret graphql.Marshaler) {
+func (ec *executionContext) _Camera_altitude(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9804,7 +9805,7 @@ func (ec *executionContext) _Camera_altitude(ctx context.Context, field graphql.
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Camera_heading(ctx context.Context, field graphql.CollectedField, obj *Camera) (ret graphql.Marshaler) {
+func (ec *executionContext) _Camera_heading(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9839,7 +9840,7 @@ func (ec *executionContext) _Camera_heading(ctx context.Context, field graphql.C
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Camera_pitch(ctx context.Context, field graphql.CollectedField, obj *Camera) (ret graphql.Marshaler) {
+func (ec *executionContext) _Camera_pitch(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9874,7 +9875,7 @@ func (ec *executionContext) _Camera_pitch(ctx context.Context, field graphql.Col
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Camera_roll(ctx context.Context, field graphql.CollectedField, obj *Camera) (ret graphql.Marshaler) {
+func (ec *executionContext) _Camera_roll(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9909,7 +9910,7 @@ func (ec *executionContext) _Camera_roll(ctx context.Context, field graphql.Coll
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Camera_fov(ctx context.Context, field graphql.CollectedField, obj *Camera) (ret graphql.Marshaler) {
+func (ec *executionContext) _Camera_fov(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9944,7 +9945,7 @@ func (ec *executionContext) _Camera_fov(ctx context.Context, field graphql.Colle
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _CheckProjectAliasPayload_alias(ctx context.Context, field graphql.CollectedField, obj *CheckProjectAliasPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _CheckProjectAliasPayload_alias(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CheckProjectAliasPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -9979,7 +9980,7 @@ func (ec *executionContext) _CheckProjectAliasPayload_alias(ctx context.Context,
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _CheckProjectAliasPayload_available(ctx context.Context, field graphql.CollectedField, obj *CheckProjectAliasPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _CheckProjectAliasPayload_available(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CheckProjectAliasPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10014,7 +10015,7 @@ func (ec *executionContext) _CheckProjectAliasPayload_available(ctx context.Cont
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _CreateAssetPayload_asset(ctx context.Context, field graphql.CollectedField, obj *CreateAssetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _CreateAssetPayload_asset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateAssetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10044,12 +10045,12 @@ func (ec *executionContext) _CreateAssetPayload_asset(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Asset)
+	res := resTmp.(*gqlmodel.Asset)
 	fc.Result = res
-	return ec.marshalNAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAsset(ctx, field.Selections, res)
+	return ec.marshalNAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAsset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _CreateInfoboxPayload_layer(ctx context.Context, field graphql.CollectedField, obj *CreateInfoboxPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _CreateInfoboxPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateInfoboxPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10079,12 +10080,12 @@ func (ec *executionContext) _CreateInfoboxPayload_layer(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _CreateScenePayload_scene(ctx context.Context, field graphql.CollectedField, obj *CreateScenePayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _CreateScenePayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateScenePayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10114,12 +10115,12 @@ func (ec *executionContext) _CreateScenePayload_scene(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _CreateTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *CreateTeamPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _CreateTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateTeamPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10149,12 +10150,12 @@ func (ec *executionContext) _CreateTeamPayload_team(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Dataset_id(ctx context.Context, field graphql.CollectedField, obj *Dataset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Dataset_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Dataset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10189,7 +10190,7 @@ func (ec *executionContext) _Dataset_id(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Dataset_source(ctx context.Context, field graphql.CollectedField, obj *Dataset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Dataset_source(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Dataset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10224,7 +10225,7 @@ func (ec *executionContext) _Dataset_source(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Dataset_schemaId(ctx context.Context, field graphql.CollectedField, obj *Dataset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Dataset_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Dataset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10259,7 +10260,7 @@ func (ec *executionContext) _Dataset_schemaId(ctx context.Context, field graphql
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Dataset_fields(ctx context.Context, field graphql.CollectedField, obj *Dataset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Dataset_fields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Dataset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10289,12 +10290,12 @@ func (ec *executionContext) _Dataset_fields(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetField)
+	res := resTmp.([]*gqlmodel.DatasetField)
 	fc.Result = res
-	return ec.marshalNDatasetField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetFieldᚄ(ctx, field.Selections, res)
+	return ec.marshalNDatasetField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetFieldᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Dataset_schema(ctx context.Context, field graphql.CollectedField, obj *Dataset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Dataset_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Dataset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10321,12 +10322,12 @@ func (ec *executionContext) _Dataset_schema(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Dataset_name(ctx context.Context, field graphql.CollectedField, obj *Dataset) (ret graphql.Marshaler) {
+func (ec *executionContext) _Dataset_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Dataset) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10358,7 +10359,7 @@ func (ec *executionContext) _Dataset_name(ctx context.Context, field graphql.Col
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetConnection_edges(ctx context.Context, field graphql.CollectedField, obj *DatasetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetConnection_edges(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10388,12 +10389,12 @@ func (ec *executionContext) _DatasetConnection_edges(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetEdge)
+	res := resTmp.([]*gqlmodel.DatasetEdge)
 	fc.Result = res
-	return ec.marshalNDatasetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetEdgeᚄ(ctx, field.Selections, res)
+	return ec.marshalNDatasetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetEdgeᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *DatasetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10423,12 +10424,12 @@ func (ec *executionContext) _DatasetConnection_nodes(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Dataset)
+	res := resTmp.([]*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *DatasetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10458,12 +10459,12 @@ func (ec *executionContext) _DatasetConnection_pageInfo(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*PageInfo)
+	res := resTmp.(*gqlmodel.PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPageInfo(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *DatasetConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10498,7 +10499,7 @@ func (ec *executionContext) _DatasetConnection_totalCount(ctx context.Context, f
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *DatasetEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10533,7 +10534,7 @@ func (ec *executionContext) _DatasetEdge_cursor(ctx context.Context, field graph
 	return ec.marshalNCursor2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetEdge_node(ctx context.Context, field graphql.CollectedField, obj *DatasetEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetEdge_node(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10560,12 +10561,12 @@ func (ec *executionContext) _DatasetEdge_node(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_fieldId(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_fieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10600,7 +10601,7 @@ func (ec *executionContext) _DatasetField_fieldId(ctx context.Context, field gra
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_schemaId(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10635,7 +10636,7 @@ func (ec *executionContext) _DatasetField_schemaId(ctx context.Context, field gr
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_source(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_source(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10670,7 +10671,7 @@ func (ec *executionContext) _DatasetField_source(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_type(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_type(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10700,12 +10701,12 @@ func (ec *executionContext) _DatasetField_type(ctx context.Context, field graphq
 		}
 		return graphql.Null
 	}
-	res := resTmp.(ValueType)
+	res := resTmp.(gqlmodel.ValueType)
 	fc.Result = res
-	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, field.Selections, res)
+	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_value(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_value(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10737,7 +10738,7 @@ func (ec *executionContext) _DatasetField_value(ctx context.Context, field graph
 	return ec.marshalOAny2interface(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_schema(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10764,12 +10765,12 @@ func (ec *executionContext) _DatasetField_schema(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_field(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_field(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10796,12 +10797,12 @@ func (ec *executionContext) _DatasetField_field(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchemaField)
+	res := resTmp.(*gqlmodel.DatasetSchemaField)
 	fc.Result = res
-	return ec.marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaField(ctx, field.Selections, res)
+	return ec.marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetField_valueRef(ctx context.Context, field graphql.CollectedField, obj *DatasetField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetField_valueRef(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10828,12 +10829,12 @@ func (ec *executionContext) _DatasetField_valueRef(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_id(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10868,7 +10869,7 @@ func (ec *executionContext) _DatasetSchema_id(ctx context.Context, field graphql
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_source(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_source(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10903,7 +10904,7 @@ func (ec *executionContext) _DatasetSchema_source(ctx context.Context, field gra
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_name(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10938,7 +10939,7 @@ func (ec *executionContext) _DatasetSchema_name(ctx context.Context, field graph
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_sceneId(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -10973,7 +10974,7 @@ func (ec *executionContext) _DatasetSchema_sceneId(ctx context.Context, field gr
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_fields(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_fields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11003,12 +11004,12 @@ func (ec *executionContext) _DatasetSchema_fields(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetSchemaField)
+	res := resTmp.([]*gqlmodel.DatasetSchemaField)
 	fc.Result = res
-	return ec.marshalNDatasetSchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaFieldᚄ(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaFieldᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_representativeFieldId(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_representativeFieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11040,7 +11041,7 @@ func (ec *executionContext) _DatasetSchema_representativeFieldId(ctx context.Con
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_dynamic(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_dynamic(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11072,7 +11073,7 @@ func (ec *executionContext) _DatasetSchema_dynamic(ctx context.Context, field gr
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_datasets(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_datasets(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11109,12 +11110,12 @@ func (ec *executionContext) _DatasetSchema_datasets(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetConnection)
+	res := resTmp.(*gqlmodel.DatasetConnection)
 	fc.Result = res
-	return ec.marshalNDatasetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetConnection(ctx, field.Selections, res)
+	return ec.marshalNDatasetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetConnection(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_scene(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11141,12 +11142,12 @@ func (ec *executionContext) _DatasetSchema_scene(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchema_representativeField(ctx context.Context, field graphql.CollectedField, obj *DatasetSchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchema_representativeField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11173,12 +11174,12 @@ func (ec *executionContext) _DatasetSchema_representativeField(ctx context.Conte
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchemaField)
+	res := resTmp.(*gqlmodel.DatasetSchemaField)
 	fc.Result = res
-	return ec.marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaField(ctx, field.Selections, res)
+	return ec.marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaConnection_edges(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaConnection_edges(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11208,12 +11209,12 @@ func (ec *executionContext) _DatasetSchemaConnection_edges(ctx context.Context, 
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetSchemaEdge)
+	res := resTmp.([]*gqlmodel.DatasetSchemaEdge)
 	fc.Result = res
-	return ec.marshalNDatasetSchemaEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaEdgeᚄ(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchemaEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaEdgeᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11243,12 +11244,12 @@ func (ec *executionContext) _DatasetSchemaConnection_nodes(ctx context.Context, 
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetSchema)
+	res := resTmp.([]*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11278,12 +11279,12 @@ func (ec *executionContext) _DatasetSchemaConnection_pageInfo(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*PageInfo)
+	res := resTmp.(*gqlmodel.PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPageInfo(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11318,7 +11319,7 @@ func (ec *executionContext) _DatasetSchemaConnection_totalCount(ctx context.Cont
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11353,7 +11354,7 @@ func (ec *executionContext) _DatasetSchemaEdge_cursor(ctx context.Context, field
 	return ec.marshalNCursor2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaEdge_node(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaEdge_node(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11380,12 +11381,12 @@ func (ec *executionContext) _DatasetSchemaEdge_node(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_id(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11420,7 +11421,7 @@ func (ec *executionContext) _DatasetSchemaField_id(ctx context.Context, field gr
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_source(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_source(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11455,7 +11456,7 @@ func (ec *executionContext) _DatasetSchemaField_source(ctx context.Context, fiel
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_name(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11490,7 +11491,7 @@ func (ec *executionContext) _DatasetSchemaField_name(ctx context.Context, field 
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_type(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_type(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11520,12 +11521,12 @@ func (ec *executionContext) _DatasetSchemaField_type(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(ValueType)
+	res := resTmp.(gqlmodel.ValueType)
 	fc.Result = res
-	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, field.Selections, res)
+	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_schemaId(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11560,7 +11561,7 @@ func (ec *executionContext) _DatasetSchemaField_schemaId(ctx context.Context, fi
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_refId(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_refId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11592,7 +11593,7 @@ func (ec *executionContext) _DatasetSchemaField_refId(ctx context.Context, field
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_schema(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11619,12 +11620,12 @@ func (ec *executionContext) _DatasetSchemaField_schema(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DatasetSchemaField_ref(ctx context.Context, field graphql.CollectedField, obj *DatasetSchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _DatasetSchemaField_ref(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DatasetSchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11651,12 +11652,12 @@ func (ec *executionContext) _DatasetSchemaField_ref(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DeleteMePayload_userId(ctx context.Context, field graphql.CollectedField, obj *DeleteMePayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _DeleteMePayload_userId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DeleteMePayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11691,7 +11692,7 @@ func (ec *executionContext) _DeleteMePayload_userId(ctx context.Context, field g
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DeleteProjectPayload_projectId(ctx context.Context, field graphql.CollectedField, obj *DeleteProjectPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _DeleteProjectPayload_projectId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DeleteProjectPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11726,7 +11727,7 @@ func (ec *executionContext) _DeleteProjectPayload_projectId(ctx context.Context,
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _DeleteTeamPayload_teamId(ctx context.Context, field graphql.CollectedField, obj *DeleteTeamPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _DeleteTeamPayload_teamId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DeleteTeamPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11761,7 +11762,7 @@ func (ec *executionContext) _DeleteTeamPayload_teamId(ctx context.Context, field
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImportDatasetPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *ImportDatasetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ImportDatasetPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ImportDatasetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11791,12 +11792,12 @@ func (ec *executionContext) _ImportDatasetPayload_datasetSchema(ctx context.Cont
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalNDatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImportLayerPayload_layers(ctx context.Context, field graphql.CollectedField, obj *ImportLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ImportLayerPayload_layers(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ImportLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11826,12 +11827,12 @@ func (ec *executionContext) _ImportLayerPayload_layers(ctx context.Context, fiel
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]Layer)
+	res := resTmp.([]gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerᚄ(ctx, field.Selections, res)
+	return ec.marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImportLayerPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *ImportLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ImportLayerPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ImportLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11861,12 +11862,12 @@ func (ec *executionContext) _ImportLayerPayload_parentLayer(ctx context.Context,
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_sceneId(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11901,7 +11902,7 @@ func (ec *executionContext) _Infobox_sceneId(ctx context.Context, field graphql.
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_layerId(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_layerId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11936,7 +11937,7 @@ func (ec *executionContext) _Infobox_layerId(ctx context.Context, field graphql.
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_propertyId(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_propertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -11971,7 +11972,7 @@ func (ec *executionContext) _Infobox_propertyId(ctx context.Context, field graph
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_fields(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_fields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12001,12 +12002,12 @@ func (ec *executionContext) _Infobox_fields(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*InfoboxField)
+	res := resTmp.([]*gqlmodel.InfoboxField)
 	fc.Result = res
-	return ec.marshalNInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfoboxFieldᚄ(ctx, field.Selections, res)
+	return ec.marshalNInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfoboxFieldᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12038,7 +12039,7 @@ func (ec *executionContext) _Infobox_linkedDatasetId(ctx context.Context, field 
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_layer(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12068,12 +12069,12 @@ func (ec *executionContext) _Infobox_layer(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_property(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12100,12 +12101,12 @@ func (ec *executionContext) _Infobox_property(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12132,12 +12133,12 @@ func (ec *executionContext) _Infobox_linkedDataset(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_merged(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_merged(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12164,12 +12165,12 @@ func (ec *executionContext) _Infobox_merged(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedInfobox)
+	res := resTmp.(*gqlmodel.MergedInfobox)
 	fc.Result = res
-	return ec.marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfobox(ctx, field.Selections, res)
+	return ec.marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfobox(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Infobox_scene(ctx context.Context, field graphql.CollectedField, obj *Infobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _Infobox_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Infobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12196,12 +12197,12 @@ func (ec *executionContext) _Infobox_scene(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_id(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12236,7 +12237,7 @@ func (ec *executionContext) _InfoboxField_id(ctx context.Context, field graphql.
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_sceneId(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12271,7 +12272,7 @@ func (ec *executionContext) _InfoboxField_sceneId(ctx context.Context, field gra
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_layerId(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_layerId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12306,7 +12307,7 @@ func (ec *executionContext) _InfoboxField_layerId(ctx context.Context, field gra
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_propertyId(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_propertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12341,7 +12342,7 @@ func (ec *executionContext) _InfoboxField_propertyId(ctx context.Context, field 
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_pluginId(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12376,7 +12377,7 @@ func (ec *executionContext) _InfoboxField_pluginId(ctx context.Context, field gr
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_extensionId(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_extensionId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12411,7 +12412,7 @@ func (ec *executionContext) _InfoboxField_extensionId(ctx context.Context, field
 	return ec.marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12443,7 +12444,7 @@ func (ec *executionContext) _InfoboxField_linkedDatasetId(ctx context.Context, f
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_layer(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12473,12 +12474,12 @@ func (ec *executionContext) _InfoboxField_layer(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_infobox(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_infobox(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12508,12 +12509,12 @@ func (ec *executionContext) _InfoboxField_infobox(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Infobox)
+	res := resTmp.(*gqlmodel.Infobox)
 	fc.Result = res
-	return ec.marshalNInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfobox(ctx, field.Selections, res)
+	return ec.marshalNInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfobox(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_property(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12540,12 +12541,12 @@ func (ec *executionContext) _InfoboxField_property(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_plugin(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12572,12 +12573,12 @@ func (ec *executionContext) _InfoboxField_plugin(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_extension(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_extension(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12604,12 +12605,12 @@ func (ec *executionContext) _InfoboxField_extension(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PluginExtension)
+	res := resTmp.(*gqlmodel.PluginExtension)
 	fc.Result = res
-	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx, field.Selections, res)
+	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12636,12 +12637,12 @@ func (ec *executionContext) _InfoboxField_linkedDataset(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_merged(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_merged(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12668,12 +12669,12 @@ func (ec *executionContext) _InfoboxField_merged(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedInfoboxField)
+	res := resTmp.(*gqlmodel.MergedInfoboxField)
 	fc.Result = res
-	return ec.marshalOMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfoboxField(ctx, field.Selections, res)
+	return ec.marshalOMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfoboxField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_scene(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12700,12 +12701,12 @@ func (ec *executionContext) _InfoboxField_scene(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InfoboxField_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *InfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _InfoboxField_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12732,12 +12733,12 @@ func (ec *executionContext) _InfoboxField_scenePlugin(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InstallPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *InstallPluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _InstallPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InstallPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12767,12 +12768,12 @@ func (ec *executionContext) _InstallPluginPayload_scene(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _InstallPluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *InstallPluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _InstallPluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.InstallPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12802,12 +12803,12 @@ func (ec *executionContext) _InstallPluginPayload_scenePlugin(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LatLng_lat(ctx context.Context, field graphql.CollectedField, obj *LatLng) (ret graphql.Marshaler) {
+func (ec *executionContext) _LatLng_lat(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LatLng) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12842,7 +12843,7 @@ func (ec *executionContext) _LatLng_lat(ctx context.Context, field graphql.Colle
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LatLng_lng(ctx context.Context, field graphql.CollectedField, obj *LatLng) (ret graphql.Marshaler) {
+func (ec *executionContext) _LatLng_lng(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LatLng) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12877,7 +12878,7 @@ func (ec *executionContext) _LatLng_lng(ctx context.Context, field graphql.Colle
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LatLngHeight_lat(ctx context.Context, field graphql.CollectedField, obj *LatLngHeight) (ret graphql.Marshaler) {
+func (ec *executionContext) _LatLngHeight_lat(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LatLngHeight) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12912,7 +12913,7 @@ func (ec *executionContext) _LatLngHeight_lat(ctx context.Context, field graphql
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LatLngHeight_lng(ctx context.Context, field graphql.CollectedField, obj *LatLngHeight) (ret graphql.Marshaler) {
+func (ec *executionContext) _LatLngHeight_lng(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LatLngHeight) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12947,7 +12948,7 @@ func (ec *executionContext) _LatLngHeight_lng(ctx context.Context, field graphql
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LatLngHeight_height(ctx context.Context, field graphql.CollectedField, obj *LatLngHeight) (ret graphql.Marshaler) {
+func (ec *executionContext) _LatLngHeight_height(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LatLngHeight) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -12982,7 +12983,7 @@ func (ec *executionContext) _LatLngHeight_height(ctx context.Context, field grap
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_id(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13017,7 +13018,7 @@ func (ec *executionContext) _LayerGroup_id(ctx context.Context, field graphql.Co
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_sceneId(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13052,7 +13053,7 @@ func (ec *executionContext) _LayerGroup_sceneId(ctx context.Context, field graph
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_name(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13087,7 +13088,7 @@ func (ec *executionContext) _LayerGroup_name(ctx context.Context, field graphql.
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_isVisible(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_isVisible(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13122,7 +13123,7 @@ func (ec *executionContext) _LayerGroup_isVisible(ctx context.Context, field gra
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_propertyId(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_propertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13154,7 +13155,7 @@ func (ec *executionContext) _LayerGroup_propertyId(ctx context.Context, field gr
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_pluginId(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13186,7 +13187,7 @@ func (ec *executionContext) _LayerGroup_pluginId(ctx context.Context, field grap
 	return ec.marshalOPluginID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_extensionId(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_extensionId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13218,7 +13219,7 @@ func (ec *executionContext) _LayerGroup_extensionId(ctx context.Context, field g
 	return ec.marshalOPluginExtensionID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_infobox(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_infobox(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13245,12 +13246,12 @@ func (ec *executionContext) _LayerGroup_infobox(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Infobox)
+	res := resTmp.(*gqlmodel.Infobox)
 	fc.Result = res
-	return ec.marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfobox(ctx, field.Selections, res)
+	return ec.marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfobox(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_parentId(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_parentId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13282,7 +13283,7 @@ func (ec *executionContext) _LayerGroup_parentId(ctx context.Context, field grap
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_linkedDatasetSchemaId(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_linkedDatasetSchemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13314,7 +13315,7 @@ func (ec *executionContext) _LayerGroup_linkedDatasetSchemaId(ctx context.Contex
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_root(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_root(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13349,7 +13350,7 @@ func (ec *executionContext) _LayerGroup_root(ctx context.Context, field graphql.
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_layerIds(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_layerIds(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13384,7 +13385,7 @@ func (ec *executionContext) _LayerGroup_layerIds(ctx context.Context, field grap
 	return ec.marshalNID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_parent(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13411,12 +13412,12 @@ func (ec *executionContext) _LayerGroup_parent(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_property(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13443,12 +13444,12 @@ func (ec *executionContext) _LayerGroup_property(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_plugin(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13475,12 +13476,12 @@ func (ec *executionContext) _LayerGroup_plugin(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_extension(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_extension(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13507,12 +13508,12 @@ func (ec *executionContext) _LayerGroup_extension(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PluginExtension)
+	res := resTmp.(*gqlmodel.PluginExtension)
 	fc.Result = res
-	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx, field.Selections, res)
+	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_linkedDatasetSchema(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_linkedDatasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13539,12 +13540,12 @@ func (ec *executionContext) _LayerGroup_linkedDatasetSchema(ctx context.Context,
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_layers(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_layers(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13574,12 +13575,12 @@ func (ec *executionContext) _LayerGroup_layers(ctx context.Context, field graphq
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]Layer)
+	res := resTmp.([]gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_scene(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13606,12 +13607,12 @@ func (ec *executionContext) _LayerGroup_scene(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerGroup_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *LayerGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerGroup_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13638,12 +13639,12 @@ func (ec *executionContext) _LayerGroup_scenePlugin(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_id(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13678,7 +13679,7 @@ func (ec *executionContext) _LayerItem_id(ctx context.Context, field graphql.Col
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_sceneId(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13713,7 +13714,7 @@ func (ec *executionContext) _LayerItem_sceneId(ctx context.Context, field graphq
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_name(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13748,7 +13749,7 @@ func (ec *executionContext) _LayerItem_name(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_isVisible(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_isVisible(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13783,7 +13784,7 @@ func (ec *executionContext) _LayerItem_isVisible(ctx context.Context, field grap
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_propertyId(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_propertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13815,7 +13816,7 @@ func (ec *executionContext) _LayerItem_propertyId(ctx context.Context, field gra
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_pluginId(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13847,7 +13848,7 @@ func (ec *executionContext) _LayerItem_pluginId(ctx context.Context, field graph
 	return ec.marshalOPluginID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_extensionId(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_extensionId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13879,7 +13880,7 @@ func (ec *executionContext) _LayerItem_extensionId(ctx context.Context, field gr
 	return ec.marshalOPluginExtensionID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_infobox(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_infobox(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13906,12 +13907,12 @@ func (ec *executionContext) _LayerItem_infobox(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Infobox)
+	res := resTmp.(*gqlmodel.Infobox)
 	fc.Result = res
-	return ec.marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfobox(ctx, field.Selections, res)
+	return ec.marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfobox(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_parentId(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_parentId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13943,7 +13944,7 @@ func (ec *executionContext) _LayerItem_parentId(ctx context.Context, field graph
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -13975,7 +13976,7 @@ func (ec *executionContext) _LayerItem_linkedDatasetId(ctx context.Context, fiel
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_parent(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14002,12 +14003,12 @@ func (ec *executionContext) _LayerItem_parent(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_property(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14034,12 +14035,12 @@ func (ec *executionContext) _LayerItem_property(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_plugin(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14066,12 +14067,12 @@ func (ec *executionContext) _LayerItem_plugin(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_extension(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_extension(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14098,12 +14099,12 @@ func (ec *executionContext) _LayerItem_extension(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PluginExtension)
+	res := resTmp.(*gqlmodel.PluginExtension)
 	fc.Result = res
-	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx, field.Selections, res)
+	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14130,12 +14131,12 @@ func (ec *executionContext) _LayerItem_linkedDataset(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_merged(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_merged(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14162,12 +14163,12 @@ func (ec *executionContext) _LayerItem_merged(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedLayer)
+	res := resTmp.(*gqlmodel.MergedLayer)
 	fc.Result = res
-	return ec.marshalOMergedLayer2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedLayer(ctx, field.Selections, res)
+	return ec.marshalOMergedLayer2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_scene(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14194,12 +14195,12 @@ func (ec *executionContext) _LayerItem_scene(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerItem_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14226,12 +14227,12 @@ func (ec *executionContext) _LayerItem_scenePlugin(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field graphql.CollectedField, obj *MergedInfobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14266,7 +14267,7 @@ func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field gr
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfobox_property(ctx context.Context, field graphql.CollectedField, obj *MergedInfobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfobox_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14293,12 +14294,12 @@ func (ec *executionContext) _MergedInfobox_property(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedProperty)
+	res := resTmp.(*gqlmodel.MergedProperty)
 	fc.Result = res
-	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedProperty(ctx, field.Selections, res)
+	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfobox_fields(ctx context.Context, field graphql.CollectedField, obj *MergedInfobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfobox_fields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14328,12 +14329,12 @@ func (ec *executionContext) _MergedInfobox_fields(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*MergedInfoboxField)
+	res := resTmp.([]*gqlmodel.MergedInfoboxField)
 	fc.Result = res
-	return ec.marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfoboxFieldᚄ(ctx, field.Selections, res)
+	return ec.marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfoboxFieldᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfobox_scene(ctx context.Context, field graphql.CollectedField, obj *MergedInfobox) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfobox_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfobox) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14360,12 +14361,12 @@ func (ec *executionContext) _MergedInfobox_scene(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_originalId(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_originalId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14400,7 +14401,7 @@ func (ec *executionContext) _MergedInfoboxField_originalId(ctx context.Context, 
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_sceneID(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_sceneID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14435,7 +14436,7 @@ func (ec *executionContext) _MergedInfoboxField_sceneID(ctx context.Context, fie
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_pluginId(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14470,7 +14471,7 @@ func (ec *executionContext) _MergedInfoboxField_pluginId(ctx context.Context, fi
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_extensionId(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_extensionId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14505,7 +14506,7 @@ func (ec *executionContext) _MergedInfoboxField_extensionId(ctx context.Context,
 	return ec.marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_property(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14532,12 +14533,12 @@ func (ec *executionContext) _MergedInfoboxField_property(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedProperty)
+	res := resTmp.(*gqlmodel.MergedProperty)
 	fc.Result = res
-	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedProperty(ctx, field.Selections, res)
+	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_plugin(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14564,12 +14565,12 @@ func (ec *executionContext) _MergedInfoboxField_plugin(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_extension(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_extension(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14596,12 +14597,12 @@ func (ec *executionContext) _MergedInfoboxField_extension(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PluginExtension)
+	res := resTmp.(*gqlmodel.PluginExtension)
 	fc.Result = res
-	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx, field.Selections, res)
+	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_scene(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14628,12 +14629,12 @@ func (ec *executionContext) _MergedInfoboxField_scene(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedInfoboxField_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *MergedInfoboxField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedInfoboxField_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfoboxField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14660,12 +14661,12 @@ func (ec *executionContext) _MergedInfoboxField_scenePlugin(ctx context.Context,
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_originalId(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_originalId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14700,7 +14701,7 @@ func (ec *executionContext) _MergedLayer_originalId(ctx context.Context, field g
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_parentId(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_parentId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14732,7 +14733,7 @@ func (ec *executionContext) _MergedLayer_parentId(ctx context.Context, field gra
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_sceneID(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_sceneID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14767,7 +14768,7 @@ func (ec *executionContext) _MergedLayer_sceneID(ctx context.Context, field grap
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_property(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14794,12 +14795,12 @@ func (ec *executionContext) _MergedLayer_property(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedProperty)
+	res := resTmp.(*gqlmodel.MergedProperty)
 	fc.Result = res
-	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedProperty(ctx, field.Selections, res)
+	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_infobox(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_infobox(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14826,12 +14827,12 @@ func (ec *executionContext) _MergedLayer_infobox(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedInfobox)
+	res := resTmp.(*gqlmodel.MergedInfobox)
 	fc.Result = res
-	return ec.marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfobox(ctx, field.Selections, res)
+	return ec.marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfobox(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_original(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_original(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14858,12 +14859,12 @@ func (ec *executionContext) _MergedLayer_original(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*LayerItem)
+	res := resTmp.(*gqlmodel.LayerItem)
 	fc.Result = res
-	return ec.marshalOLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerItem(ctx, field.Selections, res)
+	return ec.marshalOLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerItem(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_parent(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14890,12 +14891,12 @@ func (ec *executionContext) _MergedLayer_parent(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedLayer_scene(ctx context.Context, field graphql.CollectedField, obj *MergedLayer) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedLayer_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedLayer) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14922,12 +14923,12 @@ func (ec *executionContext) _MergedLayer_scene(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_originalId(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_originalId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14959,7 +14960,7 @@ func (ec *executionContext) _MergedProperty_originalId(ctx context.Context, fiel
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_parentId(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_parentId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -14991,7 +14992,7 @@ func (ec *executionContext) _MergedProperty_parentId(ctx context.Context, field 
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_schemaId(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15023,7 +15024,7 @@ func (ec *executionContext) _MergedProperty_schemaId(ctx context.Context, field 
 	return ec.marshalOPropertySchemaID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15055,7 +15056,7 @@ func (ec *executionContext) _MergedProperty_linkedDatasetId(ctx context.Context,
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_original(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_original(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15082,12 +15083,12 @@ func (ec *executionContext) _MergedProperty_original(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_parent(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15114,12 +15115,12 @@ func (ec *executionContext) _MergedProperty_parent(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_schema(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15146,12 +15147,12 @@ func (ec *executionContext) _MergedProperty_schema(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15178,12 +15179,12 @@ func (ec *executionContext) _MergedProperty_linkedDataset(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedProperty_groups(ctx context.Context, field graphql.CollectedField, obj *MergedProperty) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedProperty_groups(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedProperty) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15213,12 +15214,12 @@ func (ec *executionContext) _MergedProperty_groups(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*MergedPropertyGroup)
+	res := resTmp.([]*gqlmodel.MergedPropertyGroup)
 	fc.Result = res
-	return ec.marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyGroupᚄ(ctx, field.Selections, res)
+	return ec.marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyGroupᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_schemaId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15253,7 +15254,7 @@ func (ec *executionContext) _MergedPropertyField_schemaId(ctx context.Context, f
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_fieldId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_fieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15288,7 +15289,7 @@ func (ec *executionContext) _MergedPropertyField_fieldId(ctx context.Context, fi
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_value(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_value(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15320,7 +15321,7 @@ func (ec *executionContext) _MergedPropertyField_value(ctx context.Context, fiel
 	return ec.marshalOAny2interface(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_type(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_type(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15350,12 +15351,12 @@ func (ec *executionContext) _MergedPropertyField_type(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(ValueType)
+	res := resTmp.(gqlmodel.ValueType)
 	fc.Result = res
-	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, field.Selections, res)
+	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_links(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_links(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15382,12 +15383,12 @@ func (ec *executionContext) _MergedPropertyField_links(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertyFieldLink)
+	res := resTmp.([]*gqlmodel.PropertyFieldLink)
 	fc.Result = res
-	return ec.marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldLinkᚄ(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldLinkᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_overridden(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_overridden(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15422,7 +15423,7 @@ func (ec *executionContext) _MergedPropertyField_overridden(ctx context.Context,
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_schema(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15449,12 +15450,12 @@ func (ec *executionContext) _MergedPropertyField_schema(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_field(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_field(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15481,12 +15482,12 @@ func (ec *executionContext) _MergedPropertyField_field(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaField)
+	res := resTmp.(*gqlmodel.PropertySchemaField)
 	fc.Result = res
-	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyField_actualValue(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyField_actualValue(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15518,7 +15519,7 @@ func (ec *executionContext) _MergedPropertyField_actualValue(ctx context.Context
 	return ec.marshalOAny2interface(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_originalPropertyId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_originalPropertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15550,7 +15551,7 @@ func (ec *executionContext) _MergedPropertyGroup_originalPropertyId(ctx context.
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_parentPropertyId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_parentPropertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15582,7 +15583,7 @@ func (ec *executionContext) _MergedPropertyGroup_parentPropertyId(ctx context.Co
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_originalId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_originalId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15614,7 +15615,7 @@ func (ec *executionContext) _MergedPropertyGroup_originalId(ctx context.Context,
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_parentId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_parentId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15646,7 +15647,7 @@ func (ec *executionContext) _MergedPropertyGroup_parentId(ctx context.Context, f
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15681,7 +15682,7 @@ func (ec *executionContext) _MergedPropertyGroup_schemaGroupId(ctx context.Conte
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_schemaId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15713,7 +15714,7 @@ func (ec *executionContext) _MergedPropertyGroup_schemaId(ctx context.Context, f
 	return ec.marshalOPropertySchemaID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_linkedDatasetId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15745,7 +15746,7 @@ func (ec *executionContext) _MergedPropertyGroup_linkedDatasetId(ctx context.Con
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_fields(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_fields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15775,12 +15776,12 @@ func (ec *executionContext) _MergedPropertyGroup_fields(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*MergedPropertyField)
+	res := resTmp.([]*gqlmodel.MergedPropertyField)
 	fc.Result = res
-	return ec.marshalNMergedPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyFieldᚄ(ctx, field.Selections, res)
+	return ec.marshalNMergedPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyFieldᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_groups(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_groups(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15810,12 +15811,12 @@ func (ec *executionContext) _MergedPropertyGroup_groups(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*MergedPropertyGroup)
+	res := resTmp.([]*gqlmodel.MergedPropertyGroup)
 	fc.Result = res
-	return ec.marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyGroupᚄ(ctx, field.Selections, res)
+	return ec.marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyGroupᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_originalProperty(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_originalProperty(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15842,12 +15843,12 @@ func (ec *executionContext) _MergedPropertyGroup_originalProperty(ctx context.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_parentProperty(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_parentProperty(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15874,12 +15875,12 @@ func (ec *executionContext) _MergedPropertyGroup_parentProperty(ctx context.Cont
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_original(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_original(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15906,12 +15907,12 @@ func (ec *executionContext) _MergedPropertyGroup_original(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyGroup)
+	res := resTmp.(*gqlmodel.PropertyGroup)
 	fc.Result = res
-	return ec.marshalOPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyGroup(ctx, field.Selections, res)
+	return ec.marshalOPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_parent(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15938,12 +15939,12 @@ func (ec *executionContext) _MergedPropertyGroup_parent(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyGroup)
+	res := resTmp.(*gqlmodel.PropertyGroup)
 	fc.Result = res
-	return ec.marshalOPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyGroup(ctx, field.Selections, res)
+	return ec.marshalOPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_schema(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15970,12 +15971,12 @@ func (ec *executionContext) _MergedPropertyGroup_schema(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MergedPropertyGroup_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *MergedPropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _MergedPropertyGroup_linkedDataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedPropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16002,12 +16003,12 @@ func (ec *executionContext) _MergedPropertyGroup_linkedDataset(ctx context.Conte
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MoveInfoboxFieldPayload_infoboxFieldId(ctx context.Context, field graphql.CollectedField, obj *MoveInfoboxFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _MoveInfoboxFieldPayload_infoboxFieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MoveInfoboxFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16042,7 +16043,7 @@ func (ec *executionContext) _MoveInfoboxFieldPayload_infoboxFieldId(ctx context.
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MoveInfoboxFieldPayload_layer(ctx context.Context, field graphql.CollectedField, obj *MoveInfoboxFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _MoveInfoboxFieldPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MoveInfoboxFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16072,12 +16073,12 @@ func (ec *executionContext) _MoveInfoboxFieldPayload_layer(ctx context.Context, 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MoveInfoboxFieldPayload_index(ctx context.Context, field graphql.CollectedField, obj *MoveInfoboxFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _MoveInfoboxFieldPayload_index(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MoveInfoboxFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16112,7 +16113,7 @@ func (ec *executionContext) _MoveInfoboxFieldPayload_index(ctx context.Context, 
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MoveLayerPayload_layerId(ctx context.Context, field graphql.CollectedField, obj *MoveLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _MoveLayerPayload_layerId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MoveLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16147,7 +16148,7 @@ func (ec *executionContext) _MoveLayerPayload_layerId(ctx context.Context, field
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MoveLayerPayload_fromParentLayer(ctx context.Context, field graphql.CollectedField, obj *MoveLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _MoveLayerPayload_fromParentLayer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MoveLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16177,12 +16178,12 @@ func (ec *executionContext) _MoveLayerPayload_fromParentLayer(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MoveLayerPayload_toParentLayer(ctx context.Context, field graphql.CollectedField, obj *MoveLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _MoveLayerPayload_toParentLayer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MoveLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16212,12 +16213,12 @@ func (ec *executionContext) _MoveLayerPayload_toParentLayer(ctx context.Context,
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _MoveLayerPayload_index(ctx context.Context, field graphql.CollectedField, obj *MoveLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _MoveLayerPayload_index(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MoveLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -16277,7 +16278,7 @@ func (ec *executionContext) _Mutation_createAsset(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateAsset(rctx, args["input"].(CreateAssetInput))
+		return ec.resolvers.Mutation().CreateAsset(rctx, args["input"].(gqlmodel.CreateAssetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16286,9 +16287,9 @@ func (ec *executionContext) _Mutation_createAsset(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*CreateAssetPayload)
+	res := resTmp.(*gqlmodel.CreateAssetPayload)
 	fc.Result = res
-	return ec.marshalOCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateAssetPayload(ctx, field.Selections, res)
+	return ec.marshalOCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateAssetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeAsset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16316,7 +16317,7 @@ func (ec *executionContext) _Mutation_removeAsset(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveAsset(rctx, args["input"].(RemoveAssetInput))
+		return ec.resolvers.Mutation().RemoveAsset(rctx, args["input"].(gqlmodel.RemoveAssetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16325,9 +16326,9 @@ func (ec *executionContext) _Mutation_removeAsset(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*RemoveAssetPayload)
+	res := resTmp.(*gqlmodel.RemoveAssetPayload)
 	fc.Result = res
-	return ec.marshalORemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveAssetPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveAssetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_signup(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16355,7 +16356,7 @@ func (ec *executionContext) _Mutation_signup(ctx context.Context, field graphql.
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().Signup(rctx, args["input"].(SignupInput))
+		return ec.resolvers.Mutation().Signup(rctx, args["input"].(gqlmodel.SignupInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16364,9 +16365,9 @@ func (ec *executionContext) _Mutation_signup(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*SignupPayload)
+	res := resTmp.(*gqlmodel.SignupPayload)
 	fc.Result = res
-	return ec.marshalOSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSignupPayload(ctx, field.Selections, res)
+	return ec.marshalOSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSignupPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16394,7 +16395,7 @@ func (ec *executionContext) _Mutation_updateMe(ctx context.Context, field graphq
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateMe(rctx, args["input"].(UpdateMeInput))
+		return ec.resolvers.Mutation().UpdateMe(rctx, args["input"].(gqlmodel.UpdateMeInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16403,9 +16404,9 @@ func (ec *executionContext) _Mutation_updateMe(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpdateMePayload)
+	res := resTmp.(*gqlmodel.UpdateMePayload)
 	fc.Result = res
-	return ec.marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMePayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeMyAuth(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16433,7 +16434,7 @@ func (ec *executionContext) _Mutation_removeMyAuth(ctx context.Context, field gr
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveMyAuth(rctx, args["input"].(RemoveMyAuthInput))
+		return ec.resolvers.Mutation().RemoveMyAuth(rctx, args["input"].(gqlmodel.RemoveMyAuthInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16442,9 +16443,9 @@ func (ec *executionContext) _Mutation_removeMyAuth(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpdateMePayload)
+	res := resTmp.(*gqlmodel.UpdateMePayload)
 	fc.Result = res
-	return ec.marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMePayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16472,7 +16473,7 @@ func (ec *executionContext) _Mutation_deleteMe(ctx context.Context, field graphq
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteMe(rctx, args["input"].(DeleteMeInput))
+		return ec.resolvers.Mutation().DeleteMe(rctx, args["input"].(gqlmodel.DeleteMeInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16481,9 +16482,9 @@ func (ec *executionContext) _Mutation_deleteMe(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DeleteMePayload)
+	res := resTmp.(*gqlmodel.DeleteMePayload)
 	fc.Result = res
-	return ec.marshalODeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteMePayload(ctx, field.Selections, res)
+	return ec.marshalODeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteMePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16511,7 +16512,7 @@ func (ec *executionContext) _Mutation_createTeam(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateTeam(rctx, args["input"].(CreateTeamInput))
+		return ec.resolvers.Mutation().CreateTeam(rctx, args["input"].(gqlmodel.CreateTeamInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16520,9 +16521,9 @@ func (ec *executionContext) _Mutation_createTeam(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*CreateTeamPayload)
+	res := resTmp.(*gqlmodel.CreateTeamPayload)
 	fc.Result = res
-	return ec.marshalOCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16550,7 +16551,7 @@ func (ec *executionContext) _Mutation_deleteTeam(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteTeam(rctx, args["input"].(DeleteTeamInput))
+		return ec.resolvers.Mutation().DeleteTeam(rctx, args["input"].(gqlmodel.DeleteTeamInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16559,9 +16560,9 @@ func (ec *executionContext) _Mutation_deleteTeam(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DeleteTeamPayload)
+	res := resTmp.(*gqlmodel.DeleteTeamPayload)
 	fc.Result = res
-	return ec.marshalODeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteTeamPayload(ctx, field.Selections, res)
+	return ec.marshalODeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16589,7 +16590,7 @@ func (ec *executionContext) _Mutation_updateTeam(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateTeam(rctx, args["input"].(UpdateTeamInput))
+		return ec.resolvers.Mutation().UpdateTeam(rctx, args["input"].(gqlmodel.UpdateTeamInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16598,9 +16599,9 @@ func (ec *executionContext) _Mutation_updateTeam(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpdateTeamPayload)
+	res := resTmp.(*gqlmodel.UpdateTeamPayload)
 	fc.Result = res
-	return ec.marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addMemberToTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16628,7 +16629,7 @@ func (ec *executionContext) _Mutation_addMemberToTeam(ctx context.Context, field
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddMemberToTeam(rctx, args["input"].(AddMemberToTeamInput))
+		return ec.resolvers.Mutation().AddMemberToTeam(rctx, args["input"].(gqlmodel.AddMemberToTeamInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16637,9 +16638,9 @@ func (ec *executionContext) _Mutation_addMemberToTeam(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddMemberToTeamPayload)
+	res := resTmp.(*gqlmodel.AddMemberToTeamPayload)
 	fc.Result = res
-	return ec.marshalOAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddMemberToTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddMemberToTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeMemberFromTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16667,7 +16668,7 @@ func (ec *executionContext) _Mutation_removeMemberFromTeam(ctx context.Context, 
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveMemberFromTeam(rctx, args["input"].(RemoveMemberFromTeamInput))
+		return ec.resolvers.Mutation().RemoveMemberFromTeam(rctx, args["input"].(gqlmodel.RemoveMemberFromTeamInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16676,9 +16677,9 @@ func (ec *executionContext) _Mutation_removeMemberFromTeam(ctx context.Context, 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*RemoveMemberFromTeamPayload)
+	res := resTmp.(*gqlmodel.RemoveMemberFromTeamPayload)
 	fc.Result = res
-	return ec.marshalORemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveMemberFromTeamPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveMemberFromTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateMemberOfTeam(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16706,7 +16707,7 @@ func (ec *executionContext) _Mutation_updateMemberOfTeam(ctx context.Context, fi
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateMemberOfTeam(rctx, args["input"].(UpdateMemberOfTeamInput))
+		return ec.resolvers.Mutation().UpdateMemberOfTeam(rctx, args["input"].(gqlmodel.UpdateMemberOfTeamInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16715,9 +16716,9 @@ func (ec *executionContext) _Mutation_updateMemberOfTeam(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpdateMemberOfTeamPayload)
+	res := resTmp.(*gqlmodel.UpdateMemberOfTeamPayload)
 	fc.Result = res
-	return ec.marshalOUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMemberOfTeamPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMemberOfTeamPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16745,7 +16746,7 @@ func (ec *executionContext) _Mutation_createProject(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateProject(rctx, args["input"].(CreateProjectInput))
+		return ec.resolvers.Mutation().CreateProject(rctx, args["input"].(gqlmodel.CreateProjectInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16754,9 +16755,9 @@ func (ec *executionContext) _Mutation_createProject(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ProjectPayload)
+	res := resTmp.(*gqlmodel.ProjectPayload)
 	fc.Result = res
-	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectPayload(ctx, field.Selections, res)
+	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16784,7 +16785,7 @@ func (ec *executionContext) _Mutation_updateProject(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateProject(rctx, args["input"].(UpdateProjectInput))
+		return ec.resolvers.Mutation().UpdateProject(rctx, args["input"].(gqlmodel.UpdateProjectInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16793,9 +16794,9 @@ func (ec *executionContext) _Mutation_updateProject(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ProjectPayload)
+	res := resTmp.(*gqlmodel.ProjectPayload)
 	fc.Result = res
-	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectPayload(ctx, field.Selections, res)
+	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_publishProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16823,7 +16824,7 @@ func (ec *executionContext) _Mutation_publishProject(ctx context.Context, field 
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().PublishProject(rctx, args["input"].(PublishProjectInput))
+		return ec.resolvers.Mutation().PublishProject(rctx, args["input"].(gqlmodel.PublishProjectInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16832,9 +16833,9 @@ func (ec *executionContext) _Mutation_publishProject(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ProjectPayload)
+	res := resTmp.(*gqlmodel.ProjectPayload)
 	fc.Result = res
-	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectPayload(ctx, field.Selections, res)
+	return ec.marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteProject(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16862,7 +16863,7 @@ func (ec *executionContext) _Mutation_deleteProject(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteProject(rctx, args["input"].(DeleteProjectInput))
+		return ec.resolvers.Mutation().DeleteProject(rctx, args["input"].(gqlmodel.DeleteProjectInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16871,9 +16872,9 @@ func (ec *executionContext) _Mutation_deleteProject(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DeleteProjectPayload)
+	res := resTmp.(*gqlmodel.DeleteProjectPayload)
 	fc.Result = res
-	return ec.marshalODeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteProjectPayload(ctx, field.Selections, res)
+	return ec.marshalODeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteProjectPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_uploadPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16901,7 +16902,7 @@ func (ec *executionContext) _Mutation_uploadPlugin(ctx context.Context, field gr
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UploadPlugin(rctx, args["input"].(UploadPluginInput))
+		return ec.resolvers.Mutation().UploadPlugin(rctx, args["input"].(gqlmodel.UploadPluginInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16910,9 +16911,9 @@ func (ec *executionContext) _Mutation_uploadPlugin(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UploadPluginPayload)
+	res := resTmp.(*gqlmodel.UploadPluginPayload)
 	fc.Result = res
-	return ec.marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUploadPluginPayload(ctx, field.Selections, res)
+	return ec.marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadPluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createScene(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16940,7 +16941,7 @@ func (ec *executionContext) _Mutation_createScene(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateScene(rctx, args["input"].(CreateSceneInput))
+		return ec.resolvers.Mutation().CreateScene(rctx, args["input"].(gqlmodel.CreateSceneInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16949,9 +16950,9 @@ func (ec *executionContext) _Mutation_createScene(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*CreateScenePayload)
+	res := resTmp.(*gqlmodel.CreateScenePayload)
 	fc.Result = res
-	return ec.marshalOCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateScenePayload(ctx, field.Selections, res)
+	return ec.marshalOCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateScenePayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addWidget(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -16979,7 +16980,7 @@ func (ec *executionContext) _Mutation_addWidget(ctx context.Context, field graph
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddWidget(rctx, args["input"].(AddWidgetInput))
+		return ec.resolvers.Mutation().AddWidget(rctx, args["input"].(gqlmodel.AddWidgetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -16988,9 +16989,9 @@ func (ec *executionContext) _Mutation_addWidget(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddWidgetPayload)
+	res := resTmp.(*gqlmodel.AddWidgetPayload)
 	fc.Result = res
-	return ec.marshalOAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddWidgetPayload(ctx, field.Selections, res)
+	return ec.marshalOAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddWidgetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateWidget(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17018,7 +17019,7 @@ func (ec *executionContext) _Mutation_updateWidget(ctx context.Context, field gr
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateWidget(rctx, args["input"].(UpdateWidgetInput))
+		return ec.resolvers.Mutation().UpdateWidget(rctx, args["input"].(gqlmodel.UpdateWidgetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17027,9 +17028,9 @@ func (ec *executionContext) _Mutation_updateWidget(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpdateWidgetPayload)
+	res := resTmp.(*gqlmodel.UpdateWidgetPayload)
 	fc.Result = res
-	return ec.marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateWidgetPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeWidget(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17057,7 +17058,7 @@ func (ec *executionContext) _Mutation_removeWidget(ctx context.Context, field gr
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveWidget(rctx, args["input"].(RemoveWidgetInput))
+		return ec.resolvers.Mutation().RemoveWidget(rctx, args["input"].(gqlmodel.RemoveWidgetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17066,9 +17067,9 @@ func (ec *executionContext) _Mutation_removeWidget(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*RemoveWidgetPayload)
+	res := resTmp.(*gqlmodel.RemoveWidgetPayload)
 	fc.Result = res
-	return ec.marshalORemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveWidgetPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveWidgetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_installPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17096,7 +17097,7 @@ func (ec *executionContext) _Mutation_installPlugin(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().InstallPlugin(rctx, args["input"].(InstallPluginInput))
+		return ec.resolvers.Mutation().InstallPlugin(rctx, args["input"].(gqlmodel.InstallPluginInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17105,9 +17106,9 @@ func (ec *executionContext) _Mutation_installPlugin(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*InstallPluginPayload)
+	res := resTmp.(*gqlmodel.InstallPluginPayload)
 	fc.Result = res
-	return ec.marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInstallPluginPayload(ctx, field.Selections, res)
+	return ec.marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInstallPluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_uninstallPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17135,7 +17136,7 @@ func (ec *executionContext) _Mutation_uninstallPlugin(ctx context.Context, field
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UninstallPlugin(rctx, args["input"].(UninstallPluginInput))
+		return ec.resolvers.Mutation().UninstallPlugin(rctx, args["input"].(gqlmodel.UninstallPluginInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17144,9 +17145,9 @@ func (ec *executionContext) _Mutation_uninstallPlugin(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UninstallPluginPayload)
+	res := resTmp.(*gqlmodel.UninstallPluginPayload)
 	fc.Result = res
-	return ec.marshalOUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUninstallPluginPayload(ctx, field.Selections, res)
+	return ec.marshalOUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUninstallPluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_upgradePlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17174,7 +17175,7 @@ func (ec *executionContext) _Mutation_upgradePlugin(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpgradePlugin(rctx, args["input"].(UpgradePluginInput))
+		return ec.resolvers.Mutation().UpgradePlugin(rctx, args["input"].(gqlmodel.UpgradePluginInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17183,9 +17184,9 @@ func (ec *executionContext) _Mutation_upgradePlugin(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpgradePluginPayload)
+	res := resTmp.(*gqlmodel.UpgradePluginPayload)
 	fc.Result = res
-	return ec.marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpgradePluginPayload(ctx, field.Selections, res)
+	return ec.marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpgradePluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17213,7 +17214,7 @@ func (ec *executionContext) _Mutation_updateDatasetSchema(ctx context.Context, f
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateDatasetSchema(rctx, args["input"].(UpdateDatasetSchemaInput))
+		return ec.resolvers.Mutation().UpdateDatasetSchema(rctx, args["input"].(gqlmodel.UpdateDatasetSchemaInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17222,9 +17223,9 @@ func (ec *executionContext) _Mutation_updateDatasetSchema(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpdateDatasetSchemaPayload)
+	res := resTmp.(*gqlmodel.UpdateDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalOUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_syncDataset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17252,7 +17253,7 @@ func (ec *executionContext) _Mutation_syncDataset(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().SyncDataset(rctx, args["input"].(SyncDatasetInput))
+		return ec.resolvers.Mutation().SyncDataset(rctx, args["input"].(gqlmodel.SyncDatasetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17261,9 +17262,9 @@ func (ec *executionContext) _Mutation_syncDataset(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*SyncDatasetPayload)
+	res := resTmp.(*gqlmodel.SyncDatasetPayload)
 	fc.Result = res
-	return ec.marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSyncDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSyncDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addDynamicDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17291,7 +17292,7 @@ func (ec *executionContext) _Mutation_addDynamicDatasetSchema(ctx context.Contex
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddDynamicDatasetSchema(rctx, args["input"].(AddDynamicDatasetSchemaInput))
+		return ec.resolvers.Mutation().AddDynamicDatasetSchema(rctx, args["input"].(gqlmodel.AddDynamicDatasetSchemaInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17300,9 +17301,9 @@ func (ec *executionContext) _Mutation_addDynamicDatasetSchema(ctx context.Contex
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddDynamicDatasetSchemaPayload)
+	res := resTmp.(*gqlmodel.AddDynamicDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalOAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalOAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addDynamicDataset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17330,7 +17331,7 @@ func (ec *executionContext) _Mutation_addDynamicDataset(ctx context.Context, fie
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddDynamicDataset(rctx, args["input"].(AddDynamicDatasetInput))
+		return ec.resolvers.Mutation().AddDynamicDataset(rctx, args["input"].(gqlmodel.AddDynamicDatasetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17339,9 +17340,9 @@ func (ec *executionContext) _Mutation_addDynamicDataset(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddDynamicDatasetPayload)
+	res := resTmp.(*gqlmodel.AddDynamicDatasetPayload)
 	fc.Result = res
-	return ec.marshalOAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17369,7 +17370,7 @@ func (ec *executionContext) _Mutation_removeDatasetSchema(ctx context.Context, f
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveDatasetSchema(rctx, args["input"].(RemoveDatasetSchemaInput))
+		return ec.resolvers.Mutation().RemoveDatasetSchema(rctx, args["input"].(gqlmodel.RemoveDatasetSchemaInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17378,9 +17379,9 @@ func (ec *executionContext) _Mutation_removeDatasetSchema(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*RemoveDatasetSchemaPayload)
+	res := resTmp.(*gqlmodel.RemoveDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalORemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_importDataset(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17408,7 +17409,7 @@ func (ec *executionContext) _Mutation_importDataset(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ImportDataset(rctx, args["input"].(ImportDatasetInput))
+		return ec.resolvers.Mutation().ImportDataset(rctx, args["input"].(gqlmodel.ImportDatasetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17417,9 +17418,9 @@ func (ec *executionContext) _Mutation_importDataset(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ImportDatasetPayload)
+	res := resTmp.(*gqlmodel.ImportDatasetPayload)
 	fc.Result = res
-	return ec.marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_importDatasetFromGoogleSheet(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17447,7 +17448,7 @@ func (ec *executionContext) _Mutation_importDatasetFromGoogleSheet(ctx context.C
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ImportDatasetFromGoogleSheet(rctx, args["input"].(ImportDatasetFromGoogleSheetInput))
+		return ec.resolvers.Mutation().ImportDatasetFromGoogleSheet(rctx, args["input"].(gqlmodel.ImportDatasetFromGoogleSheetInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17456,9 +17457,9 @@ func (ec *executionContext) _Mutation_importDatasetFromGoogleSheet(ctx context.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ImportDatasetPayload)
+	res := resTmp.(*gqlmodel.ImportDatasetPayload)
 	fc.Result = res
-	return ec.marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportDatasetPayload(ctx, field.Selections, res)
+	return ec.marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportDatasetPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addDatasetSchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17486,7 +17487,7 @@ func (ec *executionContext) _Mutation_addDatasetSchema(ctx context.Context, fiel
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddDatasetSchema(rctx, args["input"].(AddDatasetSchemaInput))
+		return ec.resolvers.Mutation().AddDatasetSchema(rctx, args["input"].(gqlmodel.AddDatasetSchemaInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17495,9 +17496,9 @@ func (ec *executionContext) _Mutation_addDatasetSchema(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddDatasetSchemaPayload)
+	res := resTmp.(*gqlmodel.AddDatasetSchemaPayload)
 	fc.Result = res
-	return ec.marshalOAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDatasetSchemaPayload(ctx, field.Selections, res)
+	return ec.marshalOAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDatasetSchemaPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17525,7 +17526,7 @@ func (ec *executionContext) _Mutation_updatePropertyValue(ctx context.Context, f
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValue(rctx, args["input"].(UpdatePropertyValueInput))
+		return ec.resolvers.Mutation().UpdatePropertyValue(rctx, args["input"].(gqlmodel.UpdatePropertyValueInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17534,9 +17535,9 @@ func (ec *executionContext) _Mutation_updatePropertyValue(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueLatLng(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17564,7 +17565,7 @@ func (ec *executionContext) _Mutation_updatePropertyValueLatLng(ctx context.Cont
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueLatLng(rctx, args["input"].(UpdatePropertyValueLatLngInput))
+		return ec.resolvers.Mutation().UpdatePropertyValueLatLng(rctx, args["input"].(gqlmodel.UpdatePropertyValueLatLngInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17573,9 +17574,9 @@ func (ec *executionContext) _Mutation_updatePropertyValueLatLng(ctx context.Cont
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueLatLngHeight(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17603,7 +17604,7 @@ func (ec *executionContext) _Mutation_updatePropertyValueLatLngHeight(ctx contex
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueLatLngHeight(rctx, args["input"].(UpdatePropertyValueLatLngHeightInput))
+		return ec.resolvers.Mutation().UpdatePropertyValueLatLngHeight(rctx, args["input"].(gqlmodel.UpdatePropertyValueLatLngHeightInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17612,9 +17613,9 @@ func (ec *executionContext) _Mutation_updatePropertyValueLatLngHeight(ctx contex
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueCamera(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17642,7 +17643,7 @@ func (ec *executionContext) _Mutation_updatePropertyValueCamera(ctx context.Cont
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueCamera(rctx, args["input"].(UpdatePropertyValueCameraInput))
+		return ec.resolvers.Mutation().UpdatePropertyValueCamera(rctx, args["input"].(gqlmodel.UpdatePropertyValueCameraInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17651,9 +17652,9 @@ func (ec *executionContext) _Mutation_updatePropertyValueCamera(ctx context.Cont
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyValueTypography(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17681,7 +17682,7 @@ func (ec *executionContext) _Mutation_updatePropertyValueTypography(ctx context.
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueTypography(rctx, args["input"].(UpdatePropertyValueTypographyInput))
+		return ec.resolvers.Mutation().UpdatePropertyValueTypography(rctx, args["input"].(gqlmodel.UpdatePropertyValueTypographyInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17690,9 +17691,9 @@ func (ec *executionContext) _Mutation_updatePropertyValueTypography(ctx context.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removePropertyField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17720,7 +17721,7 @@ func (ec *executionContext) _Mutation_removePropertyField(ctx context.Context, f
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemovePropertyField(rctx, args["input"].(RemovePropertyFieldInput))
+		return ec.resolvers.Mutation().RemovePropertyField(rctx, args["input"].(gqlmodel.RemovePropertyFieldInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17729,9 +17730,9 @@ func (ec *executionContext) _Mutation_removePropertyField(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_uploadFileToProperty(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17759,7 +17760,7 @@ func (ec *executionContext) _Mutation_uploadFileToProperty(ctx context.Context, 
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UploadFileToProperty(rctx, args["input"].(UploadFileToPropertyInput))
+		return ec.resolvers.Mutation().UploadFileToProperty(rctx, args["input"].(gqlmodel.UploadFileToPropertyInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17768,9 +17769,9 @@ func (ec *executionContext) _Mutation_uploadFileToProperty(ctx context.Context, 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_linkDatasetToPropertyValue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17798,7 +17799,7 @@ func (ec *executionContext) _Mutation_linkDatasetToPropertyValue(ctx context.Con
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().LinkDatasetToPropertyValue(rctx, args["input"].(LinkDatasetToPropertyValueInput))
+		return ec.resolvers.Mutation().LinkDatasetToPropertyValue(rctx, args["input"].(gqlmodel.LinkDatasetToPropertyValueInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17807,9 +17808,9 @@ func (ec *executionContext) _Mutation_linkDatasetToPropertyValue(ctx context.Con
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_unlinkPropertyValue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17837,7 +17838,7 @@ func (ec *executionContext) _Mutation_unlinkPropertyValue(ctx context.Context, f
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UnlinkPropertyValue(rctx, args["input"].(UnlinkPropertyValueInput))
+		return ec.resolvers.Mutation().UnlinkPropertyValue(rctx, args["input"].(gqlmodel.UnlinkPropertyValueInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17846,9 +17847,9 @@ func (ec *executionContext) _Mutation_unlinkPropertyValue(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyFieldPayload)
+	res := resTmp.(*gqlmodel.PropertyFieldPayload)
 	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addPropertyItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17876,7 +17877,7 @@ func (ec *executionContext) _Mutation_addPropertyItem(ctx context.Context, field
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddPropertyItem(rctx, args["input"].(AddPropertyItemInput))
+		return ec.resolvers.Mutation().AddPropertyItem(rctx, args["input"].(gqlmodel.AddPropertyItemInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17885,9 +17886,9 @@ func (ec *executionContext) _Mutation_addPropertyItem(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyItemPayload)
+	res := resTmp.(*gqlmodel.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_movePropertyItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17915,7 +17916,7 @@ func (ec *executionContext) _Mutation_movePropertyItem(ctx context.Context, fiel
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().MovePropertyItem(rctx, args["input"].(MovePropertyItemInput))
+		return ec.resolvers.Mutation().MovePropertyItem(rctx, args["input"].(gqlmodel.MovePropertyItemInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17924,9 +17925,9 @@ func (ec *executionContext) _Mutation_movePropertyItem(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyItemPayload)
+	res := resTmp.(*gqlmodel.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removePropertyItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17954,7 +17955,7 @@ func (ec *executionContext) _Mutation_removePropertyItem(ctx context.Context, fi
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemovePropertyItem(rctx, args["input"].(RemovePropertyItemInput))
+		return ec.resolvers.Mutation().RemovePropertyItem(rctx, args["input"].(gqlmodel.RemovePropertyItemInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -17963,9 +17964,9 @@ func (ec *executionContext) _Mutation_removePropertyItem(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyItemPayload)
+	res := resTmp.(*gqlmodel.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updatePropertyItems(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17993,7 +17994,7 @@ func (ec *executionContext) _Mutation_updatePropertyItems(ctx context.Context, f
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyItems(rctx, args["input"].(UpdatePropertyItemInput))
+		return ec.resolvers.Mutation().UpdatePropertyItems(rctx, args["input"].(gqlmodel.UpdatePropertyItemInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18002,9 +18003,9 @@ func (ec *executionContext) _Mutation_updatePropertyItems(ctx context.Context, f
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyItemPayload)
+	res := resTmp.(*gqlmodel.PropertyItemPayload)
 	fc.Result = res
-	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItemPayload(ctx, field.Selections, res)
+	return ec.marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addLayerItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18032,7 +18033,7 @@ func (ec *executionContext) _Mutation_addLayerItem(ctx context.Context, field gr
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddLayerItem(rctx, args["input"].(AddLayerItemInput))
+		return ec.resolvers.Mutation().AddLayerItem(rctx, args["input"].(gqlmodel.AddLayerItemInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18041,9 +18042,9 @@ func (ec *executionContext) _Mutation_addLayerItem(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddLayerItemPayload)
+	res := resTmp.(*gqlmodel.AddLayerItemPayload)
 	fc.Result = res
-	return ec.marshalOAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerItemPayload(ctx, field.Selections, res)
+	return ec.marshalOAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerItemPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addLayerGroup(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18071,7 +18072,7 @@ func (ec *executionContext) _Mutation_addLayerGroup(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddLayerGroup(rctx, args["input"].(AddLayerGroupInput))
+		return ec.resolvers.Mutation().AddLayerGroup(rctx, args["input"].(gqlmodel.AddLayerGroupInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18080,9 +18081,9 @@ func (ec *executionContext) _Mutation_addLayerGroup(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddLayerGroupPayload)
+	res := resTmp.(*gqlmodel.AddLayerGroupPayload)
 	fc.Result = res
-	return ec.marshalOAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerGroupPayload(ctx, field.Selections, res)
+	return ec.marshalOAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerGroupPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18110,7 +18111,7 @@ func (ec *executionContext) _Mutation_removeLayer(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveLayer(rctx, args["input"].(RemoveLayerInput))
+		return ec.resolvers.Mutation().RemoveLayer(rctx, args["input"].(gqlmodel.RemoveLayerInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18119,9 +18120,9 @@ func (ec *executionContext) _Mutation_removeLayer(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*RemoveLayerPayload)
+	res := resTmp.(*gqlmodel.RemoveLayerPayload)
 	fc.Result = res
-	return ec.marshalORemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveLayerPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18149,7 +18150,7 @@ func (ec *executionContext) _Mutation_updateLayer(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateLayer(rctx, args["input"].(UpdateLayerInput))
+		return ec.resolvers.Mutation().UpdateLayer(rctx, args["input"].(gqlmodel.UpdateLayerInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18158,9 +18159,9 @@ func (ec *executionContext) _Mutation_updateLayer(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*UpdateLayerPayload)
+	res := resTmp.(*gqlmodel.UpdateLayerPayload)
 	fc.Result = res
-	return ec.marshalOUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateLayerPayload(ctx, field.Selections, res)
+	return ec.marshalOUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_moveLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18188,7 +18189,7 @@ func (ec *executionContext) _Mutation_moveLayer(ctx context.Context, field graph
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().MoveLayer(rctx, args["input"].(MoveLayerInput))
+		return ec.resolvers.Mutation().MoveLayer(rctx, args["input"].(gqlmodel.MoveLayerInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18197,9 +18198,9 @@ func (ec *executionContext) _Mutation_moveLayer(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MoveLayerPayload)
+	res := resTmp.(*gqlmodel.MoveLayerPayload)
 	fc.Result = res
-	return ec.marshalOMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveLayerPayload(ctx, field.Selections, res)
+	return ec.marshalOMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createInfobox(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18227,7 +18228,7 @@ func (ec *executionContext) _Mutation_createInfobox(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateInfobox(rctx, args["input"].(CreateInfoboxInput))
+		return ec.resolvers.Mutation().CreateInfobox(rctx, args["input"].(gqlmodel.CreateInfoboxInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18236,9 +18237,9 @@ func (ec *executionContext) _Mutation_createInfobox(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*CreateInfoboxPayload)
+	res := resTmp.(*gqlmodel.CreateInfoboxPayload)
 	fc.Result = res
-	return ec.marshalOCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateInfoboxPayload(ctx, field.Selections, res)
+	return ec.marshalOCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateInfoboxPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeInfobox(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18266,7 +18267,7 @@ func (ec *executionContext) _Mutation_removeInfobox(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveInfobox(rctx, args["input"].(RemoveInfoboxInput))
+		return ec.resolvers.Mutation().RemoveInfobox(rctx, args["input"].(gqlmodel.RemoveInfoboxInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18275,9 +18276,9 @@ func (ec *executionContext) _Mutation_removeInfobox(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*RemoveInfoboxPayload)
+	res := resTmp.(*gqlmodel.RemoveInfoboxPayload)
 	fc.Result = res
-	return ec.marshalORemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_addInfoboxField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18305,7 +18306,7 @@ func (ec *executionContext) _Mutation_addInfoboxField(ctx context.Context, field
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().AddInfoboxField(rctx, args["input"].(AddInfoboxFieldInput))
+		return ec.resolvers.Mutation().AddInfoboxField(rctx, args["input"].(gqlmodel.AddInfoboxFieldInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18314,9 +18315,9 @@ func (ec *executionContext) _Mutation_addInfoboxField(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*AddInfoboxFieldPayload)
+	res := resTmp.(*gqlmodel.AddInfoboxFieldPayload)
 	fc.Result = res
-	return ec.marshalOAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddInfoboxFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddInfoboxFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_moveInfoboxField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18344,7 +18345,7 @@ func (ec *executionContext) _Mutation_moveInfoboxField(ctx context.Context, fiel
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().MoveInfoboxField(rctx, args["input"].(MoveInfoboxFieldInput))
+		return ec.resolvers.Mutation().MoveInfoboxField(rctx, args["input"].(gqlmodel.MoveInfoboxFieldInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18353,9 +18354,9 @@ func (ec *executionContext) _Mutation_moveInfoboxField(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MoveInfoboxFieldPayload)
+	res := resTmp.(*gqlmodel.MoveInfoboxFieldPayload)
 	fc.Result = res
-	return ec.marshalOMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveInfoboxFieldPayload(ctx, field.Selections, res)
+	return ec.marshalOMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveInfoboxFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_removeInfoboxField(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18383,7 +18384,7 @@ func (ec *executionContext) _Mutation_removeInfoboxField(ctx context.Context, fi
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().RemoveInfoboxField(rctx, args["input"].(RemoveInfoboxFieldInput))
+		return ec.resolvers.Mutation().RemoveInfoboxField(rctx, args["input"].(gqlmodel.RemoveInfoboxFieldInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18392,9 +18393,9 @@ func (ec *executionContext) _Mutation_removeInfoboxField(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*RemoveInfoboxFieldPayload)
+	res := resTmp.(*gqlmodel.RemoveInfoboxFieldPayload)
 	fc.Result = res
-	return ec.marshalORemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxFieldPayload(ctx, field.Selections, res)
+	return ec.marshalORemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxFieldPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_importLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -18422,7 +18423,7 @@ func (ec *executionContext) _Mutation_importLayer(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().ImportLayer(rctx, args["input"].(ImportLayerInput))
+		return ec.resolvers.Mutation().ImportLayer(rctx, args["input"].(gqlmodel.ImportLayerInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -18431,12 +18432,12 @@ func (ec *executionContext) _Mutation_importLayer(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ImportLayerPayload)
+	res := resTmp.(*gqlmodel.ImportLayerPayload)
 	fc.Result = res
-	return ec.marshalOImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportLayerPayload(ctx, field.Selections, res)
+	return ec.marshalOImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportLayerPayload(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18468,7 +18469,7 @@ func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field gra
 	return ec.marshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18500,7 +18501,7 @@ func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graph
 	return ec.marshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18535,7 +18536,7 @@ func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field gra
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *PageInfo) (ret graphql.Marshaler) {
+func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18570,7 +18571,7 @@ func (ec *executionContext) _PageInfo_hasPreviousPage(ctx context.Context, field
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_id(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18605,7 +18606,7 @@ func (ec *executionContext) _Plugin_id(ctx context.Context, field graphql.Collec
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_sceneId(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18637,7 +18638,7 @@ func (ec *executionContext) _Plugin_sceneId(ctx context.Context, field graphql.C
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_name(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18672,7 +18673,7 @@ func (ec *executionContext) _Plugin_name(ctx context.Context, field graphql.Coll
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_version(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_version(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18707,7 +18708,7 @@ func (ec *executionContext) _Plugin_version(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_description(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_description(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18742,7 +18743,7 @@ func (ec *executionContext) _Plugin_description(ctx context.Context, field graph
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_author(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_author(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18777,7 +18778,7 @@ func (ec *executionContext) _Plugin_author(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_repositoryUrl(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_repositoryUrl(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18812,7 +18813,7 @@ func (ec *executionContext) _Plugin_repositoryUrl(ctx context.Context, field gra
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_propertySchemaId(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_propertySchemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18844,7 +18845,7 @@ func (ec *executionContext) _Plugin_propertySchemaId(ctx context.Context, field 
 	return ec.marshalOPropertySchemaID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_extensions(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_extensions(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18874,12 +18875,12 @@ func (ec *executionContext) _Plugin_extensions(ctx context.Context, field graphq
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*PluginExtension)
+	res := resTmp.([]*gqlmodel.PluginExtension)
 	fc.Result = res
-	return ec.marshalNPluginExtension2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtensionᚄ(ctx, field.Selections, res)
+	return ec.marshalNPluginExtension2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtensionᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_scene(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18906,12 +18907,12 @@ func (ec *executionContext) _Plugin_scene(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18945,12 +18946,12 @@ func (ec *executionContext) _Plugin_scenePlugin(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_allTranslatedDescription(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_allTranslatedDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -18982,7 +18983,7 @@ func (ec *executionContext) _Plugin_allTranslatedDescription(ctx context.Context
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_allTranslatedName(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_allTranslatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19014,7 +19015,7 @@ func (ec *executionContext) _Plugin_allTranslatedName(ctx context.Context, field
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_translatedName(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_translatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19056,7 +19057,7 @@ func (ec *executionContext) _Plugin_translatedName(ctx context.Context, field gr
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_translatedDescription(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_translatedDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19098,7 +19099,7 @@ func (ec *executionContext) _Plugin_translatedDescription(ctx context.Context, f
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Plugin_propertySchema(ctx context.Context, field graphql.CollectedField, obj *Plugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _Plugin_propertySchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Plugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19125,12 +19126,12 @@ func (ec *executionContext) _Plugin_propertySchema(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_extensionId(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_extensionId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19165,7 +19166,7 @@ func (ec *executionContext) _PluginExtension_extensionId(ctx context.Context, fi
 	return ec.marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_pluginId(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19200,7 +19201,7 @@ func (ec *executionContext) _PluginExtension_pluginId(ctx context.Context, field
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_type(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_type(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19230,12 +19231,12 @@ func (ec *executionContext) _PluginExtension_type(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.(PluginExtensionType)
+	res := resTmp.(gqlmodel.PluginExtensionType)
 	fc.Result = res
-	return ec.marshalNPluginExtensionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtensionType(ctx, field.Selections, res)
+	return ec.marshalNPluginExtensionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtensionType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_name(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19270,7 +19271,7 @@ func (ec *executionContext) _PluginExtension_name(ctx context.Context, field gra
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_description(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_description(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19305,7 +19306,7 @@ func (ec *executionContext) _PluginExtension_description(ctx context.Context, fi
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_icon(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_icon(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19340,7 +19341,7 @@ func (ec *executionContext) _PluginExtension_icon(ctx context.Context, field gra
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_visualizer(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_visualizer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19370,12 +19371,12 @@ func (ec *executionContext) _PluginExtension_visualizer(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Visualizer)
+	res := resTmp.(gqlmodel.Visualizer)
 	fc.Result = res
-	return ec.marshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐVisualizer(ctx, field.Selections, res)
+	return ec.marshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐVisualizer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_propertySchemaId(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_propertySchemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19410,7 +19411,7 @@ func (ec *executionContext) _PluginExtension_propertySchemaId(ctx context.Contex
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_allTranslatedName(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_allTranslatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19442,7 +19443,7 @@ func (ec *executionContext) _PluginExtension_allTranslatedName(ctx context.Conte
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_allTranslatedDescription(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_allTranslatedDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19474,7 +19475,7 @@ func (ec *executionContext) _PluginExtension_allTranslatedDescription(ctx contex
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_plugin(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19501,12 +19502,12 @@ func (ec *executionContext) _PluginExtension_plugin(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_sceneWidget(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_sceneWidget(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19540,12 +19541,12 @@ func (ec *executionContext) _PluginExtension_sceneWidget(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*SceneWidget)
+	res := resTmp.(*gqlmodel.SceneWidget)
 	fc.Result = res
-	return ec.marshalOSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidget(ctx, field.Selections, res)
+	return ec.marshalOSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidget(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_propertySchema(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_propertySchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19572,12 +19573,12 @@ func (ec *executionContext) _PluginExtension_propertySchema(ctx context.Context,
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_translatedName(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_translatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19619,7 +19620,7 @@ func (ec *executionContext) _PluginExtension_translatedName(ctx context.Context,
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginExtension_translatedDescription(ctx context.Context, field graphql.CollectedField, obj *PluginExtension) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginExtension_translatedDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginExtension) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19661,7 +19662,7 @@ func (ec *executionContext) _PluginExtension_translatedDescription(ctx context.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginMetadata_name(ctx context.Context, field graphql.CollectedField, obj *PluginMetadata) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginMetadata_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginMetadata) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19696,7 +19697,7 @@ func (ec *executionContext) _PluginMetadata_name(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginMetadata_description(ctx context.Context, field graphql.CollectedField, obj *PluginMetadata) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginMetadata_description(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginMetadata) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19731,7 +19732,7 @@ func (ec *executionContext) _PluginMetadata_description(ctx context.Context, fie
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginMetadata_author(ctx context.Context, field graphql.CollectedField, obj *PluginMetadata) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginMetadata_author(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginMetadata) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19766,7 +19767,7 @@ func (ec *executionContext) _PluginMetadata_author(ctx context.Context, field gr
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginMetadata_thumbnailUrl(ctx context.Context, field graphql.CollectedField, obj *PluginMetadata) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginMetadata_thumbnailUrl(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginMetadata) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19801,7 +19802,7 @@ func (ec *executionContext) _PluginMetadata_thumbnailUrl(ctx context.Context, fi
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PluginMetadata_createdAt(ctx context.Context, field graphql.CollectedField, obj *PluginMetadata) (ret graphql.Marshaler) {
+func (ec *executionContext) _PluginMetadata_createdAt(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PluginMetadata) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19836,7 +19837,7 @@ func (ec *executionContext) _PluginMetadata_createdAt(ctx context.Context, field
 	return ec.marshalNDateTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_id(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19871,7 +19872,7 @@ func (ec *executionContext) _Project_id(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_isArchived(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_isArchived(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19906,7 +19907,7 @@ func (ec *executionContext) _Project_isArchived(ctx context.Context, field graph
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_isBasicAuthActive(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_isBasicAuthActive(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19941,7 +19942,7 @@ func (ec *executionContext) _Project_isBasicAuthActive(ctx context.Context, fiel
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_basicAuthUsername(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_basicAuthUsername(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -19976,7 +19977,7 @@ func (ec *executionContext) _Project_basicAuthUsername(ctx context.Context, fiel
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_basicAuthPassword(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_basicAuthPassword(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20011,7 +20012,7 @@ func (ec *executionContext) _Project_basicAuthPassword(ctx context.Context, fiel
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_createdAt(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_createdAt(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20046,7 +20047,7 @@ func (ec *executionContext) _Project_createdAt(ctx context.Context, field graphq
 	return ec.marshalNDateTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_updatedAt(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_updatedAt(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20081,7 +20082,7 @@ func (ec *executionContext) _Project_updatedAt(ctx context.Context, field graphq
 	return ec.marshalNDateTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_publishedAt(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_publishedAt(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20113,7 +20114,7 @@ func (ec *executionContext) _Project_publishedAt(ctx context.Context, field grap
 	return ec.marshalODateTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_name(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20148,7 +20149,7 @@ func (ec *executionContext) _Project_name(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_description(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_description(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20183,7 +20184,7 @@ func (ec *executionContext) _Project_description(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_alias(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_alias(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20218,7 +20219,7 @@ func (ec *executionContext) _Project_alias(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_publicTitle(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_publicTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20253,7 +20254,7 @@ func (ec *executionContext) _Project_publicTitle(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_publicDescription(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_publicDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20288,7 +20289,7 @@ func (ec *executionContext) _Project_publicDescription(ctx context.Context, fiel
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_publicImage(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_publicImage(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20323,7 +20324,7 @@ func (ec *executionContext) _Project_publicImage(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_publicNoIndex(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_publicNoIndex(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20358,7 +20359,7 @@ func (ec *executionContext) _Project_publicNoIndex(ctx context.Context, field gr
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_imageUrl(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_imageUrl(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20390,7 +20391,7 @@ func (ec *executionContext) _Project_imageUrl(ctx context.Context, field graphql
 	return ec.marshalOURL2ᚖnetᚋurlᚐURL(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_teamId(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_teamId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20425,7 +20426,7 @@ func (ec *executionContext) _Project_teamId(ctx context.Context, field graphql.C
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_visualizer(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_visualizer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20455,12 +20456,12 @@ func (ec *executionContext) _Project_visualizer(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Visualizer)
+	res := resTmp.(gqlmodel.Visualizer)
 	fc.Result = res
-	return ec.marshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐVisualizer(ctx, field.Selections, res)
+	return ec.marshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐVisualizer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_publishmentStatus(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_publishmentStatus(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20490,12 +20491,12 @@ func (ec *executionContext) _Project_publishmentStatus(ctx context.Context, fiel
 		}
 		return graphql.Null
 	}
-	res := resTmp.(PublishmentStatus)
+	res := resTmp.(gqlmodel.PublishmentStatus)
 	fc.Result = res
-	return ec.marshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPublishmentStatus(ctx, field.Selections, res)
+	return ec.marshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPublishmentStatus(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_team(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20522,12 +20523,12 @@ func (ec *executionContext) _Project_team(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Project_scene(ctx context.Context, field graphql.CollectedField, obj *Project) (ret graphql.Marshaler) {
+func (ec *executionContext) _Project_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Project) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20554,12 +20555,12 @@ func (ec *executionContext) _Project_scene(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ProjectConnection_edges(ctx context.Context, field graphql.CollectedField, obj *ProjectConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectConnection_edges(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20589,12 +20590,12 @@ func (ec *executionContext) _ProjectConnection_edges(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*ProjectEdge)
+	res := resTmp.([]*gqlmodel.ProjectEdge)
 	fc.Result = res
-	return ec.marshalNProjectEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectEdgeᚄ(ctx, field.Selections, res)
+	return ec.marshalNProjectEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectEdgeᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ProjectConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *ProjectConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectConnection_nodes(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20624,12 +20625,12 @@ func (ec *executionContext) _ProjectConnection_nodes(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Project)
+	res := resTmp.([]*gqlmodel.Project)
 	fc.Result = res
-	return ec.marshalNProject2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx, field.Selections, res)
+	return ec.marshalNProject2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ProjectConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ProjectConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20659,12 +20660,12 @@ func (ec *executionContext) _ProjectConnection_pageInfo(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*PageInfo)
+	res := resTmp.(*gqlmodel.PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPageInfo(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ProjectConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *ProjectConnection) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20699,7 +20700,7 @@ func (ec *executionContext) _ProjectConnection_totalCount(ctx context.Context, f
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ProjectEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *ProjectEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20734,7 +20735,7 @@ func (ec *executionContext) _ProjectEdge_cursor(ctx context.Context, field graph
 	return ec.marshalNCursor2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ProjectEdge_node(ctx context.Context, field graphql.CollectedField, obj *ProjectEdge) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectEdge_node(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20761,12 +20762,12 @@ func (ec *executionContext) _ProjectEdge_node(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Project)
+	res := resTmp.(*gqlmodel.Project)
 	fc.Result = res
-	return ec.marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx, field.Selections, res)
+	return ec.marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ProjectPayload_project(ctx context.Context, field graphql.CollectedField, obj *ProjectPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ProjectPayload_project(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20796,12 +20797,12 @@ func (ec *executionContext) _ProjectPayload_project(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Project)
+	res := resTmp.(*gqlmodel.Project)
 	fc.Result = res
-	return ec.marshalNProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx, field.Selections, res)
+	return ec.marshalNProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Property_id(ctx context.Context, field graphql.CollectedField, obj *Property) (ret graphql.Marshaler) {
+func (ec *executionContext) _Property_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Property) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20836,7 +20837,7 @@ func (ec *executionContext) _Property_id(ctx context.Context, field graphql.Coll
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Property_schemaId(ctx context.Context, field graphql.CollectedField, obj *Property) (ret graphql.Marshaler) {
+func (ec *executionContext) _Property_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Property) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20871,7 +20872,7 @@ func (ec *executionContext) _Property_schemaId(ctx context.Context, field graphq
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Property_items(ctx context.Context, field graphql.CollectedField, obj *Property) (ret graphql.Marshaler) {
+func (ec *executionContext) _Property_items(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Property) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20901,12 +20902,12 @@ func (ec *executionContext) _Property_items(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]PropertyItem)
+	res := resTmp.([]gqlmodel.PropertyItem)
 	fc.Result = res
-	return ec.marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItemᚄ(ctx, field.Selections, res)
+	return ec.marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItemᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Property_schema(ctx context.Context, field graphql.CollectedField, obj *Property) (ret graphql.Marshaler) {
+func (ec *executionContext) _Property_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Property) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20933,12 +20934,12 @@ func (ec *executionContext) _Property_schema(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Property_layer(ctx context.Context, field graphql.CollectedField, obj *Property) (ret graphql.Marshaler) {
+func (ec *executionContext) _Property_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Property) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20965,12 +20966,12 @@ func (ec *executionContext) _Property_layer(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Property_merged(ctx context.Context, field graphql.CollectedField, obj *Property) (ret graphql.Marshaler) {
+func (ec *executionContext) _Property_merged(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Property) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -20997,12 +20998,12 @@ func (ec *executionContext) _Property_merged(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*MergedProperty)
+	res := resTmp.(*gqlmodel.MergedProperty)
 	fc.Result = res
-	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedProperty(ctx, field.Selections, res)
+	return ec.marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyCondition_fieldId(ctx context.Context, field graphql.CollectedField, obj *PropertyCondition) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyCondition_fieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyCondition) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21037,7 +21038,7 @@ func (ec *executionContext) _PropertyCondition_fieldId(ctx context.Context, fiel
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyCondition_type(ctx context.Context, field graphql.CollectedField, obj *PropertyCondition) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyCondition_type(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyCondition) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21067,12 +21068,12 @@ func (ec *executionContext) _PropertyCondition_type(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(ValueType)
+	res := resTmp.(gqlmodel.ValueType)
 	fc.Result = res
-	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, field.Selections, res)
+	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyCondition_value(ctx context.Context, field graphql.CollectedField, obj *PropertyCondition) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyCondition_value(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyCondition) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21104,7 +21105,7 @@ func (ec *executionContext) _PropertyCondition_value(ctx context.Context, field 
 	return ec.marshalOAny2interface(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_id(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21139,7 +21140,7 @@ func (ec *executionContext) _PropertyField_id(ctx context.Context, field graphql
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_parentId(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_parentId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21174,7 +21175,7 @@ func (ec *executionContext) _PropertyField_parentId(ctx context.Context, field g
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_schemaId(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21209,7 +21210,7 @@ func (ec *executionContext) _PropertyField_schemaId(ctx context.Context, field g
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_fieldId(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_fieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21244,7 +21245,7 @@ func (ec *executionContext) _PropertyField_fieldId(ctx context.Context, field gr
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_links(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_links(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21271,12 +21272,12 @@ func (ec *executionContext) _PropertyField_links(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertyFieldLink)
+	res := resTmp.([]*gqlmodel.PropertyFieldLink)
 	fc.Result = res
-	return ec.marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldLinkᚄ(ctx, field.Selections, res)
+	return ec.marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldLinkᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_type(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_type(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21306,12 +21307,12 @@ func (ec *executionContext) _PropertyField_type(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(ValueType)
+	res := resTmp.(gqlmodel.ValueType)
 	fc.Result = res
-	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, field.Selections, res)
+	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_value(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_value(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21343,7 +21344,7 @@ func (ec *executionContext) _PropertyField_value(ctx context.Context, field grap
 	return ec.marshalOAny2interface(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_parent(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21370,12 +21371,12 @@ func (ec *executionContext) _PropertyField_parent(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_schema(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21402,12 +21403,12 @@ func (ec *executionContext) _PropertyField_schema(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_field(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_field(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21434,12 +21435,12 @@ func (ec *executionContext) _PropertyField_field(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaField)
+	res := resTmp.(*gqlmodel.PropertySchemaField)
 	fc.Result = res
-	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyField_actualValue(ctx context.Context, field graphql.CollectedField, obj *PropertyField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyField_actualValue(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21471,7 +21472,7 @@ func (ec *executionContext) _PropertyField_actualValue(ctx context.Context, fiel
 	return ec.marshalOAny2interface(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldLink_datasetId(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldLink) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldLink_datasetId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldLink) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21503,7 +21504,7 @@ func (ec *executionContext) _PropertyFieldLink_datasetId(ctx context.Context, fi
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldLink_datasetSchemaId(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldLink) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldLink_datasetSchemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldLink) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21538,7 +21539,7 @@ func (ec *executionContext) _PropertyFieldLink_datasetSchemaId(ctx context.Conte
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldLink_datasetSchemaFieldId(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldLink) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldLink_datasetSchemaFieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldLink) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21573,7 +21574,7 @@ func (ec *executionContext) _PropertyFieldLink_datasetSchemaFieldId(ctx context.
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldLink_dataset(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldLink) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldLink_dataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldLink) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21600,12 +21601,12 @@ func (ec *executionContext) _PropertyFieldLink_dataset(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Dataset)
+	res := resTmp.(*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, field.Selections, res)
+	return ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldLink_datasetField(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldLink) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldLink_datasetField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldLink) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21632,12 +21633,12 @@ func (ec *executionContext) _PropertyFieldLink_datasetField(ctx context.Context,
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetField)
+	res := resTmp.(*gqlmodel.DatasetField)
 	fc.Result = res
-	return ec.marshalODatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetField(ctx, field.Selections, res)
+	return ec.marshalODatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldLink_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldLink) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldLink_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldLink) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21664,12 +21665,12 @@ func (ec *executionContext) _PropertyFieldLink_datasetSchema(ctx context.Context
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldLink_datasetSchemaField(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldLink) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldLink_datasetSchemaField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldLink) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21696,12 +21697,12 @@ func (ec *executionContext) _PropertyFieldLink_datasetSchemaField(ctx context.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchemaField)
+	res := resTmp.(*gqlmodel.DatasetSchemaField)
 	fc.Result = res
-	return ec.marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaField(ctx, field.Selections, res)
+	return ec.marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldPayload_property(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldPayload_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21731,12 +21732,12 @@ func (ec *executionContext) _PropertyFieldPayload_property(ctx context.Context, 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyFieldPayload_propertyField(ctx context.Context, field graphql.CollectedField, obj *PropertyFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyFieldPayload_propertyField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21763,12 +21764,12 @@ func (ec *executionContext) _PropertyFieldPayload_propertyField(ctx context.Cont
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyField)
+	res := resTmp.(*gqlmodel.PropertyField)
 	fc.Result = res
-	return ec.marshalOPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyField(ctx, field.Selections, res)
+	return ec.marshalOPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroup_id(ctx context.Context, field graphql.CollectedField, obj *PropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroup_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21803,7 +21804,7 @@ func (ec *executionContext) _PropertyGroup_id(ctx context.Context, field graphql
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroup_schemaId(ctx context.Context, field graphql.CollectedField, obj *PropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroup_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21838,7 +21839,7 @@ func (ec *executionContext) _PropertyGroup_schemaId(ctx context.Context, field g
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroup_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *PropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroup_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21873,7 +21874,7 @@ func (ec *executionContext) _PropertyGroup_schemaGroupId(ctx context.Context, fi
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroup_fields(ctx context.Context, field graphql.CollectedField, obj *PropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroup_fields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21903,12 +21904,12 @@ func (ec *executionContext) _PropertyGroup_fields(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertyField)
+	res := resTmp.([]*gqlmodel.PropertyField)
 	fc.Result = res
-	return ec.marshalNPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldᚄ(ctx, field.Selections, res)
+	return ec.marshalNPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroup_schema(ctx context.Context, field graphql.CollectedField, obj *PropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroup_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21935,12 +21936,12 @@ func (ec *executionContext) _PropertyGroup_schema(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroup_schemaGroup(ctx context.Context, field graphql.CollectedField, obj *PropertyGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroup_schemaGroup(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -21967,12 +21968,12 @@ func (ec *executionContext) _PropertyGroup_schemaGroup(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaGroup)
+	res := resTmp.(*gqlmodel.PropertySchemaGroup)
 	fc.Result = res
-	return ec.marshalOPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaGroup(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroupList_id(ctx context.Context, field graphql.CollectedField, obj *PropertyGroupList) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroupList_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroupList) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22007,7 +22008,7 @@ func (ec *executionContext) _PropertyGroupList_id(ctx context.Context, field gra
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroupList_schemaId(ctx context.Context, field graphql.CollectedField, obj *PropertyGroupList) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroupList_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroupList) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22042,7 +22043,7 @@ func (ec *executionContext) _PropertyGroupList_schemaId(ctx context.Context, fie
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroupList_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *PropertyGroupList) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroupList_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroupList) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22077,7 +22078,7 @@ func (ec *executionContext) _PropertyGroupList_schemaGroupId(ctx context.Context
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroupList_groups(ctx context.Context, field graphql.CollectedField, obj *PropertyGroupList) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroupList_groups(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroupList) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22107,12 +22108,12 @@ func (ec *executionContext) _PropertyGroupList_groups(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertyGroup)
+	res := resTmp.([]*gqlmodel.PropertyGroup)
 	fc.Result = res
-	return ec.marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyGroupᚄ(ctx, field.Selections, res)
+	return ec.marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyGroupᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroupList_schema(ctx context.Context, field graphql.CollectedField, obj *PropertyGroupList) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroupList_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroupList) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22139,12 +22140,12 @@ func (ec *executionContext) _PropertyGroupList_schema(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyGroupList_schemaGroup(ctx context.Context, field graphql.CollectedField, obj *PropertyGroupList) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyGroupList_schemaGroup(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyGroupList) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22171,12 +22172,12 @@ func (ec *executionContext) _PropertyGroupList_schemaGroup(ctx context.Context, 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaGroup)
+	res := resTmp.(*gqlmodel.PropertySchemaGroup)
 	fc.Result = res
-	return ec.marshalOPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaGroup(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyItemPayload_property(ctx context.Context, field graphql.CollectedField, obj *PropertyItemPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyItemPayload_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyItemPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22206,12 +22207,12 @@ func (ec *executionContext) _PropertyItemPayload_property(ctx context.Context, f
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyItemPayload_propertyItem(ctx context.Context, field graphql.CollectedField, obj *PropertyItemPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyItemPayload_propertyItem(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyItemPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22238,12 +22239,12 @@ func (ec *executionContext) _PropertyItemPayload_propertyItem(ctx context.Contex
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(PropertyItem)
+	res := resTmp.(gqlmodel.PropertyItem)
 	fc.Result = res
-	return ec.marshalOPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItem(ctx, field.Selections, res)
+	return ec.marshalOPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItem(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyLinkableFields_schemaId(ctx context.Context, field graphql.CollectedField, obj *PropertyLinkableFields) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyLinkableFields_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyLinkableFields) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22278,7 +22279,7 @@ func (ec *executionContext) _PropertyLinkableFields_schemaId(ctx context.Context
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyLinkableFields_latlng(ctx context.Context, field graphql.CollectedField, obj *PropertyLinkableFields) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyLinkableFields_latlng(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyLinkableFields) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22310,7 +22311,7 @@ func (ec *executionContext) _PropertyLinkableFields_latlng(ctx context.Context, 
 	return ec.marshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyLinkableFields_url(ctx context.Context, field graphql.CollectedField, obj *PropertyLinkableFields) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyLinkableFields_url(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyLinkableFields) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22342,7 +22343,7 @@ func (ec *executionContext) _PropertyLinkableFields_url(ctx context.Context, fie
 	return ec.marshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyLinkableFields_latlngField(ctx context.Context, field graphql.CollectedField, obj *PropertyLinkableFields) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyLinkableFields_latlngField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyLinkableFields) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22369,12 +22370,12 @@ func (ec *executionContext) _PropertyLinkableFields_latlngField(ctx context.Cont
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaField)
+	res := resTmp.(*gqlmodel.PropertySchemaField)
 	fc.Result = res
-	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyLinkableFields_urlField(ctx context.Context, field graphql.CollectedField, obj *PropertyLinkableFields) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyLinkableFields_urlField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyLinkableFields) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22401,12 +22402,12 @@ func (ec *executionContext) _PropertyLinkableFields_urlField(ctx context.Context
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaField)
+	res := resTmp.(*gqlmodel.PropertySchemaField)
 	fc.Result = res
-	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertyLinkableFields_schema(ctx context.Context, field graphql.CollectedField, obj *PropertyLinkableFields) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertyLinkableFields_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertyLinkableFields) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22433,12 +22434,12 @@ func (ec *executionContext) _PropertyLinkableFields_schema(ctx context.Context, 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchema_id(ctx context.Context, field graphql.CollectedField, obj *PropertySchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchema_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22473,7 +22474,7 @@ func (ec *executionContext) _PropertySchema_id(ctx context.Context, field graphq
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchema_groups(ctx context.Context, field graphql.CollectedField, obj *PropertySchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchema_groups(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22503,12 +22504,12 @@ func (ec *executionContext) _PropertySchema_groups(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertySchemaGroup)
+	res := resTmp.([]*gqlmodel.PropertySchemaGroup)
 	fc.Result = res
-	return ec.marshalNPropertySchemaGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaGroupᚄ(ctx, field.Selections, res)
+	return ec.marshalNPropertySchemaGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaGroupᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchema_linkableFields(ctx context.Context, field graphql.CollectedField, obj *PropertySchema) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchema_linkableFields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchema) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22538,12 +22539,12 @@ func (ec *executionContext) _PropertySchema_linkableFields(ctx context.Context, 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyLinkableFields)
+	res := resTmp.(*gqlmodel.PropertyLinkableFields)
 	fc.Result = res
-	return ec.marshalNPropertyLinkableFields2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyLinkableFields(ctx, field.Selections, res)
+	return ec.marshalNPropertyLinkableFields2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyLinkableFields(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_fieldId(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_fieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22578,7 +22579,7 @@ func (ec *executionContext) _PropertySchemaField_fieldId(ctx context.Context, fi
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_type(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_type(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22608,12 +22609,12 @@ func (ec *executionContext) _PropertySchemaField_type(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(ValueType)
+	res := resTmp.(gqlmodel.ValueType)
 	fc.Result = res
-	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, field.Selections, res)
+	return ec.marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_title(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_title(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22648,7 +22649,7 @@ func (ec *executionContext) _PropertySchemaField_title(ctx context.Context, fiel
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_name(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22683,7 +22684,7 @@ func (ec *executionContext) _PropertySchemaField_name(ctx context.Context, field
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_description(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_description(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22718,7 +22719,7 @@ func (ec *executionContext) _PropertySchemaField_description(ctx context.Context
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_prefix(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_prefix(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22750,7 +22751,7 @@ func (ec *executionContext) _PropertySchemaField_prefix(ctx context.Context, fie
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_suffix(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_suffix(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22782,7 +22783,7 @@ func (ec *executionContext) _PropertySchemaField_suffix(ctx context.Context, fie
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_defaultValue(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_defaultValue(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22814,7 +22815,7 @@ func (ec *executionContext) _PropertySchemaField_defaultValue(ctx context.Contex
 	return ec.marshalOAny2interface(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_ui(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_ui(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22841,12 +22842,12 @@ func (ec *executionContext) _PropertySchemaField_ui(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaFieldUI)
+	res := resTmp.(*gqlmodel.PropertySchemaFieldUI)
 	fc.Result = res
-	return ec.marshalOPropertySchemaFieldUI2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldUI(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaFieldUI2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldUI(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_min(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_min(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22878,7 +22879,7 @@ func (ec *executionContext) _PropertySchemaField_min(ctx context.Context, field 
 	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_max(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_max(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22910,7 +22911,7 @@ func (ec *executionContext) _PropertySchemaField_max(ctx context.Context, field 
 	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_choices(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_choices(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22937,12 +22938,12 @@ func (ec *executionContext) _PropertySchemaField_choices(ctx context.Context, fi
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertySchemaFieldChoice)
+	res := resTmp.([]*gqlmodel.PropertySchemaFieldChoice)
 	fc.Result = res
-	return ec.marshalOPropertySchemaFieldChoice2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldChoiceᚄ(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaFieldChoice2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldChoiceᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_isAvailableIf(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_isAvailableIf(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -22969,12 +22970,12 @@ func (ec *executionContext) _PropertySchemaField_isAvailableIf(ctx context.Conte
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyCondition)
+	res := resTmp.(*gqlmodel.PropertyCondition)
 	fc.Result = res
-	return ec.marshalOPropertyCondition2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyCondition(ctx, field.Selections, res)
+	return ec.marshalOPropertyCondition2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyCondition(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_allTranslatedTitle(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_allTranslatedTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23006,7 +23007,7 @@ func (ec *executionContext) _PropertySchemaField_allTranslatedTitle(ctx context.
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_allTranslatedName(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_allTranslatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23038,7 +23039,7 @@ func (ec *executionContext) _PropertySchemaField_allTranslatedName(ctx context.C
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_allTranslatedDescription(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_allTranslatedDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23070,7 +23071,7 @@ func (ec *executionContext) _PropertySchemaField_allTranslatedDescription(ctx co
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_translatedTitle(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_translatedTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23112,7 +23113,7 @@ func (ec *executionContext) _PropertySchemaField_translatedTitle(ctx context.Con
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_translatedName(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_translatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23154,7 +23155,7 @@ func (ec *executionContext) _PropertySchemaField_translatedName(ctx context.Cont
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_translatedDescription(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaField) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaField_translatedDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23196,7 +23197,7 @@ func (ec *executionContext) _PropertySchemaField_translatedDescription(ctx conte
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_key(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_key(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23231,7 +23232,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_key(ctx context.Context, 
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_title(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_title(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23266,7 +23267,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_title(ctx context.Context
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_label(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_label(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23301,7 +23302,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_label(ctx context.Context
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_icon(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_icon(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23333,7 +23334,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_icon(ctx context.Context,
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedTitle(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23365,7 +23366,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedTitle(ctx co
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedLabel(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedLabel(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23397,7 +23398,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedLabel(ctx co
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_translatedTitle(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_translatedTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23439,7 +23440,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_translatedTitle(ctx conte
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_translatedLabel(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaFieldChoice) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaFieldChoice_translatedLabel(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23481,7 +23482,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_translatedLabel(ctx conte
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_schemaGroupId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23516,7 +23517,7 @@ func (ec *executionContext) _PropertySchemaGroup_schemaGroupId(ctx context.Conte
 	return ec.marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_schemaId(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23551,7 +23552,7 @@ func (ec *executionContext) _PropertySchemaGroup_schemaId(ctx context.Context, f
 	return ec.marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_fields(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_fields(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23581,12 +23582,12 @@ func (ec *executionContext) _PropertySchemaGroup_fields(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertySchemaField)
+	res := resTmp.([]*gqlmodel.PropertySchemaField)
 	fc.Result = res
-	return ec.marshalNPropertySchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldᚄ(ctx, field.Selections, res)
+	return ec.marshalNPropertySchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_isList(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_isList(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23621,7 +23622,7 @@ func (ec *executionContext) _PropertySchemaGroup_isList(ctx context.Context, fie
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_isAvailableIf(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_isAvailableIf(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23648,12 +23649,12 @@ func (ec *executionContext) _PropertySchemaGroup_isAvailableIf(ctx context.Conte
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertyCondition)
+	res := resTmp.(*gqlmodel.PropertyCondition)
 	fc.Result = res
-	return ec.marshalOPropertyCondition2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyCondition(ctx, field.Selections, res)
+	return ec.marshalOPropertyCondition2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyCondition(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_title(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_title(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23685,7 +23686,7 @@ func (ec *executionContext) _PropertySchemaGroup_title(ctx context.Context, fiel
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_allTranslatedTitle(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_allTranslatedTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23717,7 +23718,7 @@ func (ec *executionContext) _PropertySchemaGroup_allTranslatedTitle(ctx context.
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_name(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23749,7 +23750,7 @@ func (ec *executionContext) _PropertySchemaGroup_name(ctx context.Context, field
 	return ec.marshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_representativeFieldId(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_representativeFieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23781,7 +23782,7 @@ func (ec *executionContext) _PropertySchemaGroup_representativeFieldId(ctx conte
 	return ec.marshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_representativeField(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_representativeField(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23808,12 +23809,12 @@ func (ec *executionContext) _PropertySchemaGroup_representativeField(ctx context
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchemaField)
+	res := resTmp.(*gqlmodel.PropertySchemaField)
 	fc.Result = res
-	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx, field.Selections, res)
+	return ec.marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_schema(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_schema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23840,12 +23841,12 @@ func (ec *executionContext) _PropertySchemaGroup_schema(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaGroup_translatedTitle(ctx context.Context, field graphql.CollectedField, obj *PropertySchemaGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _PropertySchemaGroup_translatedTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -23914,9 +23915,9 @@ func (ec *executionContext) _Query_me(ctx context.Context, field graphql.Collect
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*gqlmodel.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_node(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -23944,7 +23945,7 @@ func (ec *executionContext) _Query_node(ctx context.Context, field graphql.Colle
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Node(rctx, args["id"].(id.ID), args["type"].(NodeType))
+		return ec.resolvers.Query().Node(rctx, args["id"].(id.ID), args["type"].(gqlmodel.NodeType))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -23953,9 +23954,9 @@ func (ec *executionContext) _Query_node(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(Node)
+	res := resTmp.(gqlmodel.Node)
 	fc.Result = res
-	return ec.marshalONode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNode(ctx, field.Selections, res)
+	return ec.marshalONode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNode(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_nodes(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -23983,7 +23984,7 @@ func (ec *executionContext) _Query_nodes(ctx context.Context, field graphql.Coll
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Nodes(rctx, args["id"].([]*id.ID), args["type"].(NodeType))
+		return ec.resolvers.Query().Nodes(rctx, args["id"].([]*id.ID), args["type"].(gqlmodel.NodeType))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -23995,9 +23996,9 @@ func (ec *executionContext) _Query_nodes(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]Node)
+	res := resTmp.([]gqlmodel.Node)
 	fc.Result = res
-	return ec.marshalNNode2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNode(ctx, field.Selections, res)
+	return ec.marshalNNode2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNode(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_propertySchema(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24034,9 +24035,9 @@ func (ec *executionContext) _Query_propertySchema(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PropertySchema)
+	res := resTmp.(*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, field.Selections, res)
+	return ec.marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_propertySchemas(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24076,9 +24077,9 @@ func (ec *executionContext) _Query_propertySchemas(ctx context.Context, field gr
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*PropertySchema)
+	res := resTmp.([]*gqlmodel.PropertySchema)
 	fc.Result = res
-	return ec.marshalNPropertySchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaᚄ(ctx, field.Selections, res)
+	return ec.marshalNPropertySchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_plugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24115,9 +24116,9 @@ func (ec *executionContext) _Query_plugin(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_plugins(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24157,9 +24158,9 @@ func (ec *executionContext) _Query_plugins(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Plugin)
+	res := resTmp.([]*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalNPlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginᚄ(ctx, field.Selections, res)
+	return ec.marshalNPlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_layer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24196,9 +24197,9 @@ func (ec *executionContext) _Query_layer(ctx context.Context, field graphql.Coll
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_scene(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24235,9 +24236,9 @@ func (ec *executionContext) _Query_scene(ctx context.Context, field graphql.Coll
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_assets(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24277,9 +24278,9 @@ func (ec *executionContext) _Query_assets(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*AssetConnection)
+	res := resTmp.(*gqlmodel.AssetConnection)
 	fc.Result = res
-	return ec.marshalNAssetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetConnection(ctx, field.Selections, res)
+	return ec.marshalNAssetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_projects(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24319,9 +24320,9 @@ func (ec *executionContext) _Query_projects(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*ProjectConnection)
+	res := resTmp.(*gqlmodel.ProjectConnection)
 	fc.Result = res
-	return ec.marshalNProjectConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectConnection(ctx, field.Selections, res)
+	return ec.marshalNProjectConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_datasetSchemas(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24361,9 +24362,9 @@ func (ec *executionContext) _Query_datasetSchemas(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchemaConnection)
+	res := resTmp.(*gqlmodel.DatasetSchemaConnection)
 	fc.Result = res
-	return ec.marshalNDatasetSchemaConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaConnection(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchemaConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_datasets(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24403,9 +24404,9 @@ func (ec *executionContext) _Query_datasets(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetConnection)
+	res := resTmp.(*gqlmodel.DatasetConnection)
 	fc.Result = res
-	return ec.marshalNDatasetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetConnection(ctx, field.Selections, res)
+	return ec.marshalNDatasetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_sceneLock(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24442,9 +24443,9 @@ func (ec *executionContext) _Query_sceneLock(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*SceneLockMode)
+	res := resTmp.(*gqlmodel.SceneLockMode)
 	fc.Result = res
-	return ec.marshalOSceneLockMode2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneLockMode(ctx, field.Selections, res)
+	return ec.marshalOSceneLockMode2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneLockMode(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_dynamicDatasetSchemas(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24484,9 +24485,9 @@ func (ec *executionContext) _Query_dynamicDatasetSchemas(ctx context.Context, fi
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetSchema)
+	res := resTmp.([]*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaᚄ(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_searchUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24523,9 +24524,9 @@ func (ec *executionContext) _Query_searchUser(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*SearchedUser)
+	res := resTmp.(*gqlmodel.SearchedUser)
 	fc.Result = res
-	return ec.marshalOSearchedUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSearchedUser(ctx, field.Selections, res)
+	return ec.marshalOSearchedUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSearchedUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_checkProjectAlias(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24565,9 +24566,9 @@ func (ec *executionContext) _Query_checkProjectAlias(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*CheckProjectAliasPayload)
+	res := resTmp.(*gqlmodel.CheckProjectAliasPayload)
 	fc.Result = res
-	return ec.marshalNCheckProjectAliasPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCheckProjectAliasPayload(ctx, field.Selections, res)
+	return ec.marshalNCheckProjectAliasPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCheckProjectAliasPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_installablePlugins(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24600,9 +24601,9 @@ func (ec *executionContext) _Query_installablePlugins(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*PluginMetadata)
+	res := resTmp.([]*gqlmodel.PluginMetadata)
 	fc.Result = res
-	return ec.marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginMetadataᚄ(ctx, field.Selections, res)
+	return ec.marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginMetadataᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -24676,7 +24677,7 @@ func (ec *executionContext) _Query___schema(ctx context.Context, field graphql.C
 	return ec.marshalO__Schema2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Rect_west(ctx context.Context, field graphql.CollectedField, obj *Rect) (ret graphql.Marshaler) {
+func (ec *executionContext) _Rect_west(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Rect) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24711,7 +24712,7 @@ func (ec *executionContext) _Rect_west(ctx context.Context, field graphql.Collec
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Rect_south(ctx context.Context, field graphql.CollectedField, obj *Rect) (ret graphql.Marshaler) {
+func (ec *executionContext) _Rect_south(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Rect) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24746,7 +24747,7 @@ func (ec *executionContext) _Rect_south(ctx context.Context, field graphql.Colle
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Rect_east(ctx context.Context, field graphql.CollectedField, obj *Rect) (ret graphql.Marshaler) {
+func (ec *executionContext) _Rect_east(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Rect) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24781,7 +24782,7 @@ func (ec *executionContext) _Rect_east(ctx context.Context, field graphql.Collec
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Rect_north(ctx context.Context, field graphql.CollectedField, obj *Rect) (ret graphql.Marshaler) {
+func (ec *executionContext) _Rect_north(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Rect) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24816,7 +24817,7 @@ func (ec *executionContext) _Rect_north(ctx context.Context, field graphql.Colle
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveAssetPayload_assetId(ctx context.Context, field graphql.CollectedField, obj *RemoveAssetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveAssetPayload_assetId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveAssetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24851,7 +24852,7 @@ func (ec *executionContext) _RemoveAssetPayload_assetId(ctx context.Context, fie
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveDatasetSchemaPayload_schemaId(ctx context.Context, field graphql.CollectedField, obj *RemoveDatasetSchemaPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveDatasetSchemaPayload_schemaId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveDatasetSchemaPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24886,7 +24887,7 @@ func (ec *executionContext) _RemoveDatasetSchemaPayload_schemaId(ctx context.Con
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveInfoboxFieldPayload_infoboxFieldId(ctx context.Context, field graphql.CollectedField, obj *RemoveInfoboxFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveInfoboxFieldPayload_infoboxFieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveInfoboxFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24921,7 +24922,7 @@ func (ec *executionContext) _RemoveInfoboxFieldPayload_infoboxFieldId(ctx contex
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveInfoboxFieldPayload_layer(ctx context.Context, field graphql.CollectedField, obj *RemoveInfoboxFieldPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveInfoboxFieldPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveInfoboxFieldPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24951,12 +24952,12 @@ func (ec *executionContext) _RemoveInfoboxFieldPayload_layer(ctx context.Context
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveInfoboxPayload_layer(ctx context.Context, field graphql.CollectedField, obj *RemoveInfoboxPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveInfoboxPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveInfoboxPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -24986,12 +24987,12 @@ func (ec *executionContext) _RemoveInfoboxPayload_layer(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveLayerPayload_layerId(ctx context.Context, field graphql.CollectedField, obj *RemoveLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveLayerPayload_layerId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25026,7 +25027,7 @@ func (ec *executionContext) _RemoveLayerPayload_layerId(ctx context.Context, fie
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveLayerPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *RemoveLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveLayerPayload_parentLayer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25056,12 +25057,12 @@ func (ec *executionContext) _RemoveLayerPayload_parentLayer(ctx context.Context,
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveMemberFromTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *RemoveMemberFromTeamPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveMemberFromTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveMemberFromTeamPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25091,12 +25092,12 @@ func (ec *executionContext) _RemoveMemberFromTeamPayload_team(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *RemoveWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25126,12 +25127,12 @@ func (ec *executionContext) _RemoveWidgetPayload_scene(ctx context.Context, fiel
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveWidgetPayload_pluginId(ctx context.Context, field graphql.CollectedField, obj *RemoveWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveWidgetPayload_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25166,7 +25167,7 @@ func (ec *executionContext) _RemoveWidgetPayload_pluginId(ctx context.Context, f
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveWidgetPayload_extensionId(ctx context.Context, field graphql.CollectedField, obj *RemoveWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveWidgetPayload_extensionId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25201,7 +25202,7 @@ func (ec *executionContext) _RemoveWidgetPayload_extensionId(ctx context.Context
 	return ec.marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_id(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25236,7 +25237,7 @@ func (ec *executionContext) _Scene_id(ctx context.Context, field graphql.Collect
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_projectId(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_projectId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25271,7 +25272,7 @@ func (ec *executionContext) _Scene_projectId(ctx context.Context, field graphql.
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_teamId(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_teamId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25306,7 +25307,7 @@ func (ec *executionContext) _Scene_teamId(ctx context.Context, field graphql.Col
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_propertyId(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_propertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25341,7 +25342,7 @@ func (ec *executionContext) _Scene_propertyId(ctx context.Context, field graphql
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_createdAt(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_createdAt(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25376,7 +25377,7 @@ func (ec *executionContext) _Scene_createdAt(ctx context.Context, field graphql.
 	return ec.marshalNDateTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_updatedAt(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_updatedAt(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25411,7 +25412,7 @@ func (ec *executionContext) _Scene_updatedAt(ctx context.Context, field graphql.
 	return ec.marshalNDateTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_rootLayerId(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_rootLayerId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25446,7 +25447,7 @@ func (ec *executionContext) _Scene_rootLayerId(ctx context.Context, field graphq
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_widgets(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_widgets(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25476,12 +25477,12 @@ func (ec *executionContext) _Scene_widgets(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*SceneWidget)
+	res := resTmp.([]*gqlmodel.SceneWidget)
 	fc.Result = res
-	return ec.marshalNSceneWidget2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidgetᚄ(ctx, field.Selections, res)
+	return ec.marshalNSceneWidget2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidgetᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_plugins(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_plugins(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25511,12 +25512,12 @@ func (ec *executionContext) _Scene_plugins(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*ScenePlugin)
+	res := resTmp.([]*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePluginᚄ(ctx, field.Selections, res)
+	return ec.marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePluginᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_dynamicDatasetSchemas(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_dynamicDatasetSchemas(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25546,12 +25547,12 @@ func (ec *executionContext) _Scene_dynamicDatasetSchemas(ctx context.Context, fi
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetSchema)
+	res := resTmp.([]*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaᚄ(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_project(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_project(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25578,12 +25579,12 @@ func (ec *executionContext) _Scene_project(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Project)
+	res := resTmp.(*gqlmodel.Project)
 	fc.Result = res
-	return ec.marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx, field.Selections, res)
+	return ec.marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_team(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25610,12 +25611,12 @@ func (ec *executionContext) _Scene_team(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_property(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25642,12 +25643,12 @@ func (ec *executionContext) _Scene_property(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_rootLayer(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_rootLayer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25674,12 +25675,12 @@ func (ec *executionContext) _Scene_rootLayer(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*LayerGroup)
+	res := resTmp.(*gqlmodel.LayerGroup)
 	fc.Result = res
-	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx, field.Selections, res)
+	return ec.marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_lockMode(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_lockMode(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25709,12 +25710,12 @@ func (ec *executionContext) _Scene_lockMode(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.(SceneLockMode)
+	res := resTmp.(gqlmodel.SceneLockMode)
 	fc.Result = res
-	return ec.marshalNSceneLockMode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneLockMode(ctx, field.Selections, res)
+	return ec.marshalNSceneLockMode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneLockMode(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Scene_datasetSchemas(ctx context.Context, field graphql.CollectedField, obj *Scene) (ret graphql.Marshaler) {
+func (ec *executionContext) _Scene_datasetSchemas(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25751,12 +25752,12 @@ func (ec *executionContext) _Scene_datasetSchemas(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchemaConnection)
+	res := resTmp.(*gqlmodel.DatasetSchemaConnection)
 	fc.Result = res
-	return ec.marshalNDatasetSchemaConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaConnection(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchemaConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaConnection(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ScenePlugin_pluginId(ctx context.Context, field graphql.CollectedField, obj *ScenePlugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _ScenePlugin_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ScenePlugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25791,7 +25792,7 @@ func (ec *executionContext) _ScenePlugin_pluginId(ctx context.Context, field gra
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ScenePlugin_propertyId(ctx context.Context, field graphql.CollectedField, obj *ScenePlugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _ScenePlugin_propertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ScenePlugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25823,7 +25824,7 @@ func (ec *executionContext) _ScenePlugin_propertyId(ctx context.Context, field g
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ScenePlugin_plugin(ctx context.Context, field graphql.CollectedField, obj *ScenePlugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _ScenePlugin_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ScenePlugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25850,12 +25851,12 @@ func (ec *executionContext) _ScenePlugin_plugin(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ScenePlugin_property(ctx context.Context, field graphql.CollectedField, obj *ScenePlugin) (ret graphql.Marshaler) {
+func (ec *executionContext) _ScenePlugin_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ScenePlugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25882,12 +25883,12 @@ func (ec *executionContext) _ScenePlugin_property(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_id(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25922,7 +25923,7 @@ func (ec *executionContext) _SceneWidget_id(ctx context.Context, field graphql.C
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_pluginId(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25957,7 +25958,7 @@ func (ec *executionContext) _SceneWidget_pluginId(ctx context.Context, field gra
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_extensionId(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_extensionId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -25992,7 +25993,7 @@ func (ec *executionContext) _SceneWidget_extensionId(ctx context.Context, field 
 	return ec.marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_propertyId(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_propertyId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26027,7 +26028,7 @@ func (ec *executionContext) _SceneWidget_propertyId(ctx context.Context, field g
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_enabled(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_enabled(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26062,7 +26063,7 @@ func (ec *executionContext) _SceneWidget_enabled(ctx context.Context, field grap
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_plugin(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26089,12 +26090,12 @@ func (ec *executionContext) _SceneWidget_plugin(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_extension(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_extension(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26121,12 +26122,12 @@ func (ec *executionContext) _SceneWidget_extension(ctx context.Context, field gr
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*PluginExtension)
+	res := resTmp.(*gqlmodel.PluginExtension)
 	fc.Result = res
-	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx, field.Selections, res)
+	return ec.marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SceneWidget_property(ctx context.Context, field graphql.CollectedField, obj *SceneWidget) (ret graphql.Marshaler) {
+func (ec *executionContext) _SceneWidget_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26153,12 +26154,12 @@ func (ec *executionContext) _SceneWidget_property(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Property)
+	res := resTmp.(*gqlmodel.Property)
 	fc.Result = res
-	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx, field.Selections, res)
+	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SearchedUser_userId(ctx context.Context, field graphql.CollectedField, obj *SearchedUser) (ret graphql.Marshaler) {
+func (ec *executionContext) _SearchedUser_userId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SearchedUser) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26193,7 +26194,7 @@ func (ec *executionContext) _SearchedUser_userId(ctx context.Context, field grap
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SearchedUser_userName(ctx context.Context, field graphql.CollectedField, obj *SearchedUser) (ret graphql.Marshaler) {
+func (ec *executionContext) _SearchedUser_userName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SearchedUser) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26228,7 +26229,7 @@ func (ec *executionContext) _SearchedUser_userName(ctx context.Context, field gr
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SearchedUser_userEmail(ctx context.Context, field graphql.CollectedField, obj *SearchedUser) (ret graphql.Marshaler) {
+func (ec *executionContext) _SearchedUser_userEmail(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SearchedUser) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26263,7 +26264,7 @@ func (ec *executionContext) _SearchedUser_userEmail(ctx context.Context, field g
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SignupPayload_user(ctx context.Context, field graphql.CollectedField, obj *SignupPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _SignupPayload_user(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SignupPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26293,12 +26294,12 @@ func (ec *executionContext) _SignupPayload_user(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*gqlmodel.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SignupPayload_team(ctx context.Context, field graphql.CollectedField, obj *SignupPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _SignupPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SignupPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26328,12 +26329,12 @@ func (ec *executionContext) _SignupPayload_team(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SyncDatasetPayload_sceneId(ctx context.Context, field graphql.CollectedField, obj *SyncDatasetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _SyncDatasetPayload_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SyncDatasetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26368,7 +26369,7 @@ func (ec *executionContext) _SyncDatasetPayload_sceneId(ctx context.Context, fie
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SyncDatasetPayload_url(ctx context.Context, field graphql.CollectedField, obj *SyncDatasetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _SyncDatasetPayload_url(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SyncDatasetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26403,7 +26404,7 @@ func (ec *executionContext) _SyncDatasetPayload_url(ctx context.Context, field g
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SyncDatasetPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *SyncDatasetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _SyncDatasetPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SyncDatasetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26433,12 +26434,12 @@ func (ec *executionContext) _SyncDatasetPayload_datasetSchema(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*DatasetSchema)
+	res := resTmp.([]*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaᚄ(ctx, field.Selections, res)
+	return ec.marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SyncDatasetPayload_dataset(ctx context.Context, field graphql.CollectedField, obj *SyncDatasetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _SyncDatasetPayload_dataset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SyncDatasetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26468,12 +26469,12 @@ func (ec *executionContext) _SyncDatasetPayload_dataset(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Dataset)
+	res := resTmp.([]*gqlmodel.Dataset)
 	fc.Result = res
-	return ec.marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetᚄ(ctx, field.Selections, res)
+	return ec.marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Team_id(ctx context.Context, field graphql.CollectedField, obj *Team) (ret graphql.Marshaler) {
+func (ec *executionContext) _Team_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26508,7 +26509,7 @@ func (ec *executionContext) _Team_id(ctx context.Context, field graphql.Collecte
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Team_name(ctx context.Context, field graphql.CollectedField, obj *Team) (ret graphql.Marshaler) {
+func (ec *executionContext) _Team_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26543,7 +26544,7 @@ func (ec *executionContext) _Team_name(ctx context.Context, field graphql.Collec
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Team_members(ctx context.Context, field graphql.CollectedField, obj *Team) (ret graphql.Marshaler) {
+func (ec *executionContext) _Team_members(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26573,12 +26574,12 @@ func (ec *executionContext) _Team_members(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*TeamMember)
+	res := resTmp.([]*gqlmodel.TeamMember)
 	fc.Result = res
-	return ec.marshalNTeamMember2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeamMemberᚄ(ctx, field.Selections, res)
+	return ec.marshalNTeamMember2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamMemberᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Team_personal(ctx context.Context, field graphql.CollectedField, obj *Team) (ret graphql.Marshaler) {
+func (ec *executionContext) _Team_personal(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26613,7 +26614,7 @@ func (ec *executionContext) _Team_personal(ctx context.Context, field graphql.Co
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Team_assets(ctx context.Context, field graphql.CollectedField, obj *Team) (ret graphql.Marshaler) {
+func (ec *executionContext) _Team_assets(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26650,12 +26651,12 @@ func (ec *executionContext) _Team_assets(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*AssetConnection)
+	res := resTmp.(*gqlmodel.AssetConnection)
 	fc.Result = res
-	return ec.marshalNAssetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetConnection(ctx, field.Selections, res)
+	return ec.marshalNAssetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetConnection(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Team_projects(ctx context.Context, field graphql.CollectedField, obj *Team) (ret graphql.Marshaler) {
+func (ec *executionContext) _Team_projects(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26692,12 +26693,12 @@ func (ec *executionContext) _Team_projects(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*ProjectConnection)
+	res := resTmp.(*gqlmodel.ProjectConnection)
 	fc.Result = res
-	return ec.marshalNProjectConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectConnection(ctx, field.Selections, res)
+	return ec.marshalNProjectConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectConnection(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _TeamMember_userId(ctx context.Context, field graphql.CollectedField, obj *TeamMember) (ret graphql.Marshaler) {
+func (ec *executionContext) _TeamMember_userId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TeamMember) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26732,7 +26733,7 @@ func (ec *executionContext) _TeamMember_userId(ctx context.Context, field graphq
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _TeamMember_role(ctx context.Context, field graphql.CollectedField, obj *TeamMember) (ret graphql.Marshaler) {
+func (ec *executionContext) _TeamMember_role(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TeamMember) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26762,12 +26763,12 @@ func (ec *executionContext) _TeamMember_role(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Role)
+	res := resTmp.(gqlmodel.Role)
 	fc.Result = res
-	return ec.marshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRole(ctx, field.Selections, res)
+	return ec.marshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRole(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _TeamMember_user(ctx context.Context, field graphql.CollectedField, obj *TeamMember) (ret graphql.Marshaler) {
+func (ec *executionContext) _TeamMember_user(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TeamMember) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26794,12 +26795,12 @@ func (ec *executionContext) _TeamMember_user(ctx context.Context, field graphql.
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*gqlmodel.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_fontFamily(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_fontFamily(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26831,7 +26832,7 @@ func (ec *executionContext) _Typography_fontFamily(ctx context.Context, field gr
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_fontWeight(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_fontWeight(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26863,7 +26864,7 @@ func (ec *executionContext) _Typography_fontWeight(ctx context.Context, field gr
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_fontSize(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_fontSize(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26895,7 +26896,7 @@ func (ec *executionContext) _Typography_fontSize(ctx context.Context, field grap
 	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_color(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_color(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26927,7 +26928,7 @@ func (ec *executionContext) _Typography_color(ctx context.Context, field graphql
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_textAlign(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_textAlign(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26954,12 +26955,12 @@ func (ec *executionContext) _Typography_textAlign(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*TextAlign)
+	res := resTmp.(*gqlmodel.TextAlign)
 	fc.Result = res
-	return ec.marshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTextAlign(ctx, field.Selections, res)
+	return ec.marshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTextAlign(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_bold(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_bold(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -26991,7 +26992,7 @@ func (ec *executionContext) _Typography_bold(ctx context.Context, field graphql.
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_italic(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_italic(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27023,7 +27024,7 @@ func (ec *executionContext) _Typography_italic(ctx context.Context, field graphq
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Typography_underline(ctx context.Context, field graphql.CollectedField, obj *Typography) (ret graphql.Marshaler) {
+func (ec *executionContext) _Typography_underline(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Typography) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27055,7 +27056,7 @@ func (ec *executionContext) _Typography_underline(ctx context.Context, field gra
 	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UninstallPluginPayload_pluginId(ctx context.Context, field graphql.CollectedField, obj *UninstallPluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UninstallPluginPayload_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UninstallPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27090,7 +27091,7 @@ func (ec *executionContext) _UninstallPluginPayload_pluginId(ctx context.Context
 	return ec.marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UninstallPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *UninstallPluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UninstallPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UninstallPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27120,12 +27121,12 @@ func (ec *executionContext) _UninstallPluginPayload_scene(ctx context.Context, f
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *UpdateDatasetSchemaPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateDatasetSchemaPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27152,12 +27153,12 @@ func (ec *executionContext) _UpdateDatasetSchemaPayload_datasetSchema(ctx contex
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*DatasetSchema)
+	res := resTmp.(*gqlmodel.DatasetSchema)
 	fc.Result = res
-	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, field.Selections, res)
+	return ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateLayerPayload_layer(ctx context.Context, field graphql.CollectedField, obj *UpdateLayerPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateLayerPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateLayerPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27187,12 +27188,12 @@ func (ec *executionContext) _UpdateLayerPayload_layer(ctx context.Context, field
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Layer)
+	res := resTmp.(gqlmodel.Layer)
 	fc.Result = res
-	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, field.Selections, res)
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateMePayload_user(ctx context.Context, field graphql.CollectedField, obj *UpdateMePayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateMePayload_user(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateMePayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27222,12 +27223,12 @@ func (ec *executionContext) _UpdateMePayload_user(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*gqlmodel.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateMemberOfTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *UpdateMemberOfTeamPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateMemberOfTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateMemberOfTeamPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27257,12 +27258,12 @@ func (ec *executionContext) _UpdateMemberOfTeamPayload_team(ctx context.Context,
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *UpdateTeamPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateTeamPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27292,12 +27293,12 @@ func (ec *executionContext) _UpdateTeamPayload_team(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *UpdateWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27327,12 +27328,12 @@ func (ec *executionContext) _UpdateWidgetPayload_scene(ctx context.Context, fiel
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateWidgetPayload_sceneWidget(ctx context.Context, field graphql.CollectedField, obj *UpdateWidgetPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateWidgetPayload_sceneWidget(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27362,12 +27363,12 @@ func (ec *executionContext) _UpdateWidgetPayload_sceneWidget(ctx context.Context
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*SceneWidget)
+	res := resTmp.(*gqlmodel.SceneWidget)
 	fc.Result = res
-	return ec.marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidget(ctx, field.Selections, res)
+	return ec.marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidget(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpgradePluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *UpgradePluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpgradePluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpgradePluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27397,12 +27398,12 @@ func (ec *executionContext) _UpgradePluginPayload_scene(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpgradePluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *UpgradePluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpgradePluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpgradePluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27432,12 +27433,12 @@ func (ec *executionContext) _UpgradePluginPayload_scenePlugin(ctx context.Contex
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UploadPluginPayload_plugin(ctx context.Context, field graphql.CollectedField, obj *UploadPluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UploadPluginPayload_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UploadPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27467,12 +27468,12 @@ func (ec *executionContext) _UploadPluginPayload_plugin(ctx context.Context, fie
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Plugin)
+	res := resTmp.(*gqlmodel.Plugin)
 	fc.Result = res
-	return ec.marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, field.Selections, res)
+	return ec.marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UploadPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *UploadPluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UploadPluginPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UploadPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27502,12 +27503,12 @@ func (ec *executionContext) _UploadPluginPayload_scene(ctx context.Context, fiel
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Scene)
+	res := resTmp.(*gqlmodel.Scene)
 	fc.Result = res
-	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx, field.Selections, res)
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UploadPluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *UploadPluginPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UploadPluginPayload_scenePlugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UploadPluginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27537,12 +27538,12 @@ func (ec *executionContext) _UploadPluginPayload_scenePlugin(ctx context.Context
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*ScenePlugin)
+	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
-	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, field.Selections, res)
+	return ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27577,7 +27578,7 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27612,7 +27613,7 @@ func (ec *executionContext) _User_name(ctx context.Context, field graphql.Collec
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27647,7 +27648,7 @@ func (ec *executionContext) _User_email(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_lang(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_lang(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27682,7 +27683,7 @@ func (ec *executionContext) _User_lang(ctx context.Context, field graphql.Collec
 	return ec.marshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_theme(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_theme(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27712,12 +27713,12 @@ func (ec *executionContext) _User_theme(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.(Theme)
+	res := resTmp.(gqlmodel.Theme)
 	fc.Result = res
-	return ec.marshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTheme(ctx, field.Selections, res)
+	return ec.marshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_myTeamId(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_myTeamId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27752,7 +27753,7 @@ func (ec *executionContext) _User_myTeamId(ctx context.Context, field graphql.Co
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_auths(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_auths(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27787,7 +27788,7 @@ func (ec *executionContext) _User_auths(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2ᚕstringᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_teams(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_teams(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27817,12 +27818,12 @@ func (ec *executionContext) _User_teams(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Team)
+	res := resTmp.([]*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeamᚄ(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_myTeam(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_myTeam(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -27852,9 +27853,9 @@ func (ec *executionContext) _User_myTeam(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Team)
+	res := resTmp.(*gqlmodel.Team)
 	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, field.Selections, res)
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -28944,8 +28945,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputAddDatasetSchemaInput(ctx context.Context, obj interface{}) (AddDatasetSchemaInput, error) {
-	var it AddDatasetSchemaInput
+func (ec *executionContext) unmarshalInputAddDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.AddDatasetSchemaInput, error) {
+	var it gqlmodel.AddDatasetSchemaInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -28980,8 +28981,8 @@ func (ec *executionContext) unmarshalInputAddDatasetSchemaInput(ctx context.Cont
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddDynamicDatasetInput(ctx context.Context, obj interface{}) (AddDynamicDatasetInput, error) {
-	var it AddDynamicDatasetInput
+func (ec *executionContext) unmarshalInputAddDynamicDatasetInput(ctx context.Context, obj interface{}) (gqlmodel.AddDynamicDatasetInput, error) {
+	var it gqlmodel.AddDynamicDatasetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29040,8 +29041,8 @@ func (ec *executionContext) unmarshalInputAddDynamicDatasetInput(ctx context.Con
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddDynamicDatasetSchemaInput(ctx context.Context, obj interface{}) (AddDynamicDatasetSchemaInput, error) {
-	var it AddDynamicDatasetSchemaInput
+func (ec *executionContext) unmarshalInputAddDynamicDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.AddDynamicDatasetSchemaInput, error) {
+	var it gqlmodel.AddDynamicDatasetSchemaInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29060,8 +29061,8 @@ func (ec *executionContext) unmarshalInputAddDynamicDatasetSchemaInput(ctx conte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddInfoboxFieldInput(ctx context.Context, obj interface{}) (AddInfoboxFieldInput, error) {
-	var it AddInfoboxFieldInput
+func (ec *executionContext) unmarshalInputAddInfoboxFieldInput(ctx context.Context, obj interface{}) (gqlmodel.AddInfoboxFieldInput, error) {
+	var it gqlmodel.AddInfoboxFieldInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29104,8 +29105,8 @@ func (ec *executionContext) unmarshalInputAddInfoboxFieldInput(ctx context.Conte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddLayerGroupInput(ctx context.Context, obj interface{}) (AddLayerGroupInput, error) {
-	var it AddLayerGroupInput
+func (ec *executionContext) unmarshalInputAddLayerGroupInput(ctx context.Context, obj interface{}) (gqlmodel.AddLayerGroupInput, error) {
+	var it gqlmodel.AddLayerGroupInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29172,8 +29173,8 @@ func (ec *executionContext) unmarshalInputAddLayerGroupInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddLayerItemInput(ctx context.Context, obj interface{}) (AddLayerItemInput, error) {
-	var it AddLayerItemInput
+func (ec *executionContext) unmarshalInputAddLayerItemInput(ctx context.Context, obj interface{}) (gqlmodel.AddLayerItemInput, error) {
+	var it gqlmodel.AddLayerItemInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29240,8 +29241,8 @@ func (ec *executionContext) unmarshalInputAddLayerItemInput(ctx context.Context,
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddMemberToTeamInput(ctx context.Context, obj interface{}) (AddMemberToTeamInput, error) {
-	var it AddMemberToTeamInput
+func (ec *executionContext) unmarshalInputAddMemberToTeamInput(ctx context.Context, obj interface{}) (gqlmodel.AddMemberToTeamInput, error) {
+	var it gqlmodel.AddMemberToTeamInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29266,7 +29267,7 @@ func (ec *executionContext) unmarshalInputAddMemberToTeamInput(ctx context.Conte
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("role"))
-			it.Role, err = ec.unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRole(ctx, v)
+			it.Role, err = ec.unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRole(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -29276,8 +29277,8 @@ func (ec *executionContext) unmarshalInputAddMemberToTeamInput(ctx context.Conte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddPropertyItemInput(ctx context.Context, obj interface{}) (AddPropertyItemInput, error) {
-	var it AddPropertyItemInput
+func (ec *executionContext) unmarshalInputAddPropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.AddPropertyItemInput, error) {
+	var it gqlmodel.AddPropertyItemInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29318,7 +29319,7 @@ func (ec *executionContext) unmarshalInputAddPropertyItemInput(ctx context.Conte
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("nameFieldType"))
-			it.NameFieldType, err = ec.unmarshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, v)
+			it.NameFieldType, err = ec.unmarshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -29328,8 +29329,8 @@ func (ec *executionContext) unmarshalInputAddPropertyItemInput(ctx context.Conte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputAddWidgetInput(ctx context.Context, obj interface{}) (AddWidgetInput, error) {
-	var it AddWidgetInput
+func (ec *executionContext) unmarshalInputAddWidgetInput(ctx context.Context, obj interface{}) (gqlmodel.AddWidgetInput, error) {
+	var it gqlmodel.AddWidgetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29364,8 +29365,8 @@ func (ec *executionContext) unmarshalInputAddWidgetInput(ctx context.Context, ob
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCreateAssetInput(ctx context.Context, obj interface{}) (CreateAssetInput, error) {
-	var it CreateAssetInput
+func (ec *executionContext) unmarshalInputCreateAssetInput(ctx context.Context, obj interface{}) (gqlmodel.CreateAssetInput, error) {
+	var it gqlmodel.CreateAssetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29392,8 +29393,8 @@ func (ec *executionContext) unmarshalInputCreateAssetInput(ctx context.Context, 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCreateInfoboxInput(ctx context.Context, obj interface{}) (CreateInfoboxInput, error) {
-	var it CreateInfoboxInput
+func (ec *executionContext) unmarshalInputCreateInfoboxInput(ctx context.Context, obj interface{}) (gqlmodel.CreateInfoboxInput, error) {
+	var it gqlmodel.CreateInfoboxInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29412,8 +29413,8 @@ func (ec *executionContext) unmarshalInputCreateInfoboxInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCreateProjectInput(ctx context.Context, obj interface{}) (CreateProjectInput, error) {
-	var it CreateProjectInput
+func (ec *executionContext) unmarshalInputCreateProjectInput(ctx context.Context, obj interface{}) (gqlmodel.CreateProjectInput, error) {
+	var it gqlmodel.CreateProjectInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29430,7 +29431,7 @@ func (ec *executionContext) unmarshalInputCreateProjectInput(ctx context.Context
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("visualizer"))
-			it.Visualizer, err = ec.unmarshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐVisualizer(ctx, v)
+			it.Visualizer, err = ec.unmarshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐVisualizer(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -29480,8 +29481,8 @@ func (ec *executionContext) unmarshalInputCreateProjectInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCreateSceneInput(ctx context.Context, obj interface{}) (CreateSceneInput, error) {
-	var it CreateSceneInput
+func (ec *executionContext) unmarshalInputCreateSceneInput(ctx context.Context, obj interface{}) (gqlmodel.CreateSceneInput, error) {
+	var it gqlmodel.CreateSceneInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29500,8 +29501,8 @@ func (ec *executionContext) unmarshalInputCreateSceneInput(ctx context.Context, 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCreateTeamInput(ctx context.Context, obj interface{}) (CreateTeamInput, error) {
-	var it CreateTeamInput
+func (ec *executionContext) unmarshalInputCreateTeamInput(ctx context.Context, obj interface{}) (gqlmodel.CreateTeamInput, error) {
+	var it gqlmodel.CreateTeamInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29520,8 +29521,8 @@ func (ec *executionContext) unmarshalInputCreateTeamInput(ctx context.Context, o
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputDeleteMeInput(ctx context.Context, obj interface{}) (DeleteMeInput, error) {
-	var it DeleteMeInput
+func (ec *executionContext) unmarshalInputDeleteMeInput(ctx context.Context, obj interface{}) (gqlmodel.DeleteMeInput, error) {
+	var it gqlmodel.DeleteMeInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29540,8 +29541,8 @@ func (ec *executionContext) unmarshalInputDeleteMeInput(ctx context.Context, obj
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputDeleteProjectInput(ctx context.Context, obj interface{}) (DeleteProjectInput, error) {
-	var it DeleteProjectInput
+func (ec *executionContext) unmarshalInputDeleteProjectInput(ctx context.Context, obj interface{}) (gqlmodel.DeleteProjectInput, error) {
+	var it gqlmodel.DeleteProjectInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29560,8 +29561,8 @@ func (ec *executionContext) unmarshalInputDeleteProjectInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputDeleteTeamInput(ctx context.Context, obj interface{}) (DeleteTeamInput, error) {
-	var it DeleteTeamInput
+func (ec *executionContext) unmarshalInputDeleteTeamInput(ctx context.Context, obj interface{}) (gqlmodel.DeleteTeamInput, error) {
+	var it gqlmodel.DeleteTeamInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29580,8 +29581,8 @@ func (ec *executionContext) unmarshalInputDeleteTeamInput(ctx context.Context, o
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputImportDatasetFromGoogleSheetInput(ctx context.Context, obj interface{}) (ImportDatasetFromGoogleSheetInput, error) {
-	var it ImportDatasetFromGoogleSheetInput
+func (ec *executionContext) unmarshalInputImportDatasetFromGoogleSheetInput(ctx context.Context, obj interface{}) (gqlmodel.ImportDatasetFromGoogleSheetInput, error) {
+	var it gqlmodel.ImportDatasetFromGoogleSheetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29632,8 +29633,8 @@ func (ec *executionContext) unmarshalInputImportDatasetFromGoogleSheetInput(ctx 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputImportDatasetInput(ctx context.Context, obj interface{}) (ImportDatasetInput, error) {
-	var it ImportDatasetInput
+func (ec *executionContext) unmarshalInputImportDatasetInput(ctx context.Context, obj interface{}) (gqlmodel.ImportDatasetInput, error) {
+	var it gqlmodel.ImportDatasetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29668,8 +29669,8 @@ func (ec *executionContext) unmarshalInputImportDatasetInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputImportLayerInput(ctx context.Context, obj interface{}) (ImportLayerInput, error) {
-	var it ImportLayerInput
+func (ec *executionContext) unmarshalInputImportLayerInput(ctx context.Context, obj interface{}) (gqlmodel.ImportLayerInput, error) {
+	var it gqlmodel.ImportLayerInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29694,7 +29695,7 @@ func (ec *executionContext) unmarshalInputImportLayerInput(ctx context.Context, 
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("format"))
-			it.Format, err = ec.unmarshalNLayerEncodingFormat2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerEncodingFormat(ctx, v)
+			it.Format, err = ec.unmarshalNLayerEncodingFormat2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerEncodingFormat(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -29704,8 +29705,8 @@ func (ec *executionContext) unmarshalInputImportLayerInput(ctx context.Context, 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputInstallPluginInput(ctx context.Context, obj interface{}) (InstallPluginInput, error) {
-	var it InstallPluginInput
+func (ec *executionContext) unmarshalInputInstallPluginInput(ctx context.Context, obj interface{}) (gqlmodel.InstallPluginInput, error) {
+	var it gqlmodel.InstallPluginInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29732,8 +29733,8 @@ func (ec *executionContext) unmarshalInputInstallPluginInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputLinkDatasetToPropertyValueInput(ctx context.Context, obj interface{}) (LinkDatasetToPropertyValueInput, error) {
-	var it LinkDatasetToPropertyValueInput
+func (ec *executionContext) unmarshalInputLinkDatasetToPropertyValueInput(ctx context.Context, obj interface{}) (gqlmodel.LinkDatasetToPropertyValueInput, error) {
+	var it gqlmodel.LinkDatasetToPropertyValueInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29800,8 +29801,8 @@ func (ec *executionContext) unmarshalInputLinkDatasetToPropertyValueInput(ctx co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputMoveInfoboxFieldInput(ctx context.Context, obj interface{}) (MoveInfoboxFieldInput, error) {
-	var it MoveInfoboxFieldInput
+func (ec *executionContext) unmarshalInputMoveInfoboxFieldInput(ctx context.Context, obj interface{}) (gqlmodel.MoveInfoboxFieldInput, error) {
+	var it gqlmodel.MoveInfoboxFieldInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29836,8 +29837,8 @@ func (ec *executionContext) unmarshalInputMoveInfoboxFieldInput(ctx context.Cont
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputMoveLayerInput(ctx context.Context, obj interface{}) (MoveLayerInput, error) {
-	var it MoveLayerInput
+func (ec *executionContext) unmarshalInputMoveLayerInput(ctx context.Context, obj interface{}) (gqlmodel.MoveLayerInput, error) {
+	var it gqlmodel.MoveLayerInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29872,8 +29873,8 @@ func (ec *executionContext) unmarshalInputMoveLayerInput(ctx context.Context, ob
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputMovePropertyItemInput(ctx context.Context, obj interface{}) (MovePropertyItemInput, error) {
-	var it MovePropertyItemInput
+func (ec *executionContext) unmarshalInputMovePropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.MovePropertyItemInput, error) {
+	var it gqlmodel.MovePropertyItemInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29916,8 +29917,8 @@ func (ec *executionContext) unmarshalInputMovePropertyItemInput(ctx context.Cont
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputPublishProjectInput(ctx context.Context, obj interface{}) (PublishProjectInput, error) {
-	var it PublishProjectInput
+func (ec *executionContext) unmarshalInputPublishProjectInput(ctx context.Context, obj interface{}) (gqlmodel.PublishProjectInput, error) {
+	var it gqlmodel.PublishProjectInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29942,7 +29943,7 @@ func (ec *executionContext) unmarshalInputPublishProjectInput(ctx context.Contex
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("status"))
-			it.Status, err = ec.unmarshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPublishmentStatus(ctx, v)
+			it.Status, err = ec.unmarshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPublishmentStatus(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -29952,8 +29953,8 @@ func (ec *executionContext) unmarshalInputPublishProjectInput(ctx context.Contex
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveAssetInput(ctx context.Context, obj interface{}) (RemoveAssetInput, error) {
-	var it RemoveAssetInput
+func (ec *executionContext) unmarshalInputRemoveAssetInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveAssetInput, error) {
+	var it gqlmodel.RemoveAssetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -29972,8 +29973,8 @@ func (ec *executionContext) unmarshalInputRemoveAssetInput(ctx context.Context, 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveDatasetSchemaInput(ctx context.Context, obj interface{}) (RemoveDatasetSchemaInput, error) {
-	var it RemoveDatasetSchemaInput
+func (ec *executionContext) unmarshalInputRemoveDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveDatasetSchemaInput, error) {
+	var it gqlmodel.RemoveDatasetSchemaInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30000,8 +30001,8 @@ func (ec *executionContext) unmarshalInputRemoveDatasetSchemaInput(ctx context.C
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveInfoboxFieldInput(ctx context.Context, obj interface{}) (RemoveInfoboxFieldInput, error) {
-	var it RemoveInfoboxFieldInput
+func (ec *executionContext) unmarshalInputRemoveInfoboxFieldInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveInfoboxFieldInput, error) {
+	var it gqlmodel.RemoveInfoboxFieldInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30028,8 +30029,8 @@ func (ec *executionContext) unmarshalInputRemoveInfoboxFieldInput(ctx context.Co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveInfoboxInput(ctx context.Context, obj interface{}) (RemoveInfoboxInput, error) {
-	var it RemoveInfoboxInput
+func (ec *executionContext) unmarshalInputRemoveInfoboxInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveInfoboxInput, error) {
+	var it gqlmodel.RemoveInfoboxInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30048,8 +30049,8 @@ func (ec *executionContext) unmarshalInputRemoveInfoboxInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveLayerInput(ctx context.Context, obj interface{}) (RemoveLayerInput, error) {
-	var it RemoveLayerInput
+func (ec *executionContext) unmarshalInputRemoveLayerInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveLayerInput, error) {
+	var it gqlmodel.RemoveLayerInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30068,8 +30069,8 @@ func (ec *executionContext) unmarshalInputRemoveLayerInput(ctx context.Context, 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveMemberFromTeamInput(ctx context.Context, obj interface{}) (RemoveMemberFromTeamInput, error) {
-	var it RemoveMemberFromTeamInput
+func (ec *executionContext) unmarshalInputRemoveMemberFromTeamInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveMemberFromTeamInput, error) {
+	var it gqlmodel.RemoveMemberFromTeamInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30096,8 +30097,8 @@ func (ec *executionContext) unmarshalInputRemoveMemberFromTeamInput(ctx context.
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveMyAuthInput(ctx context.Context, obj interface{}) (RemoveMyAuthInput, error) {
-	var it RemoveMyAuthInput
+func (ec *executionContext) unmarshalInputRemoveMyAuthInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveMyAuthInput, error) {
+	var it gqlmodel.RemoveMyAuthInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30116,8 +30117,8 @@ func (ec *executionContext) unmarshalInputRemoveMyAuthInput(ctx context.Context,
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemovePropertyFieldInput(ctx context.Context, obj interface{}) (RemovePropertyFieldInput, error) {
-	var it RemovePropertyFieldInput
+func (ec *executionContext) unmarshalInputRemovePropertyFieldInput(ctx context.Context, obj interface{}) (gqlmodel.RemovePropertyFieldInput, error) {
+	var it gqlmodel.RemovePropertyFieldInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30160,8 +30161,8 @@ func (ec *executionContext) unmarshalInputRemovePropertyFieldInput(ctx context.C
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemovePropertyItemInput(ctx context.Context, obj interface{}) (RemovePropertyItemInput, error) {
-	var it RemovePropertyItemInput
+func (ec *executionContext) unmarshalInputRemovePropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.RemovePropertyItemInput, error) {
+	var it gqlmodel.RemovePropertyItemInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30196,8 +30197,8 @@ func (ec *executionContext) unmarshalInputRemovePropertyItemInput(ctx context.Co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context, obj interface{}) (RemoveWidgetInput, error) {
-	var it RemoveWidgetInput
+func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveWidgetInput, error) {
+	var it gqlmodel.RemoveWidgetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30232,8 +30233,8 @@ func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context,
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj interface{}) (SignupInput, error) {
-	var it SignupInput
+func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj interface{}) (gqlmodel.SignupInput, error) {
+	var it gqlmodel.SignupInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30250,7 +30251,7 @@ func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("theme"))
-			it.Theme, err = ec.unmarshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTheme(ctx, v)
+			it.Theme, err = ec.unmarshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30284,8 +30285,8 @@ func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj i
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputSyncDatasetInput(ctx context.Context, obj interface{}) (SyncDatasetInput, error) {
-	var it SyncDatasetInput
+func (ec *executionContext) unmarshalInputSyncDatasetInput(ctx context.Context, obj interface{}) (gqlmodel.SyncDatasetInput, error) {
+	var it gqlmodel.SyncDatasetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30312,8 +30313,8 @@ func (ec *executionContext) unmarshalInputSyncDatasetInput(ctx context.Context, 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUninstallPluginInput(ctx context.Context, obj interface{}) (UninstallPluginInput, error) {
-	var it UninstallPluginInput
+func (ec *executionContext) unmarshalInputUninstallPluginInput(ctx context.Context, obj interface{}) (gqlmodel.UninstallPluginInput, error) {
+	var it gqlmodel.UninstallPluginInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30340,8 +30341,8 @@ func (ec *executionContext) unmarshalInputUninstallPluginInput(ctx context.Conte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUnlinkPropertyValueInput(ctx context.Context, obj interface{}) (UnlinkPropertyValueInput, error) {
-	var it UnlinkPropertyValueInput
+func (ec *executionContext) unmarshalInputUnlinkPropertyValueInput(ctx context.Context, obj interface{}) (gqlmodel.UnlinkPropertyValueInput, error) {
+	var it gqlmodel.UnlinkPropertyValueInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30384,8 +30385,8 @@ func (ec *executionContext) unmarshalInputUnlinkPropertyValueInput(ctx context.C
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdateDatasetSchemaInput(ctx context.Context, obj interface{}) (UpdateDatasetSchemaInput, error) {
-	var it UpdateDatasetSchemaInput
+func (ec *executionContext) unmarshalInputUpdateDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateDatasetSchemaInput, error) {
+	var it gqlmodel.UpdateDatasetSchemaInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30412,8 +30413,8 @@ func (ec *executionContext) unmarshalInputUpdateDatasetSchemaInput(ctx context.C
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdateLayerInput(ctx context.Context, obj interface{}) (UpdateLayerInput, error) {
-	var it UpdateLayerInput
+func (ec *executionContext) unmarshalInputUpdateLayerInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateLayerInput, error) {
+	var it gqlmodel.UpdateLayerInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30448,8 +30449,8 @@ func (ec *executionContext) unmarshalInputUpdateLayerInput(ctx context.Context, 
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdateMeInput(ctx context.Context, obj interface{}) (UpdateMeInput, error) {
-	var it UpdateMeInput
+func (ec *executionContext) unmarshalInputUpdateMeInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateMeInput, error) {
+	var it gqlmodel.UpdateMeInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30482,7 +30483,7 @@ func (ec *executionContext) unmarshalInputUpdateMeInput(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("theme"))
-			it.Theme, err = ec.unmarshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTheme(ctx, v)
+			it.Theme, err = ec.unmarshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30508,8 +30509,8 @@ func (ec *executionContext) unmarshalInputUpdateMeInput(ctx context.Context, obj
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdateMemberOfTeamInput(ctx context.Context, obj interface{}) (UpdateMemberOfTeamInput, error) {
-	var it UpdateMemberOfTeamInput
+func (ec *executionContext) unmarshalInputUpdateMemberOfTeamInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateMemberOfTeamInput, error) {
+	var it gqlmodel.UpdateMemberOfTeamInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30534,7 +30535,7 @@ func (ec *executionContext) unmarshalInputUpdateMemberOfTeamInput(ctx context.Co
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("role"))
-			it.Role, err = ec.unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRole(ctx, v)
+			it.Role, err = ec.unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRole(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30544,8 +30545,8 @@ func (ec *executionContext) unmarshalInputUpdateMemberOfTeamInput(ctx context.Co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdateProjectInput(ctx context.Context, obj interface{}) (UpdateProjectInput, error) {
-	var it UpdateProjectInput
+func (ec *executionContext) unmarshalInputUpdateProjectInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateProjectInput, error) {
+	var it gqlmodel.UpdateProjectInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30676,8 +30677,8 @@ func (ec *executionContext) unmarshalInputUpdateProjectInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyItemInput(ctx context.Context, obj interface{}) (UpdatePropertyItemInput, error) {
-	var it UpdatePropertyItemInput
+func (ec *executionContext) unmarshalInputUpdatePropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyItemInput, error) {
+	var it gqlmodel.UpdatePropertyItemInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30702,7 +30703,7 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemInput(ctx context.Co
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("operations"))
-			it.Operations, err = ec.unmarshalNUpdatePropertyItemOperationInput2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyItemOperationInputᚄ(ctx, v)
+			it.Operations, err = ec.unmarshalNUpdatePropertyItemOperationInput2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyItemOperationInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30712,8 +30713,8 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemInput(ctx context.Co
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx context.Context, obj interface{}) (UpdatePropertyItemOperationInput, error) {
-	var it UpdatePropertyItemOperationInput
+func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyItemOperationInput, error) {
+	var it gqlmodel.UpdatePropertyItemOperationInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30722,7 +30723,7 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx c
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("operation"))
-			it.Operation, err = ec.unmarshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐListOperation(ctx, v)
+			it.Operation, err = ec.unmarshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐListOperation(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30754,7 +30755,7 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx c
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("nameFieldType"))
-			it.NameFieldType, err = ec.unmarshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, v)
+			it.NameFieldType, err = ec.unmarshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30764,8 +30765,8 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx c
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyValueCameraInput(ctx context.Context, obj interface{}) (UpdatePropertyValueCameraInput, error) {
-	var it UpdatePropertyValueCameraInput
+func (ec *executionContext) unmarshalInputUpdatePropertyValueCameraInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueCameraInput, error) {
+	var it gqlmodel.UpdatePropertyValueCameraInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30864,8 +30865,8 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueCameraInput(ctx con
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.Context, obj interface{}) (UpdatePropertyValueInput, error) {
-	var it UpdatePropertyValueInput
+func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueInput, error) {
+	var it gqlmodel.UpdatePropertyValueInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30914,7 +30915,7 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.C
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
-			it.Type, err = ec.unmarshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx, v)
+			it.Type, err = ec.unmarshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -30924,8 +30925,8 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.C
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngHeightInput(ctx context.Context, obj interface{}) (UpdatePropertyValueLatLngHeightInput, error) {
-	var it UpdatePropertyValueLatLngHeightInput
+func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngHeightInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueLatLngHeightInput, error) {
+	var it gqlmodel.UpdatePropertyValueLatLngHeightInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -30992,8 +30993,8 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngHeightInput(c
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngInput(ctx context.Context, obj interface{}) (UpdatePropertyValueLatLngInput, error) {
-	var it UpdatePropertyValueLatLngInput
+func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueLatLngInput, error) {
+	var it gqlmodel.UpdatePropertyValueLatLngInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -31052,8 +31053,8 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngInput(ctx con
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyValueTypographyInput(ctx context.Context, obj interface{}) (UpdatePropertyValueTypographyInput, error) {
-	var it UpdatePropertyValueTypographyInput
+func (ec *executionContext) unmarshalInputUpdatePropertyValueTypographyInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueTypographyInput, error) {
+	var it gqlmodel.UpdatePropertyValueTypographyInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -31126,7 +31127,7 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueTypographyInput(ctx
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("textAlign"))
-			it.TextAlign, err = ec.unmarshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTextAlign(ctx, v)
+			it.TextAlign, err = ec.unmarshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTextAlign(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -31160,8 +31161,8 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueTypographyInput(ctx
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdateTeamInput(ctx context.Context, obj interface{}) (UpdateTeamInput, error) {
-	var it UpdateTeamInput
+func (ec *executionContext) unmarshalInputUpdateTeamInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateTeamInput, error) {
+	var it gqlmodel.UpdateTeamInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -31188,8 +31189,8 @@ func (ec *executionContext) unmarshalInputUpdateTeamInput(ctx context.Context, o
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context, obj interface{}) (UpdateWidgetInput, error) {
-	var it UpdateWidgetInput
+func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateWidgetInput, error) {
+	var it gqlmodel.UpdateWidgetInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -31232,8 +31233,8 @@ func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context,
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpgradePluginInput(ctx context.Context, obj interface{}) (UpgradePluginInput, error) {
-	var it UpgradePluginInput
+func (ec *executionContext) unmarshalInputUpgradePluginInput(ctx context.Context, obj interface{}) (gqlmodel.UpgradePluginInput, error) {
+	var it gqlmodel.UpgradePluginInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -31268,8 +31269,8 @@ func (ec *executionContext) unmarshalInputUpgradePluginInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUploadFileToPropertyInput(ctx context.Context, obj interface{}) (UploadFileToPropertyInput, error) {
-	var it UploadFileToPropertyInput
+func (ec *executionContext) unmarshalInputUploadFileToPropertyInput(ctx context.Context, obj interface{}) (gqlmodel.UploadFileToPropertyInput, error) {
+	var it gqlmodel.UploadFileToPropertyInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -31320,8 +31321,8 @@ func (ec *executionContext) unmarshalInputUploadFileToPropertyInput(ctx context.
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUploadPluginInput(ctx context.Context, obj interface{}) (UploadPluginInput, error) {
-	var it UploadPluginInput
+func (ec *executionContext) unmarshalInputUploadPluginInput(ctx context.Context, obj interface{}) (gqlmodel.UploadPluginInput, error) {
+	var it gqlmodel.UploadPluginInput
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -31360,20 +31361,20 @@ func (ec *executionContext) unmarshalInputUploadPluginInput(ctx context.Context,
 
 // region    ************************** interface.gotpl ***************************
 
-func (ec *executionContext) _Layer(ctx context.Context, sel ast.SelectionSet, obj Layer) graphql.Marshaler {
+func (ec *executionContext) _Layer(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.Layer) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case LayerItem:
+	case gqlmodel.LayerItem:
 		return ec._LayerItem(ctx, sel, &obj)
-	case *LayerItem:
+	case *gqlmodel.LayerItem:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._LayerItem(ctx, sel, obj)
-	case LayerGroup:
+	case gqlmodel.LayerGroup:
 		return ec._LayerGroup(ctx, sel, &obj)
-	case *LayerGroup:
+	case *gqlmodel.LayerGroup:
 		if obj == nil {
 			return graphql.Null
 		}
@@ -31383,20 +31384,20 @@ func (ec *executionContext) _Layer(ctx context.Context, sel ast.SelectionSet, ob
 	}
 }
 
-func (ec *executionContext) _Layers(ctx context.Context, sel ast.SelectionSet, obj Layers) graphql.Marshaler {
+func (ec *executionContext) _Layers(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.Layers) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case LayerItem:
+	case gqlmodel.LayerItem:
 		return ec._LayerItem(ctx, sel, &obj)
-	case *LayerItem:
+	case *gqlmodel.LayerItem:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._LayerItem(ctx, sel, obj)
-	case LayerGroup:
+	case gqlmodel.LayerGroup:
 		return ec._LayerGroup(ctx, sel, &obj)
-	case *LayerGroup:
+	case *gqlmodel.LayerGroup:
 		if obj == nil {
 			return graphql.Null
 		}
@@ -31406,69 +31407,69 @@ func (ec *executionContext) _Layers(ctx context.Context, sel ast.SelectionSet, o
 	}
 }
 
-func (ec *executionContext) _Node(ctx context.Context, sel ast.SelectionSet, obj Node) graphql.Marshaler {
+func (ec *executionContext) _Node(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.Node) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case Asset:
+	case gqlmodel.Asset:
 		return ec._Asset(ctx, sel, &obj)
-	case *Asset:
+	case *gqlmodel.Asset:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Asset(ctx, sel, obj)
-	case User:
+	case gqlmodel.User:
 		return ec._User(ctx, sel, &obj)
-	case *User:
+	case *gqlmodel.User:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._User(ctx, sel, obj)
-	case Team:
+	case gqlmodel.Team:
 		return ec._Team(ctx, sel, &obj)
-	case *Team:
+	case *gqlmodel.Team:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Team(ctx, sel, obj)
-	case Project:
+	case gqlmodel.Project:
 		return ec._Project(ctx, sel, &obj)
-	case *Project:
+	case *gqlmodel.Project:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Project(ctx, sel, obj)
-	case Scene:
+	case gqlmodel.Scene:
 		return ec._Scene(ctx, sel, &obj)
-	case *Scene:
+	case *gqlmodel.Scene:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Scene(ctx, sel, obj)
-	case Property:
+	case gqlmodel.Property:
 		return ec._Property(ctx, sel, &obj)
-	case *Property:
+	case *gqlmodel.Property:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._Property(ctx, sel, obj)
-	case DatasetSchema:
+	case gqlmodel.DatasetSchema:
 		return ec._DatasetSchema(ctx, sel, &obj)
-	case *DatasetSchema:
+	case *gqlmodel.DatasetSchema:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._DatasetSchema(ctx, sel, obj)
-	case DatasetSchemaField:
+	case gqlmodel.DatasetSchemaField:
 		return ec._DatasetSchemaField(ctx, sel, &obj)
-	case *DatasetSchemaField:
+	case *gqlmodel.DatasetSchemaField:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._DatasetSchemaField(ctx, sel, obj)
-	case Dataset:
+	case gqlmodel.Dataset:
 		return ec._Dataset(ctx, sel, &obj)
-	case *Dataset:
+	case *gqlmodel.Dataset:
 		if obj == nil {
 			return graphql.Null
 		}
@@ -31478,20 +31479,20 @@ func (ec *executionContext) _Node(ctx context.Context, sel ast.SelectionSet, obj
 	}
 }
 
-func (ec *executionContext) _PropertyItem(ctx context.Context, sel ast.SelectionSet, obj PropertyItem) graphql.Marshaler {
+func (ec *executionContext) _PropertyItem(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.PropertyItem) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case PropertyGroup:
+	case gqlmodel.PropertyGroup:
 		return ec._PropertyGroup(ctx, sel, &obj)
-	case *PropertyGroup:
+	case *gqlmodel.PropertyGroup:
 		if obj == nil {
 			return graphql.Null
 		}
 		return ec._PropertyGroup(ctx, sel, obj)
-	case PropertyGroupList:
+	case gqlmodel.PropertyGroupList:
 		return ec._PropertyGroupList(ctx, sel, &obj)
-	case *PropertyGroupList:
+	case *gqlmodel.PropertyGroupList:
 		if obj == nil {
 			return graphql.Null
 		}
@@ -31507,7 +31508,7 @@ func (ec *executionContext) _PropertyItem(ctx context.Context, sel ast.Selection
 
 var addDatasetSchemaPayloadImplementors = []string{"AddDatasetSchemaPayload"}
 
-func (ec *executionContext) _AddDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *AddDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) _AddDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddDatasetSchemaPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addDatasetSchemaPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31531,7 +31532,7 @@ func (ec *executionContext) _AddDatasetSchemaPayload(ctx context.Context, sel as
 
 var addDynamicDatasetPayloadImplementors = []string{"AddDynamicDatasetPayload"}
 
-func (ec *executionContext) _AddDynamicDatasetPayload(ctx context.Context, sel ast.SelectionSet, obj *AddDynamicDatasetPayload) graphql.Marshaler {
+func (ec *executionContext) _AddDynamicDatasetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddDynamicDatasetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addDynamicDatasetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31557,7 +31558,7 @@ func (ec *executionContext) _AddDynamicDatasetPayload(ctx context.Context, sel a
 
 var addDynamicDatasetSchemaPayloadImplementors = []string{"AddDynamicDatasetSchemaPayload"}
 
-func (ec *executionContext) _AddDynamicDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *AddDynamicDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) _AddDynamicDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddDynamicDatasetSchemaPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addDynamicDatasetSchemaPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31581,7 +31582,7 @@ func (ec *executionContext) _AddDynamicDatasetSchemaPayload(ctx context.Context,
 
 var addInfoboxFieldPayloadImplementors = []string{"AddInfoboxFieldPayload"}
 
-func (ec *executionContext) _AddInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *AddInfoboxFieldPayload) graphql.Marshaler {
+func (ec *executionContext) _AddInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddInfoboxFieldPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addInfoboxFieldPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31613,7 +31614,7 @@ func (ec *executionContext) _AddInfoboxFieldPayload(ctx context.Context, sel ast
 
 var addLayerGroupPayloadImplementors = []string{"AddLayerGroupPayload"}
 
-func (ec *executionContext) _AddLayerGroupPayload(ctx context.Context, sel ast.SelectionSet, obj *AddLayerGroupPayload) graphql.Marshaler {
+func (ec *executionContext) _AddLayerGroupPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddLayerGroupPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addLayerGroupPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31647,7 +31648,7 @@ func (ec *executionContext) _AddLayerGroupPayload(ctx context.Context, sel ast.S
 
 var addLayerItemPayloadImplementors = []string{"AddLayerItemPayload"}
 
-func (ec *executionContext) _AddLayerItemPayload(ctx context.Context, sel ast.SelectionSet, obj *AddLayerItemPayload) graphql.Marshaler {
+func (ec *executionContext) _AddLayerItemPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddLayerItemPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addLayerItemPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31681,7 +31682,7 @@ func (ec *executionContext) _AddLayerItemPayload(ctx context.Context, sel ast.Se
 
 var addMemberToTeamPayloadImplementors = []string{"AddMemberToTeamPayload"}
 
-func (ec *executionContext) _AddMemberToTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *AddMemberToTeamPayload) graphql.Marshaler {
+func (ec *executionContext) _AddMemberToTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddMemberToTeamPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addMemberToTeamPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31708,7 +31709,7 @@ func (ec *executionContext) _AddMemberToTeamPayload(ctx context.Context, sel ast
 
 var addWidgetPayloadImplementors = []string{"AddWidgetPayload"}
 
-func (ec *executionContext) _AddWidgetPayload(ctx context.Context, sel ast.SelectionSet, obj *AddWidgetPayload) graphql.Marshaler {
+func (ec *executionContext) _AddWidgetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AddWidgetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, addWidgetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31740,7 +31741,7 @@ func (ec *executionContext) _AddWidgetPayload(ctx context.Context, sel ast.Selec
 
 var assetImplementors = []string{"Asset", "Node"}
 
-func (ec *executionContext) _Asset(ctx context.Context, sel ast.SelectionSet, obj *Asset) graphql.Marshaler {
+func (ec *executionContext) _Asset(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Asset) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, assetImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31808,7 +31809,7 @@ func (ec *executionContext) _Asset(ctx context.Context, sel ast.SelectionSet, ob
 
 var assetConnectionImplementors = []string{"AssetConnection"}
 
-func (ec *executionContext) _AssetConnection(ctx context.Context, sel ast.SelectionSet, obj *AssetConnection) graphql.Marshaler {
+func (ec *executionContext) _AssetConnection(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AssetConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, assetConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31850,7 +31851,7 @@ func (ec *executionContext) _AssetConnection(ctx context.Context, sel ast.Select
 
 var assetEdgeImplementors = []string{"AssetEdge"}
 
-func (ec *executionContext) _AssetEdge(ctx context.Context, sel ast.SelectionSet, obj *AssetEdge) graphql.Marshaler {
+func (ec *executionContext) _AssetEdge(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AssetEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, assetEdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31879,7 +31880,7 @@ func (ec *executionContext) _AssetEdge(ctx context.Context, sel ast.SelectionSet
 
 var cameraImplementors = []string{"Camera"}
 
-func (ec *executionContext) _Camera(ctx context.Context, sel ast.SelectionSet, obj *Camera) graphql.Marshaler {
+func (ec *executionContext) _Camera(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Camera) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, cameraImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31936,7 +31937,7 @@ func (ec *executionContext) _Camera(ctx context.Context, sel ast.SelectionSet, o
 
 var checkProjectAliasPayloadImplementors = []string{"CheckProjectAliasPayload"}
 
-func (ec *executionContext) _CheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, obj *CheckProjectAliasPayload) graphql.Marshaler {
+func (ec *executionContext) _CheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CheckProjectAliasPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, checkProjectAliasPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31968,7 +31969,7 @@ func (ec *executionContext) _CheckProjectAliasPayload(ctx context.Context, sel a
 
 var createAssetPayloadImplementors = []string{"CreateAssetPayload"}
 
-func (ec *executionContext) _CreateAssetPayload(ctx context.Context, sel ast.SelectionSet, obj *CreateAssetPayload) graphql.Marshaler {
+func (ec *executionContext) _CreateAssetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CreateAssetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, createAssetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -31995,7 +31996,7 @@ func (ec *executionContext) _CreateAssetPayload(ctx context.Context, sel ast.Sel
 
 var createInfoboxPayloadImplementors = []string{"CreateInfoboxPayload"}
 
-func (ec *executionContext) _CreateInfoboxPayload(ctx context.Context, sel ast.SelectionSet, obj *CreateInfoboxPayload) graphql.Marshaler {
+func (ec *executionContext) _CreateInfoboxPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CreateInfoboxPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, createInfoboxPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32022,7 +32023,7 @@ func (ec *executionContext) _CreateInfoboxPayload(ctx context.Context, sel ast.S
 
 var createScenePayloadImplementors = []string{"CreateScenePayload"}
 
-func (ec *executionContext) _CreateScenePayload(ctx context.Context, sel ast.SelectionSet, obj *CreateScenePayload) graphql.Marshaler {
+func (ec *executionContext) _CreateScenePayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CreateScenePayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, createScenePayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32049,7 +32050,7 @@ func (ec *executionContext) _CreateScenePayload(ctx context.Context, sel ast.Sel
 
 var createTeamPayloadImplementors = []string{"CreateTeamPayload"}
 
-func (ec *executionContext) _CreateTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *CreateTeamPayload) graphql.Marshaler {
+func (ec *executionContext) _CreateTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CreateTeamPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, createTeamPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32076,7 +32077,7 @@ func (ec *executionContext) _CreateTeamPayload(ctx context.Context, sel ast.Sele
 
 var datasetImplementors = []string{"Dataset", "Node"}
 
-func (ec *executionContext) _Dataset(ctx context.Context, sel ast.SelectionSet, obj *Dataset) graphql.Marshaler {
+func (ec *executionContext) _Dataset(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Dataset) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32140,7 +32141,7 @@ func (ec *executionContext) _Dataset(ctx context.Context, sel ast.SelectionSet, 
 
 var datasetConnectionImplementors = []string{"DatasetConnection"}
 
-func (ec *executionContext) _DatasetConnection(ctx context.Context, sel ast.SelectionSet, obj *DatasetConnection) graphql.Marshaler {
+func (ec *executionContext) _DatasetConnection(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DatasetConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32182,7 +32183,7 @@ func (ec *executionContext) _DatasetConnection(ctx context.Context, sel ast.Sele
 
 var datasetEdgeImplementors = []string{"DatasetEdge"}
 
-func (ec *executionContext) _DatasetEdge(ctx context.Context, sel ast.SelectionSet, obj *DatasetEdge) graphql.Marshaler {
+func (ec *executionContext) _DatasetEdge(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DatasetEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetEdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32211,7 +32212,7 @@ func (ec *executionContext) _DatasetEdge(ctx context.Context, sel ast.SelectionS
 
 var datasetFieldImplementors = []string{"DatasetField"}
 
-func (ec *executionContext) _DatasetField(ctx context.Context, sel ast.SelectionSet, obj *DatasetField) graphql.Marshaler {
+func (ec *executionContext) _DatasetField(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DatasetField) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetFieldImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32288,7 +32289,7 @@ func (ec *executionContext) _DatasetField(ctx context.Context, sel ast.Selection
 
 var datasetSchemaImplementors = []string{"DatasetSchema", "Node"}
 
-func (ec *executionContext) _DatasetSchema(ctx context.Context, sel ast.SelectionSet, obj *DatasetSchema) graphql.Marshaler {
+func (ec *executionContext) _DatasetSchema(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DatasetSchema) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetSchemaImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32375,7 +32376,7 @@ func (ec *executionContext) _DatasetSchema(ctx context.Context, sel ast.Selectio
 
 var datasetSchemaConnectionImplementors = []string{"DatasetSchemaConnection"}
 
-func (ec *executionContext) _DatasetSchemaConnection(ctx context.Context, sel ast.SelectionSet, obj *DatasetSchemaConnection) graphql.Marshaler {
+func (ec *executionContext) _DatasetSchemaConnection(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DatasetSchemaConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetSchemaConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32417,7 +32418,7 @@ func (ec *executionContext) _DatasetSchemaConnection(ctx context.Context, sel as
 
 var datasetSchemaEdgeImplementors = []string{"DatasetSchemaEdge"}
 
-func (ec *executionContext) _DatasetSchemaEdge(ctx context.Context, sel ast.SelectionSet, obj *DatasetSchemaEdge) graphql.Marshaler {
+func (ec *executionContext) _DatasetSchemaEdge(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DatasetSchemaEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetSchemaEdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32446,7 +32447,7 @@ func (ec *executionContext) _DatasetSchemaEdge(ctx context.Context, sel ast.Sele
 
 var datasetSchemaFieldImplementors = []string{"DatasetSchemaField", "Node"}
 
-func (ec *executionContext) _DatasetSchemaField(ctx context.Context, sel ast.SelectionSet, obj *DatasetSchemaField) graphql.Marshaler {
+func (ec *executionContext) _DatasetSchemaField(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DatasetSchemaField) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, datasetSchemaFieldImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32517,7 +32518,7 @@ func (ec *executionContext) _DatasetSchemaField(ctx context.Context, sel ast.Sel
 
 var deleteMePayloadImplementors = []string{"DeleteMePayload"}
 
-func (ec *executionContext) _DeleteMePayload(ctx context.Context, sel ast.SelectionSet, obj *DeleteMePayload) graphql.Marshaler {
+func (ec *executionContext) _DeleteMePayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DeleteMePayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, deleteMePayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32544,7 +32545,7 @@ func (ec *executionContext) _DeleteMePayload(ctx context.Context, sel ast.Select
 
 var deleteProjectPayloadImplementors = []string{"DeleteProjectPayload"}
 
-func (ec *executionContext) _DeleteProjectPayload(ctx context.Context, sel ast.SelectionSet, obj *DeleteProjectPayload) graphql.Marshaler {
+func (ec *executionContext) _DeleteProjectPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DeleteProjectPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, deleteProjectPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32571,7 +32572,7 @@ func (ec *executionContext) _DeleteProjectPayload(ctx context.Context, sel ast.S
 
 var deleteTeamPayloadImplementors = []string{"DeleteTeamPayload"}
 
-func (ec *executionContext) _DeleteTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *DeleteTeamPayload) graphql.Marshaler {
+func (ec *executionContext) _DeleteTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DeleteTeamPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, deleteTeamPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32598,7 +32599,7 @@ func (ec *executionContext) _DeleteTeamPayload(ctx context.Context, sel ast.Sele
 
 var importDatasetPayloadImplementors = []string{"ImportDatasetPayload"}
 
-func (ec *executionContext) _ImportDatasetPayload(ctx context.Context, sel ast.SelectionSet, obj *ImportDatasetPayload) graphql.Marshaler {
+func (ec *executionContext) _ImportDatasetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ImportDatasetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, importDatasetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32625,7 +32626,7 @@ func (ec *executionContext) _ImportDatasetPayload(ctx context.Context, sel ast.S
 
 var importLayerPayloadImplementors = []string{"ImportLayerPayload"}
 
-func (ec *executionContext) _ImportLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *ImportLayerPayload) graphql.Marshaler {
+func (ec *executionContext) _ImportLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ImportLayerPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, importLayerPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32657,7 +32658,7 @@ func (ec *executionContext) _ImportLayerPayload(ctx context.Context, sel ast.Sel
 
 var infoboxImplementors = []string{"Infobox"}
 
-func (ec *executionContext) _Infobox(ctx context.Context, sel ast.SelectionSet, obj *Infobox) graphql.Marshaler {
+func (ec *executionContext) _Infobox(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Infobox) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, infoboxImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32759,7 +32760,7 @@ func (ec *executionContext) _Infobox(ctx context.Context, sel ast.SelectionSet, 
 
 var infoboxFieldImplementors = []string{"InfoboxField"}
 
-func (ec *executionContext) _InfoboxField(ctx context.Context, sel ast.SelectionSet, obj *InfoboxField) graphql.Marshaler {
+func (ec *executionContext) _InfoboxField(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.InfoboxField) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, infoboxFieldImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32918,7 +32919,7 @@ func (ec *executionContext) _InfoboxField(ctx context.Context, sel ast.Selection
 
 var installPluginPayloadImplementors = []string{"InstallPluginPayload"}
 
-func (ec *executionContext) _InstallPluginPayload(ctx context.Context, sel ast.SelectionSet, obj *InstallPluginPayload) graphql.Marshaler {
+func (ec *executionContext) _InstallPluginPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.InstallPluginPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, installPluginPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32950,7 +32951,7 @@ func (ec *executionContext) _InstallPluginPayload(ctx context.Context, sel ast.S
 
 var latLngImplementors = []string{"LatLng"}
 
-func (ec *executionContext) _LatLng(ctx context.Context, sel ast.SelectionSet, obj *LatLng) graphql.Marshaler {
+func (ec *executionContext) _LatLng(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LatLng) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, latLngImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -32982,7 +32983,7 @@ func (ec *executionContext) _LatLng(ctx context.Context, sel ast.SelectionSet, o
 
 var latLngHeightImplementors = []string{"LatLngHeight"}
 
-func (ec *executionContext) _LatLngHeight(ctx context.Context, sel ast.SelectionSet, obj *LatLngHeight) graphql.Marshaler {
+func (ec *executionContext) _LatLngHeight(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LatLngHeight) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, latLngHeightImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33019,7 +33020,7 @@ func (ec *executionContext) _LatLngHeight(ctx context.Context, sel ast.Selection
 
 var layerGroupImplementors = []string{"LayerGroup", "Layers", "Layer"}
 
-func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSet, obj *LayerGroup) graphql.Marshaler {
+func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LayerGroup) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, layerGroupImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33174,7 +33175,7 @@ func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSe
 
 var layerItemImplementors = []string{"LayerItem", "Layers", "Layer"}
 
-func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet, obj *LayerItem) graphql.Marshaler {
+func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LayerItem) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, layerItemImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33316,7 +33317,7 @@ func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet
 
 var mergedInfoboxImplementors = []string{"MergedInfobox"}
 
-func (ec *executionContext) _MergedInfobox(ctx context.Context, sel ast.SelectionSet, obj *MergedInfobox) graphql.Marshaler {
+func (ec *executionContext) _MergedInfobox(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MergedInfobox) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, mergedInfoboxImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33361,7 +33362,7 @@ func (ec *executionContext) _MergedInfobox(ctx context.Context, sel ast.Selectio
 
 var mergedInfoboxFieldImplementors = []string{"MergedInfoboxField"}
 
-func (ec *executionContext) _MergedInfoboxField(ctx context.Context, sel ast.SelectionSet, obj *MergedInfoboxField) graphql.Marshaler {
+func (ec *executionContext) _MergedInfoboxField(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MergedInfoboxField) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, mergedInfoboxFieldImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33449,7 +33450,7 @@ func (ec *executionContext) _MergedInfoboxField(ctx context.Context, sel ast.Sel
 
 var mergedLayerImplementors = []string{"MergedLayer"}
 
-func (ec *executionContext) _MergedLayer(ctx context.Context, sel ast.SelectionSet, obj *MergedLayer) graphql.Marshaler {
+func (ec *executionContext) _MergedLayer(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MergedLayer) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, mergedLayerImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33520,7 +33521,7 @@ func (ec *executionContext) _MergedLayer(ctx context.Context, sel ast.SelectionS
 
 var mergedPropertyImplementors = []string{"MergedProperty"}
 
-func (ec *executionContext) _MergedProperty(ctx context.Context, sel ast.SelectionSet, obj *MergedProperty) graphql.Marshaler {
+func (ec *executionContext) _MergedProperty(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MergedProperty) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, mergedPropertyImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33608,7 +33609,7 @@ func (ec *executionContext) _MergedProperty(ctx context.Context, sel ast.Selecti
 
 var mergedPropertyFieldImplementors = []string{"MergedPropertyField"}
 
-func (ec *executionContext) _MergedPropertyField(ctx context.Context, sel ast.SelectionSet, obj *MergedPropertyField) graphql.Marshaler {
+func (ec *executionContext) _MergedPropertyField(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MergedPropertyField) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, mergedPropertyFieldImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33687,7 +33688,7 @@ func (ec *executionContext) _MergedPropertyField(ctx context.Context, sel ast.Se
 
 var mergedPropertyGroupImplementors = []string{"MergedPropertyGroup"}
 
-func (ec *executionContext) _MergedPropertyGroup(ctx context.Context, sel ast.SelectionSet, obj *MergedPropertyGroup) graphql.Marshaler {
+func (ec *executionContext) _MergedPropertyGroup(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MergedPropertyGroup) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, mergedPropertyGroupImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33802,7 +33803,7 @@ func (ec *executionContext) _MergedPropertyGroup(ctx context.Context, sel ast.Se
 
 var moveInfoboxFieldPayloadImplementors = []string{"MoveInfoboxFieldPayload"}
 
-func (ec *executionContext) _MoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *MoveInfoboxFieldPayload) graphql.Marshaler {
+func (ec *executionContext) _MoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MoveInfoboxFieldPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, moveInfoboxFieldPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -33839,7 +33840,7 @@ func (ec *executionContext) _MoveInfoboxFieldPayload(ctx context.Context, sel as
 
 var moveLayerPayloadImplementors = []string{"MoveLayerPayload"}
 
-func (ec *executionContext) _MoveLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *MoveLayerPayload) graphql.Marshaler {
+func (ec *executionContext) _MoveLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MoveLayerPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, moveLayerPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34019,7 +34020,7 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 var pageInfoImplementors = []string{"PageInfo"}
 
-func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *PageInfo) graphql.Marshaler {
+func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PageInfo) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pageInfoImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34055,7 +34056,7 @@ func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet,
 
 var pluginImplementors = []string{"Plugin"}
 
-func (ec *executionContext) _Plugin(ctx context.Context, sel ast.SelectionSet, obj *Plugin) graphql.Marshaler {
+func (ec *executionContext) _Plugin(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Plugin) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pluginImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34154,7 +34155,7 @@ func (ec *executionContext) _Plugin(ctx context.Context, sel ast.SelectionSet, o
 
 var pluginExtensionImplementors = []string{"PluginExtension"}
 
-func (ec *executionContext) _PluginExtension(ctx context.Context, sel ast.SelectionSet, obj *PluginExtension) graphql.Marshaler {
+func (ec *executionContext) _PluginExtension(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PluginExtension) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pluginExtensionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34281,7 +34282,7 @@ func (ec *executionContext) _PluginExtension(ctx context.Context, sel ast.Select
 
 var pluginMetadataImplementors = []string{"PluginMetadata"}
 
-func (ec *executionContext) _PluginMetadata(ctx context.Context, sel ast.SelectionSet, obj *PluginMetadata) graphql.Marshaler {
+func (ec *executionContext) _PluginMetadata(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PluginMetadata) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, pluginMetadataImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34328,7 +34329,7 @@ func (ec *executionContext) _PluginMetadata(ctx context.Context, sel ast.Selecti
 
 var projectImplementors = []string{"Project", "Node"}
 
-func (ec *executionContext) _Project(ctx context.Context, sel ast.SelectionSet, obj *Project) graphql.Marshaler {
+func (ec *executionContext) _Project(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Project) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34461,7 +34462,7 @@ func (ec *executionContext) _Project(ctx context.Context, sel ast.SelectionSet, 
 
 var projectConnectionImplementors = []string{"ProjectConnection"}
 
-func (ec *executionContext) _ProjectConnection(ctx context.Context, sel ast.SelectionSet, obj *ProjectConnection) graphql.Marshaler {
+func (ec *executionContext) _ProjectConnection(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ProjectConnection) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectConnectionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34503,7 +34504,7 @@ func (ec *executionContext) _ProjectConnection(ctx context.Context, sel ast.Sele
 
 var projectEdgeImplementors = []string{"ProjectEdge"}
 
-func (ec *executionContext) _ProjectEdge(ctx context.Context, sel ast.SelectionSet, obj *ProjectEdge) graphql.Marshaler {
+func (ec *executionContext) _ProjectEdge(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ProjectEdge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectEdgeImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34532,7 +34533,7 @@ func (ec *executionContext) _ProjectEdge(ctx context.Context, sel ast.SelectionS
 
 var projectPayloadImplementors = []string{"ProjectPayload"}
 
-func (ec *executionContext) _ProjectPayload(ctx context.Context, sel ast.SelectionSet, obj *ProjectPayload) graphql.Marshaler {
+func (ec *executionContext) _ProjectPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ProjectPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, projectPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34559,7 +34560,7 @@ func (ec *executionContext) _ProjectPayload(ctx context.Context, sel ast.Selecti
 
 var propertyImplementors = []string{"Property", "Node"}
 
-func (ec *executionContext) _Property(ctx context.Context, sel ast.SelectionSet, obj *Property) graphql.Marshaler {
+func (ec *executionContext) _Property(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Property) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34629,7 +34630,7 @@ func (ec *executionContext) _Property(ctx context.Context, sel ast.SelectionSet,
 
 var propertyConditionImplementors = []string{"PropertyCondition"}
 
-func (ec *executionContext) _PropertyCondition(ctx context.Context, sel ast.SelectionSet, obj *PropertyCondition) graphql.Marshaler {
+func (ec *executionContext) _PropertyCondition(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyCondition) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyConditionImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34663,7 +34664,7 @@ func (ec *executionContext) _PropertyCondition(ctx context.Context, sel ast.Sele
 
 var propertyFieldImplementors = []string{"PropertyField"}
 
-func (ec *executionContext) _PropertyField(ctx context.Context, sel ast.SelectionSet, obj *PropertyField) graphql.Marshaler {
+func (ec *executionContext) _PropertyField(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyField) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyFieldImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34758,7 +34759,7 @@ func (ec *executionContext) _PropertyField(ctx context.Context, sel ast.Selectio
 
 var propertyFieldLinkImplementors = []string{"PropertyFieldLink"}
 
-func (ec *executionContext) _PropertyFieldLink(ctx context.Context, sel ast.SelectionSet, obj *PropertyFieldLink) graphql.Marshaler {
+func (ec *executionContext) _PropertyFieldLink(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyFieldLink) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyFieldLinkImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34836,7 +34837,7 @@ func (ec *executionContext) _PropertyFieldLink(ctx context.Context, sel ast.Sele
 
 var propertyFieldPayloadImplementors = []string{"PropertyFieldPayload"}
 
-func (ec *executionContext) _PropertyFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *PropertyFieldPayload) graphql.Marshaler {
+func (ec *executionContext) _PropertyFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyFieldPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyFieldPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34865,7 +34866,7 @@ func (ec *executionContext) _PropertyFieldPayload(ctx context.Context, sel ast.S
 
 var propertyGroupImplementors = []string{"PropertyGroup", "PropertyItem"}
 
-func (ec *executionContext) _PropertyGroup(ctx context.Context, sel ast.SelectionSet, obj *PropertyGroup) graphql.Marshaler {
+func (ec *executionContext) _PropertyGroup(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyGroup) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyGroupImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34929,7 +34930,7 @@ func (ec *executionContext) _PropertyGroup(ctx context.Context, sel ast.Selectio
 
 var propertyGroupListImplementors = []string{"PropertyGroupList", "PropertyItem"}
 
-func (ec *executionContext) _PropertyGroupList(ctx context.Context, sel ast.SelectionSet, obj *PropertyGroupList) graphql.Marshaler {
+func (ec *executionContext) _PropertyGroupList(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyGroupList) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyGroupListImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -34993,7 +34994,7 @@ func (ec *executionContext) _PropertyGroupList(ctx context.Context, sel ast.Sele
 
 var propertyItemPayloadImplementors = []string{"PropertyItemPayload"}
 
-func (ec *executionContext) _PropertyItemPayload(ctx context.Context, sel ast.SelectionSet, obj *PropertyItemPayload) graphql.Marshaler {
+func (ec *executionContext) _PropertyItemPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyItemPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyItemPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35022,7 +35023,7 @@ func (ec *executionContext) _PropertyItemPayload(ctx context.Context, sel ast.Se
 
 var propertyLinkableFieldsImplementors = []string{"PropertyLinkableFields"}
 
-func (ec *executionContext) _PropertyLinkableFields(ctx context.Context, sel ast.SelectionSet, obj *PropertyLinkableFields) graphql.Marshaler {
+func (ec *executionContext) _PropertyLinkableFields(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertyLinkableFields) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertyLinkableFieldsImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35086,7 +35087,7 @@ func (ec *executionContext) _PropertyLinkableFields(ctx context.Context, sel ast
 
 var propertySchemaImplementors = []string{"PropertySchema"}
 
-func (ec *executionContext) _PropertySchema(ctx context.Context, sel ast.SelectionSet, obj *PropertySchema) graphql.Marshaler {
+func (ec *executionContext) _PropertySchema(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertySchema) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertySchemaImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35123,7 +35124,7 @@ func (ec *executionContext) _PropertySchema(ctx context.Context, sel ast.Selecti
 
 var propertySchemaFieldImplementors = []string{"PropertySchemaField"}
 
-func (ec *executionContext) _PropertySchemaField(ctx context.Context, sel ast.SelectionSet, obj *PropertySchemaField) graphql.Marshaler {
+func (ec *executionContext) _PropertySchemaField(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertySchemaField) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertySchemaFieldImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35234,7 +35235,7 @@ func (ec *executionContext) _PropertySchemaField(ctx context.Context, sel ast.Se
 
 var propertySchemaFieldChoiceImplementors = []string{"PropertySchemaFieldChoice"}
 
-func (ec *executionContext) _PropertySchemaFieldChoice(ctx context.Context, sel ast.SelectionSet, obj *PropertySchemaFieldChoice) graphql.Marshaler {
+func (ec *executionContext) _PropertySchemaFieldChoice(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertySchemaFieldChoice) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertySchemaFieldChoiceImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35305,7 +35306,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice(ctx context.Context, sel 
 
 var propertySchemaGroupImplementors = []string{"PropertySchemaGroup"}
 
-func (ec *executionContext) _PropertySchemaGroup(ctx context.Context, sel ast.SelectionSet, obj *PropertySchemaGroup) graphql.Marshaler {
+func (ec *executionContext) _PropertySchemaGroup(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.PropertySchemaGroup) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, propertySchemaGroupImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35642,7 +35643,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 
 var rectImplementors = []string{"Rect"}
 
-func (ec *executionContext) _Rect(ctx context.Context, sel ast.SelectionSet, obj *Rect) graphql.Marshaler {
+func (ec *executionContext) _Rect(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Rect) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, rectImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35684,7 +35685,7 @@ func (ec *executionContext) _Rect(ctx context.Context, sel ast.SelectionSet, obj
 
 var removeAssetPayloadImplementors = []string{"RemoveAssetPayload"}
 
-func (ec *executionContext) _RemoveAssetPayload(ctx context.Context, sel ast.SelectionSet, obj *RemoveAssetPayload) graphql.Marshaler {
+func (ec *executionContext) _RemoveAssetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RemoveAssetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, removeAssetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35711,7 +35712,7 @@ func (ec *executionContext) _RemoveAssetPayload(ctx context.Context, sel ast.Sel
 
 var removeDatasetSchemaPayloadImplementors = []string{"RemoveDatasetSchemaPayload"}
 
-func (ec *executionContext) _RemoveDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *RemoveDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) _RemoveDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RemoveDatasetSchemaPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, removeDatasetSchemaPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35738,7 +35739,7 @@ func (ec *executionContext) _RemoveDatasetSchemaPayload(ctx context.Context, sel
 
 var removeInfoboxFieldPayloadImplementors = []string{"RemoveInfoboxFieldPayload"}
 
-func (ec *executionContext) _RemoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *RemoveInfoboxFieldPayload) graphql.Marshaler {
+func (ec *executionContext) _RemoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RemoveInfoboxFieldPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, removeInfoboxFieldPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35770,7 +35771,7 @@ func (ec *executionContext) _RemoveInfoboxFieldPayload(ctx context.Context, sel 
 
 var removeInfoboxPayloadImplementors = []string{"RemoveInfoboxPayload"}
 
-func (ec *executionContext) _RemoveInfoboxPayload(ctx context.Context, sel ast.SelectionSet, obj *RemoveInfoboxPayload) graphql.Marshaler {
+func (ec *executionContext) _RemoveInfoboxPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RemoveInfoboxPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, removeInfoboxPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35797,7 +35798,7 @@ func (ec *executionContext) _RemoveInfoboxPayload(ctx context.Context, sel ast.S
 
 var removeLayerPayloadImplementors = []string{"RemoveLayerPayload"}
 
-func (ec *executionContext) _RemoveLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *RemoveLayerPayload) graphql.Marshaler {
+func (ec *executionContext) _RemoveLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RemoveLayerPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, removeLayerPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35829,7 +35830,7 @@ func (ec *executionContext) _RemoveLayerPayload(ctx context.Context, sel ast.Sel
 
 var removeMemberFromTeamPayloadImplementors = []string{"RemoveMemberFromTeamPayload"}
 
-func (ec *executionContext) _RemoveMemberFromTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *RemoveMemberFromTeamPayload) graphql.Marshaler {
+func (ec *executionContext) _RemoveMemberFromTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RemoveMemberFromTeamPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, removeMemberFromTeamPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35856,7 +35857,7 @@ func (ec *executionContext) _RemoveMemberFromTeamPayload(ctx context.Context, se
 
 var removeWidgetPayloadImplementors = []string{"RemoveWidgetPayload"}
 
-func (ec *executionContext) _RemoveWidgetPayload(ctx context.Context, sel ast.SelectionSet, obj *RemoveWidgetPayload) graphql.Marshaler {
+func (ec *executionContext) _RemoveWidgetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RemoveWidgetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, removeWidgetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -35893,7 +35894,7 @@ func (ec *executionContext) _RemoveWidgetPayload(ctx context.Context, sel ast.Se
 
 var sceneImplementors = []string{"Scene", "Node"}
 
-func (ec *executionContext) _Scene(ctx context.Context, sel ast.SelectionSet, obj *Scene) graphql.Marshaler {
+func (ec *executionContext) _Scene(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Scene) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, sceneImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36037,7 +36038,7 @@ func (ec *executionContext) _Scene(ctx context.Context, sel ast.SelectionSet, ob
 
 var scenePluginImplementors = []string{"ScenePlugin"}
 
-func (ec *executionContext) _ScenePlugin(ctx context.Context, sel ast.SelectionSet, obj *ScenePlugin) graphql.Marshaler {
+func (ec *executionContext) _ScenePlugin(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ScenePlugin) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, scenePluginImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36088,7 +36089,7 @@ func (ec *executionContext) _ScenePlugin(ctx context.Context, sel ast.SelectionS
 
 var sceneWidgetImplementors = []string{"SceneWidget"}
 
-func (ec *executionContext) _SceneWidget(ctx context.Context, sel ast.SelectionSet, obj *SceneWidget) graphql.Marshaler {
+func (ec *executionContext) _SceneWidget(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.SceneWidget) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, sceneWidgetImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36168,7 +36169,7 @@ func (ec *executionContext) _SceneWidget(ctx context.Context, sel ast.SelectionS
 
 var searchedUserImplementors = []string{"SearchedUser"}
 
-func (ec *executionContext) _SearchedUser(ctx context.Context, sel ast.SelectionSet, obj *SearchedUser) graphql.Marshaler {
+func (ec *executionContext) _SearchedUser(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.SearchedUser) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, searchedUserImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36205,7 +36206,7 @@ func (ec *executionContext) _SearchedUser(ctx context.Context, sel ast.Selection
 
 var signupPayloadImplementors = []string{"SignupPayload"}
 
-func (ec *executionContext) _SignupPayload(ctx context.Context, sel ast.SelectionSet, obj *SignupPayload) graphql.Marshaler {
+func (ec *executionContext) _SignupPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.SignupPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, signupPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36237,7 +36238,7 @@ func (ec *executionContext) _SignupPayload(ctx context.Context, sel ast.Selectio
 
 var syncDatasetPayloadImplementors = []string{"SyncDatasetPayload"}
 
-func (ec *executionContext) _SyncDatasetPayload(ctx context.Context, sel ast.SelectionSet, obj *SyncDatasetPayload) graphql.Marshaler {
+func (ec *executionContext) _SyncDatasetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.SyncDatasetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, syncDatasetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36279,7 +36280,7 @@ func (ec *executionContext) _SyncDatasetPayload(ctx context.Context, sel ast.Sel
 
 var teamImplementors = []string{"Team", "Node"}
 
-func (ec *executionContext) _Team(ctx context.Context, sel ast.SelectionSet, obj *Team) graphql.Marshaler {
+func (ec *executionContext) _Team(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Team) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, teamImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36349,7 +36350,7 @@ func (ec *executionContext) _Team(ctx context.Context, sel ast.SelectionSet, obj
 
 var teamMemberImplementors = []string{"TeamMember"}
 
-func (ec *executionContext) _TeamMember(ctx context.Context, sel ast.SelectionSet, obj *TeamMember) graphql.Marshaler {
+func (ec *executionContext) _TeamMember(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.TeamMember) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, teamMemberImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36392,7 +36393,7 @@ func (ec *executionContext) _TeamMember(ctx context.Context, sel ast.SelectionSe
 
 var typographyImplementors = []string{"Typography"}
 
-func (ec *executionContext) _Typography(ctx context.Context, sel ast.SelectionSet, obj *Typography) graphql.Marshaler {
+func (ec *executionContext) _Typography(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Typography) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, typographyImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36430,7 +36431,7 @@ func (ec *executionContext) _Typography(ctx context.Context, sel ast.SelectionSe
 
 var uninstallPluginPayloadImplementors = []string{"UninstallPluginPayload"}
 
-func (ec *executionContext) _UninstallPluginPayload(ctx context.Context, sel ast.SelectionSet, obj *UninstallPluginPayload) graphql.Marshaler {
+func (ec *executionContext) _UninstallPluginPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UninstallPluginPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, uninstallPluginPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36462,7 +36463,7 @@ func (ec *executionContext) _UninstallPluginPayload(ctx context.Context, sel ast
 
 var updateDatasetSchemaPayloadImplementors = []string{"UpdateDatasetSchemaPayload"}
 
-func (ec *executionContext) _UpdateDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *UpdateDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) _UpdateDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateDatasetSchemaPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, updateDatasetSchemaPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36486,7 +36487,7 @@ func (ec *executionContext) _UpdateDatasetSchemaPayload(ctx context.Context, sel
 
 var updateLayerPayloadImplementors = []string{"UpdateLayerPayload"}
 
-func (ec *executionContext) _UpdateLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *UpdateLayerPayload) graphql.Marshaler {
+func (ec *executionContext) _UpdateLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateLayerPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, updateLayerPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36513,7 +36514,7 @@ func (ec *executionContext) _UpdateLayerPayload(ctx context.Context, sel ast.Sel
 
 var updateMePayloadImplementors = []string{"UpdateMePayload"}
 
-func (ec *executionContext) _UpdateMePayload(ctx context.Context, sel ast.SelectionSet, obj *UpdateMePayload) graphql.Marshaler {
+func (ec *executionContext) _UpdateMePayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateMePayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, updateMePayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36540,7 +36541,7 @@ func (ec *executionContext) _UpdateMePayload(ctx context.Context, sel ast.Select
 
 var updateMemberOfTeamPayloadImplementors = []string{"UpdateMemberOfTeamPayload"}
 
-func (ec *executionContext) _UpdateMemberOfTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *UpdateMemberOfTeamPayload) graphql.Marshaler {
+func (ec *executionContext) _UpdateMemberOfTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateMemberOfTeamPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, updateMemberOfTeamPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36567,7 +36568,7 @@ func (ec *executionContext) _UpdateMemberOfTeamPayload(ctx context.Context, sel 
 
 var updateTeamPayloadImplementors = []string{"UpdateTeamPayload"}
 
-func (ec *executionContext) _UpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *UpdateTeamPayload) graphql.Marshaler {
+func (ec *executionContext) _UpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateTeamPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, updateTeamPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36594,7 +36595,7 @@ func (ec *executionContext) _UpdateTeamPayload(ctx context.Context, sel ast.Sele
 
 var updateWidgetPayloadImplementors = []string{"UpdateWidgetPayload"}
 
-func (ec *executionContext) _UpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, obj *UpdateWidgetPayload) graphql.Marshaler {
+func (ec *executionContext) _UpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateWidgetPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, updateWidgetPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36626,7 +36627,7 @@ func (ec *executionContext) _UpdateWidgetPayload(ctx context.Context, sel ast.Se
 
 var upgradePluginPayloadImplementors = []string{"UpgradePluginPayload"}
 
-func (ec *executionContext) _UpgradePluginPayload(ctx context.Context, sel ast.SelectionSet, obj *UpgradePluginPayload) graphql.Marshaler {
+func (ec *executionContext) _UpgradePluginPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpgradePluginPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, upgradePluginPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36658,7 +36659,7 @@ func (ec *executionContext) _UpgradePluginPayload(ctx context.Context, sel ast.S
 
 var uploadPluginPayloadImplementors = []string{"UploadPluginPayload"}
 
-func (ec *executionContext) _UploadPluginPayload(ctx context.Context, sel ast.SelectionSet, obj *UploadPluginPayload) graphql.Marshaler {
+func (ec *executionContext) _UploadPluginPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UploadPluginPayload) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, uploadPluginPayloadImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -36695,7 +36696,7 @@ func (ec *executionContext) _UploadPluginPayload(ctx context.Context, sel ast.Se
 
 var userImplementors = []string{"User", "Node"}
 
-func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *User) graphql.Marshaler {
+func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.User) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -37023,52 +37024,52 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) unmarshalNAddDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDatasetSchemaInput(ctx context.Context, v interface{}) (AddDatasetSchemaInput, error) {
+func (ec *executionContext) unmarshalNAddDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDatasetSchemaInput(ctx context.Context, v interface{}) (gqlmodel.AddDatasetSchemaInput, error) {
 	res, err := ec.unmarshalInputAddDatasetSchemaInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddDynamicDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetInput(ctx context.Context, v interface{}) (AddDynamicDatasetInput, error) {
+func (ec *executionContext) unmarshalNAddDynamicDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetInput(ctx context.Context, v interface{}) (gqlmodel.AddDynamicDatasetInput, error) {
 	res, err := ec.unmarshalInputAddDynamicDatasetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddDynamicDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetSchemaInput(ctx context.Context, v interface{}) (AddDynamicDatasetSchemaInput, error) {
+func (ec *executionContext) unmarshalNAddDynamicDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetSchemaInput(ctx context.Context, v interface{}) (gqlmodel.AddDynamicDatasetSchemaInput, error) {
 	res, err := ec.unmarshalInputAddDynamicDatasetSchemaInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddInfoboxFieldInput(ctx context.Context, v interface{}) (AddInfoboxFieldInput, error) {
+func (ec *executionContext) unmarshalNAddInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddInfoboxFieldInput(ctx context.Context, v interface{}) (gqlmodel.AddInfoboxFieldInput, error) {
 	res, err := ec.unmarshalInputAddInfoboxFieldInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddLayerGroupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerGroupInput(ctx context.Context, v interface{}) (AddLayerGroupInput, error) {
+func (ec *executionContext) unmarshalNAddLayerGroupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerGroupInput(ctx context.Context, v interface{}) (gqlmodel.AddLayerGroupInput, error) {
 	res, err := ec.unmarshalInputAddLayerGroupInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddLayerItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerItemInput(ctx context.Context, v interface{}) (AddLayerItemInput, error) {
+func (ec *executionContext) unmarshalNAddLayerItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerItemInput(ctx context.Context, v interface{}) (gqlmodel.AddLayerItemInput, error) {
 	res, err := ec.unmarshalInputAddLayerItemInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddMemberToTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddMemberToTeamInput(ctx context.Context, v interface{}) (AddMemberToTeamInput, error) {
+func (ec *executionContext) unmarshalNAddMemberToTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddMemberToTeamInput(ctx context.Context, v interface{}) (gqlmodel.AddMemberToTeamInput, error) {
 	res, err := ec.unmarshalInputAddMemberToTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddPropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddPropertyItemInput(ctx context.Context, v interface{}) (AddPropertyItemInput, error) {
+func (ec *executionContext) unmarshalNAddPropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddPropertyItemInput(ctx context.Context, v interface{}) (gqlmodel.AddPropertyItemInput, error) {
 	res, err := ec.unmarshalInputAddPropertyItemInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNAddWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddWidgetInput(ctx context.Context, v interface{}) (AddWidgetInput, error) {
+func (ec *executionContext) unmarshalNAddWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddWidgetInput(ctx context.Context, v interface{}) (gqlmodel.AddWidgetInput, error) {
 	res, err := ec.unmarshalInputAddWidgetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAsset(ctx context.Context, sel ast.SelectionSet, v []*Asset) graphql.Marshaler {
+func (ec *executionContext) marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAsset(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.Asset) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37092,7 +37093,7 @@ func (ec *executionContext) marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearth
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAsset(ctx, sel, v[i])
+			ret[i] = ec.marshalOAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAsset(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37105,7 +37106,7 @@ func (ec *executionContext) marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearth
 	return ret
 }
 
-func (ec *executionContext) marshalNAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAsset(ctx context.Context, sel ast.SelectionSet, v *Asset) graphql.Marshaler {
+func (ec *executionContext) marshalNAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAsset(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Asset) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37115,11 +37116,11 @@ func (ec *executionContext) marshalNAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑ
 	return ec._Asset(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNAssetConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetConnection(ctx context.Context, sel ast.SelectionSet, v AssetConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNAssetConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetConnection(ctx context.Context, sel ast.SelectionSet, v gqlmodel.AssetConnection) graphql.Marshaler {
 	return ec._AssetConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAssetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetConnection(ctx context.Context, sel ast.SelectionSet, v *AssetConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNAssetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetConnection(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AssetConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37129,7 +37130,7 @@ func (ec *executionContext) marshalNAssetConnection2ᚖgithubᚗcomᚋreearthᚋ
 	return ec._AssetConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNAssetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*AssetEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNAssetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.AssetEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37153,7 +37154,7 @@ func (ec *executionContext) marshalNAssetEdge2ᚕᚖgithubᚗcomᚋreearthᚋree
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAssetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalNAssetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37166,7 +37167,7 @@ func (ec *executionContext) marshalNAssetEdge2ᚕᚖgithubᚗcomᚋreearthᚋree
 	return ret
 }
 
-func (ec *executionContext) marshalNAssetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAssetEdge(ctx context.Context, sel ast.SelectionSet, v *AssetEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNAssetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetEdge(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AssetEdge) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37191,11 +37192,11 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNCheckProjectAliasPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, v CheckProjectAliasPayload) graphql.Marshaler {
+func (ec *executionContext) marshalNCheckProjectAliasPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, v gqlmodel.CheckProjectAliasPayload) graphql.Marshaler {
 	return ec._CheckProjectAliasPayload(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNCheckProjectAliasPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, v *CheckProjectAliasPayload) graphql.Marshaler {
+func (ec *executionContext) marshalNCheckProjectAliasPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.CheckProjectAliasPayload) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37205,38 +37206,38 @@ func (ec *executionContext) marshalNCheckProjectAliasPayload2ᚖgithubᚗcomᚋr
 	return ec._CheckProjectAliasPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNCreateAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateAssetInput(ctx context.Context, v interface{}) (CreateAssetInput, error) {
+func (ec *executionContext) unmarshalNCreateAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateAssetInput(ctx context.Context, v interface{}) (gqlmodel.CreateAssetInput, error) {
 	res, err := ec.unmarshalInputCreateAssetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNCreateInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateInfoboxInput(ctx context.Context, v interface{}) (CreateInfoboxInput, error) {
+func (ec *executionContext) unmarshalNCreateInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateInfoboxInput(ctx context.Context, v interface{}) (gqlmodel.CreateInfoboxInput, error) {
 	res, err := ec.unmarshalInputCreateInfoboxInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNCreateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateProjectInput(ctx context.Context, v interface{}) (CreateProjectInput, error) {
+func (ec *executionContext) unmarshalNCreateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateProjectInput(ctx context.Context, v interface{}) (gqlmodel.CreateProjectInput, error) {
 	res, err := ec.unmarshalInputCreateProjectInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNCreateSceneInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateSceneInput(ctx context.Context, v interface{}) (CreateSceneInput, error) {
+func (ec *executionContext) unmarshalNCreateSceneInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateSceneInput(ctx context.Context, v interface{}) (gqlmodel.CreateSceneInput, error) {
 	res, err := ec.unmarshalInputCreateSceneInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNCreateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateTeamInput(ctx context.Context, v interface{}) (CreateTeamInput, error) {
+func (ec *executionContext) unmarshalNCreateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateTeamInput(ctx context.Context, v interface{}) (gqlmodel.CreateTeamInput, error) {
 	res, err := ec.unmarshalInputCreateTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalNCursor2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx context.Context, v interface{}) (usecase.Cursor, error) {
-	res, err := UnmarshalCursor(v)
+	res, err := gqlmodel.UnmarshalCursor(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNCursor2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx context.Context, sel ast.SelectionSet, v usecase.Cursor) graphql.Marshaler {
-	res := MarshalCursor(v)
+	res := gqlmodel.MarshalCursor(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37245,7 +37246,7 @@ func (ec *executionContext) marshalNCursor2githubᚗcomᚋreearthᚋreearthᚑba
 	return res
 }
 
-func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx context.Context, sel ast.SelectionSet, v []*Dataset) graphql.Marshaler {
+func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.Dataset) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37269,7 +37270,7 @@ func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreear
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, sel, v[i])
+			ret[i] = ec.marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37282,7 +37283,7 @@ func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreear
 	return ret
 }
 
-func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetᚄ(ctx context.Context, sel ast.SelectionSet, v []*Dataset) graphql.Marshaler {
+func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.Dataset) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37306,7 +37307,7 @@ func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreear
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx, sel, v[i])
+			ret[i] = ec.marshalNDataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37319,7 +37320,7 @@ func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreear
 	return ret
 }
 
-func (ec *executionContext) marshalNDataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx context.Context, sel ast.SelectionSet, v *Dataset) graphql.Marshaler {
+func (ec *executionContext) marshalNDataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Dataset) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37329,11 +37330,11 @@ func (ec *executionContext) marshalNDataset2ᚖgithubᚗcomᚋreearthᚋreearth�
 	return ec._Dataset(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDatasetConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetConnection(ctx context.Context, sel ast.SelectionSet, v DatasetConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetConnection(ctx context.Context, sel ast.SelectionSet, v gqlmodel.DatasetConnection) graphql.Marshaler {
 	return ec._DatasetConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNDatasetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetConnection(ctx context.Context, sel ast.SelectionSet, v *DatasetConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetConnection(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37343,7 +37344,7 @@ func (ec *executionContext) marshalNDatasetConnection2ᚖgithubᚗcomᚋreearth�
 	return ec._DatasetConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDatasetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*DatasetEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.DatasetEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37367,7 +37368,7 @@ func (ec *executionContext) marshalNDatasetEdge2ᚕᚖgithubᚗcomᚋreearthᚋr
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDatasetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalNDatasetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37380,7 +37381,7 @@ func (ec *executionContext) marshalNDatasetEdge2ᚕᚖgithubᚗcomᚋreearthᚋr
 	return ret
 }
 
-func (ec *executionContext) marshalNDatasetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetEdge(ctx context.Context, sel ast.SelectionSet, v *DatasetEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetEdge(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetEdge) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37390,7 +37391,7 @@ func (ec *executionContext) marshalNDatasetEdge2ᚖgithubᚗcomᚋreearthᚋreea
 	return ec._DatasetEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDatasetField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*DatasetField) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.DatasetField) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37414,7 +37415,7 @@ func (ec *executionContext) marshalNDatasetField2ᚕᚖgithubᚗcomᚋreearthᚋ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetField(ctx, sel, v[i])
+			ret[i] = ec.marshalNDatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetField(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37427,7 +37428,7 @@ func (ec *executionContext) marshalNDatasetField2ᚕᚖgithubᚗcomᚋreearthᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalNDatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetField(ctx context.Context, sel ast.SelectionSet, v *DatasetField) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetField) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37437,7 +37438,7 @@ func (ec *executionContext) marshalNDatasetField2ᚖgithubᚗcomᚋreearthᚋree
 	return ec._DatasetField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx context.Context, sel ast.SelectionSet, v []*DatasetSchema) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.DatasetSchema) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37461,7 +37462,7 @@ func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearth�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, sel, v[i])
+			ret[i] = ec.marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37474,7 +37475,7 @@ func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearth�
 	return ret
 }
 
-func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaᚄ(ctx context.Context, sel ast.SelectionSet, v []*DatasetSchema) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.DatasetSchema) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37498,7 +37499,7 @@ func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearth�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx, sel, v[i])
+			ret[i] = ec.marshalNDatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37511,7 +37512,7 @@ func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearth�
 	return ret
 }
 
-func (ec *executionContext) marshalNDatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx context.Context, sel ast.SelectionSet, v *DatasetSchema) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetSchema) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37521,11 +37522,11 @@ func (ec *executionContext) marshalNDatasetSchema2ᚖgithubᚗcomᚋreearthᚋre
 	return ec._DatasetSchema(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDatasetSchemaConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaConnection(ctx context.Context, sel ast.SelectionSet, v DatasetSchemaConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchemaConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaConnection(ctx context.Context, sel ast.SelectionSet, v gqlmodel.DatasetSchemaConnection) graphql.Marshaler {
 	return ec._DatasetSchemaConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNDatasetSchemaConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaConnection(ctx context.Context, sel ast.SelectionSet, v *DatasetSchemaConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchemaConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaConnection(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetSchemaConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37535,7 +37536,7 @@ func (ec *executionContext) marshalNDatasetSchemaConnection2ᚖgithubᚗcomᚋre
 	return ec._DatasetSchemaConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDatasetSchemaEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*DatasetSchemaEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchemaEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.DatasetSchemaEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37559,7 +37560,7 @@ func (ec *executionContext) marshalNDatasetSchemaEdge2ᚕᚖgithubᚗcomᚋreear
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDatasetSchemaEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalNDatasetSchemaEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37572,7 +37573,7 @@ func (ec *executionContext) marshalNDatasetSchemaEdge2ᚕᚖgithubᚗcomᚋreear
 	return ret
 }
 
-func (ec *executionContext) marshalNDatasetSchemaEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaEdge(ctx context.Context, sel ast.SelectionSet, v *DatasetSchemaEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchemaEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaEdge(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetSchemaEdge) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37582,7 +37583,7 @@ func (ec *executionContext) marshalNDatasetSchemaEdge2ᚖgithubᚗcomᚋreearth�
 	return ec._DatasetSchemaEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNDatasetSchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*DatasetSchemaField) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.DatasetSchemaField) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37606,7 +37607,7 @@ func (ec *executionContext) marshalNDatasetSchemaField2ᚕᚖgithubᚗcomᚋreea
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNDatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaField(ctx, sel, v[i])
+			ret[i] = ec.marshalNDatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaField(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37619,7 +37620,7 @@ func (ec *executionContext) marshalNDatasetSchemaField2ᚕᚖgithubᚗcomᚋreea
 	return ret
 }
 
-func (ec *executionContext) marshalNDatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaField(ctx context.Context, sel ast.SelectionSet, v *DatasetSchemaField) graphql.Marshaler {
+func (ec *executionContext) marshalNDatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetSchemaField) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37644,17 +37645,17 @@ func (ec *executionContext) marshalNDateTime2timeᚐTime(ctx context.Context, se
 	return res
 }
 
-func (ec *executionContext) unmarshalNDeleteMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteMeInput(ctx context.Context, v interface{}) (DeleteMeInput, error) {
+func (ec *executionContext) unmarshalNDeleteMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteMeInput(ctx context.Context, v interface{}) (gqlmodel.DeleteMeInput, error) {
 	res, err := ec.unmarshalInputDeleteMeInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNDeleteProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteProjectInput(ctx context.Context, v interface{}) (DeleteProjectInput, error) {
+func (ec *executionContext) unmarshalNDeleteProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteProjectInput(ctx context.Context, v interface{}) (gqlmodel.DeleteProjectInput, error) {
 	res, err := ec.unmarshalInputDeleteProjectInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNDeleteTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteTeamInput(ctx context.Context, v interface{}) (DeleteTeamInput, error) {
+func (ec *executionContext) unmarshalNDeleteTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteTeamInput(ctx context.Context, v interface{}) (gqlmodel.DeleteTeamInput, error) {
 	res, err := ec.unmarshalInputDeleteTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -37690,12 +37691,12 @@ func (ec *executionContext) marshalNFloat2float64(ctx context.Context, sel ast.S
 }
 
 func (ec *executionContext) unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx context.Context, v interface{}) (id.ID, error) {
-	res, err := UnmarshalID(v)
+	res, err := gqlmodel.UnmarshalID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx context.Context, sel ast.SelectionSet, v id.ID) graphql.Marshaler {
-	res := MarshalID(v)
+	res := gqlmodel.MarshalID(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37735,7 +37736,7 @@ func (ec *executionContext) marshalNID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑ
 }
 
 func (ec *executionContext) unmarshalNID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx context.Context, v interface{}) (*id.ID, error) {
-	res, err := UnmarshalID(v)
+	res, err := gqlmodel.UnmarshalID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -37746,7 +37747,7 @@ func (ec *executionContext) marshalNID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbac
 		}
 		return graphql.Null
 	}
-	res := MarshalID(*v)
+	res := gqlmodel.MarshalID(*v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37755,26 +37756,26 @@ func (ec *executionContext) marshalNID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbac
 	return res
 }
 
-func (ec *executionContext) unmarshalNImportDatasetFromGoogleSheetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportDatasetFromGoogleSheetInput(ctx context.Context, v interface{}) (ImportDatasetFromGoogleSheetInput, error) {
+func (ec *executionContext) unmarshalNImportDatasetFromGoogleSheetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportDatasetFromGoogleSheetInput(ctx context.Context, v interface{}) (gqlmodel.ImportDatasetFromGoogleSheetInput, error) {
 	res, err := ec.unmarshalInputImportDatasetFromGoogleSheetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNImportDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportDatasetInput(ctx context.Context, v interface{}) (ImportDatasetInput, error) {
+func (ec *executionContext) unmarshalNImportDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportDatasetInput(ctx context.Context, v interface{}) (gqlmodel.ImportDatasetInput, error) {
 	res, err := ec.unmarshalInputImportDatasetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNImportLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportLayerInput(ctx context.Context, v interface{}) (ImportLayerInput, error) {
+func (ec *executionContext) unmarshalNImportLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportLayerInput(ctx context.Context, v interface{}) (gqlmodel.ImportLayerInput, error) {
 	res, err := ec.unmarshalInputImportLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNInfobox2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfobox(ctx context.Context, sel ast.SelectionSet, v Infobox) graphql.Marshaler {
+func (ec *executionContext) marshalNInfobox2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfobox(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Infobox) graphql.Marshaler {
 	return ec._Infobox(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfobox(ctx context.Context, sel ast.SelectionSet, v *Infobox) graphql.Marshaler {
+func (ec *executionContext) marshalNInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfobox(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Infobox) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37784,7 +37785,7 @@ func (ec *executionContext) marshalNInfobox2ᚖgithubᚗcomᚋreearthᚋreearth�
 	return ec._Infobox(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfoboxFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*InfoboxField) graphql.Marshaler {
+func (ec *executionContext) marshalNInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfoboxFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.InfoboxField) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37808,7 +37809,7 @@ func (ec *executionContext) marshalNInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfoboxField(ctx, sel, v[i])
+			ret[i] = ec.marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfoboxField(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37821,7 +37822,7 @@ func (ec *executionContext) marshalNInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfoboxField(ctx context.Context, sel ast.SelectionSet, v *InfoboxField) graphql.Marshaler {
+func (ec *executionContext) marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfoboxField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.InfoboxField) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37831,7 +37832,7 @@ func (ec *executionContext) marshalNInfoboxField2ᚖgithubᚗcomᚋreearthᚋree
 	return ec._InfoboxField(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNInstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInstallPluginInput(ctx context.Context, v interface{}) (InstallPluginInput, error) {
+func (ec *executionContext) unmarshalNInstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInstallPluginInput(ctx context.Context, v interface{}) (gqlmodel.InstallPluginInput, error) {
 	res, err := ec.unmarshalInputInstallPluginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -37852,12 +37853,12 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 }
 
 func (ec *executionContext) unmarshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx context.Context, v interface{}) (language.Tag, error) {
-	res, err := UnmarshalLang(v)
+	res, err := gqlmodel.UnmarshalLang(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx context.Context, sel ast.SelectionSet, v language.Tag) graphql.Marshaler {
-	res := MarshalLang(v)
+	res := gqlmodel.MarshalLang(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37866,7 +37867,7 @@ func (ec *executionContext) marshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTa
 	return res
 }
 
-func (ec *executionContext) marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx context.Context, sel ast.SelectionSet, v Layer) graphql.Marshaler {
+func (ec *executionContext) marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Layer) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37876,7 +37877,7 @@ func (ec *executionContext) marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbac
 	return ec._Layer(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx context.Context, sel ast.SelectionSet, v []Layer) graphql.Marshaler {
+func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx context.Context, sel ast.SelectionSet, v []gqlmodel.Layer) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37900,7 +37901,7 @@ func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, sel, v[i])
+			ret[i] = ec.marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37913,7 +37914,7 @@ func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑ
 	return ret
 }
 
-func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerᚄ(ctx context.Context, sel ast.SelectionSet, v []Layer) graphql.Marshaler {
+func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerᚄ(ctx context.Context, sel ast.SelectionSet, v []gqlmodel.Layer) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -37937,7 +37938,7 @@ func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx, sel, v[i])
+			ret[i] = ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -37950,17 +37951,17 @@ func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑ
 	return ret
 }
 
-func (ec *executionContext) unmarshalNLayerEncodingFormat2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerEncodingFormat(ctx context.Context, v interface{}) (LayerEncodingFormat, error) {
-	var res LayerEncodingFormat
+func (ec *executionContext) unmarshalNLayerEncodingFormat2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerEncodingFormat(ctx context.Context, v interface{}) (gqlmodel.LayerEncodingFormat, error) {
+	var res gqlmodel.LayerEncodingFormat
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNLayerEncodingFormat2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerEncodingFormat(ctx context.Context, sel ast.SelectionSet, v LayerEncodingFormat) graphql.Marshaler {
+func (ec *executionContext) marshalNLayerEncodingFormat2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerEncodingFormat(ctx context.Context, sel ast.SelectionSet, v gqlmodel.LayerEncodingFormat) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx context.Context, sel ast.SelectionSet, v *LayerGroup) graphql.Marshaler {
+func (ec *executionContext) marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.LayerGroup) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37970,7 +37971,7 @@ func (ec *executionContext) marshalNLayerGroup2ᚖgithubᚗcomᚋreearthᚋreear
 	return ec._LayerGroup(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerItem(ctx context.Context, sel ast.SelectionSet, v *LayerItem) graphql.Marshaler {
+func (ec *executionContext) marshalNLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerItem(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.LayerItem) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -37980,22 +37981,22 @@ func (ec *executionContext) marshalNLayerItem2ᚖgithubᚗcomᚋreearthᚋreeart
 	return ec._LayerItem(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNLinkDatasetToPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLinkDatasetToPropertyValueInput(ctx context.Context, v interface{}) (LinkDatasetToPropertyValueInput, error) {
+func (ec *executionContext) unmarshalNLinkDatasetToPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLinkDatasetToPropertyValueInput(ctx context.Context, v interface{}) (gqlmodel.LinkDatasetToPropertyValueInput, error) {
 	res, err := ec.unmarshalInputLinkDatasetToPropertyValueInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐListOperation(ctx context.Context, v interface{}) (ListOperation, error) {
-	var res ListOperation
+func (ec *executionContext) unmarshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐListOperation(ctx context.Context, v interface{}) (gqlmodel.ListOperation, error) {
+	var res gqlmodel.ListOperation
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐListOperation(ctx context.Context, sel ast.SelectionSet, v ListOperation) graphql.Marshaler {
+func (ec *executionContext) marshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐListOperation(ctx context.Context, sel ast.SelectionSet, v gqlmodel.ListOperation) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfoboxFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*MergedInfoboxField) graphql.Marshaler {
+func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfoboxFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.MergedInfoboxField) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38019,7 +38020,7 @@ func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreea
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfoboxField(ctx, sel, v[i])
+			ret[i] = ec.marshalNMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfoboxField(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38032,7 +38033,7 @@ func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreea
 	return ret
 }
 
-func (ec *executionContext) marshalNMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfoboxField(ctx context.Context, sel ast.SelectionSet, v *MergedInfoboxField) graphql.Marshaler {
+func (ec *executionContext) marshalNMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfoboxField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedInfoboxField) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38042,7 +38043,7 @@ func (ec *executionContext) marshalNMergedInfoboxField2ᚖgithubᚗcomᚋreearth
 	return ec._MergedInfoboxField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNMergedPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*MergedPropertyField) graphql.Marshaler {
+func (ec *executionContext) marshalNMergedPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.MergedPropertyField) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38066,7 +38067,7 @@ func (ec *executionContext) marshalNMergedPropertyField2ᚕᚖgithubᚗcomᚋree
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNMergedPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyField(ctx, sel, v[i])
+			ret[i] = ec.marshalNMergedPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyField(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38079,7 +38080,7 @@ func (ec *executionContext) marshalNMergedPropertyField2ᚕᚖgithubᚗcomᚋree
 	return ret
 }
 
-func (ec *executionContext) marshalNMergedPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyField(ctx context.Context, sel ast.SelectionSet, v *MergedPropertyField) graphql.Marshaler {
+func (ec *executionContext) marshalNMergedPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedPropertyField) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38089,7 +38090,7 @@ func (ec *executionContext) marshalNMergedPropertyField2ᚖgithubᚗcomᚋreeart
 	return ec._MergedPropertyField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*MergedPropertyGroup) graphql.Marshaler {
+func (ec *executionContext) marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.MergedPropertyGroup) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38113,7 +38114,7 @@ func (ec *executionContext) marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋree
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNMergedPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyGroup(ctx, sel, v[i])
+			ret[i] = ec.marshalNMergedPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyGroup(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38126,7 +38127,7 @@ func (ec *executionContext) marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋree
 	return ret
 }
 
-func (ec *executionContext) marshalNMergedPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedPropertyGroup(ctx context.Context, sel ast.SelectionSet, v *MergedPropertyGroup) graphql.Marshaler {
+func (ec *executionContext) marshalNMergedPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedPropertyGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedPropertyGroup) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38136,22 +38137,22 @@ func (ec *executionContext) marshalNMergedPropertyGroup2ᚖgithubᚗcomᚋreeart
 	return ec._MergedPropertyGroup(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNMoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveInfoboxFieldInput(ctx context.Context, v interface{}) (MoveInfoboxFieldInput, error) {
+func (ec *executionContext) unmarshalNMoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveInfoboxFieldInput(ctx context.Context, v interface{}) (gqlmodel.MoveInfoboxFieldInput, error) {
 	res, err := ec.unmarshalInputMoveInfoboxFieldInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNMoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveLayerInput(ctx context.Context, v interface{}) (MoveLayerInput, error) {
+func (ec *executionContext) unmarshalNMoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveLayerInput(ctx context.Context, v interface{}) (gqlmodel.MoveLayerInput, error) {
 	res, err := ec.unmarshalInputMoveLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNMovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMovePropertyItemInput(ctx context.Context, v interface{}) (MovePropertyItemInput, error) {
+func (ec *executionContext) unmarshalNMovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMovePropertyItemInput(ctx context.Context, v interface{}) (gqlmodel.MovePropertyItemInput, error) {
 	res, err := ec.unmarshalInputMovePropertyItemInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNNode2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNode(ctx context.Context, sel ast.SelectionSet, v []Node) graphql.Marshaler {
+func (ec *executionContext) marshalNNode2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNode(ctx context.Context, sel ast.SelectionSet, v []gqlmodel.Node) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38175,7 +38176,7 @@ func (ec *executionContext) marshalNNode2ᚕgithubᚗcomᚋreearthᚋreearthᚑb
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalONode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNode(ctx, sel, v[i])
+			ret[i] = ec.marshalONode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNode(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38188,17 +38189,17 @@ func (ec *executionContext) marshalNNode2ᚕgithubᚗcomᚋreearthᚋreearthᚑb
 	return ret
 }
 
-func (ec *executionContext) unmarshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNodeType(ctx context.Context, v interface{}) (NodeType, error) {
-	var res NodeType
+func (ec *executionContext) unmarshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNodeType(ctx context.Context, v interface{}) (gqlmodel.NodeType, error) {
+	var res gqlmodel.NodeType
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNodeType(ctx context.Context, sel ast.SelectionSet, v NodeType) graphql.Marshaler {
+func (ec *executionContext) marshalNNodeType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNodeType(ctx context.Context, sel ast.SelectionSet, v gqlmodel.NodeType) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *PageInfo) graphql.Marshaler {
+func (ec *executionContext) marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PageInfo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38208,7 +38209,7 @@ func (ec *executionContext) marshalNPageInfo2ᚖgithubᚗcomᚋreearthᚋreearth
 	return ec._PageInfo(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginᚄ(ctx context.Context, sel ast.SelectionSet, v []*Plugin) graphql.Marshaler {
+func (ec *executionContext) marshalNPlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.Plugin) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38232,7 +38233,7 @@ func (ec *executionContext) marshalNPlugin2ᚕᚖgithubᚗcomᚋreearthᚋreeart
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx, sel, v[i])
+			ret[i] = ec.marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38245,7 +38246,7 @@ func (ec *executionContext) marshalNPlugin2ᚕᚖgithubᚗcomᚋreearthᚋreeart
 	return ret
 }
 
-func (ec *executionContext) marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx context.Context, sel ast.SelectionSet, v *Plugin) graphql.Marshaler {
+func (ec *executionContext) marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Plugin) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38255,7 +38256,7 @@ func (ec *executionContext) marshalNPlugin2ᚖgithubᚗcomᚋreearthᚋreearth�
 	return ec._Plugin(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPluginExtension2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtensionᚄ(ctx context.Context, sel ast.SelectionSet, v []*PluginExtension) graphql.Marshaler {
+func (ec *executionContext) marshalNPluginExtension2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtensionᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PluginExtension) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38279,7 +38280,7 @@ func (ec *executionContext) marshalNPluginExtension2ᚕᚖgithubᚗcomᚋreearth
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx, sel, v[i])
+			ret[i] = ec.marshalNPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38292,7 +38293,7 @@ func (ec *executionContext) marshalNPluginExtension2ᚕᚖgithubᚗcomᚋreearth
 	return ret
 }
 
-func (ec *executionContext) marshalNPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx context.Context, sel ast.SelectionSet, v *PluginExtension) graphql.Marshaler {
+func (ec *executionContext) marshalNPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PluginExtension) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38303,12 +38304,12 @@ func (ec *executionContext) marshalNPluginExtension2ᚖgithubᚗcomᚋreearthᚋ
 }
 
 func (ec *executionContext) unmarshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx context.Context, v interface{}) (id.PluginExtensionID, error) {
-	res, err := UnmarshalPluginExtensionID(v)
+	res, err := gqlmodel.UnmarshalPluginExtensionID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx context.Context, sel ast.SelectionSet, v id.PluginExtensionID) graphql.Marshaler {
-	res := MarshalPluginExtensionID(v)
+	res := gqlmodel.MarshalPluginExtensionID(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38317,23 +38318,23 @@ func (ec *executionContext) marshalNPluginExtensionID2githubᚗcomᚋreearthᚋr
 	return res
 }
 
-func (ec *executionContext) unmarshalNPluginExtensionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtensionType(ctx context.Context, v interface{}) (PluginExtensionType, error) {
-	var res PluginExtensionType
+func (ec *executionContext) unmarshalNPluginExtensionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtensionType(ctx context.Context, v interface{}) (gqlmodel.PluginExtensionType, error) {
+	var res gqlmodel.PluginExtensionType
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNPluginExtensionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtensionType(ctx context.Context, sel ast.SelectionSet, v PluginExtensionType) graphql.Marshaler {
+func (ec *executionContext) marshalNPluginExtensionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtensionType(ctx context.Context, sel ast.SelectionSet, v gqlmodel.PluginExtensionType) graphql.Marshaler {
 	return v
 }
 
 func (ec *executionContext) unmarshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx context.Context, v interface{}) (id.PluginID, error) {
-	res, err := UnmarshalPluginID(v)
+	res, err := gqlmodel.UnmarshalPluginID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNPluginID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx context.Context, sel ast.SelectionSet, v id.PluginID) graphql.Marshaler {
-	res := MarshalPluginID(v)
+	res := gqlmodel.MarshalPluginID(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38373,7 +38374,7 @@ func (ec *executionContext) marshalNPluginID2ᚕᚖgithubᚗcomᚋreearthᚋreea
 }
 
 func (ec *executionContext) unmarshalNPluginID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx context.Context, v interface{}) (*id.PluginID, error) {
-	res, err := UnmarshalPluginID(v)
+	res, err := gqlmodel.UnmarshalPluginID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -38384,7 +38385,7 @@ func (ec *executionContext) marshalNPluginID2ᚖgithubᚗcomᚋreearthᚋreearth
 		}
 		return graphql.Null
 	}
-	res := MarshalPluginID(*v)
+	res := gqlmodel.MarshalPluginID(*v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38393,7 +38394,7 @@ func (ec *executionContext) marshalNPluginID2ᚖgithubᚗcomᚋreearthᚋreearth
 	return res
 }
 
-func (ec *executionContext) marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginMetadataᚄ(ctx context.Context, sel ast.SelectionSet, v []*PluginMetadata) graphql.Marshaler {
+func (ec *executionContext) marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginMetadataᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PluginMetadata) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38417,7 +38418,7 @@ func (ec *executionContext) marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearth�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPluginMetadata2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginMetadata(ctx, sel, v[i])
+			ret[i] = ec.marshalNPluginMetadata2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginMetadata(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38430,7 +38431,7 @@ func (ec *executionContext) marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearth�
 	return ret
 }
 
-func (ec *executionContext) marshalNPluginMetadata2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginMetadata(ctx context.Context, sel ast.SelectionSet, v *PluginMetadata) graphql.Marshaler {
+func (ec *executionContext) marshalNPluginMetadata2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginMetadata(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PluginMetadata) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38440,7 +38441,7 @@ func (ec *executionContext) marshalNPluginMetadata2ᚖgithubᚗcomᚋreearthᚋr
 	return ec._PluginMetadata(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProject2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx context.Context, sel ast.SelectionSet, v []*Project) graphql.Marshaler {
+func (ec *executionContext) marshalNProject2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.Project) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38464,7 +38465,7 @@ func (ec *executionContext) marshalNProject2ᚕᚖgithubᚗcomᚋreearthᚋreear
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx, sel, v[i])
+			ret[i] = ec.marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38477,7 +38478,7 @@ func (ec *executionContext) marshalNProject2ᚕᚖgithubᚗcomᚋreearthᚋreear
 	return ret
 }
 
-func (ec *executionContext) marshalNProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx context.Context, sel ast.SelectionSet, v *Project) graphql.Marshaler {
+func (ec *executionContext) marshalNProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Project) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38487,11 +38488,11 @@ func (ec *executionContext) marshalNProject2ᚖgithubᚗcomᚋreearthᚋreearth�
 	return ec._Project(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProjectConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectConnection(ctx context.Context, sel ast.SelectionSet, v ProjectConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectConnection(ctx context.Context, sel ast.SelectionSet, v gqlmodel.ProjectConnection) graphql.Marshaler {
 	return ec._ProjectConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNProjectConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectConnection(ctx context.Context, sel ast.SelectionSet, v *ProjectConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectConnection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectConnection(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ProjectConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38501,7 +38502,7 @@ func (ec *executionContext) marshalNProjectConnection2ᚖgithubᚗcomᚋreearth�
 	return ec._ProjectConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProjectEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*ProjectEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectEdge2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.ProjectEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38525,7 +38526,7 @@ func (ec *executionContext) marshalNProjectEdge2ᚕᚖgithubᚗcomᚋreearthᚋr
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNProjectEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalNProjectEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38538,7 +38539,7 @@ func (ec *executionContext) marshalNProjectEdge2ᚕᚖgithubᚗcomᚋreearthᚋr
 	return ret
 }
 
-func (ec *executionContext) marshalNProjectEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectEdge(ctx context.Context, sel ast.SelectionSet, v *ProjectEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNProjectEdge2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectEdge(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ProjectEdge) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38548,7 +38549,7 @@ func (ec *executionContext) marshalNProjectEdge2ᚖgithubᚗcomᚋreearthᚋreea
 	return ec._ProjectEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx context.Context, sel ast.SelectionSet, v *Property) graphql.Marshaler {
+func (ec *executionContext) marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Property) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38558,7 +38559,7 @@ func (ec *executionContext) marshalNProperty2ᚖgithubᚗcomᚋreearthᚋreearth
 	return ec._Property(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*PropertyField) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PropertyField) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38582,7 +38583,7 @@ func (ec *executionContext) marshalNPropertyField2ᚕᚖgithubᚗcomᚋreearth�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyField(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyField(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38595,7 +38596,7 @@ func (ec *executionContext) marshalNPropertyField2ᚕᚖgithubᚗcomᚋreearth�
 	return ret
 }
 
-func (ec *executionContext) marshalNPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyField(ctx context.Context, sel ast.SelectionSet, v *PropertyField) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyField) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38605,7 +38606,7 @@ func (ec *executionContext) marshalNPropertyField2ᚖgithubᚗcomᚋreearthᚋre
 	return ec._PropertyField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertyFieldLink2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldLink(ctx context.Context, sel ast.SelectionSet, v *PropertyFieldLink) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyFieldLink2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldLink(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyFieldLink) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38615,7 +38616,7 @@ func (ec *executionContext) marshalNPropertyFieldLink2ᚖgithubᚗcomᚋreearth�
 	return ec._PropertyFieldLink(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*PropertyGroup) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PropertyGroup) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38639,7 +38640,7 @@ func (ec *executionContext) marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearth�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyGroup(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyGroup(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38652,7 +38653,7 @@ func (ec *executionContext) marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearth�
 	return ret
 }
 
-func (ec *executionContext) marshalNPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyGroup(ctx context.Context, sel ast.SelectionSet, v *PropertyGroup) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyGroup) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38662,7 +38663,7 @@ func (ec *executionContext) marshalNPropertyGroup2ᚖgithubᚗcomᚋreearthᚋre
 	return ec._PropertyGroup(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItem(ctx context.Context, sel ast.SelectionSet, v PropertyItem) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItem(ctx context.Context, sel ast.SelectionSet, v gqlmodel.PropertyItem) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38672,7 +38673,7 @@ func (ec *executionContext) marshalNPropertyItem2githubᚗcomᚋreearthᚋreeart
 	return ec._PropertyItem(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItemᚄ(ctx context.Context, sel ast.SelectionSet, v []PropertyItem) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItemᚄ(ctx context.Context, sel ast.SelectionSet, v []gqlmodel.PropertyItem) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38696,7 +38697,7 @@ func (ec *executionContext) marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋree
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItem(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItem(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38709,7 +38710,7 @@ func (ec *executionContext) marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋree
 	return ret
 }
 
-func (ec *executionContext) marshalNPropertyLinkableFields2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyLinkableFields(ctx context.Context, sel ast.SelectionSet, v *PropertyLinkableFields) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertyLinkableFields2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyLinkableFields(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyLinkableFields) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38719,7 +38720,7 @@ func (ec *executionContext) marshalNPropertyLinkableFields2ᚖgithubᚗcomᚋree
 	return ec._PropertyLinkableFields(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertySchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaᚄ(ctx context.Context, sel ast.SelectionSet, v []*PropertySchema) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertySchema2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PropertySchema) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38743,7 +38744,7 @@ func (ec *executionContext) marshalNPropertySchema2ᚕᚖgithubᚗcomᚋreearth�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38756,7 +38757,7 @@ func (ec *executionContext) marshalNPropertySchema2ᚕᚖgithubᚗcomᚋreearth�
 	return ret
 }
 
-func (ec *executionContext) marshalNPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx context.Context, sel ast.SelectionSet, v *PropertySchema) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchema) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38766,7 +38767,7 @@ func (ec *executionContext) marshalNPropertySchema2ᚖgithubᚗcomᚋreearthᚋr
 	return ec._PropertySchema(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertySchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*PropertySchemaField) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertySchemaField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PropertySchemaField) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38790,7 +38791,7 @@ func (ec *executionContext) marshalNPropertySchemaField2ᚕᚖgithubᚗcomᚋree
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38803,7 +38804,7 @@ func (ec *executionContext) marshalNPropertySchemaField2ᚕᚖgithubᚗcomᚋree
 	return ret
 }
 
-func (ec *executionContext) marshalNPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx context.Context, sel ast.SelectionSet, v *PropertySchemaField) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchemaField) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38813,7 +38814,7 @@ func (ec *executionContext) marshalNPropertySchemaField2ᚖgithubᚗcomᚋreeart
 	return ec._PropertySchemaField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNPropertySchemaFieldChoice2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldChoice(ctx context.Context, sel ast.SelectionSet, v *PropertySchemaFieldChoice) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertySchemaFieldChoice2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldChoice(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchemaFieldChoice) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38824,12 +38825,12 @@ func (ec *executionContext) marshalNPropertySchemaFieldChoice2ᚖgithubᚗcomᚋ
 }
 
 func (ec *executionContext) unmarshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx context.Context, v interface{}) (id.PropertySchemaFieldID, error) {
-	res, err := UnmarshalPropertySchemaFieldID(v)
+	res, err := gqlmodel.UnmarshalPropertySchemaFieldID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx context.Context, sel ast.SelectionSet, v id.PropertySchemaFieldID) graphql.Marshaler {
-	res := MarshalPropertySchemaFieldID(v)
+	res := gqlmodel.MarshalPropertySchemaFieldID(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38838,7 +38839,7 @@ func (ec *executionContext) marshalNPropertySchemaFieldID2githubᚗcomᚋreearth
 	return res
 }
 
-func (ec *executionContext) marshalNPropertySchemaGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*PropertySchemaGroup) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertySchemaGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PropertySchemaGroup) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -38862,7 +38863,7 @@ func (ec *executionContext) marshalNPropertySchemaGroup2ᚕᚖgithubᚗcomᚋree
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaGroup(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaGroup(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -38875,7 +38876,7 @@ func (ec *executionContext) marshalNPropertySchemaGroup2ᚕᚖgithubᚗcomᚋree
 	return ret
 }
 
-func (ec *executionContext) marshalNPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaGroup(ctx context.Context, sel ast.SelectionSet, v *PropertySchemaGroup) graphql.Marshaler {
+func (ec *executionContext) marshalNPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchemaGroup) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38886,12 +38887,12 @@ func (ec *executionContext) marshalNPropertySchemaGroup2ᚖgithubᚗcomᚋreeart
 }
 
 func (ec *executionContext) unmarshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx context.Context, v interface{}) (id.PropertySchemaID, error) {
-	res, err := UnmarshalPropertySchemaID(v)
+	res, err := gqlmodel.UnmarshalPropertySchemaID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNPropertySchemaID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx context.Context, sel ast.SelectionSet, v id.PropertySchemaID) graphql.Marshaler {
-	res := MarshalPropertySchemaID(v)
+	res := gqlmodel.MarshalPropertySchemaID(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38931,7 +38932,7 @@ func (ec *executionContext) marshalNPropertySchemaID2ᚕᚖgithubᚗcomᚋreeart
 }
 
 func (ec *executionContext) unmarshalNPropertySchemaID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx context.Context, v interface{}) (*id.PropertySchemaID, error) {
-	res, err := UnmarshalPropertySchemaID(v)
+	res, err := gqlmodel.UnmarshalPropertySchemaID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -38942,7 +38943,7 @@ func (ec *executionContext) marshalNPropertySchemaID2ᚖgithubᚗcomᚋreearth�
 		}
 		return graphql.Null
 	}
-	res := MarshalPropertySchemaID(*v)
+	res := gqlmodel.MarshalPropertySchemaID(*v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -38951,82 +38952,82 @@ func (ec *executionContext) marshalNPropertySchemaID2ᚖgithubᚗcomᚋreearth�
 	return res
 }
 
-func (ec *executionContext) unmarshalNPublishProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPublishProjectInput(ctx context.Context, v interface{}) (PublishProjectInput, error) {
+func (ec *executionContext) unmarshalNPublishProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPublishProjectInput(ctx context.Context, v interface{}) (gqlmodel.PublishProjectInput, error) {
 	res, err := ec.unmarshalInputPublishProjectInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPublishmentStatus(ctx context.Context, v interface{}) (PublishmentStatus, error) {
-	var res PublishmentStatus
+func (ec *executionContext) unmarshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPublishmentStatus(ctx context.Context, v interface{}) (gqlmodel.PublishmentStatus, error) {
+	var res gqlmodel.PublishmentStatus
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPublishmentStatus(ctx context.Context, sel ast.SelectionSet, v PublishmentStatus) graphql.Marshaler {
+func (ec *executionContext) marshalNPublishmentStatus2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPublishmentStatus(ctx context.Context, sel ast.SelectionSet, v gqlmodel.PublishmentStatus) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) unmarshalNRemoveAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveAssetInput(ctx context.Context, v interface{}) (RemoveAssetInput, error) {
+func (ec *executionContext) unmarshalNRemoveAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveAssetInput(ctx context.Context, v interface{}) (gqlmodel.RemoveAssetInput, error) {
 	res, err := ec.unmarshalInputRemoveAssetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemoveDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveDatasetSchemaInput(ctx context.Context, v interface{}) (RemoveDatasetSchemaInput, error) {
+func (ec *executionContext) unmarshalNRemoveDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveDatasetSchemaInput(ctx context.Context, v interface{}) (gqlmodel.RemoveDatasetSchemaInput, error) {
 	res, err := ec.unmarshalInputRemoveDatasetSchemaInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxFieldInput(ctx context.Context, v interface{}) (RemoveInfoboxFieldInput, error) {
+func (ec *executionContext) unmarshalNRemoveInfoboxFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxFieldInput(ctx context.Context, v interface{}) (gqlmodel.RemoveInfoboxFieldInput, error) {
 	res, err := ec.unmarshalInputRemoveInfoboxFieldInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemoveInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxInput(ctx context.Context, v interface{}) (RemoveInfoboxInput, error) {
+func (ec *executionContext) unmarshalNRemoveInfoboxInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxInput(ctx context.Context, v interface{}) (gqlmodel.RemoveInfoboxInput, error) {
 	res, err := ec.unmarshalInputRemoveInfoboxInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveLayerInput(ctx context.Context, v interface{}) (RemoveLayerInput, error) {
+func (ec *executionContext) unmarshalNRemoveLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveLayerInput(ctx context.Context, v interface{}) (gqlmodel.RemoveLayerInput, error) {
 	res, err := ec.unmarshalInputRemoveLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemoveMemberFromTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveMemberFromTeamInput(ctx context.Context, v interface{}) (RemoveMemberFromTeamInput, error) {
+func (ec *executionContext) unmarshalNRemoveMemberFromTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveMemberFromTeamInput(ctx context.Context, v interface{}) (gqlmodel.RemoveMemberFromTeamInput, error) {
 	res, err := ec.unmarshalInputRemoveMemberFromTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemoveMyAuthInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveMyAuthInput(ctx context.Context, v interface{}) (RemoveMyAuthInput, error) {
+func (ec *executionContext) unmarshalNRemoveMyAuthInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveMyAuthInput(ctx context.Context, v interface{}) (gqlmodel.RemoveMyAuthInput, error) {
 	res, err := ec.unmarshalInputRemoveMyAuthInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemovePropertyFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemovePropertyFieldInput(ctx context.Context, v interface{}) (RemovePropertyFieldInput, error) {
+func (ec *executionContext) unmarshalNRemovePropertyFieldInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemovePropertyFieldInput(ctx context.Context, v interface{}) (gqlmodel.RemovePropertyFieldInput, error) {
 	res, err := ec.unmarshalInputRemovePropertyFieldInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemovePropertyItemInput(ctx context.Context, v interface{}) (RemovePropertyItemInput, error) {
+func (ec *executionContext) unmarshalNRemovePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemovePropertyItemInput(ctx context.Context, v interface{}) (gqlmodel.RemovePropertyItemInput, error) {
 	res, err := ec.unmarshalInputRemovePropertyItemInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRemoveWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveWidgetInput(ctx context.Context, v interface{}) (RemoveWidgetInput, error) {
+func (ec *executionContext) unmarshalNRemoveWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveWidgetInput(ctx context.Context, v interface{}) (gqlmodel.RemoveWidgetInput, error) {
 	res, err := ec.unmarshalInputRemoveWidgetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRole(ctx context.Context, v interface{}) (Role, error) {
-	var res Role
+func (ec *executionContext) unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRole(ctx context.Context, v interface{}) (gqlmodel.Role, error) {
+	var res gqlmodel.Role
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRole(ctx context.Context, sel ast.SelectionSet, v Role) graphql.Marshaler {
+func (ec *executionContext) marshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRole(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Role) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx context.Context, sel ast.SelectionSet, v *Scene) graphql.Marshaler {
+func (ec *executionContext) marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Scene) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -39036,17 +39037,17 @@ func (ec *executionContext) marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑ
 	return ec._Scene(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNSceneLockMode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneLockMode(ctx context.Context, v interface{}) (SceneLockMode, error) {
-	var res SceneLockMode
+func (ec *executionContext) unmarshalNSceneLockMode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneLockMode(ctx context.Context, v interface{}) (gqlmodel.SceneLockMode, error) {
+	var res gqlmodel.SceneLockMode
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNSceneLockMode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneLockMode(ctx context.Context, sel ast.SelectionSet, v SceneLockMode) graphql.Marshaler {
+func (ec *executionContext) marshalNSceneLockMode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneLockMode(ctx context.Context, sel ast.SelectionSet, v gqlmodel.SceneLockMode) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePluginᚄ(ctx context.Context, sel ast.SelectionSet, v []*ScenePlugin) graphql.Marshaler {
+func (ec *executionContext) marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePluginᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.ScenePlugin) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -39070,7 +39071,7 @@ func (ec *executionContext) marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋr
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx, sel, v[i])
+			ret[i] = ec.marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -39083,7 +39084,7 @@ func (ec *executionContext) marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋr
 	return ret
 }
 
-func (ec *executionContext) marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx context.Context, sel ast.SelectionSet, v *ScenePlugin) graphql.Marshaler {
+func (ec *executionContext) marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ScenePlugin) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -39093,7 +39094,7 @@ func (ec *executionContext) marshalNScenePlugin2ᚖgithubᚗcomᚋreearthᚋreea
 	return ec._ScenePlugin(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNSceneWidget2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidgetᚄ(ctx context.Context, sel ast.SelectionSet, v []*SceneWidget) graphql.Marshaler {
+func (ec *executionContext) marshalNSceneWidget2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidgetᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.SceneWidget) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -39117,7 +39118,7 @@ func (ec *executionContext) marshalNSceneWidget2ᚕᚖgithubᚗcomᚋreearthᚋr
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidget(ctx, sel, v[i])
+			ret[i] = ec.marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidget(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -39130,7 +39131,7 @@ func (ec *executionContext) marshalNSceneWidget2ᚕᚖgithubᚗcomᚋreearthᚋr
 	return ret
 }
 
-func (ec *executionContext) marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidget(ctx context.Context, sel ast.SelectionSet, v *SceneWidget) graphql.Marshaler {
+func (ec *executionContext) marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidget(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SceneWidget) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -39140,7 +39141,7 @@ func (ec *executionContext) marshalNSceneWidget2ᚖgithubᚗcomᚋreearthᚋreea
 	return ec._SceneWidget(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNSignupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSignupInput(ctx context.Context, v interface{}) (SignupInput, error) {
+func (ec *executionContext) unmarshalNSignupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSignupInput(ctx context.Context, v interface{}) (gqlmodel.SignupInput, error) {
 	res, err := ec.unmarshalInputSignupInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -39190,16 +39191,16 @@ func (ec *executionContext) marshalNString2ᚕstringᚄ(ctx context.Context, sel
 	return ret
 }
 
-func (ec *executionContext) unmarshalNSyncDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSyncDatasetInput(ctx context.Context, v interface{}) (SyncDatasetInput, error) {
+func (ec *executionContext) unmarshalNSyncDatasetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSyncDatasetInput(ctx context.Context, v interface{}) (gqlmodel.SyncDatasetInput, error) {
 	res, err := ec.unmarshalInputSyncDatasetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNTeam2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx context.Context, sel ast.SelectionSet, v Team) graphql.Marshaler {
+func (ec *executionContext) marshalNTeam2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Team) graphql.Marshaler {
 	return ec._Team(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeamᚄ(ctx context.Context, sel ast.SelectionSet, v []*Team) graphql.Marshaler {
+func (ec *executionContext) marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.Team) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -39223,7 +39224,7 @@ func (ec *executionContext) marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearth�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx, sel, v[i])
+			ret[i] = ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -39236,7 +39237,7 @@ func (ec *executionContext) marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearth�
 	return ret
 }
 
-func (ec *executionContext) marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx context.Context, sel ast.SelectionSet, v *Team) graphql.Marshaler {
+func (ec *executionContext) marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Team) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -39246,7 +39247,7 @@ func (ec *executionContext) marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑb
 	return ec._Team(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNTeamMember2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeamMemberᚄ(ctx context.Context, sel ast.SelectionSet, v []*TeamMember) graphql.Marshaler {
+func (ec *executionContext) marshalNTeamMember2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamMemberᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.TeamMember) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -39270,7 +39271,7 @@ func (ec *executionContext) marshalNTeamMember2ᚕᚖgithubᚗcomᚋreearthᚋre
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTeamMember2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeamMember(ctx, sel, v[i])
+			ret[i] = ec.marshalNTeamMember2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamMember(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -39283,7 +39284,7 @@ func (ec *executionContext) marshalNTeamMember2ᚕᚖgithubᚗcomᚋreearthᚋre
 	return ret
 }
 
-func (ec *executionContext) marshalNTeamMember2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeamMember(ctx context.Context, sel ast.SelectionSet, v *TeamMember) graphql.Marshaler {
+func (ec *executionContext) marshalNTeamMember2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamMember(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.TeamMember) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -39293,57 +39294,57 @@ func (ec *executionContext) marshalNTeamMember2ᚖgithubᚗcomᚋreearthᚋreear
 	return ec._TeamMember(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTheme(ctx context.Context, v interface{}) (Theme, error) {
-	var res Theme
+func (ec *executionContext) unmarshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx context.Context, v interface{}) (gqlmodel.Theme, error) {
+	var res gqlmodel.Theme
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTheme(ctx context.Context, sel ast.SelectionSet, v Theme) graphql.Marshaler {
+func (ec *executionContext) marshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Theme) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) unmarshalNUninstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUninstallPluginInput(ctx context.Context, v interface{}) (UninstallPluginInput, error) {
+func (ec *executionContext) unmarshalNUninstallPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUninstallPluginInput(ctx context.Context, v interface{}) (gqlmodel.UninstallPluginInput, error) {
 	res, err := ec.unmarshalInputUninstallPluginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUnlinkPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUnlinkPropertyValueInput(ctx context.Context, v interface{}) (UnlinkPropertyValueInput, error) {
+func (ec *executionContext) unmarshalNUnlinkPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUnlinkPropertyValueInput(ctx context.Context, v interface{}) (gqlmodel.UnlinkPropertyValueInput, error) {
 	res, err := ec.unmarshalInputUnlinkPropertyValueInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateDatasetSchemaInput(ctx context.Context, v interface{}) (UpdateDatasetSchemaInput, error) {
+func (ec *executionContext) unmarshalNUpdateDatasetSchemaInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateDatasetSchemaInput(ctx context.Context, v interface{}) (gqlmodel.UpdateDatasetSchemaInput, error) {
 	res, err := ec.unmarshalInputUpdateDatasetSchemaInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateLayerInput(ctx context.Context, v interface{}) (UpdateLayerInput, error) {
+func (ec *executionContext) unmarshalNUpdateLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateLayerInput(ctx context.Context, v interface{}) (gqlmodel.UpdateLayerInput, error) {
 	res, err := ec.unmarshalInputUpdateLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMeInput(ctx context.Context, v interface{}) (UpdateMeInput, error) {
+func (ec *executionContext) unmarshalNUpdateMeInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMeInput(ctx context.Context, v interface{}) (gqlmodel.UpdateMeInput, error) {
 	res, err := ec.unmarshalInputUpdateMeInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateMemberOfTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMemberOfTeamInput(ctx context.Context, v interface{}) (UpdateMemberOfTeamInput, error) {
+func (ec *executionContext) unmarshalNUpdateMemberOfTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMemberOfTeamInput(ctx context.Context, v interface{}) (gqlmodel.UpdateMemberOfTeamInput, error) {
 	res, err := ec.unmarshalInputUpdateMemberOfTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateProjectInput(ctx context.Context, v interface{}) (UpdateProjectInput, error) {
+func (ec *executionContext) unmarshalNUpdateProjectInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateProjectInput(ctx context.Context, v interface{}) (gqlmodel.UpdateProjectInput, error) {
 	res, err := ec.unmarshalInputUpdateProjectInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyItemInput(ctx context.Context, v interface{}) (UpdatePropertyItemInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyItemInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyItemInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyItemInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyItemOperationInput2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyItemOperationInputᚄ(ctx context.Context, v interface{}) ([]*UpdatePropertyItemOperationInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyItemOperationInput2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyItemOperationInputᚄ(ctx context.Context, v interface{}) ([]*gqlmodel.UpdatePropertyItemOperationInput, error) {
 	var vSlice []interface{}
 	if v != nil {
 		if tmp1, ok := v.([]interface{}); ok {
@@ -39353,10 +39354,10 @@ func (ec *executionContext) unmarshalNUpdatePropertyItemOperationInput2ᚕᚖgit
 		}
 	}
 	var err error
-	res := make([]*UpdatePropertyItemOperationInput, len(vSlice))
+	res := make([]*gqlmodel.UpdatePropertyItemOperationInput, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNUpdatePropertyItemOperationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyItemOperationInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNUpdatePropertyItemOperationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyItemOperationInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -39364,47 +39365,47 @@ func (ec *executionContext) unmarshalNUpdatePropertyItemOperationInput2ᚕᚖgit
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyItemOperationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyItemOperationInput(ctx context.Context, v interface{}) (*UpdatePropertyItemOperationInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyItemOperationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyItemOperationInput(ctx context.Context, v interface{}) (*gqlmodel.UpdatePropertyItemOperationInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyItemOperationInput(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyValueCameraInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueCameraInput(ctx context.Context, v interface{}) (UpdatePropertyValueCameraInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyValueCameraInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueCameraInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueCameraInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyValueCameraInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueInput(ctx context.Context, v interface{}) (UpdatePropertyValueInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyValueInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyValueLatLngHeightInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueLatLngHeightInput(ctx context.Context, v interface{}) (UpdatePropertyValueLatLngHeightInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyValueLatLngHeightInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngHeightInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueLatLngHeightInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyValueLatLngHeightInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyValueLatLngInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueLatLngInput(ctx context.Context, v interface{}) (UpdatePropertyValueLatLngInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyValueLatLngInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueLatLngInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyValueLatLngInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyValueTypographyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdatePropertyValueTypographyInput(ctx context.Context, v interface{}) (UpdatePropertyValueTypographyInput, error) {
+func (ec *executionContext) unmarshalNUpdatePropertyValueTypographyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueTypographyInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueTypographyInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyValueTypographyInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateTeamInput(ctx context.Context, v interface{}) (UpdateTeamInput, error) {
+func (ec *executionContext) unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTeamInput(ctx context.Context, v interface{}) (gqlmodel.UpdateTeamInput, error) {
 	res, err := ec.unmarshalInputUpdateTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateWidgetInput(ctx context.Context, v interface{}) (UpdateWidgetInput, error) {
+func (ec *executionContext) unmarshalNUpdateWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetInput(ctx context.Context, v interface{}) (gqlmodel.UpdateWidgetInput, error) {
 	res, err := ec.unmarshalInputUpdateWidgetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpgradePluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpgradePluginInput(ctx context.Context, v interface{}) (UpgradePluginInput, error) {
+func (ec *executionContext) unmarshalNUpgradePluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpgradePluginInput(ctx context.Context, v interface{}) (gqlmodel.UpgradePluginInput, error) {
 	res, err := ec.unmarshalInputUpgradePluginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -39424,17 +39425,17 @@ func (ec *executionContext) marshalNUpload2githubᚗcomᚋ99designsᚋgqlgenᚋg
 	return res
 }
 
-func (ec *executionContext) unmarshalNUploadFileToPropertyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUploadFileToPropertyInput(ctx context.Context, v interface{}) (UploadFileToPropertyInput, error) {
+func (ec *executionContext) unmarshalNUploadFileToPropertyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadFileToPropertyInput(ctx context.Context, v interface{}) (gqlmodel.UploadFileToPropertyInput, error) {
 	res, err := ec.unmarshalInputUploadFileToPropertyInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUploadPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUploadPluginInput(ctx context.Context, v interface{}) (UploadPluginInput, error) {
+func (ec *executionContext) unmarshalNUploadPluginInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadPluginInput(ctx context.Context, v interface{}) (gqlmodel.UploadPluginInput, error) {
 	res, err := ec.unmarshalInputUploadPluginInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -39444,23 +39445,23 @@ func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑb
 	return ec._User(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx context.Context, v interface{}) (ValueType, error) {
-	var res ValueType
+func (ec *executionContext) unmarshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx context.Context, v interface{}) (gqlmodel.ValueType, error) {
+	var res gqlmodel.ValueType
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx context.Context, sel ast.SelectionSet, v ValueType) graphql.Marshaler {
+func (ec *executionContext) marshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx context.Context, sel ast.SelectionSet, v gqlmodel.ValueType) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) unmarshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐVisualizer(ctx context.Context, v interface{}) (Visualizer, error) {
-	var res Visualizer
+func (ec *executionContext) unmarshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐVisualizer(ctx context.Context, v interface{}) (gqlmodel.Visualizer, error) {
+	var res gqlmodel.Visualizer
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐVisualizer(ctx context.Context, sel ast.SelectionSet, v Visualizer) graphql.Marshaler {
+func (ec *executionContext) marshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐVisualizer(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Visualizer) graphql.Marshaler {
 	return v
 }
 
@@ -39693,56 +39694,56 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *AddDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddDatasetSchemaPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AddDatasetSchemaPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *AddDynamicDatasetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddDynamicDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddDynamicDatasetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AddDynamicDatasetPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddDynamicDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *AddDynamicDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddDynamicDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddDynamicDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddDynamicDatasetSchemaPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AddDynamicDatasetSchemaPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *AddInfoboxFieldPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddInfoboxFieldPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AddInfoboxFieldPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerGroupPayload(ctx context.Context, sel ast.SelectionSet, v *AddLayerGroupPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddLayerGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerGroupPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddLayerGroupPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AddLayerGroupPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddLayerItemPayload(ctx context.Context, sel ast.SelectionSet, v *AddLayerItemPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddLayerItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddLayerItemPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddLayerItemPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AddLayerItemPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddMemberToTeamPayload(ctx context.Context, sel ast.SelectionSet, v *AddMemberToTeamPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddMemberToTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddMemberToTeamPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddMemberToTeamPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AddMemberToTeamPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAddWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *AddWidgetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOAddWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAddWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AddWidgetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -39764,7 +39765,7 @@ func (ec *executionContext) marshalOAny2interface(ctx context.Context, sel ast.S
 	return graphql.MarshalAny(v)
 }
 
-func (ec *executionContext) marshalOAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐAsset(ctx context.Context, sel ast.SelectionSet, v *Asset) graphql.Marshaler {
+func (ec *executionContext) marshalOAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAsset(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Asset) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -39795,28 +39796,28 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return graphql.MarshalBoolean(*v)
 }
 
-func (ec *executionContext) marshalOCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateAssetPayload(ctx context.Context, sel ast.SelectionSet, v *CreateAssetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateAssetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.CreateAssetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._CreateAssetPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *CreateInfoboxPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOCreateInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.CreateInfoboxPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._CreateInfoboxPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateScenePayload(ctx context.Context, sel ast.SelectionSet, v *CreateScenePayload) graphql.Marshaler {
+func (ec *executionContext) marshalOCreateScenePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateScenePayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.CreateScenePayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._CreateScenePayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐCreateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *CreateTeamPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOCreateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.CreateTeamPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -39827,7 +39828,7 @@ func (ec *executionContext) unmarshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearth
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalCursor(v)
+	res, err := gqlmodel.UnmarshalCursor(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -39835,31 +39836,31 @@ func (ec *executionContext) marshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearth�
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalCursor(*v)
+	return gqlmodel.MarshalCursor(*v)
 }
 
-func (ec *executionContext) marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDataset(ctx context.Context, sel ast.SelectionSet, v *Dataset) graphql.Marshaler {
+func (ec *executionContext) marshalODataset2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDataset(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Dataset) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Dataset(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetField(ctx context.Context, sel ast.SelectionSet, v *DatasetField) graphql.Marshaler {
+func (ec *executionContext) marshalODatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetField) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._DatasetField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchema(ctx context.Context, sel ast.SelectionSet, v *DatasetSchema) graphql.Marshaler {
+func (ec *executionContext) marshalODatasetSchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchema(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetSchema) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._DatasetSchema(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDatasetSchemaField(ctx context.Context, sel ast.SelectionSet, v *DatasetSchemaField) graphql.Marshaler {
+func (ec *executionContext) marshalODatasetSchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetSchemaField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DatasetSchemaField) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -39870,7 +39871,7 @@ func (ec *executionContext) unmarshalODatasetSchemaFieldID2ᚖgithubᚗcomᚋree
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalDatasetSchemaFieldID(v)
+	res, err := gqlmodel.UnmarshalDatasetSchemaFieldID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -39878,7 +39879,7 @@ func (ec *executionContext) marshalODatasetSchemaFieldID2ᚖgithubᚗcomᚋreear
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalDatasetSchemaFieldID(*v)
+	return gqlmodel.MarshalDatasetSchemaFieldID(*v)
 }
 
 func (ec *executionContext) unmarshalODateTime2ᚖtimeᚐTime(ctx context.Context, v interface{}) (*time.Time, error) {
@@ -39896,21 +39897,21 @@ func (ec *executionContext) marshalODateTime2ᚖtimeᚐTime(ctx context.Context,
 	return graphql.MarshalTime(*v)
 }
 
-func (ec *executionContext) marshalODeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteMePayload(ctx context.Context, sel ast.SelectionSet, v *DeleteMePayload) graphql.Marshaler {
+func (ec *executionContext) marshalODeleteMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteMePayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DeleteMePayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._DeleteMePayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteProjectPayload(ctx context.Context, sel ast.SelectionSet, v *DeleteProjectPayload) graphql.Marshaler {
+func (ec *executionContext) marshalODeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteProjectPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DeleteProjectPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._DeleteProjectPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalODeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐDeleteTeamPayload(ctx context.Context, sel ast.SelectionSet, v *DeleteTeamPayload) graphql.Marshaler {
+func (ec *executionContext) marshalODeleteTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteTeamPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DeleteTeamPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -39972,7 +39973,7 @@ func (ec *executionContext) unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑb
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalID(v)
+	res, err := gqlmodel.UnmarshalID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -39980,31 +39981,31 @@ func (ec *executionContext) marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbac
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalID(*v)
+	return gqlmodel.MarshalID(*v)
 }
 
-func (ec *executionContext) marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *ImportDatasetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOImportDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ImportDatasetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ImportDatasetPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐImportLayerPayload(ctx context.Context, sel ast.SelectionSet, v *ImportLayerPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportLayerPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ImportLayerPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ImportLayerPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInfobox(ctx context.Context, sel ast.SelectionSet, v *Infobox) graphql.Marshaler {
+func (ec *executionContext) marshalOInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInfobox(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Infobox) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Infobox(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐInstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *InstallPluginPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOInstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐInstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.InstallPluginPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40030,7 +40031,7 @@ func (ec *executionContext) unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguage
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalLang(v)
+	res, err := gqlmodel.UnmarshalLang(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40038,87 +40039,87 @@ func (ec *executionContext) marshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguage�
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalLang(*v)
+	return gqlmodel.MarshalLang(*v)
 }
 
-func (ec *executionContext) marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayer(ctx context.Context, sel ast.SelectionSet, v Layer) graphql.Marshaler {
+func (ec *executionContext) marshalOLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Layer) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Layer(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerGroup(ctx context.Context, sel ast.SelectionSet, v *LayerGroup) graphql.Marshaler {
+func (ec *executionContext) marshalOLayerGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.LayerGroup) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._LayerGroup(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐLayerItem(ctx context.Context, sel ast.SelectionSet, v *LayerItem) graphql.Marshaler {
+func (ec *executionContext) marshalOLayerItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerItem(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.LayerItem) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._LayerItem(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfobox(ctx context.Context, sel ast.SelectionSet, v *MergedInfobox) graphql.Marshaler {
+func (ec *executionContext) marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfobox(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedInfobox) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._MergedInfobox(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedInfoboxField(ctx context.Context, sel ast.SelectionSet, v *MergedInfoboxField) graphql.Marshaler {
+func (ec *executionContext) marshalOMergedInfoboxField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfoboxField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedInfoboxField) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._MergedInfoboxField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOMergedLayer2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedLayer(ctx context.Context, sel ast.SelectionSet, v *MergedLayer) graphql.Marshaler {
+func (ec *executionContext) marshalOMergedLayer2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedLayer(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedLayer) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._MergedLayer(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMergedProperty(ctx context.Context, sel ast.SelectionSet, v *MergedProperty) graphql.Marshaler {
+func (ec *executionContext) marshalOMergedProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedProperty(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedProperty) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._MergedProperty(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *MoveInfoboxFieldPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOMoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MoveInfoboxFieldPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._MoveInfoboxFieldPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐMoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *MoveLayerPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOMoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MoveLayerPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._MoveLayerPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalONode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐNode(ctx context.Context, sel ast.SelectionSet, v Node) graphql.Marshaler {
+func (ec *executionContext) marshalONode2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐNode(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Node) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Node(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPlugin(ctx context.Context, sel ast.SelectionSet, v *Plugin) graphql.Marshaler {
+func (ec *executionContext) marshalOPlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPlugin(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Plugin) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Plugin(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPluginExtension(ctx context.Context, sel ast.SelectionSet, v *PluginExtension) graphql.Marshaler {
+func (ec *executionContext) marshalOPluginExtension2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginExtension(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PluginExtension) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40129,7 +40130,7 @@ func (ec *executionContext) unmarshalOPluginExtensionID2ᚖgithubᚗcomᚋreeart
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalPluginExtensionID(v)
+	res, err := gqlmodel.UnmarshalPluginExtensionID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40137,14 +40138,14 @@ func (ec *executionContext) marshalOPluginExtensionID2ᚖgithubᚗcomᚋreearth�
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalPluginExtensionID(*v)
+	return gqlmodel.MarshalPluginExtensionID(*v)
 }
 
 func (ec *executionContext) unmarshalOPluginID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx context.Context, v interface{}) (*id.PluginID, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalPluginID(v)
+	res, err := gqlmodel.UnmarshalPluginID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40152,45 +40153,45 @@ func (ec *executionContext) marshalOPluginID2ᚖgithubᚗcomᚋreearthᚋreearth
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalPluginID(*v)
+	return gqlmodel.MarshalPluginID(*v)
 }
 
-func (ec *executionContext) marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProject(ctx context.Context, sel ast.SelectionSet, v *Project) graphql.Marshaler {
+func (ec *executionContext) marshalOProject2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProject(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Project) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Project(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProjectPayload(ctx context.Context, sel ast.SelectionSet, v *ProjectPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ProjectPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ProjectPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐProperty(ctx context.Context, sel ast.SelectionSet, v *Property) graphql.Marshaler {
+func (ec *executionContext) marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Property) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Property(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertyCondition2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyCondition(ctx context.Context, sel ast.SelectionSet, v *PropertyCondition) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertyCondition2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyCondition(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyCondition) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertyCondition(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyField(ctx context.Context, sel ast.SelectionSet, v *PropertyField) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertyField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyField) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertyField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldLinkᚄ(ctx context.Context, sel ast.SelectionSet, v []*PropertyFieldLink) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldLinkᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PropertyFieldLink) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40217,7 +40218,7 @@ func (ec *executionContext) marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreear
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertyFieldLink2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldLink(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertyFieldLink2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldLink(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -40230,49 +40231,49 @@ func (ec *executionContext) marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreear
 	return ret
 }
 
-func (ec *executionContext) marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyFieldPayload(ctx context.Context, sel ast.SelectionSet, v *PropertyFieldPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyFieldPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertyFieldPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyGroup(ctx context.Context, sel ast.SelectionSet, v *PropertyGroup) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertyGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyGroup) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertyGroup(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItem(ctx context.Context, sel ast.SelectionSet, v PropertyItem) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertyItem2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItem(ctx context.Context, sel ast.SelectionSet, v gqlmodel.PropertyItem) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertyItem(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertyItemPayload(ctx context.Context, sel ast.SelectionSet, v *PropertyItemPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertyItemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyItemPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertyItemPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertyItemPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchema(ctx context.Context, sel ast.SelectionSet, v *PropertySchema) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertySchema2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchema(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchema) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertySchema(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaField(ctx context.Context, sel ast.SelectionSet, v *PropertySchemaField) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertySchemaField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaField(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchemaField) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._PropertySchemaField(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOPropertySchemaFieldChoice2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldChoiceᚄ(ctx context.Context, sel ast.SelectionSet, v []*PropertySchemaFieldChoice) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertySchemaFieldChoice2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldChoiceᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.PropertySchemaFieldChoice) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40299,7 +40300,7 @@ func (ec *executionContext) marshalOPropertySchemaFieldChoice2ᚕᚖgithubᚗcom
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPropertySchemaFieldChoice2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldChoice(ctx, sel, v[i])
+			ret[i] = ec.marshalNPropertySchemaFieldChoice2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldChoice(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -40316,7 +40317,7 @@ func (ec *executionContext) unmarshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋre
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalPropertySchemaFieldID(v)
+	res, err := gqlmodel.UnmarshalPropertySchemaFieldID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40324,26 +40325,26 @@ func (ec *executionContext) marshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreea
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalPropertySchemaFieldID(*v)
+	return gqlmodel.MarshalPropertySchemaFieldID(*v)
 }
 
-func (ec *executionContext) unmarshalOPropertySchemaFieldUI2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldUI(ctx context.Context, v interface{}) (*PropertySchemaFieldUI, error) {
+func (ec *executionContext) unmarshalOPropertySchemaFieldUI2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldUI(ctx context.Context, v interface{}) (*gqlmodel.PropertySchemaFieldUI, error) {
 	if v == nil {
 		return nil, nil
 	}
-	var res = new(PropertySchemaFieldUI)
+	var res = new(gqlmodel.PropertySchemaFieldUI)
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOPropertySchemaFieldUI2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaFieldUI(ctx context.Context, sel ast.SelectionSet, v *PropertySchemaFieldUI) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertySchemaFieldUI2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaFieldUI(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchemaFieldUI) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) marshalOPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐPropertySchemaGroup(ctx context.Context, sel ast.SelectionSet, v *PropertySchemaGroup) graphql.Marshaler {
+func (ec *executionContext) marshalOPropertySchemaGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertySchemaGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.PropertySchemaGroup) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40354,7 +40355,7 @@ func (ec *executionContext) unmarshalOPropertySchemaID2ᚖgithubᚗcomᚋreearth
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalPropertySchemaID(v)
+	res, err := gqlmodel.UnmarshalPropertySchemaID(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40362,103 +40363,103 @@ func (ec *executionContext) marshalOPropertySchemaID2ᚖgithubᚗcomᚋreearth�
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalPropertySchemaID(*v)
+	return gqlmodel.MarshalPropertySchemaID(*v)
 }
 
-func (ec *executionContext) marshalORemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveAssetPayload(ctx context.Context, sel ast.SelectionSet, v *RemoveAssetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalORemoveAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveAssetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RemoveAssetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._RemoveAssetPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *RemoveDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) marshalORemoveDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RemoveDatasetSchemaPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._RemoveDatasetSchemaPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *RemoveInfoboxFieldPayload) graphql.Marshaler {
+func (ec *executionContext) marshalORemoveInfoboxFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxFieldPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RemoveInfoboxFieldPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._RemoveInfoboxFieldPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *RemoveInfoboxPayload) graphql.Marshaler {
+func (ec *executionContext) marshalORemoveInfoboxPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveInfoboxPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RemoveInfoboxPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._RemoveInfoboxPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *RemoveLayerPayload) graphql.Marshaler {
+func (ec *executionContext) marshalORemoveLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveLayerPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RemoveLayerPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._RemoveLayerPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveMemberFromTeamPayload(ctx context.Context, sel ast.SelectionSet, v *RemoveMemberFromTeamPayload) graphql.Marshaler {
+func (ec *executionContext) marshalORemoveMemberFromTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveMemberFromTeamPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RemoveMemberFromTeamPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._RemoveMemberFromTeamPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalORemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐRemoveWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *RemoveWidgetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalORemoveWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RemoveWidgetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._RemoveWidgetPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScene(ctx context.Context, sel ast.SelectionSet, v *Scene) graphql.Marshaler {
+func (ec *executionContext) marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Scene) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Scene(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOSceneLockMode2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneLockMode(ctx context.Context, v interface{}) (*SceneLockMode, error) {
+func (ec *executionContext) unmarshalOSceneLockMode2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneLockMode(ctx context.Context, v interface{}) (*gqlmodel.SceneLockMode, error) {
 	if v == nil {
 		return nil, nil
 	}
-	var res = new(SceneLockMode)
+	var res = new(gqlmodel.SceneLockMode)
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOSceneLockMode2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneLockMode(ctx context.Context, sel ast.SelectionSet, v *SceneLockMode) graphql.Marshaler {
+func (ec *executionContext) marshalOSceneLockMode2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneLockMode(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SceneLockMode) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐScenePlugin(ctx context.Context, sel ast.SelectionSet, v *ScenePlugin) graphql.Marshaler {
+func (ec *executionContext) marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ScenePlugin) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ScenePlugin(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSceneWidget(ctx context.Context, sel ast.SelectionSet, v *SceneWidget) graphql.Marshaler {
+func (ec *executionContext) marshalOSceneWidget2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSceneWidget(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SceneWidget) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._SceneWidget(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOSearchedUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSearchedUser(ctx context.Context, sel ast.SelectionSet, v *SearchedUser) graphql.Marshaler {
+func (ec *executionContext) marshalOSearchedUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSearchedUser(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SearchedUser) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._SearchedUser(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSignupPayload(ctx context.Context, sel ast.SelectionSet, v *SignupPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSignupPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SignupPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40525,46 +40526,46 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return graphql.MarshalString(*v)
 }
 
-func (ec *executionContext) marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐSyncDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *SyncDatasetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSyncDatasetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SyncDatasetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._SyncDatasetPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTeam(ctx context.Context, sel ast.SelectionSet, v *Team) graphql.Marshaler {
+func (ec *executionContext) marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Team) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Team(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTextAlign(ctx context.Context, v interface{}) (*TextAlign, error) {
+func (ec *executionContext) unmarshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTextAlign(ctx context.Context, v interface{}) (*gqlmodel.TextAlign, error) {
 	if v == nil {
 		return nil, nil
 	}
-	var res = new(TextAlign)
+	var res = new(gqlmodel.TextAlign)
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTextAlign(ctx context.Context, sel ast.SelectionSet, v *TextAlign) graphql.Marshaler {
+func (ec *executionContext) marshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTextAlign(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.TextAlign) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) unmarshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTheme(ctx context.Context, v interface{}) (*Theme, error) {
+func (ec *executionContext) unmarshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx context.Context, v interface{}) (*gqlmodel.Theme, error) {
 	if v == nil {
 		return nil, nil
 	}
-	var res = new(Theme)
+	var res = new(gqlmodel.Theme)
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐTheme(ctx context.Context, sel ast.SelectionSet, v *Theme) graphql.Marshaler {
+func (ec *executionContext) marshalOTheme2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Theme) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40575,7 +40576,7 @@ func (ec *executionContext) unmarshalOTranslatedString2map(ctx context.Context, 
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalMap(v)
+	res, err := gqlmodel.UnmarshalMap(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40583,14 +40584,14 @@ func (ec *executionContext) marshalOTranslatedString2map(ctx context.Context, se
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalMap(v)
+	return gqlmodel.MarshalMap(v)
 }
 
 func (ec *executionContext) unmarshalOURL2ᚖnetᚋurlᚐURL(ctx context.Context, v interface{}) (*url.URL, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := UnmarshalURL(v)
+	res, err := gqlmodel.UnmarshalURL(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40598,59 +40599,59 @@ func (ec *executionContext) marshalOURL2ᚖnetᚋurlᚐURL(ctx context.Context, 
 	if v == nil {
 		return graphql.Null
 	}
-	return MarshalURL(*v)
+	return gqlmodel.MarshalURL(*v)
 }
 
-func (ec *executionContext) marshalOUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUninstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *UninstallPluginPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUninstallPluginPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UninstallPluginPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UninstallPluginPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *UpdateDatasetSchemaPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUpdateDatasetSchemaPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateDatasetSchemaPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateDatasetSchemaPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UpdateDatasetSchemaPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateLayerPayload(ctx context.Context, sel ast.SelectionSet, v *UpdateLayerPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUpdateLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateLayerPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateLayerPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UpdateLayerPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMePayload(ctx context.Context, sel ast.SelectionSet, v *UpdateMePayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUpdateMePayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMePayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateMePayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UpdateMePayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateMemberOfTeamPayload(ctx context.Context, sel ast.SelectionSet, v *UpdateMemberOfTeamPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateMemberOfTeamPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateMemberOfTeamPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UpdateMemberOfTeamPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *UpdateTeamPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateTeamPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UpdateTeamPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *UpdateWidgetPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateWidgetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UpdateWidgetPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUpgradePluginPayload(ctx context.Context, sel ast.SelectionSet, v *UpgradePluginPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUpgradePluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpgradePluginPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpgradePluginPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -40672,30 +40673,30 @@ func (ec *executionContext) marshalOUpload2ᚖgithubᚗcomᚋ99designsᚋgqlgen�
 	return graphql.MarshalUpload(*v)
 }
 
-func (ec *executionContext) marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUploadPluginPayload(ctx context.Context, sel ast.SelectionSet, v *UploadPluginPayload) graphql.Marshaler {
+func (ec *executionContext) marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadPluginPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UploadPluginPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UploadPluginPayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._User(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx context.Context, v interface{}) (*ValueType, error) {
+func (ec *executionContext) unmarshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx context.Context, v interface{}) (*gqlmodel.ValueType, error) {
 	if v == nil {
 		return nil, nil
 	}
-	var res = new(ValueType)
+	var res = new(gqlmodel.ValueType)
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚐValueType(ctx context.Context, sel ast.SelectionSet, v *ValueType) graphql.Marshaler {
+func (ec *executionContext) marshalOValueType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ValueType) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
