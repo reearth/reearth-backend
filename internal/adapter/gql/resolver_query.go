@@ -18,7 +18,7 @@ func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, first *int, la
 	exit := trace(ctx)
 	defer exit()
 
-	return r.controllers.Asset.FindByTeam(ctx, teamID, first, last, before, after, getOperator(ctx))
+	return r.controllers.Asset.FindByTeam(ctx, teamID, first, last, before, after)
 }
 
 func (r *queryResolver) Me(ctx context.Context) (*gqlmodel.User, error) {

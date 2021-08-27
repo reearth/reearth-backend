@@ -1,5 +1,6 @@
 package gqldataloader
 
+//go:generate go run github.com/vektah/dataloaden AssetLoader github.com/reearth/reearth-backend/pkg/id.AssetID *github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.Asset
 //go:generate go run github.com/vektah/dataloaden DatasetLoader github.com/reearth/reearth-backend/pkg/id.DatasetID *github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.Dataset
 //go:generate go run github.com/vektah/dataloaden DatasetSchemaLoader github.com/reearth/reearth-backend/pkg/id.DatasetSchemaID *github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.DatasetSchema
 //go:generate go run github.com/vektah/dataloaden LayerLoader github.com/reearth/reearth-backend/pkg/id.LayerID *github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.Layer

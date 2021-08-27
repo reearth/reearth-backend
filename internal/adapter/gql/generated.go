@@ -442,62 +442,58 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		AddDatasetSchema                func(childComplexity int, input gqlmodel.AddDatasetSchemaInput) int
-		AddDynamicDataset               func(childComplexity int, input gqlmodel.AddDynamicDatasetInput) int
-		AddDynamicDatasetSchema         func(childComplexity int, input gqlmodel.AddDynamicDatasetSchemaInput) int
-		AddInfoboxField                 func(childComplexity int, input gqlmodel.AddInfoboxFieldInput) int
-		AddLayerGroup                   func(childComplexity int, input gqlmodel.AddLayerGroupInput) int
-		AddLayerItem                    func(childComplexity int, input gqlmodel.AddLayerItemInput) int
-		AddMemberToTeam                 func(childComplexity int, input gqlmodel.AddMemberToTeamInput) int
-		AddPropertyItem                 func(childComplexity int, input gqlmodel.AddPropertyItemInput) int
-		AddWidget                       func(childComplexity int, input gqlmodel.AddWidgetInput) int
-		CreateAsset                     func(childComplexity int, input gqlmodel.CreateAssetInput) int
-		CreateInfobox                   func(childComplexity int, input gqlmodel.CreateInfoboxInput) int
-		CreateProject                   func(childComplexity int, input gqlmodel.CreateProjectInput) int
-		CreateScene                     func(childComplexity int, input gqlmodel.CreateSceneInput) int
-		CreateTeam                      func(childComplexity int, input gqlmodel.CreateTeamInput) int
-		DeleteMe                        func(childComplexity int, input gqlmodel.DeleteMeInput) int
-		DeleteProject                   func(childComplexity int, input gqlmodel.DeleteProjectInput) int
-		DeleteTeam                      func(childComplexity int, input gqlmodel.DeleteTeamInput) int
-		ImportDataset                   func(childComplexity int, input gqlmodel.ImportDatasetInput) int
-		ImportDatasetFromGoogleSheet    func(childComplexity int, input gqlmodel.ImportDatasetFromGoogleSheetInput) int
-		ImportLayer                     func(childComplexity int, input gqlmodel.ImportLayerInput) int
-		InstallPlugin                   func(childComplexity int, input gqlmodel.InstallPluginInput) int
-		LinkDatasetToPropertyValue      func(childComplexity int, input gqlmodel.LinkDatasetToPropertyValueInput) int
-		MoveInfoboxField                func(childComplexity int, input gqlmodel.MoveInfoboxFieldInput) int
-		MoveLayer                       func(childComplexity int, input gqlmodel.MoveLayerInput) int
-		MovePropertyItem                func(childComplexity int, input gqlmodel.MovePropertyItemInput) int
-		PublishProject                  func(childComplexity int, input gqlmodel.PublishProjectInput) int
-		RemoveAsset                     func(childComplexity int, input gqlmodel.RemoveAssetInput) int
-		RemoveDatasetSchema             func(childComplexity int, input gqlmodel.RemoveDatasetSchemaInput) int
-		RemoveInfobox                   func(childComplexity int, input gqlmodel.RemoveInfoboxInput) int
-		RemoveInfoboxField              func(childComplexity int, input gqlmodel.RemoveInfoboxFieldInput) int
-		RemoveLayer                     func(childComplexity int, input gqlmodel.RemoveLayerInput) int
-		RemoveMemberFromTeam            func(childComplexity int, input gqlmodel.RemoveMemberFromTeamInput) int
-		RemoveMyAuth                    func(childComplexity int, input gqlmodel.RemoveMyAuthInput) int
-		RemovePropertyField             func(childComplexity int, input gqlmodel.RemovePropertyFieldInput) int
-		RemovePropertyItem              func(childComplexity int, input gqlmodel.RemovePropertyItemInput) int
-		RemoveWidget                    func(childComplexity int, input gqlmodel.RemoveWidgetInput) int
-		Signup                          func(childComplexity int, input gqlmodel.SignupInput) int
-		SyncDataset                     func(childComplexity int, input gqlmodel.SyncDatasetInput) int
-		UninstallPlugin                 func(childComplexity int, input gqlmodel.UninstallPluginInput) int
-		UnlinkPropertyValue             func(childComplexity int, input gqlmodel.UnlinkPropertyValueInput) int
-		UpdateDatasetSchema             func(childComplexity int, input gqlmodel.UpdateDatasetSchemaInput) int
-		UpdateLayer                     func(childComplexity int, input gqlmodel.UpdateLayerInput) int
-		UpdateMe                        func(childComplexity int, input gqlmodel.UpdateMeInput) int
-		UpdateMemberOfTeam              func(childComplexity int, input gqlmodel.UpdateMemberOfTeamInput) int
-		UpdateProject                   func(childComplexity int, input gqlmodel.UpdateProjectInput) int
-		UpdatePropertyItems             func(childComplexity int, input gqlmodel.UpdatePropertyItemInput) int
-		UpdatePropertyValue             func(childComplexity int, input gqlmodel.UpdatePropertyValueInput) int
-		UpdatePropertyValueCamera       func(childComplexity int, input gqlmodel.UpdatePropertyValueCameraInput) int
-		UpdatePropertyValueLatLng       func(childComplexity int, input gqlmodel.UpdatePropertyValueLatLngInput) int
-		UpdatePropertyValueLatLngHeight func(childComplexity int, input gqlmodel.UpdatePropertyValueLatLngHeightInput) int
-		UpdatePropertyValueTypography   func(childComplexity int, input gqlmodel.UpdatePropertyValueTypographyInput) int
-		UpdateTeam                      func(childComplexity int, input gqlmodel.UpdateTeamInput) int
-		UpdateWidget                    func(childComplexity int, input gqlmodel.UpdateWidgetInput) int
-		UpgradePlugin                   func(childComplexity int, input gqlmodel.UpgradePluginInput) int
-		UploadFileToProperty            func(childComplexity int, input gqlmodel.UploadFileToPropertyInput) int
-		UploadPlugin                    func(childComplexity int, input gqlmodel.UploadPluginInput) int
+		AddDatasetSchema             func(childComplexity int, input gqlmodel.AddDatasetSchemaInput) int
+		AddDynamicDataset            func(childComplexity int, input gqlmodel.AddDynamicDatasetInput) int
+		AddDynamicDatasetSchema      func(childComplexity int, input gqlmodel.AddDynamicDatasetSchemaInput) int
+		AddInfoboxField              func(childComplexity int, input gqlmodel.AddInfoboxFieldInput) int
+		AddLayerGroup                func(childComplexity int, input gqlmodel.AddLayerGroupInput) int
+		AddLayerItem                 func(childComplexity int, input gqlmodel.AddLayerItemInput) int
+		AddMemberToTeam              func(childComplexity int, input gqlmodel.AddMemberToTeamInput) int
+		AddPropertyItem              func(childComplexity int, input gqlmodel.AddPropertyItemInput) int
+		AddWidget                    func(childComplexity int, input gqlmodel.AddWidgetInput) int
+		CreateAsset                  func(childComplexity int, input gqlmodel.CreateAssetInput) int
+		CreateInfobox                func(childComplexity int, input gqlmodel.CreateInfoboxInput) int
+		CreateProject                func(childComplexity int, input gqlmodel.CreateProjectInput) int
+		CreateScene                  func(childComplexity int, input gqlmodel.CreateSceneInput) int
+		CreateTeam                   func(childComplexity int, input gqlmodel.CreateTeamInput) int
+		DeleteMe                     func(childComplexity int, input gqlmodel.DeleteMeInput) int
+		DeleteProject                func(childComplexity int, input gqlmodel.DeleteProjectInput) int
+		DeleteTeam                   func(childComplexity int, input gqlmodel.DeleteTeamInput) int
+		ImportDataset                func(childComplexity int, input gqlmodel.ImportDatasetInput) int
+		ImportDatasetFromGoogleSheet func(childComplexity int, input gqlmodel.ImportDatasetFromGoogleSheetInput) int
+		ImportLayer                  func(childComplexity int, input gqlmodel.ImportLayerInput) int
+		InstallPlugin                func(childComplexity int, input gqlmodel.InstallPluginInput) int
+		LinkDatasetToPropertyValue   func(childComplexity int, input gqlmodel.LinkDatasetToPropertyValueInput) int
+		MoveInfoboxField             func(childComplexity int, input gqlmodel.MoveInfoboxFieldInput) int
+		MoveLayer                    func(childComplexity int, input gqlmodel.MoveLayerInput) int
+		MovePropertyItem             func(childComplexity int, input gqlmodel.MovePropertyItemInput) int
+		PublishProject               func(childComplexity int, input gqlmodel.PublishProjectInput) int
+		RemoveAsset                  func(childComplexity int, input gqlmodel.RemoveAssetInput) int
+		RemoveDatasetSchema          func(childComplexity int, input gqlmodel.RemoveDatasetSchemaInput) int
+		RemoveInfobox                func(childComplexity int, input gqlmodel.RemoveInfoboxInput) int
+		RemoveInfoboxField           func(childComplexity int, input gqlmodel.RemoveInfoboxFieldInput) int
+		RemoveLayer                  func(childComplexity int, input gqlmodel.RemoveLayerInput) int
+		RemoveMemberFromTeam         func(childComplexity int, input gqlmodel.RemoveMemberFromTeamInput) int
+		RemoveMyAuth                 func(childComplexity int, input gqlmodel.RemoveMyAuthInput) int
+		RemovePropertyField          func(childComplexity int, input gqlmodel.RemovePropertyFieldInput) int
+		RemovePropertyItem           func(childComplexity int, input gqlmodel.RemovePropertyItemInput) int
+		RemoveWidget                 func(childComplexity int, input gqlmodel.RemoveWidgetInput) int
+		Signup                       func(childComplexity int, input gqlmodel.SignupInput) int
+		SyncDataset                  func(childComplexity int, input gqlmodel.SyncDatasetInput) int
+		UninstallPlugin              func(childComplexity int, input gqlmodel.UninstallPluginInput) int
+		UnlinkPropertyValue          func(childComplexity int, input gqlmodel.UnlinkPropertyValueInput) int
+		UpdateDatasetSchema          func(childComplexity int, input gqlmodel.UpdateDatasetSchemaInput) int
+		UpdateLayer                  func(childComplexity int, input gqlmodel.UpdateLayerInput) int
+		UpdateMe                     func(childComplexity int, input gqlmodel.UpdateMeInput) int
+		UpdateMemberOfTeam           func(childComplexity int, input gqlmodel.UpdateMemberOfTeamInput) int
+		UpdateProject                func(childComplexity int, input gqlmodel.UpdateProjectInput) int
+		UpdatePropertyItems          func(childComplexity int, input gqlmodel.UpdatePropertyItemInput) int
+		UpdatePropertyValue          func(childComplexity int, input gqlmodel.UpdatePropertyValueInput) int
+		UpdateTeam                   func(childComplexity int, input gqlmodel.UpdateTeamInput) int
+		UpdateWidget                 func(childComplexity int, input gqlmodel.UpdateWidgetInput) int
+		UpgradePlugin                func(childComplexity int, input gqlmodel.UpgradePluginInput) int
+		UploadFileToProperty         func(childComplexity int, input gqlmodel.UploadFileToPropertyInput) int
+		UploadPlugin                 func(childComplexity int, input gqlmodel.UploadPluginInput) int
 	}
 
 	PageInfo struct {
@@ -1027,13 +1023,13 @@ type MutationResolver interface {
 	UpdateProject(ctx context.Context, input gqlmodel.UpdateProjectInput) (*gqlmodel.ProjectPayload, error)
 	PublishProject(ctx context.Context, input gqlmodel.PublishProjectInput) (*gqlmodel.ProjectPayload, error)
 	DeleteProject(ctx context.Context, input gqlmodel.DeleteProjectInput) (*gqlmodel.DeleteProjectPayload, error)
-	UploadPlugin(ctx context.Context, input gqlmodel.UploadPluginInput) (*gqlmodel.UploadPluginPayload, error)
 	CreateScene(ctx context.Context, input gqlmodel.CreateSceneInput) (*gqlmodel.CreateScenePayload, error)
 	AddWidget(ctx context.Context, input gqlmodel.AddWidgetInput) (*gqlmodel.AddWidgetPayload, error)
 	UpdateWidget(ctx context.Context, input gqlmodel.UpdateWidgetInput) (*gqlmodel.UpdateWidgetPayload, error)
 	RemoveWidget(ctx context.Context, input gqlmodel.RemoveWidgetInput) (*gqlmodel.RemoveWidgetPayload, error)
 	InstallPlugin(ctx context.Context, input gqlmodel.InstallPluginInput) (*gqlmodel.InstallPluginPayload, error)
 	UninstallPlugin(ctx context.Context, input gqlmodel.UninstallPluginInput) (*gqlmodel.UninstallPluginPayload, error)
+	UploadPlugin(ctx context.Context, input gqlmodel.UploadPluginInput) (*gqlmodel.UploadPluginPayload, error)
 	UpgradePlugin(ctx context.Context, input gqlmodel.UpgradePluginInput) (*gqlmodel.UpgradePluginPayload, error)
 	UpdateDatasetSchema(ctx context.Context, input gqlmodel.UpdateDatasetSchemaInput) (*gqlmodel.UpdateDatasetSchemaPayload, error)
 	SyncDataset(ctx context.Context, input gqlmodel.SyncDatasetInput) (*gqlmodel.SyncDatasetPayload, error)
@@ -1044,10 +1040,6 @@ type MutationResolver interface {
 	ImportDatasetFromGoogleSheet(ctx context.Context, input gqlmodel.ImportDatasetFromGoogleSheetInput) (*gqlmodel.ImportDatasetPayload, error)
 	AddDatasetSchema(ctx context.Context, input gqlmodel.AddDatasetSchemaInput) (*gqlmodel.AddDatasetSchemaPayload, error)
 	UpdatePropertyValue(ctx context.Context, input gqlmodel.UpdatePropertyValueInput) (*gqlmodel.PropertyFieldPayload, error)
-	UpdatePropertyValueLatLng(ctx context.Context, input gqlmodel.UpdatePropertyValueLatLngInput) (*gqlmodel.PropertyFieldPayload, error)
-	UpdatePropertyValueLatLngHeight(ctx context.Context, input gqlmodel.UpdatePropertyValueLatLngHeightInput) (*gqlmodel.PropertyFieldPayload, error)
-	UpdatePropertyValueCamera(ctx context.Context, input gqlmodel.UpdatePropertyValueCameraInput) (*gqlmodel.PropertyFieldPayload, error)
-	UpdatePropertyValueTypography(ctx context.Context, input gqlmodel.UpdatePropertyValueTypographyInput) (*gqlmodel.PropertyFieldPayload, error)
 	RemovePropertyField(ctx context.Context, input gqlmodel.RemovePropertyFieldInput) (*gqlmodel.PropertyFieldPayload, error)
 	UploadFileToProperty(ctx context.Context, input gqlmodel.UploadFileToPropertyInput) (*gqlmodel.PropertyFieldPayload, error)
 	LinkDatasetToPropertyValue(ctx context.Context, input gqlmodel.LinkDatasetToPropertyValueInput) (*gqlmodel.PropertyFieldPayload, error)
@@ -3327,54 +3319,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.UpdatePropertyValue(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueInput)), true
-
-	case "Mutation.updatePropertyValueCamera":
-		if e.complexity.Mutation.UpdatePropertyValueCamera == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_updatePropertyValueCamera_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.UpdatePropertyValueCamera(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueCameraInput)), true
-
-	case "Mutation.updatePropertyValueLatLng":
-		if e.complexity.Mutation.UpdatePropertyValueLatLng == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_updatePropertyValueLatLng_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.UpdatePropertyValueLatLng(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueLatLngInput)), true
-
-	case "Mutation.updatePropertyValueLatLngHeight":
-		if e.complexity.Mutation.UpdatePropertyValueLatLngHeight == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_updatePropertyValueLatLngHeight_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.UpdatePropertyValueLatLngHeight(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueLatLngHeightInput)), true
-
-	case "Mutation.updatePropertyValueTypography":
-		if e.complexity.Mutation.UpdatePropertyValueTypography == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_updatePropertyValueTypography_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.UpdatePropertyValueTypography(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueTypographyInput)), true
 
 	case "Mutation.updateTeam":
 		if e.complexity.Mutation.UpdateTeam == nil {
@@ -6408,54 +6352,6 @@ input UpdatePropertyValueInput {
   type: ValueType!
 }
 
-input UpdatePropertyValueLatLngInput {
-  propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
-  itemId: ID
-  fieldId: PropertySchemaFieldID!
-  lat: Float!
-  lng: Float!
-}
-
-input UpdatePropertyValueLatLngHeightInput {
-  propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
-  itemId: ID
-  fieldId: PropertySchemaFieldID!
-  lat: Float!
-  lng: Float!
-  height: Float!
-}
-
-input UpdatePropertyValueCameraInput {
-  propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
-  itemId: ID
-  fieldId: PropertySchemaFieldID!
-  lat: Float!
-  lng: Float!
-  altitude: Float!
-  heading: Float!
-  pitch: Float!
-  roll: Float!
-  fov: Float!
-}
-
-input UpdatePropertyValueTypographyInput {
-  propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
-  itemId: ID
-  fieldId: PropertySchemaFieldID!
-  fontFamily: String
-  fontWeight: String
-  fontSize: Int
-  color: String
-  textAlign: TextAlign
-  bold: Boolean
-  italic: Boolean
-  underline: Boolean
-}
-
 input RemovePropertyFieldInput {
   propertyId: ID!
   schemaItemId: PropertySchemaFieldID
@@ -6831,6 +6727,7 @@ type AddDatasetSchemaPayload {
 # Connection
 
 enum NodeType {
+  ASSSET
   USER
   TEAM
   PROJECT
@@ -6969,9 +6866,6 @@ type Mutation {
   publishProject(input: PublishProjectInput!): ProjectPayload
   deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
 
-  # Plugin
-  uploadPlugin(input: UploadPluginInput!): UploadPluginPayload
-
   # Scene
   createScene(input: CreateSceneInput!): CreateScenePayload
   addWidget(input: AddWidgetInput!): AddWidgetPayload
@@ -6979,6 +6873,7 @@ type Mutation {
   removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
   installPlugin(input: InstallPluginInput!): InstallPluginPayload
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
+  uploadPlugin(input: UploadPluginInput!): UploadPluginPayload
   upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload
 
   # Dataset
@@ -6999,18 +6894,6 @@ type Mutation {
 
   # Property
   updatePropertyValue(input: UpdatePropertyValueInput!): PropertyFieldPayload
-  updatePropertyValueLatLng(
-    input: UpdatePropertyValueLatLngInput!
-  ): PropertyFieldPayload
-  updatePropertyValueLatLngHeight(
-    input: UpdatePropertyValueLatLngHeightInput!
-  ): PropertyFieldPayload
-  updatePropertyValueCamera(
-    input: UpdatePropertyValueCameraInput!
-  ): PropertyFieldPayload
-  updatePropertyValueTypography(
-    input: UpdatePropertyValueTypographyInput!
-  ): PropertyFieldPayload
   removePropertyField(input: RemovePropertyFieldInput!): PropertyFieldPayload
   uploadFileToProperty(input: UploadFileToPropertyInput!): PropertyFieldPayload
   linkDatasetToPropertyValue(
@@ -7772,66 +7655,6 @@ func (ec *executionContext) field_Mutation_updatePropertyItems_args(ctx context.
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNUpdatePropertyItemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyItemInput(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["input"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_updatePropertyValueCamera_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 gqlmodel.UpdatePropertyValueCameraInput
-	if tmp, ok := rawArgs["input"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueCameraInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueCameraInput(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["input"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_updatePropertyValueLatLngHeight_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 gqlmodel.UpdatePropertyValueLatLngHeightInput
-	if tmp, ok := rawArgs["input"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueLatLngHeightInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngHeightInput(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["input"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_updatePropertyValueLatLng_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 gqlmodel.UpdatePropertyValueLatLngInput
-	if tmp, ok := rawArgs["input"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueLatLngInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngInput(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["input"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_updatePropertyValueTypography_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 gqlmodel.UpdatePropertyValueTypographyInput
-	if tmp, ok := rawArgs["input"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdatePropertyValueTypographyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueTypographyInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -16877,45 +16700,6 @@ func (ec *executionContext) _Mutation_deleteProject(ctx context.Context, field g
 	return ec.marshalODeleteProjectPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteProjectPayload(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_uploadPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_uploadPlugin_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UploadPlugin(rctx, args["input"].(gqlmodel.UploadPluginInput))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*gqlmodel.UploadPluginPayload)
-	fc.Result = res
-	return ec.marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadPluginPayload(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _Mutation_createScene(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -17148,6 +16932,45 @@ func (ec *executionContext) _Mutation_uninstallPlugin(ctx context.Context, field
 	res := resTmp.(*gqlmodel.UninstallPluginPayload)
 	fc.Result = res
 	return ec.marshalOUninstallPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUninstallPluginPayload(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_uploadPlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_uploadPlugin_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UploadPlugin(rctx, args["input"].(gqlmodel.UploadPluginInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.UploadPluginPayload)
+	fc.Result = res
+	return ec.marshalOUploadPluginPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUploadPluginPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_upgradePlugin(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -17527,162 +17350,6 @@ func (ec *executionContext) _Mutation_updatePropertyValue(ctx context.Context, f
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return ec.resolvers.Mutation().UpdatePropertyValue(rctx, args["input"].(gqlmodel.UpdatePropertyValueInput))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*gqlmodel.PropertyFieldPayload)
-	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Mutation_updatePropertyValueLatLng(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updatePropertyValueLatLng_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueLatLng(rctx, args["input"].(gqlmodel.UpdatePropertyValueLatLngInput))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*gqlmodel.PropertyFieldPayload)
-	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Mutation_updatePropertyValueLatLngHeight(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updatePropertyValueLatLngHeight_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueLatLngHeight(rctx, args["input"].(gqlmodel.UpdatePropertyValueLatLngHeightInput))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*gqlmodel.PropertyFieldPayload)
-	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Mutation_updatePropertyValueCamera(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updatePropertyValueCamera_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueCamera(rctx, args["input"].(gqlmodel.UpdatePropertyValueCameraInput))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*gqlmodel.PropertyFieldPayload)
-	fc.Result = res
-	return ec.marshalOPropertyFieldPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPropertyFieldPayload(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Mutation_updatePropertyValueTypography(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updatePropertyValueTypography_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdatePropertyValueTypography(rctx, args["input"].(gqlmodel.UpdatePropertyValueTypographyInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -30765,106 +30432,6 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx c
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUpdatePropertyValueCameraInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueCameraInput, error) {
-	var it gqlmodel.UpdatePropertyValueCameraInput
-	var asMap = obj.(map[string]interface{})
-
-	for k, v := range asMap {
-		switch k {
-		case "propertyId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyId"))
-			it.PropertyID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "schemaItemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("schemaItemId"))
-			it.SchemaItemID, err = ec.unmarshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "itemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("itemId"))
-			it.ItemID, err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fieldId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fieldId"))
-			it.FieldID, err = ec.unmarshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "lat":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lat"))
-			it.Lat, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "lng":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lng"))
-			it.Lng, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "altitude":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("altitude"))
-			it.Altitude, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "heading":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("heading"))
-			it.Heading, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "pitch":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("pitch"))
-			it.Pitch, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "roll":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("roll"))
-			it.Roll, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fov":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fov"))
-			it.Fov, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
 func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueInput, error) {
 	var it gqlmodel.UpdatePropertyValueInput
 	var asMap = obj.(map[string]interface{})
@@ -30916,242 +30483,6 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.C
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
 			it.Type, err = ec.unmarshalNValueType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐValueType(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
-func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngHeightInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueLatLngHeightInput, error) {
-	var it gqlmodel.UpdatePropertyValueLatLngHeightInput
-	var asMap = obj.(map[string]interface{})
-
-	for k, v := range asMap {
-		switch k {
-		case "propertyId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyId"))
-			it.PropertyID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "schemaItemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("schemaItemId"))
-			it.SchemaItemID, err = ec.unmarshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "itemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("itemId"))
-			it.ItemID, err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fieldId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fieldId"))
-			it.FieldID, err = ec.unmarshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "lat":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lat"))
-			it.Lat, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "lng":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lng"))
-			it.Lng, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "height":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("height"))
-			it.Height, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
-func (ec *executionContext) unmarshalInputUpdatePropertyValueLatLngInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueLatLngInput, error) {
-	var it gqlmodel.UpdatePropertyValueLatLngInput
-	var asMap = obj.(map[string]interface{})
-
-	for k, v := range asMap {
-		switch k {
-		case "propertyId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyId"))
-			it.PropertyID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "schemaItemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("schemaItemId"))
-			it.SchemaItemID, err = ec.unmarshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "itemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("itemId"))
-			it.ItemID, err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fieldId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fieldId"))
-			it.FieldID, err = ec.unmarshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "lat":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lat"))
-			it.Lat, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "lng":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lng"))
-			it.Lng, err = ec.unmarshalNFloat2float64(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
-func (ec *executionContext) unmarshalInputUpdatePropertyValueTypographyInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueTypographyInput, error) {
-	var it gqlmodel.UpdatePropertyValueTypographyInput
-	var asMap = obj.(map[string]interface{})
-
-	for k, v := range asMap {
-		switch k {
-		case "propertyId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyId"))
-			it.PropertyID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "schemaItemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("schemaItemId"))
-			it.SchemaItemID, err = ec.unmarshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "itemId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("itemId"))
-			it.ItemID, err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fieldId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fieldId"))
-			it.FieldID, err = ec.unmarshalNPropertySchemaFieldID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fontFamily":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fontFamily"))
-			it.FontFamily, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fontWeight":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fontWeight"))
-			it.FontWeight, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "fontSize":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("fontSize"))
-			it.FontSize, err = ec.unmarshalOInt2ᚖint(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "color":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("color"))
-			it.Color, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "textAlign":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("textAlign"))
-			it.TextAlign, err = ec.unmarshalOTextAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTextAlign(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "bold":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("bold"))
-			it.Bold, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "italic":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("italic"))
-			it.Italic, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "underline":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("underline"))
-			it.Underline, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -33927,8 +33258,6 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_publishProject(ctx, field)
 		case "deleteProject":
 			out.Values[i] = ec._Mutation_deleteProject(ctx, field)
-		case "uploadPlugin":
-			out.Values[i] = ec._Mutation_uploadPlugin(ctx, field)
 		case "createScene":
 			out.Values[i] = ec._Mutation_createScene(ctx, field)
 		case "addWidget":
@@ -33941,6 +33270,8 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_installPlugin(ctx, field)
 		case "uninstallPlugin":
 			out.Values[i] = ec._Mutation_uninstallPlugin(ctx, field)
+		case "uploadPlugin":
+			out.Values[i] = ec._Mutation_uploadPlugin(ctx, field)
 		case "upgradePlugin":
 			out.Values[i] = ec._Mutation_upgradePlugin(ctx, field)
 		case "updateDatasetSchema":
@@ -33961,14 +33292,6 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_addDatasetSchema(ctx, field)
 		case "updatePropertyValue":
 			out.Values[i] = ec._Mutation_updatePropertyValue(ctx, field)
-		case "updatePropertyValueLatLng":
-			out.Values[i] = ec._Mutation_updatePropertyValueLatLng(ctx, field)
-		case "updatePropertyValueLatLngHeight":
-			out.Values[i] = ec._Mutation_updatePropertyValueLatLngHeight(ctx, field)
-		case "updatePropertyValueCamera":
-			out.Values[i] = ec._Mutation_updatePropertyValueCamera(ctx, field)
-		case "updatePropertyValueTypography":
-			out.Values[i] = ec._Mutation_updatePropertyValueTypography(ctx, field)
 		case "removePropertyField":
 			out.Values[i] = ec._Mutation_removePropertyField(ctx, field)
 		case "uploadFileToProperty":
@@ -39370,28 +38693,8 @@ func (ec *executionContext) unmarshalNUpdatePropertyItemOperationInput2ᚖgithub
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdatePropertyValueCameraInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueCameraInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueCameraInput, error) {
-	res, err := ec.unmarshalInputUpdatePropertyValueCameraInput(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
 func (ec *executionContext) unmarshalNUpdatePropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueInput, error) {
 	res, err := ec.unmarshalInputUpdatePropertyValueInput(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) unmarshalNUpdatePropertyValueLatLngHeightInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngHeightInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueLatLngHeightInput, error) {
-	res, err := ec.unmarshalInputUpdatePropertyValueLatLngHeightInput(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) unmarshalNUpdatePropertyValueLatLngInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueLatLngInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueLatLngInput, error) {
-	res, err := ec.unmarshalInputUpdatePropertyValueLatLngInput(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) unmarshalNUpdatePropertyValueTypographyInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueTypographyInput(ctx context.Context, v interface{}) (gqlmodel.UpdatePropertyValueTypographyInput, error) {
-	res, err := ec.unmarshalInputUpdatePropertyValueTypographyInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 

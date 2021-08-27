@@ -34,22 +34,6 @@ func (r *mutationResolver) UpdatePropertyValue(ctx context.Context, input gqlmod
 	}, nil
 }
 
-func (r *mutationResolver) UpdatePropertyValueLatLng(ctx context.Context, input gqlmodel.UpdatePropertyValueLatLngInput) (*gqlmodel.PropertyFieldPayload, error) {
-	return nil, ErrNotImplemented
-}
-
-func (r *mutationResolver) UpdatePropertyValueLatLngHeight(ctx context.Context, input gqlmodel.UpdatePropertyValueLatLngHeightInput) (*gqlmodel.PropertyFieldPayload, error) {
-	return nil, ErrNotImplemented
-}
-
-func (r *mutationResolver) UpdatePropertyValueCamera(ctx context.Context, input gqlmodel.UpdatePropertyValueCameraInput) (*gqlmodel.PropertyFieldPayload, error) {
-	return nil, ErrNotImplemented
-}
-
-func (r *mutationResolver) UpdatePropertyValueTypography(ctx context.Context, input gqlmodel.UpdatePropertyValueTypographyInput) (*gqlmodel.PropertyFieldPayload, error) {
-	return nil, ErrNotImplemented
-}
-
 func (r *mutationResolver) RemovePropertyField(ctx context.Context, input gqlmodel.RemovePropertyFieldInput) (*gqlmodel.PropertyFieldPayload, error) {
 	exit := trace(ctx)
 	defer exit()

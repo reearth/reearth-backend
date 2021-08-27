@@ -1077,20 +1077,6 @@ type UpdatePropertyItemOperationInput struct {
 	NameFieldType  *ValueType    `json:"nameFieldType"`
 }
 
-type UpdatePropertyValueCameraInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
-	Lat          float64                   `json:"lat"`
-	Lng          float64                   `json:"lng"`
-	Altitude     float64                   `json:"altitude"`
-	Heading      float64                   `json:"heading"`
-	Pitch        float64                   `json:"pitch"`
-	Roll         float64                   `json:"roll"`
-	Fov          float64                   `json:"fov"`
-}
-
 type UpdatePropertyValueInput struct {
 	PropertyID   id.ID                     `json:"propertyId"`
 	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
@@ -1098,40 +1084,6 @@ type UpdatePropertyValueInput struct {
 	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
 	Value        interface{}               `json:"value"`
 	Type         ValueType                 `json:"type"`
-}
-
-type UpdatePropertyValueLatLngHeightInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
-	Lat          float64                   `json:"lat"`
-	Lng          float64                   `json:"lng"`
-	Height       float64                   `json:"height"`
-}
-
-type UpdatePropertyValueLatLngInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
-	Lat          float64                   `json:"lat"`
-	Lng          float64                   `json:"lng"`
-}
-
-type UpdatePropertyValueTypographyInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
-	FontFamily   *string                   `json:"fontFamily"`
-	FontWeight   *string                   `json:"fontWeight"`
-	FontSize     *int                      `json:"fontSize"`
-	Color        *string                   `json:"color"`
-	TextAlign    *TextAlign                `json:"textAlign"`
-	Bold         *bool                     `json:"bold"`
-	Italic       *bool                     `json:"italic"`
-	Underline    *bool                     `json:"underline"`
 }
 
 type UpdateTeamInput struct {
@@ -1293,6 +1245,7 @@ func (e ListOperation) MarshalGQL(w io.Writer) {
 type NodeType string
 
 const (
+	NodeTypeAssset         NodeType = "ASSSET"
 	NodeTypeUser           NodeType = "USER"
 	NodeTypeTeam           NodeType = "TEAM"
 	NodeTypeProject        NodeType = "PROJECT"
@@ -1307,6 +1260,7 @@ const (
 )
 
 var AllNodeType = []NodeType{
+	NodeTypeAssset,
 	NodeTypeUser,
 	NodeTypeTeam,
 	NodeTypeProject,
@@ -1322,7 +1276,7 @@ var AllNodeType = []NodeType{
 
 func (e NodeType) IsValid() bool {
 	switch e {
-	case NodeTypeUser, NodeTypeTeam, NodeTypeProject, NodeTypePlugin, NodeTypeScene, NodeTypePropertySchema, NodeTypeProperty, NodeTypeDatasetSchema, NodeTypeDataset, NodeTypeLayerGroup, NodeTypeLayerItem:
+	case NodeTypeAssset, NodeTypeUser, NodeTypeTeam, NodeTypeProject, NodeTypePlugin, NodeTypeScene, NodeTypePropertySchema, NodeTypeProperty, NodeTypeDatasetSchema, NodeTypeDataset, NodeTypeLayerGroup, NodeTypeLayerItem:
 		return true
 	}
 	return false
