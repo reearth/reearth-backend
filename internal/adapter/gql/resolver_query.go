@@ -38,6 +38,12 @@ func (r *queryResolver) Node(ctx context.Context, i id.ID, typeArg gqlmodel.Node
 
 	dataloaders := DataLoadersFromContext(ctx)
 	switch typeArg {
+	case gqlmodel.NodeTypeAsset:
+		result, err := dataloaders.Asset.Load(id.AssetID(i))
+		if result == nil {
+			return nil, nil
+		}
+		return result, err
 	case gqlmodel.NodeTypeDataset:
 		result, err := dataloaders.Dataset.Load(id.DatasetID(i))
 		if result == nil {
@@ -102,6 +108,16 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []*id.ID, typeArg gqlmode
 
 	dataloaders := DataLoadersFromContext(ctx)
 	switch typeArg {
+	case gqlmodel.NodeTypeAsset:
+		data, err := dataloaders.Asset.LoadAll(id.AssetIDsFromIDRef(ids))
+		if len(err) > 0 && err[0] != nil {
+			return nil, err[0]
+		}
+		nodes := make([]gqlmodel.Node, len(data))
+		for i := range data {
+			nodes[i] = data[i]
+		}
+		return nodes, nil
 	case gqlmodel.NodeTypeDataset:
 		data, err := dataloaders.Dataset.LoadAll(id.DatasetIDsFromIDRef(ids))
 		if len(err) > 0 && err[0] != nil {

@@ -6727,7 +6727,7 @@ type AddDatasetSchemaPayload {
 # Connection
 
 enum NodeType {
-  ASSSET
+  ASSET
   USER
   TEAM
   PROJECT

@@ -1245,7 +1245,7 @@ func (e ListOperation) MarshalGQL(w io.Writer) {
 type NodeType string
 
 const (
-	NodeTypeAssset         NodeType = "ASSSET"
+	NodeTypeAsset          NodeType = "ASSET"
 	NodeTypeUser           NodeType = "USER"
 	NodeTypeTeam           NodeType = "TEAM"
 	NodeTypeProject        NodeType = "PROJECT"
@@ -1260,7 +1260,7 @@ const (
 )
 
 var AllNodeType = []NodeType{
-	NodeTypeAssset,
+	NodeTypeAsset,
 	NodeTypeUser,
 	NodeTypeTeam,
 	NodeTypeProject,
@@ -1276,7 +1276,7 @@ var AllNodeType = []NodeType{
 
 func (e NodeType) IsValid() bool {
 	switch e {
-	case NodeTypeAssset, NodeTypeUser, NodeTypeTeam, NodeTypeProject, NodeTypePlugin, NodeTypeScene, NodeTypePropertySchema, NodeTypeProperty, NodeTypeDatasetSchema, NodeTypeDataset, NodeTypeLayerGroup, NodeTypeLayerItem:
+	case NodeTypeAsset, NodeTypeUser, NodeTypeTeam, NodeTypeProject, NodeTypePlugin, NodeTypeScene, NodeTypePropertySchema, NodeTypeProperty, NodeTypeDatasetSchema, NodeTypeDataset, NodeTypeLayerGroup, NodeTypeLayerItem:
 		return true
 	}
 	return false

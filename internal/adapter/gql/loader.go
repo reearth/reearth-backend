@@ -26,6 +26,7 @@ type Loaders struct {
 }
 
 type DataLoaders struct {
+	Asset          AssetDataLoader
 	Dataset        DatasetDataLoader
 	DatasetSchema  DatasetSchemaDataLoader
 	LayerItem      LayerItemDataLoader
@@ -64,6 +65,7 @@ func (l Loaders) DataLoadersWith(ctx context.Context, enabled bool) DataLoaders 
 
 func (l Loaders) DataLoaders(ctx context.Context) DataLoaders {
 	return DataLoaders{
+		Asset:          l.Asset.DataLoader(ctx),
 		Dataset:        l.Dataset.DataLoader(ctx),
 		DatasetSchema:  l.Dataset.SchemaDataLoader(ctx),
 		LayerItem:      l.Layer.ItemDataLoader(ctx),
@@ -81,6 +83,7 @@ func (l Loaders) DataLoaders(ctx context.Context) DataLoaders {
 
 func (l Loaders) OrdinaryDataLoaders(ctx context.Context) DataLoaders {
 	return DataLoaders{
+		Asset:          l.Asset.OrdinaryDataLoader(ctx),
 		Dataset:        l.Dataset.OrdinaryDataLoader(ctx),
 		DatasetSchema:  l.Dataset.SchemaOrdinaryDataLoader(ctx),
 		LayerItem:      l.Layer.ItemOrdinaryDataLoader(ctx),
