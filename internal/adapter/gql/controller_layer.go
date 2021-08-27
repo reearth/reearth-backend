@@ -8,195 +8,93 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type LayerControllerConfig struct {
-	LayerInput func() interfaces.Layer
-}
-
 type LayerController struct {
-	config LayerControllerConfig
+	usecase interfaces.Layer
 }
 
-func NewLayerController(config LayerControllerConfig) *LayerController {
-	return &LayerController{config: config}
+func NewLayerController(usecase interfaces.Layer) *LayerController {
+	return &LayerController{usecase: usecase}
 }
 
-func (c *LayerController) usecase() interfaces.Layer {
-	if c == nil {
-		return nil
+func (c *LayerController) Fetch(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*Layer, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, operator)
+	if err != nil {
+		return nil, []error{err}
 	}
-	return c.config.LayerInput()
+
+	layers := make([]*Layer, 0, len(res))
+	for _, l := range res {
+		if l == nil {
+			layers = append(layers, nil)
+		} else {
+			layer := toLayer(*l, nil)
+			layers = append(layers, &layer)
+		}
+	}
+
+	return layers, nil
 }
 
-func (c *LayerController) AddItem(ctx context.Context, ginput *AddLayerItemInput, operator *usecase.Operator) (*AddLayerItemPayload, error) {
-	layer, parent, err := c.usecase().AddItem(ctx, interfaces.AddLayerItemInput{
-		ParentLayerID: id.LayerID(ginput.ParentLayerID),
-		PluginID:      &ginput.PluginID,
-		ExtensionID:   &ginput.ExtensionID,
-		Index:         ginput.Index,
-		Name:          refToString(ginput.Name),
-		LatLng:        toPropertyLatLng(ginput.Lat, ginput.Lng),
-		// LinkedDatasetID: ginput.LinkedDatasetID,
-	}, operator)
+func (c *LayerController) FetchGroup(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*LayerGroup, []error) {
+	res, err := c.usecase.FetchGroup(ctx, ids, operator)
+	if err != nil {
+		return nil, []error{err}
+	}
+
+	layerGroups := make([]*LayerGroup, 0, len(res))
+	for _, l := range res {
+		layerGroups = append(layerGroups, toLayerGroup(l, nil))
+	}
+
+	return layerGroups, nil
+}
+
+func (c *LayerController) FetchItem(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*LayerItem, []error) {
+	res, err := c.usecase.FetchItem(ctx, ids, operator)
+	if err != nil {
+		return nil, []error{err}
+	}
+
+	layerItems := make([]*LayerItem, 0, len(res))
+	for _, l := range res {
+		layerItems = append(layerItems, toLayerItem(l, nil))
+	}
+
+	return layerItems, nil
+}
+
+func (c *LayerController) FetchParent(ctx context.Context, lid id.LayerID, operator *usecase.Operator) (*LayerGroup, error) {
+	res, err := c.usecase.FetchParent(ctx, id.LayerID(lid), operator)
 	if err != nil {
 		return nil, err
 	}
 
-	return &AddLayerItemPayload{
-		Layer:       toLayerItem(layer, parent.IDRef()),
-		ParentLayer: toLayerGroup(parent, nil),
-		Index:       ginput.Index,
-	}, nil
+	return toLayerGroup(res, nil), nil
 }
 
-func (c *LayerController) AddGroup(ctx context.Context, ginput *AddLayerGroupInput, operator *usecase.Operator) (*AddLayerGroupPayload, error) {
-	layer, parent, err := c.usecase().AddGroup(ctx, interfaces.AddLayerGroupInput{
-		ParentLayerID:         id.LayerID(ginput.ParentLayerID),
-		PluginID:              ginput.PluginID,
-		ExtensionID:           ginput.ExtensionID,
-		Index:                 ginput.Index,
-		Name:                  refToString(ginput.Name),
-		LinkedDatasetSchemaID: id.DatasetSchemaIDFromRefID(ginput.LinkedDatasetSchemaID),
-		RepresentativeFieldId: ginput.RepresentativeFieldID,
-	}, operator)
+func (c *LayerController) FetchByProperty(ctx context.Context, pid id.PropertyID, operator *usecase.Operator) (Layer, error) {
+	res, err := c.usecase.FetchByProperty(ctx, pid, operator)
 	if err != nil {
 		return nil, err
 	}
 
-	return &AddLayerGroupPayload{
-		Layer:       toLayerGroup(layer, parent.IDRef()),
-		ParentLayer: toLayerGroup(parent, nil),
-		Index:       ginput.Index,
-	}, nil
+	return toLayer(res, nil), nil
 }
 
-func (c *LayerController) Remove(ctx context.Context, ginput *RemoveLayerInput, operator *usecase.Operator) (*RemoveLayerPayload, error) {
-	id, layer, err := c.usecase().Remove(ctx, id.LayerID(ginput.LayerID), operator)
-	if err != nil {
-		return nil, err
+func (c *LayerController) FetchMerged(ctx context.Context, org id.LayerID, parent *id.LayerID, operator *usecase.Operator) (*MergedLayer, error) {
+	res, err2 := c.usecase.FetchMerged(ctx, org, parent, operator)
+	if err2 != nil {
+		return nil, err2
 	}
 
-	return &RemoveLayerPayload{
-		LayerID:     id.ID(),
-		ParentLayer: toLayerGroup(layer, nil),
-	}, nil
+	return toMergedLayer(res), nil
 }
 
-func (c *LayerController) Update(ctx context.Context, ginput *UpdateLayerInput, operator *usecase.Operator) (*UpdateLayerPayload, error) {
-	layer, err := c.usecase().Update(ctx, interfaces.UpdateLayerInput{
-		LayerID: id.LayerID(ginput.LayerID),
-		Name:    ginput.Name,
-		Visible: ginput.Visible,
-	}, operator)
-	if err != nil {
-		return nil, err
+func (c *LayerController) FetchParentAndMerged(ctx context.Context, org id.LayerID, operator *usecase.Operator) (*MergedLayer, error) {
+	res, err2 := c.usecase.FetchParentAndMerged(ctx, org, operator)
+	if err2 != nil {
+		return nil, err2
 	}
 
-	return &UpdateLayerPayload{
-		Layer: toLayer(layer, nil),
-	}, nil
-}
-
-func (c *LayerController) Move(ctx context.Context, ginput *MoveLayerInput, operator *usecase.Operator) (*MoveLayerPayload, error) {
-	targetLayerID, layerGroupFrom, layerGroupTo, index, err := c.usecase().Move(ctx, interfaces.MoveLayerInput{
-		LayerID:     id.LayerID(ginput.LayerID),
-		DestLayerID: id.LayerIDFromRefID(ginput.DestLayerID),
-		Index:       refToIndex(ginput.Index),
-	}, operator)
-	if err != nil {
-		return nil, err
-	}
-
-	return &MoveLayerPayload{
-		LayerID:         targetLayerID.ID(),
-		FromParentLayer: toLayerGroup(layerGroupFrom, nil),
-		ToParentLayer:   toLayerGroup(layerGroupTo, nil),
-		Index:           index,
-	}, nil
-}
-
-func (c *LayerController) CreateInfobox(ctx context.Context, ginput *CreateInfoboxInput, operator *usecase.Operator) (*CreateInfoboxPayload, error) {
-	layer, err := c.usecase().CreateInfobox(ctx, id.LayerID(ginput.LayerID), operator)
-	if err != nil {
-		return nil, err
-	}
-
-	return &CreateInfoboxPayload{
-		Layer: toLayer(layer, nil),
-	}, nil
-}
-
-func (c *LayerController) RemoveInfobox(ctx context.Context, ginput *RemoveInfoboxInput, operator *usecase.Operator) (*RemoveInfoboxPayload, error) {
-	layer, err := c.usecase().RemoveInfobox(ctx, id.LayerID(ginput.LayerID), operator)
-	if err != nil {
-		return nil, err
-	}
-
-	return &RemoveInfoboxPayload{
-		Layer: toLayer(layer, nil),
-	}, nil
-}
-
-func (c *LayerController) AddInfoboxField(ctx context.Context, ginput *AddInfoboxFieldInput, operator *usecase.Operator) (*AddInfoboxFieldPayload, error) {
-	infoboxField, layer, err := c.usecase().AddInfoboxField(ctx, interfaces.AddInfoboxFieldParam{
-		LayerID:     id.LayerID(ginput.LayerID),
-		PluginID:    ginput.PluginID,
-		ExtensionID: ginput.ExtensionID,
-		Index:       ginput.Index,
-	}, operator)
-	if err != nil {
-		return nil, err
-	}
-
-	return &AddInfoboxFieldPayload{
-		InfoboxField: toInfoboxField(infoboxField, layer.Scene(), nil),
-		Layer:        toLayer(layer, nil),
-	}, nil
-}
-
-func (c *LayerController) MoveInfoboxField(ctx context.Context, ginput *MoveInfoboxFieldInput, operator *usecase.Operator) (*MoveInfoboxFieldPayload, error) {
-	infoboxField, layer, index, err := c.usecase().MoveInfoboxField(ctx, interfaces.MoveInfoboxFieldParam{
-		LayerID:        id.LayerID(ginput.LayerID),
-		InfoboxFieldID: id.InfoboxFieldID(ginput.InfoboxFieldID),
-		Index:          ginput.Index,
-	}, operator)
-	if err != nil {
-		return nil, err
-	}
-
-	return &MoveInfoboxFieldPayload{
-		InfoboxFieldID: infoboxField.ID(),
-		Layer:          toLayer(layer, nil),
-		Index:          index,
-	}, nil
-}
-
-func (c *LayerController) RemoveInfoboxField(ctx context.Context, ginput *RemoveInfoboxFieldInput, operator *usecase.Operator) (*RemoveInfoboxFieldPayload, error) {
-	infoboxField, layer, err := c.usecase().RemoveInfoboxField(ctx, interfaces.RemoveInfoboxFieldParam{
-		LayerID:        id.LayerID(ginput.LayerID),
-		InfoboxFieldID: id.InfoboxFieldID(ginput.InfoboxFieldID),
-	}, operator)
-	if err != nil {
-		return nil, err
-	}
-
-	return &RemoveInfoboxFieldPayload{
-		InfoboxFieldID: infoboxField.ID(),
-		Layer:          toLayer(layer, nil),
-	}, nil
-}
-
-func (c *LayerController) ImportLayer(ctx context.Context, ginput *ImportLayerInput, operator *usecase.Operator) (*ImportLayerPayload, error) {
-	l, l2, err := c.usecase().ImportLayer(ctx, interfaces.ImportLayerParam{
-		LayerID: id.LayerID(ginput.LayerID),
-		File:    fromFile(&ginput.File),
-		Format:  fromLayerEncodingFormat(ginput.Format),
-	}, operator)
-	if err != nil {
-		return nil, err
-	}
-
-	return &ImportLayerPayload{
-		Layers:      toLayers(l, l2.IDRef()),
-		ParentLayer: toLayerGroup(l2, nil),
-	}, err
+	return toMergedLayer(res), nil
 }

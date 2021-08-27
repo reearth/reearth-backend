@@ -8,123 +8,58 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type SceneControllerConfig struct {
-	SceneInput func() interfaces.Scene
-}
-
 type SceneController struct {
-	config SceneControllerConfig
+	usecase interfaces.Scene
 }
 
-func NewSceneController(config SceneControllerConfig) *SceneController {
-	return &SceneController{config: config}
+func NewSceneController(usecase interfaces.Scene) *SceneController {
+	return &SceneController{usecase: usecase}
 }
 
-func (c *SceneController) usecase() interfaces.Scene {
-	if c == nil {
-		return nil
+func (c *SceneController) Fetch(ctx context.Context, ids []id.SceneID, operator *usecase.Operator) ([]*Scene, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, operator)
+	if err != nil {
+		return nil, []error{err}
 	}
-	return c.config.SceneInput()
+
+	scenes := make([]*Scene, 0, len(res))
+	for _, scene := range res {
+		scenes = append(scenes, toScene(scene))
+	}
+	return scenes, nil
 }
 
-func (c *SceneController) Create(ctx context.Context, ginput *CreateSceneInput, operator *usecase.Operator) (*CreateScenePayload, error) {
-	res, err := c.usecase().Create(
-		ctx,
-		id.ProjectID(ginput.ProjectID),
-		operator,
-	)
+func (c *SceneController) FindByProject(ctx context.Context, projectID id.ProjectID, operator *usecase.Operator) (*Scene, error) {
+	res, err := c.usecase.FindByProject(ctx, projectID, operator)
 	if err != nil {
 		return nil, err
 	}
 
-	return &CreateScenePayload{Scene: toScene(res)}, nil
+	return toScene(res), nil
 }
 
-func (c *SceneController) AddWidget(ctx context.Context, ginput *AddWidgetInput, operator *usecase.Operator) (*AddWidgetPayload, error) {
-	scene, widget, err := c.usecase().AddWidget(
-		ctx,
-		id.SceneID(ginput.SceneID),
-		ginput.PluginID,
-		id.PluginExtensionID(ginput.ExtensionID),
-		operator,
-	)
+func (c *SceneController) FetchLock(ctx context.Context, sid id.SceneID, operator *usecase.Operator) (*SceneLockMode, error) {
+	res, err := c.usecase.FetchLock(ctx, []id.SceneID{sid}, operator)
 	if err != nil {
 		return nil, err
 	}
-
-	return &AddWidgetPayload{Scene: toScene(scene), SceneWidget: toSceneWidget(widget)}, nil
+	if len(res) > 0 {
+		return nil, nil
+	}
+	sl := toSceneLockMode(res[0])
+	return &sl, nil
 }
 
-func (c *SceneController) UpdateWidget(ctx context.Context, ginput *UpdateWidgetInput, operator *usecase.Operator) (*UpdateWidgetPayload, error) {
-	scene, widget, err := c.usecase().UpdateWidget(ctx, interfaces.UpdateWidgetParam{
-		SceneID:     id.SceneID(ginput.SceneID),
-		PluginID:    ginput.PluginID,
-		ExtensionID: id.PluginExtensionID(ginput.ExtensionID),
-		Enabled:     ginput.Enabled,
-	}, operator)
+func (c *SceneController) FetchLockAll(ctx context.Context, sid []id.SceneID, operator *usecase.Operator) ([]SceneLockMode, []error) {
+	res, err := c.usecase.FetchLock(ctx, sid, operator)
 	if err != nil {
-		return nil, err
+		return nil, []error{err}
 	}
 
-	return &UpdateWidgetPayload{Scene: toScene(scene), SceneWidget: toSceneWidget(widget)}, nil
-}
-
-func (c *SceneController) RemoveWidget(ctx context.Context, ginput *RemoveWidgetInput, operator *usecase.Operator) (*RemoveWidgetPayload, error) {
-	scene, err := c.usecase().RemoveWidget(ctx,
-		id.SceneID(ginput.SceneID),
-		id.PluginID(ginput.PluginID),
-		id.PluginExtensionID(ginput.ExtensionID),
-		operator,
-	)
-	if err != nil {
-		return nil, err
+	res2 := make([]SceneLockMode, 0, len(res))
+	for _, r := range res {
+		res2 = append(res2, toSceneLockMode(r))
 	}
 
-	return &RemoveWidgetPayload{Scene: toScene(scene), PluginID: ginput.PluginID, ExtensionID: ginput.ExtensionID}, nil
-}
-
-func (c *SceneController) InstallPlugin(ctx context.Context, ginput *InstallPluginInput, operator *usecase.Operator) (*InstallPluginPayload, error) {
-	scene, pl, pr, err := c.usecase().InstallPlugin(ctx,
-		id.SceneID(ginput.SceneID),
-		ginput.PluginID,
-		operator,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return &InstallPluginPayload{Scene: toScene(scene), ScenePlugin: &ScenePlugin{
-		PluginID:   pl,
-		PropertyID: pr.IDRef(),
-	}}, nil
-}
-
-func (c *SceneController) UninstallPlugin(ctx context.Context, ginput *UninstallPluginInput, operator *usecase.Operator) (*UninstallPluginPayload, error) {
-	scene, err := c.usecase().UninstallPlugin(ctx,
-		id.SceneID(ginput.SceneID),
-		id.PluginID(ginput.PluginID),
-		operator,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return &UninstallPluginPayload{PluginID: ginput.PluginID, Scene: toScene(scene)}, nil
-}
-
-func (c *SceneController) UpgradePlugin(ctx context.Context, ginput *UpgradePluginInput, operator *usecase.Operator) (*UpgradePluginPayload, error) {
-	s, err := c.usecase().UpgradePlugin(ctx,
-		id.SceneID(ginput.SceneID),
-		ginput.PluginID,
-		ginput.ToPluginID,
-		operator,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return &UpgradePluginPayload{
-		Scene:       toScene(s),
-		ScenePlugin: toScenePlugin(s.PluginSystem().Plugin(ginput.ToPluginID)),
-	}, nil
+	return res2, nil
 }

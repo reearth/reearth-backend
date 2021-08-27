@@ -53,7 +53,7 @@ func (r *propertyResolver) Layer(ctx context.Context, obj *Property) (Layer, err
 	exit := trace(ctx)
 	defer exit()
 
-	l, err := r.config.Controllers.LayerController.FetchByProperty(ctx, id.PropertyID(obj.ID), getOperator(ctx))
+	l, err := r.controllers.Layer.FetchByProperty(ctx, id.PropertyID(obj.ID), getOperator(ctx))
 	if err != nil || errors.Is(err, rerror.ErrNotFound) {
 		return nil, nil
 	}
@@ -64,7 +64,7 @@ func (r *propertyResolver) Merged(ctx context.Context, obj *Property) (*MergedPr
 	exit := trace(ctx)
 	defer exit()
 
-	l, err := r.config.Controllers.LayerController.FetchByProperty(ctx, id.PropertyID(obj.ID), getOperator(ctx))
+	l, err := r.controllers.Layer.FetchByProperty(ctx, id.PropertyID(obj.ID), getOperator(ctx))
 	if err != nil {
 		if errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil
@@ -225,7 +225,7 @@ func (r *mergedPropertyResolver) Groups(ctx context.Context, obj *MergedProperty
 	if obj.Groups != nil {
 		return obj.Groups, nil
 	}
-	m, err := r.config.Controllers.PropertyController.FetchMerged(ctx, obj.OriginalID, obj.ParentID, obj.LinkedDatasetID, getOperator(ctx))
+	m, err := r.controllers.Property.FetchMerged(ctx, obj.OriginalID, obj.ParentID, obj.LinkedDatasetID, getOperator(ctx))
 	if err != nil || m == nil {
 		return nil, err
 	}

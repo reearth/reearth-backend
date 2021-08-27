@@ -30,13 +30,13 @@ func getOperator(ctx context.Context) *usecase.Operator {
 	return nil
 }
 
-func dataLoaderMiddleware(container *gql.Container) echo.MiddlewareFunc {
+func dataLoaderMiddleware(container gql.Container) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(echoCtx echo.Context) error {
 			req := echoCtx.Request()
 			ctx := req.Context()
 
-			var dl *gql.DataLoaders
+			var dl gql.DataLoaders
 			if enableDataLoaders {
 				dl = gql.NewDataLoaders(ctx, container, getOperator(ctx))
 			} else {
@@ -70,7 +70,7 @@ func graphqlAPI(
 	ec *echo.Echo,
 	r *echo.Group,
 	conf *ServerConfig,
-	controllers *gql.Container,
+	controllers gql.Container,
 ) {
 	playgroundEnabled := conf.Debug || conf.Config.Dev
 
@@ -81,10 +81,10 @@ func graphqlAPI(
 	}
 
 	schema := gql.NewExecutableSchema(gql.Config{
-		Resolvers: gql.NewResolver(gql.ResolverConfig{
-			Controllers: controllers,
-			Debug:       conf.Debug,
-		}),
+		Resolvers: gql.NewResolver(
+			controllers,
+			conf.Debug,
+		),
 	})
 
 	srv := handler.NewDefaultServer(schema)

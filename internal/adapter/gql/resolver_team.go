@@ -21,14 +21,14 @@ func (r *teamResolver) Assets(ctx context.Context, obj *Team, first *int, last *
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.AssetController.FindByTeam(ctx, obj.ID, first, last, before, after, getOperator(ctx))
+	return r.controllers.Asset.FindByTeam(ctx, obj.ID, first, last, before, after, getOperator(ctx))
 }
 
 func (r *teamResolver) Projects(ctx context.Context, obj *Team, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*ProjectConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.ProjectController.FindByTeam(ctx, id.TeamID(obj.ID), first, last, before, after, getOperator(ctx))
+	return r.controllers.Project.FindByTeam(ctx, id.TeamID(obj.ID), first, last, before, after, getOperator(ctx))
 }
 
 type teamMemberResolver struct{ *Resolver }

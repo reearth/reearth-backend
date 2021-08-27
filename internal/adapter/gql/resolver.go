@@ -4,30 +4,25 @@ package gql
 
 import (
 	"errors"
+
+	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 )
 
 // THIS CODE IS A STARTING POINT ONLY. IT WILL NOT BE UPDATED WITH SCHEMA CHANGES.
 
-// Resolver _
-type Resolver struct {
-	config ResolverConfig
-}
-
-// ErrNotImplemented _
 var ErrNotImplemented = errors.New("not impleneted yet")
-
-// ErrUnauthorized _
 var ErrUnauthorized = errors.New("unauthorized")
 
-// ResolverConfig _
-type ResolverConfig struct {
-	Controllers *Container
-	Debug       bool
+type Resolver struct {
+	usecases    interfaces.Container
+	controllers Container
+	debug       bool
 }
 
-// NewResolver _
-func NewResolver(config ResolverConfig) ResolverRoot {
+func NewResolver(controllers Container, debug bool) ResolverRoot {
 	return &Resolver{
-		config: config,
+		usecases:    controllers.usecases,
+		controllers: controllers,
+		debug:       debug,
 	}
 }

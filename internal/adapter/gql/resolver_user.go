@@ -23,5 +23,5 @@ func (r *userResolver) Teams(ctx context.Context, obj *User) ([]*Team, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.TeamController.FindByUser(ctx, id.UserID(obj.ID), getOperator(ctx))
+	return r.controllers.Team.FindByUser(ctx, id.UserID(obj.ID), getOperator(ctx))
 }

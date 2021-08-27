@@ -50,36 +50,36 @@ func DataLoadersKey() interface{} {
 	return dataLoadersKey{}
 }
 
-func NewDataLoaders(ctx context.Context, c *Container, o *usecase.Operator) *DataLoaders {
-	return &DataLoaders{
-		Dataset:        newDataset(ctx, c.DatasetController, o),
-		DatasetSchema:  newDatasetSchema(ctx, c.DatasetController, o),
-		LayerItem:      newLayerItem(ctx, c.LayerController, o),
-		LayerGroup:     newLayerGroup(ctx, c.LayerController, o),
-		Layer:          newLayer(ctx, c.LayerController, o),
-		Plugin:         newPlugin(ctx, c.PluginController, o),
-		Project:        newProject(ctx, c.ProjectController, o),
-		Property:       newProperty(ctx, c.PropertyController, o),
-		PropertySchema: newPropertySchema(ctx, c.PropertyController, o),
-		Scene:          newScene(ctx, c.SceneController, o),
-		Team:           newTeam(ctx, c.TeamController, o),
-		User:           newUser(ctx, c.UserController, o),
+func NewDataLoaders(ctx context.Context, c Container, o *usecase.Operator) DataLoaders {
+	return DataLoaders{
+		Dataset:        newDataset(ctx, c.Dataset, o),
+		DatasetSchema:  newDatasetSchema(ctx, c.Dataset, o),
+		LayerItem:      newLayerItem(ctx, c.Layer, o),
+		LayerGroup:     newLayerGroup(ctx, c.Layer, o),
+		Layer:          newLayer(ctx, c.Layer, o),
+		Plugin:         newPlugin(ctx, c.Plugin, o),
+		Project:        newProject(ctx, c.Project, o),
+		Property:       newProperty(ctx, c.Property, o),
+		PropertySchema: newPropertySchema(ctx, c.Property, o),
+		Scene:          newScene(ctx, c.Scene, o),
+		Team:           newTeam(ctx, c.Team, o),
+		User:           newUser(ctx, c.User, o),
 	}
 }
 
-func NewOrdinaryDataLoaders(ctx context.Context, c *Container, o *usecase.Operator) *DataLoaders {
-	return &DataLoaders{
-		Dataset:        newOrdinaryDataset(ctx, c.DatasetController, o),
-		DatasetSchema:  newOrdinaryDatasetSchema(ctx, c.DatasetController, o),
-		LayerItem:      newOrdinaryLayerItem(ctx, c.LayerController, o),
-		LayerGroup:     newOrdinaryLayerGroup(ctx, c.LayerController, o),
-		Layer:          newOrdinaryLayer(ctx, c.LayerController, o),
-		Plugin:         newOrdinaryPlugin(ctx, c.PluginController, o),
-		Project:        newOrdinaryProject(ctx, c.ProjectController, o),
-		Property:       newOrdinaryProperty(ctx, c.PropertyController, o),
-		PropertySchema: newOrdinaryPropertySchema(ctx, c.PropertyController, o),
-		Scene:          newOrdinaryScene(ctx, c.SceneController, o),
-		Team:           newOrdinaryTeam(ctx, c.TeamController, o),
-		User:           newOrdinaryUser(ctx, c.UserController, o),
+func NewOrdinaryDataLoaders(ctx context.Context, c Container, o *usecase.Operator) DataLoaders {
+	return DataLoaders{
+		Dataset:        newOrdinaryDataset(ctx, c.Dataset, o),
+		DatasetSchema:  newOrdinaryDatasetSchema(ctx, c.Dataset, o),
+		LayerItem:      newOrdinaryLayerItem(ctx, c.Layer, o),
+		LayerGroup:     newOrdinaryLayerGroup(ctx, c.Layer, o),
+		Layer:          newOrdinaryLayer(ctx, c.Layer, o),
+		Plugin:         newOrdinaryPlugin(ctx, c.Plugin, o),
+		Project:        newOrdinaryProject(ctx, c.Project, o),
+		Property:       newOrdinaryProperty(ctx, c.Property, o),
+		PropertySchema: newOrdinaryPropertySchema(ctx, c.Property, o),
+		Scene:          newOrdinaryScene(ctx, c.Scene, o),
+		Team:           newOrdinaryTeam(ctx, c.Team, o),
+		User:           newOrdinaryUser(ctx, c.User, o),
 	}
 }

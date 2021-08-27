@@ -44,7 +44,7 @@ func (r *datasetSchemaResolver) Datasets(ctx context.Context, obj *DatasetSchema
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.DatasetController.FindBySchema(ctx, obj.ID, first, last, before, after, getOperator(ctx))
+	return r.controllers.Dataset.FindBySchema(ctx, obj.ID, first, last, before, after, getOperator(ctx))
 }
 
 type datasetSchemaFieldResolver struct{ *Resolver }

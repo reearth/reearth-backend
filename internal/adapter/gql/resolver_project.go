@@ -24,7 +24,7 @@ func (r *projectResolver) Scene(ctx context.Context, obj *Project) (*Scene, erro
 	exit := trace(ctx)
 	defer exit()
 
-	s, err := r.config.Controllers.SceneController.FindByProject(ctx, id.ProjectID(obj.ID), getOperator(ctx))
+	s, err := r.controllers.Scene.FindByProject(ctx, id.ProjectID(obj.ID), getOperator(ctx))
 	if err != nil && err != rerror.ErrNotFound {
 		return nil, err
 	}

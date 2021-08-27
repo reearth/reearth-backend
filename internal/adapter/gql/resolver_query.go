@@ -17,7 +17,7 @@ func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, first *int, la
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.AssetController.FindByTeam(ctx, teamID, first, last, before, after, getOperator(ctx))
+	return r.controllers.Asset.FindByTeam(ctx, teamID, first, last, before, after, getOperator(ctx))
 }
 
 func (r *queryResolver) Me(ctx context.Context) (*User, error) {
@@ -264,61 +264,61 @@ func (r *queryResolver) Scene(ctx context.Context, projectID id.ID) (*Scene, err
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.SceneController.FindByProject(ctx, id.ProjectID(projectID), getOperator(ctx))
+	return r.controllers.Scene.FindByProject(ctx, id.ProjectID(projectID), getOperator(ctx))
 }
 
 func (r *queryResolver) Projects(ctx context.Context, teamID id.ID, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*ProjectConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.ProjectController.FindByTeam(ctx, id.TeamID(teamID), first, last, before, after, getOperator(ctx))
+	return r.controllers.Project.FindByTeam(ctx, id.TeamID(teamID), first, last, before, after, getOperator(ctx))
 }
 
 func (r *queryResolver) DatasetSchemas(ctx context.Context, sceneID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetSchemaConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.DatasetController.FindSchemaByScene(ctx, sceneID, first, last, before, after, getOperator(ctx))
+	return r.controllers.Dataset.FindSchemaByScene(ctx, sceneID, first, last, before, after, getOperator(ctx))
 }
 
 func (r *queryResolver) DynamicDatasetSchemas(ctx context.Context, sceneID id.ID) ([]*DatasetSchema, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.DatasetController.FindDynamicSchemasByScene(ctx, sceneID)
+	return r.controllers.Dataset.FindDynamicSchemasByScene(ctx, sceneID)
 }
 
 func (r *queryResolver) Datasets(ctx context.Context, datasetSchemaID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*DatasetConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.DatasetController.FindBySchema(ctx, datasetSchemaID, first, last, before, after, getOperator(ctx))
+	return r.controllers.Dataset.FindBySchema(ctx, datasetSchemaID, first, last, before, after, getOperator(ctx))
 }
 
 func (r *queryResolver) SceneLock(ctx context.Context, sceneID id.ID) (*SceneLockMode, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.SceneController.FetchLock(ctx, id.SceneID(sceneID), getOperator(ctx))
+	return r.controllers.Scene.FetchLock(ctx, id.SceneID(sceneID), getOperator(ctx))
 }
 
 func (r *queryResolver) SearchUser(ctx context.Context, nameOrEmail string) (*SearchedUser, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.UserController.SearchUser(ctx, nameOrEmail, getOperator(ctx))
+	return r.controllers.User.SearchUser(ctx, nameOrEmail, getOperator(ctx))
 }
 
 func (r *queryResolver) CheckProjectAlias(ctx context.Context, alias string) (*CheckProjectAliasPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.ProjectController.CheckAlias(ctx, alias)
+	return r.controllers.Project.CheckAlias(ctx, alias)
 }
 
 func (r *queryResolver) InstallablePlugins(ctx context.Context) ([]*PluginMetadata, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.PluginController.FetchPluginMetadata(ctx, getOperator(ctx))
+	return r.controllers.Plugin.FetchPluginMetadata(ctx, getOperator(ctx))
 }

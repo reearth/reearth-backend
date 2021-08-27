@@ -68,7 +68,7 @@ func (r *infoboxResolver) Merged(ctx context.Context, obj *Infobox) (*MergedInfo
 	exit := trace(ctx)
 	defer exit()
 
-	ml, err := r.config.Controllers.LayerController.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID), getOperator(ctx))
+	ml, err := r.controllers.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID), getOperator(ctx))
 	if err != nil || ml == nil {
 		return nil, err
 	}
@@ -174,7 +174,7 @@ func (r *infoboxFieldResolver) Merged(ctx context.Context, obj *InfoboxField) (*
 	exit := trace(ctx)
 	defer exit()
 
-	ml, err := r.config.Controllers.LayerController.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID), getOperator(ctx))
+	ml, err := r.controllers.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID), getOperator(ctx))
 	if err != nil || ml == nil || ml.Infobox == nil {
 		return nil, err
 	}
@@ -208,7 +208,7 @@ func (r *layerGroupResolver) Parent(ctx context.Context, obj *LayerGroup) (*Laye
 	if obj.ParentID != nil {
 		return DataLoadersFromContext(ctx).LayerGroup.Load(id.LayerID(*obj.ParentID))
 	}
-	return r.config.Controllers.LayerController.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
+	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
 }
 
 func (r *layerGroupResolver) Property(ctx context.Context, obj *LayerGroup) (*Property, error) {
@@ -249,7 +249,7 @@ func (r *layerGroupResolver) ParentLayer(ctx context.Context, obj *LayerItem) (*
 	exit := trace(ctx)
 	defer exit()
 
-	return r.config.Controllers.LayerController.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
+	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
 }
 
 func (r *layerGroupResolver) LinkedDatasetSchema(ctx context.Context, obj *LayerGroup) (*DatasetSchema, error) {
@@ -303,7 +303,7 @@ func (r *layerItemResolver) Parent(ctx context.Context, obj *LayerItem) (*LayerG
 	if obj.ParentID != nil {
 		return DataLoadersFromContext(ctx).LayerGroup.Load(id.LayerID(*obj.ParentID))
 	}
-	return r.config.Controllers.LayerController.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
+	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
 }
 
 func (r *layerItemResolver) Property(ctx context.Context, obj *LayerItem) (*Property, error) {
@@ -355,9 +355,9 @@ func (r *layerItemResolver) Merged(ctx context.Context, obj *LayerItem) (*Merged
 	defer exit()
 
 	if obj.ParentID == nil {
-		return r.config.Controllers.LayerController.FetchParentAndMerged(ctx, id.LayerID(obj.ID), getOperator(ctx))
+		return r.controllers.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.ID), getOperator(ctx))
 	}
-	return r.config.Controllers.LayerController.FetchMerged(ctx, id.LayerID(obj.ID), id.LayerIDFromRefID(obj.ParentID), getOperator(ctx))
+	return r.controllers.Layer.FetchMerged(ctx, id.LayerID(obj.ID), id.LayerIDFromRefID(obj.ParentID), getOperator(ctx))
 }
 
 func (r *layerItemResolver) Scene(ctx context.Context, obj *LayerItem) (*Scene, error) {

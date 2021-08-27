@@ -2,59 +2,36 @@ package gql
 
 import (
 	"context"
-	"errors"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/plugin"
-	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-type PluginControllerConfig struct {
-	PluginInput func() interfaces.Plugin
-}
-
 type PluginController struct {
-	config PluginControllerConfig
+	usecase interfaces.Plugin
 }
 
-func NewPluginController(config PluginControllerConfig) *PluginController {
-	return &PluginController{config: config}
+func NewPluginController(usecase interfaces.Plugin) *PluginController {
+	return &PluginController{usecase: usecase}
 }
 
-func (c *PluginController) usecase() interfaces.Plugin {
-	if c == nil {
-		return nil
-	}
-	return c.config.PluginInput()
-}
-
-func (c *PluginController) Upload(ctx context.Context, ginput *UploadPluginInput, operator *usecase.Operator) (*UploadPluginPayload, error) {
-	var p *plugin.Plugin
-	var s *scene.Scene
-	var err error
-
-	if ginput.File != nil {
-		p, s, err = c.usecase().Upload(ctx, ginput.File.File, id.SceneID(ginput.SceneID), operator)
-	} else if ginput.URL != nil {
-		p, s, err = c.usecase().UploadFromRemote(ctx, ginput.URL, id.SceneID(ginput.SceneID), operator)
-	} else {
-		return nil, errors.New("either file or url is required")
-	}
+func (c *PluginController) Fetch(ctx context.Context, ids []id.PluginID, operator *usecase.Operator) ([]*Plugin, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, operator)
 	if err != nil {
-		return nil, err
+		return nil, []error{err}
 	}
 
-	return &UploadPluginPayload{
-		Plugin:      toPlugin(p),
-		Scene:       toScene(s),
-		ScenePlugin: toScenePlugin(s.PluginSystem().Plugin(p.ID())),
-	}, nil
+	plugins := make([]*Plugin, 0, len(res))
+	for _, pl := range res {
+		plugins = append(plugins, toPlugin(pl))
+	}
+
+	return plugins, nil
 }
 
 func (c *PluginController) FetchPluginMetadata(ctx context.Context, operator *usecase.Operator) ([]*PluginMetadata, error) {
-	res, err := c.usecase().FetchPluginMetadata(ctx, operator)
+	res, err := c.usecase.FetchPluginMetadata(ctx, operator)
 	if err != nil {
 		return nil, err
 	}
