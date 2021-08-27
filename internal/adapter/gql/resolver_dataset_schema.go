@@ -45,7 +45,7 @@ func (r *datasetSchemaResolver) Datasets(ctx context.Context, obj *gqlmodel.Data
 	exit := trace(ctx)
 	defer exit()
 
-	return r.controllers.Dataset.FindBySchema(ctx, obj.ID, first, last, before, after, getOperator(ctx))
+	return r.loaders.Dataset.FindBySchema(ctx, obj.ID, first, last, before, after)
 }
 
 type datasetSchemaFieldResolver struct{ *Resolver }

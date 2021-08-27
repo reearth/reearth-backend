@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -18,8 +17,8 @@ func NewUserLoader(usecase interfaces.User) *UserLoader {
 	return &UserLoader{usecase: usecase}
 }
 
-func (c *UserLoader) Fetch(ctx context.Context, ids []id.UserID, operator *usecase.Operator) ([]*gqlmodel.User, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, operator)
+func (c *UserLoader) Fetch(ctx context.Context, ids []id.UserID) ([]*gqlmodel.User, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,8 +31,8 @@ func (c *UserLoader) Fetch(ctx context.Context, ids []id.UserID, operator *useca
 	return users, nil
 }
 
-func (c *UserLoader) SearchUser(ctx context.Context, nameOrEmail string, operator *usecase.Operator) (*gqlmodel.SearchedUser, error) {
-	res, err := c.usecase.SearchUser(ctx, nameOrEmail, operator)
+func (c *UserLoader) SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error) {
+	res, err := c.usecase.SearchUser(ctx, nameOrEmail, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +52,7 @@ func (c *UserLoader) DataLoader(ctx context.Context) UserDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.UserID) ([]*gqlmodel.User, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	})
 }
@@ -61,7 +60,7 @@ func (c *UserLoader) DataLoader(ctx context.Context) UserDataLoader {
 func (c *UserLoader) OrdinaryDataLoader(ctx context.Context) UserDataLoader {
 	return &ordinaryUserLoader{
 		fetch: func(keys []id.UserID) ([]*gqlmodel.User, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	}
 }

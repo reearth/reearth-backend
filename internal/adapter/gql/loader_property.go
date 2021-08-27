@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -18,8 +17,8 @@ func NewPropertyLoader(usecase interfaces.Property) *PropertyLoader {
 	return &PropertyLoader{usecase: usecase}
 }
 
-func (c *PropertyLoader) Fetch(ctx context.Context, ids []id.PropertyID, operator *usecase.Operator) ([]*gqlmodel.Property, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, operator)
+func (c *PropertyLoader) Fetch(ctx context.Context, ids []id.PropertyID) ([]*gqlmodel.Property, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,8 +31,8 @@ func (c *PropertyLoader) Fetch(ctx context.Context, ids []id.PropertyID, operato
 	return properties, nil
 }
 
-func (c *PropertyLoader) FetchSchema(ctx context.Context, ids []id.PropertySchemaID, operator *usecase.Operator) ([]*gqlmodel.PropertySchema, []error) {
-	res, err := c.usecase.FetchSchema(ctx, ids, operator)
+func (c *PropertyLoader) FetchSchema(ctx context.Context, ids []id.PropertySchemaID) ([]*gqlmodel.PropertySchema, []error) {
+	res, err := c.usecase.FetchSchema(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -46,8 +45,8 @@ func (c *PropertyLoader) FetchSchema(ctx context.Context, ids []id.PropertySchem
 	return schemas, nil
 }
 
-func (c *PropertyLoader) FetchMerged(ctx context.Context, org, parent, linked *id.ID, operator *usecase.Operator) (*gqlmodel.MergedProperty, error) {
-	res, err := c.usecase.FetchMerged(ctx, id.PropertyIDFromRefID(org), id.PropertyIDFromRefID(parent), id.DatasetIDFromRefID(linked), operator)
+func (c *PropertyLoader) FetchMerged(ctx context.Context, org, parent, linked *id.ID) (*gqlmodel.MergedProperty, error) {
+	res, err := c.usecase.FetchMerged(ctx, id.PropertyIDFromRefID(org), id.PropertyIDFromRefID(parent), id.DatasetIDFromRefID(linked), getOperator(ctx))
 
 	if err != nil {
 		return nil, err
@@ -68,7 +67,7 @@ func (c *PropertyLoader) DataLoader(ctx context.Context) PropertyDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.PropertyID) ([]*gqlmodel.Property, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	})
 }
@@ -76,7 +75,7 @@ func (c *PropertyLoader) DataLoader(ctx context.Context) PropertyDataLoader {
 func (c *PropertyLoader) OrdinaryDataLoader(ctx context.Context) PropertyDataLoader {
 	return &ordinaryPropertyLoader{
 		fetch: func(keys []id.PropertyID) ([]*gqlmodel.Property, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	}
 }
@@ -110,7 +109,7 @@ func (c *PropertyLoader) SchemaDataLoader(ctx context.Context) PropertySchemaDat
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.PropertySchemaID) ([]*gqlmodel.PropertySchema, []error) {
-			return c.FetchSchema(ctx, keys, getOperator(ctx))
+			return c.FetchSchema(ctx, keys)
 		},
 	})
 }
@@ -118,7 +117,7 @@ func (c *PropertyLoader) SchemaDataLoader(ctx context.Context) PropertySchemaDat
 func (c *PropertyLoader) SchemaOrdinaryDataLoader(ctx context.Context) PropertySchemaDataLoader {
 	return &ordinaryPropertySchemaLoader{
 		fetch: func(keys []id.PropertySchemaID) ([]*gqlmodel.PropertySchema, []error) {
-			return c.FetchSchema(ctx, keys, getOperator(ctx))
+			return c.FetchSchema(ctx, keys)
 		},
 	}
 }

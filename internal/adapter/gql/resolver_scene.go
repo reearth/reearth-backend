@@ -65,14 +65,14 @@ func (r *sceneResolver) DatasetSchemas(ctx context.Context, obj *gqlmodel.Scene,
 	exit := trace(ctx)
 	defer exit()
 
-	return r.controllers.Dataset.FindSchemaByScene(ctx, obj.ID, first, last, before, after, getOperator(ctx))
+	return r.loaders.Dataset.FindSchemaByScene(ctx, obj.ID, first, last, before, after)
 }
 
 func (r *sceneResolver) LockMode(ctx context.Context, obj *gqlmodel.Scene) (gqlmodel.SceneLockMode, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	sl, err := r.controllers.Scene.FetchLock(ctx, id.SceneID(obj.ID), getOperator(ctx))
+	sl, err := r.loaders.Scene.FetchLock(ctx, id.SceneID(obj.ID))
 	if err != nil {
 		return gqlmodel.SceneLockModeFree, err
 	}

@@ -24,5 +24,5 @@ func (r *userResolver) Teams(ctx context.Context, obj *gqlmodel.User) ([]*gqlmod
 	exit := trace(ctx)
 	defer exit()
 
-	return r.controllers.Team.FindByUser(ctx, id.UserID(obj.ID), getOperator(ctx))
+	return r.loaders.Team.FindByUser(ctx, id.UserID(obj.ID))
 }

@@ -21,7 +21,7 @@ import (
 
 const enableDataLoaders = true
 
-func dataLoaderMiddleware(container gql.Container) echo.MiddlewareFunc {
+func dataLoaderMiddleware(container gql.Loaders) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(echoCtx echo.Context) error {
 			req := echoCtx.Request()
@@ -57,7 +57,7 @@ func graphqlAPI(
 	usecases interfaces.Container,
 ) {
 	playgroundEnabled := conf.Debug || conf.Config.Dev
-	controllers := gql.NewContainer(usecases)
+	controllers := gql.NewLoaders(usecases)
 
 	if playgroundEnabled {
 		r.GET("/graphql", echo.WrapHandler(

@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -18,8 +17,8 @@ func NewTeamLoader(usecase interfaces.Team) *TeamLoader {
 	return &TeamLoader{usecase: usecase}
 }
 
-func (c *TeamLoader) Fetch(ctx context.Context, ids []id.TeamID, operator *usecase.Operator) ([]*gqlmodel.Team, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, operator)
+func (c *TeamLoader) Fetch(ctx context.Context, ids []id.TeamID) ([]*gqlmodel.Team, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -31,8 +30,8 @@ func (c *TeamLoader) Fetch(ctx context.Context, ids []id.TeamID, operator *useca
 	return teams, nil
 }
 
-func (c *TeamLoader) FindByUser(ctx context.Context, uid id.UserID, operator *usecase.Operator) ([]*gqlmodel.Team, error) {
-	res, err := c.usecase.FindByUser(ctx, uid, operator)
+func (c *TeamLoader) FindByUser(ctx context.Context, uid id.UserID) ([]*gqlmodel.Team, error) {
+	res, err := c.usecase.FindByUser(ctx, uid, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +54,7 @@ func (c *TeamLoader) DataLoader(ctx context.Context) TeamDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.TeamID) ([]*gqlmodel.Team, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	})
 }
@@ -63,7 +62,7 @@ func (c *TeamLoader) DataLoader(ctx context.Context) TeamDataLoader {
 func (c *TeamLoader) OrdinaryDataLoader(ctx context.Context) TeamDataLoader {
 	return &ordinaryTeamLoader{
 		fetch: func(keys []id.TeamID) ([]*gqlmodel.Team, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	}
 }

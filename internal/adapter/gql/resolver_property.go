@@ -54,7 +54,7 @@ func (r *propertyResolver) Layer(ctx context.Context, obj *gqlmodel.Property) (g
 	exit := trace(ctx)
 	defer exit()
 
-	l, err := r.controllers.Layer.FetchByProperty(ctx, id.PropertyID(obj.ID), getOperator(ctx))
+	l, err := r.loaders.Layer.FetchByProperty(ctx, id.PropertyID(obj.ID))
 	if err != nil || errors.Is(err, rerror.ErrNotFound) {
 		return nil, nil
 	}
@@ -65,7 +65,7 @@ func (r *propertyResolver) Merged(ctx context.Context, obj *gqlmodel.Property) (
 	exit := trace(ctx)
 	defer exit()
 
-	l, err := r.controllers.Layer.FetchByProperty(ctx, id.PropertyID(obj.ID), getOperator(ctx))
+	l, err := r.loaders.Layer.FetchByProperty(ctx, id.PropertyID(obj.ID))
 	if err != nil {
 		if errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil
@@ -226,7 +226,7 @@ func (r *mergedPropertyResolver) Groups(ctx context.Context, obj *gqlmodel.Merge
 	if obj.Groups != nil {
 		return obj.Groups, nil
 	}
-	m, err := r.controllers.Property.FetchMerged(ctx, obj.OriginalID, obj.ParentID, obj.LinkedDatasetID, getOperator(ctx))
+	m, err := r.loaders.Property.FetchMerged(ctx, obj.OriginalID, obj.ParentID, obj.LinkedDatasetID)
 	if err != nil || m == nil {
 		return nil, err
 	}

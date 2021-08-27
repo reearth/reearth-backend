@@ -18,8 +18,8 @@ func NewDatasetLoader(usecase interfaces.Dataset) *DatasetLoader {
 	return &DatasetLoader{usecase: usecase}
 }
 
-func (c *DatasetLoader) Fetch(ctx context.Context, ids []id.DatasetID, operator *usecase.Operator) ([]*gqlmodel.Dataset, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, operator)
+func (c *DatasetLoader) Fetch(ctx context.Context, ids []id.DatasetID) ([]*gqlmodel.Dataset, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,8 +32,8 @@ func (c *DatasetLoader) Fetch(ctx context.Context, ids []id.DatasetID, operator 
 	return datasets, nil
 }
 
-func (c *DatasetLoader) FetchSchema(ctx context.Context, ids []id.DatasetSchemaID, operator *usecase.Operator) ([]*gqlmodel.DatasetSchema, []error) {
-	res, err := c.usecase.FetchSchema(ctx, ids, operator)
+func (c *DatasetLoader) FetchSchema(ctx context.Context, ids []id.DatasetSchemaID) ([]*gqlmodel.DatasetSchema, []error) {
+	res, err := c.usecase.FetchSchema(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -46,8 +46,8 @@ func (c *DatasetLoader) FetchSchema(ctx context.Context, ids []id.DatasetSchemaI
 	return schemas, nil
 }
 
-func (c *DatasetLoader) GraphFetch(ctx context.Context, i id.DatasetID, depth int, operator *usecase.Operator) ([]*gqlmodel.Dataset, []error) {
-	res, err := c.usecase.GraphFetch(ctx, i, depth, operator)
+func (c *DatasetLoader) GraphFetch(ctx context.Context, i id.DatasetID, depth int) ([]*gqlmodel.Dataset, []error) {
+	res, err := c.usecase.GraphFetch(ctx, i, depth, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -60,8 +60,8 @@ func (c *DatasetLoader) GraphFetch(ctx context.Context, i id.DatasetID, depth in
 	return datasets, nil
 }
 
-func (c *DatasetLoader) GraphFetchSchema(ctx context.Context, i id.ID, depth int, operator *usecase.Operator) ([]*gqlmodel.DatasetSchema, []error) {
-	res, err := c.usecase.GraphFetchSchema(ctx, id.DatasetSchemaID(i), depth, operator)
+func (c *DatasetLoader) GraphFetchSchema(ctx context.Context, i id.ID, depth int) ([]*gqlmodel.DatasetSchema, []error) {
+	res, err := c.usecase.GraphFetchSchema(ctx, id.DatasetSchemaID(i), depth, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -74,8 +74,8 @@ func (c *DatasetLoader) GraphFetchSchema(ctx context.Context, i id.ID, depth int
 	return schemas, nil
 }
 
-func (c *DatasetLoader) FindSchemaByScene(ctx context.Context, i id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor, operator *usecase.Operator) (*gqlmodel.DatasetSchemaConnection, error) {
-	res, pi, err := c.usecase.FindSchemaByScene(ctx, id.SceneID(i), usecase.NewPagination(first, last, before, after), operator)
+func (c *DatasetLoader) FindSchemaByScene(ctx context.Context, i id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error) {
+	res, pi, err := c.usecase.FindSchemaByScene(ctx, id.SceneID(i), usecase.NewPagination(first, last, before, after), getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -113,9 +113,9 @@ func (c *DatasetLoader) FindDynamicSchemasByScene(ctx context.Context, sid id.ID
 	return dss, nil
 }
 
-func (c *DatasetLoader) FindBySchema(ctx context.Context, dsid id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor, operator *usecase.Operator) (*gqlmodel.DatasetConnection, error) {
+func (c *DatasetLoader) FindBySchema(ctx context.Context, dsid id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.DatasetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
-	res, pi, err2 := c.usecase.FindBySchema(ctx, id.DatasetSchemaID(dsid), p, operator)
+	res, pi, err2 := c.usecase.FindBySchema(ctx, id.DatasetSchemaID(dsid), p, getOperator(ctx))
 	if err2 != nil {
 		return nil, err2
 	}
@@ -153,7 +153,7 @@ func (c *DatasetLoader) DataLoader(ctx context.Context) DatasetDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.DatasetID) ([]*gqlmodel.Dataset, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	})
 }
@@ -168,7 +168,7 @@ type ordinaryDatasetLoader struct {
 }
 
 func (l *ordinaryDatasetLoader) Load(key id.DatasetID) (*gqlmodel.Dataset, error) {
-	res, errs := l.c.Fetch(l.ctx, []id.DatasetID{key}, getOperator(l.ctx))
+	res, errs := l.c.Fetch(l.ctx, []id.DatasetID{key})
 	if len(errs) > 0 {
 		return nil, errs[0]
 	}
@@ -179,7 +179,7 @@ func (l *ordinaryDatasetLoader) Load(key id.DatasetID) (*gqlmodel.Dataset, error
 }
 
 func (l *ordinaryDatasetLoader) LoadAll(keys []id.DatasetID) ([]*gqlmodel.Dataset, []error) {
-	return l.c.Fetch(l.ctx, keys, getOperator(l.ctx))
+	return l.c.Fetch(l.ctx, keys)
 }
 
 type DatasetSchemaDataLoader interface {
@@ -192,7 +192,7 @@ func (c *DatasetLoader) SchemaDataLoader(ctx context.Context) DatasetSchemaDataL
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.DatasetSchemaID) ([]*gqlmodel.DatasetSchema, []error) {
-			return c.FetchSchema(ctx, keys, getOperator(ctx))
+			return c.FetchSchema(ctx, keys)
 		},
 	})
 }
@@ -200,7 +200,7 @@ func (c *DatasetLoader) SchemaDataLoader(ctx context.Context) DatasetSchemaDataL
 func (c *DatasetLoader) SchemaOrdinaryDataLoader(ctx context.Context) DatasetSchemaDataLoader {
 	return &ordinaryDatasetSchemaLoader{
 		fetch: func(keys []id.DatasetSchemaID) ([]*gqlmodel.DatasetSchema, []error) {
-			return c.FetchSchema(ctx, keys, getOperator(ctx))
+			return c.FetchSchema(ctx, keys)
 		},
 	}
 }

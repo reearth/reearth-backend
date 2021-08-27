@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -18,8 +17,8 @@ func NewPluginLoader(usecase interfaces.Plugin) *PluginLoader {
 	return &PluginLoader{usecase: usecase}
 }
 
-func (c *PluginLoader) Fetch(ctx context.Context, ids []id.PluginID, operator *usecase.Operator) ([]*gqlmodel.Plugin, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, operator)
+func (c *PluginLoader) Fetch(ctx context.Context, ids []id.PluginID) ([]*gqlmodel.Plugin, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,8 +31,8 @@ func (c *PluginLoader) Fetch(ctx context.Context, ids []id.PluginID, operator *u
 	return plugins, nil
 }
 
-func (c *PluginLoader) FetchPluginMetadata(ctx context.Context, operator *usecase.Operator) ([]*gqlmodel.PluginMetadata, error) {
-	res, err := c.usecase.FetchPluginMetadata(ctx, operator)
+func (c *PluginLoader) FetchPluginMetadata(ctx context.Context) ([]*gqlmodel.PluginMetadata, error) {
+	res, err := c.usecase.FetchPluginMetadata(ctx, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +61,7 @@ func (c *PluginLoader) DataLoader(ctx context.Context) PluginDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.PluginID) ([]*gqlmodel.Plugin, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	})
 }
@@ -70,7 +69,7 @@ func (c *PluginLoader) DataLoader(ctx context.Context) PluginDataLoader {
 func (c *PluginLoader) OrdinaryDataLoader(ctx context.Context) PluginDataLoader {
 	return &ordinaryPluginLoader{
 		fetch: func(keys []id.PluginID) ([]*gqlmodel.Plugin, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	}
 }

@@ -14,15 +14,15 @@ var ErrNotImplemented = errors.New("not impleneted yet")
 var ErrUnauthorized = errors.New("unauthorized")
 
 type Resolver struct {
-	usecases    interfaces.Container
-	controllers Container
-	debug       bool
+	usecases interfaces.Container
+	loaders  Loaders
+	debug    bool
 }
 
-func NewResolver(controllers Container, debug bool) ResolverRoot {
+func NewResolver(loaders Loaders, debug bool) ResolverRoot {
 	return &Resolver{
-		usecases:    controllers.usecases,
-		controllers: controllers,
-		debug:       debug,
+		usecases: loaders.usecases,
+		loaders:  loaders,
+		debug:    debug,
 	}
 }

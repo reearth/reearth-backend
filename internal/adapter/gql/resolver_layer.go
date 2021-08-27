@@ -69,7 +69,7 @@ func (r *infoboxResolver) Merged(ctx context.Context, obj *gqlmodel.Infobox) (*g
 	exit := trace(ctx)
 	defer exit()
 
-	ml, err := r.controllers.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID), getOperator(ctx))
+	ml, err := r.loaders.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID))
 	if err != nil || ml == nil {
 		return nil, err
 	}
@@ -175,7 +175,7 @@ func (r *infoboxFieldResolver) Merged(ctx context.Context, obj *gqlmodel.Infobox
 	exit := trace(ctx)
 	defer exit()
 
-	ml, err := r.controllers.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID), getOperator(ctx))
+	ml, err := r.loaders.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.LayerID))
 	if err != nil || ml == nil || ml.Infobox == nil {
 		return nil, err
 	}
@@ -209,7 +209,7 @@ func (r *layerGroupResolver) Parent(ctx context.Context, obj *gqlmodel.LayerGrou
 	if obj.ParentID != nil {
 		return DataLoadersFromContext(ctx).LayerGroup.Load(id.LayerID(*obj.ParentID))
 	}
-	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
+	return r.loaders.Layer.FetchParent(ctx, id.LayerID(obj.ID))
 }
 
 func (r *layerGroupResolver) Property(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Property, error) {
@@ -250,7 +250,7 @@ func (r *layerGroupResolver) ParentLayer(ctx context.Context, obj *gqlmodel.Laye
 	exit := trace(ctx)
 	defer exit()
 
-	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
+	return r.loaders.Layer.FetchParent(ctx, id.LayerID(obj.ID))
 }
 
 func (r *layerGroupResolver) LinkedDatasetSchema(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.DatasetSchema, error) {
@@ -304,7 +304,7 @@ func (r *layerItemResolver) Parent(ctx context.Context, obj *gqlmodel.LayerItem)
 	if obj.ParentID != nil {
 		return DataLoadersFromContext(ctx).LayerGroup.Load(id.LayerID(*obj.ParentID))
 	}
-	return r.controllers.Layer.FetchParent(ctx, id.LayerID(obj.ID), getOperator(ctx))
+	return r.loaders.Layer.FetchParent(ctx, id.LayerID(obj.ID))
 }
 
 func (r *layerItemResolver) Property(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Property, error) {
@@ -356,9 +356,9 @@ func (r *layerItemResolver) Merged(ctx context.Context, obj *gqlmodel.LayerItem)
 	defer exit()
 
 	if obj.ParentID == nil {
-		return r.controllers.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.ID), getOperator(ctx))
+		return r.loaders.Layer.FetchParentAndMerged(ctx, id.LayerID(obj.ID))
 	}
-	return r.controllers.Layer.FetchMerged(ctx, id.LayerID(obj.ID), id.LayerIDFromRefID(obj.ParentID), getOperator(ctx))
+	return r.loaders.Layer.FetchMerged(ctx, id.LayerID(obj.ID), id.LayerIDFromRefID(obj.ParentID))
 }
 
 func (r *layerItemResolver) Scene(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Scene, error) {

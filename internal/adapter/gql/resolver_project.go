@@ -25,7 +25,7 @@ func (r *projectResolver) Scene(ctx context.Context, obj *gqlmodel.Project) (*gq
 	exit := trace(ctx)
 	defer exit()
 
-	s, err := r.controllers.Scene.FindByProject(ctx, id.ProjectID(obj.ID), getOperator(ctx))
+	s, err := r.loaders.Scene.FindByProject(ctx, id.ProjectID(obj.ID))
 	if err != nil && err != rerror.ErrNotFound {
 		return nil, err
 	}

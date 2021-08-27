@@ -18,8 +18,8 @@ func NewProjectLoader(usecase interfaces.Project) *ProjectLoader {
 	return &ProjectLoader{usecase: usecase}
 }
 
-func (c *ProjectLoader) Fetch(ctx context.Context, ids []id.ProjectID, operator *usecase.Operator) ([]*gqlmodel.Project, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, operator)
+func (c *ProjectLoader) Fetch(ctx context.Context, ids []id.ProjectID) ([]*gqlmodel.Project, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,8 +32,8 @@ func (c *ProjectLoader) Fetch(ctx context.Context, ids []id.ProjectID, operator 
 	return projects, nil
 }
 
-func (c *ProjectLoader) FindByTeam(ctx context.Context, teamID id.TeamID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor, operator *usecase.Operator) (*gqlmodel.ProjectConnection, error) {
-	res, pi, err := c.usecase.FindByTeam(ctx, teamID, usecase.NewPagination(first, last, before, after), operator)
+func (c *ProjectLoader) FindByTeam(ctx context.Context, teamID id.TeamID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.ProjectConnection, error) {
+	res, pi, err := c.usecase.FindByTeam(ctx, teamID, usecase.NewPagination(first, last, before, after), getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ProjectLoader) DataLoader(ctx context.Context) ProjectDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.ProjectID) ([]*gqlmodel.Project, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	})
 }
@@ -86,7 +86,7 @@ func (c *ProjectLoader) DataLoader(ctx context.Context) ProjectDataLoader {
 func (c *ProjectLoader) OrdinaryDataLoader(ctx context.Context) ProjectDataLoader {
 	return &ordinaryProjectLoader{
 		fetch: func(keys []id.ProjectID) ([]*gqlmodel.Project, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	}
 }

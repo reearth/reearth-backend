@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -18,8 +17,8 @@ func NewLayerLoader(usecase interfaces.Layer) *LayerLoader {
 	return &LayerLoader{usecase: usecase}
 }
 
-func (c *LayerLoader) Fetch(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*gqlmodel.Layer, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, operator)
+func (c *LayerLoader) Fetch(ctx context.Context, ids []id.LayerID) ([]*gqlmodel.Layer, []error) {
+	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -37,8 +36,8 @@ func (c *LayerLoader) Fetch(ctx context.Context, ids []id.LayerID, operator *use
 	return layers, nil
 }
 
-func (c *LayerLoader) FetchGroup(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*gqlmodel.LayerGroup, []error) {
-	res, err := c.usecase.FetchGroup(ctx, ids, operator)
+func (c *LayerLoader) FetchGroup(ctx context.Context, ids []id.LayerID) ([]*gqlmodel.LayerGroup, []error) {
+	res, err := c.usecase.FetchGroup(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -51,8 +50,8 @@ func (c *LayerLoader) FetchGroup(ctx context.Context, ids []id.LayerID, operator
 	return layerGroups, nil
 }
 
-func (c *LayerLoader) FetchItem(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*gqlmodel.LayerItem, []error) {
-	res, err := c.usecase.FetchItem(ctx, ids, operator)
+func (c *LayerLoader) FetchItem(ctx context.Context, ids []id.LayerID) ([]*gqlmodel.LayerItem, []error) {
+	res, err := c.usecase.FetchItem(ctx, ids, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -65,8 +64,8 @@ func (c *LayerLoader) FetchItem(ctx context.Context, ids []id.LayerID, operator 
 	return layerItems, nil
 }
 
-func (c *LayerLoader) FetchParent(ctx context.Context, lid id.LayerID, operator *usecase.Operator) (*gqlmodel.LayerGroup, error) {
-	res, err := c.usecase.FetchParent(ctx, id.LayerID(lid), operator)
+func (c *LayerLoader) FetchParent(ctx context.Context, lid id.LayerID) (*gqlmodel.LayerGroup, error) {
+	res, err := c.usecase.FetchParent(ctx, id.LayerID(lid), getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -74,8 +73,8 @@ func (c *LayerLoader) FetchParent(ctx context.Context, lid id.LayerID, operator 
 	return gqlmodel.ToLayerGroup(res, nil), nil
 }
 
-func (c *LayerLoader) FetchByProperty(ctx context.Context, pid id.PropertyID, operator *usecase.Operator) (gqlmodel.Layer, error) {
-	res, err := c.usecase.FetchByProperty(ctx, pid, operator)
+func (c *LayerLoader) FetchByProperty(ctx context.Context, pid id.PropertyID) (gqlmodel.Layer, error) {
+	res, err := c.usecase.FetchByProperty(ctx, pid, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -83,8 +82,8 @@ func (c *LayerLoader) FetchByProperty(ctx context.Context, pid id.PropertyID, op
 	return gqlmodel.ToLayer(res, nil), nil
 }
 
-func (c *LayerLoader) FetchMerged(ctx context.Context, org id.LayerID, parent *id.LayerID, operator *usecase.Operator) (*gqlmodel.MergedLayer, error) {
-	res, err2 := c.usecase.FetchMerged(ctx, org, parent, operator)
+func (c *LayerLoader) FetchMerged(ctx context.Context, org id.LayerID, parent *id.LayerID) (*gqlmodel.MergedLayer, error) {
+	res, err2 := c.usecase.FetchMerged(ctx, org, parent, getOperator(ctx))
 	if err2 != nil {
 		return nil, err2
 	}
@@ -92,8 +91,8 @@ func (c *LayerLoader) FetchMerged(ctx context.Context, org id.LayerID, parent *i
 	return gqlmodel.ToMergedLayer(res), nil
 }
 
-func (c *LayerLoader) FetchParentAndMerged(ctx context.Context, org id.LayerID, operator *usecase.Operator) (*gqlmodel.MergedLayer, error) {
-	res, err2 := c.usecase.FetchParentAndMerged(ctx, org, operator)
+func (c *LayerLoader) FetchParentAndMerged(ctx context.Context, org id.LayerID) (*gqlmodel.MergedLayer, error) {
+	res, err2 := c.usecase.FetchParentAndMerged(ctx, org, getOperator(ctx))
 	if err2 != nil {
 		return nil, err2
 	}
@@ -113,7 +112,7 @@ func (c *LayerLoader) DataLoader(ctx context.Context) LayerDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.LayerID) ([]*gqlmodel.Layer, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	})
 }
@@ -121,7 +120,7 @@ func (c *LayerLoader) DataLoader(ctx context.Context) LayerDataLoader {
 func (c *LayerLoader) OrdinaryDataLoader(ctx context.Context) LayerDataLoader {
 	return &ordinaryLayerLoader{
 		fetch: func(keys []id.LayerID) ([]*gqlmodel.Layer, []error) {
-			return c.Fetch(ctx, keys, getOperator(ctx))
+			return c.Fetch(ctx, keys)
 		},
 	}
 }
@@ -155,7 +154,7 @@ func (c *LayerLoader) ItemDataLoader(ctx context.Context) LayerItemDataLoader {
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.LayerID) ([]*gqlmodel.LayerItem, []error) {
-			return c.FetchItem(ctx, keys, getOperator(ctx))
+			return c.FetchItem(ctx, keys)
 		},
 	})
 }
@@ -163,7 +162,7 @@ func (c *LayerLoader) ItemDataLoader(ctx context.Context) LayerItemDataLoader {
 func (c *LayerLoader) ItemOrdinaryDataLoader(ctx context.Context) LayerItemDataLoader {
 	return &ordinaryLayerItemLoader{
 		fetch: func(keys []id.LayerID) ([]*gqlmodel.LayerItem, []error) {
-			return c.FetchItem(ctx, keys, getOperator(ctx))
+			return c.FetchItem(ctx, keys)
 		},
 	}
 }
@@ -197,7 +196,7 @@ func (c *LayerLoader) GroupDataLoader(ctx context.Context) LayerGroupDataLoader 
 		Wait:     dataLoaderWait,
 		MaxBatch: dataLoaderMaxBatch,
 		Fetch: func(keys []id.LayerID) ([]*gqlmodel.LayerGroup, []error) {
-			return c.FetchGroup(ctx, keys, getOperator(ctx))
+			return c.FetchGroup(ctx, keys)
 		},
 	})
 }
@@ -205,7 +204,7 @@ func (c *LayerLoader) GroupDataLoader(ctx context.Context) LayerGroupDataLoader 
 func (c *LayerLoader) GroupOrdinaryDataLoader(ctx context.Context) LayerGroupDataLoader {
 	return &ordinaryLayerGroupLoader{
 		fetch: func(keys []id.LayerID) ([]*gqlmodel.LayerGroup, []error) {
-			return c.FetchGroup(ctx, keys, getOperator(ctx))
+			return c.FetchGroup(ctx, keys)
 		},
 	}
 }
