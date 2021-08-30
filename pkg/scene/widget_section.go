@@ -19,6 +19,40 @@ func NewWidgetSection() *WidgetSection {
 	return &WidgetSection{}
 }
 
+func (s *WidgetSection) Add(wid id.WidgetID, area string) {
+	if s == nil {
+		return
+	}
+
+	switch area {
+	case WidgetAreaTop:
+		s.top.Add(wid)
+	case WidgetAreaMiddle:
+		s.middle.Add(wid)
+	case WidgetAreaBottom:
+		s.bottom.Add(wid)
+	default:
+		return
+	}
+}
+
+func (s *WidgetSection) AddAll(wids []id.WidgetID, align, area string) {
+	if s == nil {
+		return
+	}
+
+	switch area {
+	case WidgetAreaTop:
+		s.top.AddAll(wids, align)
+	case WidgetAreaMiddle:
+		s.middle.AddAll(wids, align)
+	case WidgetAreaBottom:
+		s.bottom.AddAll(wids, align)
+	default:
+		return
+	}
+}
+
 func (s *WidgetSection) Remove(wid id.WidgetID) {
 	if s == nil {
 		return

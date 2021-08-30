@@ -101,17 +101,11 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 	if was == nil {
 		return
 	}
-
-	a := was.Area(loc.Zone, loc.Section, loc.Area)
-	nIds := a.widgetIds
-
-	if b := a.Has(wid); !b {
-		nIds = append(a.widgetIds, wid)
-	}
-	a.widgetIds = nIds
-
-	if a.align == "" {
-		a.align = WidgetAlignStart
+	switch loc.Zone {
+	case WidgetZoneInner:
+		was.inner.Add(wid, loc.Section, loc.Area)
+	case WidgetZoneOuter:
+		was.outer.Add(wid, loc.Section, loc.Area)
 	}
 }
 
@@ -120,9 +114,12 @@ func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc Widge
 	if was == nil {
 		return
 	}
-	wa := was.Area(loc.Zone, loc.Section, loc.Area)
-	wa.widgetIds = wids
-	wa.align = align
+	switch loc.Zone {
+	case WidgetZoneInner:
+		was.inner.AddAll(wids, align, loc.Section, loc.Area)
+	case WidgetZoneOuter:
+		was.outer.AddAll(wids, align, loc.Section, loc.Area)
+	}
 }
 
 // Update a widget in the align system.

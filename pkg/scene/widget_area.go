@@ -28,6 +28,32 @@ func (wa *WidgetArea) Alignment() *string {
 	return &wa.align
 }
 
+func (a *WidgetArea) Add(wid id.WidgetID) {
+	if a == nil {
+		return
+	}
+
+	nIds := a.widgetIds
+
+	if b := a.Has(wid); !b {
+		nIds = append(a.widgetIds, wid)
+	}
+	a.widgetIds = nIds
+
+	if a.align == "" {
+		a.align = WidgetAlignStart
+	}
+}
+
+func (a *WidgetArea) AddAll(wids []id.WidgetID, align string) {
+	if a == nil {
+		return
+	}
+
+	a.widgetIds = wids
+	a.align = align
+}
+
 func (a *WidgetArea) Remove(wid id.WidgetID) {
 	if a == nil {
 		return

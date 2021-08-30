@@ -51,18 +51,14 @@ func TestWidgetZone_Section(t *testing.T) {
 	e := wz.left
 
 	testCases := []struct {
-		Name  string
-		Input struct {
-			s string
-		}
+		Name     string
+		Input    string
 		WZ       *WidgetZone
 		Expected *WidgetSection
 	}{
 		{
-			Name: "Find the location of a widgetID and return the WidgetArea",
-			Input: struct {
-				s string
-			}{"left"},
+			Name:     "Find the location of a widgetID and return the WidgetArea",
+			Input:    "left",
 			WZ:       wz,
 			Expected: &e,
 		},
@@ -71,7 +67,7 @@ func TestWidgetZone_Section(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := tc.WZ.Section(tc.Input.s)
+			res := tc.WZ.Section(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}

@@ -160,25 +160,19 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 		}
 	}
 	testCases := []struct {
-		Name  string
-		Input struct {
-			id id.WidgetID
-		}
+		Name          string
+		Input         id.WidgetID
 		WAS, Expected *WidgetAlignSystem
 	}{
 		{
-			Name: "Remove a widget from widget align system",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
+			Name:     "Remove a widget from widget align system",
+			Input:    wid,
 			WAS:      was,
 			Expected: was2,
 		},
 		{
-			Name: "Return nil if no align system",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
+			Name:     "Return nil if no align system",
+			Input:    wid,
 			WAS:      nil,
 			Expected: nil,
 		},
@@ -187,7 +181,7 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.WAS.Remove(tc.Input.id)
+			tc.WAS.Remove(tc.Input)
 			assert.Equal(tt, tc.Expected, tc.WAS)
 		})
 	}
@@ -346,42 +340,32 @@ func TestWidgetAlignSystem_FindWidgetLocation(t *testing.T) {
 	e2 := was.inner.left.top
 
 	testCases := []struct {
-		Name  string
-		Input struct {
-			id id.WidgetID
-		}
+		Name     string
+		Input    id.WidgetID
 		WAS      *WidgetAlignSystem
 		Expected *WidgetArea
 	}{
 		{
-			Name: "Find the location of a widgetID and return the WidgetArea in the Inner Widget Zone",
-			Input: struct {
-				id id.WidgetID
-			}{wid2},
+			Name:     "Find the location of a widgetID and return the WidgetArea in the Inner Widget Zone",
+			Input:    wid2,
 			WAS:      was,
 			Expected: &e2,
 		},
 		{
-			Name: "Find the location of a widgetID and return the WidgetArea in the Outer Widget Zone",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
+			Name:     "Find the location of a widgetID and return the WidgetArea in the Outer Widget Zone",
+			Input:    wid,
 			WAS:      was,
 			Expected: &e,
 		},
 		{
-			Name: "Return nil if no align system",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
+			Name:     "Return nil if no align system",
+			Input:    wid,
 			WAS:      nil,
 			Expected: nil,
 		},
 		{
-			Name: "Return nil if nothing found",
-			Input: struct {
-				id id.WidgetID
-			}{wid3},
+			Name:     "Return nil if nothing found",
+			Input:    wid3,
 			WAS:      was,
 			Expected: nil,
 		},
@@ -390,7 +374,7 @@ func TestWidgetAlignSystem_FindWidgetLocation(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			_, res := tc.WAS.FindWidgetLocation(tc.Input.id)
+			_, res := tc.WAS.FindWidgetLocation(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}

@@ -96,9 +96,7 @@ func TestWidgetSection_Remove(t *testing.T) {
 
 func TestWidgetSection_Area(t *testing.T) {
 	wid := id.NewWidgetID()
-
-	ws := NewWidgetSection()
-	ws.top.widgetIds = append(ws.top.widgetIds, wid)
+	wid2 := id.NewWidgetID()
 
 	testCases := []struct {
 		Name     string
@@ -107,27 +105,29 @@ func TestWidgetSection_Area(t *testing.T) {
 		Expected *WidgetArea
 	}{
 		{
-			Name:     "From a Widget Section return top Widget Area",
-			Input:    "top",
-			WS:       ws,
-			Expected: &ws.top,
+			Name:  "From a Widget Section return top Widget Area",
+			Input: "top",
+			Expected: &WidgetArea{
+				widgetIds: []id.WidgetID{wid},
+				align:     "start",
+			},
 		},
 		{
-			Name:     "From a Widget Section return middle Widget Area",
-			Input:    "middle",
-			WS:       ws,
-			Expected: &ws.middle,
+			Name:  "From a Widget Section return middle Widget Area",
+			Input: "middle",
+			Expected: &WidgetArea{
+				widgetIds: []id.WidgetID{wid2},
+				align:     "start",
+			},
 		},
 		{
 			Name:     "From a Widget Section return bottom Widget Area",
 			Input:    "bottom",
-			WS:       ws,
-			Expected: &ws.bottom,
+			Expected: &WidgetArea{},
 		},
 		{
 			Name:     "Return nil when can't find Widget Area",
 			Input:    "topMiddleBottom",
-			WS:       ws,
 			Expected: nil,
 		},
 	}
@@ -135,7 +135,10 @@ func TestWidgetSection_Area(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := tc.WS.Area(tc.Input)
+			ws := NewWidgetSection()
+			ws.Area(WidgetAreaTop).Add(wid)
+			ws.Area(WidgetAreaMiddle).Add(wid2)
+			res := ws.Area(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}

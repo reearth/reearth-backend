@@ -54,25 +54,19 @@ func TestWidgetArea_Remove(t *testing.T) {
 	wa.widgetIds = append(wa.widgetIds, wid)
 
 	testCases := []struct {
-		Name  string
-		Input struct {
-			id id.WidgetID
-		}
+		Name         string
+		Input        id.WidgetID
 		WA, Expected *WidgetArea
 	}{
 		{
-			Name: "Remove a widget from widget area",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
+			Name:     "Remove a widget from widget area",
+			Input:    wid,
 			WA:       wa,
 			Expected: &WidgetArea{widgetIds: []id.WidgetID{}},
 		},
 		{
-			Name: "Return nil if no widget area",
-			Input: struct {
-				id id.WidgetID
-			}{wid},
+			Name:     "Return nil if no widget area",
+			Input:    wid,
 			WA:       nil,
 			Expected: nil,
 		},
@@ -81,7 +75,7 @@ func TestWidgetArea_Remove(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.WA.Remove(tc.Input.id)
+			tc.WA.Remove(tc.Input)
 			assert.Equal(tt, tc.Expected, tc.WA)
 		})
 	}

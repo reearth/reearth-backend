@@ -18,6 +18,36 @@ func NewWidgetZone() *WidgetZone {
 	return &WidgetZone{}
 }
 
+func (z *WidgetZone) Add(wid id.WidgetID, section, area string) {
+	if z == nil {
+		return
+	}
+
+	switch section {
+	case WidgetSectionLeft:
+		z.left.Add(wid, area)
+	case WidgetSectionCenter:
+		z.center.Add(wid, area)
+	case WidgetSectionRight:
+		z.right.Add(wid, area)
+	}
+}
+
+func (z *WidgetZone) AddAll(wids []id.WidgetID, align, section, area string) {
+	if z == nil {
+		return
+	}
+
+	switch section {
+	case WidgetSectionLeft:
+		z.left.AddAll(wids, align, area)
+	case WidgetSectionCenter:
+		z.center.AddAll(wids, align, area)
+	case WidgetSectionRight:
+		z.right.AddAll(wids, align, area)
+	}
+}
+
 func (z *WidgetZone) Remove(wid id.WidgetID) {
 	if z == nil {
 		return
