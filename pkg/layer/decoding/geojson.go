@@ -31,6 +31,26 @@ func NewGeoJSONDecoder(r io.Reader, s id.SceneID) *GeoJSONDecoder {
 	}
 }
 
+func disassembleMultipolygon(fc []*geojson.Feature) []*geojson.Feature {
+	var toAddFeatures []*geojson.Feature
+	for k, f := range fc {
+		if f.Geometry.Type == geojson.GeometryMultiPolygon {
+			fc = append(fc[:k], fc[k+1:]...)
+			mp := f
+
+			for _, p := range mp.Geometry.MultiPolygon {
+				nf := geojson.NewPolygonFeature(p)
+				for k, v := range mp.Properties {
+					nf.SetProperty(k, v)
+				}
+				toAddFeatures = append(toAddFeatures, nf)
+			}
+		}
+	}
+	fc = append(fc, toAddFeatures...)
+	return fc
+}
+
 func (d *GeoJSONDecoder) Decode() (Result, error) {
 	lg, err := layer.NewGroup().NewID().Scene(d.sceneId).Name("GeoJSON").Build()
 	if err != nil {
@@ -46,10 +66,10 @@ func (d *GeoJSONDecoder) Decode() (Result, error) {
 	if err != nil {
 		return Result{}, errors.New("unable to parse file content")
 	}
-
+	fl := disassembleMultipolygon(fc.Features)
 	// if feature collection > append it to features list, else try to decode a single feature (layer)
 	if len(fc.Features) > 0 {
-		d.features = fc.Features
+		d.features = fl
 	} else {
 		f, err := geojson.UnmarshalFeature(con)
 		if err != nil {
