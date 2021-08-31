@@ -101,8 +101,8 @@ func (l Loaders) OrdinaryDataLoaders(ctx context.Context) DataLoaders {
 
 type dataLoadersKey struct{}
 
-func DataLoadersFromContext(ctx context.Context) *DataLoaders {
-	return ctx.Value(dataLoadersKey{}).(*DataLoaders)
+func DataLoadersFromContext(ctx context.Context) DataLoaders {
+	return ctx.Value(dataLoadersKey{}).(DataLoaders)
 }
 
 func DataLoadersKey() interface{} {
