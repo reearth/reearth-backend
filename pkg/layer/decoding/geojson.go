@@ -2,6 +2,7 @@ package decoding
 
 import (
 	"errors"
+	"fmt"
 	"io"
 
 	geojson "github.com/paulmach/go.geojson"
@@ -203,6 +204,8 @@ func (d *GeoJSONDecoder) decodeLayer() (*layer.Item, *property.Property, error) 
 		}
 
 		layerName = "Polygon"
+	default:
+		return nil, nil, fmt.Errorf("unsupported type %s", feat.Geometry.Type)
 	}
 
 	if feat.Properties["name"] != nil {
