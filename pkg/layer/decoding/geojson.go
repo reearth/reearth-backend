@@ -66,9 +66,6 @@ func (d *GeoJSONDecoder) Decode() (Result, error) {
 		return Result{}, errors.New("unable to parse file content")
 	}
 	fl := disassembleMultipolygon(fc.Features)
-	for _, fff := range fl {
-		fmt.Println(fff.Geometry.Type)
-	}
 	// if feature collection > append it to features list, else try to decode a single feature (layer)
 	if len(fc.Features) > 0 {
 		d.features = fl
