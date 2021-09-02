@@ -16,6 +16,14 @@ func NewGroup() *GroupBuilder {
 	return &GroupBuilder{g: &Group{}}
 }
 
+func GroupFromTag(t Tag) *Group {
+	li, ok := t.(*Group)
+	if !ok {
+		return nil
+	}
+	return li
+}
+
 func (b *GroupBuilder) Build() (*Group, error) {
 	if id.ID(b.g.id).IsNil() {
 		return nil, id.ErrInvalidID
