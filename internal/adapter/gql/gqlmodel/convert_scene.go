@@ -48,7 +48,7 @@ func ToScene(scene *scene.Scene) *Scene {
 	}
 
 	sceneWidgetAlignSystem := scene.WidgetAlignSystem()
-	widgetAlignSystem := toAlignSystem(sceneWidgetAlignSystem)
+	widgetAlignSystem := ToAlignSystem(sceneWidgetAlignSystem)
 
 	return &Scene{
 		ID:                scene.ID().ID(),

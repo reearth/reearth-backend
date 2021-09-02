@@ -21,7 +21,7 @@ func ToPlugin(p *plugin.Plugin) *Plugin {
 			Name:                     pe.Name().String(),
 			Description:              pe.Description().String(),
 			Icon:                     pe.Icon(),
-			WidgetLayout:             toWidgetLayout(pe.Layout()),
+			WidgetLayout:             ToWidgetLayout(pe.Layout()),
 			PropertySchemaID:         pe.Schema(),
 			AllTranslatedDescription: pe.Description(),
 			AllTranslatedName:        pe.Name(),

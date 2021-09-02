@@ -44,7 +44,7 @@ func ToPageInfo(p *usecase.PageInfo) *PageInfo {
 	}
 }
 
-func toWidgetLayout(w *scene.WidgetLayout) *WidgetLayout {
+func ToWidgetLayout(w *scene.WidgetLayout) *WidgetLayout {
 	if w == nil {
 		return nil
 	}
@@ -78,7 +78,7 @@ func toWidgetLayout(w *scene.WidgetLayout) *WidgetLayout {
 	return &wl
 }
 
-func toVisualizer(v visualizer.Visualizer) Visualizer {
+func ToVisualizer(v visualizer.Visualizer) Visualizer {
 	switch v {
 	case visualizer.VisualizerCesium:
 		return VisualizerCesium

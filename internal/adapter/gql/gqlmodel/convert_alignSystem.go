@@ -5,10 +5,10 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-func toAlignSystem(sas *scene.WidgetAlignSystem) *WidgetAlignSystem {
+func ToAlignSystem(sas *scene.WidgetAlignSystem) *WidgetAlignSystem {
 	widgetAlignDoc := WidgetAlignSystem{
-		Inner: toWidgetZone(sas.Zone(scene.WidgetZoneInner)),
-		Outer: toWidgetZone(sas.Zone(scene.WidgetZoneOuter)),
+		Inner: ToWidgetZone(sas.Zone(scene.WidgetZoneInner)),
+		Outer: ToWidgetZone(sas.Zone(scene.WidgetZoneOuter)),
 	}
 	return &widgetAlignDoc
 }
@@ -21,29 +21,29 @@ func IDsFrom(wids []id.WidgetID) []*id.ID {
 	return nids
 }
 
-func toWidgetZone(z *scene.WidgetZone) *WidgetZone {
+func ToWidgetZone(z *scene.WidgetZone) *WidgetZone {
 	if z == nil {
 		return nil
 	}
 	return &WidgetZone{
-		Left:   toWidgetSection(z.Section(scene.WidgetSectionLeft)),
-		Center: toWidgetSection(z.Section(scene.WidgetSectionCenter)),
-		Right:  toWidgetSection(z.Section(scene.WidgetSectionRight)),
+		Left:   ToWidgetSection(z.Section(scene.WidgetSectionLeft)),
+		Center: ToWidgetSection(z.Section(scene.WidgetSectionCenter)),
+		Right:  ToWidgetSection(z.Section(scene.WidgetSectionRight)),
 	}
 }
 
-func toWidgetSection(s *scene.WidgetSection) *WidgetSection {
+func ToWidgetSection(s *scene.WidgetSection) *WidgetSection {
 	if s == nil {
 		return nil
 	}
 	return &WidgetSection{
-		Top:    toWidgetArea(s.Area(scene.WidgetAreaTop)),
-		Middle: toWidgetArea(s.Area(scene.WidgetAreaMiddle)),
-		Bottom: toWidgetArea(s.Area(scene.WidgetAreaBottom)),
+		Top:    ToWidgetArea(s.Area(scene.WidgetAreaTop)),
+		Middle: ToWidgetArea(s.Area(scene.WidgetAreaMiddle)),
+		Bottom: ToWidgetArea(s.Area(scene.WidgetAreaBottom)),
 	}
 }
 
-func toWidgetArea(a *scene.WidgetArea) *WidgetArea {
+func ToWidgetArea(a *scene.WidgetArea) *WidgetArea {
 	if a == nil {
 		return nil
 	}
