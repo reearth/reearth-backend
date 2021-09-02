@@ -106,7 +106,7 @@ func (r *tagRepo) Save(ctx context.Context, tag tag.Tag) error {
 }
 
 func (r *tagRepo) SaveAll(ctx context.Context, tags []*tag.Tag) error {
-	if tags == nil || len(tags) == 0 {
+	if tags == nil {
 		return nil
 	}
 	docs, ids := mongodoc.NewTags(tags)
