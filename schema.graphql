@@ -706,6 +706,30 @@ type MergedInfoboxField {
   scenePlugin: ScenePlugin @goField(forceResolver: true)
 }
 
+interface Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+}
+
+type TagItem implements Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+  linkedDatasetSchemaID: DatasetSchema @goField(forceResolver: true)
+  linkedDatasetID: Dataset @goField(forceResolver: true)
+  linkedDatasetField: DatasetField @goField(forceResolver: true)
+}
+
+type TagGroup implements Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+  tags: [ID]
+}
+
+union Tags = TagItem | TagGroup
+
 # InputType
 input CreateAssetInput {
   teamId: ID!
