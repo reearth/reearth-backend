@@ -16,7 +16,7 @@ func NewGroup() *GroupBuilder {
 	return &GroupBuilder{g: &Group{}}
 }
 
-func GroupFromTag(t Tag) *Group {
+func GroupFrom(t Tag) *Group {
 	li, ok := t.(*Group)
 	if !ok {
 		return nil
