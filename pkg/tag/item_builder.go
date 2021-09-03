@@ -10,7 +10,7 @@ func NewItem() *ItemBuilder {
 	return &ItemBuilder{i: &Item{}}
 }
 
-func ItemFromTag(t Tag) *Item {
+func ItemFrom(t Tag) *Item {
 	li, ok := t.(*Item)
 	if !ok {
 		return nil
