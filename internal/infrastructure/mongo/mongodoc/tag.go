@@ -62,7 +62,7 @@ func (c *TagConsumer) Consume(raw bson.Raw) error {
 func NewTag(t tag.Tag) (*TagDocument, string) {
 	var group *TagGroupDocument
 	var item *TagItemDocument
-	if tg := tag.GroupFromTag(t); tg != nil {
+	if tg := tag.GroupFrom(t); tg != nil {
 		tags := tg.Tags()
 		ids := tags.Tags()
 
@@ -71,7 +71,7 @@ func NewTag(t tag.Tag) (*TagDocument, string) {
 		}
 	}
 
-	if ti := tag.ItemFromTag(t); ti != nil {
+	if ti := tag.ItemFrom(t); ti != nil {
 		item = &TagItemDocument{
 			LinkedDatasetFieldID:  ti.LinkedDatasetFieldID().StringRef(),
 			LinkedDatasetID:       ti.LinkedDatasetID().StringRef(),
