@@ -10,6 +10,14 @@ func NewItem() *ItemBuilder {
 	return &ItemBuilder{i: &Item{}}
 }
 
+func ItemFrom(t Tag) *Item {
+	li, ok := t.(*Item)
+	if !ok {
+		return nil
+	}
+	return li
+}
+
 func (b *ItemBuilder) Build() (*Item, error) {
 	if id.ID(b.i.id).IsNil() {
 		return nil, id.ErrInvalidID
