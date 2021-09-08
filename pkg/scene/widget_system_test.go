@@ -275,7 +275,7 @@ func TestWidgetSystem_Remove(t *testing.T) {
 			Name:     "remove a widget",
 			ID:       w1.ID(),
 			WS:       NewWidgetSystem([]*Widget{w1, w2, w3, w4}),
-			Expected: NewWidgetSystem([]*Widget{w2, w3, w4}),
+			Expected: NewWidgetSystem([]*Widget{w3, w4}),
 		},
 		{
 			Name:     "remove from nil widgetSystem",
