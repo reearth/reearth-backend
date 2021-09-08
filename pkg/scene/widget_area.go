@@ -35,7 +35,7 @@ func (a *WidgetArea) Add(wid id.WidgetID) {
 
 	nIds := a.widgetIds
 
-	if b := a.Has(wid); !b {
+	if b := wid.Contains(a.widgetIds); !b {
 		nIds = append(a.widgetIds, wid)
 	}
 	a.widgetIds = nIds
@@ -78,17 +78,4 @@ func (a *WidgetArea) Find(wid id.WidgetID) (int, *WidgetArea) {
 		}
 	}
 	return -1, nil
-}
-
-// Has will check a widget area's slice of widgetIds for the specified ID and return a bool value.
-func (wa *WidgetArea) Has(wid id.WidgetID) bool {
-	if wa == nil {
-		return false
-	}
-	for _, id := range wa.widgetIds {
-		if id.Equal(wid) {
-			return true
-		}
-	}
-	return false
 }

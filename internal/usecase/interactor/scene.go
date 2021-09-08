@@ -68,7 +68,6 @@ func (i *Scene) FindByProject(ctx context.Context, id id.ProjectID, operator *us
 }
 
 func (i *Scene) Create(ctx context.Context, pid id.ProjectID, operator *usecase.Operator) (_ *scene.Scene, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -236,7 +235,6 @@ func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, 
 }
 
 func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetParam, operator *usecase.Operator) (_ *scene.Scene, _ *scene.Widget, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return

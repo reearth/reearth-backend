@@ -170,7 +170,7 @@ func TestWidgetArea_Has(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := tc.WA.Has(wid)
+			res := wid.Contains(tc.WA.widgetIds)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}

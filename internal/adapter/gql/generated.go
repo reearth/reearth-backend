@@ -154,11 +154,6 @@ type ComplexityRoot struct {
 		Roll     func(childComplexity int) int
 	}
 
-	CheckProjectAliasPayload struct {
-		Alias     func(childComplexity int) int
-		Available func(childComplexity int) int
-	}
-
 	CreateAssetPayload struct {
 		Asset func(childComplexity int) int
 	}
@@ -573,6 +568,11 @@ type ComplexityRoot struct {
 		Visualizer        func(childComplexity int) int
 	}
 
+	ProjectAliasAvailability struct {
+		Alias     func(childComplexity int) int
+		Available func(childComplexity int) int
+	}
+
 	ProjectConnection struct {
 		Edges      func(childComplexity int) int
 		Nodes      func(childComplexity int) int
@@ -673,7 +673,6 @@ type ComplexityRoot struct {
 
 	PropertySchemaField struct {
 		AllTranslatedDescription func(childComplexity int) int
-		AllTranslatedName        func(childComplexity int) int
 		AllTranslatedTitle       func(childComplexity int) int
 		Choices                  func(childComplexity int) int
 		DefaultValue             func(childComplexity int) int
@@ -682,25 +681,20 @@ type ComplexityRoot struct {
 		IsAvailableIf            func(childComplexity int) int
 		Max                      func(childComplexity int) int
 		Min                      func(childComplexity int) int
-		Name                     func(childComplexity int) int
 		Prefix                   func(childComplexity int) int
 		Suffix                   func(childComplexity int) int
 		Title                    func(childComplexity int) int
 		TranslatedDescription    func(childComplexity int, lang *string) int
-		TranslatedName           func(childComplexity int, lang *string) int
 		TranslatedTitle          func(childComplexity int, lang *string) int
 		Type                     func(childComplexity int) int
 		UI                       func(childComplexity int) int
 	}
 
 	PropertySchemaFieldChoice struct {
-		AllTranslatedLabel func(childComplexity int) int
 		AllTranslatedTitle func(childComplexity int) int
 		Icon               func(childComplexity int) int
 		Key                func(childComplexity int) int
-		Label              func(childComplexity int) int
 		Title              func(childComplexity int) int
-		TranslatedLabel    func(childComplexity int, lang *string) int
 		TranslatedTitle    func(childComplexity int, lang *string) int
 	}
 
@@ -709,7 +703,6 @@ type ComplexityRoot struct {
 		Fields                func(childComplexity int) int
 		IsAvailableIf         func(childComplexity int) int
 		IsList                func(childComplexity int) int
-		Name                  func(childComplexity int) int
 		RepresentativeField   func(childComplexity int) int
 		RepresentativeFieldID func(childComplexity int) int
 		Schema                func(childComplexity int) int
@@ -1150,12 +1143,10 @@ type PropertyLinkableFieldsResolver interface {
 }
 type PropertySchemaFieldResolver interface {
 	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
-	TranslatedName(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
 	TranslatedDescription(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
 }
 type PropertySchemaFieldChoiceResolver interface {
 	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *string) (string, error)
-	TranslatedLabel(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *string) (string, error)
 }
 type PropertySchemaGroupResolver interface {
 	Schema(ctx context.Context, obj *gqlmodel.PropertySchemaGroup) (*gqlmodel.PropertySchema, error)
@@ -1178,7 +1169,7 @@ type QueryResolver interface {
 	SceneLock(ctx context.Context, sceneID id.ID) (*gqlmodel.SceneLockMode, error)
 	DynamicDatasetSchemas(ctx context.Context, sceneID id.ID) ([]*gqlmodel.DatasetSchema, error)
 	SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error)
-	CheckProjectAlias(ctx context.Context, alias string) (*gqlmodel.CheckProjectAliasPayload, error)
+	CheckProjectAlias(ctx context.Context, alias string) (*gqlmodel.ProjectAliasAvailability, error)
 	InstallablePlugins(ctx context.Context) ([]*gqlmodel.PluginMetadata, error)
 }
 type SceneResolver interface {
@@ -1476,20 +1467,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Camera.Roll(childComplexity), true
-
-	case "CheckProjectAliasPayload.alias":
-		if e.complexity.CheckProjectAliasPayload.Alias == nil {
-			break
-		}
-
-		return e.complexity.CheckProjectAliasPayload.Alias(childComplexity), true
-
-	case "CheckProjectAliasPayload.available":
-		if e.complexity.CheckProjectAliasPayload.Available == nil {
-			break
-		}
-
-		return e.complexity.CheckProjectAliasPayload.Available(childComplexity), true
 
 	case "CreateAssetPayload.asset":
 		if e.complexity.CreateAssetPayload.Asset == nil {
@@ -3886,6 +3863,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Project.Visualizer(childComplexity), true
 
+	case "ProjectAliasAvailability.alias":
+		if e.complexity.ProjectAliasAvailability.Alias == nil {
+			break
+		}
+
+		return e.complexity.ProjectAliasAvailability.Alias(childComplexity), true
+
+	case "ProjectAliasAvailability.available":
+		if e.complexity.ProjectAliasAvailability.Available == nil {
+			break
+		}
+
+		return e.complexity.ProjectAliasAvailability.Available(childComplexity), true
+
 	case "ProjectConnection.edges":
 		if e.complexity.ProjectConnection.Edges == nil {
 			break
@@ -4306,13 +4297,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.PropertySchemaField.AllTranslatedDescription(childComplexity), true
 
-	case "PropertySchemaField.allTranslatedName":
-		if e.complexity.PropertySchemaField.AllTranslatedName == nil {
-			break
-		}
-
-		return e.complexity.PropertySchemaField.AllTranslatedName(childComplexity), true
-
 	case "PropertySchemaField.allTranslatedTitle":
 		if e.complexity.PropertySchemaField.AllTranslatedTitle == nil {
 			break
@@ -4369,13 +4353,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.PropertySchemaField.Min(childComplexity), true
 
-	case "PropertySchemaField.name":
-		if e.complexity.PropertySchemaField.Name == nil {
-			break
-		}
-
-		return e.complexity.PropertySchemaField.Name(childComplexity), true
-
 	case "PropertySchemaField.prefix":
 		if e.complexity.PropertySchemaField.Prefix == nil {
 			break
@@ -4409,18 +4386,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.PropertySchemaField.TranslatedDescription(childComplexity, args["lang"].(*string)), true
 
-	case "PropertySchemaField.translatedName":
-		if e.complexity.PropertySchemaField.TranslatedName == nil {
-			break
-		}
-
-		args, err := ec.field_PropertySchemaField_translatedName_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.PropertySchemaField.TranslatedName(childComplexity, args["lang"].(*string)), true
-
 	case "PropertySchemaField.translatedTitle":
 		if e.complexity.PropertySchemaField.TranslatedTitle == nil {
 			break
@@ -4447,13 +4412,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.PropertySchemaField.UI(childComplexity), true
 
-	case "PropertySchemaFieldChoice.allTranslatedLabel":
-		if e.complexity.PropertySchemaFieldChoice.AllTranslatedLabel == nil {
-			break
-		}
-
-		return e.complexity.PropertySchemaFieldChoice.AllTranslatedLabel(childComplexity), true
-
 	case "PropertySchemaFieldChoice.allTranslatedTitle":
 		if e.complexity.PropertySchemaFieldChoice.AllTranslatedTitle == nil {
 			break
@@ -4475,31 +4433,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.PropertySchemaFieldChoice.Key(childComplexity), true
 
-	case "PropertySchemaFieldChoice.label":
-		if e.complexity.PropertySchemaFieldChoice.Label == nil {
-			break
-		}
-
-		return e.complexity.PropertySchemaFieldChoice.Label(childComplexity), true
-
 	case "PropertySchemaFieldChoice.title":
 		if e.complexity.PropertySchemaFieldChoice.Title == nil {
 			break
 		}
 
 		return e.complexity.PropertySchemaFieldChoice.Title(childComplexity), true
-
-	case "PropertySchemaFieldChoice.translatedLabel":
-		if e.complexity.PropertySchemaFieldChoice.TranslatedLabel == nil {
-			break
-		}
-
-		args, err := ec.field_PropertySchemaFieldChoice_translatedLabel_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.PropertySchemaFieldChoice.TranslatedLabel(childComplexity, args["lang"].(*string)), true
 
 	case "PropertySchemaFieldChoice.translatedTitle":
 		if e.complexity.PropertySchemaFieldChoice.TranslatedTitle == nil {
@@ -4540,13 +4479,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.PropertySchemaGroup.IsList(childComplexity), true
-
-	case "PropertySchemaGroup.name":
-		if e.complexity.PropertySchemaGroup.Name == nil {
-			break
-		}
-
-		return e.complexity.PropertySchemaGroup.Name(childComplexity), true
 
 	case "PropertySchemaGroup.representativeField":
 		if e.complexity.PropertySchemaGroup.RepresentativeField == nil {
@@ -5686,9 +5618,38 @@ directive @goField(
   name: String
 ) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
 
-# Basic types
+# Meta Type
 
 scalar Cursor
+
+interface Node {
+  id: ID!
+}
+
+enum NodeType {
+  ASSET
+  USER
+  TEAM
+  PROJECT
+  PLUGIN
+  SCENE
+  PROPERTY_SCHEMA
+  PROPERTY
+  DATASET_SCHEMA
+  DATASET
+  LAYER_GROUP
+  LAYER_ITEM
+}
+
+type PageInfo {
+  startCursor: Cursor
+  endCursor: Cursor
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+# Basic types
+
 scalar DateTime
 scalar URL
 scalar Lang
@@ -5697,8 +5658,8 @@ scalar PluginID
 scalar PluginExtensionID
 scalar PropertySchemaID
 scalar PropertySchemaFieldID
-scalar TranslatedString
 scalar DatasetSchemaFieldID
+scalar TranslatedString
 
 type LatLng {
   lat: Float!
@@ -5774,19 +5735,6 @@ enum Theme {
   DARK
 }
 
-# Meta Type
-
-interface Node {
-  id: ID!
-}
-
-type PageInfo {
-  startCursor: Cursor
-  endCursor: Cursor
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-}
-
 # Asset
 
 type Asset implements Node {
@@ -5820,7 +5768,7 @@ type SearchedUser {
   userEmail: String!
 }
 
-type CheckProjectAliasPayload {
+type ProjectAliasAvailability {
   alias: String!
   available: Boolean!
 }
@@ -6089,8 +6037,6 @@ type PropertySchemaGroup {
   isAvailableIf: PropertyCondition
   title: String
   allTranslatedTitle: TranslatedString
-  # For compatibility: "name" field will be removed in the futrue
-  name: PropertySchemaFieldID
   representativeFieldId: PropertySchemaFieldID
   representativeField: PropertySchemaField
   schema: PropertySchema @goField(forceResolver: true)
@@ -6101,8 +6047,6 @@ type PropertySchemaField {
   fieldId: PropertySchemaFieldID!
   type: ValueType!
   title: String!
-  # For compatibility: "name" field will be removed in the futrue
-  name: String!
   description: String!
   prefix: String
   suffix: String
@@ -6113,12 +6057,8 @@ type PropertySchemaField {
   choices: [PropertySchemaFieldChoice!]
   isAvailableIf: PropertyCondition
   allTranslatedTitle: TranslatedString
-  # For compatibility: "allTranslatedName" field will be removed in the futrue
-  allTranslatedName: TranslatedString
   allTranslatedDescription: TranslatedString
   translatedTitle(lang: String): String! @goField(forceResolver: true)
-  # For compatibility: "translatedName" field will be removed in the futrue
-  translatedName(lang: String): String! @goField(forceResolver: true)
   translatedDescription(lang: String): String! @goField(forceResolver: true)
 }
 
@@ -6137,15 +6077,9 @@ enum PropertySchemaFieldUI {
 type PropertySchemaFieldChoice {
   key: String!
   title: String!
-  # For compatibility: "label" field will be removed in the futrue
-  label: String!
   icon: String
   allTranslatedTitle: TranslatedString
-  # For compatibility: "allTranslatedLabel" field will be removed in the futrue
-  allTranslatedLabel: TranslatedString
   translatedTitle(lang: String): String! @goField(forceResolver: true)
-  # For compatibility: "translatedLabel" field will be removed in the futrue
-  translatedLabel(lang: String): String! @goField(forceResolver: true)
 }
 
 type PropertyCondition {
@@ -6441,6 +6375,7 @@ type MergedInfoboxField {
 }
 
 # InputType
+
 input CreateAssetInput {
   teamId: ID!
   file: Upload!
@@ -6793,6 +6728,7 @@ input AddDatasetSchemaInput {
 }
 
 # Payload
+
 type CreateAssetPayload {
   asset: Asset!
 }
@@ -6987,21 +6923,6 @@ type AddDatasetSchemaPayload {
 
 # Connection
 
-enum NodeType {
-  ASSET
-  USER
-  TEAM
-  PROJECT
-  PLUGIN
-  SCENE
-  PROPERTY_SCHEMA
-  PROPERTY
-  DATASET_SCHEMA
-  DATASET
-  LAYER_GROUP
-  LAYER_ITEM
-}
-
 type AssetConnection {
   edges: [AssetEdge!]!
   nodes: [Asset]!
@@ -7094,7 +7015,7 @@ type Query {
   sceneLock(sceneId: ID!): SceneLockMode
   dynamicDatasetSchemas(sceneId: ID!): [DatasetSchema!]!
   searchUser(nameOrEmail: String!): SearchedUser
-  checkProjectAlias(alias: String!): CheckProjectAliasPayload!
+  checkProjectAlias(alias: String!): ProjectAliasAvailability!
   installablePlugins: [PluginMetadata!]!
 }
 
@@ -8104,21 +8025,6 @@ func (ec *executionContext) field_Plugin_translatedName_args(ctx context.Context
 	return args, nil
 }
 
-func (ec *executionContext) field_PropertySchemaFieldChoice_translatedLabel_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 *string
-	if tmp, ok := rawArgs["lang"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["lang"] = arg0
-	return args, nil
-}
-
 func (ec *executionContext) field_PropertySchemaFieldChoice_translatedTitle_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -8135,21 +8041,6 @@ func (ec *executionContext) field_PropertySchemaFieldChoice_translatedTitle_args
 }
 
 func (ec *executionContext) field_PropertySchemaField_translatedDescription_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 *string
-	if tmp, ok := rawArgs["lang"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["lang"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_PropertySchemaField_translatedName_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 *string
@@ -10027,76 +9918,6 @@ func (ec *executionContext) _Camera_fov(ctx context.Context, field graphql.Colle
 	res := resTmp.(float64)
 	fc.Result = res
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _CheckProjectAliasPayload_alias(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CheckProjectAliasPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "CheckProjectAliasPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Alias, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _CheckProjectAliasPayload_available(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CheckProjectAliasPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "CheckProjectAliasPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Available, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(bool)
-	fc.Result = res
-	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _CreateAssetPayload_asset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateAssetPayload) (ret graphql.Marshaler) {
@@ -20520,6 +20341,76 @@ func (ec *executionContext) _Project_scene(ctx context.Context, field graphql.Co
 	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _ProjectAliasAvailability_alias(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectAliasAvailability) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "ProjectAliasAvailability",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Alias, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _ProjectAliasAvailability_available(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectAliasAvailability) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "ProjectAliasAvailability",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Available, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _ProjectConnection_edges(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ProjectConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -22609,41 +22500,6 @@ func (ec *executionContext) _PropertySchemaField_title(ctx context.Context, fiel
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "PropertySchemaField",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Name, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _PropertySchemaField_description(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -22967,38 +22823,6 @@ func (ec *executionContext) _PropertySchemaField_allTranslatedTitle(ctx context.
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaField_allTranslatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "PropertySchemaField",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.AllTranslatedName, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(map[string]string)
-	fc.Result = res
-	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _PropertySchemaField_allTranslatedDescription(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -23057,48 +22881,6 @@ func (ec *executionContext) _PropertySchemaField_translatedTitle(ctx context.Con
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return ec.resolvers.PropertySchemaField().TranslatedTitle(rctx, obj, args["lang"].(*string))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _PropertySchemaField_translatedName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "PropertySchemaField",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_PropertySchemaField_translatedName_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PropertySchemaField().TranslatedName(rctx, obj, args["lang"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -23227,41 +23009,6 @@ func (ec *executionContext) _PropertySchemaFieldChoice_title(ctx context.Context
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_label(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "PropertySchemaFieldChoice",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Label, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _PropertySchemaFieldChoice_icon(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -23326,38 +23073,6 @@ func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedTitle(ctx co
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _PropertySchemaFieldChoice_allTranslatedLabel(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "PropertySchemaFieldChoice",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.AllTranslatedLabel, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(map[string]string)
-	fc.Result = res
-	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _PropertySchemaFieldChoice_translatedTitle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -23384,48 +23099,6 @@ func (ec *executionContext) _PropertySchemaFieldChoice_translatedTitle(ctx conte
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return ec.resolvers.PropertySchemaFieldChoice().TranslatedTitle(rctx, obj, args["lang"].(*string))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _PropertySchemaFieldChoice_translatedLabel(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaFieldChoice) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "PropertySchemaFieldChoice",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_PropertySchemaFieldChoice_translatedLabel_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PropertySchemaFieldChoice().TranslatedLabel(rctx, obj, args["lang"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -23676,38 +23349,6 @@ func (ec *executionContext) _PropertySchemaGroup_allTranslatedTitle(ctx context.
 	res := resTmp.(map[string]string)
 	fc.Result = res
 	return ec.marshalOTranslatedString2map(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _PropertySchemaGroup_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "PropertySchemaGroup",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Name, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*id.PropertySchemaFieldID)
-	fc.Result = res
-	return ec.marshalOPropertySchemaFieldID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaFieldID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PropertySchemaGroup_representativeFieldId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PropertySchemaGroup) (ret graphql.Marshaler) {
@@ -24526,9 +24167,9 @@ func (ec *executionContext) _Query_checkProjectAlias(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*gqlmodel.CheckProjectAliasPayload)
+	res := resTmp.(*gqlmodel.ProjectAliasAvailability)
 	fc.Result = res
-	return ec.marshalNCheckProjectAliasPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCheckProjectAliasPayload(ctx, field.Selections, res)
+	return ec.marshalNProjectAliasAvailability2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectAliasAvailability(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_installablePlugins(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -32274,38 +31915,6 @@ func (ec *executionContext) _Camera(ctx context.Context, sel ast.SelectionSet, o
 	return out
 }
 
-var checkProjectAliasPayloadImplementors = []string{"CheckProjectAliasPayload"}
-
-func (ec *executionContext) _CheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CheckProjectAliasPayload) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, checkProjectAliasPayloadImplementors)
-
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("CheckProjectAliasPayload")
-		case "alias":
-			out.Values[i] = ec._CheckProjectAliasPayload_alias(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "available":
-			out.Values[i] = ec._CheckProjectAliasPayload_available(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
-
 var createAssetPayloadImplementors = []string{"CreateAssetPayload"}
 
 func (ec *executionContext) _CreateAssetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CreateAssetPayload) graphql.Marshaler {
@@ -34793,6 +34402,38 @@ func (ec *executionContext) _Project(ctx context.Context, sel ast.SelectionSet, 
 	return out
 }
 
+var projectAliasAvailabilityImplementors = []string{"ProjectAliasAvailability"}
+
+func (ec *executionContext) _ProjectAliasAvailability(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ProjectAliasAvailability) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, projectAliasAvailabilityImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("ProjectAliasAvailability")
+		case "alias":
+			out.Values[i] = ec._ProjectAliasAvailability_alias(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "available":
+			out.Values[i] = ec._ProjectAliasAvailability_available(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var projectConnectionImplementors = []string{"ProjectConnection"}
 
 func (ec *executionContext) _ProjectConnection(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.ProjectConnection) graphql.Marshaler {
@@ -35481,11 +35122,6 @@ func (ec *executionContext) _PropertySchemaField(ctx context.Context, sel ast.Se
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "name":
-			out.Values[i] = ec._PropertySchemaField_name(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
 		case "description":
 			out.Values[i] = ec._PropertySchemaField_description(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -35509,8 +35145,6 @@ func (ec *executionContext) _PropertySchemaField(ctx context.Context, sel ast.Se
 			out.Values[i] = ec._PropertySchemaField_isAvailableIf(ctx, field, obj)
 		case "allTranslatedTitle":
 			out.Values[i] = ec._PropertySchemaField_allTranslatedTitle(ctx, field, obj)
-		case "allTranslatedName":
-			out.Values[i] = ec._PropertySchemaField_allTranslatedName(ctx, field, obj)
 		case "allTranslatedDescription":
 			out.Values[i] = ec._PropertySchemaField_allTranslatedDescription(ctx, field, obj)
 		case "translatedTitle":
@@ -35522,20 +35156,6 @@ func (ec *executionContext) _PropertySchemaField(ctx context.Context, sel ast.Se
 					}
 				}()
 				res = ec._PropertySchemaField_translatedTitle(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			})
-		case "translatedName":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._PropertySchemaField_translatedName(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -35587,17 +35207,10 @@ func (ec *executionContext) _PropertySchemaFieldChoice(ctx context.Context, sel 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "label":
-			out.Values[i] = ec._PropertySchemaFieldChoice_label(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
 		case "icon":
 			out.Values[i] = ec._PropertySchemaFieldChoice_icon(ctx, field, obj)
 		case "allTranslatedTitle":
 			out.Values[i] = ec._PropertySchemaFieldChoice_allTranslatedTitle(ctx, field, obj)
-		case "allTranslatedLabel":
-			out.Values[i] = ec._PropertySchemaFieldChoice_allTranslatedLabel(ctx, field, obj)
 		case "translatedTitle":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -35607,20 +35220,6 @@ func (ec *executionContext) _PropertySchemaFieldChoice(ctx context.Context, sel 
 					}
 				}()
 				res = ec._PropertySchemaFieldChoice_translatedTitle(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			})
-		case "translatedLabel":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._PropertySchemaFieldChoice_translatedLabel(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -35674,8 +35273,6 @@ func (ec *executionContext) _PropertySchemaGroup(ctx context.Context, sel ast.Se
 			out.Values[i] = ec._PropertySchemaGroup_title(ctx, field, obj)
 		case "allTranslatedTitle":
 			out.Values[i] = ec._PropertySchemaGroup_allTranslatedTitle(ctx, field, obj)
-		case "name":
-			out.Values[i] = ec._PropertySchemaGroup_name(ctx, field, obj)
 		case "representativeFieldId":
 			out.Values[i] = ec._PropertySchemaGroup_representativeFieldId(ctx, field, obj)
 		case "representativeField":
@@ -37722,20 +37319,6 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNCheckProjectAliasPayload2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, v gqlmodel.CheckProjectAliasPayload) graphql.Marshaler {
-	return ec._CheckProjectAliasPayload(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNCheckProjectAliasPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCheckProjectAliasPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.CheckProjectAliasPayload) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._CheckProjectAliasPayload(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNCreateAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateAssetInput(ctx context.Context, v interface{}) (gqlmodel.CreateAssetInput, error) {
 	res, err := ec.unmarshalInputCreateAssetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -39016,6 +38599,20 @@ func (ec *executionContext) marshalNProject2ᚖgithubᚗcomᚋreearthᚋreearth�
 		return graphql.Null
 	}
 	return ec._Project(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNProjectAliasAvailability2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectAliasAvailability(ctx context.Context, sel ast.SelectionSet, v gqlmodel.ProjectAliasAvailability) graphql.Marshaler {
+	return ec._ProjectAliasAvailability(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNProjectAliasAvailability2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectAliasAvailability(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.ProjectAliasAvailability) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._ProjectAliasAvailability(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNProjectConnection2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProjectConnection(ctx context.Context, sel ast.SelectionSet, v gqlmodel.ProjectConnection) graphql.Marshaler {
