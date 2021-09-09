@@ -196,8 +196,8 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 			if w.WidgetLayout.DefaultLocation != nil {
 				loc = &scene.WidgetLocation{
 					Zone:    scene.WidgetZoneType(w.WidgetLayout.DefaultLocation.Zone),
-					Section: w.WidgetLayout.DefaultLocation.Section,
-					Area:    w.WidgetLayout.DefaultLocation.Area,
+					Section: scene.WidgetSectionType(w.WidgetLayout.DefaultLocation.Section),
+					Area:    scene.WidgetAreaType(w.WidgetLayout.DefaultLocation.Area),
 				}
 			}
 			wl = scene.WidgetLayout{

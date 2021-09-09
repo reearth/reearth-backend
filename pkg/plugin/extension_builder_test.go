@@ -99,8 +99,8 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				Extended: &extended,
 				DefaultLocation: &scene.WidgetLocation{
 					Zone:    scene.WidgetZoneOuter,
-					Section: string(scene.WidgetSectionLeft),
-					Area:    string(scene.WidgetAreaTop),
+					Section: scene.WidgetSectionLeft,
+					Area:    scene.WidgetAreaTop,
 				}},
 			expected: &Extension{
 				id:            "xxx",
@@ -117,8 +117,8 @@ func TestExtensionBuilder_Build(t *testing.T) {
 					Extended: &extended,
 					DefaultLocation: &scene.WidgetLocation{
 						Zone:    scene.WidgetZoneOuter,
-						Section: string(scene.WidgetSectionLeft),
-						Area:    string(scene.WidgetAreaTop),
+						Section: scene.WidgetSectionLeft,
+						Area:    scene.WidgetAreaTop,
 					}},
 			},
 			err: nil,
@@ -195,8 +195,8 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				Extended: &extended,
 				DefaultLocation: &scene.WidgetLocation{
 					Zone:    scene.WidgetZoneOuter,
-					Section: string(scene.WidgetSectionLeft),
-					Area:    string(scene.WidgetAreaTop),
+					Section: scene.WidgetSectionLeft,
+					Area:    scene.WidgetAreaTop,
 				}},
 			expected: &Extension{
 				id:            "xxx",
@@ -213,8 +213,8 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 					Extended: &extended,
 					DefaultLocation: &scene.WidgetLocation{
 						Zone:    scene.WidgetZoneOuter,
-						Section: string(scene.WidgetSectionLeft),
-						Area:    string(scene.WidgetAreaTop),
+						Section: scene.WidgetSectionLeft,
+						Area:    scene.WidgetAreaTop,
 					}},
 			},
 		},

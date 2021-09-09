@@ -41,8 +41,8 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 	wid2 := id.NewWidgetID()
 	loc := WidgetLocation{
 		Zone:    WidgetZoneOuter,
-		Section: string(WidgetSectionLeft),
-		Area:    string(WidgetAreaTop),
+		Section: WidgetSectionLeft,
+		Area:    WidgetAreaTop,
 	}
 	was := NewWidgetAlignSystem()
 	was2 := NewWidgetAlignSystem()
@@ -98,8 +98,8 @@ func TestWidgetAlignSystem_AddAll(t *testing.T) {
 	a := "center"
 	loc := WidgetLocation{
 		Zone:    WidgetZoneOuter,
-		Section: string(WidgetSectionLeft),
-		Area:    string(WidgetAreaTop),
+		Section: WidgetSectionLeft,
+		Area:    WidgetAreaTop,
 	}
 	was := NewWidgetAlignSystem()
 	was2 := NewWidgetAlignSystem()
@@ -384,8 +384,8 @@ func TestWidgetAlignSystem_Zone(t *testing.T) {
 	wid := id.NewWidgetID()
 	loc := WidgetLocation{
 		Zone:    WidgetZoneInner,
-		Section: string(WidgetSectionCenter),
-		Area:    string(WidgetAreaBottom),
+		Section: WidgetSectionCenter,
+		Area:    WidgetAreaBottom,
 	}
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)
@@ -428,15 +428,15 @@ func TestWidgetAlignSystem_Section(t *testing.T) {
 	wid := id.NewWidgetID()
 	loc := WidgetLocation{
 		Zone:    WidgetZoneInner,
-		Section: string(WidgetSectionCenter),
-		Area:    string(WidgetAreaBottom),
+		Section: WidgetSectionCenter,
+		Area:    WidgetAreaBottom,
 	}
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)
 	testCases := []struct {
 		Name     string
 		Input1   WidgetZoneType
-		Input2   string
+		Input2   WidgetSectionType
 		WAS      *WidgetAlignSystem
 		Expected *WidgetSection
 	}{
@@ -476,16 +476,16 @@ func TestWidgetAlignSystem_Area(t *testing.T) {
 	wid := id.NewWidgetID()
 	loc := WidgetLocation{
 		Zone:    WidgetZoneInner,
-		Section: string(WidgetSectionCenter),
-		Area:    string(WidgetAreaBottom),
+		Section: WidgetSectionCenter,
+		Area:    WidgetAreaBottom,
 	}
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)
 	testCases := []struct {
-		Name   string
-		Input1 WidgetZoneType
-		Input2,
-		Input3 string
+		Name     string
+		Input1   WidgetZoneType
+		Input2   WidgetSectionType
+		Input3   WidgetAreaType
 		WAS      *WidgetAlignSystem
 		Expected *WidgetArea
 	}{

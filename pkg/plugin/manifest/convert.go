@@ -160,8 +160,8 @@ func (l *WidgetLayout) layout() *scene.WidgetLayout {
 	} else {
 		dl = &scene.WidgetLocation{
 			Zone:    scene.WidgetZoneType(l.DefaultLocation.Zone),
-			Section: l.DefaultLocation.Section,
-			Area:    l.DefaultLocation.Area,
+			Section: scene.WidgetSectionType(l.DefaultLocation.Section),
+			Area:    scene.WidgetAreaType(l.DefaultLocation.Area),
 		}
 	}
 	swl.DefaultLocation = dl

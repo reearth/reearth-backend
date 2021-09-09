@@ -11,9 +11,9 @@ type WidgetAlignSystem struct {
 }
 
 type WidgetLocation struct {
-	Zone WidgetZoneType
-	Section,
-	Area string
+	Zone    WidgetZoneType
+	Section WidgetSectionType
+	Area    WidgetAreaType
 }
 
 const (
@@ -42,7 +42,7 @@ func (was *WidgetAlignSystem) Zone(zone WidgetZoneType) *WidgetZone {
 }
 
 // Section will return a specific section in the align system.
-func (was *WidgetAlignSystem) Section(zone WidgetZoneType, section string) *WidgetSection {
+func (was *WidgetAlignSystem) Section(zone WidgetZoneType, section WidgetSectionType) *WidgetSection {
 	if was == nil {
 		return nil
 	}
@@ -50,18 +50,18 @@ func (was *WidgetAlignSystem) Section(zone WidgetZoneType, section string) *Widg
 	z := was.Zone(zone)
 
 	switch section {
-	case string(WidgetSectionLeft):
+	case WidgetSectionLeft:
 		return &z.left
-	case string(WidgetSectionCenter):
+	case WidgetSectionCenter:
 		return &z.center
-	case string(WidgetSectionRight):
+	case WidgetSectionRight:
 		return &z.right
 	}
 	return nil
 }
 
 // Area will return a specific area in the align system.
-func (was *WidgetAlignSystem) Area(zone WidgetZoneType, section, area string) *WidgetArea {
+func (was *WidgetAlignSystem) Area(zone WidgetZoneType, section WidgetSectionType, area WidgetAreaType) *WidgetArea {
 	if was == nil {
 		return nil
 	}
@@ -69,11 +69,11 @@ func (was *WidgetAlignSystem) Area(zone WidgetZoneType, section, area string) *W
 	s := was.Section(zone, section)
 
 	switch area {
-	case string(WidgetAreaTop):
+	case WidgetAreaTop:
 		return &s.top
-	case string(WidgetAreaMiddle):
+	case WidgetAreaMiddle:
 		return &s.middle
-	case string(WidgetAreaBottom):
+	case WidgetAreaBottom:
 		return &s.bottom
 	}
 	return nil

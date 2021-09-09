@@ -20,32 +20,32 @@ func NewWidgetZone() *WidgetZone {
 	return &WidgetZone{}
 }
 
-func (z *WidgetZone) Add(wid id.WidgetID, section, area string) {
+func (z *WidgetZone) Add(wid id.WidgetID, section WidgetSectionType, area WidgetAreaType) {
 	if z == nil {
 		return
 	}
 
 	switch section {
-	case string(WidgetSectionLeft):
+	case WidgetSectionLeft:
 		z.left.Add(wid, area)
-	case string(WidgetSectionCenter):
+	case WidgetSectionCenter:
 		z.center.Add(wid, area)
-	case string(WidgetSectionRight):
+	case WidgetSectionRight:
 		z.right.Add(wid, area)
 	}
 }
 
-func (z *WidgetZone) AddAll(wids []id.WidgetID, align, section, area string) {
+func (z *WidgetZone) AddAll(wids []id.WidgetID, align string, section WidgetSectionType, area WidgetAreaType) {
 	if z == nil {
 		return
 	}
 
 	switch section {
-	case string(WidgetSectionLeft):
+	case WidgetSectionLeft:
 		z.left.AddAll(wids, align, area)
-	case string(WidgetSectionCenter):
+	case WidgetSectionCenter:
 		z.center.AddAll(wids, align, area)
-	case string(WidgetSectionRight):
+	case WidgetSectionRight:
 		z.right.AddAll(wids, align, area)
 	}
 }
@@ -80,13 +80,13 @@ func (z *WidgetZone) Find(wid id.WidgetID) (int, *WidgetArea) {
 	return -1, nil
 }
 
-func (wz *WidgetZone) Section(s string) *WidgetSection {
+func (wz *WidgetZone) Section(s WidgetSectionType) *WidgetSection {
 	switch s {
-	case string(WidgetSectionLeft):
+	case WidgetSectionLeft:
 		return &wz.left
-	case string(WidgetSectionCenter):
+	case WidgetSectionCenter:
 		return &wz.center
-	case string(WidgetSectionRight):
+	case WidgetSectionRight:
 		return &wz.right
 	}
 	return nil

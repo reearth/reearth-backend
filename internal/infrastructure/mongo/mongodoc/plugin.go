@@ -118,8 +118,8 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 				Floating: e.WidgetLayout.Floating,
 				DefaultLocation: &scene.WidgetLocation{
 					Zone:    scene.WidgetZoneType(e.WidgetLayout.DefaultLocation.Zone),
-					Section: e.WidgetLayout.DefaultLocation.Section,
-					Area:    e.WidgetLayout.DefaultLocation.Area,
+					Section: scene.WidgetSectionType(e.WidgetLayout.DefaultLocation.Section),
+					Area:    scene.WidgetAreaType(e.WidgetLayout.DefaultLocation.Area),
 				},
 			}).
 			Schema(psid).

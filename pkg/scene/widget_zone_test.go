@@ -52,7 +52,7 @@ func TestWidgetZone_Section(t *testing.T) {
 
 	testCases := []struct {
 		Name     string
-		Input    string
+		Input    WidgetSectionType
 		WZ       *WidgetZone
 		Expected *WidgetSection
 	}{
