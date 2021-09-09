@@ -28,21 +28,21 @@ func NewWidgetAlignSystem() *WidgetAlignSystem {
 }
 
 // Zone will return a specific zone in the align system.
-func (was *WidgetAlignSystem) Zone(zone string) *WidgetZone {
+func (was *WidgetAlignSystem) Zone(zone WidgetZoneType) *WidgetZone {
 	if was == nil {
 		return nil
 	}
 	switch zone {
-	case string(WidgetZoneInner):
+	case WidgetZoneInner:
 		return &was.inner
-	case string(WidgetZoneOuter):
+	case WidgetZoneOuter:
 		return &was.outer
 	}
 	return nil
 }
 
 // Section will return a specific section in the align system.
-func (was *WidgetAlignSystem) Section(zone, section string) *WidgetSection {
+func (was *WidgetAlignSystem) Section(zone WidgetZoneType, section string) *WidgetSection {
 	if was == nil {
 		return nil
 	}
@@ -61,7 +61,7 @@ func (was *WidgetAlignSystem) Section(zone, section string) *WidgetSection {
 }
 
 // Area will return a specific area in the align system.
-func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
+func (was *WidgetAlignSystem) Area(zone WidgetZoneType, section, area string) *WidgetArea {
 	if was == nil {
 		return nil
 	}

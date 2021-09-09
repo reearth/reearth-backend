@@ -391,7 +391,7 @@ func TestWidgetAlignSystem_Zone(t *testing.T) {
 	was.Add(wid, loc)
 	testCases := []struct {
 		Name     string
-		Input    string
+		Input    WidgetZoneType
 		WAS      *WidgetAlignSystem
 		Expected *WidgetZone
 	}{
@@ -434,10 +434,11 @@ func TestWidgetAlignSystem_Section(t *testing.T) {
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)
 	testCases := []struct {
-		Name           string
-		Input1, Input2 string
-		WAS            *WidgetAlignSystem
-		Expected       *WidgetSection
+		Name     string
+		Input1   WidgetZoneType
+		Input2   string
+		WAS      *WidgetAlignSystem
+		Expected *WidgetSection
 	}{
 		{
 			Name:     "Return the Widget Section of a Widget Align System",
@@ -481,8 +482,8 @@ func TestWidgetAlignSystem_Area(t *testing.T) {
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)
 	testCases := []struct {
-		Name string
-		Input1,
+		Name   string
+		Input1 WidgetZoneType
 		Input2,
 		Input3 string
 		WAS      *WidgetAlignSystem

@@ -172,16 +172,16 @@ func buildWidgetZone(sas *scene.WidgetAlignSystem, z string) WidgetZoneDocument 
 func buildWidgetSection(was *scene.WidgetAlignSystem, z, s string) WidgetSectionDocument {
 	return WidgetSectionDocument{
 		Top: WidgetAreaDocument{
-			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "top").WidgetIDs()),
-			Align:     *was.Area(z, s, "top").Alignment(),
+			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), s, "top").WidgetIDs()),
+			Align:     *was.Area(scene.WidgetZoneType(z), s, "top").Alignment(),
 		},
 		Middle: WidgetAreaDocument{
-			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "middle").WidgetIDs()),
-			Align:     *was.Area(z, s, "middle").Alignment(),
+			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), s, "middle").WidgetIDs()),
+			Align:     *was.Area(scene.WidgetZoneType(z), s, "middle").Alignment(),
 		},
 		Bottom: WidgetAreaDocument{
-			WidgetIDs: widgetIDsToStrings(was.Area(z, s, "bottom").WidgetIDs()),
-			Align:     *was.Area(z, s, "bottom").Alignment(),
+			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), s, "bottom").WidgetIDs()),
+			Align:     *was.Area(scene.WidgetZoneType(z), s, "bottom").Alignment(),
 		},
 	}
 }
