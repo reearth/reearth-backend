@@ -67,9 +67,13 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 					Vertically:   e.Layout().Extendable.Vertically,
 					Horizontally: e.Layout().Extendable.Horizontally,
 				},
-				Extended:        e.Layout().Extended,
-				Floating:        e.Layout().Floating,
-				DefaultLocation: (*WidgetLocationDocument)(e.Layout().DefaultLocation),
+				Extended: e.Layout().Extended,
+				Floating: e.Layout().Floating,
+				DefaultLocation: &WidgetLocationDocument{
+					Zone:    string(e.Layout().DefaultLocation.Zone),
+					Section: string(e.Layout().DefaultLocation.Section),
+					Area:    string(e.Layout().DefaultLocation.Area),
+				},
 			},
 		})
 	}
@@ -110,9 +114,13 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 					Vertically:   e.WidgetLayout.Extendable.Vertically,
 					Horizontally: e.WidgetLayout.Extendable.Horizontally,
 				},
-				Extended:        e.WidgetLayout.Extended,
-				Floating:        e.WidgetLayout.Floating,
-				DefaultLocation: (*scene.WidgetLocation)(e.WidgetLayout.DefaultLocation),
+				Extended: e.WidgetLayout.Extended,
+				Floating: e.WidgetLayout.Floating,
+				DefaultLocation: &scene.WidgetLocation{
+					Zone:    scene.WidgetZoneType(e.WidgetLayout.DefaultLocation.Zone),
+					Section: e.WidgetLayout.DefaultLocation.Section,
+					Area:    e.WidgetLayout.DefaultLocation.Area,
+				},
 			}).
 			Schema(psid).
 			Build()

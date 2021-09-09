@@ -40,9 +40,9 @@ func AddWidgetLayout(ctx context.Context, c DBClient) error {
 						var loc *mongodoc.WidgetLocationDocument
 						if wl.DefaultLocation != nil {
 							loc = &mongodoc.WidgetLocationDocument{
-								Zone:    wl.DefaultLocation.Zone,
-								Section: wl.DefaultLocation.Section,
-								Area:    wl.DefaultLocation.Area,
+								Zone:    string(wl.DefaultLocation.Zone),
+								Section: string(wl.DefaultLocation.Section),
+								Area:    string(wl.DefaultLocation.Area),
 							}
 						}
 

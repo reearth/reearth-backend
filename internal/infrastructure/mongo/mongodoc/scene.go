@@ -99,11 +99,19 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 				Horizontally: w.WidgetLayout().Extendable.Horizontally,
 			}
 		}
+		var loc *WidgetLocationDocument
+		if w.WidgetLayout().DefaultLocation != nil {
+			loc = &WidgetLocationDocument{
+				Zone:    string(w.WidgetLayout().DefaultLocation.Zone),
+				Section: string(w.WidgetLayout().DefaultLocation.Section),
+				Area:    string(w.WidgetLayout().DefaultLocation.Area),
+			}
+		}
 		layout := WidgetLayoutDocument{
 			Extendable:      ext,
 			Extended:        w.WidgetLayout().Extended,
 			Floating:        w.WidgetLayout().Floating,
-			DefaultLocation: (*WidgetLocationDocument)(w.WidgetLayout().DefaultLocation),
+			DefaultLocation: loc,
 		}
 		widgetsDoc = append(widgetsDoc, SceneWidgetDocument{
 			ID:           w.ID().String(),
@@ -184,11 +192,19 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 					Horizontally: w.WidgetLayout.Extendable.Horizontally,
 				}
 			}
+			var loc *scene.WidgetLocation
+			if w.WidgetLayout.DefaultLocation != nil {
+				loc = &scene.WidgetLocation{
+					Zone:    scene.WidgetZoneType(w.WidgetLayout.DefaultLocation.Zone),
+					Section: w.WidgetLayout.DefaultLocation.Section,
+					Area:    w.WidgetLayout.DefaultLocation.Area,
+				}
+			}
 			wl = scene.WidgetLayout{
 				Extendable:      ext,
 				Extended:        w.WidgetLayout.Extended,
 				Floating:        w.WidgetLayout.Floating,
-				DefaultLocation: (*scene.WidgetLocation)(w.WidgetLayout.DefaultLocation),
+				DefaultLocation: loc,
 			}
 		}
 		sw, err := scene.NewWidget(

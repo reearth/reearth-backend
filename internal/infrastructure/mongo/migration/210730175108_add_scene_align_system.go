@@ -35,7 +35,7 @@ func AddSceneAlignSystem(ctx context.Context, c DBClient) error {
 						continue
 					}
 					dl := w.WidgetLayout.DefaultLocation
-					mdl := scene.WidgetLocation{Zone: dl.Zone, Section: dl.Section, Area: dl.Area}
+					mdl := scene.WidgetLocation{Zone: scene.WidgetZoneType(dl.Zone), Section: dl.Section, Area: dl.Area}
 					wid, _ := id.WidgetIDFrom(w.ID)
 					swas.Add(wid, mdl)
 				}

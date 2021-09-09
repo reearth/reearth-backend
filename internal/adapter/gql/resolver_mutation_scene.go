@@ -59,8 +59,12 @@ func (r *mutationResolver) UpdateWidget(ctx context.Context, input gqlmodel.Upda
 		layout = interfaces.WidgetLayoutParams{
 			Extended: input.Layout.Extended,
 			Index:    input.Layout.Index,
-			Location: (*scene.WidgetLocation)(input.Layout.Location),
-			Align:    input.Layout.Align,
+			Location: &scene.WidgetLocation{
+				Zone:    scene.WidgetZoneType(input.Layout.Location.Zone),
+				Section: input.Layout.Location.Section,
+				Area:    input.Layout.Location.Area,
+			},
+			Align: input.Layout.Align,
 		}
 	}
 

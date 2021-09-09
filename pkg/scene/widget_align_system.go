@@ -11,9 +11,9 @@ type WidgetAlignSystem struct {
 }
 
 type WidgetLocation struct {
-	Zone    string
-	Section string
-	Area    string
+	Zone WidgetZoneType
+	Section,
+	Area string
 }
 
 const (
@@ -21,23 +21,6 @@ const (
 	WidgetAlignCenter = "centered"
 	WidgetAlignEnd    = "end"
 )
-
-var Areas = []string{
-	string(WidgetAreaTop),
-	string(WidgetAreaMiddle),
-	string(WidgetAreaBottom),
-}
-
-var Sections = map[string][]string{
-	string(WidgetSectionLeft):   Areas,
-	string(WidgetSectionCenter): Areas,
-	string(WidgetSectionRight):  Areas,
-}
-
-var Zones = map[string]map[string][]string{
-	string(WidgetZoneInner): Sections,
-	string(WidgetZoneOuter): Sections,
-}
 
 // NewWidgetAlignSystem returns a new widget align system.
 func NewWidgetAlignSystem() *WidgetAlignSystem {
@@ -102,9 +85,9 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 		return
 	}
 	switch loc.Zone {
-	case string(WidgetZoneInner):
+	case WidgetZoneInner:
 		was.inner.Add(wid, loc.Section, loc.Area)
-	case string(WidgetZoneOuter):
+	case WidgetZoneOuter:
 		was.outer.Add(wid, loc.Section, loc.Area)
 	}
 }
@@ -115,9 +98,9 @@ func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc Widge
 		return
 	}
 	switch loc.Zone {
-	case string(WidgetZoneInner):
+	case WidgetZoneInner:
 		was.inner.AddAll(wids, align, loc.Section, loc.Area)
-	case string(WidgetZoneOuter):
+	case WidgetZoneOuter:
 		was.outer.AddAll(wids, align, loc.Section, loc.Area)
 	}
 }

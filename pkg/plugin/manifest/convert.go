@@ -159,7 +159,7 @@ func (l *WidgetLayout) layout() *scene.WidgetLayout {
 		dl = nil
 	} else {
 		dl = &scene.WidgetLocation{
-			Zone:    l.DefaultLocation.Zone,
+			Zone:    scene.WidgetZoneType(l.DefaultLocation.Zone),
 			Section: l.DefaultLocation.Section,
 			Area:    l.DefaultLocation.Area,
 		}
