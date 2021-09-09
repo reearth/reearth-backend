@@ -394,7 +394,7 @@ func TestSceneBuilder(t *testing.T) {
 			},
 			Extended: &tr,
 			DefaultLocation: &scene.WidgetLocation{
-				Zone:    scene.WidgetZoneOuter,
+				Zone:    string(scene.WidgetZoneOuter),
 				Section: string(scene.WidgetSectionLeft),
 				Area:    string(scene.WidgetAreaTop),
 			},
@@ -411,7 +411,7 @@ func TestSceneBuilder(t *testing.T) {
 			},
 			Extended: &tr,
 			DefaultLocation: &scene.WidgetLocation{
-				Zone:    scene.WidgetZoneOuter,
+				Zone:    string(scene.WidgetZoneOuter),
 				Section: string(scene.WidgetSectionLeft),
 				Area:    string(scene.WidgetAreaTop),
 			},

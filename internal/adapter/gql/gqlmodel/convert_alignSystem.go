@@ -7,8 +7,8 @@ import (
 
 func ToAlignSystem(sas *scene.WidgetAlignSystem) *WidgetAlignSystem {
 	widgetAlignDoc := WidgetAlignSystem{
-		Inner: ToWidgetZone(sas.Zone(scene.WidgetZoneInner)),
-		Outer: ToWidgetZone(sas.Zone(scene.WidgetZoneOuter)),
+		Inner: ToWidgetZone(sas.Zone(string(scene.WidgetZoneInner))),
+		Outer: ToWidgetZone(sas.Zone(string(scene.WidgetZoneOuter))),
 	}
 	return &widgetAlignDoc
 }

@@ -43,7 +43,7 @@ func TestNewWidget(t *testing.T) {
 					Vertically: &tr},
 				Extended: &fa,
 				DefaultLocation: &WidgetLocation{
-					Zone:    WidgetZoneOuter,
+					Zone:    string(WidgetZoneOuter),
 					Section: string(WidgetSectionLeft),
 					Area:    string(WidgetAreaTop),
 				},
@@ -66,7 +66,7 @@ func TestNewWidget(t *testing.T) {
 						Vertically: &tr},
 					Extended: &fa,
 					DefaultLocation: &WidgetLocation{
-						Zone:    WidgetZoneOuter,
+						Zone:    string(WidgetZoneOuter),
 						Section: string(WidgetSectionLeft),
 						Area:    string(WidgetAreaTop),
 					},

@@ -35,8 +35,8 @@ var Sections = map[string][]string{
 }
 
 var Zones = map[string]map[string][]string{
-	WidgetZoneInner: Sections,
-	WidgetZoneOuter: Sections,
+	string(WidgetZoneInner): Sections,
+	string(WidgetZoneOuter): Sections,
 }
 
 // NewWidgetAlignSystem returns a new widget align system.
@@ -50,9 +50,9 @@ func (was *WidgetAlignSystem) Zone(zone string) *WidgetZone {
 		return nil
 	}
 	switch zone {
-	case WidgetZoneInner:
+	case string(WidgetZoneInner):
 		return &was.inner
-	case WidgetZoneOuter:
+	case string(WidgetZoneOuter):
 		return &was.outer
 	}
 	return nil
@@ -102,9 +102,9 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 		return
 	}
 	switch loc.Zone {
-	case WidgetZoneInner:
+	case string(WidgetZoneInner):
 		was.inner.Add(wid, loc.Section, loc.Area)
-	case WidgetZoneOuter:
+	case string(WidgetZoneOuter):
 		was.outer.Add(wid, loc.Section, loc.Area)
 	}
 }
@@ -115,9 +115,9 @@ func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc Widge
 		return
 	}
 	switch loc.Zone {
-	case WidgetZoneInner:
+	case string(WidgetZoneInner):
 		was.inner.AddAll(wids, align, loc.Section, loc.Area)
-	case WidgetZoneOuter:
+	case string(WidgetZoneOuter):
 		was.outer.AddAll(wids, align, loc.Section, loc.Area)
 	}
 }
