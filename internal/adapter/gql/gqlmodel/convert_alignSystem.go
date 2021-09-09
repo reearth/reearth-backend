@@ -26,9 +26,9 @@ func ToWidgetZone(z *scene.WidgetZone) *WidgetZone {
 		return nil
 	}
 	return &WidgetZone{
-		Left:   ToWidgetSection(z.Section(scene.WidgetSectionLeft)),
-		Center: ToWidgetSection(z.Section(scene.WidgetSectionCenter)),
-		Right:  ToWidgetSection(z.Section(scene.WidgetSectionRight)),
+		Left:   ToWidgetSection(z.Section(string(scene.WidgetSectionLeft))),
+		Center: ToWidgetSection(z.Section(string(scene.WidgetSectionCenter))),
+		Right:  ToWidgetSection(z.Section(string(scene.WidgetSectionRight))),
 	}
 }
 

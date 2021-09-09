@@ -24,11 +24,11 @@ func (z *WidgetZone) Add(wid id.WidgetID, section, area string) {
 	}
 
 	switch section {
-	case WidgetSectionLeft:
+	case string(WidgetSectionLeft):
 		z.left.Add(wid, area)
-	case WidgetSectionCenter:
+	case string(WidgetSectionCenter):
 		z.center.Add(wid, area)
-	case WidgetSectionRight:
+	case string(WidgetSectionRight):
 		z.right.Add(wid, area)
 	}
 }
@@ -39,11 +39,11 @@ func (z *WidgetZone) AddAll(wids []id.WidgetID, align, section, area string) {
 	}
 
 	switch section {
-	case WidgetSectionLeft:
+	case string(WidgetSectionLeft):
 		z.left.AddAll(wids, align, area)
-	case WidgetSectionCenter:
+	case string(WidgetSectionCenter):
 		z.center.AddAll(wids, align, area)
-	case WidgetSectionRight:
+	case string(WidgetSectionRight):
 		z.right.AddAll(wids, align, area)
 	}
 }
@@ -80,11 +80,11 @@ func (z *WidgetZone) Find(wid id.WidgetID) (int, *WidgetArea) {
 
 func (wz *WidgetZone) Section(s string) *WidgetSection {
 	switch s {
-	case WidgetSectionLeft:
+	case string(WidgetSectionLeft):
 		return &wz.left
-	case WidgetSectionCenter:
+	case string(WidgetSectionCenter):
 		return &wz.center
-	case WidgetSectionRight:
+	case string(WidgetSectionRight):
 		return &wz.right
 	}
 	return nil

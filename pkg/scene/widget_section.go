@@ -9,10 +9,12 @@ type WidgetSection struct {
 	bottom WidgetArea
 }
 
+type WidgetSectionType string
+
 const (
-	WidgetSectionLeft   = "left"
-	WidgetSectionCenter = "center"
-	WidgetSectionRight  = "right"
+	WidgetSectionLeft   WidgetSectionType = "left"
+	WidgetSectionCenter WidgetSectionType = "center"
+	WidgetSectionRight  WidgetSectionType = "right"
 )
 
 func NewWidgetSection() *WidgetSection {

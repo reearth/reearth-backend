@@ -132,9 +132,9 @@ func buildWidgetZone(z *scene.WidgetZone) widgetZone {
 		return widgetZone{}
 	}
 	return widgetZone{
-		Left:   buildWidgetSection(*z.Section(scene.WidgetSectionLeft)),
-		Center: buildWidgetSection(*z.Section(scene.WidgetSectionCenter)),
-		Right:  buildWidgetSection(*z.Section(scene.WidgetSectionRight)),
+		Left:   buildWidgetSection(*z.Section(string(scene.WidgetSectionLeft))),
+		Center: buildWidgetSection(*z.Section(string(scene.WidgetSectionCenter))),
+		Right:  buildWidgetSection(*z.Section(string(scene.WidgetSectionRight))),
 	}
 }
 
