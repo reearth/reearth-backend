@@ -396,7 +396,7 @@ func TestSceneBuilder(t *testing.T) {
 			DefaultLocation: &scene.WidgetLocation{
 				Zone:    scene.WidgetZoneOuter,
 				Section: scene.WidgetSectionLeft,
-				Area:    scene.WidgetAreaTop,
+				Area:    string(scene.WidgetAreaTop),
 			},
 		})
 	sceneWidget2 := scene.MustNewWidget(
@@ -413,7 +413,7 @@ func TestSceneBuilder(t *testing.T) {
 			DefaultLocation: &scene.WidgetLocation{
 				Zone:    scene.WidgetZoneOuter,
 				Section: scene.WidgetSectionLeft,
-				Area:    scene.WidgetAreaTop,
+				Area:    string(scene.WidgetAreaTop),
 			},
 		})
 	scenePlugin1 := scene.NewPlugin(pluginID, &scenePropertyID)

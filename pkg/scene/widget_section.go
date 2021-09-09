@@ -25,11 +25,11 @@ func (s *WidgetSection) Add(wid id.WidgetID, area string) {
 	}
 
 	switch area {
-	case WidgetAreaTop:
+	case string(WidgetAreaTop):
 		s.top.Add(wid)
-	case WidgetAreaMiddle:
+	case string(WidgetAreaMiddle):
 		s.middle.Add(wid)
-	case WidgetAreaBottom:
+	case string(WidgetAreaBottom):
 		s.bottom.Add(wid)
 	default:
 		return
@@ -42,11 +42,11 @@ func (s *WidgetSection) AddAll(wids []id.WidgetID, align, area string) {
 	}
 
 	switch area {
-	case WidgetAreaTop:
+	case string(WidgetAreaTop):
 		s.top.AddAll(wids, align)
-	case WidgetAreaMiddle:
+	case string(WidgetAreaMiddle):
 		s.middle.AddAll(wids, align)
-	case WidgetAreaBottom:
+	case string(WidgetAreaBottom):
 		s.bottom.AddAll(wids, align)
 	default:
 		return
@@ -85,11 +85,11 @@ func (s *WidgetSection) Find(wid id.WidgetID) (int, *WidgetArea) {
 
 func (ws *WidgetSection) Area(a string) *WidgetArea {
 	switch a {
-	case WidgetAreaTop:
+	case string(WidgetAreaTop):
 		return &ws.top
-	case WidgetAreaMiddle:
+	case string(WidgetAreaMiddle):
 		return &ws.middle
-	case WidgetAreaBottom:
+	case string(WidgetAreaBottom):
 		return &ws.bottom
 	}
 	return nil

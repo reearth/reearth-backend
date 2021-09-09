@@ -23,9 +23,9 @@ const (
 )
 
 var Areas = []string{
-	WidgetAreaTop,
-	WidgetAreaMiddle,
-	WidgetAreaBottom,
+	string(WidgetAreaTop),
+	string(WidgetAreaMiddle),
+	string(WidgetAreaBottom),
 }
 
 var Sections = map[string][]string{
@@ -86,11 +86,11 @@ func (was *WidgetAlignSystem) Area(zone, section, area string) *WidgetArea {
 	s := was.Section(zone, section)
 
 	switch area {
-	case WidgetAreaTop:
+	case string(WidgetAreaTop):
 		return &s.top
-	case WidgetAreaMiddle:
+	case string(WidgetAreaMiddle):
 		return &s.middle
-	case WidgetAreaBottom:
+	case string(WidgetAreaBottom):
 		return &s.bottom
 	}
 	return nil

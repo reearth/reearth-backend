@@ -37,9 +37,9 @@ func ToWidgetSection(s *scene.WidgetSection) *WidgetSection {
 		return nil
 	}
 	return &WidgetSection{
-		Top:    ToWidgetArea(s.Area(scene.WidgetAreaTop)),
-		Middle: ToWidgetArea(s.Area(scene.WidgetAreaMiddle)),
-		Bottom: ToWidgetArea(s.Area(scene.WidgetAreaBottom)),
+		Top:    ToWidgetArea(s.Area(string(scene.WidgetAreaTop))),
+		Middle: ToWidgetArea(s.Area(string(scene.WidgetAreaMiddle))),
+		Bottom: ToWidgetArea(s.Area(string(scene.WidgetAreaBottom))),
 	}
 }
 

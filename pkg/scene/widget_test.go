@@ -45,7 +45,7 @@ func TestNewWidget(t *testing.T) {
 				DefaultLocation: &WidgetLocation{
 					Zone:    WidgetZoneOuter,
 					Section: WidgetSectionLeft,
-					Area:    WidgetAreaTop,
+					Area:    string(WidgetAreaTop),
 				},
 			},
 			Expected: struct {
@@ -68,7 +68,7 @@ func TestNewWidget(t *testing.T) {
 					DefaultLocation: &WidgetLocation{
 						Zone:    WidgetZoneOuter,
 						Section: WidgetSectionLeft,
-						Area:    WidgetAreaTop,
+						Area:    string(WidgetAreaTop),
 					},
 				},
 			},

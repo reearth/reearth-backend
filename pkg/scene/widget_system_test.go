@@ -43,7 +43,7 @@ func TestNewWidgetSystem(t *testing.T) {
 						DefaultLocation: &WidgetLocation{
 							Zone:    WidgetZoneOuter,
 							Section: WidgetSectionLeft,
-							Area:    WidgetAreaTop,
+							Area:    string(WidgetAreaTop),
 						},
 					},
 				},
@@ -56,7 +56,7 @@ func TestNewWidgetSystem(t *testing.T) {
 					DefaultLocation: &WidgetLocation{
 						Zone:    WidgetZoneOuter,
 						Section: WidgetSectionLeft,
-						Area:    WidgetAreaTop,
+						Area:    string(WidgetAreaTop),
 					},
 				}),
 			}},
@@ -77,7 +77,7 @@ func TestNewWidgetSystem(t *testing.T) {
 						DefaultLocation: &WidgetLocation{
 							Zone:    WidgetZoneOuter,
 							Section: WidgetSectionLeft,
-							Area:    WidgetAreaTop,
+							Area:    string(WidgetAreaTop),
 						},
 					},
 				},
@@ -94,7 +94,7 @@ func TestNewWidgetSystem(t *testing.T) {
 						DefaultLocation: &WidgetLocation{
 							Zone:    WidgetZoneOuter,
 							Section: WidgetSectionLeft,
-							Area:    WidgetAreaTop,
+							Area:    string(WidgetAreaTop),
 						},
 					},
 				},
@@ -107,7 +107,7 @@ func TestNewWidgetSystem(t *testing.T) {
 					DefaultLocation: &WidgetLocation{
 						Zone:    WidgetZoneOuter,
 						Section: WidgetSectionLeft,
-						Area:    WidgetAreaTop,
+						Area:    string(WidgetAreaTop),
 					},
 				}),
 			}},
@@ -149,7 +149,7 @@ func TestWidgetSystem_Add(t *testing.T) {
 					DefaultLocation: &WidgetLocation{
 						Zone:    WidgetZoneOuter,
 						Section: WidgetSectionLeft,
-						Area:    WidgetAreaTop,
+						Area:    string(WidgetAreaTop),
 					},
 				},
 			},
@@ -169,7 +169,7 @@ func TestWidgetSystem_Add(t *testing.T) {
 							DefaultLocation: &WidgetLocation{
 								Zone:    WidgetZoneOuter,
 								Section: WidgetSectionLeft,
-								Area:    WidgetAreaTop,
+								Area:    string(WidgetAreaTop),
 							},
 						},
 					),
@@ -197,7 +197,7 @@ func TestWidgetSystem_Add(t *testing.T) {
 					DefaultLocation: &WidgetLocation{
 						Zone:    WidgetZoneOuter,
 						Section: WidgetSectionLeft,
-						Area:    WidgetAreaTop,
+						Area:    string(WidgetAreaTop),
 					},
 				},
 			},
@@ -219,7 +219,7 @@ func TestWidgetSystem_Add(t *testing.T) {
 					DefaultLocation: &WidgetLocation{
 						Zone:    WidgetZoneOuter,
 						Section: WidgetSectionLeft,
-						Area:    WidgetAreaTop,
+						Area:    string(WidgetAreaTop),
 					},
 				},
 			},
@@ -230,7 +230,7 @@ func TestWidgetSystem_Add(t *testing.T) {
 				DefaultLocation: &WidgetLocation{
 					Zone:    WidgetZoneOuter,
 					Section: WidgetSectionLeft,
-					Area:    WidgetAreaTop,
+					Area:    string(WidgetAreaTop),
 				},
 			})}),
 			Expected: NewWidgetSystem([]*Widget{MustNewWidget(wid, pid, "eee", pr, true, &WidgetLayout{
@@ -240,7 +240,7 @@ func TestWidgetSystem_Add(t *testing.T) {
 				DefaultLocation: &WidgetLocation{
 					Zone:    WidgetZoneOuter,
 					Section: WidgetSectionLeft,
-					Area:    WidgetAreaTop,
+					Area:    string(WidgetAreaTop),
 				},
 			})}),
 		},

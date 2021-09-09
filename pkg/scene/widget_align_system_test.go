@@ -42,7 +42,7 @@ func TestWidgetAlignSystem_Add(t *testing.T) {
 	loc := WidgetLocation{
 		Zone:    WidgetZoneOuter,
 		Section: WidgetSectionLeft,
-		Area:    WidgetAreaTop,
+		Area:    string(WidgetAreaTop),
 	}
 	was := NewWidgetAlignSystem()
 	was2 := NewWidgetAlignSystem()
@@ -99,7 +99,7 @@ func TestWidgetAlignSystem_AddAll(t *testing.T) {
 	loc := WidgetLocation{
 		Zone:    WidgetZoneOuter,
 		Section: WidgetSectionLeft,
-		Area:    WidgetAreaTop,
+		Area:    string(WidgetAreaTop),
 	}
 	was := NewWidgetAlignSystem()
 	was2 := NewWidgetAlignSystem()
@@ -385,7 +385,7 @@ func TestWidgetAlignSystem_Zone(t *testing.T) {
 	loc := WidgetLocation{
 		Zone:    WidgetZoneInner,
 		Section: WidgetSectionCenter,
-		Area:    WidgetAreaBottom,
+		Area:    string(WidgetAreaBottom),
 	}
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)
@@ -429,7 +429,7 @@ func TestWidgetAlignSystem_Section(t *testing.T) {
 	loc := WidgetLocation{
 		Zone:    WidgetZoneInner,
 		Section: WidgetSectionCenter,
-		Area:    WidgetAreaBottom,
+		Area:    string(WidgetAreaBottom),
 	}
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)
@@ -476,7 +476,7 @@ func TestWidgetAlignSystem_Area(t *testing.T) {
 	loc := WidgetLocation{
 		Zone:    WidgetZoneInner,
 		Section: WidgetSectionCenter,
-		Area:    WidgetAreaBottom,
+		Area:    string(WidgetAreaBottom),
 	}
 	was := NewWidgetAlignSystem()
 	was.Add(wid, loc)

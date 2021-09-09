@@ -8,10 +8,12 @@ type WidgetArea struct {
 	align     string
 }
 
+type WidgetAreaType string
+
 var (
-	WidgetAreaTop    = "top"
-	WidgetAreaMiddle = "middle"
-	WidgetAreaBottom = "bottom"
+	WidgetAreaTop    WidgetAreaType = "top"
+	WidgetAreaMiddle WidgetAreaType = "middle"
+	WidgetAreaBottom WidgetAreaType = "bottom"
 )
 
 func NewWidgetArea() *WidgetArea {

@@ -136,8 +136,8 @@ func TestWidgetSection_Area(t *testing.T) {
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
 			ws := NewWidgetSection()
-			ws.Area(WidgetAreaTop).Add(wid)
-			ws.Area(WidgetAreaMiddle).Add(wid2)
+			ws.Area(string(WidgetAreaTop)).Add(wid)
+			ws.Area(string(WidgetAreaMiddle)).Add(wid2)
 			res := ws.Area(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
