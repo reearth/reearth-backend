@@ -149,6 +149,6 @@ func buildWidgetSection(s scene.WidgetSection) widgetSection {
 func buildWidgetArea(a scene.WidgetArea) widgetArea {
 	return widgetArea{
 		WidgetIDs: toString(a.WidgetIDs()),
-		Align:     *a.Alignment(),
+		Align:     string(*a.Alignment()),
 	}
 }

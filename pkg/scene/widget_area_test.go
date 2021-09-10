@@ -115,7 +115,7 @@ func TestWidgetArea_Alignment(t *testing.T) {
 	testCases := []struct {
 		Name     string
 		WA       *WidgetArea
-		Expected *string
+		Expected *WidgetAlignType
 	}{
 		{
 			Name:     "Return the alignment of the Widget Area",

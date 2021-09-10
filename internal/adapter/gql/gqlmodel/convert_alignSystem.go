@@ -49,6 +49,6 @@ func ToWidgetArea(a *scene.WidgetArea) *WidgetArea {
 	}
 	return &WidgetArea{
 		WidgetIds: IDsFrom(a.WidgetIDs()),
-		Align:     a.Alignment(),
+		Align:     stringToRef(string(*a.Alignment())),
 	}
 }

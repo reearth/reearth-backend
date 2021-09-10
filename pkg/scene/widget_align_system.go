@@ -16,10 +16,12 @@ type WidgetLocation struct {
 	Area    WidgetAreaType
 }
 
+type WidgetAlignType string
+
 const (
-	WidgetAlignStart  = "start"
-	WidgetAlignCenter = "centered"
-	WidgetAlignEnd    = "end"
+	WidgetAlignStart  WidgetAlignType = "start"
+	WidgetAlignCenter WidgetAlignType = "centered"
+	WidgetAlignEnd    WidgetAlignType = "end"
 )
 
 // NewWidgetAlignSystem returns a new widget align system.
@@ -93,7 +95,7 @@ func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
 }
 
 // AddAll will add a slice of widget IDs and alignment to a WidgetArea
-func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc WidgetLocation) {
+func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align WidgetAlignType, loc WidgetLocation) {
 	if was == nil {
 		return
 	}
@@ -106,7 +108,7 @@ func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align string, loc Widge
 }
 
 // Update a widget in the align system.
-func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *int, align *string) {
+func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *int, align *WidgetAlignType) {
 	if was == nil {
 		return
 	}

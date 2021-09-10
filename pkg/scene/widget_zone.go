@@ -35,7 +35,7 @@ func (z *WidgetZone) Add(wid id.WidgetID, section WidgetSectionType, area Widget
 	}
 }
 
-func (z *WidgetZone) AddAll(wids []id.WidgetID, align string, section WidgetSectionType, area WidgetAreaType) {
+func (z *WidgetZone) AddAll(wids []id.WidgetID, align WidgetAlignType, section WidgetSectionType, area WidgetAreaType) {
 	if z == nil {
 		return
 	}

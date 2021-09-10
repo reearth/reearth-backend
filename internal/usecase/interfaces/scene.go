@@ -14,7 +14,7 @@ type WidgetLayoutParams struct {
 	Extended   *bool
 	Location   *scene.WidgetLocation
 	Index      *int
-	Align      *string
+	Align      *scene.WidgetAlignType
 }
 
 type UpdateWidgetParam struct {

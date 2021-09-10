@@ -5,7 +5,7 @@ import "github.com/reearth/reearth-backend/pkg/id"
 // WidgetArea has the widgets and alignment information found in each part area of a section.
 type WidgetArea struct {
 	widgetIds []id.WidgetID
-	align     string
+	align     WidgetAlignType
 }
 
 type WidgetAreaType string
@@ -26,7 +26,7 @@ func (wa *WidgetArea) WidgetIDs() []id.WidgetID {
 }
 
 // Alignment will return the alignment of a specific area.
-func (wa *WidgetArea) Alignment() *string {
+func (wa *WidgetArea) Alignment() *WidgetAlignType {
 	return &wa.align
 }
 
@@ -47,7 +47,7 @@ func (a *WidgetArea) Add(wid id.WidgetID) {
 	}
 }
 
-func (a *WidgetArea) AddAll(wids []id.WidgetID, align string) {
+func (a *WidgetArea) AddAll(wids []id.WidgetID, align WidgetAlignType) {
 	if a == nil {
 		return
 	}

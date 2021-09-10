@@ -95,7 +95,7 @@ func TestWidgetAlignSystem_AddAll(t *testing.T) {
 	wid := id.NewWidgetID()
 	wid2 := id.NewWidgetID()
 	wids := []id.WidgetID{wid, wid2}
-	a := "center"
+	a := WidgetAlignType("center")
 	loc := WidgetLocation{
 		Zone:    WidgetZoneOuter,
 		Section: WidgetSectionLeft,
@@ -111,7 +111,7 @@ func TestWidgetAlignSystem_AddAll(t *testing.T) {
 		Name  string
 		Input struct {
 			ids   []id.WidgetID
-			align string
+			align WidgetAlignType
 			loc   WidgetLocation
 		}
 		WAS, Expected *WidgetAlignSystem
@@ -120,7 +120,7 @@ func TestWidgetAlignSystem_AddAll(t *testing.T) {
 			Name: "Add a widget to widget align system",
 			Input: struct {
 				ids   []id.WidgetID
-				align string
+				align WidgetAlignType
 				loc   WidgetLocation
 			}{wids, a, loc},
 			WAS:      was,
@@ -130,7 +130,7 @@ func TestWidgetAlignSystem_AddAll(t *testing.T) {
 			Name: "Return nil if align system is nil",
 			Input: struct {
 				ids   []id.WidgetID
-				align string
+				align WidgetAlignType
 				loc   WidgetLocation
 			}{wids, a, loc},
 			WAS:      nil,
@@ -193,10 +193,10 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 	wid3 := id.NewWidgetID()
 	wids := []id.WidgetID{wid2, wid3, wid}
 	nwids := []id.WidgetID{wid, wid2, wid3}
-	alignStart := "start"
-	alignCenter := "centered"
-	alignEnd := "end"
-	alignNoNo := "notCool"
+	alignStart := WidgetAlignType("start")
+	alignCenter := WidgetAlignType("centered")
+	alignEnd := WidgetAlignType("end")
+	alignNoNo := WidgetAlignType("notCool")
 
 	// for move
 	oloc := WidgetLocation{"outer", "right", "middle"}
@@ -231,7 +231,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 			id id.WidgetID
 			l  *WidgetLocation
 			i  *int
-			a  *string
+			a  *WidgetAlignType
 		}
 		WAS      bool
 		Expected *WidgetAlignSystem
@@ -242,7 +242,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				id id.WidgetID
 				l  *WidgetLocation
 				i  *int
-				a  *string
+				a  *WidgetAlignType
 			}{wid, &nloc, nil, nil},
 			WAS:      true,
 			Expected: was2,
@@ -253,7 +253,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				id id.WidgetID
 				l  *WidgetLocation
 				i  *int
-				a  *string
+				a  *WidgetAlignType
 			}{wid, nil, &i, &alignStart},
 			WAS:      true,
 			Expected: was4,
@@ -264,7 +264,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				id id.WidgetID
 				l  *WidgetLocation
 				i  *int
-				a  *string
+				a  *WidgetAlignType
 			}{wid, nil, nil, &alignCenter},
 			WAS:      true,
 			Expected: was6,
@@ -275,7 +275,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				id id.WidgetID
 				l  *WidgetLocation
 				i  *int
-				a  *string
+				a  *WidgetAlignType
 			}{wid, nil, nil, &alignEnd},
 			WAS:      true,
 			Expected: was8,
@@ -286,7 +286,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				id id.WidgetID
 				l  *WidgetLocation
 				i  *int
-				a  *string
+				a  *WidgetAlignType
 			}{id.NewWidgetID(), nil, nil, &alignNoNo},
 			WAS:      true,
 			Expected: was,
@@ -297,7 +297,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				id id.WidgetID
 				l  *WidgetLocation
 				i  *int
-				a  *string
+				a  *WidgetAlignType
 			}{id.NewWidgetID(), nil, nil, &alignEnd},
 			WAS:      false,
 			Expected: nil,
@@ -308,7 +308,7 @@ func TestWidgetAlignSystem_Update(t *testing.T) {
 				id id.WidgetID
 				l  *WidgetLocation
 				i  *int
-				a  *string
+				a  *WidgetAlignType
 			}{wid, nil, nil, &alignEnd},
 			WAS:      false,
 			Expected: nil,
