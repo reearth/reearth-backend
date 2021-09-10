@@ -83,52 +83,16 @@ func TestWidgetArea_Remove(t *testing.T) {
 
 func TestWidgetArea_WidgetIDs(t *testing.T) {
 	wid := id.NewWidgetID()
-
 	wa := NewWidgetArea()
 	wa.widgetIds = append(wa.widgetIds, wid)
-
-	testCases := []struct {
-		Name     string
-		WA       *WidgetArea
-		Expected []id.WidgetID
-	}{
-		{
-			Name:     "Return the WidgetIDs of the Widget Area",
-			WA:       wa,
-			Expected: wa.widgetIds,
-		},
-	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.WA.WidgetIDs()
-			assert.Equal(tt, tc.Expected, res)
-		})
-	}
+	res := wa.WidgetIDs()
+	assert.Equal(t, wa.widgetIds, res)
 }
 
 func TestWidgetArea_Alignment(t *testing.T) {
 	wa := NewWidgetArea()
 	wa.align = "end"
+	res := wa.Alignment()
 
-	testCases := []struct {
-		Name     string
-		WA       *WidgetArea
-		Expected *WidgetAlignType
-	}{
-		{
-			Name:     "Return the alignment of the Widget Area",
-			WA:       wa,
-			Expected: &wa.align,
-		},
-	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.WA.Alignment()
-			assert.Equal(tt, tc.Expected, res)
-		})
-	}
+	assert.Equal(t, &wa.align, res)
 }

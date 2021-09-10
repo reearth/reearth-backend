@@ -45,30 +45,8 @@ func TestWidgetZone_Find(t *testing.T) {
 
 func TestWidgetZone_Section(t *testing.T) {
 	wid := id.NewWidgetID()
-
 	wz := NewWidgetZone()
 	wz.left.top.widgetIds = append(wz.left.top.widgetIds, wid)
-	e := wz.left
 
-	testCases := []struct {
-		Name     string
-		Input    WidgetSectionType
-		WZ       *WidgetZone
-		Expected *WidgetSection
-	}{
-		{
-			Name:     "Find the location of a widgetID and return the WidgetArea",
-			Input:    "left",
-			WZ:       wz,
-			Expected: &e,
-		},
-	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.WZ.Section(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
-		})
-	}
+	assert.Equal(t, &wz.left, wz.Section("left"))
 }
