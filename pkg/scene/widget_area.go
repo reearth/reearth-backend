@@ -16,8 +16,8 @@ var (
 	WidgetAreaBottom WidgetAreaType = "bottom"
 )
 
-func NewWidgetArea() *WidgetArea {
-	return &WidgetArea{}
+func NewWidgetArea(widgetIds []id.WidgetID, align WidgetAlignType) *WidgetArea {
+	return &WidgetArea{widgetIds, align}
 }
 
 // WidgetIds will return a slice of widget ids from a specific area.
@@ -26,8 +26,8 @@ func (wa *WidgetArea) WidgetIDs() []id.WidgetID {
 }
 
 // Alignment will return the alignment of a specific area.
-func (wa *WidgetArea) Alignment() *WidgetAlignType {
-	return &wa.align
+func (wa *WidgetArea) Alignment() WidgetAlignType {
+	return wa.align
 }
 
 func (a *WidgetArea) Add(wid id.WidgetID) {
@@ -69,15 +69,14 @@ func (a *WidgetArea) Remove(wid id.WidgetID) {
 	}
 }
 
-func (a *WidgetArea) Find(wid id.WidgetID) (int, *WidgetArea) {
+func (a *WidgetArea) Find(wid id.WidgetID) int {
 	if a == nil {
-		return -1, nil
+		return -1
 	}
-
 	for i, w := range a.widgetIds {
 		if w == wid {
-			return i, a
+			return i
 		}
 	}
-	return -1, nil
+	return -1
 }

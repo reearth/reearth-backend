@@ -173,15 +173,15 @@ func buildWidgetSection(was *scene.WidgetAlignSystem, z, s string) WidgetSection
 	return WidgetSectionDocument{
 		Top: WidgetAreaDocument{
 			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "top").WidgetIDs()),
-			Align:     string(*was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "top").Alignment()),
+			Align:     string(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "top").Alignment()),
 		},
 		Middle: WidgetAreaDocument{
 			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "middle").WidgetIDs()),
-			Align:     string(*was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "middle").Alignment()),
+			Align:     string(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "middle").Alignment()),
 		},
 		Bottom: WidgetAreaDocument{
 			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "bottom").WidgetIDs()),
-			Align:     string(*was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "bottom").Alignment()),
+			Align:     string(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "bottom").Alignment()),
 		},
 	}
 }

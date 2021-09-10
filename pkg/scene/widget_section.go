@@ -69,18 +69,14 @@ func (s *WidgetSection) Find(wid id.WidgetID) (int, *WidgetArea) {
 	if s == nil {
 		return -1, nil
 	}
-
-	i, wa := s.top.Find(wid)
-	if wa != nil && i != -1 {
-		return i, wa
+	if i := s.top.Find(wid); i != -1 {
+		return i, &s.top
 	}
-	i2, wa2 := s.middle.Find(wid)
-	if wa2 != nil && i2 != -1 {
-		return i2, wa2
+	if i2 := s.middle.Find(wid); i2 != -1 {
+		return i2, &s.middle
 	}
-	i3, wa3 := s.bottom.Find(wid)
-	if wa3 != nil && i3 != -1 {
-		return i3, wa3
+	if i3 := s.bottom.Find(wid); i3 != -1 {
+		return i3, &s.bottom
 	}
 	return -1, nil
 }

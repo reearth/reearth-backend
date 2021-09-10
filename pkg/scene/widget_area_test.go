@@ -10,47 +10,45 @@ import (
 func TestWidgetArea_Find(t *testing.T) {
 	wid := id.NewWidgetID()
 
-	wa := NewWidgetArea()
-	wa.widgetIds = append(wa.widgetIds, wid)
-
 	testCases := []struct {
 		Name     string
-		Input    id.WidgetID
 		WA       *WidgetArea
-		Expected *WidgetArea
+		Input    id.WidgetID
+		Expected int
 	}{
 		{
 			Name:     "Return WidgetArea if contains widget id",
+			WA:       NewWidgetArea([]id.WidgetID{wid}, WidgetAlignStart),
 			Input:    wid,
-			WA:       wa,
-			Expected: wa,
+			Expected: 0,
 		},
 		{
 			Name:     "Return nil if doesn't contain widget id",
-			Input:    id.NewWidgetID(),
-			WA:       wa,
-			Expected: nil,
+			WA:       NewWidgetArea([]id.WidgetID{}, WidgetAlignStart),
+			Input:    wid,
+			Expected: -1,
 		},
 		{
 			Name:     "Return nil if WidgetArea is nil",
-			Input:    id.NewWidgetID(),
 			WA:       nil,
-			Expected: nil,
+			Input:    wid,
+			Expected: -1,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			_, res := tc.WA.Find(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			index := tc.WA.Find(tc.Input)
+			assert.Equal(tt, tc.Expected, index)
 		})
 	}
 }
 
 func TestWidgetArea_Remove(t *testing.T) {
 	wid := id.NewWidgetID()
-	wa := NewWidgetArea()
+	wa := NewWidgetArea(nil, WidgetAlignType(""))
 	wa.widgetIds = append(wa.widgetIds, wid)
 
 	testCases := []struct {
@@ -83,16 +81,13 @@ func TestWidgetArea_Remove(t *testing.T) {
 
 func TestWidgetArea_WidgetIDs(t *testing.T) {
 	wid := id.NewWidgetID()
-	wa := NewWidgetArea()
+	wa := NewWidgetArea(nil, WidgetAlignStart)
 	wa.widgetIds = append(wa.widgetIds, wid)
 	res := wa.WidgetIDs()
 	assert.Equal(t, wa.widgetIds, res)
 }
 
 func TestWidgetArea_Alignment(t *testing.T) {
-	wa := NewWidgetArea()
-	wa.align = "end"
-	res := wa.Alignment()
-
-	assert.Equal(t, &wa.align, res)
+	wa := NewWidgetArea(nil, WidgetAlignEnd)
+	assert.Equal(t, WidgetAlignEnd, wa.Alignment())
 }
