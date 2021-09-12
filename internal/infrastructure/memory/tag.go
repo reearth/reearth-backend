@@ -118,6 +118,7 @@ func (t *Tag) FindByScene(ctx context.Context, sceneID id.SceneID) ([]*tag.Tag, 
 
 	var res []*tag.Tag
 	for _, tag := range t.data {
+		tag := tag
 		if tag.Scene() == sceneID {
 			res = append(res, &tag)
 		}
