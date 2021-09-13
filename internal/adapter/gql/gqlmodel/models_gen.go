@@ -918,6 +918,16 @@ type RemoveWidgetPayload struct {
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
 }
 
+type RenameTagGroupInput struct {
+	TagID   id.ID  `json:"tagId"`
+	SceneID id.ID  `json:"sceneId"`
+	Label   string `json:"label"`
+}
+
+type RenameTagGroupPayload struct {
+	Tag *TagGroup `json:"tag"`
+}
+
 type Scene struct {
 	ID                    id.ID                    `json:"id"`
 	ProjectID             id.ID                    `json:"projectId"`

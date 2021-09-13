@@ -8,3 +8,7 @@ type Group struct {
 func (g *Group) Tags() List {
 	return g.tags
 }
+
+func (g *Group) Rename(s string) {
+	g.label = s
+}

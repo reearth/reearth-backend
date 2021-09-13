@@ -489,6 +489,7 @@ type ComplexityRoot struct {
 		RemovePropertyField          func(childComplexity int, input gqlmodel.RemovePropertyFieldInput) int
 		RemovePropertyItem           func(childComplexity int, input gqlmodel.RemovePropertyItemInput) int
 		RemoveWidget                 func(childComplexity int, input gqlmodel.RemoveWidgetInput) int
+		RenameTagGroup               func(childComplexity int, input gqlmodel.RenameTagGroupInput) int
 		Signup                       func(childComplexity int, input gqlmodel.SignupInput) int
 		SyncDataset                  func(childComplexity int, input gqlmodel.SyncDatasetInput) int
 		UninstallPlugin              func(childComplexity int, input gqlmodel.UninstallPluginInput) int
@@ -787,6 +788,10 @@ type ComplexityRoot struct {
 		ExtensionID func(childComplexity int) int
 		PluginID    func(childComplexity int) int
 		Scene       func(childComplexity int) int
+	}
+
+	RenameTagGroupPayload struct {
+		Tag func(childComplexity int) int
 	}
 
 	Scene struct {
@@ -1091,6 +1096,7 @@ type MutationResolver interface {
 	ImportLayer(ctx context.Context, input gqlmodel.ImportLayerInput) (*gqlmodel.ImportLayerPayload, error)
 	CreateTagItem(ctx context.Context, input gqlmodel.CreateTagItemInput) (*gqlmodel.CreateTagItemPayload, error)
 	CreateTagGroup(ctx context.Context, input gqlmodel.CreateTagGroupInput) (*gqlmodel.CreateTagGroupPayload, error)
+	RenameTagGroup(ctx context.Context, input gqlmodel.RenameTagGroupInput) (*gqlmodel.RenameTagGroupPayload, error)
 }
 type PluginResolver interface {
 	Scene(ctx context.Context, obj *gqlmodel.Plugin) (*gqlmodel.Scene, error)
@@ -3263,6 +3269,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.RemoveWidget(childComplexity, args["input"].(gqlmodel.RemoveWidgetInput)), true
 
+	case "Mutation.renameTagGroup":
+		if e.complexity.Mutation.RenameTagGroup == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_renameTagGroup_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.RenameTagGroup(childComplexity, args["input"].(gqlmodel.RenameTagGroupInput)), true
+
 	case "Mutation.signup":
 		if e.complexity.Mutation.Signup == nil {
 			break
@@ -4938,6 +4956,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.RemoveWidgetPayload.Scene(childComplexity), true
+
+	case "RenameTagGroupPayload.tag":
+		if e.complexity.RenameTagGroupPayload.Tag == nil {
+			break
+		}
+
+		return e.complexity.RenameTagGroupPayload.Tag(childComplexity), true
 
 	case "Scene.createdAt":
 		if e.complexity.Scene.CreatedAt == nil {
@@ -6737,6 +6762,12 @@ input CreateTagGroupInput{
   tags: [ID]
 }
 
+input RenameTagGroupInput{
+  tagId: ID!
+  sceneId: ID!
+  label: String!
+}
+
 # Payload
 type CreateAssetPayload {
   asset: Asset!
@@ -6939,6 +6970,10 @@ type CreateTagGroupPayload{
   tag: TagGroup!
 }
 
+type RenameTagGroupPayload{
+  tag: TagGroup!
+}
+
 # Connection
 
 enum NodeType {
@@ -7136,6 +7171,7 @@ type Mutation {
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
+  renameTagGroup(input: RenameTagGroupInput!): RenameTagGroupPayload
 }
 
 schema {
@@ -7754,6 +7790,21 @@ func (ec *executionContext) field_Mutation_removeWidget_args(ctx context.Context
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNRemoveWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRemoveWidgetInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_renameTagGroup_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 gqlmodel.RenameTagGroupInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNRenameTagGroupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRenameTagGroupInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -18501,6 +18552,45 @@ func (ec *executionContext) _Mutation_createTagGroup(ctx context.Context, field 
 	return ec.marshalOCreateTagGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateTagGroupPayload(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Mutation_renameTagGroup(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_renameTagGroup_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().RenameTagGroup(rctx, args["input"].(gqlmodel.RenameTagGroupInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.RenameTagGroupPayload)
+	fc.Result = res
+	return ec.marshalORenameTagGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRenameTagGroupPayload(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.PageInfo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -25266,6 +25356,41 @@ func (ec *executionContext) _RemoveWidgetPayload_extensionId(ctx context.Context
 	return ec.marshalNPluginExtensionID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginExtensionID(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _RenameTagGroupPayload_tag(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RenameTagGroupPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "RenameTagGroupPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tag, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.TagGroup)
+	fc.Result = res
+	return ec.marshalNTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Scene_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -30819,6 +30944,42 @@ func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context,
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputRenameTagGroupInput(ctx context.Context, obj interface{}) (gqlmodel.RenameTagGroupInput, error) {
+	var it gqlmodel.RenameTagGroupInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "tagId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tagId"))
+			it.TagID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "sceneId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
+			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "label":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("label"))
+			it.Label, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj interface{}) (gqlmodel.SignupInput, error) {
 	var it gqlmodel.SignupInput
 	var asMap = obj.(map[string]interface{})
@@ -34353,6 +34514,8 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_createTagItem(ctx, field)
 		case "createTagGroup":
 			out.Values[i] = ec._Mutation_createTagGroup(ctx, field)
+		case "renameTagGroup":
+			out.Values[i] = ec._Mutation_renameTagGroup(ctx, field)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -36224,6 +36387,33 @@ func (ec *executionContext) _RemoveWidgetPayload(ctx context.Context, sel ast.Se
 			}
 		case "extensionId":
 			out.Values[i] = ec._RemoveWidgetPayload_extensionId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var renameTagGroupPayloadImplementors = []string{"RenameTagGroupPayload"}
+
+func (ec *executionContext) _RenameTagGroupPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.RenameTagGroupPayload) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, renameTagGroupPayloadImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("RenameTagGroupPayload")
+		case "tag":
+			out.Values[i] = ec._RenameTagGroupPayload_tag(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -39488,6 +39678,11 @@ func (ec *executionContext) unmarshalNRemoveWidgetInput2githubᚗcomᚋreearth�
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalNRenameTagGroupInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRenameTagGroupInput(ctx context.Context, v interface{}) (gqlmodel.RenameTagGroupInput, error) {
+	res, err := ec.unmarshalInputRenameTagGroupInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNRole2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRole(ctx context.Context, v interface{}) (gqlmodel.Role, error) {
 	var res gqlmodel.Role
 	err := res.UnmarshalGQL(v)
@@ -40934,6 +41129,13 @@ func (ec *executionContext) marshalORemoveWidgetPayload2ᚖgithubᚗcomᚋreeart
 		return graphql.Null
 	}
 	return ec._RemoveWidgetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalORenameTagGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐRenameTagGroupPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.RenameTagGroupPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._RenameTagGroupPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Scene) graphql.Marshaler {

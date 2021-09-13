@@ -3,6 +3,8 @@ package interactor
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/pkg/id"
+
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
@@ -96,4 +98,33 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 	}
 	tx.Commit()
 	return group, nil
+}
+
+func (i *Tag) RenameGroup(ctx context.Context, inp interfaces.RenameTagGroupParam, operator *usecase.Operator) (*tag.Group, error) {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	if err := i.CanWriteScene(ctx, inp.SceneID, operator); err != nil {
+		return nil, interfaces.ErrOperationDenied
+	}
+
+	tg, err := i.tagRepo.FindGroupByID(ctx, inp.TagID, []id.SceneID{inp.SceneID})
+	if err != nil {
+		return nil, err
+	}
+	tg.Rename(inp.Label)
+
+	err = i.tagRepo.Save(ctx, tg)
+	if err != nil {
+		return nil, err
+	}
+	tx.Commit()
+	return tg, nil
 }

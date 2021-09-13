@@ -1087,6 +1087,12 @@ input CreateTagGroupInput{
   tags: [ID]
 }
 
+input RenameTagGroupInput{
+  tagId: ID!
+  sceneId: ID!
+  label: String!
+}
+
 # Payload
 type CreateAssetPayload {
   asset: Asset!
@@ -1289,6 +1295,10 @@ type CreateTagGroupPayload{
   tag: TagGroup!
 }
 
+type RenameTagGroupPayload{
+  tag: TagGroup!
+}
+
 # Connection
 
 enum NodeType {
@@ -1486,6 +1496,7 @@ type Mutation {
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
+  renameTagGroup(input: RenameTagGroupInput!): RenameTagGroupPayload
 }
 
 schema {
