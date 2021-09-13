@@ -8,26 +8,32 @@ type WidgetArea struct {
 	align     WidgetAlignType
 }
 
-type WidgetAreaType string
+type WidgetAlignType string
 
-var (
-	WidgetAreaTop    WidgetAreaType = "top"
-	WidgetAreaMiddle WidgetAreaType = "middle"
-	WidgetAreaBottom WidgetAreaType = "bottom"
+const (
+	WidgetAlignStart  WidgetAlignType = "start"
+	WidgetAlignCenter WidgetAlignType = "centered"
+	WidgetAlignEnd    WidgetAlignType = "end"
 )
 
 func NewWidgetArea(widgetIds []id.WidgetID, align WidgetAlignType) *WidgetArea {
-	return &WidgetArea{widgetIds, align}
+	if align == "" {
+		align = WidgetAlignStart
+	}
+	return &WidgetArea{
+		widgetIds: append([]id.WidgetID{}, widgetIds...),
+		align:     align,
+	}
 }
 
 // WidgetIds will return a slice of widget ids from a specific area.
-func (wa *WidgetArea) WidgetIDs() []id.WidgetID {
-	return wa.widgetIds
+func (a *WidgetArea) WidgetIDs() []id.WidgetID {
+	return append([]id.WidgetID{}, a.widgetIds...)
 }
 
 // Alignment will return the alignment of a specific area.
-func (wa *WidgetArea) Alignment() WidgetAlignType {
-	return wa.align
+func (a *WidgetArea) Alignment() WidgetAlignType {
+	return a.align
 }
 
 func (a *WidgetArea) Add(wid id.WidgetID) {
@@ -35,25 +41,25 @@ func (a *WidgetArea) Add(wid id.WidgetID) {
 		return
 	}
 
-	nIds := a.widgetIds
-
 	if b := wid.Contains(a.widgetIds); !b {
-		nIds = append(a.widgetIds, wid)
-	}
-	a.widgetIds = nIds
-
-	if a.align == "" {
-		a.align = WidgetAlignStart
+		a.widgetIds = append(a.widgetIds, wid)
 	}
 }
 
-func (a *WidgetArea) AddAll(wids []id.WidgetID, align WidgetAlignType) {
+func (a *WidgetArea) AddAll(wids []id.WidgetID) {
 	if a == nil {
 		return
 	}
 
-	a.widgetIds = wids
-	a.align = align
+	widgetIds := make([]id.WidgetID, 0, len(wids))
+	for _, w := range wids {
+		if w.Contains(a.widgetIds) || w.Contains(widgetIds) {
+			continue
+		}
+		widgetIds = append(widgetIds, w)
+	}
+
+	a.widgetIds = widgetIds
 }
 
 func (a *WidgetArea) Remove(wid id.WidgetID) {

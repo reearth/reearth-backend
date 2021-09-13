@@ -9,12 +9,12 @@ type WidgetSection struct {
 	bottom WidgetArea
 }
 
-type WidgetSectionType string
+type WidgetAreaType string
 
-const (
-	WidgetSectionLeft   WidgetSectionType = "left"
-	WidgetSectionCenter WidgetSectionType = "center"
-	WidgetSectionRight  WidgetSectionType = "right"
+var (
+	WidgetAreaTop    WidgetAreaType = "top"
+	WidgetAreaMiddle WidgetAreaType = "middle"
+	WidgetAreaBottom WidgetAreaType = "bottom"
 )
 
 func NewWidgetSection() *WidgetSection {
@@ -45,11 +45,11 @@ func (s *WidgetSection) AddAll(wids []id.WidgetID, align WidgetAlignType, area W
 
 	switch area {
 	case WidgetAreaTop:
-		s.top.AddAll(wids, align)
+		s.top.AddAll(wids)
 	case WidgetAreaMiddle:
-		s.middle.AddAll(wids, align)
+		s.middle.AddAll(wids)
 	case WidgetAreaBottom:
-		s.bottom.AddAll(wids, align)
+		s.bottom.AddAll(wids)
 	default:
 		return
 	}

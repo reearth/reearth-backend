@@ -9,11 +9,12 @@ type WidgetZone struct {
 	right  WidgetSection
 }
 
-type WidgetZoneType string
+type WidgetSectionType string
 
 const (
-	WidgetZoneInner WidgetZoneType = "inner"
-	WidgetZoneOuter WidgetZoneType = "outer"
+	WidgetSectionLeft   WidgetSectionType = "left"
+	WidgetSectionCenter WidgetSectionType = "center"
+	WidgetSectionRight  WidgetSectionType = "right"
 )
 
 func NewWidgetZone() *WidgetZone {

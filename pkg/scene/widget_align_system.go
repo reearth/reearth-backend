@@ -16,12 +16,11 @@ type WidgetLocation struct {
 	Area    WidgetAreaType
 }
 
-type WidgetAlignType string
+type WidgetZoneType string
 
 const (
-	WidgetAlignStart  WidgetAlignType = "start"
-	WidgetAlignCenter WidgetAlignType = "centered"
-	WidgetAlignEnd    WidgetAlignType = "end"
+	WidgetZoneInner WidgetZoneType = "inner"
+	WidgetZoneOuter WidgetZoneType = "outer"
 )
 
 // NewWidgetAlignSystem returns a new widget align system.

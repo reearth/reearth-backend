@@ -46,6 +46,92 @@ func TestWidgetArea_Find(t *testing.T) {
 	}
 }
 
+func TestWidgetArea_Add(t *testing.T) {
+	wid1 := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
+
+	testCases := []struct {
+		Name     string
+		Nil      bool
+		Input    id.WidgetID
+		Expected []id.WidgetID
+	}{
+		{
+			Name:     "add a widget id",
+			Input:    wid2,
+			Expected: []id.WidgetID{wid1, wid2},
+		},
+		{
+			Name:     "add a widget id but already exists",
+			Input:    wid1,
+			Expected: []id.WidgetID{wid1},
+		},
+		{
+			Name: "nil widget area",
+			Nil:  true,
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+
+			if tc.Nil {
+				(*WidgetArea)(nil).Add(wid1)
+				return
+			}
+
+			wa := NewWidgetArea([]id.WidgetID{wid1}, WidgetAlignStart)
+			wa.Add(tc.Input)
+			assert.Equal(tt, tc.Expected, wa.WidgetIDs())
+		})
+	}
+}
+
+func TestWidgetArea_AddAll(t *testing.T) {
+	wid1 := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
+
+	testCases := []struct {
+		Name     string
+		Nil      bool
+		Input    []id.WidgetID
+		Expected []id.WidgetID
+	}{
+		{
+			Name:     "add widget ids",
+			Input:    []id.WidgetID{wid1, wid2},
+			Expected: []id.WidgetID{wid1, wid2},
+		},
+		{
+			Name:     "add widget ids but duplicated",
+			Input:    []id.WidgetID{wid1, wid1, wid2},
+			Expected: []id.WidgetID{wid1, wid2},
+		},
+		{
+			Name: "nil widget area",
+			Nil:  true,
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+
+			if tc.Nil {
+				(*WidgetArea)(nil).AddAll(nil)
+				return
+			}
+
+			wa := NewWidgetArea(nil, WidgetAlignStart)
+			wa.AddAll(tc.Input)
+			assert.Equal(tt, tc.Expected, wa.WidgetIDs())
+		})
+	}
+}
+
 func TestWidgetArea_Remove(t *testing.T) {
 	wid := id.NewWidgetID()
 	wa := NewWidgetArea(nil, WidgetAlignType(""))
