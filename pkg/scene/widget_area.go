@@ -17,23 +17,41 @@ const (
 )
 
 func NewWidgetArea(widgetIds []id.WidgetID, align WidgetAlignType) *WidgetArea {
-	if align == "" {
-		align = WidgetAlignStart
-	}
-	return &WidgetArea{
-		widgetIds: append([]id.WidgetID{}, widgetIds...),
-		align:     align,
-	}
+	wa := &WidgetArea{}
+	wa.AddAll(widgetIds)
+	wa.SetAlignment(align)
+	return wa
 }
 
 // WidgetIds will return a slice of widget ids from a specific area.
 func (a *WidgetArea) WidgetIDs() []id.WidgetID {
+	if a == nil {
+		return nil
+	}
+
 	return append([]id.WidgetID{}, a.widgetIds...)
 }
 
 // Alignment will return the alignment of a specific area.
 func (a *WidgetArea) Alignment() WidgetAlignType {
+	if a == nil {
+		return ""
+	}
+
 	return a.align
+}
+
+func (a *WidgetArea) Find(wid id.WidgetID) int {
+	if a == nil {
+		return -1
+	}
+
+	for i, w := range a.widgetIds {
+		if w == wid {
+			return i
+		}
+	}
+	return -1
 }
 
 func (a *WidgetArea) Add(wid id.WidgetID) {
@@ -62,6 +80,18 @@ func (a *WidgetArea) AddAll(wids []id.WidgetID) {
 	a.widgetIds = widgetIds
 }
 
+func (a *WidgetArea) SetAlignment(at WidgetAlignType) {
+	if a == nil {
+		return
+	}
+
+	if at == WidgetAlignStart || at == WidgetAlignCenter || at == WidgetAlignEnd {
+		a.align = at
+	} else {
+		a.align = WidgetAlignStart
+	}
+}
+
 func (a *WidgetArea) Remove(wid id.WidgetID) {
 	if a == nil {
 		return
@@ -73,16 +103,4 @@ func (a *WidgetArea) Remove(wid id.WidgetID) {
 			return
 		}
 	}
-}
-
-func (a *WidgetArea) Find(wid id.WidgetID) int {
-	if a == nil {
-		return -1
-	}
-	for i, w := range a.widgetIds {
-		if w == wid {
-			return i
-		}
-	}
-	return -1
 }
