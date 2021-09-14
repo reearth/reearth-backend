@@ -4,16 +4,16 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-// WidgetAlignSystem is the layout structure of any enabled widgets that will be displayed over the scene.
-type WidgetAlignSystem struct {
-	inner WidgetZone
-	outer WidgetZone
-}
-
 type WidgetLocation struct {
 	Zone    WidgetZoneType
 	Section WidgetSectionType
 	Area    WidgetAreaType
+}
+
+// WidgetAlignSystem is the layout structure of any enabled widgets that will be displayed over the scene.
+type WidgetAlignSystem struct {
+	inner *WidgetZone
+	outer *WidgetZone
 }
 
 type WidgetZoneType string
@@ -35,108 +35,17 @@ func (was *WidgetAlignSystem) Zone(zone WidgetZoneType) *WidgetZone {
 	}
 	switch zone {
 	case WidgetZoneInner:
-		return &was.inner
-	case WidgetZoneOuter:
-		return &was.outer
-	}
-	return nil
-}
-
-// Section will return a specific section in the align system.
-func (was *WidgetAlignSystem) Section(zone WidgetZoneType, section WidgetSectionType) *WidgetSection {
-	if was == nil {
-		return nil
-	}
-
-	z := was.Zone(zone)
-
-	switch section {
-	case WidgetSectionLeft:
-		return &z.left
-	case WidgetSectionCenter:
-		return &z.center
-	case WidgetSectionRight:
-		return &z.right
-	}
-	return nil
-}
-
-// Area will return a specific area in the align system.
-func (was *WidgetAlignSystem) Area(zone WidgetZoneType, section WidgetSectionType, area WidgetAreaType) *WidgetArea {
-	if was == nil {
-		return nil
-	}
-
-	s := was.Section(zone, section)
-
-	switch area {
-	case WidgetAreaTop:
-		return &s.top
-	case WidgetAreaMiddle:
-		return &s.middle
-	case WidgetAreaBottom:
-		return &s.bottom
-	}
-	return nil
-}
-
-// Add a widget to the align system.
-func (was *WidgetAlignSystem) Add(wid id.WidgetID, loc WidgetLocation) {
-	if was == nil {
-		return
-	}
-	switch loc.Zone {
-	case WidgetZoneInner:
-		was.inner.Add(wid, loc.Section, loc.Area)
-	case WidgetZoneOuter:
-		was.outer.Add(wid, loc.Section, loc.Area)
-	}
-}
-
-// AddAll will add a slice of widget IDs and alignment to a WidgetArea
-func (was *WidgetAlignSystem) AddAll(wids []id.WidgetID, align WidgetAlignType, loc WidgetLocation) {
-	if was == nil {
-		return
-	}
-	switch loc.Zone {
-	case WidgetZoneInner:
-		was.inner.AddAll(wids, align, loc.Section, loc.Area)
-	case WidgetZoneOuter:
-		was.outer.AddAll(wids, align, loc.Section, loc.Area)
-	}
-}
-
-// Update a widget in the align system.
-func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *int, align *WidgetAlignType) {
-	if was == nil {
-		return
-	}
-
-	i, a := was.FindWidgetLocation(wid)
-	if a == nil {
-		return
-	}
-
-	if align != nil {
-		switch *align {
-		case WidgetAlignStart:
-			a.align = WidgetAlignStart
-		case WidgetAlignCenter:
-			a.align = WidgetAlignCenter
-		case WidgetAlignEnd:
-			a.align = WidgetAlignEnd
-		default:
-			a.align = WidgetAlignStart
+		if was.inner == nil {
+			was.inner = NewWidgetZone()
 		}
+		return was.inner
+	case WidgetZoneOuter:
+		if was.outer == nil {
+			was.outer = NewWidgetZone()
+		}
+		return was.outer
 	}
-
-	if index != nil {
-		moveInt(a.widgetIds, i, *index)
-	}
-	if l != nil {
-		was.Remove(wid)
-		was.Add(wid, *l)
-	}
+	return nil
 }
 
 // Remove a widget from the align system.
@@ -149,34 +58,78 @@ func (was *WidgetAlignSystem) Remove(wid id.WidgetID) {
 	was.outer.Remove(wid)
 }
 
-func (was *WidgetAlignSystem) FindWidgetLocation(wid id.WidgetID) (int, *WidgetArea) {
+func (was *WidgetAlignSystem) Area(loc WidgetLocation) *WidgetArea {
+	return was.Zone(loc.Zone).Section(loc.Section).Area(loc.Area)
+}
+
+func (was *WidgetAlignSystem) Find(wid id.WidgetID) (int, WidgetLocation) {
 	if was == nil {
-		return -1, nil
-	}
-	i, wa := was.inner.Find(wid)
-	if wa != nil && i != -1 {
-		return i, wa
-	}
-	i2, wa2 := was.outer.Find(wid)
-	if wa2 != nil && i2 != -1 {
-		return i2, wa2
+		return -1, WidgetLocation{}
 	}
 
-	return -1, nil
+	if i, section, area := was.inner.Find(wid); i >= 0 {
+		return i, WidgetLocation{
+			Zone:    WidgetZoneInner,
+			Section: section,
+			Area:    area,
+		}
+	}
+	if i, section, area := was.outer.Find(wid); i >= 0 {
+		return i, WidgetLocation{
+			Zone:    WidgetZoneOuter,
+			Section: section,
+			Area:    area,
+		}
+	}
+
+	return -1, WidgetLocation{}
 }
 
-// moveInt moves a widget's index.
-func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
-	value := array[srcIndex]
-	return insertInt(removeInt(array, srcIndex), value, dstIndex)
-}
+// Update a widget in the align system.
+// func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *int, align *WidgetAlignType) {
+// 	if was == nil {
+// 		return
+// 	}
 
-// insertInt is used in moveInt to add the widgetID to a new position(index).
-func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
-	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
-}
+// 	i, a := was.Find(wid)
+// 	if a == nil {
+// 		return
+// 	}
 
-// removeInt is used in moveInt to remove the widgetID from original position(index).
-func removeInt(array []id.WidgetID, index int) []id.WidgetID {
-	return append(array[:index], array[index+1:]...)
-}
+// 	if align != nil {
+// 		switch *align {
+// 		case WidgetAlignStart:
+// 			a.align = WidgetAlignStart
+// 		case WidgetAlignCenter:
+// 			a.align = WidgetAlignCenter
+// 		case WidgetAlignEnd:
+// 			a.align = WidgetAlignEnd
+// 		default:
+// 			a.align = WidgetAlignStart
+// 		}
+// 	}
+
+// 	if index != nil {
+// 		moveInt(a.widgetIds, i, *index)
+// 	}
+// 	if l != nil {
+// 		was.Remove(wid)
+// 		// was.Add(wid, *l)
+// 	}
+// }
+
+// // moveInt moves a widget's index.
+// func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
+// 	value := array[srcIndex]
+// 	return insertInt(removeInt(array, srcIndex), value, dstIndex)
+// }
+
+// // insertInt is used in moveInt to add the widgetID to a new position(index).
+// func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
+// 	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
+// }
+
+// // removeInt is used in moveInt to remove the widgetID from original position(index).
+// func removeInt(array []id.WidgetID, index int) []id.WidgetID {
+// 	return append(array[:index], array[index+1:]...)
+// }
