@@ -7,139 +7,161 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestNewWidgetSection(t *testing.T) {
+	assert.Equal(t, &WidgetSection{}, NewWidgetSection())
+}
+
+func TestWidgetSection_Area(t *testing.T) {
+	ws := NewWidgetSection()
+	assert.Same(t, ws.top, ws.Area(WidgetAreaTop))
+	assert.NotNil(t, ws.top)
+	assert.Same(t, ws.middle, ws.Area(WidgetAreaMiddle))
+	assert.NotNil(t, ws.middle)
+	assert.Same(t, ws.bottom, ws.Area(WidgetAreaBottom))
+	assert.NotNil(t, ws.bottom)
+}
+
 func TestWidgetSection_Find(t *testing.T) {
-	wid := id.NewWidgetID()
+	wid1 := id.NewWidgetID()
 	wid2 := id.NewWidgetID()
 	wid3 := id.NewWidgetID()
-
-	ws := NewWidgetSection()
-	ws.top.widgetIds = append(ws.top.widgetIds, wid)
-	ws.middle.widgetIds = append(ws.middle.widgetIds, wid2)
-	ws.bottom.widgetIds = append(ws.bottom.widgetIds, wid3)
-	top := ws.top
-	mid := ws.middle
-	bot := ws.bottom
+	wid4 := id.NewWidgetID()
+	wid5 := id.NewWidgetID()
+	wid6 := id.NewWidgetID()
+	wid7 := id.NewWidgetID()
 
 	testCases := []struct {
-		Name     string
-		Input    id.WidgetID
-		WS       *WidgetSection
-		Expected *WidgetArea
+		Name      string
+		Input     id.WidgetID
+		Expected1 int
+		Expected2 WidgetAreaType
+		Nil       bool
 	}{
 		{
-			Name:     "Find the location (top) of a widgetID and return the WidgetArea",
-			Input:    wid,
-			WS:       ws,
-			Expected: &top,
+			Name:      "top",
+			Input:     wid2,
+			Expected1: 1,
+			Expected2: WidgetAreaTop,
 		},
 		{
-			Name:     "Find the location (middle) of a widgetID and return the WidgetArea",
-			Input:    wid2,
-			WS:       ws,
-			Expected: &mid,
+			Name:      "middle",
+			Input:     wid4,
+			Expected1: 0,
+			Expected2: WidgetAreaMiddle,
 		},
 		{
-			Name:     "Find the location (bottom) of a widgetID and return the WidgetArea",
-			Input:    wid3,
-			WS:       ws,
-			Expected: &bot,
+			Name:      "bottom",
+			Input:     wid7,
+			Expected1: 1,
+			Expected2: WidgetAreaBottom,
 		},
 		{
-			Name:     "Return nil if no widget section",
-			Input:    wid3,
-			WS:       nil,
-			Expected: nil,
+			Name:      "invalid id",
+			Input:     id.NewWidgetID(),
+			Expected1: -1,
+			Expected2: "",
+		},
+		{
+			Name:      "Return nil if no widget section",
+			Input:     wid1,
+			Nil:       true,
+			Expected1: -1,
+			Expected2: "",
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			_, res := tc.WS.Find(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+
+			if tc.Nil {
+				index, area := (*WidgetSection)(nil).Find(tc.Input)
+				assert.Equal(tt, tc.Expected1, index)
+				assert.Equal(tt, tc.Expected2, area)
+				return
+			}
+
+			ws := NewWidgetSection()
+			ws.Area(WidgetAreaTop).AddAll([]id.WidgetID{wid1, wid2, wid3})
+			ws.Area(WidgetAreaMiddle).AddAll([]id.WidgetID{wid4, wid5})
+			ws.Area(WidgetAreaBottom).AddAll([]id.WidgetID{wid6, wid7})
+
+			index, area := ws.Find(tc.Input)
+			assert.Equal(tt, tc.Expected1, index)
+			assert.Equal(tt, tc.Expected2, area)
 		})
 	}
 }
 
 func TestWidgetSection_Remove(t *testing.T) {
 	wid := id.NewWidgetID()
-	ws := NewWidgetSection()
-	ws.top.widgetIds = append(ws.top.widgetIds, wid)
-
-	testCases := []struct {
-		Name         string
-		Input        id.WidgetID
-		WS, Expected *WidgetSection
-	}{
-		{
-			Name:     "Remove a widget from widget section",
-			Input:    wid,
-			WS:       ws,
-			Expected: &WidgetSection{top: WidgetArea{widgetIds: []id.WidgetID{}}},
-		},
-		{
-			Name:     "Return nil if no widget section",
-			Input:    wid,
-			WS:       nil,
-			Expected: nil,
-		},
-	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			tc.WS.Remove(tc.Input)
-			assert.Equal(tt, tc.Expected, tc.WS)
-		})
-	}
-}
-
-func TestWidgetSection_Area(t *testing.T) {
-	wid := id.NewWidgetID()
-	wid2 := id.NewWidgetID()
 
 	testCases := []struct {
 		Name     string
-		Input    WidgetAreaType
-		WS       *WidgetSection
-		Expected *WidgetArea
+		Area     WidgetAreaType
+		Input    id.WidgetID
+		Expected []id.WidgetID
+		Nil      bool
 	}{
 		{
-			Name:  "From a Widget Section return top Widget Area",
-			Input: "top",
-			Expected: &WidgetArea{
-				widgetIds: []id.WidgetID{wid},
-				align:     "start",
-			},
+			Name:     "top: remove a widget from widget section",
+			Area:     WidgetAreaTop,
+			Input:    wid,
+			Expected: []id.WidgetID{},
 		},
 		{
-			Name:  "From a Widget Section return middle Widget Area",
-			Input: "middle",
-			Expected: &WidgetArea{
-				widgetIds: []id.WidgetID{wid2},
-				align:     "start",
-			},
+			Name:     "top: couldn't find widgetId",
+			Area:     WidgetAreaTop,
+			Input:    id.NewWidgetID(),
+			Expected: []id.WidgetID{wid},
 		},
 		{
-			Name:     "From a Widget Section return bottom Widget Area",
-			Input:    "bottom",
-			Expected: &WidgetArea{},
+			Name:     "middle: remove a widget from widget section",
+			Area:     WidgetAreaMiddle,
+			Input:    wid,
+			Expected: []id.WidgetID{},
 		},
 		{
-			Name:     "Return nil when can't find Widget Area",
-			Input:    "topMiddleBottom",
-			Expected: nil,
+			Name:     "middle: couldn't find widgetId",
+			Area:     WidgetAreaMiddle,
+			Input:    id.NewWidgetID(),
+			Expected: []id.WidgetID{wid},
+		},
+		{
+			Name:     "bottom: remove a widget from widget section",
+			Area:     WidgetAreaBottom,
+			Input:    wid,
+			Expected: []id.WidgetID{},
+		},
+		{
+			Name:     "bottom: couldn't find widgetId",
+			Area:     WidgetAreaBottom,
+			Input:    id.NewWidgetID(),
+			Expected: []id.WidgetID{wid},
+		},
+		{
+			Name:  "nil",
+			Area:  WidgetAreaTop,
+			Input: wid,
+			Nil:   true,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
+
+			if tc.Nil {
+				(*WidgetSection)(nil).Remove(tc.Input)
+				return
+			}
+
 			ws := NewWidgetSection()
-			ws.Area(WidgetAreaTop).Add(wid)
-			ws.Area(WidgetAreaMiddle).Add(wid2)
-			res := ws.Area(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			ws.Area(tc.Area).Add(wid)
+			ws.Remove(tc.Input)
+			assert.Equal(tt, tc.Expected, ws.Area(tc.Area).WidgetIDs())
 		})
 	}
 }
