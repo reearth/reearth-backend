@@ -2,6 +2,7 @@ package mongodoc
 
 import (
 	"errors"
+	"github.com/reearth/reearth-backend/pkg/tag"
 
 	"go.mongodb.org/mongo-driver/bson"
 
@@ -42,6 +43,7 @@ type LayerDocument struct {
 	Infobox   *LayerInfoboxDocument
 	Item      *LayerItemDocument
 	Group     *LayerGroupDocument
+	Tags      []string
 }
 
 type LayerConsumer struct {
@@ -111,7 +113,11 @@ func NewLayer(l layer.Layer) (*LayerDocument, string) {
 			Fields:   fields,
 		}
 	}
-
+	var tagIDs []string
+	tags := l.Tags()
+	for _, tid := range tags.Tags() {
+		tagIDs = append(tagIDs, tid.String())
+	}
 	id := l.ID().String()
 	return &LayerDocument{
 		ID:        id,
@@ -124,6 +130,7 @@ func NewLayer(l layer.Layer) (*LayerDocument, string) {
 		Plugin:    l.Plugin().StringRef(),
 		Extension: l.Extension().StringRef(),
 		Property:  l.Property().StringRef(),
+		Tags:      tagIDs,
 	}, id
 }
 
@@ -173,6 +180,12 @@ func (d *LayerDocument) ModelItem() (*layer.Item, error) {
 		return nil, err
 	}
 
+	tids, err := id.TagIDsFrom(d.Tags)
+	if err != nil {
+		return nil, err
+	}
+	tagList := tag.NewListFromTags(tids)
+
 	return layer.NewItem().
 		ID(lid).
 		Name(d.Name).
@@ -182,6 +195,7 @@ func (d *LayerDocument) ModelItem() (*layer.Item, error) {
 		Property(id.PropertyIDFromRef(d.Property)).
 		Infobox(ib).
 		Scene(sid).
+		Tags(*tagList).
 		// item
 		LinkedDataset(id.DatasetIDFromRef(d.Item.LinkedDataset)).
 		Build()
@@ -210,6 +224,12 @@ func (d *LayerDocument) ModelGroup() (*layer.Group, error) {
 		ids = append(ids, lid)
 	}
 
+	tids, err := id.TagIDsFrom(d.Tags)
+	if err != nil {
+		return nil, err
+	}
+	tagList := tag.NewListFromTags(tids)
+
 	return layer.NewGroup().
 		ID(lid).
 		Name(d.Name).
@@ -219,6 +239,7 @@ func (d *LayerDocument) ModelGroup() (*layer.Group, error) {
 		Property(id.PropertyIDFromRef(d.Property)).
 		Infobox(ib).
 		Scene(sid).
+		Tags(*tagList).
 		// group
 		Root(d.Group != nil && d.Group.Root).
 		Layers(layer.NewIDList(ids)).
