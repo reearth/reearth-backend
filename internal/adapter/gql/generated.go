@@ -6447,7 +6447,7 @@ type TagGroup implements Tag {
   id: ID!
   sceneId: ID!
   label: String!
-  tags: [ID]
+  tags: [ID!]
 }
 
 union Tags = TagItem | TagGroup
@@ -6803,7 +6803,7 @@ input CreateTagItemInput{
 input CreateTagGroupInput{
   sceneId: ID!
   label: String!
-  tags: [ID]
+  tags: [ID!]
 }
 
 input AttachTagToLayerInput{
@@ -27003,7 +27003,7 @@ func (ec *executionContext) _TagGroup_tags(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.([]*id.ID)
 	fc.Result = res
-	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _TagItem_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagItem) (ret graphql.Marshaler) {
@@ -30384,7 +30384,7 @@ func (ec *executionContext) unmarshalInputCreateTagGroupInput(ctx context.Contex
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tags"))
-			it.Tags, err = ec.unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			it.Tags, err = ec.unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}

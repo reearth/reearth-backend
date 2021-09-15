@@ -36,7 +36,7 @@ func (i *Tag) CreateItem(ctx context.Context, inp interfaces.CreateTagItemParam,
 		}
 	}()
 
-	if err := i.CanReadScene(ctx, inp.SceneID, operator); err != nil {
+	if err := i.CanWriteScene(ctx, inp.SceneID, operator); err != nil {
 		return nil, interfaces.ErrOperationDenied
 	}
 
@@ -74,7 +74,7 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 		}
 	}()
 
-	if err := i.CanReadScene(ctx, inp.SceneID, operator); err != nil {
+	if err := i.CanWriteScene(ctx, inp.SceneID, operator); err != nil {
 		return nil, interfaces.ErrOperationDenied
 	}
 

@@ -65,18 +65,6 @@ func TestGroupBuilder_Build(t *testing.T) {
 			},
 		},
 		{
-			Name:  "fail: tag list is empty",
-			Label: "xxx",
-			Id:    id.NewTagID(),
-			Scene: id.NewSceneID(),
-			Expected: struct {
-				Group Group
-				Error error
-			}{
-				Error: ErrEmptyTagList,
-			},
-		},
-		{
 			Name:  "success",
 			Id:    tid,
 			Label: "xxx",
