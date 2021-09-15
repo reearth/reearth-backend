@@ -706,6 +706,33 @@ type MergedInfoboxField {
   scenePlugin: ScenePlugin @goField(forceResolver: true)
 }
 
+interface Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+}
+
+type TagItem implements Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+  linkedDatasetID: ID
+  linkedDatasetSchemaID: ID
+  linkedDatasetFieldID: ID
+  linkedDatasetSchema: DatasetSchema @goField(forceResolver: true)
+  linkedDataset: Dataset @goField(forceResolver: true)
+  linkedDatasetField: DatasetField @goField(forceResolver: true)
+}
+
+type TagGroup implements Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+  tags: [ID!]
+}
+
+union Tags = TagItem | TagGroup
+
 # InputType
 input CreateAssetInput {
   teamId: ID!
@@ -1046,6 +1073,20 @@ input AddDatasetSchemaInput {
   representativefield: ID
 }
 
+input CreateTagItemInput{
+  sceneId: ID!
+  label: String!
+  linkedDatasetSchemaID: ID
+  linkedDatasetID: ID
+  linkedDatasetField: ID
+}
+
+input CreateTagGroupInput{
+  sceneId: ID!
+  label: String!
+  tags: [ID!]
+}
+
 # Payload
 type CreateAssetPayload {
   asset: Asset!
@@ -1238,6 +1279,14 @@ type ImportDatasetPayload {
 
 type AddDatasetSchemaPayload {
   datasetSchema: DatasetSchema
+}
+
+type CreateTagItemPayload{
+  tag: TagItem!
+}
+
+type CreateTagGroupPayload{
+  tag: TagGroup!
 }
 
 # Connection
@@ -1433,6 +1482,10 @@ type Mutation {
   moveInfoboxField(input: MoveInfoboxFieldInput!): MoveInfoboxFieldPayload
   removeInfoboxField(input: RemoveInfoboxFieldInput!): RemoveInfoboxFieldPayload
   importLayer(input: ImportLayerInput!): ImportLayerPayload
+
+  # Tag
+  createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
+  createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
 }
 
 schema {

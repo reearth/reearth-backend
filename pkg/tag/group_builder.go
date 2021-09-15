@@ -60,7 +60,10 @@ func (b *GroupBuilder) Scene(sid id.SceneID) *GroupBuilder {
 	return b
 }
 
-func (b *GroupBuilder) Tags(tl List) *GroupBuilder {
-	b.g.tags = tl
+func (b *GroupBuilder) Tags(tl *List) *GroupBuilder {
+	if tl != nil {
+		b.g.tags = *tl
+	}
+
 	return b
 }
