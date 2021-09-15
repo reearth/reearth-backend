@@ -1,12 +1,8 @@
 package tag
 
 import (
-	"errors"
-
 	"github.com/reearth/reearth-backend/pkg/id"
 )
-
-var ErrEmptyTagList = errors.New("tag list can't be empty")
 
 type GroupBuilder struct {
 	g *Group
@@ -34,9 +30,7 @@ func (b *GroupBuilder) Build() (*Group, error) {
 	if b.g.label == "" {
 		return nil, ErrEmptyLabel
 	}
-	if len(b.g.tags.tags) == 0 {
-		return nil, ErrEmptyTagList
-	}
+
 	return b.g, nil
 }
 
