@@ -31,6 +31,14 @@ type PropertyItem interface {
 	IsPropertyItem()
 }
 
+type Tag interface {
+	IsTag()
+}
+
+type Tags interface {
+	IsTags()
+}
+
 type AddDatasetSchemaInput struct {
 	SceneID             id.ID  `json:"sceneId"`
 	Name                string `json:"name"`
@@ -209,6 +217,28 @@ type CreateSceneInput struct {
 
 type CreateScenePayload struct {
 	Scene *Scene `json:"scene"`
+}
+
+type CreateTagGroupInput struct {
+	SceneID id.ID    `json:"sceneId"`
+	Label   string   `json:"label"`
+	Tags    []*id.ID `json:"tags"`
+}
+
+type CreateTagGroupPayload struct {
+	Tag *TagGroup `json:"tag"`
+}
+
+type CreateTagItemInput struct {
+	SceneID               id.ID  `json:"sceneId"`
+	Label                 string `json:"label"`
+	LinkedDatasetSchemaID *id.ID `json:"linkedDatasetSchemaID"`
+	LinkedDatasetID       *id.ID `json:"linkedDatasetID"`
+	LinkedDatasetField    *id.ID `json:"linkedDatasetField"`
+}
+
+type CreateTagItemPayload struct {
+	Tag *TagItem `json:"tag"`
 }
 
 type CreateTeamInput struct {
@@ -957,6 +987,31 @@ type SyncDatasetPayload struct {
 	DatasetSchema []*DatasetSchema `json:"datasetSchema"`
 	Dataset       []*Dataset       `json:"dataset"`
 }
+
+type TagGroup struct {
+	ID      id.ID    `json:"id"`
+	SceneID id.ID    `json:"sceneId"`
+	Label   string   `json:"label"`
+	Tags    []*id.ID `json:"tags"`
+}
+
+func (TagGroup) IsTag()  {}
+func (TagGroup) IsTags() {}
+
+type TagItem struct {
+	ID                    id.ID          `json:"id"`
+	SceneID               id.ID          `json:"sceneId"`
+	Label                 string         `json:"label"`
+	LinkedDatasetID       *id.ID         `json:"linkedDatasetID"`
+	LinkedDatasetSchemaID *id.ID         `json:"linkedDatasetSchemaID"`
+	LinkedDatasetFieldID  *id.ID         `json:"linkedDatasetFieldID"`
+	LinkedDatasetSchema   *DatasetSchema `json:"linkedDatasetSchema"`
+	LinkedDataset         *Dataset       `json:"linkedDataset"`
+	LinkedDatasetField    *DatasetField  `json:"linkedDatasetField"`
+}
+
+func (TagItem) IsTag()  {}
+func (TagItem) IsTags() {}
 
 type Team struct {
 	ID       id.ID              `json:"id"`
