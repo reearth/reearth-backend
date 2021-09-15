@@ -3,11 +3,10 @@ package interactor
 import (
 	"context"
 
-	"github.com/reearth/reearth-backend/pkg/id"
-
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
+	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
@@ -38,7 +37,7 @@ func (i *Tag) CreateItem(ctx context.Context, inp interfaces.CreateTagItemParam,
 		}
 	}()
 
-	if err := i.CanReadScene(ctx, inp.SceneID, operator); err != nil {
+	if err := i.CanWriteScene(ctx, inp.SceneID, operator); err != nil {
 		return nil, interfaces.ErrOperationDenied
 	}
 
@@ -76,7 +75,7 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 		}
 	}()
 
-	if err := i.CanReadScene(ctx, inp.SceneID, operator); err != nil {
+	if err := i.CanWriteScene(ctx, inp.SceneID, operator); err != nil {
 		return nil, interfaces.ErrOperationDenied
 	}
 

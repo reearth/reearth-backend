@@ -6403,7 +6403,7 @@ type TagGroup implements Tag {
   id: ID!
   sceneId: ID!
   label: String!
-  tags: [ID]
+  tags: [ID!]
 }
 
 union Tags = TagItem | TagGroup
@@ -6748,6 +6748,12 @@ input AddDatasetSchemaInput {
   representativefield: ID
 }
 
+input RenameTagGroupInput{
+  tagId: ID!
+  sceneId: ID!
+  label: String!
+}
+
 input CreateTagItemInput{
   sceneId: ID!
   label: String!
@@ -6759,13 +6765,7 @@ input CreateTagItemInput{
 input CreateTagGroupInput{
   sceneId: ID!
   label: String!
-  tags: [ID]
-}
-
-input RenameTagGroupInput{
-  tagId: ID!
-  sceneId: ID!
-  label: String!
+  tags: [ID!]
 }
 
 # Payload
@@ -26797,7 +26797,7 @@ func (ec *executionContext) _TagGroup_tags(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.([]*id.ID)
 	fc.Result = res
-	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _TagItem_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagItem) (ret graphql.Marshaler) {
@@ -30150,7 +30150,7 @@ func (ec *executionContext) unmarshalInputCreateTagGroupInput(ctx context.Contex
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tags"))
-			it.Tags, err = ec.unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			it.Tags, err = ec.unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -40611,42 +40611,6 @@ func (ec *executionContext) marshalOFloat2ᚖfloat64(ctx context.Context, sel as
 		return graphql.Null
 	}
 	return graphql.MarshalFloat(*v)
-}
-
-func (ec *executionContext) unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx context.Context, v interface{}) ([]*id.ID, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var vSlice []interface{}
-	if v != nil {
-		if tmp1, ok := v.([]interface{}); ok {
-			vSlice = tmp1
-		} else {
-			vSlice = []interface{}{v}
-		}
-	}
-	var err error
-	res := make([]*id.ID, len(vSlice))
-	for i := range vSlice {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, vSlice[i])
-		if err != nil {
-			return nil, err
-		}
-	}
-	return res, nil
-}
-
-func (ec *executionContext) marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx context.Context, sel ast.SelectionSet, v []*id.ID) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	ret := make(graphql.Array, len(v))
-	for i := range v {
-		ret[i] = ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, sel, v[i])
-	}
-
-	return ret
 }
 
 func (ec *executionContext) unmarshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx context.Context, v interface{}) ([]*id.ID, error) {

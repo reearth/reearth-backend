@@ -728,7 +728,7 @@ type TagGroup implements Tag {
   id: ID!
   sceneId: ID!
   label: String!
-  tags: [ID]
+  tags: [ID!]
 }
 
 union Tags = TagItem | TagGroup
@@ -1073,6 +1073,12 @@ input AddDatasetSchemaInput {
   representativefield: ID
 }
 
+input RenameTagGroupInput{
+  tagId: ID!
+  sceneId: ID!
+  label: String!
+}
+
 input CreateTagItemInput{
   sceneId: ID!
   label: String!
@@ -1084,13 +1090,7 @@ input CreateTagItemInput{
 input CreateTagGroupInput{
   sceneId: ID!
   label: String!
-  tags: [ID]
-}
-
-input RenameTagGroupInput{
-  tagId: ID!
-  sceneId: ID!
-  label: String!
+  tags: [ID!]
 }
 
 # Payload
