@@ -145,9 +145,124 @@ func TestWidgetAlignSystem_Remove(t *testing.T) {
 			}
 
 			ws := NewWidgetAlignSystem()
-			ws.Zone(tc.Zone).Section(WidgetSectionLeft).Area(WidgetAreaTop).Add(wid)
+			ws.Zone(tc.Zone).Section(WidgetSectionLeft).Area(WidgetAreaTop).Add(wid, -1)
 			ws.Remove(tc.Input)
 			assert.Equal(tt, tc.Expected, ws.Zone(tc.Zone).Section(WidgetSectionLeft).Area(WidgetAreaTop).WidgetIDs())
+		})
+	}
+}
+
+func TestWidgetAlignSystem_Move(t *testing.T) {
+	wid1 := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
+	wid3 := id.NewWidgetID()
+	wid4 := id.NewWidgetID()
+	wid5 := id.NewWidgetID()
+
+	testCases := []struct {
+		Name           string
+		Input1         id.WidgetID
+		Input2         WidgetLocation
+		Input3         int
+		Source         WidgetLocation
+		ExpectedSource []id.WidgetID
+		ExpectedDest   []id.WidgetID
+		Nil            bool
+	}{
+		{
+			Name:   "move a widget in the same area with positive index",
+			Input1: wid1,
+			Input2: WidgetLocation{
+				Zone:    WidgetZoneInner,
+				Section: WidgetSectionLeft,
+				Area:    WidgetAreaTop,
+			},
+			Input3: 1,
+			Source: WidgetLocation{
+				Zone:    WidgetZoneInner,
+				Section: WidgetSectionLeft,
+				Area:    WidgetAreaTop,
+			},
+			ExpectedSource: []id.WidgetID{wid2, wid1, wid3},
+			ExpectedDest:   []id.WidgetID{wid2, wid1, wid3},
+		},
+		{
+			Name:   "move a widget in the same area with negative index",
+			Input1: wid1,
+			Input2: WidgetLocation{
+				Zone:    WidgetZoneInner,
+				Section: WidgetSectionLeft,
+				Area:    WidgetAreaTop,
+			},
+			Input3: -1,
+			Source: WidgetLocation{
+				Zone:    WidgetZoneInner,
+				Section: WidgetSectionLeft,
+				Area:    WidgetAreaTop,
+			},
+			ExpectedSource: []id.WidgetID{wid2, wid3, wid1},
+			ExpectedDest:   []id.WidgetID{wid2, wid3, wid1},
+		},
+		{
+			Name:   "move a widget to a different area with positive index",
+			Input1: wid1,
+			Input2: WidgetLocation{
+				Zone:    WidgetZoneInner,
+				Section: WidgetSectionLeft,
+				Area:    WidgetAreaBottom,
+			},
+			Input3: 1,
+			Source: WidgetLocation{
+				Zone:    WidgetZoneOuter,
+				Section: WidgetSectionRight,
+				Area:    WidgetAreaTop,
+			},
+			ExpectedSource: []id.WidgetID{wid2, wid3},
+			ExpectedDest:   []id.WidgetID{wid4, wid1, wid5},
+		},
+		{
+			Name:   "move a widget to a different area with negative index",
+			Input1: wid1,
+			Input2: WidgetLocation{
+				Zone:    WidgetZoneInner,
+				Section: WidgetSectionLeft,
+				Area:    WidgetAreaBottom,
+			},
+			Input3: -1,
+			Source: WidgetLocation{
+				Zone:    WidgetZoneOuter,
+				Section: WidgetSectionCenter,
+				Area:    WidgetAreaMiddle,
+			},
+			ExpectedSource: []id.WidgetID{wid2, wid3},
+			ExpectedDest:   []id.WidgetID{wid4, wid5, wid1},
+		},
+		{
+			Name: "nil",
+			Nil:  true,
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+
+			if tc.Nil {
+				(*WidgetAlignSystem)(nil).Move(tc.Input1, tc.Input2, tc.Input3)
+				return
+			}
+
+			ws := NewWidgetAlignSystem()
+			ws.Area(tc.Source).AddAll([]id.WidgetID{wid1, wid2, wid3})
+			if tc.Source != tc.Input2 {
+				ws.Area(tc.Input2).AddAll([]id.WidgetID{wid4, wid5})
+			}
+
+			ws.Move(tc.Input1, tc.Input2, tc.Input3)
+
+			assert.Equal(tt, tc.ExpectedSource, ws.Area(tc.Source).WidgetIDs())
+			assert.Equal(tt, tc.ExpectedDest, ws.Area(tc.Input2).WidgetIDs())
 		})
 	}
 }

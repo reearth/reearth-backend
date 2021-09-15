@@ -54,14 +54,12 @@ func (a *WidgetArea) Find(wid id.WidgetID) int {
 	return -1
 }
 
-func (a *WidgetArea) Add(wid id.WidgetID) {
-	if a == nil {
+func (a *WidgetArea) Add(wid id.WidgetID, index int) {
+	if a == nil || wid.Contains(a.widgetIds) {
 		return
 	}
 
-	if b := wid.Contains(a.widgetIds); !b {
-		a.widgetIds = append(a.widgetIds, wid)
-	}
+	a.widgetIds = insertWidgetID(a.widgetIds, wid, index)
 }
 
 func (a *WidgetArea) AddAll(wids []id.WidgetID) {
@@ -99,8 +97,36 @@ func (a *WidgetArea) Remove(wid id.WidgetID) {
 
 	for i, w := range a.widgetIds {
 		if w == wid {
-			a.widgetIds = append(a.widgetIds[:i], a.widgetIds[i+1:]...)
+			a.widgetIds = removeWidgetID(a.widgetIds, i)
 			return
 		}
 	}
+}
+
+func (a *WidgetArea) Move(from, to int) {
+	if a == nil {
+		return
+	}
+
+	wid := a.widgetIds[from]
+	a.widgetIds = insertWidgetID(removeWidgetID(a.widgetIds, from), wid, to)
+}
+
+// moveWidgetID moves a widget's index.
+func moveWidgetID(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
+	value := array[srcIndex]
+	return insertWidgetID(removeWidgetID(array, srcIndex), value, dstIndex)
+}
+
+// insertWidgetID is used in moveInt to add the widgetID to a new position(index).
+func insertWidgetID(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
+	if index < 0 {
+		return append(array, value)
+	}
+	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
+}
+
+// removeWidgetID is used in moveInt to remove the widgetID from original position(index).
+func removeWidgetID(array []id.WidgetID, index int) []id.WidgetID {
+	return append(array[:index], array[index+1:]...)
 }

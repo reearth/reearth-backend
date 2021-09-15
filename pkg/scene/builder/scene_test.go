@@ -85,7 +85,7 @@ func TestScene_ToString(t *testing.T) {
 func TestScene_BuildWidgetZone(t *testing.T) {
 	wid := id.NewWidgetID()
 	was := scene.NewWidgetAlignSystem()
-	was.Add(wid, scene.WidgetLocation{Zone: "inner", Section: "left", Area: "top"})
+	was.Area(scene.WidgetLocation{Zone: scene.WidgetZoneInner, Section: scene.WidgetSectionLeft, Area: scene.WidgetAreaTop}).Add(wid, -1)
 	wz := was.Zone("inner")
 
 	testCases := []struct {

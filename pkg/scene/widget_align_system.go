@@ -85,51 +85,17 @@ func (was *WidgetAlignSystem) Find(wid id.WidgetID) (int, WidgetLocation) {
 	return -1, WidgetLocation{}
 }
 
-// Update a widget in the align system.
-// func (was *WidgetAlignSystem) Update(wid id.WidgetID, l *WidgetLocation, index *int, align *WidgetAlignType) {
-// 	if was == nil {
-// 		return
-// 	}
+func (was *WidgetAlignSystem) Move(wid id.WidgetID, location WidgetLocation, index int) {
+	if was == nil {
+		return
+	}
 
-// 	i, a := was.Find(wid)
-// 	if a == nil {
-// 		return
-// 	}
-
-// 	if align != nil {
-// 		switch *align {
-// 		case WidgetAlignStart:
-// 			a.align = WidgetAlignStart
-// 		case WidgetAlignCenter:
-// 			a.align = WidgetAlignCenter
-// 		case WidgetAlignEnd:
-// 			a.align = WidgetAlignEnd
-// 		default:
-// 			a.align = WidgetAlignStart
-// 		}
-// 	}
-
-// 	if index != nil {
-// 		moveInt(a.widgetIds, i, *index)
-// 	}
-// 	if l != nil {
-// 		was.Remove(wid)
-// 		// was.Add(wid, *l)
-// 	}
-// }
-
-// // moveInt moves a widget's index.
-// func moveInt(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
-// 	value := array[srcIndex]
-// 	return insertInt(removeInt(array, srcIndex), value, dstIndex)
-// }
-
-// // insertInt is used in moveInt to add the widgetID to a new position(index).
-// func insertInt(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
-// 	return append(array[:index], append([]id.WidgetID{value}, array[index:]...)...)
-// }
-
-// // removeInt is used in moveInt to remove the widgetID from original position(index).
-// func removeInt(array []id.WidgetID, index int) []id.WidgetID {
-// 	return append(array[:index], array[index+1:]...)
-// }
+	if i, loc := was.Find(wid); i < 0 {
+		return
+	} else if loc != location {
+		was.Area(loc).Remove(wid)
+		was.Area(location).Add(wid, index)
+	} else {
+		was.Area(location).Move(i, index)
+	}
+}

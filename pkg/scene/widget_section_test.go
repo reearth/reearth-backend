@@ -159,7 +159,7 @@ func TestWidgetSection_Remove(t *testing.T) {
 			}
 
 			ws := NewWidgetSection()
-			ws.Area(tc.Area).Add(wid)
+			ws.Area(tc.Area).Add(wid, -1)
 			ws.Remove(tc.Input)
 			assert.Equal(tt, tc.Expected, ws.Area(tc.Area).WidgetIDs())
 		})

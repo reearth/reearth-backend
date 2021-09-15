@@ -104,22 +104,32 @@ func TestWidgetArea_Find(t *testing.T) {
 func TestWidgetArea_Add(t *testing.T) {
 	wid1 := id.NewWidgetID()
 	wid2 := id.NewWidgetID()
+	wid3 := id.NewWidgetID()
 
 	testCases := []struct {
 		Name     string
 		Nil      bool
 		Input    id.WidgetID
+		Input2   int
 		Expected []id.WidgetID
 	}{
 		{
 			Name:     "add a widget id",
-			Input:    wid2,
-			Expected: []id.WidgetID{wid1, wid2},
+			Input:    wid3,
+			Input2:   -1,
+			Expected: []id.WidgetID{wid1, wid2, wid3},
 		},
 		{
 			Name:     "add a widget id but already exists",
 			Input:    wid1,
-			Expected: []id.WidgetID{wid1},
+			Input2:   -1,
+			Expected: []id.WidgetID{wid1, wid2},
+		},
+		{
+			Name:     "insert a widget id",
+			Input:    wid3,
+			Input2:   1,
+			Expected: []id.WidgetID{wid1, wid3, wid2},
 		},
 		{
 			Name: "nil widget area",
@@ -133,12 +143,12 @@ func TestWidgetArea_Add(t *testing.T) {
 			tt.Parallel()
 
 			if tc.Nil {
-				(*WidgetArea)(nil).Add(wid1)
+				(*WidgetArea)(nil).Add(wid1, -1)
 				return
 			}
 
-			wa := NewWidgetArea([]id.WidgetID{wid1}, WidgetAlignStart)
-			wa.Add(tc.Input)
+			wa := NewWidgetArea([]id.WidgetID{wid1, wid2}, WidgetAlignStart)
+			wa.Add(tc.Input, tc.Input2)
 			assert.Equal(tt, tc.Expected, wa.WidgetIDs())
 		})
 	}
@@ -263,6 +273,52 @@ func TestWidgetArea_Remove(t *testing.T) {
 				wa = NewWidgetArea([]id.WidgetID{wid}, "")
 			}
 			wa.Remove(tc.Input)
+			if !tc.Nil {
+				assert.Equal(tt, tc.Expected, wa.widgetIds)
+			}
+		})
+	}
+}
+
+func TestWidgetArea_Move(t *testing.T) {
+	wid := id.NewWidgetID()
+	wid2 := id.NewWidgetID()
+	wid3 := id.NewWidgetID()
+
+	testCases := []struct {
+		Name           string
+		Input1, Input2 int
+		Expected       []id.WidgetID
+		Nil            bool
+	}{
+		{
+			Name:     "Move widget Id",
+			Input1:   1,
+			Input2:   2,
+			Expected: []id.WidgetID{wid, wid3, wid2},
+		},
+		{
+			Name:     "Move widget Id",
+			Input1:   2,
+			Input2:   0,
+			Expected: []id.WidgetID{wid3, wid, wid2},
+		},
+		{
+			Name: "Nil",
+			Nil:  true,
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+
+			var wa *WidgetArea
+			if !tc.Nil {
+				wa = NewWidgetArea([]id.WidgetID{wid, wid2, wid3}, "")
+			}
+			wa.Move(tc.Input1, tc.Input2)
 			if !tc.Nil {
 				assert.Equal(tt, tc.Expected, wa.widgetIds)
 			}

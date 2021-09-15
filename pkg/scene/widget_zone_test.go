@@ -167,7 +167,7 @@ func TestWidgetZone_Remove(t *testing.T) {
 			}
 
 			ws := NewWidgetZone()
-			ws.Section(tc.Section).Area(WidgetAreaTop).Add(wid)
+			ws.Section(tc.Section).Area(WidgetAreaTop).Add(wid, -1)
 			ws.Remove(tc.Input)
 			assert.Equal(tt, tc.Expected, ws.Section(tc.Section).Area(WidgetAreaTop).WidgetIDs())
 		})
