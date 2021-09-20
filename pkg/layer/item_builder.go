@@ -102,7 +102,7 @@ func (b *ItemBuilder) LinkedDataset(linkedDataset *id.DatasetID) *ItemBuilder {
 	return b
 }
 
-func (b *ItemBuilder) Tags(tags tag.List) *ItemBuilder {
+func (b *ItemBuilder) Tags(tags *tag.List) *ItemBuilder {
 	b.l.tags = tags
 	return b
 }

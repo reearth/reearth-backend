@@ -73,7 +73,7 @@ func (b *Builder) Infobox(infobox *Infobox) *Builder {
 	return b
 }
 
-func (b *Builder) Tags(tags tag.List) *Builder {
+func (b *Builder) Tags(tags *tag.List) *Builder {
 	b.base.tags = tags
 	return b
 }

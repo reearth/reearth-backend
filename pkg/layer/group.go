@@ -182,7 +182,7 @@ func (l *Group) ValidateProperties(pm property.Map) error {
 	return l.layerBase.ValidateProperties(pm)
 }
 
-func (l *Group) Tags() tag.List {
+func (l *Group) Tags() *tag.List {
 	return l.layerBase.tags
 }
 

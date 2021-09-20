@@ -112,7 +112,7 @@ func (b *GroupBuilder) LinkedDatasetSchema(linkedDatasetSchema *id.DatasetSchema
 	return b
 }
 
-func (b *GroupBuilder) Tags(tags tag.List) *GroupBuilder {
+func (b *GroupBuilder) Tags(tags *tag.List) *GroupBuilder {
 	b.l.tags = tags
 	return b
 }

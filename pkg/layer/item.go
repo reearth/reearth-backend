@@ -151,7 +151,7 @@ func (l *Item) ValidateProperties(pm property.Map) error {
 	return l.layerBase.ValidateProperties(pm)
 }
 
-func (l *Item) Tags() tag.List {
+func (l *Item) Tags() *tag.List {
 	return l.layerBase.tags
 }
 

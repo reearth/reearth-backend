@@ -4,10 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/reearth/reearth-backend/pkg/tag"
-
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
+	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
 var (
@@ -26,7 +25,7 @@ type Layer interface {
 	HasInfobox() bool
 	Infobox() *Infobox
 	Scene() id.SceneID
-	Tags() tag.List
+	Tags() *tag.List
 	Rename(string)
 	SetVisible(bool)
 	SetInfobox(*Infobox)
@@ -82,7 +81,7 @@ type layerBase struct {
 	property  *id.PropertyID
 	infobox   *Infobox
 	scene     id.SceneID
-	tags      tag.List
+	tags      *tag.List
 }
 
 func (l *layerBase) ID() id.LayerID {

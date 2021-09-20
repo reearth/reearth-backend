@@ -586,7 +586,7 @@ interface Layer {
   plugin: Plugin
   extension: PluginExtension
   scenePlugin: ScenePlugin
-  tags: [ID]
+  tags: [ID!]
 }
 
 union Layers = LayerItem | LayerGroup
@@ -619,7 +619,7 @@ type LayerItem implements Layer {
   merged: MergedLayer @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tags: [ID]
+  tags: [ID!]
 }
 
 type LayerGroup implements Layer {
@@ -644,7 +644,7 @@ type LayerGroup implements Layer {
   layers: [Layer]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tags: [ID]
+  tags: [ID!]
 }
 
 type Infobox {
@@ -1063,11 +1063,11 @@ input ImportDatasetInput {
 }
 
 input ImportDatasetFromGoogleSheetInput {
-    accessToken: String!
-    fileId: String!
-    sheetName: String!
-    sceneId: ID!
-    datasetSchemaId: ID
+  accessToken: String!
+  fileId: String!
+  sheetName: String!
+  sceneId: ID!
+  datasetSchemaId: ID
 }
 
 input AddDatasetSchemaInput {
@@ -1307,7 +1307,7 @@ type AttachTagToLayerPayload{
 }
 
 type DetachTagFromLayerPayload{
-    layer: Layer!
+  layer: Layer!
 }
 
 # Connection

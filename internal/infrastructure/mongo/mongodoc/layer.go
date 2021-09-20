@@ -196,7 +196,7 @@ func (d *LayerDocument) ModelItem() (*layer.Item, error) {
 		Property(id.PropertyIDFromRef(d.Property)).
 		Infobox(ib).
 		Scene(sid).
-		Tags(*tagList).
+		Tags(tagList).
 		// item
 		LinkedDataset(id.DatasetIDFromRef(d.Item.LinkedDataset)).
 		Build()
@@ -240,7 +240,7 @@ func (d *LayerDocument) ModelGroup() (*layer.Group, error) {
 		Property(id.PropertyIDFromRef(d.Property)).
 		Infobox(ib).
 		Scene(sid).
-		Tags(*tagList).
+		Tags(tagList).
 		// group
 		Root(d.Group != nil && d.Group.Root).
 		Layers(layer.NewIDList(ids)).
