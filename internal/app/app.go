@@ -79,6 +79,9 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	published := e.Group("/p")
 	publishedRoute(e, published, cfg.Config, cfg.Repos, cfg.Gateways)
 
+	auth := e.Group("/oauth")
+	AuthEndPoints(e, auth, cfg)
+
 	serveFiles(e, cfg.Gateways.File)
 	web(e, cfg.Config.Web, cfg.Config.Auth0)
 
