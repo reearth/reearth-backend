@@ -10,6 +10,14 @@ type WidgetLocation struct {
 	Area    WidgetAreaType
 }
 
+func (l WidgetLocation) Horizontal() bool {
+	return l.Section == WidgetSectionCenter
+}
+
+func (l WidgetLocation) Vertical() bool {
+	return l.Area == WidgetAreaMiddle
+}
+
 // WidgetAlignSystem is the layout structure of any enabled widgets that will be displayed over the scene.
 type WidgetAlignSystem struct {
 	inner *WidgetZone
