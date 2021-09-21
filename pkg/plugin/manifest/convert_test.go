@@ -9,7 +9,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
-	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -756,43 +755,49 @@ func TestSchemaField(t *testing.T) {
 }
 
 func TestLayout(t *testing.T) {
-	wl := WidgetLayout{
-		Extendable: nil,
-		Extended:   nil,
-		Floating:   false,
-		DefaultLocation: &Location{
-			Zone:    "outer",
-			Section: "left",
-			Area:    "top",
-		},
-	}
-	swl := scene.WidgetLayout{}
-	swl.Floating = false
-	swl.DefaultLocation = &scene.WidgetLocation{
-		Zone:    "outer",
-		Section: "left",
-		Area:    "top",
-	}
+	tr := true
 
-	wl2 := WidgetLayout{Floating: true}
-	swl2 := scene.WidgetLayout{}
-	swl2.Floating = true
 	testCases := []struct {
 		name         string
 		widgetLayout WidgetLayout
-		expected     *scene.WidgetLayout
+		expected     *plugin.WidgetLayout
 	}{
 		{
-			name:         "convert manifest widget layout to scene widget layout",
-			widgetLayout: wl,
-			expected:     &swl,
+			name: "convert manifest widget layout to scene widget layout",
+			widgetLayout: WidgetLayout{
+				Extendable: &Extendable{
+					Horizontally: &tr,
+					Vertically:   nil,
+				},
+				Extended: nil,
+				Floating: true,
+				DefaultLocation: &Location{
+					Zone:    "outer",
+					Section: "left",
+					Area:    "top",
+				},
+			},
+			expected: plugin.NewWidgetLayout(true, false, false, true, &plugin.WidgetLocation{
+				Zone:    plugin.WidgetZoneOuter,
+				Section: plugin.WidgetSectionLeft,
+				Area:    plugin.WidgetAreaTop,
+			}).Ref(),
 		},
 		{
-			name:         "nil default location",
-			widgetLayout: wl2,
-			expected:     &swl2,
+			name: "nil default location",
+			widgetLayout: WidgetLayout{
+				Extendable: &Extendable{
+					Horizontally: nil,
+					Vertically:   &tr,
+				},
+				Extended:        nil,
+				Floating:        false,
+				DefaultLocation: nil,
+			},
+			expected: plugin.NewWidgetLayout(false, true, false, false, nil).Ref(),
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {

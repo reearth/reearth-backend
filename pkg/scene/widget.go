@@ -4,48 +4,32 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type Extendable struct {
-	Horizontally *bool
-	Vertically   *bool
-}
-
-type WidgetLayout struct {
-	Extendable      *Extendable
-	Extended        *bool
-	Floating        bool
-	DefaultLocation *WidgetLocation
-}
-
 type Widget struct {
-	id           id.WidgetID
-	plugin       id.PluginID
-	extension    id.PluginExtensionID
-	property     id.PropertyID
-	enabled      bool
-	widgetLayout *WidgetLayout
+	id        id.WidgetID
+	plugin    id.PluginID
+	extension id.PluginExtensionID
+	property  id.PropertyID
+	enabled   bool
+	extended  bool
 }
 
-func NewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, widgetLayout *WidgetLayout) (*Widget, error) {
+func NewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled, extended bool) (*Widget, error) {
 	if !plugin.Validate() || string(extension) == "" || id.ID(property).IsNil() {
 		return nil, id.ErrInvalidID
 	}
 
-	if widgetLayout == nil {
-		widgetLayout = &WidgetLayout{}
-	}
-
 	return &Widget{
-		id:           wid,
-		plugin:       plugin,
-		extension:    extension,
-		property:     property,
-		enabled:      enabled,
-		widgetLayout: widgetLayout,
+		id:        wid,
+		plugin:    plugin,
+		extension: extension,
+		property:  property,
+		enabled:   enabled,
+		extended:  extended,
 	}, nil
 }
 
-func MustNewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, widgetLayout *WidgetLayout) *Widget {
-	w, err := NewWidget(wid, plugin, extension, property, enabled, widgetLayout)
+func MustNewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, extended bool) *Widget {
+	w, err := NewWidget(wid, plugin, extension, property, enabled, extended)
 	if err != nil {
 		panic(err)
 	}
@@ -69,22 +53,29 @@ func (w *Widget) Property() id.PropertyID {
 }
 
 func (w *Widget) Enabled() bool {
+	if w == nil {
+		return false
+	}
 	return w.enabled
 }
 
-func (w *Widget) WidgetLayout() *WidgetLayout {
-	return w.widgetLayout
+func (w *Widget) Extended() bool {
+	if w == nil {
+		return false
+	}
+	return w.extended
 }
 
 func (w *Widget) SetEnabled(enabled bool) {
+	if w == nil {
+		return
+	}
 	w.enabled = enabled
 }
 
-func (w *Widget) SetExtended(extended *bool) {
-	if extended == nil {
-		w.widgetLayout.Extended = nil
-	} else {
-		extended2 := *extended
-		w.widgetLayout.Extended = &extended2
+func (w *Widget) SetExtended(extended bool) {
+	if w == nil {
+		return
 	}
+	w.extended = extended
 }

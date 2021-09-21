@@ -11,25 +11,15 @@ func TestNewWidget(t *testing.T) {
 	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
-	fa := false
-	tr := true
 	testCases := []struct {
-		Name         string
-		ID           id.WidgetID
-		Plugin       id.PluginID
-		Extension    id.PluginExtensionID
-		Property     id.PropertyID
-		Enabled      bool
-		WidgetLayout *WidgetLayout
-		Expected     struct {
-			ID           id.WidgetID
-			Plugin       id.PluginID
-			Extension    id.PluginExtensionID
-			Property     id.PropertyID
-			Enabled      bool
-			WidgetLayout *WidgetLayout
-		}
-		err error
+		Name      string
+		ID        id.WidgetID
+		Plugin    id.PluginID
+		Extension id.PluginExtensionID
+		Property  id.PropertyID
+		Enabled   bool
+		Extended  bool
+		Err       error
 	}{
 		{
 			Name:      "success new widget",
@@ -38,51 +28,18 @@ func TestNewWidget(t *testing.T) {
 			Extension: "eee",
 			Property:  pr,
 			Enabled:   true,
-			WidgetLayout: &WidgetLayout{
-				Extendable: &Extendable{
-					Vertically: &tr},
-				Extended: &fa,
-				DefaultLocation: &WidgetLocation{
-					Zone:    WidgetZoneOuter,
-					Section: WidgetSectionLeft,
-					Area:    WidgetAreaTop,
-				},
-			},
-			Expected: struct {
-				ID           id.WidgetID
-				Plugin       id.PluginID
-				Extension    id.PluginExtensionID
-				Property     id.PropertyID
-				Enabled      bool
-				WidgetLayout *WidgetLayout
-			}{
-				ID:        wid,
-				Plugin:    pid,
-				Extension: "eee",
-				Property:  pr,
-				Enabled:   true,
-				WidgetLayout: &WidgetLayout{
-					Extendable: &Extendable{
-						Vertically: &tr},
-					Extended: &fa,
-					DefaultLocation: &WidgetLocation{
-						Zone:    WidgetZoneOuter,
-						Section: WidgetSectionLeft,
-						Area:    WidgetAreaTop,
-					},
-				},
-			},
-			err: nil,
+			Extended:  true,
+			Err:       nil,
 		},
 		{
-			Name:         "fail empty extension",
-			ID:           wid,
-			Plugin:       pid,
-			Extension:    "",
-			Property:     pr,
-			Enabled:      true,
-			WidgetLayout: nil,
-			err:          id.ErrInvalidID,
+			Name:      "fail empty extension",
+			ID:        wid,
+			Plugin:    pid,
+			Extension: "",
+			Property:  pr,
+			Enabled:   true,
+			Extended:  false,
+			Err:       id.ErrInvalidID,
 		},
 	}
 
@@ -90,76 +47,54 @@ func TestNewWidget(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := NewWidget(tc.ID, tc.Plugin, tc.Extension, tc.Property, tc.Enabled, tc.WidgetLayout)
-			if err == nil {
-				assert.Equal(tt, tc.Expected.ID, res.ID())
-				assert.Equal(tt, tc.Expected.Property, res.Property())
-				assert.Equal(tt, tc.Expected.Extension, res.Extension())
-				assert.Equal(tt, tc.Expected.Enabled, res.Enabled())
-				assert.Equal(tt, tc.Expected.WidgetLayout, res.WidgetLayout())
-				assert.Equal(tt, tc.Expected.Plugin, res.Plugin())
+			res, err := NewWidget(tc.ID, tc.Plugin, tc.Extension, tc.Property, tc.Enabled, tc.Extended)
+			if tc.Err == nil {
+				assert.Equal(tt, tc.ID, res.ID())
+				assert.Equal(tt, tc.Property, res.Property())
+				assert.Equal(tt, tc.Extension, res.Extension())
+				assert.Equal(tt, tc.Enabled, res.Enabled())
+				assert.Equal(tt, tc.Extended, res.Extended())
+				assert.Equal(tt, tc.Plugin, res.Plugin())
 			} else {
-				assert.ErrorIs(tt, err, tc.err)
+				assert.ErrorIs(tt, err, tc.Err)
 			}
 		})
 	}
 }
+
 func TestMustNewWidget(t *testing.T) {
 	pid := id.MustPluginID("xxx~1.1.1")
 	pr := id.NewPropertyID()
 	wid := id.NewWidgetID()
 	testCases := []struct {
-		Name         string
-		ID           id.WidgetID
-		Plugin       id.PluginID
-		Extension    id.PluginExtensionID
-		Property     id.PropertyID
-		Enabled      bool
-		WidgetLayout *WidgetLayout
-		Expected     struct {
-			ID           id.WidgetID
-			Plugin       id.PluginID
-			Extension    id.PluginExtensionID
-			Property     id.PropertyID
-			Enabled      bool
-			WidgetLayout *WidgetLayout
-		}
-		err error
+		Name      string
+		ID        id.WidgetID
+		Plugin    id.PluginID
+		Extension id.PluginExtensionID
+		Property  id.PropertyID
+		Enabled   bool
+		Extended  bool
+		Err       error
 	}{
 		{
-			Name:         "success new widget",
-			ID:           wid,
-			Plugin:       pid,
-			Extension:    "eee",
-			Property:     pr,
-			Enabled:      true,
-			WidgetLayout: nil,
-			Expected: struct {
-				ID           id.WidgetID
-				Plugin       id.PluginID
-				Extension    id.PluginExtensionID
-				Property     id.PropertyID
-				Enabled      bool
-				WidgetLayout *WidgetLayout
-			}{
-				ID:           wid,
-				Plugin:       pid,
-				Extension:    "eee",
-				Property:     pr,
-				Enabled:      true,
-				WidgetLayout: nil,
-			},
-			err: nil,
+			Name:      "success new widget",
+			ID:        wid,
+			Plugin:    pid,
+			Extension: "eee",
+			Property:  pr,
+			Enabled:   true,
+			Extended:  true,
+			Err:       nil,
 		},
 		{
-			Name:         "fail empty extension",
-			ID:           wid,
-			Plugin:       pid,
-			Extension:    "",
-			Property:     pr,
-			Enabled:      true,
-			WidgetLayout: nil,
-			err:          id.ErrInvalidID,
+			Name:      "fail empty extension",
+			ID:        wid,
+			Plugin:    pid,
+			Extension: "",
+			Property:  pr,
+			Enabled:   true,
+			Extended:  false,
+			Err:       id.ErrInvalidID,
 		},
 	}
 
@@ -167,31 +102,32 @@ func TestMustNewWidget(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			var res *Widget
-			defer func() {
-				if r := recover(); r == nil {
-					assert.Equal(tt, tc.Expected.ID, res.ID())
-					assert.Equal(tt, tc.Expected.Property, res.Property())
-					assert.Equal(tt, tc.Expected.Extension, res.Extension())
-					assert.Equal(tt, tc.Expected.Enabled, res.Enabled())
-					assert.Equal(tt, tc.Expected.Plugin, res.Plugin())
-				}
-			}()
-			res = MustNewWidget(tc.ID, tc.Plugin, tc.Extension, tc.Property, tc.Enabled, tc.WidgetLayout)
 
+			if tc.Err != nil {
+				assert.PanicsWithError(tt, tc.Err.Error(), func() {
+					MustNewWidget(tc.ID, tc.Plugin, tc.Extension, tc.Property, tc.Enabled, tc.Extended)
+				})
+				return
+			}
+
+			res := MustNewWidget(tc.ID, tc.Plugin, tc.Extension, tc.Property, tc.Enabled, tc.Extended)
+			assert.Equal(tt, tc.ID, res.ID())
+			assert.Equal(tt, tc.Property, res.Property())
+			assert.Equal(tt, tc.Extension, res.Extension())
+			assert.Equal(tt, tc.Enabled, res.Enabled())
+			assert.Equal(tt, tc.Plugin, res.Plugin())
 		})
 	}
 }
 
 func TestWidget_SetEnabled(t *testing.T) {
-	res := MustNewWidget(id.NewWidgetID(), id.MustPluginID("xxx~1.1.1"), "eee", id.NewPropertyID(), false, nil)
+	res := MustNewWidget(id.NewWidgetID(), id.MustPluginID("xxx~1.1.1"), "eee", id.NewPropertyID(), false, false)
 	res.SetEnabled(true)
 	assert.True(t, res.Enabled())
 }
 
 func TestWidget_SetExtended(t *testing.T) {
-	res := MustNewWidget(id.NewWidgetID(), id.MustPluginID("xxx~1.1.1"), "eee", id.NewPropertyID(), false, nil)
-	tr := true
-	res.SetExtended(&tr)
-	assert.True(t, *res.WidgetLayout().Extended)
+	res := MustNewWidget(id.NewWidgetID(), id.MustPluginID("xxx~1.1.1"), "eee", id.NewPropertyID(), false, false)
+	res.SetExtended(true)
+	assert.True(t, res.Extended())
 }

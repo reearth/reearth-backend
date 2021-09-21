@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
@@ -85,7 +84,7 @@ func (b *ExtensionBuilder) Visualizer(visualizer visualizer.Visualizer) *Extensi
 }
 
 // WidgetLayout _
-func (b *ExtensionBuilder) WidgetLayout(widgetLayout *scene.WidgetLayout) *ExtensionBuilder {
+func (b *ExtensionBuilder) WidgetLayout(widgetLayout *WidgetLayout) *ExtensionBuilder {
 	b.p.widgetLayout = widgetLayout
 	return b
 }

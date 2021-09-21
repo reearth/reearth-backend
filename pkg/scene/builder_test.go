@@ -50,7 +50,7 @@ func TestBuilder_Project(t *testing.T) {
 func TestBuilder_WidgetSystem(t *testing.T) {
 	nid := id.New()
 	ws := NewWidgetSystem([]*Widget{
-		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", id.NewPropertyID(), true, nil),
+		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", id.NewPropertyID(), true, false),
 	})
 	b := New().NewID().RootLayer(id.NewLayerID()).Team(id.NewTeamID()).WidgetSystem(ws).MustBuild()
 	assert.Equal(t, ws, b.WidgetSystem())
@@ -69,7 +69,7 @@ func TestBuilder_Build(t *testing.T) {
 	lid := id.NewLayerID()
 	nid := id.New()
 	ws := NewWidgetSystem([]*Widget{
-		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", ppid, true, nil),
+		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", ppid, true, false),
 	})
 	was := NewWidgetAlignSystem()
 	ps := NewPluginSystem([]*Plugin{
@@ -212,7 +212,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 	lid := id.NewLayerID()
 	nid := id.New()
 	ws := NewWidgetSystem([]*Widget{
-		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", ppid, true, nil),
+		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", ppid, true, false),
 	})
 	was := NewWidgetAlignSystem()
 	ps := NewPluginSystem([]*Plugin{

@@ -1,12 +1,10 @@
 package plugin
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 	"github.com/stretchr/testify/assert"
 )
@@ -55,20 +53,14 @@ func TestExtensionBuilder_Visualizer(t *testing.T) {
 
 func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 	var b = NewExtension()
-	ex := true
-	wl := &scene.WidgetLayout{
-		Extendable: &scene.Extendable{
-			Vertically: &ex,
-		},
-	}
-	wl2 := wl
-	res := b.ID("xxx").WidgetLayout(wl).MustBuild()
-	assert.Same(t, wl2, res.Layout())
+	wl := NewWidgetLayout(
+		false, true, false, false, nil,
+	)
+	res := b.ID("xxx").WidgetLayout(&wl).MustBuild()
+	assert.Same(t, &wl, res.Layout())
 }
 
 func TestExtensionBuilder_Build(t *testing.T) {
-	extendable := false
-	extended := true
 	testCases := []struct {
 		name, icon    string
 		id            id.PluginExtensionID
@@ -78,7 +70,7 @@ func TestExtensionBuilder_Build(t *testing.T) {
 		description   i18n.String
 		schema        id.PropertySchemaID
 		visualizer    visualizer.Visualizer
-		widgetLayout  *scene.WidgetLayout
+		widgetLayout  *WidgetLayout
 		expected      *Extension
 		err           error
 	}{
@@ -92,16 +84,13 @@ func TestExtensionBuilder_Build(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 			visualizer:    "vvv",
-			widgetLayout: &scene.WidgetLayout{
-				Extendable: &scene.Extendable{
-					Vertically: &extendable,
+			widgetLayout: NewWidgetLayout(
+				false, false, true, false, &WidgetLocation{
+					Zone:    WidgetZoneOuter,
+					Section: WidgetSectionLeft,
+					Area:    WidgetAreaTop,
 				},
-				Extended: &extended,
-				DefaultLocation: &scene.WidgetLocation{
-					Zone:    scene.WidgetZoneOuter,
-					Section: scene.WidgetSectionLeft,
-					Area:    scene.WidgetAreaTop,
-				}},
+			).Ref(),
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -110,34 +99,32 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
-				widgetLayout: &scene.WidgetLayout{
-					Extendable: &scene.Extendable{
-						Vertically: &extendable,
+				widgetLayout: NewWidgetLayout(
+					false, false, true, false, &WidgetLocation{
+						Zone:    WidgetZoneOuter,
+						Section: WidgetSectionLeft,
+						Area:    WidgetAreaTop,
 					},
-					Extended: &extended,
-					DefaultLocation: &scene.WidgetLocation{
-						Zone:    scene.WidgetZoneOuter,
-						Section: scene.WidgetSectionLeft,
-						Area:    scene.WidgetAreaTop,
-					}},
+				).Ref(),
 			},
 			err: nil,
 		},
 		{
 			name:          "fail not system type visualizer",
 			extensionType: ExtensionTypeVisualizer,
-			err:           errors.New("cannot build system extension"),
+			err:           id.ErrInvalidID,
 		},
 		{
 			name:          "fail not system type infobox",
 			extensionType: ExtensionTypeInfobox,
-			err:           errors.New("cannot build system extension"),
+			err:           id.ErrInvalidID,
 		},
 		{
 			name: "fail nil id",
 			err:  id.ErrInvalidID,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
@@ -153,19 +140,16 @@ func TestExtensionBuilder_Build(t *testing.T) {
 				Icon(tc.icon).
 				WidgetLayout(tc.widgetLayout).
 				Build()
-			if err == nil {
+			if tc.err == nil {
 				assert.Equal(tt, tc.expected, e)
 			} else {
-				assert.True(tt, errors.As(tc.err, &err))
+				assert.Equal(tt, tc.err, err)
 			}
-
 		})
 	}
 }
 
 func TestExtensionBuilder_MustBuild(t *testing.T) {
-	extendable := false
-	extended := true
 	testCases := []struct {
 		name, icon    string
 		id            id.PluginExtensionID
@@ -175,7 +159,7 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 		description   i18n.String
 		schema        id.PropertySchemaID
 		visualizer    visualizer.Visualizer
-		widgetLayout  *scene.WidgetLayout
+		widgetLayout  *WidgetLayout
 		expected      *Extension
 	}{
 		{
@@ -188,16 +172,12 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			description:   i18n.StringFrom("ddd"),
 			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 			visualizer:    "vvv",
-			widgetLayout: &scene.WidgetLayout{
-				Extendable: &scene.Extendable{
-					Vertically: &extendable,
-				},
-				Extended: &extended,
-				DefaultLocation: &scene.WidgetLocation{
-					Zone:    scene.WidgetZoneOuter,
-					Section: scene.WidgetSectionLeft,
-					Area:    scene.WidgetAreaTop,
-				}},
+			widgetLayout: NewWidgetLayout(
+				false, false, true, false, &WidgetLocation{
+					Zone:    WidgetZoneOuter,
+					Section: WidgetSectionLeft,
+					Area:    WidgetAreaTop,
+				}).Ref(),
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
@@ -206,16 +186,12 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 				icon:          "ttt",
 				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
-				widgetLayout: &scene.WidgetLayout{
-					Extendable: &scene.Extendable{
-						Vertically: &extendable,
-					},
-					Extended: &extended,
-					DefaultLocation: &scene.WidgetLocation{
-						Zone:    scene.WidgetZoneOuter,
-						Section: scene.WidgetSectionLeft,
-						Area:    scene.WidgetAreaTop,
-					}},
+				widgetLayout: NewWidgetLayout(
+					false, false, true, false, &WidgetLocation{
+						Zone:    WidgetZoneOuter,
+						Section: WidgetSectionLeft,
+						Area:    WidgetAreaTop,
+					}).Ref(),
 			},
 		},
 		{

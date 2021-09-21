@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
@@ -34,7 +33,7 @@ type Extension struct {
 	icon          string
 	schema        id.PropertySchemaID
 	visualizer    visualizer.Visualizer
-	widgetLayout  *scene.WidgetLayout
+	widgetLayout  *WidgetLayout
 }
 
 func (w *Extension) ID() id.PluginExtensionID {
@@ -65,7 +64,7 @@ func (w *Extension) Visualizer() visualizer.Visualizer {
 	return w.visualizer
 }
 
-func (w *Extension) Layout() *scene.WidgetLayout {
+func (w *Extension) Layout() *WidgetLayout {
 	return w.widgetLayout
 }
 
@@ -77,3 +76,76 @@ func (w *Extension) Rename(name i18n.String) {
 func (w *Extension) SetDescription(des i18n.String) {
 	w.description = des.Copy()
 }
+
+type WidgetLayout struct {
+	horizontallyExtendable bool
+	verticallyExtendable   bool
+	extended               bool
+	floating               bool
+	defaultLocation        *WidgetLocation
+}
+
+func NewWidgetLayout(horizontallyExtendable, verticallyExtendable, extended, floating bool, defaultLocation *WidgetLocation) WidgetLayout {
+	return WidgetLayout{
+		horizontallyExtendable: horizontallyExtendable,
+		verticallyExtendable:   verticallyExtendable,
+		extended:               extended,
+		floating:               floating,
+		defaultLocation:        defaultLocation.CopyRef(),
+	}
+}
+
+func (l WidgetLayout) Ref() *WidgetLayout {
+	return &l
+}
+
+func (l WidgetLayout) HorizontallyExtendable() bool {
+	return l.horizontallyExtendable
+}
+
+func (l WidgetLayout) VerticallyExtendable() bool {
+	return l.verticallyExtendable
+}
+
+func (l WidgetLayout) Extended() bool {
+	return l.extended
+}
+
+func (l WidgetLayout) DefautLocation() *WidgetLocation {
+	if l.defaultLocation == nil {
+		return nil
+	}
+	return l.defaultLocation.CopyRef()
+}
+
+type WidgetLocation struct {
+	Zone    WidgetZoneType
+	Section WidgetSectionType
+	Area    WidgetAreaType
+}
+
+func (l *WidgetLocation) CopyRef() *WidgetLocation {
+	if l == nil {
+		return nil
+	}
+	return &WidgetLocation{
+		Zone:    l.Zone,
+		Section: l.Section,
+		Area:    l.Area,
+	}
+}
+
+type WidgetZoneType string
+type WidgetSectionType string
+type WidgetAreaType string
+
+const (
+	WidgetZoneInner     WidgetZoneType    = "inner"
+	WidgetZoneOuter     WidgetZoneType    = "outer"
+	WidgetSectionLeft   WidgetSectionType = "left"
+	WidgetSectionCenter WidgetSectionType = "center"
+	WidgetSectionRight  WidgetSectionType = "right"
+	WidgetAreaTop       WidgetAreaType    = "top"
+	WidgetAreaMiddle    WidgetAreaType    = "middle"
+	WidgetAreaBottom    WidgetAreaType    = "bottom"
+)

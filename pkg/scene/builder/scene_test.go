@@ -82,40 +82,45 @@ func TestScene_ToString(t *testing.T) {
 	}
 }
 
-func TestScene_BuildWidgetZone(t *testing.T) {
+func TestBuildWidgetAlignSystem(t *testing.T) {
 	wid := id.NewWidgetID()
 	was := scene.NewWidgetAlignSystem()
-	was.Area(scene.WidgetLocation{Zone: scene.WidgetZoneInner, Section: scene.WidgetSectionLeft, Area: scene.WidgetAreaTop}).Add(wid, -1)
-	wz := was.Zone("inner")
+	was.Area(scene.WidgetLocation{
+		Zone:    scene.WidgetZoneInner,
+		Section: scene.WidgetSectionLeft,
+		Area:    scene.WidgetAreaTop,
+	}).Add(wid, -1)
 
 	testCases := []struct {
 		Name     string
-		Input    *scene.WidgetZone
-		Expected widgetZone
+		Input    *scene.WidgetAlignSystem
+		Expected *widgetAlignSystemJSON
 	}{
 		{
-			Name:  "Convert a scene WidgetZone struct to a builder WidgetZone struct",
-			Input: wz,
-			Expected: widgetZone{
-				Left: widgetSection{
-					Top: widgetArea{
-						WidgetIDs: []string{wid.String()},
-						Align:     "start",
+			Name:  "works",
+			Input: was,
+			Expected: &widgetAlignSystemJSON{
+				Inner: &widgetZoneJSON{
+					Left: &widgetSectionJSON{
+						Top: &widgetAreaJSON{
+							WidgetIDs: []string{wid.String()},
+							Align:     "start",
+						},
 					},
 				},
 			},
 		},
 		{
-			Name:     "Return empty widgetZone when no scene WidgetZone is inputted",
+			Name:     "nil",
 			Input:    nil,
-			Expected: widgetZone{},
+			Expected: nil,
 		},
 	}
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := buildWidgetZone(tc.Input)
+			res := buildWidgetAlignSystem(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}

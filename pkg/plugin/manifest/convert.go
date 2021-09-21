@@ -7,7 +7,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
-	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
@@ -136,37 +135,35 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 	return ext, schema, nil
 }
 
-func (l *WidgetLayout) layout() *scene.WidgetLayout {
+func (l *WidgetLayout) layout() *plugin.WidgetLayout {
 	if l == nil {
 		return nil
 	}
 
-	var swl scene.WidgetLayout
-	swl.Extended = l.Extended
-	swl.Floating = l.Floating
+	horizontallyExtendable := false
+	verticallyExtendable := false
+	extended := false
 
-	var ext *scene.Extendable
-	if l.Extendable != nil {
-		ext = &scene.Extendable{
-			Vertically:   l.Extendable.Vertically,
-			Horizontally: l.Extendable.Horizontally,
+	if l.Extendable != nil && l.Extendable.Horizontally != nil && *l.Extendable.Horizontally {
+		horizontallyExtendable = true
+	}
+	if l.Extendable != nil && l.Extendable.Vertically != nil && *l.Extendable.Vertically {
+		verticallyExtendable = true
+	}
+	if l.Extended != nil && *l.Extended {
+		extended = false
+	}
+
+	var dl *plugin.WidgetLocation
+	if l.DefaultLocation != nil {
+		dl = &plugin.WidgetLocation{
+			Zone:    plugin.WidgetZoneType(l.DefaultLocation.Zone),
+			Section: plugin.WidgetSectionType(l.DefaultLocation.Section),
+			Area:    plugin.WidgetAreaType(l.DefaultLocation.Area),
 		}
 	}
-	swl.Extendable = ext
 
-	var dl *scene.WidgetLocation
-	if l.DefaultLocation == nil {
-		dl = nil
-	} else {
-		dl = &scene.WidgetLocation{
-			Zone:    scene.WidgetZoneType(l.DefaultLocation.Zone),
-			Section: scene.WidgetSectionType(l.DefaultLocation.Section),
-			Area:    scene.WidgetAreaType(l.DefaultLocation.Area),
-		}
-	}
-	swl.DefaultLocation = dl
-
-	return &swl
+	return plugin.NewWidgetLayout(horizontallyExtendable, verticallyExtendable, extended, l.Floating, dl).Ref()
 }
 
 func (i *PropertySchema) schema(pluginID id.PluginID, idstr string) (*property.Schema, error) {
