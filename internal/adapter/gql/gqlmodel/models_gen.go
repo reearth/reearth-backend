@@ -169,6 +169,15 @@ type AssetEdge struct {
 	Node   *Asset         `json:"node"`
 }
 
+type AttachTagToLayerInput struct {
+	TagID   id.ID `json:"tagID"`
+	LayerID id.ID `json:"layerID"`
+}
+
+type AttachTagToLayerPayload struct {
+	Layer Layer `json:"layer"`
+}
+
 type Camera struct {
 	Lat      float64 `json:"lat"`
 	Lng      float64 `json:"lng"`
@@ -347,6 +356,15 @@ type DeleteTeamPayload struct {
 	TeamID id.ID `json:"teamId"`
 }
 
+type DetachTagFromLayerInput struct {
+	TagID   id.ID `json:"tagID"`
+	LayerID id.ID `json:"layerID"`
+}
+
+type DetachTagFromLayerPayload struct {
+	Layer Layer `json:"layer"`
+}
+
 type ImportDatasetFromGoogleSheetInput struct {
 	AccessToken     string `json:"accessToken"`
 	FileID          string `json:"fileId"`
@@ -450,6 +468,7 @@ type LayerGroup struct {
 	Layers                []Layer               `json:"layers"`
 	Scene                 *Scene                `json:"scene"`
 	ScenePlugin           *ScenePlugin          `json:"scenePlugin"`
+	Tags                  []*id.ID              `json:"tags"`
 }
 
 func (LayerGroup) IsLayers() {}
@@ -474,6 +493,7 @@ type LayerItem struct {
 	Merged          *MergedLayer          `json:"merged"`
 	Scene           *Scene                `json:"scene"`
 	ScenePlugin     *ScenePlugin          `json:"scenePlugin"`
+	Tags            []*id.ID              `json:"tags"`
 }
 
 func (LayerItem) IsLayers() {}

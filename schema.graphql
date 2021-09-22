@@ -586,6 +586,7 @@ interface Layer {
   plugin: Plugin
   extension: PluginExtension
   scenePlugin: ScenePlugin
+  tags: [ID!]
 }
 
 union Layers = LayerItem | LayerGroup
@@ -618,6 +619,7 @@ type LayerItem implements Layer {
   merged: MergedLayer @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
+  tags: [ID!]
 }
 
 type LayerGroup implements Layer {
@@ -642,6 +644,7 @@ type LayerGroup implements Layer {
   layers: [Layer]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
+  tags: [ID!]
 }
 
 type Infobox {
@@ -1060,11 +1063,11 @@ input ImportDatasetInput {
 }
 
 input ImportDatasetFromGoogleSheetInput {
-    accessToken: String!
-    fileId: String!
-    sheetName: String!
-    sceneId: ID!
-    datasetSchemaId: ID
+  accessToken: String!
+  fileId: String!
+  sheetName: String!
+  sceneId: ID!
+  datasetSchemaId: ID
 }
 
 input AddDatasetSchemaInput {
@@ -1085,6 +1088,16 @@ input CreateTagGroupInput{
   sceneId: ID!
   label: String!
   tags: [ID!]
+}
+
+input AttachTagToLayerInput{
+  tagID: ID!
+  layerID: ID!
+}
+
+input DetachTagFromLayerInput{
+  tagID: ID!
+  layerID: ID!
 }
 
 # Payload
@@ -1289,6 +1302,14 @@ type CreateTagGroupPayload{
   tag: TagGroup!
 }
 
+type AttachTagToLayerPayload{
+  layer: Layer!
+}
+
+type DetachTagFromLayerPayload{
+  layer: Layer!
+}
+
 # Connection
 
 enum NodeType {
@@ -1482,6 +1503,8 @@ type Mutation {
   moveInfoboxField(input: MoveInfoboxFieldInput!): MoveInfoboxFieldPayload
   removeInfoboxField(input: RemoveInfoboxFieldInput!): RemoveInfoboxFieldPayload
   importLayer(input: ImportLayerInput!): ImportLayerPayload
+  attachTagToLayer(input: AttachTagToLayerInput!): AttachTagToLayerPayload
+  detachTagFromLayer(input: DetachTagFromLayerInput!): DetachTagFromLayerPayload
 
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
