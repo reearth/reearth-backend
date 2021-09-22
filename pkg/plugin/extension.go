@@ -115,7 +115,7 @@ func (l WidgetLayout) Floating() bool {
 	return l.floating
 }
 
-func (l WidgetLayout) DefautLocation() *WidgetLocation {
+func (l WidgetLayout) DefaultLocation() *WidgetLocation {
 	if l.defaultLocation == nil {
 		return nil
 	}

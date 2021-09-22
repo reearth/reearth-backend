@@ -201,7 +201,7 @@ func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, 
 	if widgetLayout := extension.Layout(); widgetLayout != nil {
 		extended = widgetLayout.Extended()
 		floating = widgetLayout.Floating()
-		location = widgetLayout.DefautLocation()
+		location = widgetLayout.DefaultLocation()
 	}
 
 	widget, err = scene.NewWidget(
