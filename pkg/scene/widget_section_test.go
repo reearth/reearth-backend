@@ -165,3 +165,78 @@ func TestWidgetSection_Remove(t *testing.T) {
 		})
 	}
 }
+
+func TestWidgetSection_SetArea(t *testing.T) {
+	type args struct {
+		t WidgetAreaType
+		a *WidgetArea
+	}
+	tests := []struct {
+		name string
+		args args
+		nil  bool
+	}{
+		{
+			name: "top",
+			args: args{
+				t: WidgetAreaTop,
+				a: &WidgetArea{},
+			},
+		},
+		{
+			name: "middle",
+			args: args{
+				t: WidgetAreaMiddle,
+				a: &WidgetArea{},
+			},
+		},
+		{
+			name: "bottom",
+			args: args{
+				t: WidgetAreaBottom,
+				a: &WidgetArea{},
+			},
+		},
+		{
+			name: "nil area",
+			args: args{
+				t: WidgetAreaTop,
+				a: nil,
+			},
+		},
+		{
+			name: "nil",
+			args: args{
+				t: WidgetAreaTop,
+				a: &WidgetArea{},
+			},
+			nil: true,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			var s *WidgetSection
+			if !tt.nil {
+				s = &WidgetSection{}
+			}
+
+			s.SetArea(tt.args.t, tt.args.a)
+
+			if !tt.nil {
+				var a2 *WidgetArea
+				switch tt.args.t {
+				case WidgetAreaTop:
+					a2 = s.top
+				case WidgetAreaMiddle:
+					a2 = s.middle
+				case WidgetAreaBottom:
+					a2 = s.bottom
+				}
+				assert.Same(t, tt.args.a, a2)
+			}
+		})
+	}
+}

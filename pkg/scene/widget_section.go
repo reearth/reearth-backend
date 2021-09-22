@@ -72,3 +72,18 @@ func (s *WidgetSection) Remove(wid id.WidgetID) {
 	s.middle.Remove(wid)
 	s.bottom.Remove(wid)
 }
+
+func (s *WidgetSection) SetArea(t WidgetAreaType, a *WidgetArea) {
+	if s == nil {
+		return
+	}
+
+	switch t {
+	case WidgetAreaTop:
+		s.top = a
+	case WidgetAreaMiddle:
+		s.middle = a
+	case WidgetAreaBottom:
+		s.bottom = a
+	}
+}

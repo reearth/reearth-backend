@@ -266,3 +266,69 @@ func TestWidgetAlignSystem_Move(t *testing.T) {
 		})
 	}
 }
+
+func TestWidgetAlignSystem_SetZone(t *testing.T) {
+	type args struct {
+		t WidgetZoneType
+		z *WidgetZone
+	}
+	tests := []struct {
+		name string
+		args args
+		nil  bool
+	}{
+		{
+			name: "inner",
+			args: args{
+				t: WidgetZoneInner,
+				z: &WidgetZone{},
+			},
+		},
+		{
+			name: "outer",
+			args: args{
+				t: WidgetZoneOuter,
+				z: &WidgetZone{},
+			},
+		},
+		{
+			name: "nil area",
+			args: args{
+				t: WidgetZoneInner,
+				z: nil,
+			},
+		},
+		{
+			name: "nil",
+			args: args{
+				t: WidgetZoneInner,
+				z: &WidgetZone{},
+			},
+			nil: true,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			var w *WidgetAlignSystem
+			if !tt.nil {
+				w = &WidgetAlignSystem{}
+			}
+
+			w.SetZone(tt.args.t, tt.args.z)
+
+			if !tt.nil {
+				var z2 *WidgetZone
+				switch tt.args.t {
+				case WidgetZoneInner:
+					z2 = w.inner
+				case WidgetZoneOuter:
+					z2 = w.outer
+				}
+				assert.Same(t, tt.args.z, z2)
+			}
+		})
+	}
+}

@@ -173,3 +173,78 @@ func TestWidgetZone_Remove(t *testing.T) {
 		})
 	}
 }
+
+func TestWidgetZone_SetSection(t *testing.T) {
+	type args struct {
+		t WidgetSectionType
+		s *WidgetSection
+	}
+	tests := []struct {
+		name string
+		args args
+		nil  bool
+	}{
+		{
+			name: "left",
+			args: args{
+				t: WidgetSectionLeft,
+				s: &WidgetSection{},
+			},
+		},
+		{
+			name: "center",
+			args: args{
+				t: WidgetSectionCenter,
+				s: &WidgetSection{},
+			},
+		},
+		{
+			name: "right",
+			args: args{
+				t: WidgetSectionRight,
+				s: &WidgetSection{},
+			},
+		},
+		{
+			name: "nil area",
+			args: args{
+				t: WidgetSectionLeft,
+				s: nil,
+			},
+		},
+		{
+			name: "nil",
+			args: args{
+				t: WidgetSectionLeft,
+				s: &WidgetSection{},
+			},
+			nil: true,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			var z *WidgetZone
+			if !tt.nil {
+				z = &WidgetZone{}
+			}
+
+			z.SetSection(tt.args.t, tt.args.s)
+
+			if !tt.nil {
+				var s2 *WidgetSection
+				switch tt.args.t {
+				case WidgetSectionLeft:
+					s2 = z.left
+				case WidgetSectionCenter:
+					s2 = z.center
+				case WidgetSectionRight:
+					s2 = z.right
+				}
+				assert.Same(t, tt.args.s, s2)
+			}
+		})
+	}
+}

@@ -107,3 +107,16 @@ func (was *WidgetAlignSystem) Move(wid id.WidgetID, location WidgetLocation, ind
 		was.Area(location).Move(i, index)
 	}
 }
+
+func (w *WidgetAlignSystem) SetZone(t WidgetZoneType, z *WidgetZone) {
+	if w == nil {
+		return
+	}
+
+	switch t {
+	case WidgetZoneInner:
+		w.inner = z
+	case WidgetZoneOuter:
+		w.outer = z
+	}
+}

@@ -69,3 +69,18 @@ func (z *WidgetZone) Find(wid id.WidgetID) (int, WidgetSectionType, WidgetAreaTy
 
 	return -1, "", ""
 }
+
+func (z *WidgetZone) SetSection(t WidgetSectionType, s *WidgetSection) {
+	if z == nil {
+		return
+	}
+
+	switch t {
+	case WidgetSectionLeft:
+		z.left = s
+	case WidgetSectionCenter:
+		z.center = s
+	case WidgetSectionRight:
+		z.right = s
+	}
+}
