@@ -3,9 +3,19 @@ package mongodoc
 import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
-	"github.com/reearth/reearth-backend/pkg/scene"
 	"go.mongodb.org/mongo-driver/bson"
 )
+
+type PluginDocument struct {
+	ID            string
+	Name          map[string]string
+	Author        string
+	Description   map[string]string
+	RepositoryURL string
+	Extensions    []PluginExtensionDocument
+	Schema        *string
+	Scene         *string `bson:",omitempty"`
+}
 
 type PluginExtensionDocument struct {
 	ID           string
@@ -18,15 +28,22 @@ type PluginExtensionDocument struct {
 	WidgetLayout *WidgetLayoutDocument
 }
 
-type PluginDocument struct {
-	ID            string
-	Name          map[string]string
-	Author        string
-	Description   map[string]string
-	RepositoryURL string
-	Extensions    []PluginExtensionDocument
-	Schema        *string
-	Scene         *string `bson:",omitempty"`
+type WidgetLayoutDocument struct {
+	Extendable      *WidgetExtendableDocument
+	Extended        bool
+	Floating        bool
+	DefaultLocation *WidgetLocationDocument
+}
+
+type WidgetExtendableDocument struct {
+	Vertically   bool
+	Horizontally bool
+}
+
+type WidgetLocationDocument struct {
+	Zone    string
+	Section string
+	Area    string
 }
 
 type PluginConsumer struct {
@@ -55,26 +72,14 @@ func NewPlugin(plugin *plugin.Plugin) (*PluginDocument, string) {
 	extensionsDoc := make([]PluginExtensionDocument, 0, len(extensions))
 	for _, e := range extensions {
 		extensionsDoc = append(extensionsDoc, PluginExtensionDocument{
-			ID:          string(e.ID()),
-			Type:        string(e.Type()),
-			Name:        e.Name(),
-			Description: e.Description(),
-			Icon:        e.Icon(),
-			Schema:      e.Schema().String(),
-			Visualizer:  string(e.Visualizer()),
-			WidgetLayout: &WidgetLayoutDocument{
-				Extendable: &WidgetExtendableDocument{
-					Vertically:   e.Layout().Extendable.Vertically,
-					Horizontally: e.Layout().Extendable.Horizontally,
-				},
-				Extended: e.Layout().Extended,
-				Floating: e.Layout().Floating,
-				DefaultLocation: &WidgetLocationDocument{
-					Zone:    string(e.Layout().DefaultLocation.Zone),
-					Section: string(e.Layout().DefaultLocation.Section),
-					Area:    string(e.Layout().DefaultLocation.Area),
-				},
-			},
+			ID:           string(e.ID()),
+			Type:         string(e.Type()),
+			Name:         e.Name(),
+			Description:  e.Description(),
+			Icon:         e.Icon(),
+			Schema:       e.Schema().String(),
+			Visualizer:   string(e.Visualizer()),
+			WidgetLayout: NewWidgetLayout(e.WidgetLayout()),
 		})
 	}
 
@@ -109,19 +114,7 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 			Name(d.Name).
 			Description(d.Description).
 			Icon(e.Icon).
-			WidgetLayout(&scene.WidgetLayout{
-				Extendable: &scene.Extendable{
-					Vertically:   e.WidgetLayout.Extendable.Vertically,
-					Horizontally: e.WidgetLayout.Extendable.Horizontally,
-				},
-				Extended: e.WidgetLayout.Extended,
-				Floating: e.WidgetLayout.Floating,
-				DefaultLocation: &scene.WidgetLocation{
-					Zone:    scene.WidgetZoneType(e.WidgetLayout.DefaultLocation.Zone),
-					Section: scene.WidgetSectionType(e.WidgetLayout.DefaultLocation.Section),
-					Area:    scene.WidgetAreaType(e.WidgetLayout.DefaultLocation.Area),
-				},
-			}).
+			WidgetLayout(e.WidgetLayout.Model()).
 			Schema(psid).
 			Build()
 		if err != nil {
@@ -139,4 +132,43 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 		Extensions(extensions).
 		Schema(id.PropertySchemaIDFromRef(d.Schema)).
 		Build()
+}
+
+func NewWidgetLayout(l *plugin.WidgetLayout) *WidgetLayoutDocument {
+	return &WidgetLayoutDocument{
+		Extendable: &WidgetExtendableDocument{
+			Vertically:   l.VerticallyExtendable(),
+			Horizontally: l.HorizontallyExtendable(),
+		},
+		Extended: l.Extended(),
+		Floating: l.Floating(),
+		DefaultLocation: &WidgetLocationDocument{
+			Zone:    string(l.DefaultLocation().Zone),
+			Section: string(l.DefaultLocation().Section),
+			Area:    string(l.DefaultLocation().Area),
+		},
+	}
+}
+
+func (d *WidgetLayoutDocument) Model() *plugin.WidgetLayout {
+	if d == nil {
+		return nil
+	}
+
+	var loc *plugin.WidgetLocation
+	if d.DefaultLocation != nil {
+		loc = &plugin.WidgetLocation{
+			Zone:    plugin.WidgetZoneType(d.DefaultLocation.Zone),
+			Section: plugin.WidgetSectionType(d.DefaultLocation.Section),
+			Area:    plugin.WidgetAreaType(d.DefaultLocation.Area),
+		}
+	}
+
+	return plugin.NewWidgetLayout(
+		d.Extendable.Horizontally,
+		d.Extendable.Vertically,
+		d.Extended,
+		d.Floating,
+		loc,
+	).Ref()
 }

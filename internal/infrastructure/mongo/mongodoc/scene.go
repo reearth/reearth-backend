@@ -11,12 +11,12 @@ import (
 )
 
 type SceneWidgetDocument struct {
-	ID           string
-	Plugin       string
-	Extension    string
-	Property     string
-	Enabled      bool
-	WidgetLayout *WidgetLayoutDocument
+	ID        string
+	Plugin    string
+	Extension string
+	Property  string
+	Enabled   bool
+	Extended  bool
 }
 
 type ScenePluginDocument struct {
@@ -30,7 +30,7 @@ type SceneDocument struct {
 	Team        string
 	RootLayer   string
 	Widgets     []SceneWidgetDocument
-	AlignSystem SceneAlignSystemDocument
+	AlignSystem *WidgetAlignSystemDocument
 	Plugins     []ScenePluginDocument
 	UpdateAt    time.Time
 	Property    string
@@ -84,42 +84,19 @@ func (c *SceneIDConsumer) Consume(raw bson.Raw) error {
 
 func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 	widgets := scene.WidgetSystem().Widgets()
-	was := scene.WidgetAlignSystem()
 	plugins := scene.PluginSystem().Plugins()
 
 	widgetsDoc := make([]SceneWidgetDocument, 0, len(widgets))
 	pluginsDoc := make([]ScenePluginDocument, 0, len(plugins))
-	alignSysDoc := NewWidgetAlignSystem(was)
 
 	for _, w := range widgets {
-		var ext *WidgetExtendableDocument
-		if w.WidgetLayout().Extendable != nil {
-			ext = &WidgetExtendableDocument{
-				Vertically:   w.WidgetLayout().Extendable.Vertically,
-				Horizontally: w.WidgetLayout().Extendable.Horizontally,
-			}
-		}
-		var loc *WidgetLocationDocument
-		if w.WidgetLayout().DefaultLocation != nil {
-			loc = &WidgetLocationDocument{
-				Zone:    string(w.WidgetLayout().DefaultLocation.Zone),
-				Section: string(w.WidgetLayout().DefaultLocation.Section),
-				Area:    string(w.WidgetLayout().DefaultLocation.Area),
-			}
-		}
-		layout := WidgetLayoutDocument{
-			Extendable:      ext,
-			Extended:        w.WidgetLayout().Extended,
-			Floating:        w.WidgetLayout().Floating,
-			DefaultLocation: loc,
-		}
 		widgetsDoc = append(widgetsDoc, SceneWidgetDocument{
-			ID:           w.ID().String(),
-			Plugin:       w.Plugin().String(),
-			Extension:    string(w.Extension()),
-			Property:     w.Property().String(),
-			Enabled:      w.Enabled(),
-			WidgetLayout: &layout,
+			ID:        w.ID().String(),
+			Plugin:    w.Plugin().String(),
+			Extension: string(w.Extension()),
+			Property:  w.Property().String(),
+			Enabled:   w.Enabled(),
+			Extended:  w.Extended(),
 		})
 	}
 
@@ -137,8 +114,8 @@ func NewScene(scene *scene.Scene) (*SceneDocument, string) {
 		Team:        scene.Team().String(),
 		RootLayer:   scene.RootLayer().String(),
 		Widgets:     widgetsDoc,
-		AlignSystem: *alignSysDoc,
 		Plugins:     pluginsDoc,
+		AlignSystem: NewWidgetAlignSystem(scene.WidgetAlignSystem()),
 		UpdateAt:    scene.UpdatedAt(),
 		Property:    scene.Property().String(),
 	}, id
@@ -168,7 +145,6 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 
 	ws := make([]*scene.Widget, 0, len(d.Widgets))
 	ps := make([]*scene.Plugin, 0, len(d.Plugins))
-	as := d.AlignSystem
 
 	for _, w := range d.Widgets {
 		wid, err := id.WidgetIDFrom(w.ID)
@@ -183,37 +159,13 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 		if err != nil {
 			return nil, err
 		}
-		wl := scene.WidgetLayout{}
-		if w.WidgetLayout != nil {
-			var ext *scene.Extendable
-			if w.WidgetLayout.Extendable != nil {
-				ext = &scene.Extendable{
-					Vertically:   w.WidgetLayout.Extendable.Vertically,
-					Horizontally: w.WidgetLayout.Extendable.Horizontally,
-				}
-			}
-			var loc *scene.WidgetLocation
-			if w.WidgetLayout.DefaultLocation != nil {
-				loc = &scene.WidgetLocation{
-					Zone:    scene.WidgetZoneType(w.WidgetLayout.DefaultLocation.Zone),
-					Section: scene.WidgetSectionType(w.WidgetLayout.DefaultLocation.Section),
-					Area:    scene.WidgetAreaType(w.WidgetLayout.DefaultLocation.Area),
-				}
-			}
-			wl = scene.WidgetLayout{
-				Extendable:      ext,
-				Extended:        w.WidgetLayout.Extended,
-				Floating:        w.WidgetLayout.Floating,
-				DefaultLocation: loc,
-			}
-		}
 		sw, err := scene.NewWidget(
 			wid,
 			pid,
 			id.PluginExtensionID(w.Extension),
 			prid,
 			w.Enabled,
-			&wl,
+			w.Extended,
 		)
 		if err != nil {
 			return nil, err
@@ -229,15 +181,13 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 		ps = append(ps, scene.NewPlugin(pid, id.PropertyIDFromRef(p.Property)))
 	}
 
-	nas := d.AlignSystem.ToModelAlignSystem(as)
-
 	return scene.New().
 		ID(sid).
 		Project(projectID).
 		Team(tid).
 		RootLayer(lid).
 		WidgetSystem(scene.NewWidgetSystem(ws)).
-		WidgetAlignSystem(nas).
+		WidgetAlignSystem(d.AlignSystem.Model()).
 		PluginSystem(scene.NewPluginSystem(ps)).
 		UpdatedAt(d.UpdateAt).
 		Property(prid).

@@ -5,22 +5,20 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
-type WidgetExtendableDocument struct {
-	Vertically   *bool
-	Horizontally *bool
+type WidgetAlignSystemDocument struct {
+	Inner *WidgetZoneDocument
+	Outer *WidgetZoneDocument
+}
+type WidgetZoneDocument struct {
+	Left   *WidgetSectionDocument
+	Center *WidgetSectionDocument
+	Right  *WidgetSectionDocument
 }
 
-type WidgetLocationDocument struct {
-	Zone    string
-	Section string
-	Area    string
-}
-
-type WidgetLayoutDocument struct {
-	Extendable      *WidgetExtendableDocument
-	Extended        *bool
-	Floating        bool
-	DefaultLocation *WidgetLocationDocument
+type WidgetSectionDocument struct {
+	Top    *WidgetAreaDocument
+	Middle *WidgetAreaDocument
+	Bottom *WidgetAreaDocument
 }
 
 type WidgetAreaDocument struct {
@@ -28,111 +26,108 @@ type WidgetAreaDocument struct {
 	Align     string
 }
 
-type WidgetSectionDocument struct {
-	Top    WidgetAreaDocument
-	Middle WidgetAreaDocument
-	Bottom WidgetAreaDocument
+func NewWidgetAlignSystem(was *scene.WidgetAlignSystem) *WidgetAlignSystemDocument {
+	if was == nil {
+		return nil
+	}
+
+	d := &WidgetAlignSystemDocument{
+		Inner: NewWidgetZone(was.Zone(scene.WidgetZoneInner)),
+		Outer: NewWidgetZone(was.Zone(scene.WidgetZoneOuter)),
+	}
+
+	if d.Inner == nil && d.Outer == nil {
+		return nil
+	}
+	return d
 }
 
-type WidgetZoneDocument struct {
-	Left   WidgetSectionDocument
-	Center WidgetSectionDocument
-	Right  WidgetSectionDocument
+func NewWidgetZone(z *scene.WidgetZone) *WidgetZoneDocument {
+	if z == nil {
+		return nil
+	}
+
+	d := &WidgetZoneDocument{
+		Left:   NewWidgetSection(z.Section(scene.WidgetSectionLeft)),
+		Center: NewWidgetSection(z.Section(scene.WidgetSectionCenter)),
+		Right:  NewWidgetSection(z.Section(scene.WidgetSectionRight)),
+	}
+
+	if d.Left == nil && d.Center == nil && d.Right == nil {
+		return nil
+	}
+	return d
 }
 
-type SceneAlignSystemDocument struct {
-	Inner WidgetZoneDocument
-	Outer WidgetZoneDocument
+func NewWidgetSection(s *scene.WidgetSection) *WidgetSectionDocument {
+	if s == nil {
+		return nil
+	}
+
+	d := &WidgetSectionDocument{
+		Top:    NewWidgetArea(s.Area(scene.WidgetAreaTop)),
+		Middle: NewWidgetArea(s.Area(scene.WidgetAreaMiddle)),
+		Bottom: NewWidgetArea(s.Area(scene.WidgetAreaBottom)),
+	}
+
+	if d.Top == nil && d.Middle == nil && d.Bottom == nil {
+		return nil
+	}
+	return d
 }
 
-func NewWidgetAlignSystem(was *scene.WidgetAlignSystem) *SceneAlignSystemDocument {
-	widgetAlignDoc := SceneAlignSystemDocument{Inner: buildWidgetZone(was, "inner"), Outer: buildWidgetZone(was, "outer")}
-	return &widgetAlignDoc
+func NewWidgetArea(a *scene.WidgetArea) *WidgetAreaDocument {
+	if a == nil {
+		return nil
+	}
+
+	return &WidgetAreaDocument{
+		WidgetIDs: id.WidgetIDToKeys(a.WidgetIDs()),
+		Align:     string(a.Alignment()),
+	}
 }
 
-func (*SceneAlignSystemDocument) ToModelAlignSystem(d SceneAlignSystemDocument) *scene.WidgetAlignSystem {
+func (d *WidgetAlignSystemDocument) Model() *scene.WidgetAlignSystem {
+	if d == nil {
+		return nil
+	}
+
 	was := scene.NewWidgetAlignSystem()
-
-	// Inner Left
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Left.Top.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Left.Top.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "left", Area: "top"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Left.Middle.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Left.Middle.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "left", Area: "middle"},
-	)
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Left.Bottom.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Left.Bottom.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "left", Area: "bottom"})
-	// Inner Center
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Center.Top.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Center.Top.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "center", Area: "top"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Center.Middle.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Center.Middle.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "center", Area: "middle"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Center.Bottom.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Center.Bottom.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "center", Area: "bottom"})
-	// Inner Right
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Right.Top.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Right.Top.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "right", Area: "top"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Right.Middle.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Right.Middle.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "right", Area: "middle"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Inner.Right.Bottom.WidgetIDs),
-		scene.WidgetAlignType(d.Inner.Right.Bottom.Align),
-		scene.WidgetLocation{Zone: "inner", Section: "right", Area: "bottom"})
-	// Outer Left
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Left.Top.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Left.Top.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "left", Area: "top"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Left.Middle.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Left.Middle.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "left", Area: "middle"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Left.Bottom.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Left.Bottom.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "left", Area: "bottom"})
-	// Outer Center
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Center.Top.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Center.Top.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "center", Area: "top"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Center.Middle.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Center.Middle.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "center", Area: "middle"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Center.Bottom.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Center.Bottom.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "center", Area: "bottom"})
-	// Outer Right
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Right.Top.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Right.Top.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "right", Area: "top"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Right.Middle.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Right.Middle.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "right", Area: "middle"})
-	was.AddAll(
-		stringsToWidgetIDs(d.Outer.Right.Bottom.WidgetIDs),
-		scene.WidgetAlignType(d.Outer.Right.Bottom.Align),
-		scene.WidgetLocation{Zone: "outer", Section: "right", Area: "bottom"})
+	was.SetZone(scene.WidgetZoneInner, d.Inner.Model())
+	was.SetZone(scene.WidgetZoneOuter, d.Outer.Model())
 	return was
+}
+
+func (d *WidgetZoneDocument) Model() *scene.WidgetZone {
+	if d == nil {
+		return nil
+	}
+
+	wz := scene.NewWidgetZone()
+	wz.SetSection(scene.WidgetSectionLeft, d.Left.Model())
+	wz.SetSection(scene.WidgetSectionCenter, d.Center.Model())
+	wz.SetSection(scene.WidgetSectionRight, d.Right.Model())
+	return wz
+}
+
+func (d *WidgetSectionDocument) Model() *scene.WidgetSection {
+	if d == nil {
+		return nil
+	}
+
+	ws := scene.NewWidgetSection()
+	ws.SetArea(scene.WidgetAreaTop, d.Top.Model())
+	ws.SetArea(scene.WidgetAreaMiddle, d.Middle.Model())
+	ws.SetArea(scene.WidgetAreaBottom, d.Bottom.Model())
+	return ws
+}
+
+func (a *WidgetAreaDocument) Model() *scene.WidgetArea {
+	if a == nil {
+		return nil
+	}
+
+	return scene.NewWidgetArea(stringsToWidgetIDs(a.WidgetIDs), scene.WidgetAlignType(a.Align))
 }
 
 func widgetIDsToStrings(wids []id.WidgetID) []string {
@@ -159,29 +154,4 @@ func stringsToWidgetIDs(wids []string) []id.WidgetID {
 		docids = append(docids, nid)
 	}
 	return docids
-}
-
-func buildWidgetZone(sas *scene.WidgetAlignSystem, z string) WidgetZoneDocument {
-	return WidgetZoneDocument{
-		Left:   buildWidgetSection(sas, z, "left"),
-		Center: buildWidgetSection(sas, z, "center"),
-		Right:  buildWidgetSection(sas, z, "right"),
-	}
-}
-
-func buildWidgetSection(was *scene.WidgetAlignSystem, z, s string) WidgetSectionDocument {
-	return WidgetSectionDocument{
-		Top: WidgetAreaDocument{
-			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "top").WidgetIDs()),
-			Align:     string(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "top").Alignment()),
-		},
-		Middle: WidgetAreaDocument{
-			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "middle").WidgetIDs()),
-			Align:     string(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "middle").Alignment()),
-		},
-		Bottom: WidgetAreaDocument{
-			WidgetIDs: widgetIDsToStrings(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "bottom").WidgetIDs()),
-			Align:     string(was.Area(scene.WidgetZoneType(z), scene.WidgetSectionType(s), "bottom").Alignment()),
-		},
-	}
 }
