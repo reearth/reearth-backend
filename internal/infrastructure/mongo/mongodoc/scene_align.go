@@ -130,17 +130,6 @@ func (a *WidgetAreaDocument) Model() *scene.WidgetArea {
 	return scene.NewWidgetArea(stringsToWidgetIDs(a.WidgetIDs), scene.WidgetAlignType(a.Align))
 }
 
-func widgetIDsToStrings(wids []id.WidgetID) []string {
-	if wids == nil {
-		return nil
-	}
-	docids := make([]string, 0, len(wids))
-	for _, wid := range wids {
-		docids = append(docids, wid.String())
-	}
-	return docids
-}
-
 func stringsToWidgetIDs(wids []string) []id.WidgetID {
 	if wids == nil {
 		return nil

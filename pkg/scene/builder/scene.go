@@ -20,11 +20,6 @@ type sceneJSON struct {
 	WidgetAlignSystem *widgetAlignSystemJSON  `json:"widgetAlignSystem"`
 }
 
-type extendableJSON struct {
-	Vertically   *bool `json:"vertically"`
-	Horizontally *bool `json:"horizontally"`
-}
-
 type widgetJSON struct {
 	ID          string       `json:"id"`
 	PluginID    string       `json:"pluginId"`

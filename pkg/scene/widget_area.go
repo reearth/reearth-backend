@@ -112,12 +112,6 @@ func (a *WidgetArea) Move(from, to int) {
 	a.widgetIds = insertWidgetID(removeWidgetID(a.widgetIds, from), wid, to)
 }
 
-// moveWidgetID moves a widget's index.
-func moveWidgetID(array []id.WidgetID, srcIndex int, dstIndex int) []id.WidgetID {
-	value := array[srcIndex]
-	return insertWidgetID(removeWidgetID(array, srcIndex), value, dstIndex)
-}
-
 // insertWidgetID is used in moveInt to add the widgetID to a new position(index).
 func insertWidgetID(array []id.WidgetID, value id.WidgetID, index int) []id.WidgetID {
 	if index < 0 {
