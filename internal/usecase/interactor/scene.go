@@ -198,7 +198,7 @@ func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, 
 	extended := false
 	floating := false
 	var location *plugin.WidgetLocation
-	if widgetLayout := extension.Layout(); widgetLayout != nil {
+	if widgetLayout := extension.WidgetLayout(); widgetLayout != nil {
 		extended = widgetLayout.Extended()
 		floating = widgetLayout.Floating()
 		location = widgetLayout.DefaultLocation()
@@ -298,7 +298,7 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	}
 
 	if param.Extended != nil {
-		if layout := extension.Layout(); layout != nil {
+		if layout := extension.WidgetLayout(); layout != nil {
 			if layout.HorizontallyExtendable() && location.Horizontal() || layout.VerticallyExtendable() && location.Vertical() {
 				widget.SetExtended(*param.Extended)
 			}

@@ -64,7 +64,10 @@ func (w *Extension) Visualizer() visualizer.Visualizer {
 	return w.visualizer
 }
 
-func (w *Extension) Layout() *WidgetLayout {
+func (w *Extension) WidgetLayout() *WidgetLayout {
+	if w == nil {
+		return nil
+	}
 	return w.widgetLayout
 }
 

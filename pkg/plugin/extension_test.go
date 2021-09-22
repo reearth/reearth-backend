@@ -46,7 +46,7 @@ func TestExtension(t *testing.T) {
 	assert.Equal(t, expected.Description, actual.Description())
 	assert.Equal(t, expected.Name, actual.Name())
 	assert.Equal(t, expected.Icon, actual.Icon())
-	assert.Equal(t, expected.WidgetLayout, actual.Layout())
+	assert.Equal(t, expected.WidgetLayout, actual.WidgetLayout())
 	assert.Equal(t, expected.Schema, actual.Schema())
 	assert.Equal(t, expected.ID, actual.ID())
 }

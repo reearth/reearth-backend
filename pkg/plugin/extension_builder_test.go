@@ -57,7 +57,7 @@ func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 		false, true, false, false, nil,
 	)
 	res := b.ID("xxx").WidgetLayout(&wl).MustBuild()
-	assert.Same(t, &wl, res.Layout())
+	assert.Same(t, &wl, res.WidgetLayout())
 }
 
 func TestExtensionBuilder_Build(t *testing.T) {
