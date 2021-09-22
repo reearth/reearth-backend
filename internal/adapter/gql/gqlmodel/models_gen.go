@@ -915,7 +915,7 @@ type SceneWidget struct {
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
 	PropertyID  id.ID                `json:"propertyId"`
 	Enabled     bool                 `json:"enabled"`
-	Extended    *bool                `json:"extended"`
+	Extended    bool                 `json:"extended"`
 	Plugin      *Plugin              `json:"plugin"`
 	Extension   *PluginExtension     `json:"extension"`
 	Property    *Property            `json:"property"`
@@ -1089,11 +1089,23 @@ type UpdateTeamPayload struct {
 	Team *Team `json:"team"`
 }
 
+type UpdateWidgetAlignSystemInput struct {
+	SceneID  id.ID                `json:"sceneId"`
+	Location *WidgetLocationInput `json:"location"`
+	Align    *WidgetAreaAlign     `json:"align"`
+}
+
+type UpdateWidgetAlignSystemPayload struct {
+	Scene *Scene `json:"scene"`
+}
+
 type UpdateWidgetInput struct {
-	SceneID  id.ID              `json:"sceneId"`
-	WidgetID id.ID              `json:"widgetId"`
-	Enabled  *bool              `json:"enabled"`
-	Layout   *WidgetLayoutInput `json:"layout"`
+	SceneID  id.ID                `json:"sceneId"`
+	WidgetID id.ID                `json:"widgetId"`
+	Enabled  *bool                `json:"enabled"`
+	Location *WidgetLocationInput `json:"location"`
+	Extended *bool                `json:"extended"`
+	Index    *int                 `json:"index"`
 }
 
 type UpdateWidgetPayload struct {
@@ -1152,39 +1164,32 @@ type WidgetAlignSystem struct {
 }
 
 type WidgetArea struct {
-	WidgetIds []*id.ID `json:"widgetIds"`
-	Align     *string  `json:"align"`
+	WidgetIds []*id.ID        `json:"widgetIds"`
+	Align     WidgetAreaAlign `json:"align"`
 }
 
 type WidgetExtendable struct {
-	Vertically   *bool `json:"vertically"`
-	Horizontally *bool `json:"horizontally"`
+	Vertically   bool `json:"vertically"`
+	Horizontally bool `json:"horizontally"`
 }
 
 type WidgetLayout struct {
 	Extendable      *WidgetExtendable `json:"extendable"`
-	Extended        *bool             `json:"extended"`
+	Extended        bool              `json:"extended"`
 	Floating        bool              `json:"floating"`
 	DefaultLocation *WidgetLocation   `json:"defaultLocation"`
 }
 
-type WidgetLayoutInput struct {
-	Extended *bool                `json:"extended"`
-	Location *WidgetLocationInput `json:"location"`
-	Index    *int                 `json:"index"`
-	Align    *string              `json:"align"`
-}
-
 type WidgetLocation struct {
-	Zone    *WidgetZoneType    `json:"zone"`
-	Section *WidgetSectionType `json:"section"`
-	Area    *WidgetAreaType    `json:"area"`
+	Zone    WidgetZoneType    `json:"zone"`
+	Section WidgetSectionType `json:"section"`
+	Area    WidgetAreaType    `json:"area"`
 }
 
 type WidgetLocationInput struct {
-	Zone    string `json:"zone"`
-	Section string `json:"section"`
-	Area    string `json:"area"`
+	Zone    WidgetZoneType    `json:"zone"`
+	Section WidgetSectionType `json:"section"`
+	Area    WidgetAreaType    `json:"area"`
 }
 
 type WidgetSection struct {
@@ -1772,6 +1777,49 @@ func (e *Visualizer) UnmarshalGQL(v interface{}) error {
 }
 
 func (e Visualizer) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type WidgetAreaAlign string
+
+const (
+	WidgetAreaAlignStart  WidgetAreaAlign = "START"
+	WidgetAreaAlignCenter WidgetAreaAlign = "CENTER"
+	WidgetAreaAlignEnd    WidgetAreaAlign = "END"
+)
+
+var AllWidgetAreaAlign = []WidgetAreaAlign{
+	WidgetAreaAlignStart,
+	WidgetAreaAlignCenter,
+	WidgetAreaAlignEnd,
+}
+
+func (e WidgetAreaAlign) IsValid() bool {
+	switch e {
+	case WidgetAreaAlignStart, WidgetAreaAlignCenter, WidgetAreaAlignEnd:
+		return true
+	}
+	return false
+}
+
+func (e WidgetAreaAlign) String() string {
+	return string(e)
+}
+
+func (e *WidgetAreaAlign) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = WidgetAreaAlign(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid WidgetAreaAlign", str)
+	}
+	return nil
+}
+
+func (e WidgetAreaAlign) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
 

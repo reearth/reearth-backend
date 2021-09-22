@@ -54,29 +54,13 @@ func (r *mutationResolver) UpdateWidget(ctx context.Context, input gqlmodel.Upda
 	exit := trace(ctx)
 	defer exit()
 
-	var layout interfaces.WidgetLayoutParams
-	if input.Layout != nil {
-		var loc *scene.WidgetLocation
-		if input.Layout.Location != nil {
-			loc = &scene.WidgetLocation{
-				Zone:    scene.WidgetZoneType(input.Layout.Location.Zone),
-				Section: scene.WidgetSectionType(input.Layout.Location.Section),
-				Area:    scene.WidgetAreaType(input.Layout.Location.Area),
-			}
-		}
-		layout = interfaces.WidgetLayoutParams{
-			Extended: input.Layout.Extended,
-			Index:    input.Layout.Index,
-			Location: loc,
-			Align:    (*scene.WidgetAlignType)(input.Layout.Align),
-		}
-	}
-
 	scene, widget, err := r.usecases.Scene.UpdateWidget(ctx, interfaces.UpdateWidgetParam{
 		SceneID:  id.SceneID(input.SceneID),
 		WidgetID: id.WidgetID(input.WidgetID),
 		Enabled:  input.Enabled,
-		Layout:   &layout,
+		Extended: input.Extended,
+		Location: gqlmodel.FromSceneWidgetLocation(input.Location),
+		Index:    input.Index,
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
@@ -104,6 +88,24 @@ func (r *mutationResolver) RemoveWidget(ctx context.Context, input gqlmodel.Remo
 	return &gqlmodel.RemoveWidgetPayload{
 		Scene:    gqlmodel.ToScene(scene),
 		WidgetID: input.WidgetID,
+	}, nil
+}
+
+func (r *mutationResolver) UpdateWidgetAlignSystem(ctx context.Context, input gqlmodel.UpdateWidgetAlignSystemInput) (*gqlmodel.UpdateWidgetAlignSystemPayload, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	scene, err := r.usecases.Scene.UpdateWidgetAlignSystem(ctx, interfaces.UpdateWidgetAlignSystemParam{
+		SceneID:  id.SceneID(input.SceneID),
+		Location: *gqlmodel.FromSceneWidgetLocation(input.Location),
+		Align:    gqlmodel.FromWidgetAlignType(input.Align),
+	}, getOperator(ctx))
+	if err != nil {
+		return nil, err
+	}
+
+	return &gqlmodel.UpdateWidgetAlignSystemPayload{
+		Scene: gqlmodel.ToScene(scene),
 	}, nil
 }
 

@@ -7,7 +7,6 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/file"
-	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 )
 
@@ -42,40 +41,6 @@ func ToPageInfo(p *usecase.PageInfo) *PageInfo {
 		HasNextPage:     p.HasNextPage(),
 		HasPreviousPage: p.HasPreviousPage(),
 	}
-}
-
-func ToWidgetLayout(w *scene.WidgetLayout) *WidgetLayout {
-	if w == nil {
-		return nil
-	}
-	var l *WidgetLocation
-	if w.DefaultLocation != nil {
-		l = &WidgetLocation{
-			Zone:    (*WidgetZoneType)(&w.DefaultLocation.Zone),
-			Section: (*WidgetSectionType)(&w.DefaultLocation.Section),
-			Area:    (*WidgetAreaType)(&w.DefaultLocation.Area),
-		}
-	}
-
-	var wl WidgetLayout
-	if w.Extendable != nil {
-		wl = WidgetLayout{
-			Extendable: &WidgetExtendable{
-				Vertically:   w.Extendable.Vertically,
-				Horizontally: w.Extendable.Horizontally,
-			},
-			Extended:        w.Extended,
-			Floating:        w.Floating,
-			DefaultLocation: l,
-		}
-	} else {
-		wl = WidgetLayout{
-			Extended:        w.Extended,
-			Floating:        w.Floating,
-			DefaultLocation: l,
-		}
-	}
-	return &wl
 }
 
 func ToVisualizer(v visualizer.Visualizer) Visualizer {

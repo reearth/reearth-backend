@@ -15,7 +15,7 @@ func ToSceneWidget(w *scene.Widget) *SceneWidget {
 		ExtensionID: w.Extension(),
 		PropertyID:  w.Property().ID(),
 		Enabled:     w.Enabled(),
-		Extended:    w.WidgetLayout().Extended,
+		Extended:    w.Extended(),
 	}
 }
 
@@ -47,9 +47,6 @@ func ToScene(scene *scene.Scene) *Scene {
 		plugins = append(plugins, ToScenePlugin(sp))
 	}
 
-	sceneWidgetAlignSystem := scene.WidgetAlignSystem()
-	widgetAlignSystem := ToAlignSystem(sceneWidgetAlignSystem)
-
 	return &Scene{
 		ID:                scene.ID().ID(),
 		ProjectID:         scene.Project().ID(),
@@ -59,7 +56,7 @@ func ToScene(scene *scene.Scene) *Scene {
 		CreatedAt:         scene.CreatedAt(),
 		UpdatedAt:         scene.UpdatedAt(),
 		Widgets:           widgets,
-		WidgetAlignSystem: widgetAlignSystem,
+		WidgetAlignSystem: ToWidgetAlignSystem(scene.WidgetAlignSystem()),
 		Plugins:           plugins,
 	}
 }

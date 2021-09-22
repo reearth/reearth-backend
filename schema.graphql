@@ -268,6 +268,12 @@ type PluginMetadata {
   createdAt: DateTime!
 }
 
+enum WidgetAreaAlign {
+  START
+  CENTER
+  END
+}
+
 enum WidgetZoneType {
   INNER
   OUTER
@@ -286,19 +292,19 @@ enum WidgetAreaType {
 }
 
 type WidgetLocation {
-  zone: WidgetZoneType
-  section: WidgetSectionType
-  area: WidgetAreaType
+  zone: WidgetZoneType!
+  section: WidgetSectionType!
+  area: WidgetAreaType!
 }
 
 type WidgetExtendable {
-  vertically: Boolean
-  horizontally: Boolean
+  vertically: Boolean!
+  horizontally: Boolean!
 }
 
 type WidgetLayout {
-  extendable: WidgetExtendable
-  extended: Boolean
+  extendable: WidgetExtendable!
+  extended: Boolean!
   floating: Boolean!
   defaultLocation: WidgetLocation
 }
@@ -372,7 +378,7 @@ type SceneWidget {
   extensionId: PluginExtensionID!
   propertyId: ID!
   enabled: Boolean!
-  extended: Boolean
+  extended: Boolean!
   plugin: Plugin @goField(forceResolver: true)
   extension: PluginExtension @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
@@ -404,7 +410,7 @@ type WidgetSection {
 
 type WidgetArea {
   widgetIds: [ID!]!
-  align: String
+  align: WidgetAreaAlign!
 }
 
 # Property
@@ -884,16 +890,9 @@ input DeleteProjectInput {
 }
 
 input WidgetLocationInput {
-  zone: String!
-  section: String!
-  area: String!
-}
-
-input WidgetLayoutInput {
-  extended: Boolean
-  location: WidgetLocationInput
-  index: Int
-  align: String
+  zone: WidgetZoneType!
+  section: WidgetSectionType!
+  area: WidgetAreaType!
 }
 
 input AddWidgetInput {
@@ -906,7 +905,15 @@ input UpdateWidgetInput {
   sceneId: ID!
   widgetId: ID!
   enabled: Boolean
-  layout: WidgetLayoutInput
+  location: WidgetLocationInput
+  extended: Boolean
+  index: Int
+}
+
+input UpdateWidgetAlignSystemInput {
+  sceneId: ID!
+  location: WidgetLocationInput!
+  align: WidgetAreaAlign
 }
 
 input RemoveWidgetInput {
@@ -1197,6 +1204,10 @@ type UpdateWidgetPayload {
   sceneWidget: SceneWidget!
 }
 
+type UpdateWidgetAlignSystemPayload {
+  scene: Scene!
+}
+
 type RemoveWidgetPayload {
   scene: Scene!
   widgetId: ID!
@@ -1447,6 +1458,7 @@ type Mutation {
   createScene(input: CreateSceneInput!): CreateScenePayload
   addWidget(input: AddWidgetInput!): AddWidgetPayload
   updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
+  updateWidgetAlignSystem(input: UpdateWidgetAlignSystemInput!): UpdateWidgetAlignSystemPayload
   removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
   installPlugin(input: InstallPluginInput!): InstallPluginPayload
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload

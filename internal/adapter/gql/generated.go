@@ -486,6 +486,7 @@ type ComplexityRoot struct {
 		UpdatePropertyValue          func(childComplexity int, input gqlmodel.UpdatePropertyValueInput) int
 		UpdateTeam                   func(childComplexity int, input gqlmodel.UpdateTeamInput) int
 		UpdateWidget                 func(childComplexity int, input gqlmodel.UpdateWidgetInput) int
+		UpdateWidgetAlignSystem      func(childComplexity int, input gqlmodel.UpdateWidgetAlignSystemInput) int
 		UpgradePlugin                func(childComplexity int, input gqlmodel.UpgradePluginInput) int
 		UploadFileToProperty         func(childComplexity int, input gqlmodel.UploadFileToPropertyInput) int
 		UploadPlugin                 func(childComplexity int, input gqlmodel.UploadPluginInput) int
@@ -879,6 +880,10 @@ type ComplexityRoot struct {
 		Team func(childComplexity int) int
 	}
 
+	UpdateWidgetAlignSystemPayload struct {
+		Scene func(childComplexity int) int
+	}
+
 	UpdateWidgetPayload struct {
 		Scene       func(childComplexity int) int
 		SceneWidget func(childComplexity int) int
@@ -1061,6 +1066,7 @@ type MutationResolver interface {
 	CreateScene(ctx context.Context, input gqlmodel.CreateSceneInput) (*gqlmodel.CreateScenePayload, error)
 	AddWidget(ctx context.Context, input gqlmodel.AddWidgetInput) (*gqlmodel.AddWidgetPayload, error)
 	UpdateWidget(ctx context.Context, input gqlmodel.UpdateWidgetInput) (*gqlmodel.UpdateWidgetPayload, error)
+	UpdateWidgetAlignSystem(ctx context.Context, input gqlmodel.UpdateWidgetAlignSystemInput) (*gqlmodel.UpdateWidgetAlignSystemPayload, error)
 	RemoveWidget(ctx context.Context, input gqlmodel.RemoveWidgetInput) (*gqlmodel.RemoveWidgetPayload, error)
 	InstallPlugin(ctx context.Context, input gqlmodel.InstallPluginInput) (*gqlmodel.InstallPluginPayload, error)
 	UninstallPlugin(ctx context.Context, input gqlmodel.UninstallPluginInput) (*gqlmodel.UninstallPluginPayload, error)
@@ -3363,6 +3369,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.UpdateWidget(childComplexity, args["input"].(gqlmodel.UpdateWidgetInput)), true
 
+	case "Mutation.updateWidgetAlignSystem":
+		if e.complexity.Mutation.UpdateWidgetAlignSystem == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_updateWidgetAlignSystem_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateWidgetAlignSystem(childComplexity, args["input"].(gqlmodel.UpdateWidgetAlignSystemInput)), true
+
 	case "Mutation.upgradePlugin":
 		if e.complexity.Mutation.UpgradePlugin == nil {
 			break
@@ -5294,6 +5312,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.UpdateTeamPayload.Team(childComplexity), true
 
+	case "UpdateWidgetAlignSystemPayload.scene":
+		if e.complexity.UpdateWidgetAlignSystemPayload.Scene == nil {
+			break
+		}
+
+		return e.complexity.UpdateWidgetAlignSystemPayload.Scene(childComplexity), true
+
 	case "UpdateWidgetPayload.scene":
 		if e.complexity.UpdateWidgetPayload.Scene == nil {
 			break
@@ -5873,6 +5898,12 @@ type PluginMetadata {
   createdAt: DateTime!
 }
 
+enum WidgetAreaAlign {
+  START
+  CENTER
+  END
+}
+
 enum WidgetZoneType {
   INNER
   OUTER
@@ -5891,19 +5922,19 @@ enum WidgetAreaType {
 }
 
 type WidgetLocation {
-  zone: WidgetZoneType
-  section: WidgetSectionType
-  area: WidgetAreaType
+  zone: WidgetZoneType!
+  section: WidgetSectionType!
+  area: WidgetAreaType!
 }
 
 type WidgetExtendable {
-  vertically: Boolean
-  horizontally: Boolean
+  vertically: Boolean!
+  horizontally: Boolean!
 }
 
 type WidgetLayout {
-  extendable: WidgetExtendable
-  extended: Boolean
+  extendable: WidgetExtendable!
+  extended: Boolean!
   floating: Boolean!
   defaultLocation: WidgetLocation
 }
@@ -5977,7 +6008,7 @@ type SceneWidget {
   extensionId: PluginExtensionID!
   propertyId: ID!
   enabled: Boolean!
-  extended: Boolean
+  extended: Boolean!
   plugin: Plugin @goField(forceResolver: true)
   extension: PluginExtension @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
@@ -6009,7 +6040,7 @@ type WidgetSection {
 
 type WidgetArea {
   widgetIds: [ID!]!
-  align: String
+  align: WidgetAreaAlign!
 }
 
 # Property
@@ -6489,16 +6520,9 @@ input DeleteProjectInput {
 }
 
 input WidgetLocationInput {
-  zone: String!
-  section: String!
-  area: String!
-}
-
-input WidgetLayoutInput {
-  extended: Boolean
-  location: WidgetLocationInput
-  index: Int
-  align: String
+  zone: WidgetZoneType!
+  section: WidgetSectionType!
+  area: WidgetAreaType!
 }
 
 input AddWidgetInput {
@@ -6511,7 +6535,15 @@ input UpdateWidgetInput {
   sceneId: ID!
   widgetId: ID!
   enabled: Boolean
-  layout: WidgetLayoutInput
+  location: WidgetLocationInput
+  extended: Boolean
+  index: Int
+}
+
+input UpdateWidgetAlignSystemInput {
+  sceneId: ID!
+  location: WidgetLocationInput!
+  align: WidgetAreaAlign
 }
 
 input RemoveWidgetInput {
@@ -6802,6 +6834,10 @@ type UpdateWidgetPayload {
   sceneWidget: SceneWidget!
 }
 
+type UpdateWidgetAlignSystemPayload {
+  scene: Scene!
+}
+
 type RemoveWidgetPayload {
   scene: Scene!
   widgetId: ID!
@@ -7052,6 +7088,7 @@ type Mutation {
   createScene(input: CreateSceneInput!): CreateScenePayload
   addWidget(input: AddWidgetInput!): AddWidgetPayload
   updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
+  updateWidgetAlignSystem(input: UpdateWidgetAlignSystemInput!): UpdateWidgetAlignSystemPayload
   removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
   installPlugin(input: InstallPluginInput!): InstallPluginPayload
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
@@ -7867,6 +7904,21 @@ func (ec *executionContext) field_Mutation_updateTeam_args(ctx context.Context, 
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTeamInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_updateWidgetAlignSystem_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 gqlmodel.UpdateWidgetAlignSystemInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNUpdateWidgetAlignSystemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetAlignSystemInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -16899,6 +16951,45 @@ func (ec *executionContext) _Mutation_updateWidget(ctx context.Context, field gr
 	return ec.marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetPayload(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Mutation_updateWidgetAlignSystem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_updateWidgetAlignSystem_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UpdateWidgetAlignSystem(rctx, args["input"].(gqlmodel.UpdateWidgetAlignSystemInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.UpdateWidgetAlignSystemPayload)
+	fc.Result = res
+	return ec.marshalOUpdateWidgetAlignSystemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetAlignSystemPayload(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Mutation_removeWidget(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -25686,11 +25777,14 @@ func (ec *executionContext) _SceneWidget_extended(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*bool)
+	res := resTmp.(bool)
 	fc.Result = res
-	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _SceneWidget_plugin(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SceneWidget) (ret graphql.Marshaler) {
@@ -26928,6 +27022,41 @@ func (ec *executionContext) _UpdateTeamPayload_team(ctx context.Context, field g
 	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _UpdateWidgetAlignSystemPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateWidgetAlignSystemPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "UpdateWidgetAlignSystemPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Scene, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.Scene)
+	fc.Result = res
+	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _UpdateWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -27612,11 +27741,14 @@ func (ec *executionContext) _WidgetArea_align(ctx context.Context, field graphql
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(gqlmodel.WidgetAreaAlign)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalNWidgetAreaAlign2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetExtendable_vertically(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetExtendable) (ret graphql.Marshaler) {
@@ -27644,11 +27776,14 @@ func (ec *executionContext) _WidgetExtendable_vertically(ctx context.Context, fi
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*bool)
+	res := resTmp.(bool)
 	fc.Result = res
-	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetExtendable_horizontally(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetExtendable) (ret graphql.Marshaler) {
@@ -27676,11 +27811,14 @@ func (ec *executionContext) _WidgetExtendable_horizontally(ctx context.Context, 
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*bool)
+	res := resTmp.(bool)
 	fc.Result = res
-	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLayout_extendable(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetLayout) (ret graphql.Marshaler) {
@@ -27708,11 +27846,14 @@ func (ec *executionContext) _WidgetLayout_extendable(ctx context.Context, field 
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetExtendable)
 	fc.Result = res
-	return ec.marshalOWidgetExtendable2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetExtendable(ctx, field.Selections, res)
+	return ec.marshalNWidgetExtendable2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetExtendable(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLayout_extended(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetLayout) (ret graphql.Marshaler) {
@@ -27740,11 +27881,14 @@ func (ec *executionContext) _WidgetLayout_extended(ctx context.Context, field gr
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*bool)
+	res := resTmp.(bool)
 	fc.Result = res
-	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLayout_floating(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetLayout) (ret graphql.Marshaler) {
@@ -27839,11 +27983,14 @@ func (ec *executionContext) _WidgetLocation_zone(ctx context.Context, field grap
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*gqlmodel.WidgetZoneType)
+	res := resTmp.(gqlmodel.WidgetZoneType)
 	fc.Result = res
-	return ec.marshalOWidgetZoneType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx, field.Selections, res)
+	return ec.marshalNWidgetZoneType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLocation_section(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetLocation) (ret graphql.Marshaler) {
@@ -27871,11 +28018,14 @@ func (ec *executionContext) _WidgetLocation_section(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*gqlmodel.WidgetSectionType)
+	res := resTmp.(gqlmodel.WidgetSectionType)
 	fc.Result = res
-	return ec.marshalOWidgetSectionType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx, field.Selections, res)
+	return ec.marshalNWidgetSectionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetLocation_area(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetLocation) (ret graphql.Marshaler) {
@@ -27903,11 +28053,14 @@ func (ec *executionContext) _WidgetLocation_area(ctx context.Context, field grap
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*gqlmodel.WidgetAreaType)
+	res := resTmp.(gqlmodel.WidgetAreaType)
 	fc.Result = res
-	return ec.marshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaType(ctx, field.Selections, res)
+	return ec.marshalNWidgetAreaType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaType(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetSection_top(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetSection) (ret graphql.Marshaler) {
@@ -31089,6 +31242,42 @@ func (ec *executionContext) unmarshalInputUpdateTeamInput(ctx context.Context, o
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputUpdateWidgetAlignSystemInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateWidgetAlignSystemInput, error) {
+	var it gqlmodel.UpdateWidgetAlignSystemInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "sceneId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
+			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "location":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("location"))
+			it.Location, err = ec.unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLocationInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "align":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("align"))
+			it.Align, err = ec.unmarshalOWidgetAreaAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateWidgetInput, error) {
 	var it gqlmodel.UpdateWidgetInput
 	var asMap = obj.(map[string]interface{})
@@ -31119,11 +31308,27 @@ func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context,
 			if err != nil {
 				return it, err
 			}
-		case "layout":
+		case "location":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("layout"))
-			it.Layout, err = ec.unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLayoutInput(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("location"))
+			it.Location, err = ec.unmarshalOWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLocationInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "extended":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extended"))
+			it.Extended, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "index":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("index"))
+			it.Index, err = ec.unmarshalOInt2ᚖint(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -31257,50 +31462,6 @@ func (ec *executionContext) unmarshalInputUploadPluginInput(ctx context.Context,
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputWidgetLayoutInput(ctx context.Context, obj interface{}) (gqlmodel.WidgetLayoutInput, error) {
-	var it gqlmodel.WidgetLayoutInput
-	var asMap = obj.(map[string]interface{})
-
-	for k, v := range asMap {
-		switch k {
-		case "extended":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("extended"))
-			it.Extended, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "location":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("location"))
-			it.Location, err = ec.unmarshalOWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLocationInput(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "index":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("index"))
-			it.Index, err = ec.unmarshalOInt2ᚖint(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "align":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("align"))
-			it.Align, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
 func (ec *executionContext) unmarshalInputWidgetLocationInput(ctx context.Context, obj interface{}) (gqlmodel.WidgetLocationInput, error) {
 	var it gqlmodel.WidgetLocationInput
 	var asMap = obj.(map[string]interface{})
@@ -31311,7 +31472,7 @@ func (ec *executionContext) unmarshalInputWidgetLocationInput(ctx context.Contex
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("zone"))
-			it.Zone, err = ec.unmarshalNString2string(ctx, v)
+			it.Zone, err = ec.unmarshalNWidgetZoneType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -31319,7 +31480,7 @@ func (ec *executionContext) unmarshalInputWidgetLocationInput(ctx context.Contex
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("section"))
-			it.Section, err = ec.unmarshalNString2string(ctx, v)
+			it.Section, err = ec.unmarshalNWidgetSectionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -31327,7 +31488,7 @@ func (ec *executionContext) unmarshalInputWidgetLocationInput(ctx context.Contex
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("area"))
-			it.Area, err = ec.unmarshalNString2string(ctx, v)
+			it.Area, err = ec.unmarshalNWidgetAreaType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaType(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -33881,6 +34042,8 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_addWidget(ctx, field)
 		case "updateWidget":
 			out.Values[i] = ec._Mutation_updateWidget(ctx, field)
+		case "updateWidgetAlignSystem":
+			out.Values[i] = ec._Mutation_updateWidgetAlignSystem(ctx, field)
 		case "removeWidget":
 			out.Values[i] = ec._Mutation_removeWidget(ctx, field)
 		case "installPlugin":
@@ -36052,6 +36215,9 @@ func (ec *executionContext) _SceneWidget(ctx context.Context, sel ast.SelectionS
 			}
 		case "extended":
 			out.Values[i] = ec._SceneWidget_extended(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "plugin":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -36522,6 +36688,33 @@ func (ec *executionContext) _UpdateTeamPayload(ctx context.Context, sel ast.Sele
 	return out
 }
 
+var updateWidgetAlignSystemPayloadImplementors = []string{"UpdateWidgetAlignSystemPayload"}
+
+func (ec *executionContext) _UpdateWidgetAlignSystemPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateWidgetAlignSystemPayload) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, updateWidgetAlignSystemPayloadImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("UpdateWidgetAlignSystemPayload")
+		case "scene":
+			out.Values[i] = ec._UpdateWidgetAlignSystemPayload_scene(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var updateWidgetPayloadImplementors = []string{"UpdateWidgetPayload"}
 
 func (ec *executionContext) _UpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateWidgetPayload) graphql.Marshaler {
@@ -36752,6 +36945,9 @@ func (ec *executionContext) _WidgetArea(ctx context.Context, sel ast.SelectionSe
 			}
 		case "align":
 			out.Values[i] = ec._WidgetArea_align(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -36776,8 +36972,14 @@ func (ec *executionContext) _WidgetExtendable(ctx context.Context, sel ast.Selec
 			out.Values[i] = graphql.MarshalString("WidgetExtendable")
 		case "vertically":
 			out.Values[i] = ec._WidgetExtendable_vertically(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "horizontally":
 			out.Values[i] = ec._WidgetExtendable_horizontally(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -36802,8 +37004,14 @@ func (ec *executionContext) _WidgetLayout(ctx context.Context, sel ast.Selection
 			out.Values[i] = graphql.MarshalString("WidgetLayout")
 		case "extendable":
 			out.Values[i] = ec._WidgetLayout_extendable(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "extended":
 			out.Values[i] = ec._WidgetLayout_extended(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "floating":
 			out.Values[i] = ec._WidgetLayout_floating(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -36835,10 +37043,19 @@ func (ec *executionContext) _WidgetLocation(ctx context.Context, sel ast.Selecti
 			out.Values[i] = graphql.MarshalString("WidgetLocation")
 		case "zone":
 			out.Values[i] = ec._WidgetLocation_zone(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "section":
 			out.Values[i] = ec._WidgetLocation_section(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "area":
 			out.Values[i] = ec._WidgetLocation_area(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -39507,6 +39724,11 @@ func (ec *executionContext) unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋr
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalNUpdateWidgetAlignSystemInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetAlignSystemInput(ctx context.Context, v interface{}) (gqlmodel.UpdateWidgetAlignSystemInput, error) {
+	res, err := ec.unmarshalInputUpdateWidgetAlignSystemInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNUpdateWidgetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetInput(ctx context.Context, v interface{}) (gqlmodel.UpdateWidgetInput, error) {
 	res, err := ec.unmarshalInputUpdateWidgetInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -39569,6 +39791,61 @@ func (ec *executionContext) unmarshalNVisualizer2githubᚗcomᚋreearthᚋreeart
 }
 
 func (ec *executionContext) marshalNVisualizer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐVisualizer(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Visualizer) graphql.Marshaler {
+	return v
+}
+
+func (ec *executionContext) unmarshalNWidgetAreaAlign2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx context.Context, v interface{}) (gqlmodel.WidgetAreaAlign, error) {
+	var res gqlmodel.WidgetAreaAlign
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNWidgetAreaAlign2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx context.Context, sel ast.SelectionSet, v gqlmodel.WidgetAreaAlign) graphql.Marshaler {
+	return v
+}
+
+func (ec *executionContext) unmarshalNWidgetAreaType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaType(ctx context.Context, v interface{}) (gqlmodel.WidgetAreaType, error) {
+	var res gqlmodel.WidgetAreaType
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNWidgetAreaType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaType(ctx context.Context, sel ast.SelectionSet, v gqlmodel.WidgetAreaType) graphql.Marshaler {
+	return v
+}
+
+func (ec *executionContext) marshalNWidgetExtendable2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetExtendable(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetExtendable) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._WidgetExtendable(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLocationInput(ctx context.Context, v interface{}) (*gqlmodel.WidgetLocationInput, error) {
+	res, err := ec.unmarshalInputWidgetLocationInput(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNWidgetSectionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx context.Context, v interface{}) (gqlmodel.WidgetSectionType, error) {
+	var res gqlmodel.WidgetSectionType
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNWidgetSectionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx context.Context, sel ast.SelectionSet, v gqlmodel.WidgetSectionType) graphql.Marshaler {
+	return v
+}
+
+func (ec *executionContext) unmarshalNWidgetZoneType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx context.Context, v interface{}) (gqlmodel.WidgetZoneType, error) {
+	var res gqlmodel.WidgetZoneType
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNWidgetZoneType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx context.Context, sel ast.SelectionSet, v gqlmodel.WidgetZoneType) graphql.Marshaler {
 	return v
 }
 
@@ -40751,6 +41028,13 @@ func (ec *executionContext) marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearth�
 	return ec._UpdateTeamPayload(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalOUpdateWidgetAlignSystemPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetAlignSystemPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateWidgetAlignSystemPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateWidgetAlignSystemPayload(ctx, sel, v)
+}
+
 func (ec *executionContext) marshalOUpdateWidgetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateWidgetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateWidgetPayload) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -40824,27 +41108,20 @@ func (ec *executionContext) marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreear
 	return ec._WidgetArea(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaType(ctx context.Context, v interface{}) (*gqlmodel.WidgetAreaType, error) {
+func (ec *executionContext) unmarshalOWidgetAreaAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx context.Context, v interface{}) (*gqlmodel.WidgetAreaAlign, error) {
 	if v == nil {
 		return nil, nil
 	}
-	var res = new(gqlmodel.WidgetAreaType)
+	var res = new(gqlmodel.WidgetAreaAlign)
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOWidgetAreaType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaType(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetAreaType) graphql.Marshaler {
+func (ec *executionContext) marshalOWidgetAreaAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetAreaAlign) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
-}
-
-func (ec *executionContext) marshalOWidgetExtendable2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetExtendable(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetExtendable) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._WidgetExtendable(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOWidgetLayout2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLayout(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetLayout) graphql.Marshaler {
@@ -40852,14 +41129,6 @@ func (ec *executionContext) marshalOWidgetLayout2ᚖgithubᚗcomᚋreearthᚋree
 		return graphql.Null
 	}
 	return ec._WidgetLayout(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalOWidgetLayoutInput2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLayoutInput(ctx context.Context, v interface{}) (*gqlmodel.WidgetLayoutInput, error) {
-	if v == nil {
-		return nil, nil
-	}
-	res, err := ec.unmarshalInputWidgetLayoutInput(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalOWidgetLocation2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetLocation(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetLocation) graphql.Marshaler {
@@ -40884,43 +41153,11 @@ func (ec *executionContext) marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋre
 	return ec._WidgetSection(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOWidgetSectionType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx context.Context, v interface{}) (*gqlmodel.WidgetSectionType, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var res = new(gqlmodel.WidgetSectionType)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOWidgetSectionType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetSectionType) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return v
-}
-
 func (ec *executionContext) marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZone(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetZone) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._WidgetZone(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalOWidgetZoneType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx context.Context, v interface{}) (*gqlmodel.WidgetZoneType, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var res = new(gqlmodel.WidgetZoneType)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOWidgetZoneType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetZoneType) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return v
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {
