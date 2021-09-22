@@ -16,6 +16,7 @@ require (
 	github.com/dgryski/trifles v0.0.0-20200705224438-cafc02a1ee2b // indirect
 	github.com/fatih/color v1.12.0 // indirect
 	github.com/gedex/inflector v0.0.0-20170307190818-16278e9db813 // indirect
+	github.com/go-session/session v3.1.2+incompatible
 	github.com/goccy/go-yaml v1.9.2
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/iancoleman/strcase v0.1.3
@@ -58,15 +59,12 @@ require (
 	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
 	golang.org/x/tools v0.1.5
 	google.golang.org/api v0.51.0
+	gopkg.in/go-oauth2/mongo.v3 v3.1.1
 	gopkg.in/go-playground/colors.v1 v1.2.0
 	gopkg.in/h2non/gock.v1 v1.1.0
+	gopkg.in/oauth2.v3 v3.12.0
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
-)
-
-require (
-	gopkg.in/go-oauth2/mongo.v3 v3.1.1
-	gopkg.in/oauth2.v3 v3.12.0
 )
 
 go 1.17
