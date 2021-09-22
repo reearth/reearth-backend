@@ -9,7 +9,7 @@ import (
 )
 
 func TestItemBuilder_Tags(t *testing.T) {
-	tags := []id.TagID{id.NewTagID()}
-	b := NewItem().NewID().Tags(tag.NewListFromTags(tags)).MustBuild()
-	assert.Equal(t, tags, b.Tags().Tags())
+	l := tag.NewListFromTags([]id.TagID{id.NewTagID()})
+	b := NewItem().NewID().Tags(l).MustBuild()
+	assert.Same(t, l, b.Tags())
 }
