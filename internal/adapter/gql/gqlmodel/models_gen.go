@@ -918,16 +918,6 @@ type RemoveWidgetPayload struct {
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
 }
 
-type RenameTagGroupInput struct {
-	TagID   id.ID  `json:"tagId"`
-	SceneID id.ID  `json:"sceneId"`
-	Label   string `json:"label"`
-}
-
-type RenameTagGroupPayload struct {
-	Tag *TagGroup `json:"tag"`
-}
-
 type Scene struct {
 	ID                    id.ID                    `json:"id"`
 	ProjectID             id.ID                    `json:"projectId"`
@@ -1149,6 +1139,16 @@ type UpdatePropertyValueInput struct {
 	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
 	Value        interface{}               `json:"value"`
 	Type         ValueType                 `json:"type"`
+}
+
+type UpdateTagInput struct {
+	TagID   id.ID   `json:"tagId"`
+	SceneID id.ID   `json:"sceneId"`
+	Label   *string `json:"label"`
+}
+
+type UpdateTagPayload struct {
+	Tag *TagGroup `json:"tag"`
 }
 
 type UpdateTeamInput struct {

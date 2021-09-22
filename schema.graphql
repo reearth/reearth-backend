@@ -1073,10 +1073,10 @@ input AddDatasetSchemaInput {
   representativefield: ID
 }
 
-input RenameTagGroupInput{
+input UpdateTagInput{
   tagId: ID!
   sceneId: ID!
-  label: String!
+  label: String
 }
 
 input CreateTagItemInput{
@@ -1295,7 +1295,7 @@ type CreateTagGroupPayload{
   tag: TagGroup!
 }
 
-type RenameTagGroupPayload{
+type UpdateTagPayload{
   tag: TagGroup!
 }
 
@@ -1496,7 +1496,7 @@ type Mutation {
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
-  renameTagGroup(input: RenameTagGroupInput!): RenameTagGroupPayload
+  updateTag(input: UpdateTagInput!): UpdateTagPayload
 }
 
 schema {

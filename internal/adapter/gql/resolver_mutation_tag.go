@@ -44,11 +44,11 @@ func (r *mutationResolver) CreateTagGroup(ctx context.Context, input gqlmodel.Cr
 	}, nil
 }
 
-func (r *mutationResolver) RenameTagGroup(ctx context.Context, input gqlmodel.RenameTagGroupInput) (*gqlmodel.RenameTagGroupPayload, error) {
+func (r *mutationResolver) UpdateTag(ctx context.Context, input gqlmodel.UpdateTagInput) (*gqlmodel.UpdateTagPayload, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	tag, err := r.usecases.Tag.RenameGroup(ctx, interfaces.RenameTagGroupParam{
+	tag, err := r.usecases.Tag.UpdateTag(ctx, interfaces.UpdateTagParam{
 		Label:   input.Label,
 		SceneID: id.SceneID(input.SceneID),
 		TagID:   id.TagID(input.TagID),
@@ -56,7 +56,7 @@ func (r *mutationResolver) RenameTagGroup(ctx context.Context, input gqlmodel.Re
 	if err != nil {
 		return nil, err
 	}
-	return &gqlmodel.RenameTagGroupPayload{
+	return &gqlmodel.UpdateTagPayload{
 		Tag: gqlmodel.ToTagGroup(tag),
 	}, nil
 }

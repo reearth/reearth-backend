@@ -22,8 +22,8 @@ type CreateTagGroupParam struct {
 	Tags    []id.TagID
 }
 
-type RenameTagGroupParam struct {
-	Label   string
+type UpdateTagParam struct {
+	Label   *string
 	SceneID id.SceneID
 	TagID   id.TagID
 }
@@ -31,5 +31,5 @@ type RenameTagGroupParam struct {
 type Tag interface {
 	CreateItem(context.Context, CreateTagItemParam, *usecase.Operator) (*tag.Item, error)
 	CreateGroup(context.Context, CreateTagGroupParam, *usecase.Operator) (*tag.Group, error)
-	RenameGroup(context.Context, RenameTagGroupParam, *usecase.Operator) (*tag.Group, error)
+	UpdateTag(context.Context, UpdateTagParam, *usecase.Operator) (*tag.Group, error)
 }

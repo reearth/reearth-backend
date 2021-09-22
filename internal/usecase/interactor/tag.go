@@ -99,7 +99,7 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 	return group, nil
 }
 
-func (i *Tag) RenameGroup(ctx context.Context, inp interfaces.RenameTagGroupParam, operator *usecase.Operator) (*tag.Group, error) {
+func (i *Tag) UpdateTag(ctx context.Context, inp interfaces.UpdateTagParam, operator *usecase.Operator) (*tag.Group, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return nil, err
@@ -118,7 +118,10 @@ func (i *Tag) RenameGroup(ctx context.Context, inp interfaces.RenameTagGroupPara
 	if err != nil {
 		return nil, err
 	}
-	tg.Rename(inp.Label)
+
+	if inp.Label != nil {
+		tg.Rename(*inp.Label)
+	}
 
 	err = i.tagRepo.Save(ctx, tg)
 	if err != nil {
