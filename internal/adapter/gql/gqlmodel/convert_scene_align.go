@@ -54,8 +54,8 @@ func ToWidgetAlignType(s scene.WidgetAlignType) WidgetAreaAlign {
 	switch s {
 	case scene.WidgetAlignStart:
 		return WidgetAreaAlignStart
-	case scene.WidgetAlignCenter:
-		return WidgetAreaAlignCenter
+	case scene.WidgetAlignCentered:
+		return WidgetAreaAlignCentered
 	case scene.WidgetAlignEnd:
 		return WidgetAreaAlignEnd
 	}
@@ -115,8 +115,8 @@ func FromWidgetAlignType(a *WidgetAreaAlign) *scene.WidgetAlignType {
 	switch *a {
 	case WidgetAreaAlignStart:
 		r = scene.WidgetAlignStart
-	case WidgetAreaAlignCenter:
-		r = scene.WidgetAlignCenter
+	case WidgetAreaAlignCentered:
+		r = scene.WidgetAlignCentered
 	case WidgetAreaAlignEnd:
 		r = scene.WidgetAlignEnd
 	}

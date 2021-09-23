@@ -11,9 +11,9 @@ type WidgetArea struct {
 type WidgetAlignType string
 
 const (
-	WidgetAlignStart  WidgetAlignType = "start"
-	WidgetAlignCenter WidgetAlignType = "centered"
-	WidgetAlignEnd    WidgetAlignType = "end"
+	WidgetAlignStart    WidgetAlignType = "start"
+	WidgetAlignCentered WidgetAlignType = "centered"
+	WidgetAlignEnd      WidgetAlignType = "end"
 )
 
 func NewWidgetArea(widgetIds []id.WidgetID, align WidgetAlignType) *WidgetArea {
@@ -83,7 +83,7 @@ func (a *WidgetArea) SetAlignment(at WidgetAlignType) {
 		return
 	}
 
-	if at == WidgetAlignStart || at == WidgetAlignCenter || at == WidgetAlignEnd {
+	if at == WidgetAlignStart || at == WidgetAlignCentered || at == WidgetAlignEnd {
 		a.align = at
 	} else {
 		a.align = WidgetAlignStart

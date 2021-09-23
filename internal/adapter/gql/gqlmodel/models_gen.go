@@ -1783,20 +1783,20 @@ func (e Visualizer) MarshalGQL(w io.Writer) {
 type WidgetAreaAlign string
 
 const (
-	WidgetAreaAlignStart  WidgetAreaAlign = "START"
-	WidgetAreaAlignCenter WidgetAreaAlign = "CENTER"
-	WidgetAreaAlignEnd    WidgetAreaAlign = "END"
+	WidgetAreaAlignStart    WidgetAreaAlign = "START"
+	WidgetAreaAlignCentered WidgetAreaAlign = "CENTERED"
+	WidgetAreaAlignEnd      WidgetAreaAlign = "END"
 )
 
 var AllWidgetAreaAlign = []WidgetAreaAlign{
 	WidgetAreaAlignStart,
-	WidgetAreaAlignCenter,
+	WidgetAreaAlignCentered,
 	WidgetAreaAlignEnd,
 }
 
 func (e WidgetAreaAlign) IsValid() bool {
 	switch e {
-	case WidgetAreaAlignStart, WidgetAreaAlignCenter, WidgetAreaAlignEnd:
+	case WidgetAreaAlignStart, WidgetAreaAlignCentered, WidgetAreaAlignEnd:
 		return true
 	}
 	return false

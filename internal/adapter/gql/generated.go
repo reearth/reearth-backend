@@ -5900,7 +5900,7 @@ type PluginMetadata {
 
 enum WidgetAreaAlign {
   START
-  CENTER
+  CENTERED
   END
 }
 
@@ -6022,20 +6022,20 @@ type ScenePlugin {
 }
 
 type WidgetAlignSystem {
-  inner: WidgetZone
-  outer: WidgetZone
+  inner: WidgetZone!
+  outer: WidgetZone!
 }
 
 type WidgetZone {
-  left: WidgetSection
-  center: WidgetSection
-  right: WidgetSection
+  left: WidgetSection!
+  center: WidgetSection!
+  right: WidgetSection!
 }
 
 type WidgetSection {
-  top: WidgetArea
-  middle: WidgetArea
-  bottom: WidgetArea
+  top: WidgetArea!
+  middle: WidgetArea!
+  bottom: WidgetArea!
 }
 
 type WidgetArea {
@@ -27642,11 +27642,14 @@ func (ec *executionContext) _WidgetAlignSystem_inner(ctx context.Context, field 
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetZone)
 	fc.Result = res
-	return ec.marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZone(ctx, field.Selections, res)
+	return ec.marshalNWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZone(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetAlignSystem_outer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetAlignSystem) (ret graphql.Marshaler) {
@@ -27674,11 +27677,14 @@ func (ec *executionContext) _WidgetAlignSystem_outer(ctx context.Context, field 
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetZone)
 	fc.Result = res
-	return ec.marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZone(ctx, field.Selections, res)
+	return ec.marshalNWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZone(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetArea_widgetIds(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetArea) (ret graphql.Marshaler) {
@@ -28088,11 +28094,14 @@ func (ec *executionContext) _WidgetSection_top(ctx context.Context, field graphq
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetArea)
 	fc.Result = res
-	return ec.marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx, field.Selections, res)
+	return ec.marshalNWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetSection_middle(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetSection) (ret graphql.Marshaler) {
@@ -28120,11 +28129,14 @@ func (ec *executionContext) _WidgetSection_middle(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetArea)
 	fc.Result = res
-	return ec.marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx, field.Selections, res)
+	return ec.marshalNWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetSection_bottom(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetSection) (ret graphql.Marshaler) {
@@ -28152,11 +28164,14 @@ func (ec *executionContext) _WidgetSection_bottom(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetArea)
 	fc.Result = res
-	return ec.marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx, field.Selections, res)
+	return ec.marshalNWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetZone_left(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetZone) (ret graphql.Marshaler) {
@@ -28184,11 +28199,14 @@ func (ec *executionContext) _WidgetZone_left(ctx context.Context, field graphql.
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetSection)
 	fc.Result = res
-	return ec.marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx, field.Selections, res)
+	return ec.marshalNWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetZone_center(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetZone) (ret graphql.Marshaler) {
@@ -28216,11 +28234,14 @@ func (ec *executionContext) _WidgetZone_center(ctx context.Context, field graphq
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetSection)
 	fc.Result = res
-	return ec.marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx, field.Selections, res)
+	return ec.marshalNWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetZone_right(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetZone) (ret graphql.Marshaler) {
@@ -28248,11 +28269,14 @@ func (ec *executionContext) _WidgetZone_right(ctx context.Context, field graphql
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*gqlmodel.WidgetSection)
 	fc.Result = res
-	return ec.marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx, field.Selections, res)
+	return ec.marshalNWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -28390,6 +28414,41 @@ func (ec *executionContext) ___Directive_args(ctx context.Context, field graphql
 	res := resTmp.([]introspection.InputValue)
 	fc.Result = res
 	return ec.marshalN__InputValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐInputValueᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) ___Directive_isRepeatable(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "__Directive",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.IsRepeatable, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___EnumValue_name(ctx context.Context, field graphql.CollectedField, obj *introspection.EnumValue) (ret graphql.Marshaler) {
@@ -29344,7 +29403,10 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 func (ec *executionContext) unmarshalInputAddDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.AddDatasetSchemaInput, error) {
 	var it gqlmodel.AddDatasetSchemaInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29380,7 +29442,10 @@ func (ec *executionContext) unmarshalInputAddDatasetSchemaInput(ctx context.Cont
 
 func (ec *executionContext) unmarshalInputAddDynamicDatasetInput(ctx context.Context, obj interface{}) (gqlmodel.AddDynamicDatasetInput, error) {
 	var it gqlmodel.AddDynamicDatasetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29440,7 +29505,10 @@ func (ec *executionContext) unmarshalInputAddDynamicDatasetInput(ctx context.Con
 
 func (ec *executionContext) unmarshalInputAddDynamicDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.AddDynamicDatasetSchemaInput, error) {
 	var it gqlmodel.AddDynamicDatasetSchemaInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29460,7 +29528,10 @@ func (ec *executionContext) unmarshalInputAddDynamicDatasetSchemaInput(ctx conte
 
 func (ec *executionContext) unmarshalInputAddInfoboxFieldInput(ctx context.Context, obj interface{}) (gqlmodel.AddInfoboxFieldInput, error) {
 	var it gqlmodel.AddInfoboxFieldInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29504,7 +29575,10 @@ func (ec *executionContext) unmarshalInputAddInfoboxFieldInput(ctx context.Conte
 
 func (ec *executionContext) unmarshalInputAddLayerGroupInput(ctx context.Context, obj interface{}) (gqlmodel.AddLayerGroupInput, error) {
 	var it gqlmodel.AddLayerGroupInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29572,7 +29646,10 @@ func (ec *executionContext) unmarshalInputAddLayerGroupInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputAddLayerItemInput(ctx context.Context, obj interface{}) (gqlmodel.AddLayerItemInput, error) {
 	var it gqlmodel.AddLayerItemInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29640,7 +29717,10 @@ func (ec *executionContext) unmarshalInputAddLayerItemInput(ctx context.Context,
 
 func (ec *executionContext) unmarshalInputAddMemberToTeamInput(ctx context.Context, obj interface{}) (gqlmodel.AddMemberToTeamInput, error) {
 	var it gqlmodel.AddMemberToTeamInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29676,7 +29756,10 @@ func (ec *executionContext) unmarshalInputAddMemberToTeamInput(ctx context.Conte
 
 func (ec *executionContext) unmarshalInputAddPropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.AddPropertyItemInput, error) {
 	var it gqlmodel.AddPropertyItemInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29728,7 +29811,10 @@ func (ec *executionContext) unmarshalInputAddPropertyItemInput(ctx context.Conte
 
 func (ec *executionContext) unmarshalInputAddWidgetInput(ctx context.Context, obj interface{}) (gqlmodel.AddWidgetInput, error) {
 	var it gqlmodel.AddWidgetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29764,7 +29850,10 @@ func (ec *executionContext) unmarshalInputAddWidgetInput(ctx context.Context, ob
 
 func (ec *executionContext) unmarshalInputCreateAssetInput(ctx context.Context, obj interface{}) (gqlmodel.CreateAssetInput, error) {
 	var it gqlmodel.CreateAssetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29792,7 +29881,10 @@ func (ec *executionContext) unmarshalInputCreateAssetInput(ctx context.Context, 
 
 func (ec *executionContext) unmarshalInputCreateInfoboxInput(ctx context.Context, obj interface{}) (gqlmodel.CreateInfoboxInput, error) {
 	var it gqlmodel.CreateInfoboxInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29812,7 +29904,10 @@ func (ec *executionContext) unmarshalInputCreateInfoboxInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputCreateProjectInput(ctx context.Context, obj interface{}) (gqlmodel.CreateProjectInput, error) {
 	var it gqlmodel.CreateProjectInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29880,7 +29975,10 @@ func (ec *executionContext) unmarshalInputCreateProjectInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputCreateSceneInput(ctx context.Context, obj interface{}) (gqlmodel.CreateSceneInput, error) {
 	var it gqlmodel.CreateSceneInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29900,7 +29998,10 @@ func (ec *executionContext) unmarshalInputCreateSceneInput(ctx context.Context, 
 
 func (ec *executionContext) unmarshalInputCreateTeamInput(ctx context.Context, obj interface{}) (gqlmodel.CreateTeamInput, error) {
 	var it gqlmodel.CreateTeamInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29920,7 +30021,10 @@ func (ec *executionContext) unmarshalInputCreateTeamInput(ctx context.Context, o
 
 func (ec *executionContext) unmarshalInputDeleteMeInput(ctx context.Context, obj interface{}) (gqlmodel.DeleteMeInput, error) {
 	var it gqlmodel.DeleteMeInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29940,7 +30044,10 @@ func (ec *executionContext) unmarshalInputDeleteMeInput(ctx context.Context, obj
 
 func (ec *executionContext) unmarshalInputDeleteProjectInput(ctx context.Context, obj interface{}) (gqlmodel.DeleteProjectInput, error) {
 	var it gqlmodel.DeleteProjectInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29960,7 +30067,10 @@ func (ec *executionContext) unmarshalInputDeleteProjectInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputDeleteTeamInput(ctx context.Context, obj interface{}) (gqlmodel.DeleteTeamInput, error) {
 	var it gqlmodel.DeleteTeamInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -29980,7 +30090,10 @@ func (ec *executionContext) unmarshalInputDeleteTeamInput(ctx context.Context, o
 
 func (ec *executionContext) unmarshalInputImportDatasetFromGoogleSheetInput(ctx context.Context, obj interface{}) (gqlmodel.ImportDatasetFromGoogleSheetInput, error) {
 	var it gqlmodel.ImportDatasetFromGoogleSheetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30032,7 +30145,10 @@ func (ec *executionContext) unmarshalInputImportDatasetFromGoogleSheetInput(ctx 
 
 func (ec *executionContext) unmarshalInputImportDatasetInput(ctx context.Context, obj interface{}) (gqlmodel.ImportDatasetInput, error) {
 	var it gqlmodel.ImportDatasetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30068,7 +30184,10 @@ func (ec *executionContext) unmarshalInputImportDatasetInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputImportLayerInput(ctx context.Context, obj interface{}) (gqlmodel.ImportLayerInput, error) {
 	var it gqlmodel.ImportLayerInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30104,7 +30223,10 @@ func (ec *executionContext) unmarshalInputImportLayerInput(ctx context.Context, 
 
 func (ec *executionContext) unmarshalInputInstallPluginInput(ctx context.Context, obj interface{}) (gqlmodel.InstallPluginInput, error) {
 	var it gqlmodel.InstallPluginInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30132,7 +30254,10 @@ func (ec *executionContext) unmarshalInputInstallPluginInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputLinkDatasetToPropertyValueInput(ctx context.Context, obj interface{}) (gqlmodel.LinkDatasetToPropertyValueInput, error) {
 	var it gqlmodel.LinkDatasetToPropertyValueInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30200,7 +30325,10 @@ func (ec *executionContext) unmarshalInputLinkDatasetToPropertyValueInput(ctx co
 
 func (ec *executionContext) unmarshalInputMoveInfoboxFieldInput(ctx context.Context, obj interface{}) (gqlmodel.MoveInfoboxFieldInput, error) {
 	var it gqlmodel.MoveInfoboxFieldInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30236,7 +30364,10 @@ func (ec *executionContext) unmarshalInputMoveInfoboxFieldInput(ctx context.Cont
 
 func (ec *executionContext) unmarshalInputMoveLayerInput(ctx context.Context, obj interface{}) (gqlmodel.MoveLayerInput, error) {
 	var it gqlmodel.MoveLayerInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30272,7 +30403,10 @@ func (ec *executionContext) unmarshalInputMoveLayerInput(ctx context.Context, ob
 
 func (ec *executionContext) unmarshalInputMovePropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.MovePropertyItemInput, error) {
 	var it gqlmodel.MovePropertyItemInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30316,7 +30450,10 @@ func (ec *executionContext) unmarshalInputMovePropertyItemInput(ctx context.Cont
 
 func (ec *executionContext) unmarshalInputPublishProjectInput(ctx context.Context, obj interface{}) (gqlmodel.PublishProjectInput, error) {
 	var it gqlmodel.PublishProjectInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30352,7 +30489,10 @@ func (ec *executionContext) unmarshalInputPublishProjectInput(ctx context.Contex
 
 func (ec *executionContext) unmarshalInputRemoveAssetInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveAssetInput, error) {
 	var it gqlmodel.RemoveAssetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30372,7 +30512,10 @@ func (ec *executionContext) unmarshalInputRemoveAssetInput(ctx context.Context, 
 
 func (ec *executionContext) unmarshalInputRemoveDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveDatasetSchemaInput, error) {
 	var it gqlmodel.RemoveDatasetSchemaInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30400,7 +30543,10 @@ func (ec *executionContext) unmarshalInputRemoveDatasetSchemaInput(ctx context.C
 
 func (ec *executionContext) unmarshalInputRemoveInfoboxFieldInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveInfoboxFieldInput, error) {
 	var it gqlmodel.RemoveInfoboxFieldInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30428,7 +30574,10 @@ func (ec *executionContext) unmarshalInputRemoveInfoboxFieldInput(ctx context.Co
 
 func (ec *executionContext) unmarshalInputRemoveInfoboxInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveInfoboxInput, error) {
 	var it gqlmodel.RemoveInfoboxInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30448,7 +30597,10 @@ func (ec *executionContext) unmarshalInputRemoveInfoboxInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputRemoveLayerInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveLayerInput, error) {
 	var it gqlmodel.RemoveLayerInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30468,7 +30620,10 @@ func (ec *executionContext) unmarshalInputRemoveLayerInput(ctx context.Context, 
 
 func (ec *executionContext) unmarshalInputRemoveMemberFromTeamInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveMemberFromTeamInput, error) {
 	var it gqlmodel.RemoveMemberFromTeamInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30496,7 +30651,10 @@ func (ec *executionContext) unmarshalInputRemoveMemberFromTeamInput(ctx context.
 
 func (ec *executionContext) unmarshalInputRemoveMyAuthInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveMyAuthInput, error) {
 	var it gqlmodel.RemoveMyAuthInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30516,7 +30674,10 @@ func (ec *executionContext) unmarshalInputRemoveMyAuthInput(ctx context.Context,
 
 func (ec *executionContext) unmarshalInputRemovePropertyFieldInput(ctx context.Context, obj interface{}) (gqlmodel.RemovePropertyFieldInput, error) {
 	var it gqlmodel.RemovePropertyFieldInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30560,7 +30721,10 @@ func (ec *executionContext) unmarshalInputRemovePropertyFieldInput(ctx context.C
 
 func (ec *executionContext) unmarshalInputRemovePropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.RemovePropertyItemInput, error) {
 	var it gqlmodel.RemovePropertyItemInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30596,7 +30760,10 @@ func (ec *executionContext) unmarshalInputRemovePropertyItemInput(ctx context.Co
 
 func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context, obj interface{}) (gqlmodel.RemoveWidgetInput, error) {
 	var it gqlmodel.RemoveWidgetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30624,7 +30791,10 @@ func (ec *executionContext) unmarshalInputRemoveWidgetInput(ctx context.Context,
 
 func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj interface{}) (gqlmodel.SignupInput, error) {
 	var it gqlmodel.SignupInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30676,7 +30846,10 @@ func (ec *executionContext) unmarshalInputSignupInput(ctx context.Context, obj i
 
 func (ec *executionContext) unmarshalInputSyncDatasetInput(ctx context.Context, obj interface{}) (gqlmodel.SyncDatasetInput, error) {
 	var it gqlmodel.SyncDatasetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30704,7 +30877,10 @@ func (ec *executionContext) unmarshalInputSyncDatasetInput(ctx context.Context, 
 
 func (ec *executionContext) unmarshalInputUninstallPluginInput(ctx context.Context, obj interface{}) (gqlmodel.UninstallPluginInput, error) {
 	var it gqlmodel.UninstallPluginInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30732,7 +30908,10 @@ func (ec *executionContext) unmarshalInputUninstallPluginInput(ctx context.Conte
 
 func (ec *executionContext) unmarshalInputUnlinkPropertyValueInput(ctx context.Context, obj interface{}) (gqlmodel.UnlinkPropertyValueInput, error) {
 	var it gqlmodel.UnlinkPropertyValueInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30776,7 +30955,10 @@ func (ec *executionContext) unmarshalInputUnlinkPropertyValueInput(ctx context.C
 
 func (ec *executionContext) unmarshalInputUpdateDatasetSchemaInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateDatasetSchemaInput, error) {
 	var it gqlmodel.UpdateDatasetSchemaInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30804,7 +30986,10 @@ func (ec *executionContext) unmarshalInputUpdateDatasetSchemaInput(ctx context.C
 
 func (ec *executionContext) unmarshalInputUpdateLayerInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateLayerInput, error) {
 	var it gqlmodel.UpdateLayerInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30840,7 +31025,10 @@ func (ec *executionContext) unmarshalInputUpdateLayerInput(ctx context.Context, 
 
 func (ec *executionContext) unmarshalInputUpdateMeInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateMeInput, error) {
 	var it gqlmodel.UpdateMeInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30900,7 +31088,10 @@ func (ec *executionContext) unmarshalInputUpdateMeInput(ctx context.Context, obj
 
 func (ec *executionContext) unmarshalInputUpdateMemberOfTeamInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateMemberOfTeamInput, error) {
 	var it gqlmodel.UpdateMemberOfTeamInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -30936,7 +31127,10 @@ func (ec *executionContext) unmarshalInputUpdateMemberOfTeamInput(ctx context.Co
 
 func (ec *executionContext) unmarshalInputUpdateProjectInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateProjectInput, error) {
 	var it gqlmodel.UpdateProjectInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31068,7 +31262,10 @@ func (ec *executionContext) unmarshalInputUpdateProjectInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputUpdatePropertyItemInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyItemInput, error) {
 	var it gqlmodel.UpdatePropertyItemInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31104,7 +31301,10 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemInput(ctx context.Co
 
 func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyItemOperationInput, error) {
 	var it gqlmodel.UpdatePropertyItemOperationInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31156,7 +31356,10 @@ func (ec *executionContext) unmarshalInputUpdatePropertyItemOperationInput(ctx c
 
 func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.Context, obj interface{}) (gqlmodel.UpdatePropertyValueInput, error) {
 	var it gqlmodel.UpdatePropertyValueInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31216,7 +31419,10 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.C
 
 func (ec *executionContext) unmarshalInputUpdateTeamInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateTeamInput, error) {
 	var it gqlmodel.UpdateTeamInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31244,7 +31450,10 @@ func (ec *executionContext) unmarshalInputUpdateTeamInput(ctx context.Context, o
 
 func (ec *executionContext) unmarshalInputUpdateWidgetAlignSystemInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateWidgetAlignSystemInput, error) {
 	var it gqlmodel.UpdateWidgetAlignSystemInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31280,7 +31489,10 @@ func (ec *executionContext) unmarshalInputUpdateWidgetAlignSystemInput(ctx conte
 
 func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateWidgetInput, error) {
 	var it gqlmodel.UpdateWidgetInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31340,7 +31552,10 @@ func (ec *executionContext) unmarshalInputUpdateWidgetInput(ctx context.Context,
 
 func (ec *executionContext) unmarshalInputUpgradePluginInput(ctx context.Context, obj interface{}) (gqlmodel.UpgradePluginInput, error) {
 	var it gqlmodel.UpgradePluginInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31376,7 +31591,10 @@ func (ec *executionContext) unmarshalInputUpgradePluginInput(ctx context.Context
 
 func (ec *executionContext) unmarshalInputUploadFileToPropertyInput(ctx context.Context, obj interface{}) (gqlmodel.UploadFileToPropertyInput, error) {
 	var it gqlmodel.UploadFileToPropertyInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31428,7 +31646,10 @@ func (ec *executionContext) unmarshalInputUploadFileToPropertyInput(ctx context.
 
 func (ec *executionContext) unmarshalInputUploadPluginInput(ctx context.Context, obj interface{}) (gqlmodel.UploadPluginInput, error) {
 	var it gqlmodel.UploadPluginInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -31464,7 +31685,10 @@ func (ec *executionContext) unmarshalInputUploadPluginInput(ctx context.Context,
 
 func (ec *executionContext) unmarshalInputWidgetLocationInput(ctx context.Context, obj interface{}) (gqlmodel.WidgetLocationInput, error) {
 	var it gqlmodel.WidgetLocationInput
-	var asMap = obj.(map[string]interface{})
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
 
 	for k, v := range asMap {
 		switch k {
@@ -36914,8 +37138,14 @@ func (ec *executionContext) _WidgetAlignSystem(ctx context.Context, sel ast.Sele
 			out.Values[i] = graphql.MarshalString("WidgetAlignSystem")
 		case "inner":
 			out.Values[i] = ec._WidgetAlignSystem_inner(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "outer":
 			out.Values[i] = ec._WidgetAlignSystem_outer(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -37080,10 +37310,19 @@ func (ec *executionContext) _WidgetSection(ctx context.Context, sel ast.Selectio
 			out.Values[i] = graphql.MarshalString("WidgetSection")
 		case "top":
 			out.Values[i] = ec._WidgetSection_top(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "middle":
 			out.Values[i] = ec._WidgetSection_middle(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "bottom":
 			out.Values[i] = ec._WidgetSection_bottom(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -37108,10 +37347,19 @@ func (ec *executionContext) _WidgetZone(ctx context.Context, sel ast.SelectionSe
 			out.Values[i] = graphql.MarshalString("WidgetZone")
 		case "left":
 			out.Values[i] = ec._WidgetZone_left(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "center":
 			out.Values[i] = ec._WidgetZone_center(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "right":
 			out.Values[i] = ec._WidgetZone_right(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -37148,6 +37396,11 @@ func (ec *executionContext) ___Directive(ctx context.Context, sel ast.SelectionS
 			}
 		case "args":
 			out.Values[i] = ec.___Directive_args(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "isRepeatable":
+			out.Values[i] = ec.___Directive_isRepeatable(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -37447,6 +37700,7 @@ func (ec *executionContext) marshalNAsset2ᚕᚖgithubᚗcomᚋreearthᚋreearth
 
 	}
 	wg.Wait()
+
 	return ret
 }
 
@@ -37508,6 +37762,13 @@ func (ec *executionContext) marshalNAssetEdge2ᚕᚖgithubᚗcomᚋreearthᚋree
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -37610,6 +37871,7 @@ func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreear
 
 	}
 	wg.Wait()
+
 	return ret
 }
 
@@ -37647,6 +37909,13 @@ func (ec *executionContext) marshalNDataset2ᚕᚖgithubᚗcomᚋreearthᚋreear
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -37708,6 +37977,13 @@ func (ec *executionContext) marshalNDatasetEdge2ᚕᚖgithubᚗcomᚋreearthᚋr
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -37755,6 +38031,13 @@ func (ec *executionContext) marshalNDatasetField2ᚕᚖgithubᚗcomᚋreearthᚋ
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -37802,6 +38085,7 @@ func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearth�
 
 	}
 	wg.Wait()
+
 	return ret
 }
 
@@ -37839,6 +38123,13 @@ func (ec *executionContext) marshalNDatasetSchema2ᚕᚖgithubᚗcomᚋreearth�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -37900,6 +38191,13 @@ func (ec *executionContext) marshalNDatasetSchemaEdge2ᚕᚖgithubᚗcomᚋreear
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -37947,6 +38245,13 @@ func (ec *executionContext) marshalNDatasetSchemaField2ᚕᚖgithubᚗcomᚋreea
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38062,6 +38367,12 @@ func (ec *executionContext) marshalNID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑ
 		ret[i] = ec.marshalNID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, sel, v[i])
 	}
 
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38149,6 +38460,13 @@ func (ec *executionContext) marshalNInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋ
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38241,6 +38559,7 @@ func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑ
 
 	}
 	wg.Wait()
+
 	return ret
 }
 
@@ -38278,6 +38597,13 @@ func (ec *executionContext) marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑ
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38360,6 +38686,13 @@ func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreea
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38407,6 +38740,13 @@ func (ec *executionContext) marshalNMergedPropertyField2ᚕᚖgithubᚗcomᚋree
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38454,6 +38794,13 @@ func (ec *executionContext) marshalNMergedPropertyGroup2ᚕᚖgithubᚗcomᚋree
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38516,6 +38863,7 @@ func (ec *executionContext) marshalNNode2ᚕgithubᚗcomᚋreearthᚋreearthᚑb
 
 	}
 	wg.Wait()
+
 	return ret
 }
 
@@ -38573,6 +38921,13 @@ func (ec *executionContext) marshalNPlugin2ᚕᚖgithubᚗcomᚋreearthᚋreeart
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38620,6 +38975,13 @@ func (ec *executionContext) marshalNPluginExtension2ᚕᚖgithubᚗcomᚋreearth
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38700,6 +39062,12 @@ func (ec *executionContext) marshalNPluginID2ᚕᚖgithubᚗcomᚋreearthᚋreea
 		ret[i] = ec.marshalNPluginID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPluginID(ctx, sel, v[i])
 	}
 
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38758,6 +39126,13 @@ func (ec *executionContext) marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearth�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38805,6 +39180,7 @@ func (ec *executionContext) marshalNProject2ᚕᚖgithubᚗcomᚋreearthᚋreear
 
 	}
 	wg.Wait()
+
 	return ret
 }
 
@@ -38880,6 +39256,13 @@ func (ec *executionContext) marshalNProjectEdge2ᚕᚖgithubᚗcomᚋreearthᚋr
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38937,6 +39320,13 @@ func (ec *executionContext) marshalNPropertyField2ᚕᚖgithubᚗcomᚋreearth�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -38994,6 +39384,13 @@ func (ec *executionContext) marshalNPropertyGroup2ᚕᚖgithubᚗcomᚋreearth�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39051,6 +39448,13 @@ func (ec *executionContext) marshalNPropertyItem2ᚕgithubᚗcomᚋreearthᚋree
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39098,6 +39502,13 @@ func (ec *executionContext) marshalNPropertySchema2ᚕᚖgithubᚗcomᚋreearth�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39145,6 +39556,13 @@ func (ec *executionContext) marshalNPropertySchemaField2ᚕᚖgithubᚗcomᚋree
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39217,6 +39635,13 @@ func (ec *executionContext) marshalNPropertySchemaGroup2ᚕᚖgithubᚗcomᚋree
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39270,6 +39695,12 @@ func (ec *executionContext) marshalNPropertySchemaID2ᚕᚖgithubᚗcomᚋreeart
 	ret := make(graphql.Array, len(v))
 	for i := range v {
 		ret[i] = ec.marshalNPropertySchemaID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐPropertySchemaID(ctx, sel, v[i])
+	}
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
 	}
 
 	return ret
@@ -39425,6 +39856,13 @@ func (ec *executionContext) marshalNScenePlugin2ᚕᚖgithubᚗcomᚋreearthᚋr
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39472,6 +39910,13 @@ func (ec *executionContext) marshalNSceneWidget2ᚕᚖgithubᚗcomᚋreearthᚋr
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39532,6 +39977,12 @@ func (ec *executionContext) marshalNString2ᚕstringᚄ(ctx context.Context, sel
 		ret[i] = ec.marshalNString2string(ctx, sel, v[i])
 	}
 
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39578,6 +40029,13 @@ func (ec *executionContext) marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearth�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39625,6 +40083,13 @@ func (ec *executionContext) marshalNTeamMember2ᚕᚖgithubᚗcomᚋreearthᚋre
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39794,6 +40259,16 @@ func (ec *executionContext) marshalNVisualizer2githubᚗcomᚋreearthᚋreearth�
 	return v
 }
 
+func (ec *executionContext) marshalNWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetArea) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._WidgetArea(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalNWidgetAreaAlign2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx context.Context, v interface{}) (gqlmodel.WidgetAreaAlign, error) {
 	var res gqlmodel.WidgetAreaAlign
 	err := res.UnmarshalGQL(v)
@@ -39829,6 +40304,16 @@ func (ec *executionContext) unmarshalNWidgetLocationInput2ᚖgithubᚗcomᚋreea
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) marshalNWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetSection) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._WidgetSection(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalNWidgetSectionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx context.Context, v interface{}) (gqlmodel.WidgetSectionType, error) {
 	var res gqlmodel.WidgetSectionType
 	err := res.UnmarshalGQL(v)
@@ -39837,6 +40322,16 @@ func (ec *executionContext) unmarshalNWidgetSectionType2githubᚗcomᚋreearth�
 
 func (ec *executionContext) marshalNWidgetSectionType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSectionType(ctx context.Context, sel ast.SelectionSet, v gqlmodel.WidgetSectionType) graphql.Marshaler {
 	return v
+}
+
+func (ec *executionContext) marshalNWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZone(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetZone) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._WidgetZone(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNWidgetZoneType2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZoneType(ctx context.Context, v interface{}) (gqlmodel.WidgetZoneType, error) {
@@ -39887,6 +40382,13 @@ func (ec *executionContext) marshalN__Directive2ᚕgithubᚗcomᚋ99designsᚋgq
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -39960,6 +40462,13 @@ func (ec *executionContext) marshalN__DirectiveLocation2ᚕstringᚄ(ctx context
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -40009,6 +40518,13 @@ func (ec *executionContext) marshalN__InputValue2ᚕgithubᚗcomᚋ99designsᚋg
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -40050,6 +40566,13 @@ func (ec *executionContext) marshalN__Type2ᚕgithubᚗcomᚋ99designsᚋgqlgen�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -40350,6 +40873,12 @@ func (ec *executionContext) marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑ
 		ret[i] = ec.marshalNID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, sel, v[i])
 	}
 
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -40612,6 +41141,13 @@ func (ec *executionContext) marshalOPropertyFieldLink2ᚕᚖgithubᚗcomᚋreear
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -40694,6 +41230,13 @@ func (ec *executionContext) marshalOPropertySchemaFieldChoice2ᚕᚖgithubᚗcom
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -40890,6 +41433,12 @@ func (ec *executionContext) marshalOString2ᚕstringᚄ(ctx context.Context, sel
 	ret := make(graphql.Array, len(v))
 	for i := range v {
 		ret[i] = ec.marshalNString2string(ctx, sel, v[i])
+	}
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
 	}
 
 	return ret
@@ -41101,13 +41650,6 @@ func (ec *executionContext) marshalOWidgetAlignSystem2ᚖgithubᚗcomᚋreearth�
 	return ec._WidgetAlignSystem(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOWidgetArea2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetArea(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetArea) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._WidgetArea(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalOWidgetAreaAlign2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetAreaAlign(ctx context.Context, v interface{}) (*gqlmodel.WidgetAreaAlign, error) {
 	if v == nil {
 		return nil, nil
@@ -41144,20 +41686,6 @@ func (ec *executionContext) unmarshalOWidgetLocationInput2ᚖgithubᚗcomᚋreea
 	}
 	res, err := ec.unmarshalInputWidgetLocationInput(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOWidgetSection2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetSection(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetSection) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._WidgetSection(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalOWidgetZone2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐWidgetZone(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.WidgetZone) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._WidgetZone(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {
@@ -41197,6 +41725,13 @@ func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgq
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -41237,6 +41772,13 @@ func (ec *executionContext) marshalO__Field2ᚕgithubᚗcomᚋ99designsᚋgqlgen
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -41277,6 +41819,13 @@ func (ec *executionContext) marshalO__InputValue2ᚕgithubᚗcomᚋ99designsᚋg
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
@@ -41324,6 +41873,13 @@ func (ec *executionContext) marshalO__Type2ᚕgithubᚗcomᚋ99designsᚋgqlgen�
 
 	}
 	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
 }
 
