@@ -392,20 +392,20 @@ type ScenePlugin {
 }
 
 type WidgetAlignSystem {
-  inner: WidgetZone!
-  outer: WidgetZone!
+  inner: WidgetZone
+  outer: WidgetZone
 }
 
 type WidgetZone {
-  left: WidgetSection!
-  center: WidgetSection!
-  right: WidgetSection!
+  left: WidgetSection
+  center: WidgetSection
+  right: WidgetSection
 }
 
 type WidgetSection {
-  top: WidgetArea!
-  middle: WidgetArea!
-  bottom: WidgetArea!
+  top: WidgetArea
+  middle: WidgetArea
+  bottom: WidgetArea
 }
 
 type WidgetArea {
