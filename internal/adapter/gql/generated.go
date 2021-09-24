@@ -149,6 +149,10 @@ type ComplexityRoot struct {
 		Tag func(childComplexity int) int
 	}
 
+	AttachTagToLayerPayload struct {
+		Layer func(childComplexity int) int
+	}
+
 	Camera struct {
 		Altitude func(childComplexity int) int
 		Fov      func(childComplexity int) int
@@ -268,6 +272,10 @@ type ComplexityRoot struct {
 		TeamID func(childComplexity int) int
 	}
 
+	DetachTagFromLayerPayload struct {
+		Layer func(childComplexity int) int
+	}
+
 	DetachTagItemFromGroupPayload struct {
 		Tag func(childComplexity int) int
 	}
@@ -350,6 +358,7 @@ type ComplexityRoot struct {
 		Scene                 func(childComplexity int) int
 		SceneID               func(childComplexity int) int
 		ScenePlugin           func(childComplexity int) int
+		Tags                  func(childComplexity int) int
 	}
 
 	LayerItem struct {
@@ -371,6 +380,7 @@ type ComplexityRoot struct {
 		Scene           func(childComplexity int) int
 		SceneID         func(childComplexity int) int
 		ScenePlugin     func(childComplexity int) int
+		Tags            func(childComplexity int) int
 	}
 
 	MergedInfobox struct {
@@ -469,6 +479,7 @@ type ComplexityRoot struct {
 		AddPropertyItem              func(childComplexity int, input gqlmodel.AddPropertyItemInput) int
 		AddWidget                    func(childComplexity int, input gqlmodel.AddWidgetInput) int
 		AttachTagItemToGroup         func(childComplexity int, input gqlmodel.AttachTagItemToGroupInput) int
+		AttachTagToLayer             func(childComplexity int, input gqlmodel.AttachTagToLayerInput) int
 		CreateAsset                  func(childComplexity int, input gqlmodel.CreateAssetInput) int
 		CreateInfobox                func(childComplexity int, input gqlmodel.CreateInfoboxInput) int
 		CreateProject                func(childComplexity int, input gqlmodel.CreateProjectInput) int
@@ -479,6 +490,7 @@ type ComplexityRoot struct {
 		DeleteMe                     func(childComplexity int, input gqlmodel.DeleteMeInput) int
 		DeleteProject                func(childComplexity int, input gqlmodel.DeleteProjectInput) int
 		DeleteTeam                   func(childComplexity int, input gqlmodel.DeleteTeamInput) int
+		DetachTagFromLayer           func(childComplexity int, input gqlmodel.DetachTagFromLayerInput) int
 		DetachTagItemFromGroup       func(childComplexity int, input gqlmodel.DetachTagItemFromGroupInput) int
 		ImportDataset                func(childComplexity int, input gqlmodel.ImportDatasetInput) int
 		ImportDatasetFromGoogleSheet func(childComplexity int, input gqlmodel.ImportDatasetFromGoogleSheetInput) int
@@ -1099,6 +1111,8 @@ type MutationResolver interface {
 	MoveInfoboxField(ctx context.Context, input gqlmodel.MoveInfoboxFieldInput) (*gqlmodel.MoveInfoboxFieldPayload, error)
 	RemoveInfoboxField(ctx context.Context, input gqlmodel.RemoveInfoboxFieldInput) (*gqlmodel.RemoveInfoboxFieldPayload, error)
 	ImportLayer(ctx context.Context, input gqlmodel.ImportLayerInput) (*gqlmodel.ImportLayerPayload, error)
+	AttachTagToLayer(ctx context.Context, input gqlmodel.AttachTagToLayerInput) (*gqlmodel.AttachTagToLayerPayload, error)
+	DetachTagFromLayer(ctx context.Context, input gqlmodel.DetachTagFromLayerInput) (*gqlmodel.DetachTagFromLayerPayload, error)
 	CreateTagItem(ctx context.Context, input gqlmodel.CreateTagItemInput) (*gqlmodel.CreateTagItemPayload, error)
 	CreateTagGroup(ctx context.Context, input gqlmodel.CreateTagGroupInput) (*gqlmodel.CreateTagGroupPayload, error)
 	AttachTagItemToGroup(ctx context.Context, input gqlmodel.AttachTagItemToGroupInput) (*gqlmodel.AttachTagItemToGroupPayload, error)
@@ -1441,6 +1455,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.AttachTagItemToGroupPayload.Tag(childComplexity), true
+
+	case "AttachTagToLayerPayload.layer":
+		if e.complexity.AttachTagToLayerPayload.Layer == nil {
+			break
+		}
+
+		return e.complexity.AttachTagToLayerPayload.Layer(childComplexity), true
 
 	case "Camera.altitude":
 		if e.complexity.Camera.Altitude == nil {
@@ -1881,6 +1902,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.DeleteTeamPayload.TeamID(childComplexity), true
 
+	case "DetachTagFromLayerPayload.layer":
+		if e.complexity.DetachTagFromLayerPayload.Layer == nil {
+			break
+		}
+
+		return e.complexity.DetachTagFromLayerPayload.Layer(childComplexity), true
+
 	case "DetachTagItemFromGroupPayload.tag":
 		if e.complexity.DetachTagItemFromGroupPayload.Tag == nil {
 			break
@@ -2280,6 +2308,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.LayerGroup.ScenePlugin(childComplexity), true
 
+	case "LayerGroup.tags":
+		if e.complexity.LayerGroup.Tags == nil {
+			break
+		}
+
+		return e.complexity.LayerGroup.Tags(childComplexity), true
+
 	case "LayerItem.extension":
 		if e.complexity.LayerItem.Extension == nil {
 			break
@@ -2405,6 +2440,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.LayerItem.ScenePlugin(childComplexity), true
+
+	case "LayerItem.tags":
+		if e.complexity.LayerItem.Tags == nil {
+			break
+		}
+
+		return e.complexity.LayerItem.Tags(childComplexity), true
 
 	case "MergedInfobox.fields":
 		if e.complexity.MergedInfobox.Fields == nil {
@@ -2953,6 +2995,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.AttachTagItemToGroup(childComplexity, args["input"].(gqlmodel.AttachTagItemToGroupInput)), true
 
+	case "Mutation.attachTagToLayer":
+		if e.complexity.Mutation.AttachTagToLayer == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_attachTagToLayer_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.AttachTagToLayer(childComplexity, args["input"].(gqlmodel.AttachTagToLayerInput)), true
+
 	case "Mutation.createAsset":
 		if e.complexity.Mutation.CreateAsset == nil {
 			break
@@ -3072,6 +3126,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.DeleteTeam(childComplexity, args["input"].(gqlmodel.DeleteTeamInput)), true
+
+	case "Mutation.detachTagFromLayer":
+		if e.complexity.Mutation.DetachTagFromLayer == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_detachTagFromLayer_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.DetachTagFromLayer(childComplexity, args["input"].(gqlmodel.DetachTagFromLayerInput)), true
 
 	case "Mutation.detachTagItemFromGroup":
 		if e.complexity.Mutation.DetachTagItemFromGroup == nil {
@@ -6286,6 +6352,7 @@ interface Layer {
   plugin: Plugin
   extension: PluginExtension
   scenePlugin: ScenePlugin
+  tags: [ID!]
 }
 
 union Layers = LayerItem | LayerGroup
@@ -6318,6 +6385,7 @@ type LayerItem implements Layer {
   merged: MergedLayer @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
+  tags: [ID!]
 }
 
 type LayerGroup implements Layer {
@@ -6342,6 +6410,7 @@ type LayerGroup implements Layer {
   layers: [Layer]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
+  tags: [ID!]
 }
 
 type Infobox {
@@ -6797,6 +6866,16 @@ input DetachTagItemFromGroupInput {
   groupID: ID!
 }
 
+input AttachTagToLayerInput{
+  tagID: ID!
+  layerID: ID!
+}
+
+input DetachTagFromLayerInput{
+  tagID: ID!
+  layerID: ID!
+}
+
 # Payload
 type CreateAssetPayload {
   asset: Asset!
@@ -7007,6 +7086,14 @@ type DetachTagItemFromGroupPayload {
   tag: TagGroup!
 }
 
+type AttachTagToLayerPayload{
+  layer: Layer!
+}
+
+type DetachTagFromLayerPayload{
+  layer: Layer!
+}
+
 # Connection
 
 enum NodeType {
@@ -7200,6 +7287,8 @@ type Mutation {
   moveInfoboxField(input: MoveInfoboxFieldInput!): MoveInfoboxFieldPayload
   removeInfoboxField(input: RemoveInfoboxFieldInput!): RemoveInfoboxFieldPayload
   importLayer(input: ImportLayerInput!): ImportLayerPayload
+  attachTagToLayer(input: AttachTagToLayerInput!): AttachTagToLayerPayload
+  detachTagFromLayer(input: DetachTagFromLayerInput!): DetachTagFromLayerPayload
 
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
@@ -7412,6 +7501,21 @@ func (ec *executionContext) field_Mutation_attachTagItemToGroup_args(ctx context
 	return args, nil
 }
 
+func (ec *executionContext) field_Mutation_attachTagToLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 gqlmodel.AttachTagToLayerInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNAttachTagToLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAttachTagToLayerInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_createAsset_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -7554,6 +7658,21 @@ func (ec *executionContext) field_Mutation_deleteTeam_args(ctx context.Context, 
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNDeleteTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteTeamInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_detachTagFromLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 gqlmodel.DetachTagFromLayerInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNDetachTagFromLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDetachTagFromLayerInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -9907,6 +10026,41 @@ func (ec *executionContext) _AttachTagItemToGroupPayload_tag(ctx context.Context
 	return ec.marshalNTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _AttachTagToLayerPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AttachTagToLayerPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "AttachTagToLayerPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Layer, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.Layer)
+	fc.Result = res
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Camera_lat(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Camera) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -12039,6 +12193,41 @@ func (ec *executionContext) _DeleteTeamPayload_teamId(ctx context.Context, field
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _DetachTagFromLayerPayload_layer(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DetachTagFromLayerPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "DetachTagFromLayerPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Layer, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.Layer)
+	fc.Result = res
+	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _DetachTagItemFromGroupPayload_tag(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.DetachTagItemFromGroupPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -13956,6 +14145,38 @@ func (ec *executionContext) _LayerGroup_scenePlugin(ctx context.Context, field g
 	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _LayerGroup_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "LayerGroup",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tags, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*id.ID)
+	fc.Result = res
+	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _LayerItem_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -14542,6 +14763,38 @@ func (ec *executionContext) _LayerItem_scenePlugin(ctx context.Context, field gr
 	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
 	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _LayerItem_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "LayerItem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tags, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*id.ID)
+	fc.Result = res
+	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfobox) (ret graphql.Marshaler) {
@@ -18591,6 +18844,84 @@ func (ec *executionContext) _Mutation_importLayer(ctx context.Context, field gra
 	res := resTmp.(*gqlmodel.ImportLayerPayload)
 	fc.Result = res
 	return ec.marshalOImportLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐImportLayerPayload(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_attachTagToLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_attachTagToLayer_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().AttachTagToLayer(rctx, args["input"].(gqlmodel.AttachTagToLayerInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.AttachTagToLayerPayload)
+	fc.Result = res
+	return ec.marshalOAttachTagToLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAttachTagToLayerPayload(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_detachTagFromLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_detachTagFromLayer_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().DetachTagFromLayer(rctx, args["input"].(gqlmodel.DetachTagFromLayerInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.DetachTagFromLayerPayload)
+	fc.Result = res
+	return ec.marshalODetachTagFromLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDetachTagFromLayerPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createTagItem(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -30139,6 +30470,34 @@ func (ec *executionContext) unmarshalInputAttachTagItemToGroupInput(ctx context.
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputAttachTagToLayerInput(ctx context.Context, obj interface{}) (gqlmodel.AttachTagToLayerInput, error) {
+	var it gqlmodel.AttachTagToLayerInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "tagID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tagID"))
+			it.TagID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "layerID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("layerID"))
+			it.LayerID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputCreateAssetInput(ctx context.Context, obj interface{}) (gqlmodel.CreateAssetInput, error) {
 	var it gqlmodel.CreateAssetInput
 	var asMap = obj.(map[string]interface{})
@@ -30434,6 +30793,34 @@ func (ec *executionContext) unmarshalInputDeleteTeamInput(ctx context.Context, o
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("teamId"))
 			it.TeamID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputDetachTagFromLayerInput(ctx context.Context, obj interface{}) (gqlmodel.DetachTagFromLayerInput, error) {
+	var it gqlmodel.DetachTagFromLayerInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "tagID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tagID"))
+			it.TagID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "layerID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("layerID"))
+			it.LayerID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -32505,6 +32892,33 @@ func (ec *executionContext) _AttachTagItemToGroupPayload(ctx context.Context, se
 	return out
 }
 
+var attachTagToLayerPayloadImplementors = []string{"AttachTagToLayerPayload"}
+
+func (ec *executionContext) _AttachTagToLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.AttachTagToLayerPayload) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, attachTagToLayerPayloadImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("AttachTagToLayerPayload")
+		case "layer":
+			out.Values[i] = ec._AttachTagToLayerPayload_layer(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var cameraImplementors = []string{"Camera"}
 
 func (ec *executionContext) _Camera(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Camera) graphql.Marshaler {
@@ -33278,6 +33692,33 @@ func (ec *executionContext) _DeleteTeamPayload(ctx context.Context, sel ast.Sele
 	return out
 }
 
+var detachTagFromLayerPayloadImplementors = []string{"DetachTagFromLayerPayload"}
+
+func (ec *executionContext) _DetachTagFromLayerPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DetachTagFromLayerPayload) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, detachTagFromLayerPayloadImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("DetachTagFromLayerPayload")
+		case "layer":
+			out.Values[i] = ec._DetachTagFromLayerPayload_layer(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var detachTagItemFromGroupPayloadImplementors = []string{"DetachTagItemFromGroupPayload"}
 
 func (ec *executionContext) _DetachTagItemFromGroupPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.DetachTagItemFromGroupPayload) graphql.Marshaler {
@@ -33870,6 +34311,8 @@ func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSe
 				res = ec._LayerGroup_scenePlugin(ctx, field, obj)
 				return res
 			})
+		case "tags":
+			out.Values[i] = ec._LayerGroup_tags(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -34012,6 +34455,8 @@ func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet
 				res = ec._LayerItem_scenePlugin(ctx, field, obj)
 				return res
 			})
+		case "tags":
+			out.Values[i] = ec._LayerItem_tags(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -34707,6 +35152,10 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_removeInfoboxField(ctx, field)
 		case "importLayer":
 			out.Values[i] = ec._Mutation_importLayer(ctx, field)
+		case "attachTagToLayer":
+			out.Values[i] = ec._Mutation_attachTagToLayer(ctx, field)
+		case "detachTagFromLayer":
+			out.Values[i] = ec._Mutation_detachTagFromLayer(ctx, field)
 		case "createTagItem":
 			out.Values[i] = ec._Mutation_createTagItem(ctx, field)
 		case "createTagGroup":
@@ -38005,6 +38454,11 @@ func (ec *executionContext) unmarshalNAttachTagItemToGroupInput2githubᚗcomᚋr
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalNAttachTagToLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAttachTagToLayerInput(ctx context.Context, v interface{}) (gqlmodel.AttachTagToLayerInput, error) {
+	res, err := ec.unmarshalInputAttachTagToLayerInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -38495,6 +38949,11 @@ func (ec *executionContext) unmarshalNDeleteProjectInput2githubᚗcomᚋreearth�
 
 func (ec *executionContext) unmarshalNDeleteTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDeleteTeamInput(ctx context.Context, v interface{}) (gqlmodel.DeleteTeamInput, error) {
 	res, err := ec.unmarshalInputDeleteTeamInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNDetachTagFromLayerInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDetachTagFromLayerInput(ctx context.Context, v interface{}) (gqlmodel.DetachTagFromLayerInput, error) {
+	res, err := ec.unmarshalInputDetachTagFromLayerInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
@@ -40622,6 +41081,13 @@ func (ec *executionContext) marshalOAttachTagItemToGroupPayload2ᚖgithubᚗcom�
 	return ec._AttachTagItemToGroupPayload(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalOAttachTagToLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAttachTagToLayerPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AttachTagToLayerPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AttachTagToLayerPayload(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -40780,6 +41246,13 @@ func (ec *executionContext) marshalODeleteTeamPayload2ᚖgithubᚗcomᚋreearth�
 		return graphql.Null
 	}
 	return ec._DeleteTeamPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalODetachTagFromLayerPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDetachTagFromLayerPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DetachTagFromLayerPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._DetachTagFromLayerPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalODetachTagItemFromGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDetachTagItemFromGroupPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.DetachTagItemFromGroupPayload) graphql.Marshaler {
