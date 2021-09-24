@@ -1060,11 +1060,11 @@ input ImportDatasetInput {
 }
 
 input ImportDatasetFromGoogleSheetInput {
-    accessToken: String!
-    fileId: String!
-    sheetName: String!
-    sceneId: ID!
-    datasetSchemaId: ID
+  accessToken: String!
+  fileId: String!
+  sheetName: String!
+  sceneId: ID!
+  datasetSchemaId: ID
 }
 
 input AddDatasetSchemaInput {
@@ -1085,6 +1085,10 @@ input CreateTagGroupInput{
   sceneId: ID!
   label: String!
   tags: [ID!]
+}
+
+input RemoveTagInput {
+  tagID: ID!
 }
 
 # Payload
@@ -1289,6 +1293,10 @@ type CreateTagGroupPayload{
   tag: TagGroup!
 }
 
+type RemoveTagPayload{
+  tagID: ID!
+}
+
 # Connection
 
 enum NodeType {
@@ -1486,6 +1494,7 @@ type Mutation {
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
+  removeTag(input: RemoveTagInput!): RemoveTagPayload
 }
 
 schema {

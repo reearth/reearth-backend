@@ -255,3 +255,7 @@ func (r *Layer) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 	}
 	return nil
 }
+
+func (r *Layer) FindByTag(ctx context.Context, tagID id.TagID) (layer.Layer, error) {
+	panic("implement me")
+}

@@ -43,3 +43,16 @@ func (r *mutationResolver) CreateTagGroup(ctx context.Context, input gqlmodel.Cr
 		Tag: gqlmodel.ToTagGroup(tag),
 	}, nil
 }
+
+func (r *mutationResolver) RemoveTag(ctx context.Context, input gqlmodel.RemoveTagInput) (*gqlmodel.RemoveTagPayload, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	tagID, err := r.usecases.Tag.Remove(ctx, id.TagID(input.TagID), getOperator(ctx))
+	if err != nil {
+		return nil, err
+	}
+	return &gqlmodel.RemoveTagPayload{
+		TagID: tagID.ID(),
+	}, nil
+}

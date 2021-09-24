@@ -25,4 +25,5 @@ type CreateTagGroupParam struct {
 type Tag interface {
 	CreateItem(context.Context, CreateTagItemParam, *usecase.Operator) (*tag.Item, error)
 	CreateGroup(context.Context, CreateTagGroupParam, *usecase.Operator) (*tag.Group, error)
+	Remove(context.Context, id.TagID, *usecase.Operator) (*id.TagID, error)
 }
