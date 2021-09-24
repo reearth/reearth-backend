@@ -1262,10 +1262,6 @@ extensions:
     description: Menu widgets
     widgetLayout:
       floating: true
-      defaultLocation:
-        zone: outer
-        section: left
-        area: top
     schema:
       groups:
         - id: buttons
