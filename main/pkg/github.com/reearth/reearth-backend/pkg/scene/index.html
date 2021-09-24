@@ -154,6 +154,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Builder.UpdatedAt">func (b *Builder) UpdatedAt(updatedAt time.Time) *Builder</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.WidgetAlignSystem">func (b *Builder) WidgetAlignSystem(widgetAlignSystem *WidgetAlignSystem) *Builder</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#Builder.WidgetSystem">func (b *Builder) WidgetSystem(widgetSystem *WidgetSystem) *Builder</a></dd>
 				
 			
@@ -255,6 +258,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Scene.UpdatedAt">func (s *Scene) UpdatedAt() time.Time</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.WidgetAlignSystem">func (s *Scene) WidgetAlignSystem() *WidgetAlignSystem</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#Scene.WidgetSystem">func (s *Scene) WidgetSystem() *WidgetSystem</a></dd>
 				
 			
@@ -262,14 +268,17 @@
 				<dd><a href="index.html#Widget">type Widget</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#MustNewWidget">func MustNewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) *Widget</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#MustNewWidget">func MustNewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool, extended bool) *Widget</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#NewWidget">func NewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled bool) (*Widget, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidget">func NewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled, extended bool) (*Widget, error)</a></dd>
 				
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Widget.Enabled">func (w *Widget) Enabled() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.Extended">func (w *Widget) Extended() bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Widget.Extension">func (w *Widget) Extension() id.PluginExtensionID</a></dd>
@@ -285,6 +294,113 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Widget.SetEnabled">func (w *Widget) SetEnabled(enabled bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Widget.SetExtended">func (w *Widget) SetExtended(extended bool)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#WidgetAlignSystem">type WidgetAlignSystem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidgetAlignSystem">func NewWidgetAlignSystem() *WidgetAlignSystem</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetAlignSystem.Area">func (was *WidgetAlignSystem) Area(loc WidgetLocation) *WidgetArea</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetAlignSystem.Find">func (was *WidgetAlignSystem) Find(wid id.WidgetID) (int, WidgetLocation)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetAlignSystem.Move">func (was *WidgetAlignSystem) Move(wid id.WidgetID, location WidgetLocation, index int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetAlignSystem.Remove">func (was *WidgetAlignSystem) Remove(wid id.WidgetID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetAlignSystem.SetZone">func (w *WidgetAlignSystem) SetZone(t WidgetZoneType, z *WidgetZone)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetAlignSystem.Zone">func (was *WidgetAlignSystem) Zone(zone WidgetZoneType) *WidgetZone</a></dd>
+				
+			
+				
+				<dd><a href="index.html#WidgetAlignType">type WidgetAlignType</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#WidgetArea">type WidgetArea</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidgetArea">func NewWidgetArea(widgetIds []id.WidgetID, align WidgetAlignType) *WidgetArea</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.Add">func (a *WidgetArea) Add(wid id.WidgetID, index int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.AddAll">func (a *WidgetArea) AddAll(wids []id.WidgetID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.Alignment">func (a *WidgetArea) Alignment() WidgetAlignType</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.Find">func (a *WidgetArea) Find(wid id.WidgetID) int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.Move">func (a *WidgetArea) Move(from, to int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.Remove">func (a *WidgetArea) Remove(wid id.WidgetID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.SetAlignment">func (a *WidgetArea) SetAlignment(at WidgetAlignType)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetArea.WidgetIDs">func (a *WidgetArea) WidgetIDs() []id.WidgetID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#WidgetAreaType">type WidgetAreaType</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#WidgetLocation">type WidgetLocation</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetLocation.Horizontal">func (l WidgetLocation) Horizontal() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetLocation.Vertical">func (l WidgetLocation) Vertical() bool</a></dd>
+				
+			
+				
+				<dd><a href="index.html#WidgetSection">type WidgetSection</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidgetSection">func NewWidgetSection() *WidgetSection</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSection.Area">func (s *WidgetSection) Area(t WidgetAreaType) *WidgetArea</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSection.Find">func (s *WidgetSection) Find(wid id.WidgetID) (int, WidgetAreaType)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSection.Remove">func (s *WidgetSection) Remove(wid id.WidgetID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSection.SetArea">func (s *WidgetSection) SetArea(t WidgetAreaType, a *WidgetArea)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#WidgetSectionType">type WidgetSectionType</a></dd>
+				
 				
 			
 				
@@ -322,6 +438,31 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#WidgetSystem.Widgets">func (w *WidgetSystem) Widgets() []*Widget</a></dd>
 				
 			
+				
+				<dd><a href="index.html#WidgetZone">type WidgetZone</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewWidgetZone">func NewWidgetZone() *WidgetZone</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetZone.Find">func (z *WidgetZone) Find(wid id.WidgetID) (int, WidgetSectionType, WidgetAreaType)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetZone.Remove">func (z *WidgetZone) Remove(wid id.WidgetID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetZone.Section">func (wz *WidgetZone) Section(s WidgetSectionType) *WidgetSection</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#WidgetZone.SetSection">func (z *WidgetZone) SetSection(t WidgetSectionType, s *WidgetSection)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#WidgetZoneType">type WidgetZoneType</a></dd>
+				
+				
+			
 			
 			</dl>
 			</div><!-- #manual-nav -->
@@ -345,7 +486,15 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go">widget.go</a>
 			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go">widget_align_system.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go">widget_area.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go">widget_section.go</a>
+			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_system.go">widget_system.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go">widget_zone.go</a>
 			
 			</span>
 			</p>
@@ -372,15 +521,12 @@
 		
 			
 			
-			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=94:131#L1">Builder</a>
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=81:118#L1">Builder</a>
 				<a class="permalink" href="index.html#Builder">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Builder _
-</p>
-
+			
 			<pre>type Builder struct {
     <span class="comment">// contains filtered or unexported fields</span>
 }
@@ -396,23 +542,20 @@ Builder _
 
 			
 				
-				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=142:161#L5">New</a>
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=120:139#L3">New</a>
 					<a class="permalink" href="index.html#New">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func New() *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-New _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=212:253#L10">Build</a>
+				<h3 id="Builder.Build">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=190:231#L8">Build</a>
 					<a class="permalink" href="index.html#Builder.Build">&#xb6;</a>
 					
 					
@@ -427,151 +570,133 @@ Build _
 				
 			
 				
-				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=851:895#L42">ID</a>
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=901:945#L41">ID</a>
 					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-ID _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=737:773#L33">MustBuild</a>
+				<h3 id="Builder.MustBuild">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=795:831#L33">MustBuild</a>
 					<a class="permalink" href="index.html#Builder.MustBuild">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) MustBuild() *<a href="index.html#Scene">Scene</a></pre>
-				<p>
-MustBuild _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=939:973#L48">NewID</a>
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=978:1012#L46">NewID</a>
 					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) NewID() *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-NewID _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.PluginSystem">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1651:1718#L85">PluginSystem</a>
+				<h3 id="Builder.PluginSystem">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1746:1813#L82">PluginSystem</a>
 					<a class="permalink" href="index.html#Builder.PluginSystem">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) PluginSystem(pluginSystem *<a href="index.html#PluginSystem">PluginSystem</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-PluginSystem _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.Project">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1037:1089#L54">Project</a>
+				<h3 id="Builder.Project">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1063:1115#L51">Project</a>
 					<a class="permalink" href="index.html#Builder.Project">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) Project(prj <a href="../id/index.html">id</a>.<a href="../id/index.html#ProjectID">ProjectID</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-Project _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.Property">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1819:1871#L92">Property</a>
+				<h3 id="Builder.Property">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1900:1952#L88">Property</a>
 					<a class="permalink" href="index.html#Builder.Property">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) Property(p <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-Property _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.RootLayer">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1528:1586#L79">RootLayer</a>
+				<h3 id="Builder.RootLayer">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1641:1699#L77">RootLayer</a>
 					<a class="permalink" href="index.html#Builder.RootLayer">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) RootLayer(rootLayer <a href="../id/index.html">id</a>.<a href="../id/index.html#LayerID">LayerID</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-RootLayer _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.Team">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1138:1185#L60">Team</a>
+				<h3 id="Builder.Team">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1154:1201#L56">Team</a>
 					<a class="permalink" href="index.html#Builder.Team">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) Team(team <a href="../id/index.html">id</a>.<a href="../id/index.html#TeamID">TeamID</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-Team _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.UpdatedAt">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1237:1294#L66">UpdatedAt</a>
+				<h3 id="Builder.UpdatedAt">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1238:1295#L61">UpdatedAt</a>
 					<a class="permalink" href="index.html#Builder.UpdatedAt">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) UpdatedAt(updatedAt <a href="/reearth-backend/main/pkg/time/">time</a>.<a href="http://localhost:8080/pkg/time/#Time">Time</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-UpdatedAt _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Builder.WidgetSystem">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1359:1426#L72">WidgetSystem</a>
+				<h3 id="Builder.WidgetAlignSystem">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1496:1578#L72">WidgetAlignSystem</a>
+					<a class="permalink" href="index.html#Builder.WidgetAlignSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) WidgetAlignSystem(widgetAlignSystem *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Builder.WidgetSystem">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1342:1409#L66">WidgetSystem</a>
 					<a class="permalink" href="index.html#Builder.WidgetSystem">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) WidgetSystem(widgetSystem *<a href="index.html#WidgetSystem">WidgetSystem</a>) *<a href="index.html#Builder">Builder</a></pre>
-				<p>
-WidgetSystem _
-</p>
-
+				
 				
 				
 				
@@ -894,7 +1019,7 @@ Upgrade _
 		
 			
 			
-			<h2 id="Scene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=151:381#L2">Scene</a>
+			<h2 id="Scene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=151:459#L2">Scene</a>
 				<a class="permalink" href="index.html#Scene">&#xb6;</a>
 				
 				
@@ -917,7 +1042,7 @@ Upgrade _
 
 			
 				
-				<h3 id="Scene.CreatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=473:510#L20">CreatedAt</a>
+				<h3 id="Scene.CreatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=551:588#L21">CreatedAt</a>
 					<a class="permalink" href="index.html#Scene.CreatedAt">&#xb6;</a>
 					
 					
@@ -929,7 +1054,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.ID">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=383:414#L13">ID</a>
+				<h3 id="Scene.ID">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=461:492#L14">ID</a>
 					<a class="permalink" href="index.html#Scene.ID">&#xb6;</a>
 					
 					
@@ -941,7 +1066,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.IsTeamIncluded">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1412:1466#L83">IsTeamIncluded</a>
+				<h3 id="Scene.IsTeamIncluded">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1609:1663#L91">IsTeamIncluded</a>
 					<a class="permalink" href="index.html#Scene.IsTeamIncluded">&#xb6;</a>
 					
 					
@@ -953,7 +1078,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.PluginSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1099:1143#L62">PluginSystem</a>
+				<h3 id="Scene.PluginSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1296:1340#L70">PluginSystem</a>
 					<a class="permalink" href="index.html#Scene.PluginSystem">&#xb6;</a>
 					
 					
@@ -965,7 +1090,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Project">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=587:625#L27">Project</a>
+				<h3 id="Scene.Project">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=665:703#L28">Project</a>
 					<a class="permalink" href="index.html#Scene.Project">&#xb6;</a>
 					
 					
@@ -977,7 +1102,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Properties">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1603:1647#L95">Properties</a>
+				<h3 id="Scene.Properties">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1800:1844#L103">Properties</a>
 					<a class="permalink" href="index.html#Scene.Properties">&#xb6;</a>
 					
 					
@@ -989,7 +1114,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Property">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=783:823#L41">Property</a>
+				<h3 id="Scene.Property">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=861:901#L42">Property</a>
 					<a class="permalink" href="index.html#Scene.Property">&#xb6;</a>
 					
 					
@@ -1001,7 +1126,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.RootLayer">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=891:929#L48">RootLayer</a>
+				<h3 id="Scene.RootLayer">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=969:1007#L49">RootLayer</a>
 					<a class="permalink" href="index.html#Scene.RootLayer">&#xb6;</a>
 					
 					
@@ -1013,7 +1138,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.SetUpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1305:1354#L76">SetUpdatedAt</a>
+				<h3 id="Scene.SetUpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1502:1551#L84">SetUpdatedAt</a>
 					<a class="permalink" href="index.html#Scene.SetUpdatedAt">&#xb6;</a>
 					
 					
@@ -1025,7 +1150,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Team">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=691:723#L34">Team</a>
+				<h3 id="Scene.Team">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=769:801#L35">Team</a>
 					<a class="permalink" href="index.html#Scene.Team">&#xb6;</a>
 					
 					
@@ -1037,7 +1162,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.UpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1203:1240#L69">UpdatedAt</a>
+				<h3 id="Scene.UpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1400:1437#L77">UpdatedAt</a>
 					<a class="permalink" href="index.html#Scene.UpdatedAt">&#xb6;</a>
 					
 					
@@ -1049,7 +1174,19 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.WidgetSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=995:1039#L55">WidgetSystem</a>
+				<h3 id="Scene.WidgetAlignSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1177:1231#L63">WidgetAlignSystem</a>
+					<a class="permalink" href="index.html#Scene.WidgetAlignSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) WidgetAlignSystem() *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.WidgetSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1073:1117#L56">WidgetSystem</a>
 					<a class="permalink" href="index.html#Scene.WidgetSystem">&#xb6;</a>
 					
 					
@@ -1063,7 +1200,7 @@ Upgrade _
 		
 			
 			
-			<h2 id="Widget">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=72:213#L1">Widget</a>
+			<h2 id="Widget">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=72:229#L1">Widget</a>
 				<a class="permalink" href="index.html#Widget">&#xb6;</a>
 				
 				
@@ -1084,23 +1221,23 @@ Upgrade _
 
 			
 				
-				<h3 id="MustNewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=605:738#L19">MustNewWidget</a>
+				<h3 id="MustNewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=654:802#L21">MustNewWidget</a>
 					<a class="permalink" href="index.html#MustNewWidget">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func MustNewWidget(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#Widget">Widget</a></pre>
+				<pre>func MustNewWidget(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>, extended <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>) *<a href="index.html#Widget">Widget</a></pre>
 				
 				
 				
 			
 				
-				<h3 id="NewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=215:353#L5">NewWidget</a>
+				<h3 id="NewWidget">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=231:379#L6">NewWidget</a>
 					<a class="permalink" href="index.html#NewWidget">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func NewWidget(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) (*<a href="index.html#Widget">Widget</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func NewWidget(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, plugin <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>, extension <a href="../id/index.html">id</a>.<a href="../id/index.html#PluginExtensionID">PluginExtensionID</a>, property <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>, enabled, extended <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) (*<a href="index.html#Widget">Widget</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -1108,7 +1245,7 @@ Upgrade _
 
 			
 				
-				<h3 id="Widget.Enabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1104:1135#L43">Enabled</a>
+				<h3 id="Widget.Enabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1178:1209#L45">Enabled</a>
 					<a class="permalink" href="index.html#Widget.Enabled">&#xb6;</a>
 					
 					
@@ -1120,7 +1257,19 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.Extension">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=963:1012#L35">Extension</a>
+				<h3 id="Widget.Extended">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1266:1298#L52">Extended</a>
+					<a class="permalink" href="index.html#Widget.Extended">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) Extended() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Widget.Extension">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1037:1086#L37">Extension</a>
 					<a class="permalink" href="index.html#Widget.Extension">&#xb6;</a>
 					
 					
@@ -1132,7 +1281,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.ID">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=851:884#L27">ID</a>
+				<h3 id="Widget.ID">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=925:958#L29">ID</a>
 					<a class="permalink" href="index.html#Widget.ID">&#xb6;</a>
 					
 					
@@ -1144,7 +1293,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.Plugin">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=903:940#L31">Plugin</a>
+				<h3 id="Widget.Plugin">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=977:1014#L33">Plugin</a>
 					<a class="permalink" href="index.html#Widget.Plugin">&#xb6;</a>
 					
 					
@@ -1156,7 +1305,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.Property">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1038:1079#L39">Property</a>
+				<h3 id="Widget.Property">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1112:1153#L41">Property</a>
 					<a class="permalink" href="index.html#Widget.Property">&#xb6;</a>
 					
 					
@@ -1168,7 +1317,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Widget.SetEnabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1159:1200#L47">SetEnabled</a>
+				<h3 id="Widget.SetEnabled">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1356:1397#L59">SetEnabled</a>
 					<a class="permalink" href="index.html#Widget.SetEnabled">&#xb6;</a>
 					
 					
@@ -1178,6 +1327,504 @@ Upgrade _
 				
 				
 				
+			
+				
+				<h3 id="Widget.SetExtended">func (*Widget) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget.go?s=1451:1494#L66">SetExtended</a>
+					<a class="permalink" href="index.html#Widget.SetExtended">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#Widget">Widget</a>) SetExtended(extended <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="WidgetAlignSystem">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=454:525#L12">WidgetAlignSystem</a>
+				<a class="permalink" href="index.html#WidgetAlignSystem">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+WidgetAlignSystem is the layout structure of any enabled widgets that will be displayed over the scene.
+</p>
+
+			<pre>type WidgetAlignSystem struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewWidgetAlignSystem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=709:755#L25">NewWidgetAlignSystem</a>
+					<a class="permalink" href="index.html#NewWidgetAlignSystem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewWidgetAlignSystem() *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a></pre>
+				<p>
+NewWidgetAlignSystem returns a new widget align system.
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="WidgetAlignSystem.Area">func (*WidgetAlignSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=1362:1428#L59">Area</a>
+					<a class="permalink" href="index.html#WidgetAlignSystem.Area">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (was *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a>) Area(loc <a href="index.html#WidgetLocation">WidgetLocation</a>) *<a href="index.html#WidgetArea">WidgetArea</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetAlignSystem.Find">func (*WidgetAlignSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=1497:1570#L63">Find</a>
+					<a class="permalink" href="index.html#WidgetAlignSystem.Find">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (was *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a>) Find(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>) (<a href="/reearth-backend/main/pkg/builtin/#int">int</a>, <a href="index.html#WidgetLocation">WidgetLocation</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetAlignSystem.Move">func (*WidgetAlignSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=1971:2058#L86">Move</a>
+					<a class="permalink" href="index.html#WidgetAlignSystem.Move">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (was *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a>) Move(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, location <a href="index.html#WidgetLocation">WidgetLocation</a>, index <a href="/reearth-backend/main/pkg/builtin/#int">int</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetAlignSystem.Remove">func (*WidgetAlignSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=1227:1280#L50">Remove</a>
+					<a class="permalink" href="index.html#WidgetAlignSystem.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (was *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a>) Remove(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>)</pre>
+				<p>
+Remove a widget from the align system.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="WidgetAlignSystem.SetZone">func (*WidgetAlignSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=2283:2351#L101">SetZone</a>
+					<a class="permalink" href="index.html#WidgetAlignSystem.SetZone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (w *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a>) SetZone(t <a href="index.html#WidgetZoneType">WidgetZoneType</a>, z *<a href="index.html#WidgetZone">WidgetZone</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetAlignSystem.Zone">func (*WidgetAlignSystem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=847:914#L30">Zone</a>
+					<a class="permalink" href="index.html#WidgetAlignSystem.Zone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (was *<a href="index.html#WidgetAlignSystem">WidgetAlignSystem</a>) Zone(zone <a href="index.html#WidgetZoneType">WidgetZoneType</a>) *<a href="index.html#WidgetZone">WidgetZone</a></pre>
+				<p>
+Zone will return a specific zone in the align system.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="WidgetAlignType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=241:268#L1">WidgetAlignType</a>
+				<a class="permalink" href="index.html#WidgetAlignType">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type WidgetAlignType <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span id="WidgetAlignStart">WidgetAlignStart</span>    <a href="index.html#WidgetAlignType">WidgetAlignType</a> = &#34;start&#34;
+    <span id="WidgetAlignCentered">WidgetAlignCentered</span> <a href="index.html#WidgetAlignType">WidgetAlignType</a> = &#34;centered&#34;
+    <span id="WidgetAlignEnd">WidgetAlignEnd</span>      <a href="index.html#WidgetAlignType">WidgetAlignType</a> = &#34;end&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="WidgetArea">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=161:239#L1">WidgetArea</a>
+				<a class="permalink" href="index.html#WidgetArea">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+WidgetArea has the widgets and alignment information found in each part area of a section.
+</p>
+
+			<pre>type WidgetArea struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewWidgetArea">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=423:501#L9">NewWidgetArea</a>
+					<a class="permalink" href="index.html#NewWidgetArea">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewWidgetArea(widgetIds []<a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, align <a href="index.html#WidgetAlignType">WidgetAlignType</a>) *<a href="index.html#WidgetArea">WidgetArea</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="WidgetArea.Add">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=1108:1160#L47">Add</a>
+					<a class="permalink" href="index.html#WidgetArea.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) Add(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>, index <a href="/reearth-backend/main/pkg/builtin/#int">int</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetArea.AddAll">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=1278:1325#L55">AddAll</a>
+					<a class="permalink" href="index.html#WidgetArea.AddAll">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) AddAll(wids []<a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetArea.Alignment">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=845:893#L26">Alignment</a>
+					<a class="permalink" href="index.html#WidgetArea.Alignment">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) Alignment() <a href="index.html#WidgetAlignType">WidgetAlignType</a></pre>
+				<p>
+Alignment will return the alignment of a specific area.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="WidgetArea.Find">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=946:992#L34">Find</a>
+					<a class="permalink" href="index.html#WidgetArea.Find">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) Find(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>) <a href="/reearth-backend/main/pkg/builtin/#int">int</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetArea.Move">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=1987:2026#L96">Move</a>
+					<a class="permalink" href="index.html#WidgetArea.Move">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) Move(from, to <a href="/reearth-backend/main/pkg/builtin/#int">int</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetArea.Remove">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=1795:1839#L83">Remove</a>
+					<a class="permalink" href="index.html#WidgetArea.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) Remove(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetArea.SetAlignment">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=1569:1622#L71">SetAlignment</a>
+					<a class="permalink" href="index.html#WidgetArea.SetAlignment">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) SetAlignment(at <a href="index.html#WidgetAlignType">WidgetAlignType</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetArea.WidgetIDs">func (*WidgetArea) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_area.go?s=654:700#L17">WidgetIDs</a>
+					<a class="permalink" href="index.html#WidgetArea.WidgetIDs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="index.html#WidgetArea">WidgetArea</a>) WidgetIDs() []<a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a></pre>
+				<p>
+WidgetIds will return a slice of widget ids from a specific area.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="WidgetAreaType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go?s=229:255#L2">WidgetAreaType</a>
+				<a class="permalink" href="index.html#WidgetAreaType">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type WidgetAreaType <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+				
+				<pre>var (
+    <span id="WidgetAreaTop">WidgetAreaTop</span>    <a href="index.html#WidgetAreaType">WidgetAreaType</a> = &#34;top&#34;
+    <span id="WidgetAreaMiddle">WidgetAreaMiddle</span> <a href="index.html#WidgetAreaType">WidgetAreaType</a> = &#34;middle&#34;
+    <span id="WidgetAreaBottom">WidgetAreaBottom</span> <a href="index.html#WidgetAreaType">WidgetAreaType</a> = &#34;bottom&#34;
+)</pre>
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="WidgetLocation">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=72:177#L1">WidgetLocation</a>
+				<a class="permalink" href="index.html#WidgetLocation">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type WidgetLocation struct {
+<span id="WidgetLocation.Zone"></span>    Zone    <a href="index.html#WidgetZoneType">WidgetZoneType</a>
+<span id="WidgetLocation.Section"></span>    Section <a href="index.html#WidgetSectionType">WidgetSectionType</a>
+<span id="WidgetLocation.Area"></span>    Area    <a href="index.html#WidgetAreaType">WidgetAreaType</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="WidgetLocation.Horizontal">func (WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=179:220#L3">Horizontal</a>
+					<a class="permalink" href="index.html#WidgetLocation.Horizontal">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#WidgetLocation">WidgetLocation</a>) Horizontal() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetLocation.Vertical">func (WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=267:306#L7">Vertical</a>
+					<a class="permalink" href="index.html#WidgetLocation.Vertical">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l <a href="index.html#WidgetLocation">WidgetLocation</a>) Vertical() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="WidgetSection">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go?s=138:227#L1">WidgetSection</a>
+				<a class="permalink" href="index.html#WidgetSection">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+WidgetSection is the structure of each section of the align system.
+</p>
+
+			<pre>type WidgetSection struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewWidgetSection">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go?s=395:433#L10">NewWidgetSection</a>
+					<a class="permalink" href="index.html#NewWidgetSection">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewWidgetSection() *<a href="index.html#WidgetSection">WidgetSection</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="WidgetSection.Area">func (*WidgetSection) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go?s=464:522#L14">Area</a>
+					<a class="permalink" href="index.html#WidgetSection.Area">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#WidgetSection">WidgetSection</a>) Area(t <a href="index.html#WidgetAreaType">WidgetAreaType</a>) *<a href="index.html#WidgetArea">WidgetArea</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSection.Find">func (*WidgetSection) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go?s=935:1002#L39">Find</a>
+					<a class="permalink" href="index.html#WidgetSection.Find">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#WidgetSection">WidgetSection</a>) Find(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>) (<a href="/reearth-backend/main/pkg/builtin/#int">int</a>, <a href="index.html#WidgetAreaType">WidgetAreaType</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSection.Remove">func (*WidgetSection) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go?s=1262:1309#L56">Remove</a>
+					<a class="permalink" href="index.html#WidgetSection.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#WidgetSection">WidgetSection</a>) Remove(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetSection.SetArea">func (*WidgetSection) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_section.go?s=1406:1470#L66">SetArea</a>
+					<a class="permalink" href="index.html#WidgetSection.SetArea">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#WidgetSection">WidgetSection</a>) SetArea(t <a href="index.html#WidgetAreaType">WidgetAreaType</a>, a *<a href="index.html#WidgetArea">WidgetArea</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="WidgetSectionType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go?s=248:277#L2">WidgetSectionType</a>
+				<a class="permalink" href="index.html#WidgetSectionType">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type WidgetSectionType <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span id="WidgetSectionLeft">WidgetSectionLeft</span>   <a href="index.html#WidgetSectionType">WidgetSectionType</a> = &#34;left&#34;
+    <span id="WidgetSectionCenter">WidgetSectionCenter</span> <a href="index.html#WidgetSectionType">WidgetSectionType</a> = &#34;center&#34;
+    <span id="WidgetSectionRight">WidgetSectionRight</span>  <a href="index.html#WidgetSectionType">WidgetSectionType</a> = &#34;right&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
 			
 		
 			
@@ -1322,6 +1969,121 @@ Upgrade _
 				
 				
 				
+			
+		
+			
+			
+			<h2 id="WidgetZone">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go?s=151:246#L1">WidgetZone</a>
+				<a class="permalink" href="index.html#WidgetZone">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+WidgetZone is the structure of each layer (inner and outer) of the align system.
+</p>
+
+			<pre>type WidgetZone struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewWidgetZone">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go?s=437:469#L10">NewWidgetZone</a>
+					<a class="permalink" href="index.html#NewWidgetZone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewWidgetZone() *<a href="index.html#WidgetZone">WidgetZone</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="WidgetZone.Find">func (*WidgetZone) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go?s=1048:1131#L45">Find</a>
+					<a class="permalink" href="index.html#WidgetZone.Find">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (z *<a href="index.html#WidgetZone">WidgetZone</a>) Find(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>) (<a href="/reearth-backend/main/pkg/builtin/#int">int</a>, <a href="index.html#WidgetSectionType">WidgetSectionType</a>, <a href="index.html#WidgetAreaType">WidgetAreaType</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetZone.Remove">func (*WidgetZone) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go?s=907:951#L35">Remove</a>
+					<a class="permalink" href="index.html#WidgetZone.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (z *<a href="index.html#WidgetZone">WidgetZone</a>) Remove(wid <a href="../id/index.html">id</a>.<a href="../id/index.html#WidgetID">WidgetID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetZone.Section">func (*WidgetZone) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go?s=497:562#L14">Section</a>
+					<a class="permalink" href="index.html#WidgetZone.Section">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (wz *<a href="index.html#WidgetZone">WidgetZone</a>) Section(s <a href="index.html#WidgetSectionType">WidgetSectionType</a>) *<a href="index.html#WidgetSection">WidgetSection</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="WidgetZone.SetSection">func (*WidgetZone) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_zone.go?s=1433:1503#L63">SetSection</a>
+					<a class="permalink" href="index.html#WidgetZone.SetSection">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (z *<a href="index.html#WidgetZone">WidgetZone</a>) SetSection(t <a href="index.html#WidgetSectionType">WidgetSectionType</a>, s *<a href="index.html#WidgetSection">WidgetSection</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="WidgetZoneType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/widget_align_system.go?s=527:553#L17">WidgetZoneType</a>
+				<a class="permalink" href="index.html#WidgetZoneType">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type WidgetZoneType <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+
+			
+				
+				<pre>const (
+    <span id="WidgetZoneInner">WidgetZoneInner</span> <a href="index.html#WidgetZoneType">WidgetZoneType</a> = &#34;inner&#34;
+    <span id="WidgetZoneOuter">WidgetZoneOuter</span> <a href="index.html#WidgetZoneType">WidgetZoneType</a> = &#34;outer&#34;
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
 			
 		
 	

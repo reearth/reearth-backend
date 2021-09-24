@@ -120,6 +120,11 @@
 				
 			
 				
+				<dd><a href="index.html#Extendable">type Extendable</a></dd>
+				
+				
+			
+				
 				<dd><a href="index.html#Extension">type Extension</a></dd>
 				
 				
@@ -131,6 +136,11 @@
 			
 				
 				<dd><a href="index.html#Id">type Id</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Location">type Location</a></dd>
 				
 				
 			
@@ -228,6 +238,11 @@
 				
 				
 			
+				
+				<dd><a href="index.html#WidgetLayout">type WidgetLayout</a></dd>
+				
+				
+			
 			
 			</dl>
 			</div><!-- #manual-nav -->
@@ -281,7 +296,7 @@
 		
 			
 			
-			<h2 id="Choice">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=214:340#L1">Choice</a>
+			<h2 id="Choice">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=213:339#L1">Choice</a>
 				<a class="permalink" href="index.html#Choice">&#xb6;</a>
 				
 				
@@ -308,20 +323,15 @@
 		
 			
 			
-			<h2 id="Extension">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=342:712#L1">Extension</a>
-				<a class="permalink" href="index.html#Extension">&#xb6;</a>
+			<h2 id="Extendable">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=341:469#L1">Extendable</a>
+				<a class="permalink" href="index.html#Extendable">&#xb6;</a>
 				
 				
 			</h2>
 			
-			<pre>type Extension struct {
-<span id="Extension.Description"></span>    Description *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
-<span id="Extension.ID"></span>    ID          <a href="index.html#ID">ID</a>              `json:&#34;id&#34;`
-<span id="Extension.Icon"></span>    Icon        *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;icon,omitempty&#34;`
-<span id="Extension.Schema"></span>    Schema      *<a href="index.html#PropertySchema">PropertySchema</a> `json:&#34;schema,omitempty&#34;`
-<span id="Extension.Title"></span>    Title       <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
-<span id="Extension.Type"></span>    Type        <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;type&#34;`
-<span id="Extension.Visualizer"></span>    Visualizer  <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;visualizer&#34;`
+			<pre>type Extendable struct {
+<span id="Extendable.Horizontally"></span>    Horizontally *<a href="/reearth-backend/main/pkg/builtin/#bool">bool</a> `json:&#34;horizontally,omitempty&#34;`
+<span id="Extendable.Vertically"></span>    Vertically   *<a href="/reearth-backend/main/pkg/builtin/#bool">bool</a> `json:&#34;vertically,omitempty&#34;`
 }
 </pre>
 
@@ -339,7 +349,39 @@
 		
 			
 			
-			<h2 id="ID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=714:728#L11">ID</a>
+			<h2 id="Extension">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=471:910#L6">Extension</a>
+				<a class="permalink" href="index.html#Extension">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Extension struct {
+<span id="Extension.Description"></span>    Description  *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;description,omitempty&#34;`
+<span id="Extension.ID"></span>    ID           <a href="index.html#ID">ID</a>              `json:&#34;id&#34;`
+<span id="Extension.Icon"></span>    Icon         *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>         `json:&#34;icon,omitempty&#34;`
+<span id="Extension.Schema"></span>    Schema       *<a href="index.html#PropertySchema">PropertySchema</a> `json:&#34;schema,omitempty&#34;`
+<span id="Extension.Title"></span>    Title        <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;title&#34;`
+<span id="Extension.Type"></span>    Type         <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;type&#34;`
+<span id="Extension.Visualizer"></span>    Visualizer   <a href="/reearth-backend/main/pkg/builtin/#string">string</a>          `json:&#34;visualizer&#34;`
+<span id="Extension.WidgetLayout"></span>    WidgetLayout *<a href="index.html#WidgetLayout">WidgetLayout</a>   `json:&#34;widgetLayout,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=912:926#L17">ID</a>
 				<a class="permalink" href="index.html#ID">&#xb6;</a>
 				
 				
@@ -361,13 +403,40 @@
 		
 			
 			
-			<h2 id="Id">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=730:744#L13">Id</a>
+			<h2 id="Id">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=928:942#L19">Id</a>
 				<a class="permalink" href="index.html#Id">&#xb6;</a>
 				
 				
 			</h2>
 			
 			<pre>type Id <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Location">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=944:1091#L21">Location</a>
+				<a class="permalink" href="index.html#Location">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Location struct {
+<span id="Location.Area"></span>    Area    <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;area,omitempty&#34;`
+<span id="Location.Section"></span>    Section <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;section,omitempty&#34;`
+<span id="Location.Zone"></span>    Zone    <a href="/reearth-backend/main/pkg/builtin/#string">string</a> `json:&#34;zone,omitempty&#34;`
+}
+</pre>
 
 			
 
@@ -466,7 +535,7 @@
 		
 			
 			
-			<h2 id="PropertyCondition">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=746:880#L15">PropertyCondition</a>
+			<h2 id="PropertyCondition">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1093:1227#L27">PropertyCondition</a>
 				<a class="permalink" href="index.html#PropertyCondition">&#xb6;</a>
 				
 				
@@ -493,7 +562,7 @@
 		
 			
 			
-			<h2 id="PropertyLinkableFields">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=882:1019#L21">PropertyLinkableFields</a>
+			<h2 id="PropertyLinkableFields">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1229:1366#L33">PropertyLinkableFields</a>
 				<a class="permalink" href="index.html#PropertyLinkableFields">&#xb6;</a>
 				
 				
@@ -519,7 +588,7 @@
 		
 			
 			
-			<h2 id="PropertyPointer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1021:1136#L26">PropertyPointer</a>
+			<h2 id="PropertyPointer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1368:1483#L38">PropertyPointer</a>
 				<a class="permalink" href="index.html#PropertyPointer">&#xb6;</a>
 				
 				
@@ -545,7 +614,7 @@
 		
 			
 			
-			<h2 id="PropertySchema">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1138:1351#L31">PropertySchema</a>
+			<h2 id="PropertySchema">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1485:1698#L43">PropertySchema</a>
 				<a class="permalink" href="index.html#PropertySchema">&#xb6;</a>
 				
 				
@@ -572,7 +641,7 @@
 		
 			
 			
-			<h2 id="PropertySchemaField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1353:2066#L37">PropertySchemaField</a>
+			<h2 id="PropertySchemaField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=1700:2413#L49">PropertySchemaField</a>
 				<a class="permalink" href="index.html#PropertySchemaField">&#xb6;</a>
 				
 				
@@ -608,7 +677,7 @@
 		
 			
 			
-			<h2 id="PropertySchemaGroup">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=2068:2582#L52">PropertySchemaGroup</a>
+			<h2 id="PropertySchemaGroup">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=2415:2929#L64">PropertySchemaGroup</a>
 				<a class="permalink" href="index.html#PropertySchemaGroup">&#xb6;</a>
 				
 				
@@ -639,7 +708,7 @@
 		
 			
 			
-			<h2 id="Root">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=2584:3141#L62">Root</a>
+			<h2 id="Root">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=2931:3488#L74">Root</a>
 				<a class="permalink" href="index.html#Root">&#xb6;</a>
 				
 				
@@ -837,13 +906,41 @@
 		
 			
 			
-			<h2 id="Valuetype">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=3143:3164#L75">Valuetype</a>
+			<h2 id="Valuetype">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=3490:3511#L87">Valuetype</a>
 				<a class="permalink" href="index.html#Valuetype">&#xb6;</a>
 				
 				
 			</h2>
 			
 			<pre>type Valuetype <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="WidgetLayout">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/manifest/schema_gen.go?s=3513:3778#L89">WidgetLayout</a>
+				<a class="permalink" href="index.html#WidgetLayout">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type WidgetLayout struct {
+<span id="WidgetLayout.DefaultLocation"></span>    DefaultLocation *<a href="index.html#Location">Location</a>   `json:&#34;defaultLocation,omitempty&#34;`
+<span id="WidgetLayout.Extendable"></span>    Extendable      *<a href="index.html#Extendable">Extendable</a> `json:&#34;extendable,omitempty&#34;`
+<span id="WidgetLayout.Extended"></span>    Extended        *<a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>       `json:&#34;extended,omitempty&#34;`
+<span id="WidgetLayout.Floating"></span>    Floating        <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>        `json:&#34;floating,omitempty&#34;`
+}
+</pre>
 
 			
 
