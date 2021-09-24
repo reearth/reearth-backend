@@ -1421,6 +1421,10 @@ type Query {
   searchUser(nameOrEmail: String!): SearchedUser
   checkProjectAlias(alias: String!): CheckProjectAliasPayload!
   installablePlugins: [PluginMetadata!]!
+  tagItemsByLayer(layerId: ID!): [TagItem!]!
+  tagItemsByScene(sceneId: ID!): [TagItem!]!
+  tagGroupsByLayer(layerId: ID!): [TagGroup!]!
+  tagGroupsByScene(sceneId: ID!): [TagGroup!]!
 }
 
 # Mutation

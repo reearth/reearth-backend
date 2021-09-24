@@ -174,3 +174,33 @@ func (t *Tag) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 	}
 	return nil
 }
+
+func (t *Tag) FindGroupByScene(ctx context.Context, sceneID id.SceneID) ([]*tag.Group, error) {
+	t.lock.Lock()
+	defer t.lock.Unlock()
+
+	var res []*tag.Group
+	for _, tt := range t.data {
+		tt := tt
+		group := tag.ToTagGroup(tt)
+		if tt.Scene() == sceneID && group != nil {
+			res = append(res, group)
+		}
+	}
+	return res, nil
+}
+
+func (t *Tag) FindItemByScene(ctx context.Context, sceneID id.SceneID) ([]*tag.Item, error) {
+	t.lock.Lock()
+	defer t.lock.Unlock()
+
+	var res []*tag.Item
+	for _, tt := range t.data {
+		tt := tt
+		item := tag.ToTagItem(tt)
+		if tt.Scene() == sceneID && item != nil {
+			res = append(res, item)
+		}
+	}
+	return res, nil
+}

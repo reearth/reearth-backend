@@ -77,6 +77,52 @@ func TestTag_FindByScene(t *testing.T) {
 	assert.Equal(t, []*tag.Tag{&tti2}, out)
 }
 
+func TestTag_FindItemByScene(t *testing.T) {
+	ctx := context.Background()
+	sid := id.NewSceneID()
+	sid2 := id.NewSceneID()
+	t1, _ := tag.NewItem().NewID().Scene(sid).Label("item").Build()
+	tl := tag.NewListFromTags([]id.TagID{t1.ID()})
+	t2, _ := tag.NewGroup().NewID().Scene(sid2).Label("group").Tags(tl).Build()
+	t3, _ := tag.NewItem().NewID().Scene(sid2).Label("item2").Build()
+	tti := tag.Tag(t1)
+	tti2 := tag.Tag(t3)
+	ttg := tag.Tag(t2)
+	repo := Tag{
+		data: map[id.TagID]tag.Tag{
+			t1.ID(): tti,
+			t2.ID(): ttg,
+			t3.ID(): tti2,
+		},
+	}
+	out, err := repo.FindItemByScene(ctx, sid2)
+	assert.NoError(t, err)
+	assert.Same(t, t3, out[0])
+}
+
+func TestTag_FindGroupByScene(t *testing.T) {
+	ctx := context.Background()
+	sid := id.NewSceneID()
+	sid2 := id.NewSceneID()
+	t1, _ := tag.NewItem().NewID().Scene(sid).Label("item").Build()
+	tl := tag.NewListFromTags([]id.TagID{t1.ID()})
+	t2, _ := tag.NewGroup().NewID().Scene(sid2).Label("group").Tags(tl).Build()
+	t3, _ := tag.NewItem().NewID().Scene(sid2).Label("item2").Build()
+	tti := tag.Tag(t1)
+	tti2 := tag.Tag(t3)
+	ttg := tag.Tag(t2)
+	repo := Tag{
+		data: map[id.TagID]tag.Tag{
+			t1.ID(): tti,
+			t2.ID(): ttg,
+			t3.ID(): tti2,
+		},
+	}
+	out, err := repo.FindGroupByScene(ctx, sid2)
+	assert.NoError(t, err)
+	assert.Same(t, t2, out[0])
+}
+
 func TestTag_FindGroupByID(t *testing.T) {
 	ctx := context.Background()
 	sid := id.NewSceneID()

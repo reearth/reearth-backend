@@ -760,6 +760,10 @@ type ComplexityRoot struct {
 		Scene                 func(childComplexity int, projectID id.ID) int
 		SceneLock             func(childComplexity int, sceneID id.ID) int
 		SearchUser            func(childComplexity int, nameOrEmail string) int
+		TagGroupsByLayer      func(childComplexity int, layerID id.ID) int
+		TagGroupsByScene      func(childComplexity int, sceneID id.ID) int
+		TagItemsByLayer       func(childComplexity int, layerID id.ID) int
+		TagItemsByScene       func(childComplexity int, sceneID id.ID) int
 	}
 
 	Rect struct {
@@ -1184,6 +1188,10 @@ type QueryResolver interface {
 	SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error)
 	CheckProjectAlias(ctx context.Context, alias string) (*gqlmodel.CheckProjectAliasPayload, error)
 	InstallablePlugins(ctx context.Context) ([]*gqlmodel.PluginMetadata, error)
+	TagItemsByLayer(ctx context.Context, layerID id.ID) ([]*gqlmodel.TagItem, error)
+	TagItemsByScene(ctx context.Context, sceneID id.ID) ([]*gqlmodel.TagItem, error)
+	TagGroupsByLayer(ctx context.Context, layerID id.ID) ([]*gqlmodel.TagGroup, error)
+	TagGroupsByScene(ctx context.Context, sceneID id.ID) ([]*gqlmodel.TagGroup, error)
 }
 type SceneResolver interface {
 	Project(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Project, error)
@@ -4900,6 +4908,54 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.SearchUser(childComplexity, args["nameOrEmail"].(string)), true
 
+	case "Query.tagGroupsByLayer":
+		if e.complexity.Query.TagGroupsByLayer == nil {
+			break
+		}
+
+		args, err := ec.field_Query_tagGroupsByLayer_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.TagGroupsByLayer(childComplexity, args["layerId"].(id.ID)), true
+
+	case "Query.tagGroupsByScene":
+		if e.complexity.Query.TagGroupsByScene == nil {
+			break
+		}
+
+		args, err := ec.field_Query_tagGroupsByScene_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.TagGroupsByScene(childComplexity, args["sceneId"].(id.ID)), true
+
+	case "Query.tagItemsByLayer":
+		if e.complexity.Query.TagItemsByLayer == nil {
+			break
+		}
+
+		args, err := ec.field_Query_tagItemsByLayer_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.TagItemsByLayer(childComplexity, args["layerId"].(id.ID)), true
+
+	case "Query.tagItemsByScene":
+		if e.complexity.Query.TagItemsByScene == nil {
+			break
+		}
+
+		args, err := ec.field_Query_tagItemsByScene_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.TagItemsByScene(childComplexity, args["sceneId"].(id.ID)), true
+
 	case "Rect.east":
 		if e.complexity.Rect.East == nil {
 			break
@@ -7137,6 +7193,10 @@ type Query {
   searchUser(nameOrEmail: String!): SearchedUser
   checkProjectAlias(alias: String!): CheckProjectAliasPayload!
   installablePlugins: [PluginMetadata!]!
+  tagItemsByLayer(layerId: ID!): [TagItem!]!
+  tagItemsByScene(sceneId: ID!): [TagItem!]!
+  tagGroupsByLayer(layerId: ID!): [TagGroup!]!
+  tagGroupsByScene(sceneId: ID!): [TagGroup!]!
 }
 
 # Mutation
@@ -8724,6 +8784,66 @@ func (ec *executionContext) field_Query_searchUser_args(ctx context.Context, raw
 		}
 	}
 	args["nameOrEmail"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_tagGroupsByLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 id.ID
+	if tmp, ok := rawArgs["layerId"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("layerId"))
+		arg0, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["layerId"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_tagGroupsByScene_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 id.ID
+	if tmp, ok := rawArgs["sceneId"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
+		arg0, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["sceneId"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_tagItemsByLayer_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 id.ID
+	if tmp, ok := rawArgs["layerId"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("layerId"))
+		arg0, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["layerId"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_tagItemsByScene_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 id.ID
+	if tmp, ok := rawArgs["sceneId"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
+		arg0, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["sceneId"] = arg0
 	return args, nil
 }
 
@@ -25001,6 +25121,174 @@ func (ec *executionContext) _Query_installablePlugins(ctx context.Context, field
 	return ec.marshalNPluginMetadata2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐPluginMetadataᚄ(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Query_tagItemsByLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_tagItemsByLayer_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().TagItemsByLayer(rctx, args["layerId"].(id.ID))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.TagItem)
+	fc.Result = res
+	return ec.marshalNTagItem2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItemᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_tagItemsByScene(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_tagItemsByScene_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().TagItemsByScene(rctx, args["sceneId"].(id.ID))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.TagItem)
+	fc.Result = res
+	return ec.marshalNTagItem2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItemᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_tagGroupsByLayer(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_tagGroupsByLayer_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().TagGroupsByLayer(rctx, args["layerId"].(id.ID))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.TagGroup)
+	fc.Result = res
+	return ec.marshalNTagGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroupᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_tagGroupsByScene(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_tagGroupsByScene_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().TagGroupsByScene(rctx, args["sceneId"].(id.ID))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.TagGroup)
+	fc.Result = res
+	return ec.marshalNTagGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroupᚄ(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -36421,6 +36709,62 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}
 				return res
 			})
+		case "tagItemsByLayer":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_tagItemsByLayer(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "tagItemsByScene":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_tagItemsByScene(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "tagGroupsByLayer":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_tagGroupsByLayer(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "tagGroupsByScene":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_tagGroupsByScene(ctx, field)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
 		case "__type":
 			out.Values[i] = ec._Query___type(ctx, field)
 		case "__schema":
@@ -40126,6 +40470,43 @@ func (ec *executionContext) unmarshalNSyncDatasetInput2githubᚗcomᚋreearthᚋ
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) marshalNTagGroup2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroupᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.TagGroup) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+	return ret
+}
+
 func (ec *executionContext) marshalNTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.TagGroup) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
@@ -40134,6 +40515,43 @@ func (ec *executionContext) marshalNTagGroup2ᚖgithubᚗcomᚋreearthᚋreearth
 		return graphql.Null
 	}
 	return ec._TagGroup(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNTagItem2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItemᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.TagItem) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNTagItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItem(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+	return ret
 }
 
 func (ec *executionContext) marshalNTagItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItem(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.TagItem) graphql.Marshaler {
