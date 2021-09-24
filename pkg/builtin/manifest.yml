@@ -123,7 +123,7 @@ extensions:
               ui: color
               title: Text color
               description: Select a color.
-              defaultValue: '#434343'
+              defaultValue: "#434343"
               availableIf:
                 field: themeType
                 type: string
@@ -133,7 +133,7 @@ extensions:
               ui: color
               title: Select color
               description: Select a color.
-              defaultValue: '#C52C63'
+              defaultValue: "#C52C63"
               availableIf:
                 field: themeType
                 type: string
@@ -143,7 +143,7 @@ extensions:
               ui: color
               title: Background color
               description: Select a color.
-              defaultValue: '#DFE5F0'
+              defaultValue: "#DFE5F0"
               availableIf:
                 field: themeType
                 type: string
@@ -1258,9 +1258,10 @@ extensions:
   - id: menu
     visualizer: cesium
     type: widget
-    title: Menu
+    title: Menu (legacy)
     description: Menu widgets
     widgetLayout:
+      floating: true
       defaultLocation:
         zone: outer
         section: left
@@ -1341,6 +1342,111 @@ extensions:
         - id: menu
           title: Menu
           list: true
+          fields:
+            - id: menuTitle
+              type: string
+              title: Title
+            - id: menuIcon
+              type: url
+              title: Icon
+            - id: menuType
+              type: string
+              title: Type
+              defaultValue: link
+              choices:
+                - key: link
+                  label: Link
+                - key: camera
+                  label: Camera
+                - key: border
+                  label: Break
+            - id: menuLink
+              type: url
+              title: Link
+              availableIf:
+                field: menuType
+                type: string
+                value: link
+            - id: menuCamera
+              type: camera
+              title: Camera
+              availableIf:
+                field: menuType
+                type: string
+                value: camera
+  - id: button
+    visualizer: cesium
+    type: widget
+    title: Button
+    description: Button widget
+    widgetLayout:
+      defaultLocation:
+        zone: outer
+        section: left
+        area: top
+    schema:
+      groups:
+        - id: default
+          title: Button
+          fields:
+            - id: buttonTitle
+              type: string
+              title: Title
+            - id: buttonStyle
+              type: string
+              title: Style
+              defaultValue: text
+              choices:
+                - key: text
+                  label: Text only
+                - key: icon
+                  label: Icon only
+                - key: texticon
+                  label: Text and icon
+            - id: buttonIcon
+              type: url
+              title: Icon
+              ui: image
+            - id: buttonColor
+              type: string
+              title: Text color
+              ui: color
+            - id: buttonBgcolor
+              type: string
+              title: Background color
+              ui: color
+            - id: buttonType
+              type: string
+              title: Type
+              defaultValue: link
+              choices:
+                - key: link
+                  label: Link
+                - key: menu
+                  label: Menu
+                - key: camera
+                  label: Camera flight
+            - id: buttonLink
+              type: url
+              title: Link
+              availableIf:
+                field: buttonType
+                type: string
+                value: link
+            - id: buttonCamera
+              type: camera
+              title: Camera flight
+              availableIf:
+                field: buttonType
+                type: string
+                value: camera
+        - id: menu
+          title: Menu
+          list: true
+          availableIf:
+            field: buttonType
+            type: string
+            value: menu
           fields:
             - id: menuTitle
               type: string
