@@ -3,12 +3,10 @@ package interactor
 import (
 	"context"
 	"errors"
-	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/layer"
-
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
+	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
@@ -132,12 +130,20 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 		}
 	}
 
-	if {
+	if item := tag.ToTagItem(*t); item != nil {
 
 	}
 
-	l,err:=i.layerRepo.FindByTag(ctx,tagID)
-	if l!=nil {
-		l.
+	l, err := i.layerRepo.FindByTag(ctx, tagID)
+	if l != nil {
+		err = l.DetachTag(tagID)
+		if err != nil {
+			return nil, err
+		}
+		err = i.layerRepo.Save(ctx, l)
+		if err != nil {
+			return nil, err
+		}
 	}
+	return &tagID, nil
 }
