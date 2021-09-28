@@ -152,13 +152,9 @@ func NewWidgetLayout(l *plugin.WidgetLayout) *WidgetLayoutDocument {
 			Vertically:   l.VerticallyExtendable(),
 			Horizontally: l.HorizontallyExtendable(),
 		},
-		Extended: l.Extended(),
-		Floating: l.Floating(),
-		DefaultLocation: &WidgetLocationDocument{
-			Zone:    string(l.DefaultLocation().Zone),
-			Section: string(l.DefaultLocation().Section),
-			Area:    string(l.DefaultLocation().Area),
-		},
+		Extended:        l.Extended(),
+		Floating:        l.Floating(),
+		DefaultLocation: NewWidgetLocation(l.DefaultLocation()),
 	}
 }
 
@@ -167,20 +163,35 @@ func (d *WidgetLayoutDocument) Model() *plugin.WidgetLayout {
 		return nil
 	}
 
-	var loc *plugin.WidgetLocation
-	if d.DefaultLocation != nil {
-		loc = &plugin.WidgetLocation{
-			Zone:    plugin.WidgetZoneType(d.DefaultLocation.Zone),
-			Section: plugin.WidgetSectionType(d.DefaultLocation.Section),
-			Area:    plugin.WidgetAreaType(d.DefaultLocation.Area),
-		}
-	}
-
 	return plugin.NewWidgetLayout(
 		d.Extendable.Horizontally,
 		d.Extendable.Vertically,
 		d.Extended,
 		d.Floating,
-		loc,
+		d.DefaultLocation.Model(),
 	).Ref()
+}
+
+func NewWidgetLocation(l *plugin.WidgetLocation) *WidgetLocationDocument {
+	if l == nil {
+		return nil
+	}
+
+	return &WidgetLocationDocument{
+		Zone:    string(l.Zone),
+		Section: string(l.Section),
+		Area:    string(l.Area),
+	}
+}
+
+func (d *WidgetLocationDocument) Model() *plugin.WidgetLocation {
+	if d == nil {
+		return nil
+	}
+
+	return &plugin.WidgetLocation{
+		Zone:    plugin.WidgetZoneType(d.Zone),
+		Section: plugin.WidgetSectionType(d.Section),
+		Area:    plugin.WidgetAreaType(d.Area),
+	}
 }
