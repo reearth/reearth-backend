@@ -48,7 +48,10 @@ func (r *mutationResolver) AttachTagItemToGroup(ctx context.Context, input gqlmo
 	exit := trace(ctx)
 	defer exit()
 
-	tag, err := r.usecases.Tag.AttachItemToGroup(ctx, id.TagID(input.ItemID), id.TagID(input.GroupID), getOperator(ctx))
+	tag, err := r.usecases.Tag.AttachItemToGroup(ctx, interfaces.AttachItemToGroupParam{
+		ItemID:  id.TagID(input.ItemID),
+		GroupID: id.TagID(input.GroupID),
+	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +64,10 @@ func (r *mutationResolver) DetachTagItemFromGroup(ctx context.Context, input gql
 	exit := trace(ctx)
 	defer exit()
 
-	tag, err := r.usecases.Tag.DetachItemFromGroup(ctx, id.TagID(input.ItemID), id.TagID(input.GroupID), getOperator(ctx))
+	tag, err := r.usecases.Tag.DetachItemFromGroup(ctx, interfaces.DetachItemToGroupParam{
+		ItemID:  id.TagID(input.ItemID),
+		GroupID: id.TagID(input.GroupID),
+	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}

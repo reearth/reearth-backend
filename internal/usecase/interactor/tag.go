@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 
-	"github.com/reearth/reearth-backend/pkg/id"
-
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
@@ -101,7 +99,7 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 	return group, nil
 }
 
-func (i *Tag) AttachItemToGroup(ctx context.Context, itemID id.TagID, groupID id.TagID, operator *usecase.Operator) (*tag.Group, error) {
+func (i *Tag) AttachItemToGroup(ctx context.Context, inp interfaces.AttachItemToGroupParam, operator *usecase.Operator) (*tag.Group, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return nil, err
@@ -117,17 +115,17 @@ func (i *Tag) AttachItemToGroup(ctx context.Context, itemID id.TagID, groupID id
 		return nil, err
 	}
 	// make sure item exist
-	_, err = i.tagRepo.FindItemByID(ctx, itemID, scenes)
+	_, err = i.tagRepo.FindItemByID(ctx, inp.ItemID, scenes)
 	if err != nil {
 		return nil, err
 	}
 
-	tg, err := i.tagRepo.FindGroupByID(ctx, groupID, scenes)
+	tg, err := i.tagRepo.FindGroupByID(ctx, inp.GroupID, scenes)
 	if err != nil {
 		return nil, err
 	}
-	if !tg.Tags().Has(itemID) {
-		tg.Tags().Add(itemID)
+	if !tg.Tags().Has(inp.ItemID) {
+		tg.Tags().Add(inp.ItemID)
 	} else {
 		return nil, errors.New("tag item is already attached to the group")
 	}
@@ -139,7 +137,7 @@ func (i *Tag) AttachItemToGroup(ctx context.Context, itemID id.TagID, groupID id
 	return tg, nil
 }
 
-func (i *Tag) DetachItemFromGroup(ctx context.Context, itemID id.TagID, groupID id.TagID, operator *usecase.Operator) (*tag.Group, error) {
+func (i *Tag) DetachItemFromGroup(ctx context.Context, inp interfaces.DetachItemToGroupParam, operator *usecase.Operator) (*tag.Group, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return nil, err
@@ -155,17 +153,17 @@ func (i *Tag) DetachItemFromGroup(ctx context.Context, itemID id.TagID, groupID 
 		return nil, err
 	}
 	// make sure item exist
-	_, err = i.tagRepo.FindItemByID(ctx, itemID, scenes)
+	_, err = i.tagRepo.FindItemByID(ctx, inp.ItemID, scenes)
 	if err != nil {
 		return nil, err
 	}
 
-	tg, err := i.tagRepo.FindGroupByID(ctx, groupID, scenes)
+	tg, err := i.tagRepo.FindGroupByID(ctx, inp.GroupID, scenes)
 	if err != nil {
 		return nil, err
 	}
-	if tg.Tags().Has(itemID) {
-		tg.Tags().Remove(itemID)
+	if tg.Tags().Has(inp.ItemID) {
+		tg.Tags().Remove(inp.ItemID)
 	} else {
 		return nil, errors.New("tag item is not attached to the group")
 	}
