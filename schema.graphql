@@ -1076,7 +1076,7 @@ input AddDatasetSchemaInput {
   representativefield: ID
 }
 
-input CreateTagItemInput{
+input CreateTagItemInput {
   sceneId: ID!
   label: String!
   linkedDatasetSchemaID: ID
@@ -1084,10 +1084,20 @@ input CreateTagItemInput{
   linkedDatasetField: ID
 }
 
-input CreateTagGroupInput{
+input CreateTagGroupInput {
   sceneId: ID!
   label: String!
   tags: [ID!]
+}
+
+input AttachTagItemToGroupInput {
+  itemID: ID!
+  groupID: ID!
+}
+
+input DetachTagItemFromGroupInput {
+  itemID: ID!
+  groupID: ID!
 }
 
 input AttachTagToLayerInput{
@@ -1298,11 +1308,19 @@ type AddDatasetSchemaPayload {
   datasetSchema: DatasetSchema
 }
 
-type CreateTagItemPayload{
+type CreateTagItemPayload {
   tag: TagItem!
 }
 
-type CreateTagGroupPayload{
+type CreateTagGroupPayload {
+  tag: TagGroup!
+}
+
+type AttachTagItemToGroupPayload {
+  tag: TagGroup!
+}
+
+type DetachTagItemFromGroupPayload {
   tag: TagGroup!
 }
 
@@ -1517,6 +1535,8 @@ type Mutation {
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
+  attachTagItemToGroup(input: AttachTagItemToGroupInput!): AttachTagItemToGroupPayload
+  detachTagItemFromGroup(input: DetachTagItemFromGroupInput!): DetachTagItemFromGroupPayload
   removeTag(input: RemoveTagInput!): RemoveTagPayload
 }
 

@@ -56,7 +56,7 @@ func (b *GroupBuilder) Scene(sid id.SceneID) *GroupBuilder {
 
 func (b *GroupBuilder) Tags(tl *List) *GroupBuilder {
 	if tl != nil {
-		b.g.tags = *tl
+		b.g.tags = tl
 	}
 
 	return b

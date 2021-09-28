@@ -169,6 +169,15 @@ type AssetEdge struct {
 	Node   *Asset         `json:"node"`
 }
 
+type AttachTagItemToGroupInput struct {
+	ItemID  id.ID `json:"itemID"`
+	GroupID id.ID `json:"groupID"`
+}
+
+type AttachTagItemToGroupPayload struct {
+	Tag *TagGroup `json:"tag"`
+}
+
 type AttachTagToLayerInput struct {
 	TagID   id.ID `json:"tagID"`
 	LayerID id.ID `json:"layerID"`
@@ -363,6 +372,15 @@ type DetachTagFromLayerInput struct {
 
 type DetachTagFromLayerPayload struct {
 	Layer Layer `json:"layer"`
+}
+
+type DetachTagItemFromGroupInput struct {
+	ItemID  id.ID `json:"itemID"`
+	GroupID id.ID `json:"groupID"`
+}
+
+type DetachTagItemFromGroupPayload struct {
+	Tag *TagGroup `json:"tag"`
 }
 
 type ImportDatasetFromGoogleSheetInput struct {
