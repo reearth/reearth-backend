@@ -82,7 +82,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 						label:   "xxx",
 						sceneId: sid,
 					},
-					tags: List{
+					tags: &List{
 						tags: tags,
 					},
 				},

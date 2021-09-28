@@ -43,3 +43,35 @@ func (r *mutationResolver) CreateTagGroup(ctx context.Context, input gqlmodel.Cr
 		Tag: gqlmodel.ToTagGroup(tag),
 	}, nil
 }
+
+func (r *mutationResolver) AttachTagItemToGroup(ctx context.Context, input gqlmodel.AttachTagItemToGroupInput) (*gqlmodel.AttachTagItemToGroupPayload, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	tag, err := r.usecases.Tag.AttachItemToGroup(ctx, interfaces.AttachItemToGroupParam{
+		ItemID:  id.TagID(input.ItemID),
+		GroupID: id.TagID(input.GroupID),
+	}, getOperator(ctx))
+	if err != nil {
+		return nil, err
+	}
+	return &gqlmodel.AttachTagItemToGroupPayload{
+		Tag: gqlmodel.ToTagGroup(tag),
+	}, nil
+}
+
+func (r *mutationResolver) DetachTagItemFromGroup(ctx context.Context, input gqlmodel.DetachTagItemFromGroupInput) (*gqlmodel.DetachTagItemFromGroupPayload, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	tag, err := r.usecases.Tag.DetachItemFromGroup(ctx, interfaces.DetachItemToGroupParam{
+		ItemID:  id.TagID(input.ItemID),
+		GroupID: id.TagID(input.GroupID),
+	}, getOperator(ctx))
+	if err != nil {
+		return nil, err
+	}
+	return &gqlmodel.DetachTagItemFromGroupPayload{
+		Tag: gqlmodel.ToTagGroup(tag),
+	}, nil
+}

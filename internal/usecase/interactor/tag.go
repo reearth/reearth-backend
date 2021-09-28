@@ -2,12 +2,12 @@ package interactor
 
 import (
 	"context"
-
-	"github.com/reearth/reearth-backend/pkg/id"
+	"errors"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
+	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
@@ -172,4 +172,82 @@ func (i *Tag) FetchItemsByScene(ctx context.Context, sid id.SceneID, operator *u
 	}
 
 	return i.tagRepo.FindItemByScene(ctx, sid)
+}
+
+func (i *Tag) AttachItemToGroup(ctx context.Context, inp interfaces.AttachItemToGroupParam, operator *usecase.Operator) (*tag.Group, error) {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	scenes, err := i.OnlyWritableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+	// make sure item exist
+	_, err = i.tagRepo.FindItemByID(ctx, inp.ItemID, scenes)
+	if err != nil {
+		return nil, err
+	}
+
+	tg, err := i.tagRepo.FindGroupByID(ctx, inp.GroupID, scenes)
+	if err != nil {
+		return nil, err
+	}
+	if !tg.Tags().Has(inp.ItemID) {
+		tg.Tags().Add(inp.ItemID)
+	} else {
+		return nil, errors.New("tag item is already attached to the group")
+	}
+	err = i.tagRepo.Save(ctx, tg)
+	if err != nil {
+		return nil, err
+	}
+	tx.Commit()
+	return tg, nil
+}
+
+func (i *Tag) DetachItemFromGroup(ctx context.Context, inp interfaces.DetachItemToGroupParam, operator *usecase.Operator) (*tag.Group, error) {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	scenes, err := i.OnlyWritableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+	// make sure item exist
+	_, err = i.tagRepo.FindItemByID(ctx, inp.ItemID, scenes)
+	if err != nil {
+		return nil, err
+	}
+
+	tg, err := i.tagRepo.FindGroupByID(ctx, inp.GroupID, scenes)
+	if err != nil {
+		return nil, err
+	}
+	if tg.Tags().Has(inp.ItemID) {
+		tg.Tags().Remove(inp.ItemID)
+	} else {
+		return nil, errors.New("tag item is not attached to the group")
+	}
+
+	err = i.tagRepo.Save(ctx, tg)
+	if err != nil {
+		return nil, err
+	}
+
+	tx.Commit()
+	return tg, nil
 }
