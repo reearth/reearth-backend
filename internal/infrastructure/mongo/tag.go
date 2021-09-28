@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-	"fmt"
+
 	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
@@ -107,7 +107,6 @@ func (r *tagRepo) FindGroupByItem(ctx context.Context, tagID id.TagID, f []id.Sc
 			{Key: "$in", Value: id.TagIDToKeys(ids)},
 		}},
 	}, f)
-	fmt.Println(filter)
 
 	return r.findGroupOne(ctx, filter)
 }

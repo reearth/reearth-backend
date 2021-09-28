@@ -8,6 +8,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
@@ -204,38 +205,45 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 
 	if group := tag.ToTagGroup(*t); group != nil {
 		tags := group.Tags()
-		if len(tags.Tags()) == 0 {
+		if len(tags.Tags()) != 0 {
 			return nil, errors.New("can't delete non-empty tag group")
 		}
 	}
 
 	if item := tag.ToTagItem(*t); item != nil {
 		g, err := i.tagRepo.FindGroupByItem(ctx, item.ID(), scenes)
+		if err != nil && !errors.Is(rerror.ErrNotFound, err) {
+			return nil, err
+		}
+		if g != nil {
+			g.Tags().Remove(item.ID())
+
+			err = i.tagRepo.Save(ctx, g)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	l, err := i.layerRepo.FindByTag(ctx, tagID, scenes)
+	if err != nil && !errors.Is(rerror.ErrNotFound, err) {
+		return nil, err
+	}
+
+	if l != nil {
+		err = l.DetachTag(tagID)
 		if err != nil {
 			return nil, err
 		}
-		//g.Tags().Remove(item.ID())
-
-		err = i.tagRepo.Save(ctx, g)
+		err = i.layerRepo.Save(ctx, l)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	//l, err := i.layerRepo.FindByTag(ctx, tagID)
-	//if l != nil {
-	//	err = l.DetachTag(tagID)
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//	err = i.layerRepo.Save(ctx, l)
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//}
-	//err = i.tagRepo.Remove(ctx, tagID)
-	//if err != nil {
-	//	return nil, err
-	//}
+	err = i.tagRepo.Remove(ctx, tagID)
+	if err != nil {
+		return nil, err
+	}
 	return &tagID, nil
 }

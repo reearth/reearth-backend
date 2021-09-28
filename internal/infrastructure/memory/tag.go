@@ -178,6 +178,7 @@ func (t *Tag) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 func (t *Tag) FindGroupByItem(ctx context.Context, tagID id.TagID, s []id.SceneID) (*tag.Group, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
+
 	for _, tg := range t.data {
 		if res := tag.GroupFrom(tg); res != nil {
 			tags := res.Tags()

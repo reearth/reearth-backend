@@ -2,7 +2,6 @@ package mongo
 
 import (
 	"context"
-	"strings"
 
 	"go.mongodb.org/mongo-driver/bson"
 
@@ -169,12 +168,14 @@ func (r *layerRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) error
 	return nil
 }
 
-func (r *layerRepo) FindByTag(ctx context.Context, tagID id.TagID) (layer.Layer, error) {
-	filter := bson.D{
-		{Key: "tags." + strings.Replace(tagID.String(), ".", "", -1), Value: bson.D{
-			{Key: "$exists", Value: true},
+func (r *layerRepo) FindByTag(ctx context.Context, tagID id.TagID, f []id.SceneID) (layer.Layer, error) {
+	ids := []id.TagID{tagID}
+	filter := r.sceneFilter(bson.D{
+		{Key: "tags", Value: bson.D{
+			{Key: "$in", Value: id.TagIDToKeys(ids)},
 		}},
-	}
+	}, f)
+
 	return r.findOne(ctx, filter)
 }
 
