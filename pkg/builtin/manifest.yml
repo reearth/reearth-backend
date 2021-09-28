@@ -230,7 +230,6 @@ extensions:
               description: Paste your Google Analytics tracking ID here. This will be embedded in your published project.
   - id: infobox
     name: Infobox
-    visualizer: cesium
     type: infobox
     description: Create an information area that appears when a layer is highlighted. Text, pictures, video, etc can be added to an infobox.
     schema:
@@ -1088,7 +1087,6 @@ extensions:
                 - key: czml
                   label: CZML
   - id: textblock
-    visualizer: cesium
     type: block
     name: Text
     description: Text block
@@ -1111,7 +1109,6 @@ extensions:
               type: typography
               title: Font
   - id: imageblock
-    visualizer: cesium
     type: block
     name: Image
     description: Image block
@@ -1166,7 +1163,6 @@ extensions:
           schemaGroupId: default
           fieldId: image
   - id: videoblock
-    visualizer: cesium
     type: block
     name: Video
     description: Video block
@@ -1186,7 +1182,6 @@ extensions:
               type: bool
               title: Full size
   - id: locationblock
-    visualizer: cesium
     type: block
     name: Location
     description: Location block
@@ -1205,7 +1200,6 @@ extensions:
               type: bool
               title: Full size
   - id: dlblock
-    visualizer: cesium
     type: block
     name: Table
     description: Table block
@@ -1251,12 +1245,10 @@ extensions:
                 type: string
                 value: number
   # - id: navigator
-  #   visualizer: cesium
   #   type: widget
   #   title: Navigator
   #   description: Navigator widget
   - id: menu
-    visualizer: cesium
     type: widget
     name: Menu (legacy)
     description: Menu widgets
@@ -1371,7 +1363,6 @@ extensions:
                 type: string
                 value: camera
   - id: button
-    visualizer: cesium
     type: widget
     name: Button
     description: Button widget
@@ -1476,7 +1467,6 @@ extensions:
                 type: string
                 value: camera
   - id: splashscreen
-    visualizer: cesium
     type: widget
     name: Splash screen
     description: A unique start screen that will display on load of your archive(ex. display the archive's title).
@@ -1539,7 +1529,6 @@ extensions:
               suffix: s
               min: 0
   - id: storytelling
-    visualizer: cesium
     type: widget
     name: Storytelling
     description: SA feature that enables you to create a story. Connect points in a meaningful way so that your information can be consumed and understood easily.
