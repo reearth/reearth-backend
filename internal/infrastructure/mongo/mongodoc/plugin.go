@@ -119,8 +119,8 @@ func (d *PluginDocument) Model() (*plugin.Plugin, error) {
 		extension, err := plugin.NewExtension().
 			ID(id.PluginExtensionID(e.ID)).
 			Type(plugin.ExtensionType(e.Type)).
-			Name(d.Name).
-			Description(d.Description).
+			Name(e.Name).
+			Description(e.Description).
 			Icon(e.Icon).
 			WidgetLayout(e.WidgetLayout.Model()).
 			Schema(psid).
