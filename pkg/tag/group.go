@@ -2,10 +2,10 @@ package tag
 
 type Group struct {
 	tag
-	tags List
+	tags *List
 }
 
-func (g *Group) Tags() List {
+func (g *Group) Tags() *List {
 	return g.tags
 }
 

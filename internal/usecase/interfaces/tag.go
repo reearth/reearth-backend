@@ -22,6 +22,14 @@ type CreateTagGroupParam struct {
 	Tags    []id.TagID
 }
 
+type AttachItemToGroupParam struct {
+	ItemID, GroupID id.TagID
+}
+
+type DetachItemToGroupParam struct {
+	ItemID, GroupID id.TagID
+}
+
 type UpdateTagParam struct {
 	Label   *string
 	SceneID id.SceneID
@@ -31,5 +39,7 @@ type UpdateTagParam struct {
 type Tag interface {
 	CreateItem(context.Context, CreateTagItemParam, *usecase.Operator) (*tag.Item, error)
 	CreateGroup(context.Context, CreateTagGroupParam, *usecase.Operator) (*tag.Group, error)
+	AttachItemToGroup(context.Context, AttachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
+	DetachItemFromGroup(context.Context, DetachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
 	UpdateTag(context.Context, UpdateTagParam, *usecase.Operator) (*tag.Group, error)
 }
