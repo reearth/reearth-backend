@@ -24,7 +24,7 @@ type PluginExtensionDocument struct {
 	Description  map[string]string
 	Icon         string
 	Schema       string
-	Visualizer   string
+	Visualizer   string `bson:",omitempty"`
 	WidgetLayout *WidgetLayoutDocument
 }
 
