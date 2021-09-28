@@ -50,6 +50,8 @@ func TestChoice(t *testing.T) {
 }
 
 func TestManifest(t *testing.T) {
+	es := ""
+	cesium := "cesium"
 	a := "aaa"
 	d := "ddd"
 	r := "rrr"
@@ -63,16 +65,16 @@ func TestManifest(t *testing.T) {
 			name: "success official plugin",
 			root: &Root{
 				Author:      &a,
-				Title:       "aaa",
+				Name:        "aaa",
 				ID:          "reearth",
 				Description: &d,
 				Extensions: []Extension{{
 					Description: nil,
 					ID:          "cesium",
-					Title:       "",
+					Name:        "",
 					Schema:      nil,
 					Type:        "visualizer",
-					Visualizer:  "cesium",
+					Visualizer:  &cesium,
 				}},
 				Repository: &r,
 				System:     true,
@@ -88,7 +90,7 @@ func TestManifest(t *testing.T) {
 		{
 			name: "success empty name",
 			root: &Root{
-				Title:  "reearth",
+				Name:   "reearth",
 				ID:     "reearth",
 				System: true,
 			},
@@ -103,16 +105,16 @@ func TestManifest(t *testing.T) {
 			name: "fail invalid manifest - extension",
 			root: &Root{
 				Author:      &a,
-				Title:       "aaa",
+				Name:        "aaa",
 				ID:          "reearth",
 				Description: &d,
 				Extensions: []Extension{{
 					Description: nil,
 					ID:          "cesium",
-					Title:       "",
+					Name:        "",
 					Schema:      nil,
 					Type:        "visualizer",
-					Visualizer:  "",
+					Visualizer:  &es,
 				}},
 				Repository: &r,
 				System:     true,
@@ -128,7 +130,7 @@ func TestManifest(t *testing.T) {
 		{
 			name: "fail invalid manifest - id",
 			root: &Root{
-				Title:  "",
+				Name:   "",
 				ID:     "",
 				System: false,
 			},
@@ -156,6 +158,8 @@ func TestManifest(t *testing.T) {
 }
 
 func TestExtension(t *testing.T) {
+	es := ""
+	cesium := "cesium"
 	d := "ddd"
 	i := "xx:/aa.bb"
 	testCases := []struct {
@@ -168,15 +172,15 @@ func TestExtension(t *testing.T) {
 		err        error
 	}{
 		{
-			name: "success official extension",
+			name: "visualizer",
 			ext: Extension{
 				Description: &d,
 				ID:          "cesium",
-				Title:       "Cesium",
+				Name:        "Cesium",
 				Icon:        &i,
 				Schema:      nil,
 				Type:        "visualizer",
-				Visualizer:  "cesium",
+				Visualizer:  &cesium,
 			},
 			sys:        true,
 			pid:        id.OfficialPluginID,
@@ -185,14 +189,14 @@ func TestExtension(t *testing.T) {
 			err:        nil,
 		},
 		{
-			name: "success official extension",
+			name: "primitive",
 			ext: Extension{
 				Description: &d,
 				ID:          "cesium",
-				Title:       "Cesium",
+				Name:        "Cesium",
 				Schema:      nil,
 				Type:        "primitive",
-				Visualizer:  "cesium",
+				Visualizer:  &cesium,
 			},
 			sys:        true,
 			pid:        id.OfficialPluginID,
@@ -201,46 +205,44 @@ func TestExtension(t *testing.T) {
 			err:        nil,
 		},
 		{
-			name: "success official extension",
+			name: "widget",
 			ext: Extension{
 				Description: &d,
 				ID:          "cesium",
-				Title:       "Cesium",
+				Name:        "Cesium",
 				Schema:      nil,
 				Type:        "widget",
-				Visualizer:  "cesium",
 			},
 			sys:        true,
 			pid:        id.OfficialPluginID,
-			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("cesium").Type(plugin.ExtensionTypeWidget).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
+			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("").Type(plugin.ExtensionTypeWidget).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
 			err:        nil,
 		},
 		{
-			name: "success official extension",
+			name: "block",
 			ext: Extension{
 				Description: &d,
 				ID:          "cesium",
-				Title:       "Cesium",
+				Name:        "Cesium",
 				Schema:      nil,
 				Type:        "block",
-				Visualizer:  "cesium",
 			},
 			sys:        true,
 			pid:        id.OfficialPluginID,
-			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("cesium").Type(plugin.ExtensionTypeBlock).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
+			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("").Type(plugin.ExtensionTypeBlock).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
 			err:        nil,
 		},
 		{
-			name: "success official extension",
+			name: "infobox",
 			ext: Extension{
 				Description: &d,
 				ID:          "cesium",
-				Title:       "Cesium",
+				Name:        "Cesium",
 				Schema:      nil,
 				Type:        "infobox",
-				Visualizer:  "cesium",
+				Visualizer:  &cesium,
 			},
 			sys:        true,
 			pid:        id.OfficialPluginID,
@@ -249,14 +251,14 @@ func TestExtension(t *testing.T) {
 			err:        nil,
 		},
 		{
-			name: "success official extension",
+			name: "empty visualizer",
 			ext: Extension{
 				Description: &d,
 				ID:          "cesium",
-				Title:       "Cesium",
+				Name:        "Cesium",
 				Schema:      nil,
 				Type:        "visualizer",
-				Visualizer:  "",
+				Visualizer:  &es,
 			},
 			sys:        true,
 			pid:        id.OfficialPluginID,
@@ -265,38 +267,39 @@ func TestExtension(t *testing.T) {
 			err:        ErrInvalidManifest,
 		},
 		{
-			name: "success official extension",
+			name: "nil visualizer",
 			ext: Extension{
 				Description: &d,
 				ID:          "cesium",
-				Title:       "Cesium",
+				Name:        "Cesium",
+				Schema:      nil,
+				Type:        "visualizer",
+				Visualizer:  nil,
+			},
+			sys:        true,
+			pid:        id.OfficialPluginID,
+			expectedPE: nil,
+			expectedPS: nil,
+			err:        ErrInvalidManifest,
+		},
+		{
+			name: "empty type",
+			ext: Extension{
+				Description: &d,
+				ID:          "cesium",
+				Name:        "Cesium",
 				Schema:      nil,
 				Type:        "",
-				Visualizer:  "cesium",
+				Visualizer:  &cesium,
 			},
 			sys:        true,
-			pid:        id.OfficialPluginID,
-			expectedPE: nil,
-			expectedPS: nil,
-			err:        ErrInvalidManifest,
-		},
-		{
-			name: "success official extension",
-			ext: Extension{
-				Description: &d,
-				ID:          "cesium",
-				Title:       "Cesium",
-				Schema:      nil,
-				Type:        "visualizer",
-				Visualizer:  "cesium",
-			},
-			sys:        false,
 			pid:        id.OfficialPluginID,
 			expectedPE: nil,
 			expectedPS: nil,
 			err:        ErrInvalidManifest,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
@@ -310,7 +313,7 @@ func TestExtension(t *testing.T) {
 				assert.Equal(tt, tc.expectedPS.ID(), ps.ID())
 				assert.Equal(tt, tc.expectedPS.ID(), ps.ID())
 			} else {
-				assert.True(tt, errors.As(tc.err, &err))
+				assert.Equal(tt, tc.err, err)
 			}
 		})
 	}

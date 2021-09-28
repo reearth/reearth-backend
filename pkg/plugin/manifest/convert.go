@@ -60,7 +60,7 @@ func (i *Root) manifest(sid *id.SceneID) (*Manifest, error) {
 
 	p, err := plugin.New().
 		ID(pid).
-		Name(i18n.StringFrom(i.Title)).
+		Name(i18n.StringFrom(i.Name)).
 		Author(author).
 		Description(i18n.StringFrom(desc)).
 		RepositoryURL(repository).
@@ -86,10 +86,16 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 	}
 
 	var viz visualizer.Visualizer
-	switch i.Visualizer {
-	case "cesium":
-		viz = visualizer.VisualizerCesium
-	default:
+	if i.Visualizer != nil {
+		switch *i.Visualizer {
+		case "cesium":
+			viz = visualizer.VisualizerCesium
+		default:
+			if i.Type == "visualizer" {
+				return nil, nil, ErrInvalidManifest
+			}
+		}
+	} else if i.Type == "visualizer" {
 		return nil, nil, ErrInvalidManifest
 	}
 
@@ -119,7 +125,7 @@ func (i Extension) extension(pluginID id.PluginID, sys bool) (*plugin.Extension,
 
 	ext, err := plugin.NewExtension().
 		ID(id.PluginExtensionID(eid)).
-		Name(i18n.StringFrom(i.Title)).
+		Name(i18n.StringFrom(i.Name)).
 		Description(i18n.StringFrom(desc)).
 		Visualizer(viz).
 		Type(typ).
