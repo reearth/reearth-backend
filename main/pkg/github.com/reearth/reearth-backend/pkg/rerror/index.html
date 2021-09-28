@@ -144,6 +144,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#From">func From(label string, err error) *Error</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#FromSep">func FromSep(label string, err error) *Error</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#Get">func Get(err error) *Error</a></dd>
 				
 				
@@ -194,7 +197,7 @@
 		
 			
 			
-			<h2 id="As">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2398:2435#L97">As</a>
+			<h2 id="As">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2672:2709#L105">As</a>
 				<a class="permalink" href="index.html#As">&#xb6;</a>
 				
 				
@@ -223,7 +226,7 @@ As looks up errors whose label is the same as the specific label and return a wr
 		
 			
 			
-			<h2 id="Is">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2059:2095#L78">Is</a>
+			<h2 id="Is">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2333:2369#L86">Is</a>
 				<a class="permalink" href="index.html#Is">&#xb6;</a>
 				
 				
@@ -239,7 +242,7 @@ Is looks up errors whose label is the same as the specific label and return true
 		
 			
 			
-			<h2 id="With">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2725:2766#L116">With</a>
+			<h2 id="With">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2999:3040#L124">With</a>
 				<a class="permalink" href="index.html#With">&#xb6;</a>
 				
 				
@@ -308,7 +311,7 @@ ErrInternal is an error struct that can hold an internal error but hides users t
 		
 			
 			
-			<h2 id="Error">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1211:1273#L37">Error</a>
+			<h2 id="Error">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1211:1294#L37">Error</a>
 				<a class="permalink" href="index.html#Error">&#xb6;</a>
 				
 				
@@ -320,9 +323,10 @@ Currently, Go standard error library does not support these use cases. That&#39;
 </p>
 
 			<pre>type Error struct {
-<span id="Error.Label"></span>    Label  <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
-<span id="Error.Err"></span>    Err    <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
-<span id="Error.Hidden"></span>    Hidden <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>
+<span id="Error.Label"></span>    Label    <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
+<span id="Error.Err"></span>    Err      <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
+<span id="Error.Hidden"></span>    Hidden   <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>
+<span id="Error.Separate"></span>    Separate <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>
 }
 </pre>
 
@@ -336,7 +340,7 @@ Currently, Go standard error library does not support these use cases. That&#39;
 
 			
 				
-				<h3 id="From">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1319:1360#L44">From</a>
+				<h3 id="From">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1340:1381#L45">From</a>
 					<a class="permalink" href="index.html#From">&#xb6;</a>
 					
 					
@@ -350,7 +354,21 @@ From creates an Error with string label.
 				
 			
 				
-				<h3 id="Get">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1864:1890#L71">Get</a>
+				<h3 id="FromSep">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1550:1594#L50">FromSep</a>
+					<a class="permalink" href="index.html#FromSep">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromSep(label <a href="/reearth-backend/main/pkg/builtin/#string">string</a>, err <a href="http://localhost:8080/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
+				<p>
+From creates an Error with string label, but separated from wrapped error message when the error is printed.
+</p>
+
+				
+				
+			
+				
+				<h3 id="Get">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2138:2164#L79">Get</a>
 					<a class="permalink" href="index.html#Get">&#xb6;</a>
 					
 					
@@ -366,7 +384,7 @@ Get gets Error struct from an error
 
 			
 				
-				<h3 id="Error.Error">func (*Error) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1454:1484#L49">Error</a>
+				<h3 id="Error.Error">func (*Error) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1704:1734#L55">Error</a>
 					<a class="permalink" href="index.html#Error.Error">&#xb6;</a>
 					
 					
@@ -381,7 +399,7 @@ Error implements error interface.
 				
 			
 				
-				<h3 id="Error.Unwrap">func (*Error) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=1744:1774#L63">Unwrap</a>
+				<h3 id="Error.Unwrap">func (*Error) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/rerror/error.go?s=2018:2048#L71">Unwrap</a>
 					<a class="permalink" href="index.html#Error.Unwrap">&#xb6;</a>
 					
 					
