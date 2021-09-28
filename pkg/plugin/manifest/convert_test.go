@@ -1,14 +1,13 @@
 package manifest
 
 import (
-	"errors"
-	"fmt"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
+	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -59,7 +58,7 @@ func TestManifest(t *testing.T) {
 		name     string
 		root     *Root
 		expected *Manifest
-		err      error
+		err      string
 	}{
 		{
 			name: "success official plugin",
@@ -85,7 +84,6 @@ func TestManifest(t *testing.T) {
 				ExtensionSchema: nil,
 				Schema:          nil,
 			},
-			err: nil,
 		},
 		{
 			name: "success empty name",
@@ -99,7 +97,6 @@ func TestManifest(t *testing.T) {
 				ExtensionSchema: nil,
 				Schema:          nil,
 			},
-			err: nil,
 		},
 		{
 			name: "fail invalid manifest - extension",
@@ -125,7 +122,7 @@ func TestManifest(t *testing.T) {
 				ExtensionSchema: nil,
 				Schema:          nil,
 			},
-			err: ErrInvalidManifest,
+			err: "invalid manifest: ext (cesium): visualizer missing",
 		},
 		{
 			name: "fail invalid manifest - id",
@@ -137,7 +134,7 @@ func TestManifest(t *testing.T) {
 			expected: &Manifest{
 				Plugin: plugin.New().ID(id.OfficialPluginID).Name(i18n.StringFrom("reearth")).MustBuild(),
 			},
-			err: ErrInvalidManifest,
+			err: "invalid manifest: invalid plugin id:   <nil>",
 		},
 	}
 	for _, tc := range testCases {
@@ -145,13 +142,13 @@ func TestManifest(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			m, err := tc.root.manifest(nil)
-			if err == nil {
+			if tc.err == "" {
 				assert.Equal(tt, tc.expected.Plugin.ID(), m.Plugin.ID())
 				assert.Equal(tt, tc.expected.Plugin.Name(), m.Plugin.Name())
 				assert.Equal(tt, len(tc.expected.Plugin.Extensions()), len(m.Plugin.Extensions()))
 				//assert.Equal(tt,tc.expected.Schema..)
 			} else {
-				assert.True(tt, errors.As(tc.err, &err))
+				assert.Equal(tt, tc.err, err.Error())
 			}
 		})
 	}
@@ -169,7 +166,7 @@ func TestExtension(t *testing.T) {
 		pid        id.PluginID
 		expectedPE *plugin.Extension
 		expectedPS *property.Schema
-		err        error
+		err        string
 	}{
 		{
 			name: "visualizer",
@@ -186,7 +183,6 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("cesium").Type(plugin.ExtensionTypeVisualizer).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
-			err:        nil,
 		},
 		{
 			name: "primitive",
@@ -202,7 +198,6 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("cesium").Type(plugin.ExtensionTypePrimitive).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
-			err:        nil,
 		},
 		{
 			name: "widget",
@@ -217,7 +212,6 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("").Type(plugin.ExtensionTypeWidget).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
-			err:        nil,
 		},
 		{
 			name: "block",
@@ -232,7 +226,6 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("").Type(plugin.ExtensionTypeBlock).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
-			err:        nil,
 		},
 		{
 			name: "infobox",
@@ -248,7 +241,6 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("cesium").Type(plugin.ExtensionTypeInfobox).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
-			err:        nil,
 		},
 		{
 			name: "empty visualizer",
@@ -264,7 +256,7 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: nil,
 			expectedPS: nil,
-			err:        ErrInvalidManifest,
+			err:        "visualizer missing",
 		},
 		{
 			name: "nil visualizer",
@@ -280,7 +272,7 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: nil,
 			expectedPS: nil,
-			err:        ErrInvalidManifest,
+			err:        "visualizer missing",
 		},
 		{
 			name: "empty type",
@@ -296,7 +288,7 @@ func TestExtension(t *testing.T) {
 			pid:        id.OfficialPluginID,
 			expectedPE: nil,
 			expectedPS: nil,
-			err:        ErrInvalidManifest,
+			err:        "type missing",
 		},
 	}
 
@@ -305,7 +297,7 @@ func TestExtension(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			pe, ps, err := tc.ext.extension(tc.pid, tc.sys)
-			if err == nil {
+			if tc.err == "" {
 				assert.Equal(tt, tc.expectedPE.ID(), pe.ID())
 				assert.Equal(tt, tc.expectedPE.Visualizer(), pe.Visualizer())
 				assert.Equal(tt, tc.expectedPE.Type(), pe.Type())
@@ -313,7 +305,7 @@ func TestExtension(t *testing.T) {
 				assert.Equal(tt, tc.expectedPS.ID(), ps.ID())
 				assert.Equal(tt, tc.expectedPS.ID(), ps.ID())
 			} else {
-				assert.Equal(tt, tc.err, err)
+				assert.Equal(tt, tc.err, err.Error())
 			}
 		})
 	}
@@ -439,7 +431,7 @@ func TestSchema(t *testing.T) {
 		ps         *PropertySchema
 		pid        id.PluginID
 		expected   *property.Schema
-		err        error
+		err        string
 	}{
 		{
 			name: "fail invalid id",
@@ -451,7 +443,7 @@ func TestSchema(t *testing.T) {
 			},
 			pid:      id.MustPluginID("aaa~1.1.1"),
 			expected: nil,
-			err:      id.ErrInvalidID,
+			err:      "invalid id: aaa~1.1.1/@",
 		},
 		{
 			name:     "success nil PropertySchema",
@@ -497,7 +489,7 @@ func TestSchema(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			res, err := tc.ps.schema(tc.pid, tc.psid)
-			if err == nil {
+			if tc.err == "" {
 				assert.Equal(tt, len(tc.expected.Groups()), len(res.Groups()))
 				assert.Equal(tt, tc.expected.LinkableFields(), res.LinkableFields())
 				assert.Equal(tt, tc.expected.Version(), res.Version())
@@ -506,7 +498,7 @@ func TestSchema(t *testing.T) {
 					assert.NotNil(tt, exg)
 				}
 			} else {
-				assert.True(tt, errors.As(tc.err, &err))
+				assert.Equal(tt, tc.err, err.Error())
 			}
 		})
 	}
@@ -520,7 +512,7 @@ func TestSchemaGroup(t *testing.T) {
 		psg      PropertySchemaGroup
 		sid      id.PropertySchemaID
 		expected *property.SchemaGroup
-		err      error
+		err      string
 	}{
 		{
 			name: "success reearth/cesium",
@@ -547,7 +539,6 @@ func TestSchemaGroup(t *testing.T) {
 			},
 			sid:      id.MustPropertySchemaID("reearth/cesium"),
 			expected: property.NewSchemaGroup().ID("default").Title(i18n.StringFrom("marker")).Title(i18n.StringFrom(str)).Schema(id.MustPropertySchemaID("reearth/cesium")).Fields([]*property.SchemaField{property.NewSchemaField().ID("location").Type(property.ValueTypeLatLng).MustBuild()}).MustBuild(),
-			err:      nil,
 		},
 		{
 			name: "fail invalid schema field",
@@ -574,7 +565,7 @@ func TestSchemaGroup(t *testing.T) {
 			},
 			sid:      id.MustPropertySchemaID("reearth/cesium"),
 			expected: nil,
-			err:      fmt.Errorf("schema field: invalid value type"),
+			err:      "field (location): invalid value type: xx",
 		},
 	}
 	for _, tc := range testCases {
@@ -582,7 +573,7 @@ func TestSchemaGroup(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			res, err := tc.psg.schemaGroup(tc.sid)
-			if err == nil {
+			if tc.err == "" {
 				assert.Equal(tt, tc.expected.Title().String(), res.Title().String())
 				assert.Equal(tt, tc.expected.Title(), res.Title())
 				assert.Equal(tt, tc.expected.Schema(), res.Schema())
@@ -592,7 +583,7 @@ func TestSchemaGroup(t *testing.T) {
 					assert.NotNil(tt, tc.expected.Field(exf.ID()))
 				}
 			} else {
-				assert.True(tt, errors.As(tc.err, &err))
+				assert.Equal(tt, tc.err, err.Error())
 			}
 		})
 	}
@@ -744,14 +735,14 @@ func TestSchemaField(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			res, err := tc.psg.schemaField()
-			if err == nil {
+			if tc.err == nil {
 				assert.Equal(tt, tc.expected.Title(), res.Title())
 				assert.Equal(tt, tc.expected.Description(), res.Description())
 				assert.Equal(tt, tc.expected.Suffix(), res.Suffix())
 				assert.Equal(tt, tc.expected.Prefix(), res.Prefix())
 				assert.Equal(tt, tc.expected.Choices(), res.Choices())
 			} else {
-				assert.True(tt, errors.As(tc.err, &err))
+				assert.Equal(tt, tc.err, rerror.Get(err).Err)
 			}
 		})
 	}
