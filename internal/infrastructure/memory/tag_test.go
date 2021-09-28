@@ -251,3 +251,23 @@ func TestTag_RemoveByScene(t *testing.T) {
 	out, _ := repo.FindByScene(ctx, sid2)
 	assert.Equal(t, []*tag.Tag{&tti2}, out)
 }
+
+func TestTag_FindGroupByItem(t *testing.T) {
+	ctx := context.Background()
+	sid := id.NewSceneID()
+	sl := []id.SceneID{sid}
+	t1, _ := tag.NewItem().NewID().Scene(sid).Label("item").Build()
+	tl := tag.NewListFromTags([]id.TagID{t1.ID()})
+	t2, _ := tag.NewGroup().NewID().Scene(sid).Label("group").Tags(tl).Build()
+	tti := tag.Tag(t1)
+	ttg := tag.Tag(t2)
+	repo := Tag{
+		data: map[id.TagID]tag.Tag{
+			t1.ID(): tti,
+			t2.ID(): ttg,
+		},
+	}
+	out, err := repo.FindGroupByItem(ctx, t1.ID(), sl)
+	assert.NoError(t, err)
+	assert.Equal(t, t2, out)
+}

@@ -131,19 +131,32 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 	}
 
 	if item := tag.ToTagItem(*t); item != nil {
-
-	}
-
-	l, err := i.layerRepo.FindByTag(ctx, tagID)
-	if l != nil {
-		err = l.DetachTag(tagID)
+		g, err := i.tagRepo.FindGroupByItem(ctx, item.ID(), scenes)
 		if err != nil {
 			return nil, err
 		}
-		err = i.layerRepo.Save(ctx, l)
+		//g.Tags().Remove(item.ID())
+
+		err = i.tagRepo.Save(ctx, g)
 		if err != nil {
 			return nil, err
 		}
 	}
+
+	//l, err := i.layerRepo.FindByTag(ctx, tagID)
+	//if l != nil {
+	//	err = l.DetachTag(tagID)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	err = i.layerRepo.Save(ctx, l)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//}
+	//err = i.tagRepo.Remove(ctx, tagID)
+	//if err != nil {
+	//	return nil, err
+	//}
 	return &tagID, nil
 }

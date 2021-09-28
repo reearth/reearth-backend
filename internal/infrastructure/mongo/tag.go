@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"context"
-
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
@@ -98,6 +98,18 @@ func (r *tagRepo) FindByScene(ctx context.Context, id id.SceneID) ([]*tag.Tag, e
 		{Key: "scene", Value: id.String()},
 	}
 	return r.find(ctx, nil, filter)
+}
+
+func (r *tagRepo) FindGroupByItem(ctx context.Context, tagID id.TagID, f []id.SceneID) (*tag.Group, error) {
+	ids := []id.TagID{tagID}
+	filter := r.sceneFilter(bson.D{
+		{Key: "group.tags", Value: bson.D{
+			{Key: "$in", Value: id.TagIDToKeys(ids)},
+		}},
+	}, f)
+	fmt.Println(filter)
+
+	return r.findGroupOne(ctx, filter)
 }
 
 func (r *tagRepo) Save(ctx context.Context, tag tag.Tag) error {

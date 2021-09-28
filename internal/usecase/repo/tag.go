@@ -15,6 +15,7 @@ type Tag interface {
 	FindGroupByID(context.Context, id.TagID, []id.SceneID) (*tag.Group, error)
 	FindGroupByIDs(context.Context, []id.TagID, []id.SceneID) ([]*tag.Group, error)
 	FindByScene(context.Context, id.SceneID) ([]*tag.Tag, error)
+	FindGroupByItem(context.Context, id.TagID, []id.SceneID) (*tag.Group, error)
 	Save(context.Context, tag.Tag) error
 	SaveAll(context.Context, []*tag.Tag) error
 	Remove(context.Context, id.TagID) error
