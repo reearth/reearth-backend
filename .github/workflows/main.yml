@@ -26,7 +26,6 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           args: --timeout=10m
-          skip-go-installation: true
       - name: test
         run: go test ./... -v -race -coverprofile=coverage.txt -covermode=atomic
       - name: Send coverage report
