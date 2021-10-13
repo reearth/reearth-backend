@@ -1,5 +1,5 @@
 package gateway
 
 type Mailer interface {
-	SendMail(to, content string) error
+	Send(subject string, body string, to ...string) error
 }

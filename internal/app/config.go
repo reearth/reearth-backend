@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/kataras/go-mailer"
 	"net/url"
 	"os"
 	"strings"
@@ -18,6 +19,7 @@ type Config struct {
 	Dev          bool
 	DB           string `default:"mongodb://localhost"`
 	Auth0        Auth0Config
+	Mailer       MailerConfig
 	GraphQL      GraphQLConfig
 	Published    PublishedConfig
 	GCPProject   string `envconfig:"GOOGLE_CLOUD_PROJECT"`
@@ -51,6 +53,8 @@ type GCSConfig struct {
 	BucketName              string
 	PublicationCacheControl string
 }
+
+type MailerConfig mailer.Config
 
 func ReadConfig(debug bool) (*Config, error) {
 	// load .env
