@@ -3,9 +3,10 @@ package app
 import (
 	"context"
 	"fmt"
+	"time"
+
 	goMailer "github.com/kataras/go-mailer"
 	"github.com/reearth/reearth-backend/internal/infrastructure/mailer"
-	"time"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/github"
 	"github.com/reearth/reearth-backend/internal/infrastructure/google"

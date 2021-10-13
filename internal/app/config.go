@@ -2,10 +2,11 @@ package app
 
 import (
 	"fmt"
-	"github.com/kataras/go-mailer"
 	"net/url"
 	"os"
 	"strings"
+
+	"github.com/kataras/go-mailer"
 
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
