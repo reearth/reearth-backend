@@ -7,6 +7,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/reearth/reearth-backend/internal/app/oauth"
 	"github.com/reearth/reearth-backend/internal/usecase/interactor"
 	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/rerror"
@@ -67,6 +68,9 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	usecases := interactor.NewContainer(cfg.Repos, cfg.Gateways, interactor.ContainerConfig{
 		SignupSecret: cfg.Config.SignupSecret,
 	})
+
+	auth := e.Group("")
+	oauth.AuthEndPoints(e, auth, cfg)
 
 	api := e.Group("/api")
 	publicAPI(e, api, cfg.Config, cfg.Repos, cfg.Gateways)

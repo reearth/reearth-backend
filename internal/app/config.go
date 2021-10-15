@@ -18,6 +18,7 @@ type Config struct {
 	Dev          bool
 	DB           string `default:"mongodb://localhost"`
 	Auth0        Auth0Config
+	AuthSrv      AuthSrvConfig
 	GraphQL      GraphQLConfig
 	Published    PublishedConfig
 	GCPProject   string `envconfig:"GOOGLE_CLOUD_PROJECT"`
@@ -37,6 +38,11 @@ type Auth0Config struct {
 	ClientID     string
 	ClientSecret string
 	WebClientID  string
+}
+
+type AuthSrvConfig struct {
+	Domain string `default:"http://localhost:8080/"`
+	Key    string
 }
 
 type GraphQLConfig struct {

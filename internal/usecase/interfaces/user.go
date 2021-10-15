@@ -26,6 +26,11 @@ type SignupParam struct {
 	Secret string
 }
 
+type CredentialsParam struct {
+	Email    string
+	Password string
+}
+
 type UpdateMeParam struct {
 	Name                 *string
 	Email                *string
@@ -38,6 +43,7 @@ type UpdateMeParam struct {
 type User interface {
 	Fetch(context.Context, []id.UserID, *usecase.Operator) ([]*user.User, error)
 	Signup(context.Context, SignupParam) (*user.User, *user.Team, error)
+	GetUserByCredentials(context.Context, CredentialsParam) (*user.User, error)
 	UpdateMe(context.Context, UpdateMeParam, *usecase.Operator) (*user.User, error)
 	RemoveMyAuth(context.Context, string, *usecase.Operator) (*user.User, error)
 	SearchUser(context.Context, string, *usecase.Operator) (*user.User, error)
