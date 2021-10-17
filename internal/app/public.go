@@ -26,12 +26,12 @@ func publicAPI(
 	})
 
 	r.POST("/signup", func(c echo.Context) error {
-		var inp http1.CreateUserInput
+		var inp http1.SignupInput
 		if err := c.Bind(&inp); err != nil {
 			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
 		}
 
-		output, err := controller.CreateUser(c.Request().Context(), inp)
+		output, err := controller.Signup(c.Request().Context(), inp)
 		if err != nil {
 			return err
 		}

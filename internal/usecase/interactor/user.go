@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"github.com/matthewhartstonge/argon2"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
@@ -77,12 +78,14 @@ func (i *User) Fetch(ctx context.Context, ids []id.UserID, operator *usecase.Ope
 }
 
 func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.User, _ *user.Team, err error) {
-	if i.signupSecret != "" && inp.Secret != i.signupSecret {
-		return nil, nil, interfaces.ErrSignupInvalidSecret
+	if inp.Name == "" {
+		return nil, nil, interfaces.ErrSignupInvalidName
 	}
-
-	if len(inp.Sub) == 0 {
-		return nil, nil, errors.New("sub is required")
+	if inp.Email == "" {
+		return nil, nil, interfaces.ErrSignupInvalidEmail
+	}
+	if inp.Password == "" {
+		return nil, nil, interfaces.ErrSignupInvalidPassword
 	}
 
 	tx, err := i.transaction.Begin()
@@ -95,73 +98,48 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		}
 	}()
 
-	// Check if user and team already exists
-	existed, err := i.userRepo.FindByAuth0Sub(ctx, inp.Sub)
+	// Check if username already exists ()
+	existed, err := i.userRepo.FindByNameOrEmail(ctx, inp.Name)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 		return nil, nil, err
 	}
 	if existed != nil {
-		return nil, nil, errors.New("existed user")
+		return nil, nil, errors.New("existed user name")
 	}
 
-	if inp.UserID != nil {
-		existed, err := i.userRepo.FindByID(ctx, *inp.UserID)
-		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-			return nil, nil, err
-		}
-		if existed != nil {
-			return nil, nil, errors.New("existed user")
-		}
+	existed, err = i.userRepo.FindByEmail(ctx, inp.Email)
+	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
+		return nil, nil, err
 	}
 
-	if inp.TeamID != nil {
-		existed, err := i.teamRepo.FindByID(ctx, *inp.TeamID)
-		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-			return nil, nil, err
-		}
-		if existed != nil {
-			return nil, nil, errors.New("existed team")
-		}
+	if existed != nil {
+		return nil, nil, errors.New("existed user email")
 	}
 
-	// Fetch user info
-	ui, err := i.authenticator.FetchUser(inp.Sub)
+	argon := argon2.DefaultConfig()
+	encoded, err := argon.HashEncoded([]byte(inp.Password))
 	if err != nil {
 		return nil, nil, err
 	}
 
-	// Check if user and team already exists
-	var team *user.Team
-	existed, err = i.userRepo.FindByEmail(ctx, ui.Email)
-	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return nil, nil, err
-	}
-	if existed != nil {
-		return nil, nil, errors.New("existed user")
-	}
-
-	// Initialize user and team
-	u, team, err = user.Init(user.InitParams{
-		Email:    ui.Email,
-		Name:     ui.Name,
-		Auth0Sub: inp.Sub,
-		Lang:     inp.Lang,
-		Theme:    inp.Theme,
-		UserID:   inp.UserID,
-		TeamID:   inp.TeamID,
-	})
+	// Initialize user
+	u, err = user.New().
+		Name(inp.Name).
+		Email(inp.Email).
+		Password(encoded).
+		Build()
 	if err != nil {
 		return nil, nil, err
 	}
 	if err := i.userRepo.Save(ctx, u); err != nil {
 		return nil, nil, err
 	}
-	if err := i.teamRepo.Save(ctx, team); err != nil {
-		return nil, nil, err
-	}
+	//if err := i.teamRepo.Save(ctx, team); err != nil {
+	//	return nil, nil, err
+	//}
 
 	tx.Commit()
-	return u, team, nil
+	return u, nil, nil
 }
 
 func (i *User) UpdateMe(ctx context.Context, p interfaces.UpdateMeParam, operator *usecase.Operator) (u *user.User, err error) {

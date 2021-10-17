@@ -15,15 +15,18 @@ var (
 	ErrUserInvalidPasswordConfirmation = errors.New("invalid password confirmation")
 	ErrUserInvalidLang                 = errors.New("invalid lang")
 	ErrSignupInvalidSecret             = errors.New("invalid secret")
+	ErrSignupInvalidName               = errors.New("invalid name")
+	ErrSignupInvalidEmail              = errors.New("invalid email")
+	ErrSignupInvalidPassword           = errors.New("invalid password")
 )
 
 type SignupParam struct {
-	Sub    string
-	Lang   *language.Tag
-	Theme  *user.Theme
-	UserID *id.UserID
-	TeamID *id.TeamID
-	Secret string
+	Name     string
+	Email    string
+	Password string
+	Lang     *language.Tag
+	Theme    *user.Theme
+	TeamID   *id.TeamID
 }
 
 type UpdateMeParam struct {

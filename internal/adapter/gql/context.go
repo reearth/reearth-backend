@@ -51,11 +51,11 @@ func getOperator(ctx context.Context) *usecase.Operator {
 	return nil
 }
 
-func getSub(ctx context.Context) string {
-	if v := ctx.Value(ContextSub); v != nil {
-		if v2, ok := v.(string); ok {
-			return v2
-		}
-	}
-	return ""
-}
+//func getSub(ctx context.Context) string {
+//	if v := ctx.Value(ContextSub); v != nil {
+//		if v2, ok := v.(string); ok {
+//			return v2
+//		}
+//	}
+//	return ""
+//}

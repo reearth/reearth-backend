@@ -48,6 +48,11 @@ func (b *Builder) Email(email string) *Builder {
 	return b
 }
 
+func (b *Builder) Password(password []byte) *Builder {
+	b.u.password = password
+	return b
+}
+
 func (b *Builder) Team(team id.TeamID) *Builder {
 	b.u.team = team
 	return b
