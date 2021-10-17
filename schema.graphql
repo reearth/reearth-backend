@@ -786,14 +786,6 @@ input RemoveAssetInput {
   assetId: ID!
 }
 
-input SignupInput {
-  lang: Lang
-  theme: Theme
-  userId: ID
-  teamId: ID
-  secret: String
-}
-
 input UpdateMeInput {
   name: String
   email: String
@@ -1139,11 +1131,6 @@ type RemoveAssetPayload {
   assetId: ID!
 }
 
-type SignupPayload {
-  user: User!
-  team: Team!
-}
-
 type UpdateMePayload {
   user: User!
 }
@@ -1433,7 +1420,6 @@ type Mutation {
   removeAsset(input: RemoveAssetInput!): RemoveAssetPayload
 
   # User
-  signup(input: SignupInput!): SignupPayload
   updateMe(input: UpdateMeInput!): UpdateMePayload
   removeMyAuth(input: RemoveMyAuthInput!): UpdateMePayload
   deleteMe(input: DeleteMeInput!): DeleteMePayload

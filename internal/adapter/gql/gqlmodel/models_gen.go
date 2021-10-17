@@ -927,19 +927,6 @@ type SearchedUser struct {
 	UserEmail string `json:"userEmail"`
 }
 
-type SignupInput struct {
-	Lang   *language.Tag `json:"lang"`
-	Theme  *Theme        `json:"theme"`
-	UserID *id.ID        `json:"userId"`
-	TeamID *id.ID        `json:"teamId"`
-	Secret *string       `json:"secret"`
-}
-
-type SignupPayload struct {
-	User *User `json:"user"`
-	Team *Team `json:"team"`
-}
-
 type SyncDatasetInput struct {
 	SceneID id.ID  `json:"sceneId"`
 	URL     string `json:"url"`
