@@ -100,6 +100,69 @@ extensions:
               title: Maximum zoom level
               min: 0
               max: 30
+        - id: clusters
+          title: Clustering
+          description: You may add and remove layers to clusters from here.
+          list: true
+          representativeField: cluster_name
+          fields:
+            - id: cluster_name
+              type: string
+              title: Name
+            - id: cluster_pixelRange
+              type: number
+              title: Pixel range
+              defaultValue: 15
+              min: 1
+              max: 200
+            - id: cluster_minSize
+              type: number
+              title: Minimum cluster size
+              defaultValue: 3
+              min: 2
+              max: 20
+            - id: cluster_sizeType
+              type: string
+              title: Size type
+              defaultValue: small
+              description: Select size type.
+              choices:
+                - key: small
+                  label: Small
+                - key: medium
+                  label: Medium
+                - key: large
+                  label: Large
+            - id: cluster_textColor
+              type: string
+              title: Text color
+              ui: color
+            - id: cluster_shapeType
+              type: string
+              title: Shape type
+              defaultValue: circle
+              description: Select shape type.
+              choices:
+                - key: circle
+                  label: Circle
+            - id: cluster_backgroundColor
+              type: string
+              ui: color
+              title: Background color
+              description: Select a color.
+            - id: cluster_image
+              type: url
+              title: Image
+              ui: image
+        - id: cluster_layers
+          title: Cluster Layers
+          representativeField: cluster_layer
+          list: true
+          fields:
+            - id: cluster_layer
+              title: Layer
+              type: ref
+              ui: layer
         - id: theme
           title: Publish Theme
           description: Set your theme.
