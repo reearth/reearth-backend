@@ -949,7 +949,7 @@ type RemoveTagInput struct {
 }
 
 type RemoveTagPayload struct {
-	TagID id.ID `json:"tagID"`
+	TagID id.ID `json:"tagId"`
 }
 
 type RemoveWidgetInput struct {

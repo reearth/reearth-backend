@@ -1333,7 +1333,7 @@ type DetachTagFromLayerPayload{
 }
 
 type RemoveTagPayload{
-  tagID: ID!
+  tagId: ID!
 }
 
 # Connection

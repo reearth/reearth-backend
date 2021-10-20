@@ -5052,7 +5052,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.RemoveMemberFromTeamPayload.Team(childComplexity), true
 
-	case "RemoveTagPayload.tagID":
+	case "RemoveTagPayload.tagId":
 		if e.complexity.RemoveTagPayload.TagID == nil {
 			break
 		}
@@ -7124,7 +7124,7 @@ type DetachTagFromLayerPayload{
 }
 
 type RemoveTagPayload{
-  tagID: ID!
+  tagId: ID!
 }
 
 # Connection
@@ -25828,7 +25828,7 @@ func (ec *executionContext) _RemoveMemberFromTeamPayload_team(ctx context.Contex
 	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveTagPayload_tagID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveTagPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveTagPayload_tagId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveTagPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -37168,8 +37168,8 @@ func (ec *executionContext) _RemoveTagPayload(ctx context.Context, sel ast.Selec
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("RemoveTagPayload")
-		case "tagID":
-			out.Values[i] = ec._RemoveTagPayload_tagID(ctx, field, obj)
+		case "tagId":
+			out.Values[i] = ec._RemoveTagPayload_tagId(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

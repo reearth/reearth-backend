@@ -206,7 +206,7 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 	if group := tag.ToTagGroup(*t); group != nil {
 		tags := group.Tags()
 		if len(tags.Tags()) != 0 {
-			return nil, errors.New("can't delete non-empty tag group")
+			return nil, interfaces.ErrNonemptyTagGroupCannotDelete
 		}
 	}
 

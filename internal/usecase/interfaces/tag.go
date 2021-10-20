@@ -2,10 +2,15 @@ package interfaces
 
 import (
 	"context"
+	"errors"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/tag"
+)
+
+var (
+	ErrNonemptyTagGroupCannotDelete = errors.New("can't delete non-empty tag group")
 )
 
 type CreateTagItemParam struct {
