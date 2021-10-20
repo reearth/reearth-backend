@@ -715,6 +715,12 @@ interface Tag {
   label: String!
 }
 
+type TagObj implements Tag{
+  id: ID!
+  sceneId: ID!
+  label: String!
+}
+
 type TagItem implements Tag {
   id: ID!
   sceneId: ID!
@@ -1327,7 +1333,7 @@ type DetachTagItemFromGroupPayload {
 }
 
 type UpdateTagPayload {
-  tag: TagGroup!
+  tag: Tag!
 }
 
 type AttachTagToLayerPayload{

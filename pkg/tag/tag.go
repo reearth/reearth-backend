@@ -21,6 +21,7 @@ type Tag interface {
 	ID() id.TagID
 	Scene() id.SceneID
 	Label() string
+	Rename(string)
 }
 
 func (t *tag) ID() id.TagID {
@@ -33,6 +34,10 @@ func (t *tag) Scene() id.SceneID {
 
 func (t *tag) Label() string {
 	return t.label
+}
+
+func (t *tag) Rename(s string) {
+	t.label = s
 }
 
 func ToTagGroup(t Tag) *Group {

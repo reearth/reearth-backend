@@ -32,3 +32,11 @@ func ToTagGroup(tg *tag.Group) *TagGroup {
 		Tags:    ids,
 	}
 }
+
+func ToTag(t tag.Tag) *TagObj {
+	return &TagObj{
+		ID:      t.ID().ID(),
+		SceneID: t.Scene().ID(),
+		Label:   t.Label(),
+	}
+}

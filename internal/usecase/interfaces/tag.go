@@ -41,5 +41,5 @@ type Tag interface {
 	CreateGroup(context.Context, CreateTagGroupParam, *usecase.Operator) (*tag.Group, error)
 	AttachItemToGroup(context.Context, AttachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
 	DetachItemFromGroup(context.Context, DetachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
-	UpdateTag(context.Context, UpdateTagParam, *usecase.Operator) (*tag.Group, error)
+	UpdateTag(context.Context, UpdateTagParam, *usecase.Operator) (*tag.Tag, error)
 }

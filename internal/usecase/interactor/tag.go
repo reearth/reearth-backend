@@ -178,7 +178,7 @@ func (i *Tag) DetachItemFromGroup(ctx context.Context, inp interfaces.DetachItem
 	return tg, nil
 }
 
-func (i *Tag) UpdateTag(ctx context.Context, inp interfaces.UpdateTagParam, operator *usecase.Operator) (*tag.Group, error) {
+func (i *Tag) UpdateTag(ctx context.Context, inp interfaces.UpdateTagParam, operator *usecase.Operator) (*tag.Tag, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return nil, err
@@ -193,19 +193,20 @@ func (i *Tag) UpdateTag(ctx context.Context, inp interfaces.UpdateTagParam, oper
 		return nil, interfaces.ErrOperationDenied
 	}
 
-	tg, err := i.tagRepo.FindGroupByID(ctx, inp.TagID, []id.SceneID{inp.SceneID})
+	tg, err := i.tagRepo.FindByID(ctx, inp.TagID, []id.SceneID{inp.SceneID})
+	t := *tg
 	if err != nil {
 		return nil, err
 	}
 
 	if inp.Label != nil {
-		tg.Rename(*inp.Label)
+		t.Rename(*inp.Label)
 	}
 
-	err = i.tagRepo.Save(ctx, tg)
+	err = i.tagRepo.Save(ctx, t)
 	if err != nil {
 		return nil, err
 	}
 	tx.Commit()
-	return tg, nil
+	return &t, nil
 }
