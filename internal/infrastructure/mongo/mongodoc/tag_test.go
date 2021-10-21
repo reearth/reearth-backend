@@ -1,7 +1,6 @@
 package mongodoc
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -223,8 +222,9 @@ func TestFuncConsumer_Consume(t *testing.T) {
 				GroupRows: tc.fields.GroupRows,
 				ItemRows:  tc.fields.ItemRows,
 			}
-			if err := c.Consume(tc.args.raw); (err != nil) != tc.wantErr {
-				t.Errorf("Consume() error = %v, wantErr %v", err, tc.wantErr)
+
+			if err := c.Consume(tc.args.raw); tc.wantErr {
+				assert.Error(tt, err)
 			}
 		})
 	}
@@ -313,15 +313,11 @@ func TestTagDocument_Model(t *testing.T) {
 				Group: tc.fields.Group,
 			}
 			got, got1, err := d.Model()
-			if (err != nil) != tc.wantErr {
-				t.Errorf("Model() error = %v, wantErr %v", err, tc.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tc.want) {
-				t.Errorf("Model() got = %v, want %v", got, tc.want)
-			}
-			if !reflect.DeepEqual(got1, tc.want1) {
-				t.Errorf("Model() got1 = %v, want %v", got1, tc.want1)
+			if tc.wantErr {
+				assert.Error(tt, err)
+			} else {
+				assert.Equal(tt, tc.want, got)
+				assert.Equal(tt, tc.want1, got1)
 			}
 		})
 	}
@@ -406,13 +402,10 @@ func TestTagDocument_ModelGroup(t *testing.T) {
 				Group: tc.fields.Group,
 			}
 			got, err := d.ModelGroup()
-			if (err != nil) != tc.wantErr {
-				t.Errorf("ModelGroup() error = %v, wantErr %v", err, tc.wantErr)
-				return
+			if tc.wantErr {
+				assert.Error(tt, err)
 			}
-			if !reflect.DeepEqual(got, tc.want) {
-				t.Errorf("ModelGroup() got = %v, want %v", got, tc.want)
-			}
+			assert.Equal(tt, tc.want, got)
 		})
 	}
 }
@@ -489,13 +482,10 @@ func TestTagDocument_ModelItem(t *testing.T) {
 				Group: tc.fields.Group,
 			}
 			got, err := d.ModelItem()
-			if (err != nil) != tc.wantErr {
-				t.Errorf("ModelItem() error = %v, wantErr %v", err, tc.wantErr)
-				return
+			if tc.wantErr {
+				assert.Error(tt, err)
 			}
-			if !reflect.DeepEqual(got, tc.want) {
-				t.Errorf("ModelItem() got = %v, want %v", got, tc.want)
-			}
+			assert.Equal(tt, tc.want, got)
 		})
 	}
 }
