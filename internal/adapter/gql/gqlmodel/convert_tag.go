@@ -33,10 +33,15 @@ func ToTagGroup(tg *tag.Group) *TagGroup {
 	}
 }
 
-func ToTag(t tag.Tag) *TagObj {
-	return &TagObj{
-		ID:      t.ID().ID(),
-		SceneID: t.Scene().ID(),
-		Label:   t.Label(),
+func ToTag(t tag.Tag) Tag {
+	if t == nil {
+		return nil
 	}
+	switch ty := t.(type) {
+	case *tag.Item:
+		return ToTagItem(ty)
+	case *tag.Group:
+		return ToTagGroup(ty)
+	}
+	return nil
 }

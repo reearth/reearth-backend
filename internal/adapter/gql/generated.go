@@ -886,12 +886,6 @@ type ComplexityRoot struct {
 		SceneID               func(childComplexity int) int
 	}
 
-	TagObj struct {
-		ID      func(childComplexity int) int
-		Label   func(childComplexity int) int
-		SceneID func(childComplexity int) int
-	}
-
 	Team struct {
 		Assets   func(childComplexity int, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) int
 		ID       func(childComplexity int) int
@@ -5434,27 +5428,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.TagItem.SceneID(childComplexity), true
 
-	case "TagObj.id":
-		if e.complexity.TagObj.ID == nil {
-			break
-		}
-
-		return e.complexity.TagObj.ID(childComplexity), true
-
-	case "TagObj.label":
-		if e.complexity.TagObj.Label == nil {
-			break
-		}
-
-		return e.complexity.TagObj.Label(childComplexity), true
-
-	case "TagObj.sceneId":
-		if e.complexity.TagObj.SceneID == nil {
-			break
-		}
-
-		return e.complexity.TagObj.SceneID(childComplexity), true
-
 	case "Team.assets":
 		if e.complexity.Team.Assets == nil {
 			break
@@ -6528,12 +6501,6 @@ type MergedInfoboxField {
 }
 
 interface Tag {
-  id: ID!
-  sceneId: ID!
-  label: String!
-}
-
-type TagObj implements Tag{
   id: ID!
   sceneId: ID!
   label: String!
@@ -27674,111 +27641,6 @@ func (ec *executionContext) _TagItem_linkedDatasetField(ctx context.Context, fie
 	return ec.marshalODatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetField(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _TagObj_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagObj) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "TagObj",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.ID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(id.ID)
-	fc.Result = res
-	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _TagObj_sceneId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagObj) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "TagObj",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.SceneID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(id.ID)
-	fc.Result = res
-	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _TagObj_label(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagObj) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "TagObj",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Label, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _Team_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -32746,13 +32608,6 @@ func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj 
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case gqlmodel.TagObj:
-		return ec._TagObj(ctx, sel, &obj)
-	case *gqlmodel.TagObj:
-		if obj == nil {
-			return graphql.Null
-		}
-		return ec._TagObj(ctx, sel, obj)
 	case gqlmodel.TagItem:
 		return ec._TagItem(ctx, sel, &obj)
 	case *gqlmodel.TagItem:
@@ -37847,43 +37702,6 @@ func (ec *executionContext) _TagItem(ctx context.Context, sel ast.SelectionSet, 
 				res = ec._TagItem_linkedDatasetField(ctx, field, obj)
 				return res
 			})
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
-
-var tagObjImplementors = []string{"TagObj", "Tag"}
-
-func (ec *executionContext) _TagObj(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.TagObj) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, tagObjImplementors)
-
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("TagObj")
-		case "id":
-			out.Values[i] = ec._TagObj_id(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "sceneId":
-			out.Values[i] = ec._TagObj_sceneId(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "label":
-			out.Values[i] = ec._TagObj_label(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

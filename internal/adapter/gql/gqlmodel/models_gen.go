@@ -1051,14 +1051,6 @@ type TagItem struct {
 func (TagItem) IsTag()  {}
 func (TagItem) IsTags() {}
 
-type TagObj struct {
-	ID      id.ID  `json:"id"`
-	SceneID id.ID  `json:"sceneId"`
-	Label   string `json:"label"`
-}
-
-func (TagObj) IsTag() {}
-
 type Team struct {
 	ID       id.ID              `json:"id"`
 	Name     string             `json:"name"`
