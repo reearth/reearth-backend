@@ -32,6 +32,7 @@ type DetachItemToGroupParam struct {
 
 type Tag interface {
 	Fetch(context.Context, []id.TagID, *usecase.Operator) ([]*tag.Tag, error)
+	FetchByScene(context.Context, id.SceneID, *usecase.Operator) ([]*tag.Tag, error)
 	FetchItem(context.Context, []id.TagID, *usecase.Operator) ([]*tag.Item, error)
 	FetchGroup(context.Context, []id.TagID, *usecase.Operator) ([]*tag.Group, error)
 	FetchGroupsByLayer(context.Context, id.LayerID, *usecase.Operator) ([]*tag.Group, error)

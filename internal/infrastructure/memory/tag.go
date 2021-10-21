@@ -181,9 +181,7 @@ func (t *Tag) FindGroupByScene(ctx context.Context, sceneID id.SceneID) ([]*tag.
 
 	var res []*tag.Group
 	for _, tt := range t.data {
-		tt := tt
-		group := tag.ToTagGroup(tt)
-		if tt.Scene() == sceneID && group != nil {
+		if group := tag.ToTagGroup(tt); tt.Scene() == sceneID && group != nil {
 			res = append(res, group)
 		}
 	}
@@ -196,9 +194,7 @@ func (t *Tag) FindItemByScene(ctx context.Context, sceneID id.SceneID) ([]*tag.I
 
 	var res []*tag.Item
 	for _, tt := range t.data {
-		tt := tt
-		item := tag.ToTagItem(tt)
-		if tt.Scene() == sceneID && item != nil {
+		if item := tag.ToTagItem(tt); tt.Scene() == sceneID && item != nil {
 			res = append(res, item)
 		}
 	}

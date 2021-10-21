@@ -339,31 +339,3 @@ func (r *queryResolver) InstallablePlugins(ctx context.Context) ([]*gqlmodel.Plu
 
 	return r.loaders.Plugin.FetchPluginMetadata(ctx)
 }
-
-func (r *queryResolver) TagItemsByLayer(ctx context.Context, layerID id.ID) ([]*gqlmodel.TagItem, error) {
-	exit := trace(ctx)
-	defer exit()
-
-	return r.loaders.Tag.FetchItemByLayer(ctx, id.LayerID(layerID))
-}
-
-func (r *queryResolver) TagItemsByScene(ctx context.Context, sceneID id.ID) ([]*gqlmodel.TagItem, error) {
-	exit := trace(ctx)
-	defer exit()
-
-	return r.loaders.Tag.FetchItemByScene(ctx, id.SceneID(sceneID))
-}
-
-func (r *queryResolver) TagGroupsByLayer(ctx context.Context, layerID id.ID) ([]*gqlmodel.TagGroup, error) {
-	exit := trace(ctx)
-	defer exit()
-
-	return r.loaders.Tag.FetchGroupByLayer(ctx, id.LayerID(layerID))
-}
-
-func (r *queryResolver) TagGroupsByScene(ctx context.Context, sceneID id.ID) ([]*gqlmodel.TagGroup, error) {
-	exit := trace(ctx)
-	defer exit()
-
-	return r.loaders.Tag.FetchGroupByScene(ctx, id.SceneID(sceneID))
-}

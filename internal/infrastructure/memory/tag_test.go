@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/rerror"
+
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/tag"
 
@@ -28,6 +30,9 @@ func TestTag_FindByID(t *testing.T) {
 	out, err := repo.FindByID(ctx, t1.ID(), sl)
 	assert.NoError(t, err)
 	assert.Equal(t, &tti, out)
+
+	_, err = repo.FindByID(ctx, id.TagID{}, sl)
+	assert.Same(t, rerror.ErrNotFound, err)
 }
 
 func TestTag_FindByIDs(t *testing.T) {
@@ -97,7 +102,12 @@ func TestTag_FindItemByScene(t *testing.T) {
 	}
 	out, err := repo.FindItemByScene(ctx, sid2)
 	assert.NoError(t, err)
+	assert.Equal(t, 1, len(out))
 	assert.Same(t, t3, out[0])
+
+	out, err = repo.FindItemByScene(ctx, id.SceneID{})
+	assert.NoError(t, err)
+	assert.Equal(t, 0, len(out))
 }
 
 func TestTag_FindGroupByScene(t *testing.T) {
@@ -120,7 +130,12 @@ func TestTag_FindGroupByScene(t *testing.T) {
 	}
 	out, err := repo.FindGroupByScene(ctx, sid2)
 	assert.NoError(t, err)
+	assert.Equal(t, 1, len(out))
 	assert.Same(t, t2, out[0])
+
+	out, err = repo.FindGroupByScene(ctx, id.SceneID{})
+	assert.NoError(t, err)
+	assert.Equal(t, 0, len(out))
 }
 
 func TestTag_FindGroupByID(t *testing.T) {
@@ -141,6 +156,9 @@ func TestTag_FindGroupByID(t *testing.T) {
 	out, err := repo.FindGroupByID(ctx, t2.ID(), sl)
 	assert.NoError(t, err)
 	assert.Equal(t, t2, out)
+
+	_, err = repo.FindGroupByID(ctx, id.TagID{}, []id.SceneID{})
+	assert.Same(t, rerror.ErrNotFound, err)
 }
 
 func TestTag_FindItemByID(t *testing.T) {
@@ -161,6 +179,9 @@ func TestTag_FindItemByID(t *testing.T) {
 	out, err := repo.FindItemByID(ctx, t1.ID(), sl)
 	assert.NoError(t, err)
 	assert.Equal(t, t1, out)
+
+	_, err = repo.FindItemByID(ctx, id.TagID{}, sl)
+	assert.Same(t, rerror.ErrNotFound, err)
 }
 
 func TestTag_FindGroupByIDs(t *testing.T) {
@@ -180,6 +201,10 @@ func TestTag_FindGroupByIDs(t *testing.T) {
 	out, err := repo.FindGroupByIDs(ctx, []id.TagID{t1.ID(), t2.ID()}, sl)
 	assert.NoError(t, err)
 	assert.Equal(t, []*tag.Group{t1, t2}, out)
+
+	out, err = repo.FindGroupByIDs(ctx, []id.TagID{t1.ID(), t2.ID()}, []id.SceneID{})
+	assert.NoError(t, err)
+	assert.Equal(t, 0, len(out))
 }
 
 func TestTag_FindItemByIDs(t *testing.T) {
@@ -199,6 +224,10 @@ func TestTag_FindItemByIDs(t *testing.T) {
 	out, err := repo.FindItemByIDs(ctx, []id.TagID{t1.ID(), t2.ID()}, sl)
 	assert.NoError(t, err)
 	assert.Equal(t, []*tag.Item{t1, t2}, out)
+
+	out, err = repo.FindItemByIDs(ctx, []id.TagID{t1.ID(), t2.ID()}, []id.SceneID{})
+	assert.NoError(t, err)
+	assert.Equal(t, 0, len(out))
 }
 
 func TestTag_Save(t *testing.T) {

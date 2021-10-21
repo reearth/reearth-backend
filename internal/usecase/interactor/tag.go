@@ -111,6 +111,15 @@ func (i *Tag) Fetch(ctx context.Context, ids []id.TagID, operator *usecase.Opera
 	return i.tagRepo.FindByIDs(ctx, ids, scenes)
 }
 
+func (i *Tag) FetchByScene(ctx context.Context, sid id.SceneID, operator *usecase.Operator) ([]*tag.Tag, error) {
+	err := i.CanReadScene(ctx, sid, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindByScene(ctx, sid)
+}
+
 func (i *Tag) FetchItem(ctx context.Context, ids []id.TagID, operator *usecase.Operator) ([]*tag.Item, error) {
 	scenes, err := i.OnlyReadableScenes(ctx, operator)
 	if err != nil {
