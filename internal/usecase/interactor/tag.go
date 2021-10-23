@@ -103,6 +103,87 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 	return group, nil
 }
 
+func (i *Tag) Fetch(ctx context.Context, ids []id.TagID, operator *usecase.Operator) ([]*tag.Tag, error) {
+	scenes, err := i.OnlyReadableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindByIDs(ctx, ids, scenes)
+}
+
+func (i *Tag) FetchByScene(ctx context.Context, sid id.SceneID, operator *usecase.Operator) ([]*tag.Tag, error) {
+	err := i.CanReadScene(ctx, sid, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindByScene(ctx, sid)
+}
+
+func (i *Tag) FetchItem(ctx context.Context, ids []id.TagID, operator *usecase.Operator) ([]*tag.Item, error) {
+	scenes, err := i.OnlyReadableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindItemByIDs(ctx, ids, scenes)
+}
+
+func (i *Tag) FetchGroup(ctx context.Context, ids []id.TagID, operator *usecase.Operator) ([]*tag.Group, error) {
+	scenes, err := i.OnlyReadableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindGroupByIDs(ctx, ids, scenes)
+}
+
+func (i *Tag) FetchGroupsByLayer(ctx context.Context, lid id.LayerID, operator *usecase.Operator) ([]*tag.Group, error) {
+	scenes, err := i.OnlyReadableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	layer, err := i.layerRepo.FindByID(ctx, lid, scenes)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindGroupByIDs(ctx, layer.Tags().Tags(), scenes)
+}
+
+func (i *Tag) FetchGroupsByScene(ctx context.Context, sid id.SceneID, operator *usecase.Operator) ([]*tag.Group, error) {
+	err := i.CanReadScene(ctx, sid, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindGroupByScene(ctx, sid)
+}
+
+func (i *Tag) FetchItemsByLayer(ctx context.Context, lid id.LayerID, operator *usecase.Operator) ([]*tag.Item, error) {
+	scenes, err := i.OnlyReadableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	layer, err := i.layerRepo.FindByID(ctx, lid, scenes)
+	if err != nil {
+		return nil, err
+	}
+	return i.tagRepo.FindItemByIDs(ctx, layer.Tags().Tags(), scenes)
+}
+
+func (i *Tag) FetchItemsByScene(ctx context.Context, sid id.SceneID, operator *usecase.Operator) ([]*tag.Item, error) {
+	err := i.CanReadScene(ctx, sid, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	return i.tagRepo.FindItemByScene(ctx, sid)
+}
+
 func (i *Tag) AttachItemToGroup(ctx context.Context, inp interfaces.AttachItemToGroupParam, operator *usecase.Operator) (*tag.Group, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {

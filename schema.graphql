@@ -302,6 +302,8 @@ type Scene implements Node {
     after: Cursor
     before: Cursor
   ): DatasetSchemaConnection! @goField(forceResolver: true)
+  tagIds: [ID!]!
+  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 enum SceneLockMode {
@@ -586,7 +588,8 @@ interface Layer {
   plugin: Plugin
   extension: PluginExtension
   scenePlugin: ScenePlugin
-  tags: [ID!]
+  tagIds: [ID!]!
+  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 union Layers = LayerItem | LayerGroup
@@ -619,7 +622,8 @@ type LayerItem implements Layer {
   merged: MergedLayer @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tags: [ID!]
+  tagIds: [ID!]!
+  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 type LayerGroup implements Layer {
@@ -644,7 +648,8 @@ type LayerGroup implements Layer {
   layers: [Layer]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tags: [ID!]
+  tagIds: [ID!]!
+  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 type Infobox {
