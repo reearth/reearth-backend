@@ -39,16 +39,15 @@ func ToTagGroup(tg *tag.Group) *TagGroup {
 	}
 }
 
-func ToTag(t *tag.Tag) Tag {
+func ToTag(t tag.Tag) Tag {
 	if t == nil {
 		return nil
 	}
-	tt := *t
-	switch ta := tt.(type) {
+	switch ty := t.(type) {
 	case *tag.Item:
-		return ToTagItem(ta)
+		return ToTagItem(ty)
 	case *tag.Group:
-		return ToTagGroup(ta)
+		return ToTagGroup(ty)
 	}
 	return nil
 }

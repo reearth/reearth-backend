@@ -57,7 +57,7 @@ func (r *mutationResolver) UpdateTag(ctx context.Context, input gqlmodel.UpdateT
 		return nil, err
 	}
 	return &gqlmodel.UpdateTagPayload{
-		Tag: gqlmodel.ToTag(tag),
+		Tag: gqlmodel.ToTag(*tag),
 	}, nil
 }
 

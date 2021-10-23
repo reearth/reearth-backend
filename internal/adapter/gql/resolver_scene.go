@@ -90,7 +90,7 @@ func (r *sceneResolver) Tags(ctx context.Context, obj *gqlmodel.Scene) ([]gqlmod
 
 	res := make([]gqlmodel.Tag, 0, len(tags))
 	for _, t := range tags {
-		res = append(res, gqlmodel.ToTag(t))
+		res = append(res, gqlmodel.ToTag(*t))
 	}
 	return res, nil
 }
