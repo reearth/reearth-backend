@@ -6,6 +6,9 @@ import (
 )
 
 func ToTagItem(ti *tag.Item) *TagItem {
+	if ti == nil {
+		return nil
+	}
 	return &TagItem{
 		ID:                    ti.ID().ID(),
 		SceneID:               ti.Scene().ID(),
@@ -17,6 +20,9 @@ func ToTagItem(ti *tag.Item) *TagItem {
 }
 
 func ToTagGroup(tg *tag.Group) *TagGroup {
+	if tg == nil {
+		return nil
+	}
 	tags := tg.Tags()
 	tids := tags.Tags()
 	var ids []*id.ID
@@ -33,15 +39,16 @@ func ToTagGroup(tg *tag.Group) *TagGroup {
 	}
 }
 
-func ToTag(t tag.Tag) Tag {
+func ToTag(t *tag.Tag) Tag {
 	if t == nil {
 		return nil
 	}
-	switch ty := t.(type) {
+	tt := *t
+	switch ta := tt.(type) {
 	case *tag.Item:
-		return ToTagItem(ty)
+		return ToTagItem(ta)
 	case *tag.Group:
-		return ToTagGroup(ty)
+		return ToTagGroup(ta)
 	}
 	return nil
 }

@@ -486,7 +486,8 @@ type LayerGroup struct {
 	Layers                []Layer               `json:"layers"`
 	Scene                 *Scene                `json:"scene"`
 	ScenePlugin           *ScenePlugin          `json:"scenePlugin"`
-	Tags                  []*id.ID              `json:"tags"`
+	TagIds                []*id.ID              `json:"tagIds"`
+	Tags                  []Tag                 `json:"tags"`
 }
 
 func (LayerGroup) IsLayers() {}
@@ -511,7 +512,8 @@ type LayerItem struct {
 	Merged          *MergedLayer          `json:"merged"`
 	Scene           *Scene                `json:"scene"`
 	ScenePlugin     *ScenePlugin          `json:"scenePlugin"`
-	Tags            []*id.ID              `json:"tags"`
+	TagIds          []*id.ID              `json:"tagIds"`
+	Tags            []Tag                 `json:"tags"`
 }
 
 func (LayerItem) IsLayers() {}
@@ -981,6 +983,8 @@ type Scene struct {
 	RootLayer             *LayerGroup              `json:"rootLayer"`
 	LockMode              SceneLockMode            `json:"lockMode"`
 	DatasetSchemas        *DatasetSchemaConnection `json:"datasetSchemas"`
+	TagIds                []*id.ID                 `json:"tagIds"`
+	Tags                  []Tag                    `json:"tags"`
 }
 
 func (Scene) IsNode() {}

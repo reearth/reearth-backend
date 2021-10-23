@@ -100,6 +100,20 @@ func (r *tagRepo) FindByScene(ctx context.Context, id id.SceneID) ([]*tag.Tag, e
 	return r.find(ctx, nil, filter)
 }
 
+func (r *tagRepo) FindGroupByScene(ctx context.Context, id id.SceneID) ([]*tag.Group, error) {
+	filter := bson.D{
+		{Key: "scene", Value: id.String()},
+	}
+	return r.findGroups(ctx, nil, filter)
+}
+
+func (r *tagRepo) FindItemByScene(ctx context.Context, id id.SceneID) ([]*tag.Item, error) {
+	filter := bson.D{
+		{Key: "scene", Value: id.String()},
+	}
+	return r.findItems(ctx, nil, filter)
+}
+
 func (r *tagRepo) FindGroupByItem(ctx context.Context, tagID id.TagID, f []id.SceneID) (*tag.Group, error) {
 	ids := []id.TagID{tagID}
 	filter := r.sceneFilter(bson.D{
