@@ -30,7 +30,7 @@ func (r *tagRepo) init() {
 	}
 }
 
-func (r *tagRepo) FindByID(ctx context.Context, id id.TagID, f []id.SceneID) (*tag.Tag, error) {
+func (r *tagRepo) FindByID(ctx context.Context, id id.TagID, f []id.SceneID) (tag.Tag, error) {
 	filter := r.sceneFilter(bson.D{
 		{Key: "id", Value: id.String()},
 	}, f)
@@ -156,7 +156,7 @@ func (r *tagRepo) find(ctx context.Context, dst []*tag.Tag, filter bson.D) ([]*t
 	return c.Rows, nil
 }
 
-func (r *tagRepo) findOne(ctx context.Context, filter bson.D) (*tag.Tag, error) {
+func (r *tagRepo) findOne(ctx context.Context, filter bson.D) (tag.Tag, error) {
 	c := mongodoc.TagConsumer{}
 	if err := r.client.FindOne(ctx, filter, &c); err != nil {
 		return nil, err
@@ -164,7 +164,7 @@ func (r *tagRepo) findOne(ctx context.Context, filter bson.D) (*tag.Tag, error) 
 	if len(c.Rows) == 0 {
 		return nil, rerror.ErrNotFound
 	}
-	return c.Rows[0], nil
+	return *c.Rows[0], nil
 }
 
 func (r *tagRepo) findItemOne(ctx context.Context, filter bson.D) (*tag.Item, error) {

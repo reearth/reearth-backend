@@ -22,13 +22,13 @@ func NewTag() repo.Tag {
 	}
 }
 
-func (t *Tag) FindByID(ctx context.Context, tagID id.TagID, ids []id.SceneID) (*tag.Tag, error) {
+func (t *Tag) FindByID(ctx context.Context, tagID id.TagID, ids []id.SceneID) (tag.Tag, error) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
 	res, ok := t.data[tagID]
 	if ok && isSceneIncludes(res.Scene(), ids) {
-		return &res, nil
+		return res, nil
 	}
 	return nil, rerror.ErrNotFound
 }

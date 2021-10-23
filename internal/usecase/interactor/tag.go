@@ -197,21 +197,20 @@ func (i *Tag) UpdateTag(ctx context.Context, inp interfaces.UpdateTagParam, oper
 	}
 
 	tg, err := i.tagRepo.FindByID(ctx, inp.TagID, []id.SceneID{inp.SceneID})
-	t := *tg
 	if err != nil {
 		return nil, err
 	}
 
 	if inp.Label != nil {
-		t.Rename(*inp.Label)
+		tg.Rename(*inp.Label)
 	}
 
-	err = i.tagRepo.Save(ctx, t)
+	err = i.tagRepo.Save(ctx, tg)
 	if err != nil {
 		return nil, err
 	}
 	tx.Commit()
-	return &t, nil
+	return &tg, nil
 }
 
 func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Operator) (*id.TagID, error) {
@@ -236,14 +235,14 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 		return nil, err
 	}
 
-	if group := tag.ToTagGroup(*t); group != nil {
+	if group := tag.ToTagGroup(t); group != nil {
 		tags := group.Tags()
 		if len(tags.Tags()) != 0 {
 			return nil, interfaces.ErrNonemptyTagGroupCannotDelete
 		}
 	}
 
-	if item := tag.ToTagItem(*t); item != nil {
+	if item := tag.ToTagItem(t); item != nil {
 		g, err := i.tagRepo.FindGroupByItem(ctx, item.ID(), scenes)
 		if err != nil && !errors.Is(rerror.ErrNotFound, err) {
 			return nil, err
