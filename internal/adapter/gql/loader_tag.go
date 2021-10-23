@@ -26,7 +26,7 @@ func (c *TagLoader) Fetch(ctx context.Context, ids []id.TagID) ([]*gqlmodel.Tag,
 	tags := make([]*gqlmodel.Tag, 0, len(res))
 	for _, t := range res {
 		if t != nil {
-			tag := gqlmodel.ToTag(t)
+			tag := gqlmodel.ToTag(*t)
 			tags = append(tags, &tag)
 		}
 	}

@@ -1095,6 +1095,12 @@ input CreateTagGroupInput {
   tags: [ID!]
 }
 
+input UpdateTagInput {
+  tagId: ID!
+  sceneId: ID!
+  label: String
+}
+
 input AttachTagItemToGroupInput {
   itemID: ID!
   groupID: ID!
@@ -1105,12 +1111,12 @@ input DetachTagItemFromGroupInput {
   groupID: ID!
 }
 
-input AttachTagToLayerInput{
+input AttachTagToLayerInput {
   tagID: ID!
   layerID: ID!
 }
 
-input DetachTagFromLayerInput{
+input DetachTagFromLayerInput {
   tagID: ID!
   layerID: ID!
 }
@@ -1329,6 +1335,10 @@ type DetachTagItemFromGroupPayload {
   tag: TagGroup!
 }
 
+type UpdateTagPayload {
+  tag: Tag!
+}
+
 type AttachTagToLayerPayload{
   layer: Layer!
 }
@@ -1542,6 +1552,7 @@ type Mutation {
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
   attachTagItemToGroup(input: AttachTagItemToGroupInput!): AttachTagItemToGroupPayload
   detachTagItemFromGroup(input: DetachTagItemFromGroupInput!): DetachTagItemFromGroupPayload
+  updateTag(input: UpdateTagInput!): UpdateTagPayload
   removeTag(input: RemoveTagInput!): RemoveTagPayload
 }
 

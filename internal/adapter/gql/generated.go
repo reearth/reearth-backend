@@ -525,6 +525,7 @@ type ComplexityRoot struct {
 		UpdateProject                func(childComplexity int, input gqlmodel.UpdateProjectInput) int
 		UpdatePropertyItems          func(childComplexity int, input gqlmodel.UpdatePropertyItemInput) int
 		UpdatePropertyValue          func(childComplexity int, input gqlmodel.UpdatePropertyValueInput) int
+		UpdateTag                    func(childComplexity int, input gqlmodel.UpdateTagInput) int
 		UpdateTeam                   func(childComplexity int, input gqlmodel.UpdateTeamInput) int
 		UpdateWidget                 func(childComplexity int, input gqlmodel.UpdateWidgetInput) int
 		UpgradePlugin                func(childComplexity int, input gqlmodel.UpgradePluginInput) int
@@ -941,6 +942,10 @@ type ComplexityRoot struct {
 		Team func(childComplexity int) int
 	}
 
+	UpdateTagPayload struct {
+		Tag func(childComplexity int) int
+	}
+
 	UpdateTeamPayload struct {
 		Team func(childComplexity int) int
 	}
@@ -1130,6 +1135,7 @@ type MutationResolver interface {
 	CreateTagGroup(ctx context.Context, input gqlmodel.CreateTagGroupInput) (*gqlmodel.CreateTagGroupPayload, error)
 	AttachTagItemToGroup(ctx context.Context, input gqlmodel.AttachTagItemToGroupInput) (*gqlmodel.AttachTagItemToGroupPayload, error)
 	DetachTagItemFromGroup(ctx context.Context, input gqlmodel.DetachTagItemFromGroupInput) (*gqlmodel.DetachTagItemFromGroupPayload, error)
+	UpdateTag(ctx context.Context, input gqlmodel.UpdateTagInput) (*gqlmodel.UpdateTagPayload, error)
 	RemoveTag(ctx context.Context, input gqlmodel.RemoveTagInput) (*gqlmodel.RemoveTagPayload, error)
 }
 type PluginResolver interface {
@@ -3553,6 +3559,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.UpdatePropertyValue(childComplexity, args["input"].(gqlmodel.UpdatePropertyValueInput)), true
 
+	case "Mutation.updateTag":
+		if e.complexity.Mutation.UpdateTag == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_updateTag_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateTag(childComplexity, args["input"].(gqlmodel.UpdateTagInput)), true
+
 	case "Mutation.updateTeam":
 		if e.complexity.Mutation.UpdateTeam == nil {
 			break
@@ -5644,6 +5662,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.UpdateMemberOfTeamPayload.Team(childComplexity), true
 
+	case "UpdateTagPayload.tag":
+		if e.complexity.UpdateTagPayload.Tag == nil {
+			break
+		}
+
+		return e.complexity.UpdateTagPayload.Tag(childComplexity), true
+
 	case "UpdateTeamPayload.team":
 		if e.complexity.UpdateTeamPayload.Team == nil {
 			break
@@ -6924,6 +6949,12 @@ input CreateTagGroupInput {
   tags: [ID!]
 }
 
+input UpdateTagInput {
+  tagId: ID!
+  sceneId: ID!
+  label: String
+}
+
 input AttachTagItemToGroupInput {
   itemID: ID!
   groupID: ID!
@@ -6934,12 +6965,12 @@ input DetachTagItemFromGroupInput {
   groupID: ID!
 }
 
-input AttachTagToLayerInput{
+input AttachTagToLayerInput {
   tagID: ID!
   layerID: ID!
 }
 
-input DetachTagFromLayerInput{
+input DetachTagFromLayerInput {
   tagID: ID!
   layerID: ID!
 }
@@ -7158,6 +7189,10 @@ type DetachTagItemFromGroupPayload {
   tag: TagGroup!
 }
 
+type UpdateTagPayload {
+  tag: Tag!
+}
+
 type AttachTagToLayerPayload{
   layer: Layer!
 }
@@ -7371,6 +7406,7 @@ type Mutation {
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
   attachTagItemToGroup(input: AttachTagItemToGroupInput!): AttachTagItemToGroupPayload
   detachTagItemFromGroup(input: DetachTagItemFromGroupInput!): DetachTagItemFromGroupPayload
+  updateTag(input: UpdateTagInput!): UpdateTagPayload
   removeTag(input: RemoveTagInput!): RemoveTagPayload
 }
 
@@ -8230,6 +8266,21 @@ func (ec *executionContext) field_Mutation_updatePropertyValue_args(ctx context.
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNUpdatePropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdatePropertyValueInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_updateTag_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 gqlmodel.UpdateTagInput
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNUpdateTagInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTagInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -19248,6 +19299,45 @@ func (ec *executionContext) _Mutation_detachTagItemFromGroup(ctx context.Context
 	return ec.marshalODetachTagItemFromGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDetachTagItemFromGroupPayload(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Mutation_updateTag(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_updateTag_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UpdateTag(rctx, args["input"].(gqlmodel.UpdateTagInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.UpdateTagPayload)
+	fc.Result = res
+	return ec.marshalOUpdateTagPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTagPayload(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Mutation_removeTag(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -28652,6 +28742,41 @@ func (ec *executionContext) _UpdateMemberOfTeamPayload_team(ctx context.Context,
 	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _UpdateTagPayload_tag(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateTagPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "UpdateTagPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tag, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.Tag)
+	fc.Result = res
+	return ec.marshalNTag2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTag(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _UpdateTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateTeamPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -32434,6 +32559,42 @@ func (ec *executionContext) unmarshalInputUpdatePropertyValueInput(ctx context.C
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputUpdateTagInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateTagInput, error) {
+	var it gqlmodel.UpdateTagInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "tagId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tagId"))
+			it.TagID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "sceneId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
+			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "label":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("label"))
+			it.Label, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputUpdateTeamInput(ctx context.Context, obj interface{}) (gqlmodel.UpdateTeamInput, error) {
 	var it gqlmodel.UpdateTeamInput
 	var asMap = obj.(map[string]interface{})
@@ -35530,6 +35691,8 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = ec._Mutation_attachTagItemToGroup(ctx, field)
 		case "detachTagItemFromGroup":
 			out.Values[i] = ec._Mutation_detachTagItemFromGroup(ctx, field)
+		case "updateTag":
+			out.Values[i] = ec._Mutation_updateTag(ctx, field)
 		case "removeTag":
 			out.Values[i] = ec._Mutation_removeTag(ctx, field)
 		default:
@@ -38238,6 +38401,33 @@ func (ec *executionContext) _UpdateMemberOfTeamPayload(ctx context.Context, sel 
 			out.Values[i] = graphql.MarshalString("UpdateMemberOfTeamPayload")
 		case "team":
 			out.Values[i] = ec._UpdateMemberOfTeamPayload_team(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var updateTagPayloadImplementors = []string{"UpdateTagPayload"}
+
+func (ec *executionContext) _UpdateTagPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.UpdateTagPayload) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, updateTagPayloadImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("UpdateTagPayload")
+		case "tag":
+			out.Values[i] = ec._UpdateTagPayload_tag(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -41163,6 +41353,11 @@ func (ec *executionContext) unmarshalNUpdatePropertyValueInput2githubᚗcomᚋre
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalNUpdateTagInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTagInput(ctx context.Context, v interface{}) (gqlmodel.UpdateTagInput, error) {
+	res, err := ec.unmarshalInputUpdateTagInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNUpdateTeamInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTeamInput(ctx context.Context, v interface{}) (gqlmodel.UpdateTeamInput, error) {
 	res, err := ec.unmarshalInputUpdateTeamInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -42452,6 +42647,13 @@ func (ec *executionContext) marshalOUpdateMemberOfTeamPayload2ᚖgithubᚗcomᚋ
 		return graphql.Null
 	}
 	return ec._UpdateMemberOfTeamPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOUpdateTagPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTagPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateTagPayload) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._UpdateTagPayload(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOUpdateTeamPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUpdateTeamPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.UpdateTeamPayload) graphql.Marshaler {

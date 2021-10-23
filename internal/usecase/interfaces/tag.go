@@ -35,6 +35,12 @@ type DetachItemToGroupParam struct {
 	ItemID, GroupID id.TagID
 }
 
+type UpdateTagParam struct {
+	Label   *string
+	SceneID id.SceneID
+	TagID   id.TagID
+}
+
 type Tag interface {
 	Fetch(context.Context, []id.TagID, *usecase.Operator) ([]*tag.Tag, error)
 	FetchByScene(context.Context, id.SceneID, *usecase.Operator) ([]*tag.Tag, error)
@@ -48,5 +54,6 @@ type Tag interface {
 	CreateGroup(context.Context, CreateTagGroupParam, *usecase.Operator) (*tag.Group, error)
 	AttachItemToGroup(context.Context, AttachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
 	DetachItemFromGroup(context.Context, DetachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
+	UpdateTag(context.Context, UpdateTagParam, *usecase.Operator) (*tag.Tag, error)
 	Remove(context.Context, id.TagID, *usecase.Operator) (*id.TagID, error)
 }

@@ -1191,6 +1191,16 @@ type UpdatePropertyValueInput struct {
 	Type         ValueType                 `json:"type"`
 }
 
+type UpdateTagInput struct {
+	TagID   id.ID   `json:"tagId"`
+	SceneID id.ID   `json:"sceneId"`
+	Label   *string `json:"label"`
+}
+
+type UpdateTagPayload struct {
+	Tag Tag `json:"tag"`
+}
+
 type UpdateTeamInput struct {
 	TeamID id.ID  `json:"teamId"`
 	Name   string `json:"name"`

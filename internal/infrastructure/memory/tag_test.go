@@ -29,7 +29,7 @@ func TestTag_FindByID(t *testing.T) {
 	}
 	out, err := repo.FindByID(ctx, t1.ID(), sl)
 	assert.NoError(t, err)
-	assert.Equal(t, &tti, out)
+	assert.Equal(t, tti, out)
 
 	_, err = repo.FindByID(ctx, id.TagID{}, sl)
 	assert.Same(t, rerror.ErrNotFound, err)
@@ -241,7 +241,7 @@ func TestTag_Save(t *testing.T) {
 	err := repo.Save(ctx, tti)
 	assert.NoError(t, err)
 	out, _ := repo.FindByID(ctx, t1.ID(), sl)
-	assert.Equal(t, &tti, out)
+	assert.Equal(t, tti, out)
 }
 
 func TestTag_SaveAll(t *testing.T) {

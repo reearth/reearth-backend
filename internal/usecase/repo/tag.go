@@ -8,7 +8,7 @@ import (
 )
 
 type Tag interface {
-	FindByID(context.Context, id.TagID, []id.SceneID) (*tag.Tag, error)
+	FindByID(context.Context, id.TagID, []id.SceneID) (tag.Tag, error)
 	FindByIDs(context.Context, []id.TagID, []id.SceneID) ([]*tag.Tag, error)
 	FindItemByID(context.Context, id.TagID, []id.SceneID) (*tag.Item, error)
 	FindItemByIDs(context.Context, []id.TagID, []id.SceneID) ([]*tag.Item, error)

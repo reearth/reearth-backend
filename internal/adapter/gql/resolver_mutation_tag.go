@@ -44,6 +44,23 @@ func (r *mutationResolver) CreateTagGroup(ctx context.Context, input gqlmodel.Cr
 	}, nil
 }
 
+func (r *mutationResolver) UpdateTag(ctx context.Context, input gqlmodel.UpdateTagInput) (*gqlmodel.UpdateTagPayload, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	tag, err := r.usecases.Tag.UpdateTag(ctx, interfaces.UpdateTagParam{
+		Label:   input.Label,
+		SceneID: id.SceneID(input.SceneID),
+		TagID:   id.TagID(input.TagID),
+	}, getOperator(ctx))
+	if err != nil {
+		return nil, err
+	}
+	return &gqlmodel.UpdateTagPayload{
+		Tag: gqlmodel.ToTag(*tag),
+	}, nil
+}
+
 func (r *mutationResolver) AttachTagItemToGroup(ctx context.Context, input gqlmodel.AttachTagItemToGroupInput) (*gqlmodel.AttachTagItemToGroupPayload, error) {
 	exit := trace(ctx)
 	defer exit()

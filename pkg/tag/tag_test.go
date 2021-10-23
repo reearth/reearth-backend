@@ -23,3 +23,11 @@ func TestToTagItem(t *testing.T) {
 	item2 := ToTagItem(&tag2)
 	assert.NotNil(t, item2)
 }
+
+func TestTag_Rename(t *testing.T) {
+	tt := tag{
+		label: "xxx",
+	}
+	tt.Rename("changed")
+	assert.Equal(t, "changed", tt.Label())
+}
