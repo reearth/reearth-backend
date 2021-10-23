@@ -7,12 +7,15 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
+	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
 type Tag struct {
 	commonScene
 	tagRepo     repo.Tag
+	layerRepo   repo.Layer
 	sceneRepo   repo.Scene
 	transaction repo.Transaction
 }
@@ -21,6 +24,7 @@ func NewTag(r *repo.Container) interfaces.Tag {
 	return &Tag{
 		commonScene: commonScene{sceneRepo: r.Scene},
 		tagRepo:     r.Tag,
+		layerRepo:   r.Layer,
 		sceneRepo:   r.Scene,
 		transaction: r.Transaction,
 	}
@@ -175,4 +179,71 @@ func (i *Tag) DetachItemFromGroup(ctx context.Context, inp interfaces.DetachItem
 
 	tx.Commit()
 	return tg, nil
+}
+
+func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Operator) (*id.TagID, error) {
+	tx, err := i.transaction.Begin()
+
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	scenes, err := i.OnlyWritableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+
+	t, err := i.tagRepo.FindByID(ctx, tagID, scenes)
+	if err != nil {
+		return nil, err
+	}
+
+	if group := tag.ToTagGroup(*t); group != nil {
+		tags := group.Tags()
+		if len(tags.Tags()) != 0 {
+			return nil, interfaces.ErrNonemptyTagGroupCannotDelete
+		}
+	}
+
+	if item := tag.ToTagItem(*t); item != nil {
+		g, err := i.tagRepo.FindGroupByItem(ctx, item.ID(), scenes)
+		if err != nil && !errors.Is(rerror.ErrNotFound, err) {
+			return nil, err
+		}
+		if g != nil {
+			g.Tags().Remove(item.ID())
+
+			err = i.tagRepo.Save(ctx, g)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	l, err := i.layerRepo.FindByTag(ctx, tagID, scenes)
+	if err != nil && !errors.Is(rerror.ErrNotFound, err) {
+		return nil, err
+	}
+
+	if l != nil {
+		err = l.DetachTag(tagID)
+		if err != nil {
+			return nil, err
+		}
+		err = i.layerRepo.Save(ctx, l)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	err = i.tagRepo.Remove(ctx, tagID)
+	if err != nil {
+		return nil, err
+	}
+	return &tagID, nil
 }

@@ -100,6 +100,17 @@ func (r *tagRepo) FindByScene(ctx context.Context, id id.SceneID) ([]*tag.Tag, e
 	return r.find(ctx, nil, filter)
 }
 
+func (r *tagRepo) FindGroupByItem(ctx context.Context, tagID id.TagID, f []id.SceneID) (*tag.Group, error) {
+	ids := []id.TagID{tagID}
+	filter := r.sceneFilter(bson.D{
+		{Key: "group.tags", Value: bson.D{
+			{Key: "$in", Value: id.TagIDToKeys(ids)},
+		}},
+	}, f)
+
+	return r.findGroupOne(ctx, filter)
+}
+
 func (r *tagRepo) Save(ctx context.Context, tag tag.Tag) error {
 	doc, tid := mongodoc.NewTag(tag)
 	return r.client.SaveOne(ctx, tid, doc)

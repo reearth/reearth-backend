@@ -255,3 +255,18 @@ func (r *Layer) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 	}
 	return nil
 }
+
+func (r *Layer) FindByTag(ctx context.Context, tagID id.TagID, s []id.SceneID) (layer.Layer, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	for _, layer := range r.data {
+		for _, tag := range layer.Tags().Tags() {
+			if tag == tagID {
+				return layer, nil
+			}
+		}
+	}
+
+	return nil, rerror.ErrNotFound
+}
