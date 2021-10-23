@@ -1115,6 +1115,10 @@ input DetachTagFromLayerInput{
   layerID: ID!
 }
 
+input RemoveTagInput {
+  tagID: ID!
+}
+
 # Payload
 type CreateAssetPayload {
   asset: Asset!
@@ -1333,6 +1337,10 @@ type DetachTagFromLayerPayload{
   layer: Layer!
 }
 
+type RemoveTagPayload{
+  tagId: ID!
+}
+
 # Connection
 
 enum NodeType {
@@ -1534,6 +1542,7 @@ type Mutation {
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
   attachTagItemToGroup(input: AttachTagItemToGroupInput!): AttachTagItemToGroupPayload
   detachTagItemFromGroup(input: DetachTagItemFromGroupInput!): DetachTagItemFromGroupPayload
+  removeTag(input: RemoveTagInput!): RemoveTagPayload
 }
 
 schema {

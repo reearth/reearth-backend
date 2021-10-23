@@ -946,6 +946,14 @@ type RemovePropertyItemInput struct {
 	ItemID       id.ID                    `json:"itemId"`
 }
 
+type RemoveTagInput struct {
+	TagID id.ID `json:"tagID"`
+}
+
+type RemoveTagPayload struct {
+	TagID id.ID `json:"tagId"`
+}
+
 type RemoveWidgetInput struct {
 	SceneID     id.ID                `json:"sceneId"`
 	PluginID    id.PluginID          `json:"pluginId"`
