@@ -31,6 +31,10 @@ func stringToRef(s string) *string {
 	return &s
 }
 
+func BoolToRef(b bool) *bool {
+	return &b
+}
+
 func ToPageInfo(p *usecase.PageInfo) *PageInfo {
 	if p == nil {
 		return &PageInfo{}
@@ -49,6 +53,14 @@ func ToVisualizer(v visualizer.Visualizer) Visualizer {
 		return VisualizerCesium
 	}
 	return Visualizer("")
+}
+
+func ToVisualizerRef(v visualizer.Visualizer) *Visualizer {
+	if v == "" {
+		return nil
+	}
+	v2 := ToVisualizer(v)
+	return &v2
 }
 
 func FromFile(f *graphql.Upload) *file.File {

@@ -17,10 +17,12 @@ func ToPlugin(p *plugin.Plugin) *Plugin {
 			ExtensionID:              pe.ID(),
 			PluginID:                 pid,
 			Type:                     ToPluginExtensionType(pe.Type()),
-			Visualizer:               ToVisualizer(pe.Visualizer()),
+			Visualizer:               ToVisualizerRef(pe.Visualizer()),
 			Name:                     pe.Name().String(),
 			Description:              pe.Description().String(),
 			Icon:                     pe.Icon(),
+			SingleOnly:               BoolToRef(pe.SingleOnly()),
+			WidgetLayout:             ToPluginWidgetLayout(pe.WidgetLayout()),
 			PropertySchemaID:         pe.Schema(),
 			AllTranslatedDescription: pe.Description(),
 			AllTranslatedName:        pe.Name(),
@@ -70,4 +72,66 @@ func ToPluginMetadata(t *plugin.Metadata) (*PluginMetadata, error) {
 		Author:       t.Author,
 		CreatedAt:    t.CreatedAt,
 	}, nil
+}
+
+func ToPluginWidgetLayout(wl *plugin.WidgetLayout) *WidgetLayout {
+	if wl == nil {
+		return nil
+	}
+
+	return &WidgetLayout{
+		Extendable: &WidgetExtendable{
+			Horizontally: wl.HorizontallyExtendable(),
+			Vertically:   wl.VerticallyExtendable(),
+		},
+		Extended:        wl.Extended(),
+		Floating:        wl.Floating(),
+		DefaultLocation: ToPluginWidgetLocation(wl.DefaultLocation()),
+	}
+}
+
+func ToPluginWidgetLocation(l *plugin.WidgetLocation) *WidgetLocation {
+	if l == nil {
+		return nil
+	}
+
+	return &WidgetLocation{
+		Zone:    ToPluginWidgetZoneType(l.Zone),
+		Section: ToPluginWidgetSectionType(l.Section),
+		Area:    ToPluginWidgetAreaType(l.Area),
+	}
+}
+
+func ToPluginWidgetZoneType(t plugin.WidgetZoneType) WidgetZoneType {
+	switch t {
+	case plugin.WidgetZoneInner:
+		return WidgetZoneTypeInner
+	case plugin.WidgetZoneOuter:
+		return WidgetZoneTypeOuter
+	}
+	return ""
+}
+
+func ToPluginWidgetSectionType(t plugin.WidgetSectionType) WidgetSectionType {
+	switch t {
+	case plugin.WidgetSectionLeft:
+		return WidgetSectionTypeLeft
+	case plugin.WidgetSectionCenter:
+		return WidgetSectionTypeCenter
+	case plugin.WidgetSectionRight:
+		return WidgetSectionTypeRight
+	}
+	return ""
+}
+
+func ToPluginWidgetAreaType(t plugin.WidgetAreaType) WidgetAreaType {
+	switch t {
+	case plugin.WidgetAreaTop:
+		return WidgetAreaTypeTop
+	case plugin.WidgetAreaMiddle:
+		return WidgetAreaTypeMiddle
+	case plugin.WidgetAreaBottom:
+		return WidgetAreaTypeBottom
+	}
+	return ""
 }

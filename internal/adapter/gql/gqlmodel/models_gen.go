@@ -197,11 +197,6 @@ type Camera struct {
 	Fov      float64 `json:"fov"`
 }
 
-type CheckProjectAliasPayload struct {
-	Alias     string `json:"alias"`
-	Available bool   `json:"available"`
-}
-
 type CreateAssetInput struct {
 	TeamID id.ID          `json:"teamId"`
 	File   graphql.Upload `json:"file"`
@@ -650,10 +645,10 @@ type Plugin struct {
 	RepositoryURL            string               `json:"repositoryUrl"`
 	PropertySchemaID         *id.PropertySchemaID `json:"propertySchemaId"`
 	Extensions               []*PluginExtension   `json:"extensions"`
-	Scene                    *Scene               `json:"scene"`
 	ScenePlugin              *ScenePlugin         `json:"scenePlugin"`
 	AllTranslatedDescription map[string]string    `json:"allTranslatedDescription"`
 	AllTranslatedName        map[string]string    `json:"allTranslatedName"`
+	Scene                    *Scene               `json:"scene"`
 	TranslatedName           string               `json:"translatedName"`
 	TranslatedDescription    string               `json:"translatedDescription"`
 	PropertySchema           *PropertySchema      `json:"propertySchema"`
@@ -666,7 +661,9 @@ type PluginExtension struct {
 	Name                     string               `json:"name"`
 	Description              string               `json:"description"`
 	Icon                     string               `json:"icon"`
-	Visualizer               Visualizer           `json:"visualizer"`
+	SingleOnly               *bool                `json:"singleOnly"`
+	WidgetLayout             *WidgetLayout        `json:"widgetLayout"`
+	Visualizer               *Visualizer          `json:"visualizer"`
 	PropertySchemaID         id.PropertySchemaID  `json:"propertySchemaId"`
 	AllTranslatedName        map[string]string    `json:"allTranslatedName"`
 	AllTranslatedDescription map[string]string    `json:"allTranslatedDescription"`
@@ -710,6 +707,11 @@ type Project struct {
 }
 
 func (Project) IsNode() {}
+
+type ProjectAliasAvailability struct {
+	Alias     string `json:"alias"`
+	Available bool   `json:"available"`
+}
 
 type ProjectConnection struct {
 	Edges      []*ProjectEdge `json:"edges"`
@@ -819,7 +821,6 @@ type PropertySchemaField struct {
 	FieldID                  id.PropertySchemaFieldID     `json:"fieldId"`
 	Type                     ValueType                    `json:"type"`
 	Title                    string                       `json:"title"`
-	Name                     string                       `json:"name"`
 	Description              string                       `json:"description"`
 	Prefix                   *string                      `json:"prefix"`
 	Suffix                   *string                      `json:"suffix"`
@@ -830,22 +831,17 @@ type PropertySchemaField struct {
 	Choices                  []*PropertySchemaFieldChoice `json:"choices"`
 	IsAvailableIf            *PropertyCondition           `json:"isAvailableIf"`
 	AllTranslatedTitle       map[string]string            `json:"allTranslatedTitle"`
-	AllTranslatedName        map[string]string            `json:"allTranslatedName"`
 	AllTranslatedDescription map[string]string            `json:"allTranslatedDescription"`
 	TranslatedTitle          string                       `json:"translatedTitle"`
-	TranslatedName           string                       `json:"translatedName"`
 	TranslatedDescription    string                       `json:"translatedDescription"`
 }
 
 type PropertySchemaFieldChoice struct {
 	Key                string            `json:"key"`
 	Title              string            `json:"title"`
-	Label              string            `json:"label"`
 	Icon               *string           `json:"icon"`
 	AllTranslatedTitle map[string]string `json:"allTranslatedTitle"`
-	AllTranslatedLabel map[string]string `json:"allTranslatedLabel"`
 	TranslatedTitle    string            `json:"translatedTitle"`
-	TranslatedLabel    string            `json:"translatedLabel"`
 }
 
 type PropertySchemaGroup struct {
@@ -856,7 +852,6 @@ type PropertySchemaGroup struct {
 	IsAvailableIf         *PropertyCondition        `json:"isAvailableIf"`
 	Title                 *string                   `json:"title"`
 	AllTranslatedTitle    map[string]string         `json:"allTranslatedTitle"`
-	Name                  *id.PropertySchemaFieldID `json:"name"`
 	RepresentativeFieldID *id.PropertySchemaFieldID `json:"representativeFieldId"`
 	RepresentativeField   *PropertySchemaField      `json:"representativeField"`
 	Schema                *PropertySchema           `json:"schema"`
@@ -955,15 +950,13 @@ type RemoveTagPayload struct {
 }
 
 type RemoveWidgetInput struct {
-	SceneID     id.ID                `json:"sceneId"`
-	PluginID    id.PluginID          `json:"pluginId"`
-	ExtensionID id.PluginExtensionID `json:"extensionId"`
+	SceneID  id.ID `json:"sceneId"`
+	WidgetID id.ID `json:"widgetId"`
 }
 
 type RemoveWidgetPayload struct {
-	Scene       *Scene               `json:"scene"`
-	PluginID    id.PluginID          `json:"pluginId"`
-	ExtensionID id.PluginExtensionID `json:"extensionId"`
+	Scene    *Scene `json:"scene"`
+	WidgetID id.ID  `json:"widgetId"`
 }
 
 type Scene struct {
@@ -976,6 +969,7 @@ type Scene struct {
 	RootLayerID           id.ID                    `json:"rootLayerId"`
 	Widgets               []*SceneWidget           `json:"widgets"`
 	Plugins               []*ScenePlugin           `json:"plugins"`
+	WidgetAlignSystem     *WidgetAlignSystem       `json:"widgetAlignSystem"`
 	DynamicDatasetSchemas []*DatasetSchema         `json:"dynamicDatasetSchemas"`
 	Project               *Project                 `json:"project"`
 	Team                  *Team                    `json:"team"`
@@ -1002,6 +996,7 @@ type SceneWidget struct {
 	ExtensionID id.PluginExtensionID `json:"extensionId"`
 	PropertyID  id.ID                `json:"propertyId"`
 	Enabled     bool                 `json:"enabled"`
+	Extended    bool                 `json:"extended"`
 	Plugin      *Plugin              `json:"plugin"`
 	Extension   *PluginExtension     `json:"extension"`
 	Property    *Property            `json:"property"`
@@ -1210,11 +1205,23 @@ type UpdateTeamPayload struct {
 	Team *Team `json:"team"`
 }
 
+type UpdateWidgetAlignSystemInput struct {
+	SceneID  id.ID                `json:"sceneId"`
+	Location *WidgetLocationInput `json:"location"`
+	Align    *WidgetAreaAlign     `json:"align"`
+}
+
+type UpdateWidgetAlignSystemPayload struct {
+	Scene *Scene `json:"scene"`
+}
+
 type UpdateWidgetInput struct {
-	SceneID     id.ID                `json:"sceneId"`
-	PluginID    id.PluginID          `json:"pluginId"`
-	ExtensionID id.PluginExtensionID `json:"extensionId"`
-	Enabled     *bool                `json:"enabled"`
+	SceneID  id.ID                `json:"sceneId"`
+	WidgetID id.ID                `json:"widgetId"`
+	Enabled  *bool                `json:"enabled"`
+	Location *WidgetLocationInput `json:"location"`
+	Extended *bool                `json:"extended"`
+	Index    *int                 `json:"index"`
 }
 
 type UpdateWidgetPayload struct {
@@ -1266,6 +1273,52 @@ type User struct {
 }
 
 func (User) IsNode() {}
+
+type WidgetAlignSystem struct {
+	Inner *WidgetZone `json:"inner"`
+	Outer *WidgetZone `json:"outer"`
+}
+
+type WidgetArea struct {
+	WidgetIds []*id.ID        `json:"widgetIds"`
+	Align     WidgetAreaAlign `json:"align"`
+}
+
+type WidgetExtendable struct {
+	Vertically   bool `json:"vertically"`
+	Horizontally bool `json:"horizontally"`
+}
+
+type WidgetLayout struct {
+	Extendable      *WidgetExtendable `json:"extendable"`
+	Extended        bool              `json:"extended"`
+	Floating        bool              `json:"floating"`
+	DefaultLocation *WidgetLocation   `json:"defaultLocation"`
+}
+
+type WidgetLocation struct {
+	Zone    WidgetZoneType    `json:"zone"`
+	Section WidgetSectionType `json:"section"`
+	Area    WidgetAreaType    `json:"area"`
+}
+
+type WidgetLocationInput struct {
+	Zone    WidgetZoneType    `json:"zone"`
+	Section WidgetSectionType `json:"section"`
+	Area    WidgetAreaType    `json:"area"`
+}
+
+type WidgetSection struct {
+	Top    *WidgetArea `json:"top"`
+	Middle *WidgetArea `json:"middle"`
+	Bottom *WidgetArea `json:"bottom"`
+}
+
+type WidgetZone struct {
+	Left   *WidgetSection `json:"left"`
+	Center *WidgetSection `json:"center"`
+	Right  *WidgetSection `json:"right"`
+}
 
 type LayerEncodingFormat string
 
@@ -1840,5 +1893,175 @@ func (e *Visualizer) UnmarshalGQL(v interface{}) error {
 }
 
 func (e Visualizer) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type WidgetAreaAlign string
+
+const (
+	WidgetAreaAlignStart    WidgetAreaAlign = "START"
+	WidgetAreaAlignCentered WidgetAreaAlign = "CENTERED"
+	WidgetAreaAlignEnd      WidgetAreaAlign = "END"
+)
+
+var AllWidgetAreaAlign = []WidgetAreaAlign{
+	WidgetAreaAlignStart,
+	WidgetAreaAlignCentered,
+	WidgetAreaAlignEnd,
+}
+
+func (e WidgetAreaAlign) IsValid() bool {
+	switch e {
+	case WidgetAreaAlignStart, WidgetAreaAlignCentered, WidgetAreaAlignEnd:
+		return true
+	}
+	return false
+}
+
+func (e WidgetAreaAlign) String() string {
+	return string(e)
+}
+
+func (e *WidgetAreaAlign) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = WidgetAreaAlign(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid WidgetAreaAlign", str)
+	}
+	return nil
+}
+
+func (e WidgetAreaAlign) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type WidgetAreaType string
+
+const (
+	WidgetAreaTypeTop    WidgetAreaType = "TOP"
+	WidgetAreaTypeMiddle WidgetAreaType = "MIDDLE"
+	WidgetAreaTypeBottom WidgetAreaType = "BOTTOM"
+)
+
+var AllWidgetAreaType = []WidgetAreaType{
+	WidgetAreaTypeTop,
+	WidgetAreaTypeMiddle,
+	WidgetAreaTypeBottom,
+}
+
+func (e WidgetAreaType) IsValid() bool {
+	switch e {
+	case WidgetAreaTypeTop, WidgetAreaTypeMiddle, WidgetAreaTypeBottom:
+		return true
+	}
+	return false
+}
+
+func (e WidgetAreaType) String() string {
+	return string(e)
+}
+
+func (e *WidgetAreaType) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = WidgetAreaType(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid WidgetAreaType", str)
+	}
+	return nil
+}
+
+func (e WidgetAreaType) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type WidgetSectionType string
+
+const (
+	WidgetSectionTypeLeft   WidgetSectionType = "LEFT"
+	WidgetSectionTypeCenter WidgetSectionType = "CENTER"
+	WidgetSectionTypeRight  WidgetSectionType = "RIGHT"
+)
+
+var AllWidgetSectionType = []WidgetSectionType{
+	WidgetSectionTypeLeft,
+	WidgetSectionTypeCenter,
+	WidgetSectionTypeRight,
+}
+
+func (e WidgetSectionType) IsValid() bool {
+	switch e {
+	case WidgetSectionTypeLeft, WidgetSectionTypeCenter, WidgetSectionTypeRight:
+		return true
+	}
+	return false
+}
+
+func (e WidgetSectionType) String() string {
+	return string(e)
+}
+
+func (e *WidgetSectionType) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = WidgetSectionType(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid WidgetSectionType", str)
+	}
+	return nil
+}
+
+func (e WidgetSectionType) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+type WidgetZoneType string
+
+const (
+	WidgetZoneTypeInner WidgetZoneType = "INNER"
+	WidgetZoneTypeOuter WidgetZoneType = "OUTER"
+)
+
+var AllWidgetZoneType = []WidgetZoneType{
+	WidgetZoneTypeInner,
+	WidgetZoneTypeOuter,
+}
+
+func (e WidgetZoneType) IsValid() bool {
+	switch e {
+	case WidgetZoneTypeInner, WidgetZoneTypeOuter:
+		return true
+	}
+	return false
+}
+
+func (e WidgetZoneType) String() string {
+	return string(e)
+}
+
+func (e *WidgetZoneType) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = WidgetZoneType(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid WidgetZoneType", str)
+	}
+	return nil
+}
+
+func (e WidgetZoneType) MarshalGQL(w io.Writer) {
 	fmt.Fprint(w, strconv.Quote(e.String()))
 }
