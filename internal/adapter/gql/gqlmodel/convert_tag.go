@@ -23,10 +23,9 @@ func ToTagGroup(tg *tag.Group) *TagGroup {
 	if tg == nil {
 		return nil
 	}
-	tags := tg.Tags()
-	tids := tags.Tags()
-	var ids []*id.ID
-	for _, tid := range tids {
+	tags := tg.Tags().Tags()
+	ids := make([]*id.ID, 0, len(tags))
+	for _, tid := range tags {
 		if !tid.IsNil() {
 			ids = append(ids, tid.IDRef())
 		}

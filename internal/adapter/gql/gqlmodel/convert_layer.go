@@ -11,10 +11,9 @@ func ToLayerItem(l *layer.Item, parent *id.LayerID) *LayerItem {
 		return nil
 	}
 
-	var tagIDs []*id.ID
-	tags := l.Tags()
-
-	for _, tid := range tags.Tags() {
+	tags := l.Tags().Tags()
+	tagIDs := make([]*id.ID, 0, len(tags))
+	for _, tid := range tags {
 		tagIDs = append(tagIDs, tid.IDRef())
 	}
 
@@ -44,9 +43,9 @@ func ToLayerGroup(l *layer.Group, parent *id.LayerID) *LayerGroup {
 		layers = append(layers, lay.IDRef())
 	}
 
-	var tagIDs []*id.ID
-	tags := l.Tags()
-	for _, tid := range tags.Tags() {
+	tags := l.Tags().Tags()
+	tagIDs := make([]*id.ID, 0, len(tags))
+	for _, tid := range tags {
 		tagIDs = append(tagIDs, tid.IDRef())
 	}
 

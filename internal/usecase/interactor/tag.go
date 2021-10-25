@@ -338,19 +338,21 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 		}
 	}
 
-	l, err := i.layerRepo.FindByTag(ctx, tagID, scenes)
+	ls, err := i.layerRepo.FindByTag(ctx, tagID, scenes)
 	if err != nil && !errors.Is(rerror.ErrNotFound, err) {
 		return nil, err
 	}
 
-	if l != nil {
-		err = l.DetachTag(tagID)
-		if err != nil {
-			return nil, err
-		}
-		err = i.layerRepo.Save(ctx, l)
-		if err != nil {
-			return nil, err
+	if ls != nil && len(ls) > 0 {
+		for _, l := range ls.Deref() {
+			err = l.DetachTag(tagID)
+			if err != nil {
+				return nil, err
+			}
+			err = i.layerRepo.Save(ctx, l)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
