@@ -8,7 +8,8 @@ import (
 type InitParams struct {
 	Email    string
 	Name     string
-	Auth0Sub string
+	Sub      Auth
+	Password []byte
 	Lang     *language.Tag
 	Theme    *Theme
 	UserID   *id.UserID
@@ -34,8 +35,9 @@ func Init(p InitParams) (*User, *Team, error) {
 		ID(*p.UserID).
 		Name(p.Name).
 		Email(p.Email).
-		Auths([]Auth{AuthFromAuth0Sub(p.Auth0Sub)}).
+		Auths([]Auth{p.Sub}).
 		Lang(*p.Lang).
+		Password(p.Password).
 		Theme(*p.Theme).
 		Build()
 	if err != nil {

@@ -3,6 +3,7 @@ package user
 import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
+	"math/rand"
 )
 
 type User struct {
@@ -118,4 +119,18 @@ func (u *User) RemoveAuthByProvider(provider string) bool {
 
 func (u *User) ClearAuths() {
 	u.auths = []Auth{}
+}
+
+func GenReearthSub(length int) Auth {
+	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+
+	return Auth{
+		Provider: "reearth",
+		Sub:      string(b),
+	}
 }

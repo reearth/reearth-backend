@@ -21,9 +21,12 @@ var (
 )
 
 type SignupParam struct {
-	Name     string
-	Email    string
-	Password string
+	Sub      *string
+	UserID   *id.UserID
+	Secret   *string
+	Name     *string
+	Email    *string
+	Password *string
 	Lang     *language.Tag
 	Theme    *user.Theme
 	TeamID   *id.TeamID

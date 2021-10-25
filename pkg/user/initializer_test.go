@@ -11,27 +11,35 @@ import (
 func TestInit(t *testing.T) {
 	uid := id.NewUserID()
 	tid := id.NewTeamID()
+	expectedSub := Auth{
+		Provider: "###",
+		Sub:      "###",
+	}
 	testCases := []struct {
-		Name, Email, Username, Sub string
-		UID                        *id.UserID
-		TID                        *id.TeamID
-		ExpectedUser               *User
-		ExpectedTeam               *Team
-		Err                        error
+		Name, Email, Username string
+		Sub                   Auth
+		UID                   *id.UserID
+		TID                   *id.TeamID
+		ExpectedUser          *User
+		ExpectedTeam          *Team
+		Err                   error
 	}{
 		{
 			Name:     "Success create user",
 			Email:    "xx@yy.zz",
 			Username: "nnn",
-			Sub:      "###",
-			UID:      &uid,
-			TID:      &tid,
+			Sub: Auth{
+				Provider: "###",
+				Sub:      "###",
+			},
+			UID: &uid,
+			TID: &tid,
 			ExpectedUser: New().
 				ID(uid).
 				Email("xx@yy.zz").
 				Name("nnn").
 				Team(tid).
-				Auths([]Auth{AuthFromAuth0Sub("###")}).
+				Auths([]Auth{expectedSub}).
 				MustBuild(),
 			ExpectedTeam: NewTeam().
 				ID(tid).
@@ -45,15 +53,18 @@ func TestInit(t *testing.T) {
 			Name:     "Success nil team id",
 			Email:    "xx@yy.zz",
 			Username: "nnn",
-			Sub:      "###",
-			UID:      &uid,
-			TID:      nil,
+			Sub: Auth{
+				Provider: "###",
+				Sub:      "###",
+			},
+			UID: &uid,
+			TID: nil,
 			ExpectedUser: New().
 				ID(uid).
 				Email("xx@yy.zz").
 				Name("nnn").
 				Team(tid).
-				Auths([]Auth{AuthFromAuth0Sub("###")}).
+				Auths([]Auth{expectedSub}).
 				MustBuild(),
 			ExpectedTeam: NewTeam().
 				NewID().
@@ -67,15 +78,18 @@ func TestInit(t *testing.T) {
 			Name:     "Success nil id",
 			Email:    "xx@yy.zz",
 			Username: "nnn",
-			Sub:      "###",
-			UID:      nil,
-			TID:      &tid,
+			Sub: Auth{
+				Provider: "###",
+				Sub:      "###",
+			},
+			UID: nil,
+			TID: &tid,
 			ExpectedUser: New().
 				NewID().
 				Email("xx@yy.zz").
 				Name("nnn").
 				Team(tid).
-				Auths([]Auth{AuthFromAuth0Sub("###")}).
+				Auths([]Auth{expectedSub}).
 				MustBuild(),
 			ExpectedTeam: NewTeam().
 				ID(tid).
@@ -91,11 +105,11 @@ func TestInit(t *testing.T) {
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
 			u, t, err := Init(InitParams{
-				Email:    tc.Email,
-				Name:     tc.Username,
-				Auth0Sub: tc.Sub,
-				UserID:   tc.UID,
-				TeamID:   tc.TID,
+				Email:  tc.Email,
+				Name:   tc.Username,
+				Sub:    tc.Sub,
+				UserID: tc.UID,
+				TeamID: tc.TID,
 			})
 			if err == nil {
 				assert.Equal(tt, tc.ExpectedUser.Email(), u.Email())
