@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -46,7 +47,7 @@ func (c *UserController) Signup(ctx context.Context, input SignupInput) (interfa
 		return nil, err
 	}
 	if input.Email != nil {
-		//	send verification email
+		//	send verification email (done somewhere else)
 	}
 
 	return SignupOutput{

@@ -1,9 +1,10 @@
 package user
 
 import (
+	"math/rand"
+
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
-	"math/rand"
 )
 
 type User struct {
