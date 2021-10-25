@@ -350,15 +350,12 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 				return nil, err
 			}
 		}
+		if err := i.layerRepo.SaveAll(ctx, ls); err != nil {
+			return nil, err
+		}
 	}
 
-	err = i.layerRepo.SaveAll(ctx, ls)
-	if err != nil {
-		return nil, err
-	}
-
-	err = i.tagRepo.Remove(ctx, tagID)
-	if err != nil {
+	if err := i.tagRepo.Remove(ctx, tagID); err != nil {
 		return nil, err
 	}
 	return &tagID, nil
