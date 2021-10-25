@@ -197,6 +197,11 @@
 				
 			
 				
+				<dd><a href="index.html#Tag">type Tag</a></dd>
+				
+				
+			
+				
 				<dd><a href="index.html#Team">type Team</a></dd>
 				
 				
@@ -250,6 +255,8 @@
 				<a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/scene.go">scene.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/scene_lock.go">scene_lock.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/tag.go">tag.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/team.go">team.go</a>
 			
@@ -309,7 +316,7 @@
 		
 			
 			
-			<h2 id="LayerLoaderBySceneFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/layer.go?s=1469:1525#L25">LayerLoaderBySceneFrom</a>
+			<h2 id="LayerLoaderBySceneFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/layer.go?s=1541:1597#L26">LayerLoaderBySceneFrom</a>
 				<a class="permalink" href="index.html#LayerLoaderBySceneFrom">&#xb6;</a>
 				
 				
@@ -322,7 +329,7 @@
 		
 			
 			
-			<h2 id="LayerLoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/layer.go?s=1283:1346#L19">LayerLoaderFrom</a>
+			<h2 id="LayerLoaderFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/layer.go?s=1355:1418#L20">LayerLoaderFrom</a>
 				<a class="permalink" href="index.html#LayerLoaderFrom">&#xb6;</a>
 				
 				
@@ -428,7 +435,7 @@
 		
 			
 			
-			<h2 id="Container">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/container.go?s=14:381#L1">Container</a>
+			<h2 id="Container">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/container.go?s=14:401#L1">Container</a>
 				<a class="permalink" href="index.html#Container">&#xb6;</a>
 				
 				
@@ -445,6 +452,7 @@
 <span id="Container.PropertySchema"></span>    PropertySchema <a href="index.html#PropertySchema">PropertySchema</a>
 <span id="Container.Property"></span>    Property       <a href="index.html#Property">Property</a>
 <span id="Container.Scene"></span>    Scene          <a href="index.html#Scene">Scene</a>
+<span id="Container.Tag"></span>    Tag            <a href="index.html#Tag">Tag</a>
 <span id="Container.Team"></span>    Team           <a href="index.html#Team">Team</a>
 <span id="Container.User"></span>    User           <a href="index.html#User">User</a>
 <span id="Container.SceneLock"></span>    SceneLock      <a href="index.html#SceneLock">SceneLock</a>
@@ -534,7 +542,7 @@
 		
 			
 			
-			<h2 id="Layer">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/layer.go?s=131:1281#L1">Layer</a>
+			<h2 id="Layer">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/layer.go?s=131:1353#L1">Layer</a>
 				<a class="permalink" href="index.html#Layer">&#xb6;</a>
 				
 				
@@ -552,6 +560,7 @@
     FindParentByID(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#LayerID">LayerID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (*<a href="../../../pkg/layer/index.html">layer</a>.<a href="../../../pkg/layer/index.html#Group">Group</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
     FindByProperty(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#PropertyID">PropertyID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (<a href="../../../pkg/layer/index.html">layer</a>.<a href="../../../pkg/layer/index.html#Layer">Layer</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
     FindByScene(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (<a href="../../../pkg/layer/index.html">layer</a>.<a href="../../../pkg/layer/index.html#List">List</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindByTag(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (<a href="../../../pkg/layer/index.html">layer</a>.<a href="../../../pkg/layer/index.html#List">List</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
     Save(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/layer/index.html">layer</a>.<a href="../../../pkg/layer/index.html#Layer">Layer</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
     SaveAll(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/layer/index.html">layer</a>.<a href="../../../pkg/layer/index.html#List">List</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
     Remove(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#LayerID">LayerID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
@@ -733,6 +742,44 @@
     GetAllLock(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]<a href="../../../pkg/scene/index.html">scene</a>.<a href="../../../pkg/scene/index.html#LockMode">LockMode</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
     SaveLock(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>, <a href="../../../pkg/scene/index.html">scene</a>.<a href="../../../pkg/scene/index.html#LockMode">LockMode</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
     ReleaseAllLock(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Tag">type <a href="https://github.com/reearth/reearth-backend/blob/main/internal/usecase/repo/tag.go?s=129:1098#L1">Tag</a>
+				<a class="permalink" href="index.html#Tag">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Tag interface {
+    FindByID(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Tag">Tag</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindByIDs(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Tag">Tag</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindItemByID(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Item">Item</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindItemByIDs(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Item">Item</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindGroupByID(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Group">Group</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindGroupByIDs(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Group">Group</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindByScene(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Tag">Tag</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindGroupByItem(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) (*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Group">Group</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindGroupByScene(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Group">Group</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    FindItemByScene(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) ([]*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Item">Item</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)
+    Save(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Tag">Tag</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+    SaveAll(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []*<a href="../../../pkg/tag/index.html">tag</a>.<a href="../../../pkg/tag/index.html#Tag">Tag</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+    Remove(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+    RemoveAll(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, []<a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#TagID">TagID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
+    RemoveByScene(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../../../pkg/id/index.html">id</a>.<a href="../../../pkg/id/index.html#SceneID">SceneID</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a>
 }</pre>
 
 			

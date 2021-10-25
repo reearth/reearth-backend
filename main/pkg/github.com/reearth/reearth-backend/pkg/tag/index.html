@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>tag - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.17.2";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/reearth-backend/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package tag
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/tag"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#Group">type Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupFrom">func GroupFrom(t Tag) *Group</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ToTagGroup">func ToTagGroup(t Tag) *Group</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.ID">func (t *Group) ID() id.TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Label">func (t *Group) Label() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Rename">func (t *Group) Rename(s string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Scene">func (t *Group) Scene() id.SceneID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Tags">func (g *Group) Tags() *List</a></dd>
+				
+			
+				
+				<dd><a href="index.html#GroupBuilder">type GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewGroup">func NewGroup() *GroupBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Build">func (b *GroupBuilder) Build() (*Group, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.ID">func (b *GroupBuilder) ID(tid id.TagID) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Label">func (b *GroupBuilder) Label(l string) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.NewID">func (b *GroupBuilder) NewID() *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Scene">func (b *GroupBuilder) Scene(sid id.SceneID) *GroupBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Tags">func (b *GroupBuilder) Tags(tl *List) *GroupBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Item">type Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemFrom">func ItemFrom(t Tag) *Item</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ToTagItem">func ToTagItem(t Tag) *Item</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.ID">func (t *Item) ID() id.TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Label">func (t *Item) Label() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.LinkedDatasetFieldID">func (i *Item) LinkedDatasetFieldID() *id.DatasetSchemaFieldID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.LinkedDatasetID">func (i *Item) LinkedDatasetID() *id.DatasetID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.LinkedDatasetSchemaID">func (i *Item) LinkedDatasetSchemaID() *id.DatasetSchemaID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Rename">func (t *Item) Rename(s string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Scene">func (t *Item) Scene() id.SceneID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ItemBuilder">type ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewItem">func NewItem() *ItemBuilder</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Build">func (b *ItemBuilder) Build() (*Item, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.ID">func (b *ItemBuilder) ID(tid id.TagID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Label">func (b *ItemBuilder) Label(l string) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.LinkedDatasetFieldID">func (b *ItemBuilder) LinkedDatasetFieldID(dfid *id.DatasetSchemaFieldID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.LinkedDatasetID">func (b *ItemBuilder) LinkedDatasetID(did *id.DatasetID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.LinkedDatasetSchemaID">func (b *ItemBuilder) LinkedDatasetSchemaID(dsid *id.DatasetSchemaID) *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.NewID">func (b *ItemBuilder) NewID() *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Scene">func (b *ItemBuilder) Scene(sid id.SceneID) *ItemBuilder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#List">type List</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewList">func NewList() *List</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewListFromTags">func NewListFromTags(tags []id.TagID) *List</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Add">func (tl *List) Add(tags ...id.TagID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Has">func (tl *List) Has(tid id.TagID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Remove">func (tl *List) Remove(tags ...id.TagID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#List.Tags">func (tl *List) Tags() []id.TagID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Tag">type Tag</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group.go">group.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go">group_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go">item.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go">item_builder.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go">list.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go">tag.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var (
+    <span id="ErrEmptyLabel">ErrEmptyLabel</span>     = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;tag label can&#39;t be empty&#34;)
+    <span id="ErrInvalidSceneID">ErrInvalidSceneID</span> = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid scene ID&#34;)
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Group">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group.go?s=13:51#L1">Group</a>
+				<a class="permalink" href="index.html#Group">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Group struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GroupFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=180:208#L5">GroupFrom</a>
+					<a class="permalink" href="index.html#GroupFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func GroupFrom(t <a href="index.html#Tag">Tag</a>) *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ToTagGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=569:598#L33">ToTagGroup</a>
+					<a class="permalink" href="index.html#ToTagGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ToTagGroup(t <a href="index.html#Tag">Tag</a>) *<a href="index.html#Group">Group</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Group.ID">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=368:395#L17">ID</a>
+					<a class="permalink" href="index.html#Group.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Group">Group</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Label">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=470:498#L25">Label</a>
+					<a class="permalink" href="index.html#Group.Label">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Group">Group</a>) Label() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Rename">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=520:550#L29">Rename</a>
+					<a class="permalink" href="index.html#Group.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Group">Group</a>) Rename(s <a href="/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Scene">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=414:446#L21">Scene</a>
+					<a class="permalink" href="index.html#Group.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Group">Group</a>) Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Group.Tags">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group.go?s=53:81#L1">Tags</a>
+					<a class="permalink" href="index.html#Group.Tags">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (g *<a href="index.html#Group">Group</a>) Tags() *<a href="index.html#List">List</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="GroupBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=70:108#L1">GroupBuilder</a>
+				<a class="permalink" href="index.html#GroupBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type GroupBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=110:139#L1">NewGroup</a>
+					<a class="permalink" href="index.html#NewGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewGroup() *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="GroupBuilder.Build">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=273:319#L13">Build</a>
+					<a class="permalink" href="index.html#GroupBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Build() (*<a href="index.html#Group">Group</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.ID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=525:578#L27">ID</a>
+					<a class="permalink" href="index.html#GroupBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) ID(tid <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Label">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=692:744#L37">Label</a>
+					<a class="permalink" href="index.html#GroupBuilder.Label">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Label(l <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.NewID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=608:652#L32">NewID</a>
+					<a class="permalink" href="index.html#GroupBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) NewID() *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Scene">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=775:833#L42">Scene</a>
+					<a class="permalink" href="index.html#GroupBuilder.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Scene(sid <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="GroupBuilder.Tags">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/group_builder.go?s=868:919#L47">Tags</a>
+					<a class="permalink" href="index.html#GroupBuilder.Tags">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Tags(tl *<a href="index.html#List">List</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=65:218#L1">Item</a>
+				<a class="permalink" href="index.html#Item">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Item struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="ItemFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=169:195#L3">ItemFrom</a>
+					<a class="permalink" href="index.html#ItemFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ItemFrom(t <a href="index.html#Tag">Tag</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="ToTagItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=662:689#L40">ToTagItem</a>
+					<a class="permalink" href="index.html#ToTagItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ToTagItem(t <a href="index.html#Tag">Tag</a>) *<a href="index.html#Item">Item</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Item.ID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=368:395#L17">ID</a>
+					<a class="permalink" href="index.html#Item.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Item">Item</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Label">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=470:498#L25">Label</a>
+					<a class="permalink" href="index.html#Item.Label">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Item">Item</a>) Label() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.LinkedDatasetFieldID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=220:282#L2">LinkedDatasetFieldID</a>
+					<a class="permalink" href="index.html#Item.LinkedDatasetFieldID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Item">Item</a>) LinkedDatasetFieldID() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.LinkedDatasetID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=329:375#L6">LinkedDatasetID</a>
+					<a class="permalink" href="index.html#Item.LinkedDatasetID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Item">Item</a>) LinkedDatasetID() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.LinkedDatasetSchemaID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=417:475#L10">LinkedDatasetSchemaID</a>
+					<a class="permalink" href="index.html#Item.LinkedDatasetSchemaID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Item">Item</a>) LinkedDatasetSchemaID() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Rename">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=520:550#L29">Rename</a>
+					<a class="permalink" href="index.html#Item.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Item">Item</a>) Rename(s <a href="/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Scene">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=414:446#L21">Scene</a>
+					<a class="permalink" href="index.html#Item.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#Item">Item</a>) Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ItemBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=65:101#L1">ItemBuilder</a>
+				<a class="permalink" href="index.html#ItemBuilder">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ItemBuilder struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=103:130#L1">NewItem</a>
+					<a class="permalink" href="index.html#NewItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewItem() *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="ItemBuilder.Build">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=259:303#L11">Build</a>
+					<a class="permalink" href="index.html#ItemBuilder.Build">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Build() (*<a href="index.html#Item">Item</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.ID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=508:559#L24">ID</a>
+					<a class="permalink" href="index.html#ItemBuilder.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) ID(tid <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Label">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=671:721#L34">Label</a>
+					<a class="permalink" href="index.html#ItemBuilder.Label">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Label(l <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.LinkedDatasetFieldID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=843:929#L44">LinkedDatasetFieldID</a>
+					<a class="permalink" href="index.html#ItemBuilder.LinkedDatasetFieldID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) LinkedDatasetFieldID(dfid *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.LinkedDatasetID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=978:1047#L49">LinkedDatasetID</a>
+					<a class="permalink" href="index.html#ItemBuilder.LinkedDatasetID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) LinkedDatasetID(did *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.LinkedDatasetSchemaID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=1090:1172#L54">LinkedDatasetSchemaID</a>
+					<a class="permalink" href="index.html#ItemBuilder.LinkedDatasetSchemaID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) LinkedDatasetSchemaID(dsid *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.NewID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=589:631#L29">NewID</a>
+					<a class="permalink" href="index.html#ItemBuilder.NewID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) NewID() *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Scene">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=752:808#L39">Scene</a>
+					<a class="permalink" href="index.html#ItemBuilder.Scene">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Scene(sid <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="List">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go?s=65:102#L1">List</a>
+				<a class="permalink" href="index.html#List">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type List struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go?s=104:124#L1">NewList</a>
+					<a class="permalink" href="index.html#NewList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewList() *<a href="index.html#List">List</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="NewListFromTags">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go?s=164:207#L3">NewListFromTags</a>
+					<a class="permalink" href="index.html#NewListFromTags">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewListFromTags(tags []<a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) *<a href="index.html#List">List</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="List.Add">func (*List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go?s=550:587#L26">Add</a>
+					<a class="permalink" href="index.html#List.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#List">List</a>) Add(tags ...<a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Has">func (*List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go?s=369:407#L14">Has</a>
+					<a class="permalink" href="index.html#List.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#List">List</a>) Has(tid <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Remove">func (*List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go?s=675:715#L33">Remove</a>
+					<a class="permalink" href="index.html#List.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#List">List</a>) Remove(tags ...<a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="List.Tags">func (*List) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/list.go?s=239:272#L7">Tags</a>
+					<a class="permalink" href="index.html#List.Tags">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#List">List</a>) Tags() []<a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Tag">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/tag.go?s=277:366#L10">Tag</a>
+				<a class="permalink" href="index.html#Tag">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Tag interface {
+    ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>
+    Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>
+    Label() <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
+    Rename(<a href="/reearth-backend/main/pkg/builtin/#string">string</a>)
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.17.2.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/reearth-backend/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

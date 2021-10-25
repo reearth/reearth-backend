@@ -150,6 +150,9 @@
 				<dd><a href="index.html#SceneIDToKeys">func SceneIDToKeys(ids []SceneID) []string</a></dd>
 			
 				
+				<dd><a href="index.html#TagIDToKeys">func TagIDToKeys(ids []TagID) []string</a></dd>
+			
+				
 				<dd><a href="index.html#TeamIDToKeys">func TeamIDToKeys(ids []TeamID) []string</a></dd>
 			
 				
@@ -639,6 +642,12 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#SceneIDsToIDRef">func SceneIDsToIDRef(ids []*SceneID) []*ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDsToID">func TagIDsToID(ids []TagID) []ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDsToIDRef">func TagIDsToIDRef(ids []*TagID) []*ID</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#TeamIDsToID">func TeamIDsToID(ids []TeamID) []ID</a></dd>
@@ -1437,6 +1446,106 @@
 				
 			
 				
+				<dd><a href="index.html#TagID">type TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MustTagID">func MustTagID(i string) TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewTagID">func NewTagID() TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDFrom">func TagIDFrom(i string) (nid TagID, err error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDFromRef">func TagIDFromRef(i *string) *TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDFromRefID">func TagIDFromRefID(i *ID) *TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDsFrom">func TagIDsFrom(ids []string) ([]TagID, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDsFromID">func TagIDsFromID(ids []ID) []TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDsFromIDRef">func TagIDsFromIDRef(ids []*ID) []TagID</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.Contains">func (d TagID) Contains(ids []TagID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.CopyRef">func (d *TagID) CopyRef() *TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.GoString">func (d TagID) GoString() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.ID">func (d TagID) ID() ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.IDRef">func (d *TagID) IDRef() *ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.IsNil">func (d TagID) IsNil() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.MarhsalJSON">func (d *TagID) MarhsalJSON() ([]byte, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.MarshalText">func (d *TagID) MarshalText() ([]byte, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.Ref">func (d TagID) Ref() *TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.RefString">func (d TagID) RefString() *string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.String">func (d TagID) String() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.StringRef">func (d *TagID) StringRef() *string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.UnmarhsalJSON">func (d *TagID) UnmarhsalJSON(bs []byte) (err error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagID.UnmarshalText">func (d *TagID) UnmarshalText(text []byte) (err error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#TagIDSet">type TagIDSet</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewTagIDSet">func NewTagIDSet() *TagIDSet</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDSet.Add">func (s *TagIDSet) Add(p ...TagID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDSet.AddRef">func (s *TagIDSet) AddRef(p *TagID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDSet.All">func (s *TagIDSet) All() []TagID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDSet.Clear">func (s *TagIDSet) Clear()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDSet.Clone">func (s *TagIDSet) Clone() *TagIDSet</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDSet.Has">func (s *TagIDSet) Has(p TagID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagIDSet.Merge">func (s *TagIDSet) Merge(s2 *TagIDSet) *TagIDSet</a></dd>
+				
+			
+				
 				<dd><a href="index.html#TeamID">type TeamID</a></dd>
 				
 					
@@ -1779,6 +1888,8 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go">scene_gen.go</a>
 			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go">tag_gen.go</a>
+			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/team_gen.go">team_gen.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/user_gen.go">user_gen.go</a>
@@ -1995,6 +2106,22 @@ PropertySchemaIDToKeys converts IDs into a string slice.
 			<pre>func SceneIDToKeys(ids []<a href="index.html#SceneID">SceneID</a>) []<a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 			<p>
 SceneIDToKeys converts IDs into a string slice.
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="TagIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=2959:2997#L143">TagIDToKeys</a>
+				<a class="permalink" href="index.html#TagIDToKeys">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func TagIDToKeys(ids []<a href="index.html#TagID">TagID</a>) []<a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+			<p>
+TagIDToKeys converts IDs into a string slice.
 </p>
 
 			
@@ -4389,6 +4516,34 @@ SceneIDsToID converts a ID slice into a generic ID slice.
 				<pre>func SceneIDsToIDRef(ids []*<a href="index.html#SceneID">SceneID</a>) []*<a href="index.html#ID">ID</a></pre>
 				<p>
 SceneIDsToIDRef converts a ID ref slice into a generic ID ref slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=3918:3951#L185">TagIDsToID</a>
+					<a class="permalink" href="index.html#TagIDsToID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDsToID(ids []<a href="index.html#TagID">TagID</a>) []<a href="index.html#ID">ID</a></pre>
+				<p>
+TagIDsToID converts a ID slice into a generic ID slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=4131:4169#L194">TagIDsToIDRef</a>
+					<a class="permalink" href="index.html#TagIDsToIDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDsToIDRef(ids []*<a href="index.html#TagID">TagID</a>) []*<a href="index.html#ID">ID</a></pre>
+				<p>
+TagIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 </p>
 
 				
@@ -8288,6 +8443,500 @@ Has checks if the ID exists in the set
 					
 				</h3>
 				<pre>func (s *<a href="index.html#SceneIDSet">SceneIDSet</a>) Merge(s2 *<a href="index.html#SceneIDSet">SceneIDSet</a>) *<a href="index.html#SceneIDSet">SceneIDSet</a></pre>
+				<p>
+Merge returns a merged set
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TagID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=103:116#L1">TagID</a>
+				<a class="permalink" href="index.html#TagID">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+TagID is an ID for Tag.
+</p>
+
+			<pre>type TagID <a href="index.html#ID">ID</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MustTagID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=486:516#L17">MustTagID</a>
+					<a class="permalink" href="index.html#MustTagID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MustTagID(i <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) <a href="index.html#TagID">TagID</a></pre>
+				<p>
+MustTagID generates a new TagID from a string, but panics if the string cannot be parsed.
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewTagID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=153:174#L1">NewTagID</a>
+					<a class="permalink" href="index.html#NewTagID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewTagID() <a href="index.html#TagID">TagID</a></pre>
+				<p>
+NewTagID generates a new TagId.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=251:298#L6">TagIDFrom</a>
+					<a class="permalink" href="index.html#TagIDFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDFrom(i <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) (nid <a href="index.html#TagID">TagID</a>, err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+TagIDFrom generates a new TagID from a string.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=654:689#L26">TagIDFromRef</a>
+					<a class="permalink" href="index.html#TagIDFromRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDFromRef(i *<a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#TagID">TagID</a></pre>
+				<p>
+TagIDFromRef generates a new TagID from a string ref.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDFromRefID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=850:883#L36">TagIDFromRefID</a>
+					<a class="permalink" href="index.html#TagIDFromRefID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDFromRefID(i *<a href="index.html#ID">ID</a>) *<a href="index.html#TagID">TagID</a></pre>
+				<p>
+TagIDFromRefID generates a new TagID from a ref of a generic ID.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=3170:3216#L152">TagIDsFrom</a>
+					<a class="permalink" href="index.html#TagIDsFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDsFrom(ids []<a href="/reearth-backend/main/pkg/builtin/#string">string</a>) ([]<a href="index.html#TagID">TagID</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+TagIDsFrom converts a string slice into a ID slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=3460:3495#L165">TagIDsFromID</a>
+					<a class="permalink" href="index.html#TagIDsFromID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDsFromID(ids []<a href="index.html#ID">ID</a>) []<a href="index.html#TagID">TagID</a></pre>
+				<p>
+TagIDsFromID converts a generic ID slice into a ID slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="TagIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=3683:3722#L174">TagIDsFromIDRef</a>
+					<a class="permalink" href="index.html#TagIDsFromIDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagIDsFromIDRef(ids []*<a href="index.html#ID">ID</a>) []<a href="index.html#TagID">TagID</a></pre>
+				<p>
+TagIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="TagID.Contains">func (TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1525:1566#L72">Contains</a>
+					<a class="permalink" href="index.html#TagID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TagID">TagID</a>) Contains(ids []<a href="index.html#TagID">TagID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.CopyRef">func (*TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1703:1735#L82">CopyRef</a>
+					<a class="permalink" href="index.html#TagID.CopyRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#TagID">TagID</a>) CopyRef() *<a href="index.html#TagID">TagID</a></pre>
+				<p>
+CopyRef returns a copy of a reference.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.GoString">func (TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1171:1203#L55">GoString</a>
+					<a class="permalink" href="index.html#TagID.GoString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TagID">TagID</a>) GoString() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+GoString implements fmt.GoStringer interface.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.ID">func (TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=978:1000#L45">ID</a>
+					<a class="permalink" href="index.html#TagID.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TagID">TagID</a>) ID() <a href="index.html#ID">ID</a></pre>
+				<p>
+ID returns a domain ID.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.IDRef">func (*TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1839:1866#L91">IDRef</a>
+					<a class="permalink" href="index.html#TagID.IDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#TagID">TagID</a>) IDRef() *<a href="index.html#ID">ID</a></pre>
+				<p>
+IDRef returns a reference of a domain id.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.IsNil">func (TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=2855:2882#L138">IsNil</a>
+					<a class="permalink" href="index.html#TagID.IsNil">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TagID">TagID</a>) IsNil() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Ref returns true if a ID is nil or zero-value
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.MarhsalJSON">func (*TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=2148:2193#L109">MarhsalJSON</a>
+					<a class="permalink" href="index.html#TagID.MarhsalJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#TagID">TagID</a>) MarhsalJSON() ([]<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+MarhsalJSON implements json.Marhsaler interface
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.MarshalText">func (*TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=2521:2566#L124">MarshalText</a>
+					<a class="permalink" href="index.html#TagID.MarshalText">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#TagID">TagID</a>) MarshalText() ([]<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+MarshalText implements encoding.TextMarshaler interface
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.Ref">func (TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1409:1436#L66">Ref</a>
+					<a class="permalink" href="index.html#TagID.Ref">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TagID">TagID</a>) Ref() *<a href="index.html#TagID">TagID</a></pre>
+				<p>
+Ref returns a reference.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.RefString">func (TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1307:1341#L60">RefString</a>
+					<a class="permalink" href="index.html#TagID.RefString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TagID">TagID</a>) RefString() *<a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+RefString returns a reference of string representation.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.String">func (TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1063:1093#L50">String</a>
+					<a class="permalink" href="index.html#TagID.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#TagID">TagID</a>) String() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+String returns a string representation.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.StringRef">func (*TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=1990:2025#L100">StringRef</a>
+					<a class="permalink" href="index.html#TagID.StringRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#TagID">TagID</a>) StringRef() *<a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+StringRef returns a reference of a string representation.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.UnmarhsalJSON">func (*TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=2287:2339#L114">UnmarhsalJSON</a>
+					<a class="permalink" href="index.html#TagID.UnmarhsalJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#TagID">TagID</a>) UnmarhsalJSON(bs []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) (err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+UnmarhsalJSON implements json.Unmarshaler interface
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagID.UnmarshalText">func (*TagID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=2703:2757#L132">UnmarshalText</a>
+					<a class="permalink" href="index.html#TagID.UnmarshalText">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#TagID">TagID</a>) UnmarshalText(text []<a href="/reearth-backend/main/pkg/builtin/#byte">byte</a>) (err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+UnmarshalText implements encoding.TextUnmarshaler interface
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TagIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=4322:4379#L203">TagIDSet</a>
+				<a class="permalink" href="index.html#TagIDSet">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+TagIDSet represents a set of TagIDs
+</p>
+
+			<pre>type TagIDSet struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewTagIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=4419:4447#L209">NewTagIDSet</a>
+					<a class="permalink" href="index.html#NewTagIDSet">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewTagIDSet() *<a href="index.html#TagIDSet">TagIDSet</a></pre>
+				<p>
+NewTagIDSet creates a new TagIDSet
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="TagIDSet.Add">func (*TagIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=4527:4561#L214">Add</a>
+					<a class="permalink" href="index.html#TagIDSet.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#TagIDSet">TagIDSet</a>) Add(p ...<a href="index.html#TagID">TagID</a>)</pre>
+				<p>
+Add adds a new ID if it does not exists in the set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagIDSet.AddRef">func (*TagIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=4865:4900#L233">AddRef</a>
+					<a class="permalink" href="index.html#TagIDSet.AddRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#TagIDSet">TagIDSet</a>) AddRef(p *<a href="index.html#TagID">TagID</a>)</pre>
+				<p>
+AddRef adds a new ID ref if it does not exists in the set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagIDSet.All">func (*TagIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=5268:5300#L259">All</a>
+					<a class="permalink" href="index.html#TagIDSet.All">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#TagIDSet">TagIDSet</a>) All() []<a href="index.html#TagID">TagID</a></pre>
+				<p>
+All returns stored all IDs as a slice
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagIDSet.Clear">func (*TagIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=5146:5172#L250">Clear</a>
+					<a class="permalink" href="index.html#TagIDSet.Clear">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#TagIDSet">TagIDSet</a>) Clear()</pre>
+				<p>
+Clear clears all stored IDs
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagIDSet.Clone">func (*TagIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=5401:5437#L267">Clone</a>
+					<a class="permalink" href="index.html#TagIDSet.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#TagIDSet">TagIDSet</a>) Clone() *<a href="index.html#TagIDSet">TagIDSet</a></pre>
+				<p>
+Clone returns a cloned set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagIDSet.Has">func (*TagIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=4998:5034#L241">Has</a>
+					<a class="permalink" href="index.html#TagIDSet.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#TagIDSet">TagIDSet</a>) Has(p <a href="index.html#TagID">TagID</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Has checks if the ID exists in the set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="TagIDSet.Merge">func (*TagIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/tag_gen.go?s=5562:5610#L277">Merge</a>
+					<a class="permalink" href="index.html#TagIDSet.Merge">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#TagIDSet">TagIDSet</a>) Merge(s2 *<a href="index.html#TagIDSet">TagIDSet</a>) *<a href="index.html#TagIDSet">TagIDSet</a></pre>
 				<p>
 Merge returns a merged set
 </p>
