@@ -28,6 +28,7 @@ require (
 	github.com/klauspost/compress v1.10.10 // indirect
 	github.com/labstack/echo/v4 v4.2.1
 	github.com/labstack/gommon v0.3.0
+	github.com/matthewhartstonge/argon2 v0.1.5
 	github.com/mattn/go-isatty v0.0.13 // indirect
 	github.com/mitchellh/mapstructure v1.4.2
 	github.com/oklog/ulid v1.3.1
@@ -79,7 +80,6 @@ require (
 	github.com/h2non/parth v0.0.0-20190131123155-b4df798d6542 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/jstemmer/go-junit-report v0.9.1 // indirect
-	github.com/matthewhartstonge/argon2 v0.1.5 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

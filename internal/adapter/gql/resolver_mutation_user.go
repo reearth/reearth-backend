@@ -8,6 +8,30 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
+func (r *mutationResolver) Signup(ctx context.Context, input gqlmodel.SignupInput) (*gqlmodel.SignupPayload, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	secret := ""
+	if input.Secret != nil {
+		secret = *input.Secret
+	}
+	sub := getSub(ctx)
+	u, team, err := r.usecases.User.Signup(ctx, interfaces.SignupParam{
+		Sub:    &sub,
+		Lang:   input.Lang,
+		Theme:  gqlmodel.ToTheme(input.Theme),
+		UserID: id.UserIDFromRefID(input.UserID),
+		TeamID: id.TeamIDFromRefID(input.TeamID),
+		Secret: &secret,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &gqlmodel.SignupPayload{User: gqlmodel.ToUser(u), Team: gqlmodel.ToTeam(team)}, nil
+}
+
 func (r *mutationResolver) UpdateMe(ctx context.Context, input gqlmodel.UpdateMeInput) (*gqlmodel.UpdateMePayload, error) {
 	exit := trace(ctx)
 	defer exit()
