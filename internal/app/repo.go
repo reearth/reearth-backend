@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"time"
 
-	goMailer "github.com/kataras/go-mailer"
 	"github.com/reearth/reearth-backend/internal/infrastructure/mailer"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/github"
@@ -75,7 +74,7 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 	gateways.Google = google.NewGoogle()
 
 	// Mailer
-	gateways.Mailer = mailer.NewMailer(goMailer.Config(conf.Mailer))
+	gateways.Mailer = mailer.InitMailer(conf.Mailer)
 
 	// release lock of all scenes
 	if err := repos.SceneLock.ReleaseAllLock(context.Background()); err != nil {
