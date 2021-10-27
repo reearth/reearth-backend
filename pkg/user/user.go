@@ -1,8 +1,7 @@
 package user
 
 import (
-	"math/rand"
-
+	"github.com/matthewhartstonge/argon2"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
 )
@@ -122,16 +121,11 @@ func (u *User) ClearAuths() {
 	u.auths = []Auth{}
 }
 
-func GenReearthSub(length int) Auth {
-	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-
-	b := make([]rune, length)
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
+func EncodePassword(pass string, l int) ([]byte, error) {
+	argon := argon2.DefaultConfig()
+	encodedPass, err := argon.HashEncoded([]byte(pass))
+	if err != nil {
+		return nil, err
 	}
-
-	return Auth{
-		Provider: "reearth",
-		Sub:      string(b),
-	}
+	return encodedPass, nil
 }

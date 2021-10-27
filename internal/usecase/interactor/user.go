@@ -5,7 +5,6 @@ import (
 	"errors"
 	"net/mail"
 
-	"github.com/matthewhartstonge/argon2"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
@@ -171,9 +170,8 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		if existed != nil {
 			return nil, nil, errors.New("existed user email")
 		}
+		encodedPass, err = user.EncodePassword(*inp.Password, 8)
 
-		argon := argon2.DefaultConfig()
-		encodedPass, err = argon.HashEncoded([]byte(*inp.Password))
 		if err != nil {
 			return nil, nil, err
 		}

@@ -1,6 +1,9 @@
 package user
 
-import "strings"
+import (
+	"math/rand"
+	"strings"
+)
 
 type Auth struct {
 	Provider string
@@ -17,4 +20,18 @@ func AuthFromAuth0Sub(sub string) Auth {
 
 func (a Auth) IsAuth0() bool {
 	return a.Provider == "auth0"
+}
+
+func GenReearthSub(length int) Auth {
+	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+
+	return Auth{
+		Provider: "reearth",
+		Sub:      string(b),
+	}
 }
