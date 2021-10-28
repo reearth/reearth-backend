@@ -39,7 +39,7 @@ func (a *AuthRequest) GetAMR() []string {
 
 func (a *AuthRequest) GetAudience() []string {
 	audiences := []string{
-		appConfig.Config.AuthSrv.Domain,
+		appConfig.Domain,
 	}
 
 	if appConfig.Debug {
@@ -95,6 +95,12 @@ func (a *AuthRequest) GetSubject() string {
 
 func (a *AuthRequest) Done() bool {
 	return a.authorizedAt != nil
+}
+
+func (a *AuthRequest) Complete(sub string) {
+	a.subject = sub
+	now := time.Now()
+	a.authorizedAt = &now
 }
 
 func unique(list []string) []string {

@@ -11,12 +11,11 @@ import (
 	"github.com/caos/oidc/pkg/oidc"
 	"github.com/caos/oidc/pkg/op"
 	"github.com/oklog/ulid"
-	"github.com/reearth/reearth-backend/internal/app"
 	"gopkg.in/square/go-jose.v2"
 )
 
 var (
-	appConfig *app.ServerConfig
+	appConfig *AuthSrvConfig
 	clients   map[string]op.Client
 	requests  map[string]AuthRequest
 	keySet    jose.JSONWebKeySet
@@ -26,7 +25,12 @@ type AuthStorage struct {
 	key *rsa.PrivateKey
 }
 
-func NewAuthStorage(cfg *app.ServerConfig) op.Storage {
+type AuthSrvConfig struct {
+	Domain string `default:"http://localhost:8080/"`
+	Debug  bool
+}
+
+func NewAuthStorage(cfg *AuthSrvConfig) op.Storage {
 	reader := rand.Reader
 	bitSize := 2048
 	key, err := rsa.GenerateKey(reader, bitSize)
@@ -55,12 +59,14 @@ func initData(s *AuthStorage) {
 			grantTypes:      []oidc.GrantType{oidc.GrantTypeCode, oidc.GrantTypeRefreshToken},
 			redirectURIs:    []string{"http://localhost:3000"},
 			allowedScopes:   []string{"openid", "profile", "email"},
-			loginURI:        "login?id=%s",
+			loginURI:        "http://localhost:3000/login?id=%s",
 			iDTokenLifetime: 5 * time.Minute,
 			clockSkew:       0,
 			devMode:         true,
 		},
 	}
+
+	requests = make(map[string]AuthRequest)
 
 	pubkey := s.key.Public()
 	keySet = jose.JSONWebKeySet{
@@ -263,4 +269,30 @@ func (s *AuthStorage) SetIntrospectionFromToken(ctx context.Context, introspect 
 
 func (s *AuthStorage) ValidateJWTProfileScopes(ctx context.Context, userID string, scope []string) ([]string, error) {
 	return scope, nil
+}
+
+func (s *AuthStorage) CompleteAuthRequest(ctx context.Context, requestId, sub string) error {
+	request, err := s.AuthRequestByID(ctx, requestId)
+	if err != nil {
+		return err
+	}
+	req := request.(*AuthRequest)
+	req.Complete(sub)
+	s.updateRequest(ctx, requestId, *req)
+	return nil
+}
+
+func (s *AuthStorage) updateRequest(ctx context.Context, requestID string, req AuthRequest) error {
+
+	if requestID == "" {
+		return errors.New("invalid id")
+	}
+	_, exists := requests[requestID]
+	if !exists {
+		return errors.New("not found")
+	}
+
+	requests[requestID] = req
+
+	return nil
 }
