@@ -121,7 +121,7 @@ func (u *User) ClearAuths() {
 	u.auths = []Auth{}
 }
 
-func EncodePassword(pass string, l int) ([]byte, error) {
+func EncodePassword(pass string) ([]byte, error) {
 	argon := argon2.DefaultConfig()
 	encodedPass, err := argon.HashEncoded([]byte(pass))
 	if err != nil {

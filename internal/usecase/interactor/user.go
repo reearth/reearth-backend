@@ -170,7 +170,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		if existed != nil {
 			return nil, nil, errors.New("existed user email")
 		}
-		encodedPass, err = user.EncodePassword(*inp.Password, 8)
+		encodedPass, err = user.EncodePassword(*inp.Password)
 
 		if err != nil {
 			return nil, nil, err
