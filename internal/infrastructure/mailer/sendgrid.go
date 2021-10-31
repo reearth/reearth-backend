@@ -7,20 +7,22 @@ import (
 )
 
 type sendgridMailer struct {
-	username string
-	email    string
-	api      string
+	senderName string
+	email      string
+	api        string
 }
 
-func NewWithSendGrid(api string) gateway.Mailer {
+func NewWithSendGrid(senderName, email, api string) gateway.Mailer {
 	return &sendgridMailer{
-		api: api,
+		senderName: senderName,
+		email:      email,
+		api:        api,
 	}
 }
 
 func (m *sendgridMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlContent string) error {
 	contact := to[0]
-	sender := mail.NewEmail(m.username, m.email)
+	sender := mail.NewEmail(m.senderName, m.email)
 	receiver := mail.NewEmail(contact.Name, contact.Email)
 	message := mail.NewSingleEmail(sender, subject, receiver, plainContent, htmlContent)
 	client := sendgrid.NewSendClient(m.api)

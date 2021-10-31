@@ -54,12 +54,13 @@ type GCSConfig struct {
 }
 
 type MailerConfig struct {
-	Host        string
-	Port        string
-	Username    string
-	Password    string
-	Email       string
-	SendGridAPI string
+	Host         string
+	Port         string
+	SMTPUsername string
+	Email        string
+	Password     string
+	SenderName   string
+	SendGridAPI  string
 }
 
 func ReadConfig(debug bool) (*Config, error) {
