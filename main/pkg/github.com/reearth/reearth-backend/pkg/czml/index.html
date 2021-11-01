@@ -24,10 +24,10 @@
 </div><!-- #lowframe -->
 
 <div id="topbar" class="wide"><div class="container">
-<div class="top-heading" id="heading-wide"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
-<div class="top-heading" id="heading-narrow"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<div class="top-heading" id="heading-wide"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
 <a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form style="display:none" method="GET" action="/reearth-backend/main/search">
+<form style="display:none" method="GET" action="/reearth/reearth-backend/main/search">
 <div id="menu">
 
 <span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
@@ -191,9 +191,9 @@
 			</h2>
 			
 			<pre>type Color struct {
-<span id="Color.RGBA"></span>    RGBA      []<a href="/reearth-backend/main/pkg/builtin/#int64">int64</a>   `json:&#34;rgba,omitempty&#34;`
-<span id="Color.RGBAF"></span>    RGBAF     []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;rgbaf,omitempty&#34;`
-<span id="Color.Reference"></span>    Reference <a href="/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;reference,omitempty&#34;`
+<span id="Color.RGBA"></span>    RGBA      []<a href="/reearth/reearth-backend/main/pkg/builtin/#int64">int64</a>   `json:&#34;rgba,omitempty&#34;`
+<span id="Color.RGBAF"></span>    RGBAF     []<a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;rgbaf,omitempty&#34;`
+<span id="Color.Reference"></span>    Reference <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;reference,omitempty&#34;`
 }
 </pre>
 
@@ -218,8 +218,8 @@
 			</h2>
 			
 			<pre>type Feature struct {
-<span id="Feature.Id"></span>    Id       <a href="/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;id&#34;`
-<span id="Feature.Name"></span>    Name     <a href="/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;name&#34;`
+<span id="Feature.Id"></span>    Id       <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;id&#34;`
+<span id="Feature.Name"></span>    Name     <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;name&#34;`
 <span id="Feature.Polygon"></span>    Polygon  *<a href="index.html#Polygon">Polygon</a>  `json:&#34;polygon,omitempty&#34;`
 <span id="Feature.Polyline"></span>    Polyline *<a href="index.html#Polyline">Polyline</a> `json:&#34;polyline,omitempty&#34;`
 <span id="Feature.Position"></span>    Position *<a href="index.html#Position">Position</a> `json:&#34;position,omitempty&#34;`
@@ -274,8 +274,8 @@
 			</h2>
 			
 			<pre>type Point struct {
-<span id="Point.Color"></span>    Color     <a href="/reearth-backend/main/pkg/builtin/#string">string</a>  `json:&#34;color,omitempty&#34;`
-<span id="Point.PixelSize"></span>    PixelSize <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;pixelSize,omitempty&#34;`
+<span id="Point.Color"></span>    Color     <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>  `json:&#34;color,omitempty&#34;`
+<span id="Point.PixelSize"></span>    PixelSize <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;pixelSize,omitempty&#34;`
 }
 </pre>
 
@@ -301,11 +301,11 @@
 			
 			<pre>type Polygon struct {
 <span id="Polygon.Positions"></span>    Positions   <a href="index.html#Position">Position</a>  `json:&#34;positions&#34;`
-<span id="Polygon.Fill"></span>    Fill        <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>      `json:&#34;fill,omitempty&#34;`
+<span id="Polygon.Fill"></span>    Fill        <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>      `json:&#34;fill,omitempty&#34;`
 <span id="Polygon.Material"></span>    Material    *<a href="index.html#Material">Material</a> `json:&#34;material,omitempty&#34;`
-<span id="Polygon.Stroke"></span>    Stroke      <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>      `json:&#34;outline,omitempty&#34;`
+<span id="Polygon.Stroke"></span>    Stroke      <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>      `json:&#34;outline,omitempty&#34;`
 <span id="Polygon.StrokeColor"></span>    StrokeColor *<a href="index.html#Color">Color</a>    `json:&#34;outlineColor,omitempty&#34;`
-<span id="Polygon.StrokeWidth"></span>    StrokeWidth <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>   `json:&#34;outlineWidth,omitempty&#34;`
+<span id="Polygon.StrokeWidth"></span>    StrokeWidth <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a>   `json:&#34;outlineWidth,omitempty&#34;`
 }
 </pre>
 
@@ -332,7 +332,7 @@
 			<pre>type Polyline struct {
 <span id="Polyline.Positions"></span>    Positions <a href="index.html#Position">Position</a>  `json:&#34;positions&#34;`
 <span id="Polyline.Material"></span>    Material  *<a href="index.html#Material">Material</a> `json:&#34;material,omitempty&#34;`
-<span id="Polyline.Width"></span>    Width     <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a>   `json:&#34;width,omitempty&#34;`
+<span id="Polyline.Width"></span>    Width     <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a>   `json:&#34;width,omitempty&#34;`
 }
 </pre>
 
@@ -382,7 +382,7 @@
 			</h2>
 			
 			<pre>type Position struct {
-<span id="Position.CartographicDegrees"></span>    CartographicDegrees []<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;cartographicDegrees&#34;`
+<span id="Position.CartographicDegrees"></span>    CartographicDegrees []<a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;cartographicDegrees&#34;`
 }
 </pre>
 
@@ -438,7 +438,7 @@ Build version go1.17.2.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
-and code is licensed under a <a href="/reearth-backend/main/LICENSE">BSD license</a>.<br>
+and code is licensed under a <a href="/reearth/reearth-backend/main/LICENSE">BSD license</a>.<br>
 <a href="https://golang.org/doc/tos.html">Terms of Service</a> |
 <a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>

@@ -24,10 +24,10 @@
 </div><!-- #lowframe -->
 
 <div id="topbar" class="wide"><div class="container">
-<div class="top-heading" id="heading-wide"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
-<div class="top-heading" id="heading-narrow"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<div class="top-heading" id="heading-wide"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
 <a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form style="display:none" method="GET" action="/reearth-backend/main/search">
+<form style="display:none" method="GET" action="/reearth/reearth-backend/main/search">
 <div id="menu">
 
 <span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
@@ -175,8 +175,8 @@
 			
 				
 				<pre>var (
-    <span id="ErrInvalidURL">ErrInvalidURL</span>      = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid repository url&#34;)
-    <span id="ErrUnsupportedHost">ErrUnsupportedHost</span> = <a href="/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;unsupported host&#34;)
+    <span id="ErrInvalidURL">ErrInvalidURL</span>      = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid repository url&#34;)
+    <span id="ErrUnsupportedHost">ErrUnsupportedHost</span> = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;unsupported host&#34;)
 )</pre>
 			
 		
@@ -194,11 +194,11 @@ URL is a URL of specific Git repository on well-known hosting services.
 </p>
 
 			<pre>type URL struct {
-<span id="URL.Host"></span>    Host  <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
-<span id="URL.Owner"></span>    Owner <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
-<span id="URL.Repo"></span>    Repo  <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
+<span id="URL.Host"></span>    Host  <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>
+<span id="URL.Owner"></span>    Owner <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>
+<span id="URL.Repo"></span>    Repo  <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>
 <span id="URL.Ref"></span>    <span class="comment">// Ref represents ref of Git. There are 3 patterns: commit hash, &#34;heads/BRANCH&#34;, and &#34;tags/TAG&#34;.</span>
-    Ref <a href="/reearth-backend/main/pkg/builtin/#string">string</a>
+    Ref <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>
 }
 </pre>
 
@@ -217,7 +217,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func Must(u *<a href="/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>) *<a href="index.html#URL">URL</a></pre>
+				<pre>func Must(u *<a href="/reearth/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>) *<a href="index.html#URL">URL</a></pre>
 				
 				
 				
@@ -228,7 +228,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func MustParse(s <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#URL">URL</a></pre>
+				<pre>func MustParse(s <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#URL">URL</a></pre>
 				
 				
 				
@@ -239,7 +239,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func New(u *<a href="/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>) (*<a href="index.html#URL">URL</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func New(u *<a href="/reearth/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>) (*<a href="index.html#URL">URL</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -250,7 +250,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func Parse(s <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) (*<a href="index.html#URL">URL</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func Parse(s <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) (*<a href="index.html#URL">URL</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -263,7 +263,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func (u *<a href="index.html#URL">URL</a>) ArchiveURL() *<a href="/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a></pre>
+				<pre>func (u *<a href="index.html#URL">URL</a>) ArchiveURL() *<a href="/reearth/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a></pre>
 				
 				
 				
@@ -275,7 +275,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func (u *<a href="index.html#URL">URL</a>) Commit() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (u *<a href="index.html#URL">URL</a>) Commit() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				
 				
 				
@@ -287,7 +287,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func (u *<a href="index.html#URL">URL</a>) Head() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (u *<a href="index.html#URL">URL</a>) Head() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				
 				
 				
@@ -299,7 +299,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func (u *<a href="index.html#URL">URL</a>) String() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (u *<a href="index.html#URL">URL</a>) String() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				
 				
 				
@@ -311,7 +311,7 @@ URL is a URL of specific Git repository on well-known hosting services.
 					
 					
 				</h3>
-				<pre>func (u *<a href="index.html#URL">URL</a>) Tag() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (u *<a href="index.html#URL">URL</a>) Tag() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				
 				
 				
@@ -333,7 +333,7 @@ Build version go1.17.2.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
-and code is licensed under a <a href="/reearth-backend/main/LICENSE">BSD license</a>.<br>
+and code is licensed under a <a href="/reearth/reearth-backend/main/LICENSE">BSD license</a>.<br>
 <a href="https://golang.org/doc/tos.html">Terms of Service</a> |
 <a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>

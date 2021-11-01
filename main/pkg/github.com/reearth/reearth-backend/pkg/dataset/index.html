@@ -24,10 +24,10 @@
 </div><!-- #lowframe -->
 
 <div id="topbar" class="wide"><div class="container">
-<div class="top-heading" id="heading-wide"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
-<div class="top-heading" id="heading-narrow"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<div class="top-heading" id="heading-wide"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
 <a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form style="display:none" method="GET" action="/reearth-backend/main/search">
+<form style="display:none" method="GET" action="/reearth/reearth-backend/main/search">
 <div id="menu">
 
 <span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
@@ -645,11 +645,11 @@
 				
 				<pre>var (
     <span class="comment">// ErrFailedToParseCSVorTSVFile _</span>
-    <span id="ErrFailedToParseCSVorTSVFile">ErrFailedToParseCSVorTSVFile</span> <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse file content&#34;)
+    <span id="ErrFailedToParseCSVorTSVFile">ErrFailedToParseCSVorTSVFile</span> <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse file content&#34;)
     <span class="comment">// ErrIncompatibleSchema _</span>
-    <span id="ErrIncompatibleSchema">ErrIncompatibleSchema</span> <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;schema is not compatible with csv&#34;)
+    <span id="ErrIncompatibleSchema">ErrIncompatibleSchema</span> <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;schema is not compatible with csv&#34;)
     <span class="comment">// ErrDuplicatiedNameFields _</span>
-    <span id="ErrDuplicatiedNameFields">ErrDuplicatiedNameFields</span> <a href="/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse, name-duplicated fields&#34;)
+    <span id="ErrDuplicatiedNameFields">ErrDuplicatiedNameFields</span> <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;failed to parse, name-duplicated fields&#34;)
 )</pre>
 			
 		
@@ -702,7 +702,7 @@ New _
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#Dataset">Dataset</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Build() (*<a href="index.html#Dataset">Dataset</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
 				<p>
 Build _
 </p>
@@ -1023,7 +1023,7 @@ Source _
 					
 					
 				</h3>
-				<pre>func NewCSVParser(r <a href="/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>, n <a href="http://localhost:8080/pkg/builtin/#string">string</a>, seperator <a href="http://localhost:8080/pkg/builtin/#rune">rune</a>) *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a></pre>
+				<pre>func NewCSVParser(r <a href="/reearth/reearth-backend/main/pkg/io/">io</a>.<a href="http://localhost:8080/pkg/io/#Reader">Reader</a>, n <a href="http://localhost:8080/pkg/builtin/#string">string</a>, seperator <a href="http://localhost:8080/pkg/builtin/#rune">rune</a>) *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a></pre>
 				
 				
 				
@@ -1036,7 +1036,7 @@ Source _
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) CheckCompatible(s *<a href="index.html#Schema">Schema</a>) <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) CheckCompatible(s *<a href="index.html#Schema">Schema</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				
 				
 				
@@ -1048,7 +1048,7 @@ Source _
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) GuessSchema(sid <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) GuessSchema(sid <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				
 				
 				
@@ -1060,7 +1060,7 @@ Source _
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) Init() <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) Init() <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				
 				
 				
@@ -1072,7 +1072,7 @@ Source _
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) ReadAll() (*<a href="index.html#Schema">Schema</a>, []*<a href="index.html#Dataset">Dataset</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				<pre>func (p *<a href="index.html#DatasetCSVParser">DatasetCSVParser</a>) ReadAll() (*<a href="index.html#Schema">Schema</a>, []*<a href="index.html#Dataset">Dataset</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -1257,7 +1257,7 @@ GraphIterator は、データセットをグラフ探索するためのイテレ
 					
 					
 				</h3>
-				<pre>func GraphIteratorFrom(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, depth <a href="/reearth-backend/main/pkg/builtin/#int">int</a>) *<a href="index.html#GraphIterator">GraphIterator</a></pre>
+				<pre>func GraphIteratorFrom(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, depth <a href="/reearth/reearth-backend/main/pkg/builtin/#int">int</a>) *<a href="index.html#GraphIterator">GraphIterator</a></pre>
 				<p>
 GraphIteratorFrom _
 </p>
@@ -1273,7 +1273,7 @@ GraphIteratorFrom _
 					
 					
 				</h3>
-				<pre>func (di *<a href="index.html#GraphIterator">GraphIterator</a>) Next(d *<a href="index.html#Dataset">Dataset</a>) (<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				<pre>func (di *<a href="index.html#GraphIterator">GraphIterator</a>) Next(d *<a href="index.html#Dataset">Dataset</a>) (<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
 				<p>
 Next _
 </p>
@@ -1306,7 +1306,7 @@ Result _
 				
 			</h2>
 			
-			<pre>type GraphLoader func(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) (<a href="index.html#List">List</a>, *<a href="index.html#Field">Field</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+			<pre>type GraphLoader func(<a href="/reearth/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaFieldID">DatasetSchemaFieldID</a>) (<a href="index.html#List">List</a>, *<a href="index.html#Field">Field</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 
 			
 
@@ -1354,8 +1354,8 @@ LatLng _
 </p>
 
 			<pre>type LatLng struct {
-<span id="LatLng.Lat"></span>    Lat <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lat&#34;`
-<span id="LatLng.Lng"></span>    Lng <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lng&#34;`
+<span id="LatLng.Lat"></span>    Lat <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lat&#34;`
+<span id="LatLng.Lng"></span>    Lng <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lng&#34;`
 }
 </pre>
 
@@ -1374,7 +1374,7 @@ LatLng _
 					
 					
 				</h3>
-				<pre>func LatLngFrom(m interface{}) (<a href="index.html#LatLng">LatLng</a>, <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				<pre>func LatLngFrom(m interface{}) (<a href="index.html#LatLng">LatLng</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
 				<p>
 LatLngFrom _
 </p>
@@ -1397,9 +1397,9 @@ LatLngHeight _
 </p>
 
 			<pre>type LatLngHeight struct {
-<span id="LatLngHeight.Lat"></span>    Lat    <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lat&#34;`
-<span id="LatLngHeight.Lng"></span>    Lng    <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lng&#34;`
-<span id="LatLngHeight.Height"></span>    Height <a href="/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;height&#34;`
+<span id="LatLngHeight.Lat"></span>    Lat    <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lat&#34;`
+<span id="LatLngHeight.Lng"></span>    Lng    <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;lng&#34;`
+<span id="LatLngHeight.Height"></span>    Height <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `mapstructure:&#34;height&#34;`
 }
 </pre>
 
@@ -1418,7 +1418,7 @@ LatLngHeight _
 					
 					
 				</h3>
-				<pre>func LatLngHeightFrom(m interface{}) (<a href="index.html#LatLngHeight">LatLngHeight</a>, <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				<pre>func LatLngHeightFrom(m interface{}) (<a href="index.html#LatLngHeight">LatLngHeight</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
 				<p>
 LatLngHeightFrom _
 </p>
@@ -1606,7 +1606,7 @@ ToDatasetIds _
 				
 			</h2>
 			
-			<pre>type Loader func(<a href="/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) (<a href="index.html#List">List</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+			<pre>type Loader func(<a href="/reearth/reearth-backend/main/pkg/context/">context</a>.<a href="http://localhost:8080/pkg/context/#Context">Context</a>, ...<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) (<a href="index.html#List">List</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 
 			
 
@@ -1769,7 +1769,7 @@ Schema _
 					
 					
 				</h3>
-				<pre>func (d *<a href="index.html#Schema">Schema</a>) Dynamic() <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Dynamic() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				<p>
 Dynamic _
 </p>
@@ -1904,7 +1904,7 @@ IDRef _
 					
 					
 				</h3>
-				<pre>func (d *<a href="index.html#Schema">Schema</a>) Name() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (d *<a href="index.html#Schema">Schema</a>) Name() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				<p>
 Name _
 </p>
@@ -1919,7 +1919,7 @@ Name _
 					
 					
 				</h3>
-				<pre>func (u *<a href="index.html#Schema">Schema</a>) Rename(name <a href="/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
+				<pre>func (u *<a href="index.html#Schema">Schema</a>) Rename(name <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
 				<p>
 Rename _
 </p>
@@ -2036,7 +2036,7 @@ NewSchema _
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Build() (*<a href="index.html#Schema">Schema</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Build() (*<a href="index.html#Schema">Schema</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
 				<p>
 Build _
 </p>
@@ -2051,7 +2051,7 @@ Build _
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Dynamic(dynamic <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Dynamic(dynamic <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
 				<p>
 Dynamic _
 </p>
@@ -2111,7 +2111,7 @@ MustBuild _
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Name(name <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
+				<pre>func (b *<a href="index.html#SchemaBuilder">SchemaBuilder</a>) Name(name <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#SchemaBuilder">SchemaBuilder</a></pre>
 				<p>
 Name _
 </p>
@@ -2244,7 +2244,7 @@ IDRef _
 					
 					
 				</h3>
-				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) Name() (n <a href="/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
+				<pre>func (d *<a href="index.html#SchemaField">SchemaField</a>) Name() (n <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
 				<p>
 Name _
 </p>
@@ -2346,7 +2346,7 @@ NewSchemaField _
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Build() (*<a href="index.html#SchemaField">SchemaField</a>, <a href="/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Build() (*<a href="index.html#SchemaField">SchemaField</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
 				<p>
 Build _
 </p>
@@ -2391,7 +2391,7 @@ MustBuild _
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Name(name <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
+				<pre>func (b *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a>) Name(name <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#SchemaFieldBuilder">SchemaFieldBuilder</a></pre>
 				<p>
 Name _
 </p>
@@ -2522,7 +2522,7 @@ SchemaGraphIterator は、データセットをグラフ探索するためのイ
 					
 					
 				</h3>
-				<pre>func SchemaGraphIteratorFrom(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, depth <a href="/reearth-backend/main/pkg/builtin/#int">int</a>) *<a href="index.html#SchemaGraphIterator">SchemaGraphIterator</a></pre>
+				<pre>func SchemaGraphIteratorFrom(root <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, depth <a href="/reearth/reearth-backend/main/pkg/builtin/#int">int</a>) *<a href="index.html#SchemaGraphIterator">SchemaGraphIterator</a></pre>
 				<p>
 SchemaGraphIteratorFrom _
 </p>
@@ -2538,7 +2538,7 @@ SchemaGraphIteratorFrom _
 					
 					
 				</h3>
-				<pre>func (di *<a href="index.html#SchemaGraphIterator">SchemaGraphIterator</a>) Next(d *<a href="index.html#Schema">Schema</a>) (<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				<pre>func (di *<a href="index.html#SchemaGraphIterator">SchemaGraphIterator</a>) Next(d *<a href="index.html#Schema">Schema</a>) (<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
 				<p>
 Next _
 </p>
@@ -2669,7 +2669,7 @@ Slice _
 Source _
 </p>
 
-			<pre>type Source <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+			<pre>type Source <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
 			
 
@@ -2688,7 +2688,7 @@ Source _
 					
 					
 				</h3>
-				<pre>func (d <a href="index.html#Source">Source</a>) String() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (d <a href="index.html#Source">Source</a>) String() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				<p>
 String implements Stringer
 </p>
@@ -2805,7 +2805,7 @@ Value _
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueBool() *<a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueBool() *<a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				<p>
 ValueBool  _
 </p>
@@ -2850,7 +2850,7 @@ ValueLatLngHeight  _
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueNumber() *<a href="/reearth-backend/main/pkg/builtin/#float64">float64</a></pre>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueNumber() *<a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a></pre>
 				<p>
 ValueNumber _
 </p>
@@ -2880,7 +2880,7 @@ ValueRef _
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueString() *<a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueString() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				<p>
 ValueString  _
 </p>
@@ -2895,7 +2895,7 @@ ValueString  _
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueURL() *<a href="/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a></pre>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueURL() *<a href="/reearth/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a></pre>
 				<p>
 ValueURL  _
 </p>
@@ -2916,7 +2916,7 @@ ValueURL  _
 ValueType _
 </p>
 
-			<pre>type ValueType <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+			<pre>type ValueType <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
 			
 				
@@ -2951,7 +2951,7 @@ ValueType _
 					
 					
 				</h3>
-				<pre>func ValueTypeFrom(t <a href="/reearth-backend/main/pkg/builtin/#string">string</a>) (<a href="index.html#ValueType">ValueType</a>, <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
+				<pre>func ValueTypeFrom(t <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) (<a href="index.html#ValueType">ValueType</a>, <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
 				<p>
 ValueTypeFrom _
 </p>
@@ -2967,7 +2967,7 @@ ValueTypeFrom _
 					
 					
 				</h3>
-				<pre>func (t <a href="index.html#ValueType">ValueType</a>) Validate() (<a href="index.html#ValueType">ValueType</a>, <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				<pre>func (t <a href="index.html#ValueType">ValueType</a>) Validate() (<a href="index.html#ValueType">ValueType</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
 				<p>
 Validate _
 </p>
@@ -2982,7 +2982,7 @@ Validate _
 					
 					
 				</h3>
-				<pre>func (t <a href="index.html#ValueType">ValueType</a>) ValidateValue(v *<a href="index.html#Value">Value</a>) <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<pre>func (t <a href="index.html#ValueType">ValueType</a>) ValidateValue(v *<a href="index.html#Value">Value</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				<p>
 ValidateValue _
 </p>
@@ -3022,7 +3022,7 @@ Build version go1.17.2.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
-and code is licensed under a <a href="/reearth-backend/main/LICENSE">BSD license</a>.<br>
+and code is licensed under a <a href="/reearth/reearth-backend/main/LICENSE">BSD license</a>.<br>
 <a href="https://golang.org/doc/tos.html">Terms of Service</a> |
 <a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>

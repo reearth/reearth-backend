@@ -24,10 +24,10 @@
 </div><!-- #lowframe -->
 
 <div id="topbar" class="wide"><div class="container">
-<div class="top-heading" id="heading-wide"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
-<div class="top-heading" id="heading-narrow"><a href="/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<div class="top-heading" id="heading-wide"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
 <a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form style="display:none" method="GET" action="/reearth-backend/main/search">
+<form style="display:none" method="GET" action="/reearth/reearth-backend/main/search">
 <div id="menu">
 
 <span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
@@ -186,11 +186,11 @@
 				<pre>var (
 
     <span class="comment">// ErrNotFound indicates something was not found.</span>
-    <span id="ErrNotFound">ErrNotFound</span> = <a href="/reearth-backend/main/pkg/github.com/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/github.com/pkg/errors/#New">New</a>(&#34;not found&#34;)
+    <span id="ErrNotFound">ErrNotFound</span> = <a href="/reearth/reearth-backend/main/pkg/github.com/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/github.com/pkg/errors/#New">New</a>(&#34;not found&#34;)
     <span class="comment">// ErrInvalidParams represents the params are invalid, such as empty string.</span>
-    <span id="ErrInvalidParams">ErrInvalidParams</span> = <a href="/reearth-backend/main/pkg/github.com/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/github.com/pkg/errors/#New">New</a>(&#34;invalid params&#34;)
+    <span id="ErrInvalidParams">ErrInvalidParams</span> = <a href="/reearth/reearth-backend/main/pkg/github.com/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/github.com/pkg/errors/#New">New</a>(&#34;invalid params&#34;)
     <span class="comment">// ErrNotImplemented indicates unimplemented.</span>
-    <span id="ErrNotImplemented">ErrNotImplemented</span> = <a href="/reearth-backend/main/pkg/github.com/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/github.com/pkg/errors/#New">New</a>(&#34;not implemented&#34;)
+    <span id="ErrNotImplemented">ErrNotImplemented</span> = <a href="/reearth/reearth-backend/main/pkg/github.com/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/github.com/pkg/errors/#New">New</a>(&#34;not implemented&#34;)
 )</pre>
 			
 		
@@ -202,7 +202,7 @@
 				
 				
 			</h2>
-			<pre>func As(err <a href="/reearth-backend/main/pkg/builtin/#error">error</a>, label <a href="http://localhost:8080/pkg/builtin/#error">error</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
+			<pre>func As(err <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>, label <a href="http://localhost:8080/pkg/builtin/#error">error</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
 			<p>
 As looks up errors whose label is the same as the specific label and return a wrapped error.
 </p>
@@ -218,7 +218,7 @@ As looks up errors whose label is the same as the specific label and return a wr
 				
 				
 			</h2>
-			<pre>func ErrInternalBy(err <a href="/reearth-backend/main/pkg/builtin/#error">error</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
+			<pre>func ErrInternalBy(err <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>) <a href="http://localhost:8080/pkg/builtin/#error">error</a></pre>
 			
 			
 			
@@ -231,7 +231,7 @@ As looks up errors whose label is the same as the specific label and return a wr
 				
 				
 			</h2>
-			<pre>func Is(err <a href="/reearth-backend/main/pkg/builtin/#error">error</a>, label <a href="http://localhost:8080/pkg/builtin/#error">error</a>) <a href="http://localhost:8080/pkg/builtin/#bool">bool</a></pre>
+			<pre>func Is(err <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>, label <a href="http://localhost:8080/pkg/builtin/#error">error</a>) <a href="http://localhost:8080/pkg/builtin/#bool">bool</a></pre>
 			<p>
 Is looks up errors whose label is the same as the specific label and return true if it was found
 </p>
@@ -247,7 +247,7 @@ Is looks up errors whose label is the same as the specific label and return true
 				
 				
 			</h2>
-			<pre>func With(label <a href="/reearth-backend/main/pkg/builtin/#error">error</a>) func(<a href="http://localhost:8080/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
+			<pre>func With(label <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>) func(<a href="http://localhost:8080/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
 			<p>
 With returns a new constructor to generate an Error with specific label.
 </p>
@@ -290,7 +290,7 @@ ErrInternal is an error struct that can hold an internal error but hides users t
 					
 					
 				</h3>
-				<pre>func (e *<a href="index.html#ErrInternal">ErrInternal</a>) Error() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (e *<a href="index.html#ErrInternal">ErrInternal</a>) Error() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				
 				
 				
@@ -302,7 +302,7 @@ ErrInternal is an error struct that can hold an internal error but hides users t
 					
 					
 				</h3>
-				<pre>func (e *<a href="index.html#ErrInternal">ErrInternal</a>) Unwrap() <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (e *<a href="index.html#ErrInternal">ErrInternal</a>) Unwrap() <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				
 				
 				
@@ -323,10 +323,10 @@ Currently, Go standard error library does not support these use cases. That&#39;
 </p>
 
 			<pre>type Error struct {
-<span id="Error.Label"></span>    Label    <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
-<span id="Error.Err"></span>    Err      <a href="/reearth-backend/main/pkg/builtin/#error">error</a>
-<span id="Error.Hidden"></span>    Hidden   <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>
-<span id="Error.Separate"></span>    Separate <a href="/reearth-backend/main/pkg/builtin/#bool">bool</a>
+<span id="Error.Label"></span>    Label    <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>
+<span id="Error.Err"></span>    Err      <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>
+<span id="Error.Hidden"></span>    Hidden   <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>
+<span id="Error.Separate"></span>    Separate <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>
 }
 </pre>
 
@@ -345,7 +345,7 @@ Currently, Go standard error library does not support these use cases. That&#39;
 					
 					
 				</h3>
-				<pre>func From(label <a href="/reearth-backend/main/pkg/builtin/#string">string</a>, err <a href="http://localhost:8080/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
+				<pre>func From(label <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>, err <a href="http://localhost:8080/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
 				<p>
 From creates an Error with string label.
 </p>
@@ -359,7 +359,7 @@ From creates an Error with string label.
 					
 					
 				</h3>
-				<pre>func FromSep(label <a href="/reearth-backend/main/pkg/builtin/#string">string</a>, err <a href="http://localhost:8080/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
+				<pre>func FromSep(label <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>, err <a href="http://localhost:8080/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
 				<p>
 From creates an Error with string label, but separated from wrapped error message when the error is printed.
 </p>
@@ -373,7 +373,7 @@ From creates an Error with string label, but separated from wrapped error messag
 					
 					
 				</h3>
-				<pre>func Get(err <a href="/reearth-backend/main/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
+				<pre>func Get(err <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>) *<a href="index.html#Error">Error</a></pre>
 				<p>
 Get gets Error struct from an error
 </p>
@@ -389,7 +389,7 @@ Get gets Error struct from an error
 					
 					
 				</h3>
-				<pre>func (e *<a href="index.html#Error">Error</a>) Error() <a href="/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<pre>func (e *<a href="index.html#Error">Error</a>) Error() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 				<p>
 Error implements error interface.
 </p>
@@ -404,7 +404,7 @@ Error implements error interface.
 					
 					
 				</h3>
-				<pre>func (e *<a href="index.html#Error">Error</a>) Unwrap() <a href="/reearth-backend/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (e *<a href="index.html#Error">Error</a>) Unwrap() <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
 				<p>
 Unwrap implements the interface for errors.Unwrap.
 </p>
@@ -429,7 +429,7 @@ Build version go1.17.2.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
-and code is licensed under a <a href="/reearth-backend/main/LICENSE">BSD license</a>.<br>
+and code is licensed under a <a href="/reearth/reearth-backend/main/LICENSE">BSD license</a>.<br>
 <a href="https://golang.org/doc/tos.html">Terms of Service</a> |
 <a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>
