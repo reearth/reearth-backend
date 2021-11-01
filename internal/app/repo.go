@@ -74,7 +74,7 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 	gateways.Google = google.NewGoogle()
 
 	// SMTP Mailer
-	gateways.Mailer = mailer.NewWithSMTP(conf.Mailer.Host, conf.Mailer.Port, conf.Mailer.SMTPUsername, conf.Mailer.Password)
+	gateways.Mailer = mailer.NewWithSMTP(conf.Mailer.SMTPConfig.Host, conf.Mailer.SMTPConfig.Port, conf.Mailer.SMTPConfig.SMTPUsername, conf.Mailer.SMTPConfig.Password)
 
 	// release lock of all scenes
 	if err := repos.SceneLock.ReleaseAllLock(context.Background()); err != nil {

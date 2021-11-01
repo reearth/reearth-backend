@@ -53,14 +53,23 @@ type GCSConfig struct {
 	PublicationCacheControl string
 }
 
-type MailerConfig struct {
+type SendGridConfig struct {
+	Email string
+	Name  string
+	API   string
+}
+
+type SMTPConfig struct {
 	Host         string
 	Port         string
 	SMTPUsername string
 	Email        string
 	Password     string
-	SenderName   string
-	SendGridAPI  string
+}
+
+type MailerConfig struct {
+	SMTPConfig     SMTPConfig
+	SendGridConfig SendGridConfig
 }
 
 func ReadConfig(debug bool) (*Config, error) {
