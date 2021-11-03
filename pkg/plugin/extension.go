@@ -23,6 +23,8 @@ var (
 	ExtensionTypeVisualizer ExtensionType = "visualizer"
 	// ExtensionTypeInfobox _
 	ExtensionTypeInfobox ExtensionType = "infobox"
+	// ExtensionTypeCluster _
+	ExtensionTypeCluster ExtensionType = "cluster"
 )
 
 type Extension struct {
