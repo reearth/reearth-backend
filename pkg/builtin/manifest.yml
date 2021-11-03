@@ -228,60 +228,6 @@ extensions:
               type: string
               title: Tracking ID
               description: Paste your Google Analytics tracking ID here. This will be embedded in your published project.
-  - id: cluster
-    name: Cluster
-    type: cluster
-    description: clustering...
-    schema:
-      groups:
-        - id: default
-          title: Cluster
-          fields:
-            - id: range
-              title: Pixel range
-              type: number
-            - id: size
-              title: Minimum cluster size
-              type: number
-            - id: sizeType
-              title: Size type
-              type: string
-              defaultValue: small
-              choices:
-                - key: small
-                  label: Small
-                - key: large
-                  label: Large
-            - id: textColor
-              title: Text color
-              type: string
-              ui: color
-            - id: shape
-              title: Shape type
-              type: string
-              defaultValue: circle
-              choices:
-                - key: circle
-                  label: Circle
-                - key: rect
-                  label: Rectangul
-            - id: backgroundColor
-              title: Background color
-              type: string
-              ui: color
-            - id: image
-              title: Image
-              type: url
-              ui: image
-            - id: layers
-              title: Layers list
-              representativeField: layer
-              list: true
-              fields:
-                - id: layer
-                  title: Layer
-                  type: ref
-                  ui: layer
   - id: infobox
     name: Infobox
     type: infobox
@@ -1638,3 +1584,57 @@ extensions:
             - id: layerCamera
               title: Camera position
               type: camera
+  - id: cluster
+    name: Cluster
+    type: cluster
+    description: clustering...
+    schema:
+      groups:
+        - id: default
+          title: Cluster
+          fields:
+            - id: range
+              title: Pixel range
+              type: number
+            - id: size
+              title: Minimum cluster size
+              type: number
+            - id: sizeType
+              title: Size type
+              type: string
+              defaultValue: small
+              choices:
+                - key: small
+                  label: Small
+                - key: large
+                  label: Large
+            - id: textColor
+              title: Text color
+              type: string
+              ui: color
+            - id: shape
+              title: Shape type
+              type: string
+              defaultValue: circle
+              choices:
+                - key: circle
+                  label: Circle
+                - key: rect
+                  label: Rectangul
+            - id: backgroundColor
+              title: Background color
+              type: string
+              ui: color
+            - id: image
+              title: Image
+              type: url
+              ui: image
+        - id: layers
+          title: Layers list
+          representativeField: layer
+          list: true
+          fields:
+            - id: layer
+              title: Layer
+              type: ref
+              ui: layer
