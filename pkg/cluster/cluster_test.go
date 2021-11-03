@@ -7,15 +7,40 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCluster_Name(t *testing.T) {
-	type fields struct {
-		name     string
-		property id.PropertyID
+func TestCluster_ID(t *testing.T) {
+	cid := id.NewClusterID()
+	clusterA := &Cluster{
+		id: cid,
 	}
+	tests := []struct {
+		name    string
+		cluster *Cluster
+		want    id.ClusterID
+	}{
+		{
+			name:    "should return cluster id",
+			cluster: clusterA,
+			want:    cid,
+		},
+		{
+			name:    "should return empty if cluster is nil",
+			cluster: nil,
+			want:    id.ClusterID{},
+		},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+			got := tc.cluster.ID()
+			assert.Equal(tt, tc.want, got)
+		})
+	}
+}
+func TestCluster_Name(t *testing.T) {
 	clusterA := &Cluster{
 		name: "clusterA",
 	}
-	clusterB := &Cluster{}
 	tests := []struct {
 		name    string
 		cluster *Cluster
@@ -27,8 +52,8 @@ func TestCluster_Name(t *testing.T) {
 			want:    "clusterA",
 		},
 		{
-			name:    "should return empty if name is nil",
-			cluster: clusterB,
+			name:    "should return empty if cluster is nil",
+			cluster: nil,
 			want:    "",
 		},
 	}
@@ -42,37 +67,32 @@ func TestCluster_Name(t *testing.T) {
 	}
 }
 func TestCluster_Property(t *testing.T) {
-	type fields struct {
-		name     string
-		property id.PropertyID
-	}
 	propertyId := id.NewPropertyID()
 	clusterA := &Cluster{
 		property: propertyId,
 	}
-	clusterB := &Cluster{}
 	tests := []struct {
 		name    string
 		cluster *Cluster
-		want    bool
+		want    id.PropertyID
 	}{
 		{
-			name:    "should be true if it returns cluster property",
+			name:    "should return cluster property",
 			cluster: clusterA,
-			want:    true,
+			want:    propertyId,
 		},
 		{
-			name:    "should be false if it returns cluster",
-			cluster: clusterB,
-			want:    false,
+			name:    "should return empty cluster property",
+			cluster: nil,
+			want:    id.PropertyID{},
 		},
 	}
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			// got := tc.cluster.Name()
-			// assert.Equal(tt,tc.want,)
+			got := tc.cluster.Property()
+			assert.Equal(tt, tc.want, got)
 		})
 	}
 }

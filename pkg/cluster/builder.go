@@ -10,15 +10,20 @@ func New() *Builder {
 	return &Builder{c: &Cluster{}}
 }
 
+func (b *Builder) ID(cid id.ClusterID) *Builder {
+	b.c.id = cid
+	return b
+}
+
+func (b *Builder) NewID() *Builder {
+	b.c.id = id.NewClusterID()
+	return b
+}
+
 func (b *Builder) Name(n string) *Builder {
 	b.c.name = n
 	return b
 }
-
-// func (b *Builder) Layers(l []id.LayerID) *Builder {
-// 	b.c.layers = l
-// 	return b
-// }
 
 func (b *Builder) Property(p id.PropertyID) *Builder {
 	b.c.property = p
