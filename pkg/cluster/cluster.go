@@ -3,9 +3,16 @@ package cluster
 import "github.com/reearth/reearth-backend/pkg/id"
 
 type Cluster struct {
-	name string
-	// layers   []id.LayerID
+	id       id.ClusterID
+	name     string
 	property id.PropertyID
+}
+
+func (c *Cluster) ID() id.ClusterID {
+	if c == nil {
+		return id.ClusterID{}
+	}
+	return c.id
 }
 
 func (c *Cluster) Name() string {
@@ -14,17 +21,6 @@ func (c *Cluster) Name() string {
 	}
 	return c.name
 }
-
-// func (c *Cluster) Layers() []id.LayerID {
-// 	if c == nil {
-// 		return nil
-// 	}
-// 	res := make([]id.LayerID, 0, len(c.layers))
-// 	for _, l := range c.layers {
-// 		res = append(res, l)
-// 	}
-// 	return res
-// }
 
 func (c *Cluster) Property() id.PropertyID {
 	if c == nil {
