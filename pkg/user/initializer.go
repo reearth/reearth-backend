@@ -8,8 +8,8 @@ import (
 type InitParams struct {
 	Email    string
 	Name     string
-	Sub      Auth
-	Password []byte
+	Sub      *Auth
+	Password string
 	Lang     *language.Tag
 	Theme    *Theme
 	UserID   *id.UserID
@@ -30,12 +30,15 @@ func Init(p InitParams) (*User, *Team, error) {
 		t := ThemeDefault
 		p.Theme = &t
 	}
+	if p.Sub == nil {
+		p.Sub = GenReearthSub(p.UserID.String())
+	}
 
 	u, err := New().
 		ID(*p.UserID).
 		Name(p.Name).
 		Email(p.Email).
-		Auths([]Auth{p.Sub}).
+		Auths([]Auth{*p.Sub}).
 		Lang(*p.Lang).
 		Password(p.Password).
 		Theme(*p.Theme).

@@ -107,7 +107,7 @@ func TestInit(t *testing.T) {
 			u, t, err := Init(InitParams{
 				Email:  tc.Email,
 				Name:   tc.Username,
-				Sub:    tc.Sub,
+				Sub:    &tc.Sub,
 				UserID: tc.UID,
 				TeamID: tc.TID,
 			})

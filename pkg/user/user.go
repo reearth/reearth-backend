@@ -1,9 +1,15 @@
 package user
 
 import (
+	"errors"
+
 	"github.com/matthewhartstonge/argon2"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
+)
+
+var (
+	ErrEncodingPass = errors.New("error encoding password")
 )
 
 type User struct {
@@ -121,11 +127,38 @@ func (u *User) ClearAuths() {
 	u.auths = []Auth{}
 }
 
-func EncodePassword(pass string) ([]byte, error) {
+func (u *User) SetPassword(pass string) error {
+	p, err := encodePassword(pass)
+	if err != nil {
+		return err
+	}
+	u.password = p
+	return nil
+}
+
+func (u *User) MatchPassword(pass string) (bool, error) {
+	return verifyPassword(pass, u.password)
+}
+
+func encodePassword(pass string) ([]byte, error) {
 	argon := argon2.DefaultConfig()
 	encodedPass, err := argon.HashEncoded([]byte(pass))
 	if err != nil {
 		return nil, err
 	}
 	return encodedPass, nil
+}
+
+func verifyPassword(toVerify string, encoded []byte) (bool, error) {
+	raw, err := argon2.Decode(encoded)
+	if err != nil {
+		return false, err
+	}
+
+	ok, err := raw.Verify([]byte(toVerify))
+	if err != nil {
+		return false, err
+	}
+
+	return ok, nil
 }

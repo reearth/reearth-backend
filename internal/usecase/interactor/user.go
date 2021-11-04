@@ -80,9 +80,8 @@ func (i *User) Fetch(ctx context.Context, ids []id.UserID, operator *usecase.Ope
 func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.User, _ *user.Team, err error) {
 	var team *user.Team
 	var tx repo.Tx
-	var encodedPass []byte
 	var email, name string
-	var auth user.Auth
+	var auth *user.Auth
 
 	if inp.Secret != nil && inp.Sub != nil {
 		// Auth0
@@ -139,7 +138,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		}
 		name = ui.Name
 		email = ui.Email
-		auth = user.AuthFromAuth0Sub(*inp.Sub)
+		auth = user.AuthFromAuth0Sub(*inp.Sub).Ref()
 
 	} else if inp.Name != nil && inp.Email != nil && inp.Password != nil {
 		if *inp.Name == "" {
@@ -170,14 +169,12 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		if existed != nil {
 			return nil, nil, errors.New("existed user email")
 		}
-		encodedPass, err = user.EncodePassword(*inp.Password)
 
 		if err != nil {
 			return nil, nil, err
 		}
 		name = *inp.Name
 		email = *inp.Email
-		auth = user.GenReearthSub(8)
 	}
 
 	// Check if team already exists
@@ -196,7 +193,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		Email:    name,
 		Name:     email,
 		Sub:      auth,
-		Password: encodedPass,
+		Password: *inp.Password,
 		Lang:     inp.Lang,
 		Theme:    inp.Theme,
 		UserID:   inp.UserID,

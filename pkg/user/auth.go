@@ -1,7 +1,6 @@
 package user
 
 import (
-	"math/rand"
 	"strings"
 )
 
@@ -22,16 +21,14 @@ func (a Auth) IsAuth0() bool {
 	return a.Provider == "auth0"
 }
 
-func GenReearthSub(length int) Auth {
-	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+func (a Auth) Ref() *Auth {
+	a2 := a
+	return &a2
+}
 
-	b := make([]rune, length)
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
-
-	return Auth{
+func GenReearthSub(userID string) *Auth {
+	return &Auth{
 		Provider: "reearth",
-		Sub:      string(b),
+		Sub:      userID,
 	}
 }
