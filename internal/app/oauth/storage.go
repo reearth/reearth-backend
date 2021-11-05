@@ -4,8 +4,12 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/x509"
+	"crypto/x509/pkix"
 	"errors"
+	"math/big"
 	mRand "math/rand"
+	"net"
 	"time"
 
 	"github.com/caos/oidc/pkg/oidc"
@@ -31,19 +35,13 @@ type AuthSrvConfig struct {
 }
 
 func NewAuthStorage(cfg *AuthSrvConfig) op.Storage {
-	reader := rand.Reader
-	bitSize := 2048
-	key, err := rsa.GenerateKey(reader, bitSize)
-	if err != nil {
-		panic(err)
-	}
+
 	appConfig = cfg
 
-	s := &AuthStorage{
-		key: key,
-	}
+	s := &AuthStorage{}
 
 	initData(s)
+	initKeys(s)
 
 	return s
 }
@@ -67,11 +65,43 @@ func initData(s *AuthStorage) {
 	}
 
 	requests = make(map[string]AuthRequest)
+}
 
-	pubkey := s.key.Public()
+func initKeys(s *AuthStorage) {
+
+	key, err := rsa.GenerateKey(rand.Reader, 2048)
+	if err != nil {
+		panic(err)
+	}
+
+	s.key = key
+
+	cert := &x509.Certificate{
+		SerialNumber: big.NewInt(1658),
+		Subject: pkix.Name{
+			Organization:  []string{"Company, INC."},
+			Country:       []string{"US"},
+			Province:      []string{""},
+			Locality:      []string{"San Francisco"},
+			StreetAddress: []string{"Golden Gate Bridge"},
+			PostalCode:    []string{"94016"},
+		},
+		IPAddresses:  []net.IP{net.IPv4(127, 0, 0, 1), net.IPv6loopback},
+		NotBefore:    time.Now(),
+		NotAfter:     time.Now().AddDate(10, 0, 0),
+		IsCA:         true,
+		SubjectKeyId: []byte{1, 2, 3, 4, 6},
+		ExtKeyUsage:  []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth},
+		KeyUsage:     x509.KeyUsageCertSign,
+	}
+
+	caBytes, err := x509.CreateCertificate(rand.Reader, cert, cert, &key.PublicKey, key)
+
+	t, err := x509.ParseCertificate(caBytes)
+
 	keySet = jose.JSONWebKeySet{
 		Keys: []jose.JSONWebKey{
-			{Key: pubkey, Use: "sig", Algorithm: "RS256", KeyID: "1"},
+			{Key: key.Public(), Use: "sig", Algorithm: "RS256", KeyID: "1", Certificates: []*x509.Certificate{t}},
 		},
 	}
 }
@@ -90,7 +120,7 @@ func (s *AuthStorage) CreateAuthRequest(_ context.Context, authReq *oidc.AuthReq
 		ClientID:     authReq.ClientID,
 		subject:      "",
 		code:         "", // Will be set after /authorize/callback success
-		state:        "state",
+		state:        authReq.State,
 		scopes:       authReq.Scopes,
 		ResponseType: authReq.ResponseType,
 		Nonce:        authReq.Nonce,
