@@ -10,6 +10,7 @@ import (
 func TestBuilder_Build(t *testing.T) {
 	propertyId := id.NewPropertyID()
 	clusterId := id.NewClusterID()
+	sid := id.NewSceneID()
 	tests := []struct {
 		name    string
 		builder *Builder
@@ -18,19 +19,19 @@ func TestBuilder_Build(t *testing.T) {
 	}{
 		{
 			name:    "build with name and property",
-			builder: New().ID(clusterId).Name("ccc").Property(propertyId),
+			builder: New().ID(clusterId).Name("ccc").Scene(sid).Property(propertyId),
 			want: &Cluster{
 				id:       clusterId,
 				name:     "ccc",
 				property: propertyId,
+				scene:    sid,
 			},
 			wantErr: false,
 		},
 		{
 			name:    "build empty cluster",
 			builder: New(),
-			want:    &Cluster{},
-			wantErr: false,
+			wantErr: true,
 		},
 	}
 	for _, tc := range tests {

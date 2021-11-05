@@ -1630,7 +1630,7 @@ extensions:
               type: url
               ui: image
         - id: layers
-          title: Layers list
+          title: Layers
           representativeField: layer
           list: true
           fields:

@@ -4,6 +4,7 @@ import "github.com/reearth/reearth-backend/pkg/id"
 
 type Cluster struct {
 	id       id.ClusterID
+	scene    id.SceneID
 	name     string
 	property id.PropertyID
 }
@@ -13,6 +14,13 @@ func (c *Cluster) ID() id.ClusterID {
 		return id.ClusterID{}
 	}
 	return c.id
+}
+
+func (c *Cluster) Scene() id.SceneID {
+	if c == nil {
+		return id.SceneID{}
+	}
+	return c.scene
 }
 
 func (c *Cluster) Name() string {

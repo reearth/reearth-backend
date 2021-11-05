@@ -96,3 +96,34 @@ func TestCluster_Property(t *testing.T) {
 		})
 	}
 }
+
+func TestCluster_Scene(t *testing.T) {
+	sceneId := id.NewSceneID()
+	clusterA := &Cluster{
+		scene: sceneId,
+	}
+	tests := []struct {
+		name    string
+		cluster *Cluster
+		want    id.SceneID
+	}{
+		{
+			name:    "should return cluster scene",
+			cluster: clusterA,
+			want:    sceneId,
+		},
+		{
+			name:    "should return empty cluster scene",
+			cluster: nil,
+			want:    id.SceneID{},
+		},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+			got := tc.cluster.Scene()
+			assert.Equal(tt, tc.want, got)
+		})
+	}
+}
