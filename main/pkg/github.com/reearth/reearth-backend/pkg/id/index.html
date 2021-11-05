@@ -1290,6 +1290,26 @@
 				
 			
 				
+				<dd><a href="index.html#PropertySchemaGroupID">type PropertySchemaGroupID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaGroupIDFrom">func PropertySchemaGroupIDFrom(str *string) *PropertySchemaGroupID</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaGroupID.CopyRef">func (id *PropertySchemaGroupID) CopyRef() *PropertySchemaGroupID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaGroupID.Ref">func (id PropertySchemaGroupID) Ref() *PropertySchemaGroupID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaGroupID.String">func (id PropertySchemaGroupID) String() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PropertySchemaGroupID.StringRef">func (id *PropertySchemaGroupID) StringRef() *string</a></dd>
+				
+			
+				
 				<dd><a href="index.html#PropertySchemaID">type PropertySchemaID</a></dd>
 				
 					
@@ -1885,6 +1905,8 @@
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema.go">property_schema.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go">property_schema_field.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_group.go">property_schema_group.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/scene_gen.go">scene_gen.go</a>
 			
@@ -7584,15 +7606,12 @@ Merge returns a merged set
 		
 			
 			
-			<h2 id="PropertySchemaFieldID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=39:72#L1">PropertySchemaFieldID</a>
+			<h2 id="PropertySchemaFieldID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=12:45#L1">PropertySchemaFieldID</a>
 				<a class="permalink" href="index.html#PropertySchemaFieldID">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-PropertySchemaFieldID _
-</p>
-
+			
 			<pre>type PropertySchemaFieldID <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
 			
@@ -7605,77 +7624,143 @@ PropertySchemaFieldID _
 
 			
 				
-				<h3 id="PropertySchemaFieldIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=105:171#L1">PropertySchemaFieldIDFrom</a>
+				<h3 id="PropertySchemaFieldIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=47:113#L1">PropertySchemaFieldIDFrom</a>
 					<a class="permalink" href="index.html#PropertySchemaFieldIDFrom">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func PropertySchemaFieldIDFrom(str *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
-				<p>
-PropertySchemaFieldIDFrom _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="PropertySchemaFieldID.CopyRef">func (*PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=369:434#L12">CopyRef</a>
+				<h3 id="PropertySchemaFieldID.CopyRef">func (*PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=289:354#L8">CopyRef</a>
 					<a class="permalink" href="index.html#PropertySchemaFieldID.CopyRef">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (id *<a href="index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) CopyRef() *<a href="index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
-				<p>
-CopyRef _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="PropertySchemaFieldID.Ref">func (PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=266:326#L6">Ref</a>
+				<h3 id="PropertySchemaFieldID.Ref">func (PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=199:259#L3">Ref</a>
 					<a class="permalink" href="index.html#PropertySchemaFieldID.Ref">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (id <a href="index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) Ref() *<a href="index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
-				<p>
-Ref _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="PropertySchemaFieldID.String">func (PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=509:556#L21">String</a>
+				<h3 id="PropertySchemaFieldID.String">func (PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=417:464#L16">String</a>
 					<a class="permalink" href="index.html#PropertySchemaFieldID.String">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (id <a href="index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) String() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
-				<p>
-String _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="PropertySchemaFieldID.StringRef">func (*PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=596:648#L26">StringRef</a>
+				<h3 id="PropertySchemaFieldID.StringRef">func (*PropertySchemaFieldID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_field.go?s=489:541#L20">StringRef</a>
 					<a class="permalink" href="index.html#PropertySchemaFieldID.StringRef">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (id *<a href="index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) StringRef() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
-				<p>
-StringRef _
-</p>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="PropertySchemaGroupID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_group.go?s=12:45#L1">PropertySchemaGroupID</a>
+				<a class="permalink" href="index.html#PropertySchemaGroupID">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type PropertySchemaGroupID <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="PropertySchemaGroupIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_group.go?s=47:113#L1">PropertySchemaGroupIDFrom</a>
+					<a class="permalink" href="index.html#PropertySchemaGroupIDFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func PropertySchemaGroupIDFrom(str *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="PropertySchemaGroupID.CopyRef">func (*PropertySchemaGroupID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_group.go?s=289:354#L8">CopyRef</a>
+					<a class="permalink" href="index.html#PropertySchemaGroupID.CopyRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (id *<a href="index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) CopyRef() *<a href="index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="PropertySchemaGroupID.Ref">func (PropertySchemaGroupID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_group.go?s=199:259#L3">Ref</a>
+					<a class="permalink" href="index.html#PropertySchemaGroupID.Ref">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (id <a href="index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) Ref() *<a href="index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="PropertySchemaGroupID.String">func (PropertySchemaGroupID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_group.go?s=417:464#L16">String</a>
+					<a class="permalink" href="index.html#PropertySchemaGroupID.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (id <a href="index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) String() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="PropertySchemaGroupID.StringRef">func (*PropertySchemaGroupID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/property_schema_group.go?s=489:541#L20">StringRef</a>
+					<a class="permalink" href="index.html#PropertySchemaGroupID.StringRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (id *<a href="index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) StringRef() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				
 				
 				
 				

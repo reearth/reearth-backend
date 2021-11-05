@@ -342,10 +342,10 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Group.Schema">func (g *Group) Schema() id.PropertySchemaID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Group.SchemaGroup">func (g *Group) SchemaGroup() id.PropertySchemaFieldID</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.SchemaGroup">func (g *Group) SchemaGroup() id.PropertySchemaGroupID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Group.SchemaGroupRef">func (g *Group) SchemaGroupRef() *id.PropertySchemaFieldID</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.SchemaGroupRef">func (g *Group) SchemaGroupRef() *id.PropertySchemaGroupID</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Group.SchemaRef">func (g *Group) SchemaRef() *id.PropertySchemaID</a></dd>
@@ -380,7 +380,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.NewID">func (b *GroupBuilder) NewID() *GroupBuilder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Schema">func (b *GroupBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaFieldID) *GroupBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Schema">func (b *GroupBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaGroupID) *GroupBuilder</a></dd>
 				
 			
 				
@@ -469,10 +469,10 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.Schema">func (g *GroupList) Schema() id.PropertySchemaID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.SchemaGroup">func (g *GroupList) SchemaGroup() id.PropertySchemaFieldID</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.SchemaGroup">func (g *GroupList) SchemaGroup() id.PropertySchemaGroupID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.SchemaGroupRef">func (g *GroupList) SchemaGroupRef() *id.PropertySchemaFieldID</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.SchemaGroupRef">func (g *GroupList) SchemaGroupRef() *id.PropertySchemaGroupID</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#GroupList.SchemaRef">func (g *GroupList) SchemaRef() *id.PropertySchemaID</a></dd>
@@ -504,7 +504,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#GroupListBuilder.NewID">func (b *GroupListBuilder) NewID() *GroupListBuilder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#GroupListBuilder.Schema">func (b *GroupListBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaFieldID) *GroupListBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupListBuilder.Schema">func (b *GroupListBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaGroupID) *GroupListBuilder</a></dd>
 				
 			
 				
@@ -543,7 +543,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#InitializerGroup.Clone">func (p *InitializerGroup) Clone() *InitializerGroup</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#InitializerGroup.PropertyGroup">func (p *InitializerGroup) PropertyGroup(parent id.PropertySchemaID, parentItem id.PropertySchemaFieldID) (*Group, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#InitializerGroup.PropertyGroup">func (p *InitializerGroup) PropertyGroup(parent id.PropertySchemaID, parentItem id.PropertySchemaGroupID) (*Group, error)</a></dd>
 				
 			
 				
@@ -602,7 +602,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.NewID">func (b *ItemBuilder) NewID() *ItemBuilder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Schema">func (b *ItemBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaFieldID) *ItemBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Schema">func (b *ItemBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaGroupID) *ItemBuilder</a></dd>
 				
 			
 				
@@ -828,22 +828,29 @@
 				
 			
 				
+				<dd><a href="index.html#MigrationPlan">type MigrationPlan</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Migrator">type Migrator</a></dd>
+				
+				
+			
+				
 				<dd><a href="index.html#Pointer">type Pointer</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#NewPointer">func NewPointer(sg *id.PropertySchemaFieldID, i *id.PropertyItemID, f *id.PropertySchemaFieldID) *Pointer</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#NewPointer">func NewPointer(sg *id.PropertySchemaGroupID, i *id.PropertyItemID, f *id.PropertySchemaFieldID) *Pointer</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#PointField">func PointField(sg *id.PropertySchemaFieldID, i *id.PropertyItemID, f id.PropertySchemaFieldID) *Pointer</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#PointField">func PointField(sg *id.PropertySchemaGroupID, i *id.PropertyItemID, f id.PropertySchemaFieldID) *Pointer</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#PointFieldByItem">func PointFieldByItem(i id.PropertyItemID, f id.PropertySchemaFieldID) *Pointer</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#PointFieldBySchemaGroup">func PointFieldBySchemaGroup(sg id.PropertySchemaFieldID, f id.PropertySchemaFieldID) *Pointer</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#PointFieldBySchemaGroupAndItem">func PointFieldBySchemaGroupAndItem(sg id.PropertySchemaFieldID, i id.PropertyItemID) *Pointer</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#PointFieldBySchemaGroup">func PointFieldBySchemaGroup(sg id.PropertySchemaGroupID, f id.PropertySchemaFieldID) *Pointer</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#PointFieldOnly">func PointFieldOnly(fid id.PropertySchemaFieldID) *Pointer</a></dd>
@@ -852,7 +859,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#PointItem">func PointItem(i id.PropertyItemID) *Pointer</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#PointItemBySchema">func PointItemBySchema(sg id.PropertySchemaFieldID) *Pointer</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#PointItemBySchema">func PointItemBySchema(sg id.PropertySchemaGroupID) *Pointer</a></dd>
 				
 				
 					
@@ -865,28 +872,28 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.FieldByItem">func (p *Pointer) FieldByItem() (i id.PropertyItemID, f id.PropertySchemaFieldID, ok bool)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.FieldBySchemaGroup">func (p *Pointer) FieldBySchemaGroup() (sg id.PropertySchemaFieldID, f id.PropertySchemaFieldID, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.FieldBySchemaGroup">func (p *Pointer) FieldBySchemaGroup() (sg id.PropertySchemaGroupID, f id.PropertySchemaFieldID, ok bool)</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.FieldRef">func (p *Pointer) FieldRef() *id.PropertySchemaFieldID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.GetAll">func (p *Pointer) GetAll() (sg *id.PropertySchemaFieldID, i *id.PropertyItemID, f *id.PropertySchemaFieldID)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.GetAll">func (p *Pointer) GetAll() (sg *id.PropertySchemaGroupID, i *id.PropertyItemID, f *id.PropertySchemaFieldID)</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.Item">func (p *Pointer) Item() (i id.PropertyItemID, ok bool)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.ItemBySchemaGroup">func (p *Pointer) ItemBySchemaGroup() (i id.PropertySchemaFieldID, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.ItemBySchemaGroup">func (p *Pointer) ItemBySchemaGroup() (i id.PropertySchemaGroupID, ok bool)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.ItemBySchemaGroupAndItem">func (p *Pointer) ItemBySchemaGroupAndItem() (i id.PropertySchemaFieldID, i2 id.PropertyItemID, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.ItemBySchemaGroupAndItem">func (p *Pointer) ItemBySchemaGroupAndItem() (i id.PropertySchemaGroupID, i2 id.PropertyItemID, ok bool)</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.ItemRef">func (p *Pointer) ItemRef() *id.PropertyItemID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.SchemaGroupAndItem">func (p *Pointer) SchemaGroupAndItem() (i id.PropertySchemaFieldID, i2 id.PropertyItemID, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Pointer.SchemaGroupAndItem">func (p *Pointer) SchemaGroupAndItem() (i id.PropertySchemaGroupID, i2 id.PropertyItemID, ok bool)</a></dd>
 				
 			
 				
@@ -929,10 +936,10 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Property.GetOrCreateItem">func (p *Property) GetOrCreateItem(ps *Schema, ptr *Pointer) (Item, *GroupList)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Property.GroupBySchema">func (p *Property) GroupBySchema(id id.PropertySchemaFieldID) *Group</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Property.GroupBySchema">func (p *Property) GroupBySchema(id id.PropertySchemaGroupID) *Group</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Property.GroupListBySchema">func (p *Property) GroupListBySchema(id id.PropertySchemaFieldID) *GroupList</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Property.GroupListBySchema">func (p *Property) GroupListBySchema(id id.PropertySchemaGroupID) *GroupList</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Property.HasLinkedField">func (p *Property) HasLinkedField() bool</a></dd>
@@ -953,7 +960,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Property.ItemByPointer">func (p *Property) ItemByPointer(ptr *Pointer) (Item, *GroupList)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Property.ItemBySchema">func (p *Property) ItemBySchema(id id.PropertySchemaFieldID) Item</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Property.ItemBySchema">func (p *Property) ItemBySchema(id id.PropertySchemaGroupID) Item</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Property.Items">func (p *Property) Items() []Item</a></dd>
@@ -1026,7 +1033,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Fields">func (p *Schema) Fields() []*SchemaField</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Group">func (p *Schema) Group(id id.PropertySchemaFieldID) *SchemaGroup</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Schema.Group">func (p *Schema) Group(id id.PropertySchemaGroupID) *SchemaGroup</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Schema.GroupByField">func (p *Schema) GroupByField(id id.PropertySchemaFieldID) *SchemaGroup</a></dd>
@@ -1236,10 +1243,10 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroup.HasField">func (s *SchemaGroup) HasField(i id.PropertySchemaFieldID) bool</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroup.ID">func (s *SchemaGroup) ID() id.PropertySchemaFieldID</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroup.ID">func (s *SchemaGroup) ID() id.PropertySchemaGroupID</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroup.IDRef">func (s *SchemaGroup) IDRef() *id.PropertySchemaFieldID</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroup.IDRef">func (s *SchemaGroup) IDRef() *id.PropertySchemaGroupID</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroup.IsAvailableIf">func (s *SchemaGroup) IsAvailableIf() *Condition</a></dd>
@@ -1280,7 +1287,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroupBuilder.Fields">func (b *SchemaGroupBuilder) Fields(fields []*SchemaField) *SchemaGroupBuilder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroupBuilder.ID">func (b *SchemaGroupBuilder) ID(id id.PropertySchemaFieldID) *SchemaGroupBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroupBuilder.ID">func (b *SchemaGroupBuilder) ID(id id.PropertySchemaGroupID) *SchemaGroupBuilder</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#SchemaGroupBuilder.IsAvailableIf">func (b *SchemaGroupBuilder) IsAvailableIf(cond *Condition) *SchemaGroupBuilder</a></dd>
@@ -1360,7 +1367,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Sealed.ItemBy">func (s *Sealed) ItemBy(ptr *Pointer) *SealedItem</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Sealed.ItemBySchemaGroup">func (s *Sealed) ItemBySchemaGroup(i id.PropertySchemaFieldID) *SealedItem</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Sealed.ItemBySchemaGroup">func (s *Sealed) ItemBySchemaGroup(i id.PropertySchemaGroupID) *SealedItem</a></dd>
 				
 			
 				
@@ -1561,6 +1568,8 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/merged.go">merged.go</a>
 			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/migrator.go">migrator.go</a>
+			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go">pointer.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/property.go">property.go</a>
@@ -1613,12 +1622,12 @@
 			
 				
 				<pre>var (
-    <span id="ErrInvalidSceneID">ErrInvalidSceneID</span>               <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid scene id&#34;)
-    <span id="ErrInvalidPropertySchemaID">ErrInvalidPropertySchemaID</span>      <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid property schema id&#34;)
-    <span id="ErrInvalidValue">ErrInvalidValue</span>                 <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid value&#34;)
-    <span id="ErrInvalidPropertyLinkableField">ErrInvalidPropertyLinkableField</span> <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid property linkable field&#34;)
-    <span id="ErrInvalidVersion">ErrInvalidVersion</span>               <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid version&#34;)
-    <span id="ErrDuplicatedField">ErrDuplicatedField</span>                    = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;duplicated field&#34;)
+    <span id="ErrInvalidSceneID">ErrInvalidSceneID</span>               = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid scene id&#34;)
+    <span id="ErrInvalidPropertySchemaID">ErrInvalidPropertySchemaID</span>      = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid property schema id&#34;)
+    <span id="ErrInvalidValue">ErrInvalidValue</span>                 = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid value&#34;)
+    <span id="ErrInvalidPropertyLinkableField">ErrInvalidPropertyLinkableField</span> = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid property linkable field&#34;)
+    <span id="ErrInvalidVersion">ErrInvalidVersion</span>               = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid version&#34;)
+    <span id="ErrDuplicatedField">ErrDuplicatedField</span>              = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;duplicated field&#34;)
 )</pre>
 			
 				
@@ -2469,52 +2478,43 @@ Group represents a group of property
 
 			
 				
-				<h3 id="InitGroupFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=237:278#L8">InitGroupFrom</a>
+				<h3 id="InitGroupFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=186:227#L5">InitGroupFrom</a>
 					<a class="permalink" href="index.html#InitGroupFrom">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func InitGroupFrom(g *<a href="index.html#SchemaGroup">SchemaGroup</a>) *<a href="index.html#Group">Group</a></pre>
-				<p>
-InitGroupFrom _
-</p>
-
+				
 				
 				
 			
 				
-				<h3 id="ToGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=849:876#L26">ToGroup</a>
+				<h3 id="ToGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=826:853#L24">ToGroup</a>
 					<a class="permalink" href="index.html#ToGroup">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func ToGroup(i <a href="index.html#Item">Item</a>) *<a href="index.html#Group">Group</a></pre>
-				<p>
-ToGroup _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="Group.CollectDatasets">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1393:1441#L73">CollectDatasets</a>
+				<h3 id="Group.CollectDatasets">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1226:1274#L66">CollectDatasets</a>
 					<a class="permalink" href="index.html#Group.CollectDatasets">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) CollectDatasets() []<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a></pre>
-				<p>
-CollectDatasets _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.Field">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=4014:4072#L219">Field</a>
+				<h3 id="Group.Field">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3722:3780#L205">Field</a>
 					<a class="permalink" href="index.html#Group.Field">&#xb6;</a>
 					
 					
@@ -2529,22 +2529,19 @@ Field returns a field whose id is specified
 				
 			
 				
-				<h3 id="Group.FieldIDs">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3584:3637#L199">FieldIDs</a>
+				<h3 id="Group.FieldIDs">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3292:3345#L185">FieldIDs</a>
 					<a class="permalink" href="index.html#Group.FieldIDs">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) FieldIDs() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
-				<p>
-FieldIDs _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.Fields">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3857:3890#L211">Fields</a>
+				<h3 id="Group.Fields">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3565:3598#L197">Fields</a>
 					<a class="permalink" href="index.html#Group.Fields">&#xb6;</a>
 					
 					
@@ -2559,127 +2556,103 @@ Fields returns a slice of fields
 				
 			
 				
-				<h3 id="Group.FieldsByLinkedDataset">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1621:1705#L87">FieldsByLinkedDataset</a>
+				<h3 id="Group.FieldsByLinkedDataset">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1427:1511#L79">FieldsByLinkedDataset</a>
 					<a class="permalink" href="index.html#Group.FieldsByLinkedDataset">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) FieldsByLinkedDataset(s <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, i <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) []*<a href="index.html#Field">Field</a></pre>
-				<p>
-FieldsByLinkedDataset _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.GetOrCreateField">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=2753:2842#L155">GetOrCreateField</a>
+				<h3 id="Group.GetOrCreateField">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=2492:2581#L143">GetOrCreateField</a>
 					<a class="permalink" href="index.html#Group.GetOrCreateField">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) GetOrCreateField(ps *<a href="index.html#Schema">Schema</a>, fid <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) (*<a href="index.html#Field">Field</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-GetOrCreateField _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.HasLinkedField">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1204:1241#L60">HasLinkedField</a>
+				<h3 id="Group.HasLinkedField">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1058:1095#L54">HasLinkedField</a>
 					<a class="permalink" href="index.html#Group.HasLinkedField">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) HasLinkedField() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
-				<p>
-HasLinkedField _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.ID">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=319:357#L12">ID</a>
+				<h3 id="Group.ID">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=302:340#L11">ID</a>
 					<a class="permalink" href="index.html#Group.ID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a></pre>
-				<p>
-ID returns id
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.IDRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=467:509#L20">IDRef</a>
+				<h3 id="Group.IDRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=415:457#L18">IDRef</a>
 					<a class="permalink" href="index.html#Group.IDRef">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a></pre>
-				<p>
-IDRef returns a reference of id
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.IsDatasetLinked">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1894:1968#L101">IsDatasetLinked</a>
+				<h3 id="Group.IsDatasetLinked">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1679:1753#L92">IsDatasetLinked</a>
 					<a class="permalink" href="index.html#Group.IsDatasetLinked">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) IsDatasetLinked(s <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a>, i <a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
-				<p>
-IsDatasetLinked _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.IsEmpty">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=2117:2147#L114">IsEmpty</a>
+				<h3 id="Group.IsEmpty">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1889:1919#L104">IsEmpty</a>
 					<a class="permalink" href="index.html#Group.IsEmpty">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) IsEmpty() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
-				<p>
-IsEmpty _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.MigrateDataset">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=4214:4269#L232">MigrateDataset</a>
+				<h3 id="Group.MigrateDataset">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3902:3957#L217">MigrateDataset</a>
 					<a class="permalink" href="index.html#Group.MigrateDataset">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) MigrateDataset(q <a href="index.html#DatasetMigrationParam">DatasetMigrationParam</a>)</pre>
-				<p>
-MigrateDataset _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.MigrateSchema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=2438:2526#L138">MigrateSchema</a>
+				<h3 id="Group.MigrateSchema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=2199:2287#L127">MigrateSchema</a>
 					<a class="permalink" href="index.html#Group.MigrateSchema">&#xb6;</a>
 					
 					
@@ -2694,82 +2667,67 @@ TODO: group migration
 				
 			
 				
-				<h3 id="Group.Prune">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=2273:2296#L126">Prune</a>
+				<h3 id="Group.Prune">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=2034:2057#L115">Prune</a>
 					<a class="permalink" href="index.html#Group.Prune">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) Prune()</pre>
-				<p>
-Prune _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.RemoveField">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3355:3412#L186">RemoveField</a>
+				<h3 id="Group.RemoveField">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=3077:3134#L173">RemoveField</a>
 					<a class="permalink" href="index.html#Group.RemoveField">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) RemoveField(fid <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>)</pre>
-				<p>
-RemoveField _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.Schema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=927:971#L44">Schema</a>
+				<h3 id="Group.Schema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=801:845#L39">Schema</a>
 					<a class="permalink" href="index.html#Group.Schema">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (g *<a href="index.html#Group">Group</a>) Schema() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a></pre>
-				<p>
-Schema _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.SchemaGroup">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=616:670#L28">SchemaGroup</a>
+				<h3 id="Group.SchemaGroup">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=522:576#L25">SchemaGroup</a>
 					<a class="permalink" href="index.html#Group.SchemaGroup">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (g *<a href="index.html#Group">Group</a>) SchemaGroup() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
-				<p>
-SchemaGroup returns id of schema group
-</p>
-
+				<pre>func (g *<a href="index.html#Group">Group</a>) SchemaGroup() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.SchemaGroupRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=783:841#L36">SchemaGroupRef</a>
+				<h3 id="Group.SchemaGroupRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=669:727#L32">SchemaGroupRef</a>
 					<a class="permalink" href="index.html#Group.SchemaGroupRef">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (g *<a href="index.html#Group">Group</a>) SchemaGroupRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
-				<p>
-SchemaGroupRef _
-</p>
-
+				<pre>func (g *<a href="index.html#Group">Group</a>) SchemaGroupRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Group.SchemaRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=1067:1115#L52">SchemaRef</a>
+				<h3 id="Group.SchemaRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=941:989#L47">SchemaRef</a>
 					<a class="permalink" href="index.html#Group.SchemaRef">&#xb6;</a>
 					
 					
@@ -2784,7 +2742,7 @@ SchemaRef _
 				
 			
 				
-				<h3 id="Group.UpdateNameFieldValue">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=4357:4425#L241">UpdateNameFieldValue</a>
+				<h3 id="Group.UpdateNameFieldValue">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=4045:4113#L226">UpdateNameFieldValue</a>
 					<a class="permalink" href="index.html#Group.UpdateNameFieldValue">&#xb6;</a>
 					
 					
@@ -2796,7 +2754,7 @@ SchemaRef _
 				
 			
 				
-				<h3 id="Group.ValidateSchema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=4856:4909#L255">ValidateSchema</a>
+				<h3 id="Group.ValidateSchema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group.go?s=4544:4597#L240">ValidateSchema</a>
 					<a class="permalink" href="index.html#Group.ValidateSchema">&#xb6;</a>
 					
 					
@@ -2810,15 +2768,12 @@ SchemaRef _
 		
 			
 			
-			<h2 id="GroupBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=88:126#L1">GroupBuilder</a>
+			<h2 id="GroupBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=70:108#L1">GroupBuilder</a>
 				<a class="permalink" href="index.html#GroupBuilder">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-GroupBuilder _
-</p>
-
+			
 			<pre>type GroupBuilder struct {
     <span class="comment">// contains filtered or unexported fields</span>
 }
@@ -2834,107 +2789,86 @@ GroupBuilder _
 
 			
 				
-				<h3 id="NewGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=142:171#L1">NewGroup</a>
+				<h3 id="NewGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=110:139#L1">NewGroup</a>
 					<a class="permalink" href="index.html#NewGroup">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func NewGroup() *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
-				<p>
-NewGroup _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="GroupBuilder.Build">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=401:447#L17">Build</a>
+				<h3 id="GroupBuilder.Build">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=339:385#L13">Build</a>
 					<a class="permalink" href="index.html#GroupBuilder.Build">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Build() (*<a href="index.html#Group">Group</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
-				<p>
-Build _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupBuilder.Fields">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=1168:1228#L58">Fields</a>
+				<h3 id="GroupBuilder.Fields">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=1048:1108#L49">Fields</a>
 					<a class="permalink" href="index.html#GroupBuilder.Fields">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Fields(fields []*<a href="index.html#Field">Field</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
-				<p>
-Fields _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupBuilder.ID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=767:828#L39">ID</a>
+				<h3 id="GroupBuilder.ID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=682:743#L33">ID</a>
 					<a class="permalink" href="index.html#GroupBuilder.ID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
-				<p>
-ID _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupBuilder.MustBuild">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=555:596#L25">MustBuild</a>
+				<h3 id="GroupBuilder.MustBuild">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=478:519#L20">MustBuild</a>
 					<a class="permalink" href="index.html#GroupBuilder.MustBuild">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) MustBuild() *<a href="index.html#Group">Group</a></pre>
-				<p>
-MustBuild _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupBuilder.NewID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=877:921#L45">NewID</a>
+				<h3 id="GroupBuilder.NewID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=781:825#L38">NewID</a>
 					<a class="permalink" href="index.html#GroupBuilder.NewID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) NewID() *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
-				<p>
-NewID _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupBuilder.Schema">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=991:1085#L51">Schema</a>
+				<h3 id="GroupBuilder.Schema">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_builder.go?s=883:977#L43">Schema</a>
 					<a class="permalink" href="index.html#GroupBuilder.Schema">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Schema(s <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, g <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
-				<p>
-Schema _
-</p>
-
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Schema(s <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, g <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				
 				
 				
 				
@@ -2966,30 +2900,24 @@ GroupList _
 
 			
 				
-				<h3 id="InitGroupListFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=273:322#L8">InitGroupListFrom</a>
+				<h3 id="InitGroupListFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=210:259#L5">InitGroupListFrom</a>
 					<a class="permalink" href="index.html#InitGroupListFrom">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func InitGroupListFrom(g *<a href="index.html#SchemaGroup">SchemaGroup</a>) *<a href="index.html#GroupList">GroupList</a></pre>
-				<p>
-InitGroupListFrom _
-</p>
-
+				
 				
 				
 			
 				
-				<h3 id="ToGroupList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=929:964#L32">ToGroupList</a>
+				<h3 id="ToGroupList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=889:924#L29">ToGroupList</a>
 					<a class="permalink" href="index.html#ToGroupList">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func ToGroupList(i <a href="index.html#Item">Item</a>) *<a href="index.html#GroupList">GroupList</a></pre>
-				<p>
-ToGroupList _
-</p>
-
+				
 				
 				
 			
@@ -3376,7 +3304,7 @@ Schema _
 					
 					
 				</h3>
-				<pre>func (g *<a href="index.html#GroupList">GroupList</a>) SchemaGroup() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
+				<pre>func (g *<a href="index.html#GroupList">GroupList</a>) SchemaGroup() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
 				<p>
 SchemaGroup returns id of schema group
 </p>
@@ -3391,7 +3319,7 @@ SchemaGroup returns id of schema group
 					
 					
 				</h3>
-				<pre>func (g *<a href="index.html#GroupList">GroupList</a>) SchemaGroupRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
+				<pre>func (g *<a href="index.html#GroupList">GroupList</a>) SchemaGroupRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
 				<p>
 SchemaGroupRef _
 </p>
@@ -3430,15 +3358,12 @@ SchemaRef _
 		
 			
 			
-			<h2 id="GroupListBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=92:138#L1">GroupListBuilder</a>
+			<h2 id="GroupListBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=70:116#L1">GroupListBuilder</a>
 				<a class="permalink" href="index.html#GroupListBuilder">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-GroupListBuilder _
-</p>
-
+			
 			<pre>type GroupListBuilder struct {
     <span class="comment">// contains filtered or unexported fields</span>
 }
@@ -3454,107 +3379,86 @@ GroupListBuilder _
 
 			
 				
-				<h3 id="NewGroupList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=158:195#L1">NewGroupList</a>
+				<h3 id="NewGroupList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=118:155#L1">NewGroupList</a>
 					<a class="permalink" href="index.html#NewGroupList">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func NewGroupList() *<a href="index.html#GroupListBuilder">GroupListBuilder</a></pre>
-				<p>
-NewGroupList _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="GroupListBuilder.Build">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=464:518#L17">Build</a>
+				<h3 id="GroupListBuilder.Build">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=390:444#L13">Build</a>
 					<a class="permalink" href="index.html#GroupListBuilder.Build">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupListBuilder">GroupListBuilder</a>) Build() (*<a href="index.html#GroupList">GroupList</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
-				<p>
-Build _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupListBuilder.Groups">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=1279:1347#L58">Groups</a>
+				<h3 id="GroupListBuilder.Groups">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=1147:1215#L49">Groups</a>
 					<a class="permalink" href="index.html#GroupListBuilder.Groups">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupListBuilder">GroupListBuilder</a>) Groups(fields []*<a href="index.html#Group">Group</a>) *<a href="index.html#GroupListBuilder">GroupListBuilder</a></pre>
-				<p>
-Groups _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupListBuilder.ID">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=854:923#L39">ID</a>
+				<h3 id="GroupListBuilder.ID">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=757:826#L33">ID</a>
 					<a class="permalink" href="index.html#GroupListBuilder.ID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupListBuilder">GroupListBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>) *<a href="index.html#GroupListBuilder">GroupListBuilder</a></pre>
-				<p>
-ID _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupListBuilder.MustBuild">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=626:675#L25">MustBuild</a>
+				<h3 id="GroupListBuilder.MustBuild">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=537:586#L20">MustBuild</a>
 					<a class="permalink" href="index.html#GroupListBuilder.MustBuild">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupListBuilder">GroupListBuilder</a>) MustBuild() *<a href="index.html#GroupList">GroupList</a></pre>
-				<p>
-MustBuild _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupListBuilder.NewID">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=972:1024#L45">NewID</a>
+				<h3 id="GroupListBuilder.NewID">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=864:916#L38">NewID</a>
 					<a class="permalink" href="index.html#GroupListBuilder.NewID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#GroupListBuilder">GroupListBuilder</a>) NewID() *<a href="index.html#GroupListBuilder">GroupListBuilder</a></pre>
-				<p>
-NewID _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="GroupListBuilder.Schema">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=1094:1196#L51">Schema</a>
+				<h3 id="GroupListBuilder.Schema">func (*GroupListBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/group_list_builder.go?s=974:1076#L43">Schema</a>
 					<a class="permalink" href="index.html#GroupListBuilder.Schema">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#GroupListBuilder">GroupListBuilder</a>) Schema(s <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, g <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#GroupListBuilder">GroupListBuilder</a></pre>
-				<p>
-Schema _
-</p>
-
+				<pre>func (b *<a href="index.html#GroupListBuilder">GroupListBuilder</a>) Schema(s <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, g <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#GroupListBuilder">GroupListBuilder</a></pre>
+				
 				
 				
 				
@@ -3733,7 +3637,7 @@ PropertyIncludingEmpty generates a new property, but even if the initializer is 
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#InitializerGroup">InitializerGroup</a>) PropertyGroup(parent <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, parentItem <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) (*<a href="index.html#Group">Group</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
+				<pre>func (p *<a href="index.html#InitializerGroup">InitializerGroup</a>) PropertyGroup(parent <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, parentItem <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) (*<a href="index.html#Group">Group</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -3750,7 +3654,7 @@ PropertyIncludingEmpty generates a new property, but even if the initializer is 
 			
 			<pre>type InitializerItem struct {
 <span id="InitializerItem.ID"></span>    ID         *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>       `json:&#34;id&#34;`
-<span id="InitializerItem.SchemaItem"></span>    SchemaItem <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a> `json:&#34;schemaItem&#34;`
+<span id="InitializerItem.SchemaItem"></span>    SchemaItem <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a> `json:&#34;schemaItem&#34;`
 <span id="InitializerItem.Groups"></span>    Groups     []*<a href="index.html#InitializerGroup">InitializerGroup</a>      `json:&#34;groups&#34;`
 <span id="InitializerItem.Fields"></span>    Fields     []*<a href="index.html#InitializerField">InitializerField</a>      `json:&#34;fields&#34;`
 }
@@ -3869,20 +3773,17 @@ PropertyIncludingEmpty generates a new property, but even if the initializer is 
 		
 			
 			
-			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=147:706#L1">Item</a>
+			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=137:696#L1">Item</a>
 				<a class="permalink" href="index.html#Item">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Item _
-</p>
-
+			
 			<pre>type Item interface {
     ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>
     IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>
-    SchemaGroup() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>
-    SchemaGroupRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>
+    SchemaGroup() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>
+    SchemaGroupRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>
     Schema() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>
     SchemaRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>
     HasLinkedField() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>
@@ -3906,16 +3807,13 @@ Item _
 
 			
 				
-				<h3 id="InitItemFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=1022:1062#L38">InitItemFrom</a>
+				<h3 id="InitItemFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/item.go?s=964:1004#L34">InitItemFrom</a>
 					<a class="permalink" href="index.html#InitItemFrom">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func InitItemFrom(psg *<a href="index.html#SchemaGroup">SchemaGroup</a>) <a href="index.html#Item">Item</a></pre>
-				<p>
-InitItemFrom _
-</p>
-
+				
 				
 				
 			
@@ -4011,7 +3909,7 @@ InitItemFrom _
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Schema(s <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, g <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Schema(s <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a>, g <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
 				
 				
 				
@@ -4300,15 +4198,12 @@ Value _
 		
 			
 			
-			<h2 id="LinkableFields">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=220:284#L4">LinkableFields</a>
+			<h2 id="LinkableFields">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=200:264#L3">LinkableFields</a>
 				<a class="permalink" href="index.html#LinkableFields">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-LinkableFields _
-</p>
-
+			
 			<pre>type LinkableFields struct {
 <span id="LinkableFields.LatLng"></span>    LatLng *<a href="index.html#Pointer">Pointer</a>
 <span id="LinkableFields.URL"></span>    URL    *<a href="index.html#Pointer">Pointer</a>
@@ -4327,31 +4222,25 @@ LinkableFields _
 
 			
 				
-				<h3 id="LinkableFields.Clone">func (LinkableFields) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=2522:2568#L142">Clone</a>
+				<h3 id="LinkableFields.Clone">func (LinkableFields) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=2307:2353#L128">Clone</a>
 					<a class="permalink" href="index.html#LinkableFields.Clone">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (l <a href="index.html#LinkableFields">LinkableFields</a>) Clone() <a href="index.html#LinkableFields">LinkableFields</a></pre>
-				<p>
-Clone _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="LinkableFields.Validate">func (LinkableFields) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=2668:2716#L150">Validate</a>
+				<h3 id="LinkableFields.Validate">func (LinkableFields) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=2439:2487#L135">Validate</a>
 					<a class="permalink" href="index.html#LinkableFields.Validate">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (l <a href="index.html#LinkableFields">LinkableFields</a>) Validate(s *<a href="index.html#Schema">Schema</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
-				<p>
-Validate _
-</p>
-
+				
 				
 				
 				
@@ -5011,7 +4900,7 @@ MergedGroup represents a group of Merged
 			<pre>type MergedGroup struct {
 <span id="MergedGroup.Original"></span>    Original      *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>
 <span id="MergedGroup.Parent"></span>    Parent        *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>
-<span id="MergedGroup.SchemaGroup"></span>    SchemaGroup   <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>
+<span id="MergedGroup.SchemaGroup"></span>    SchemaGroup   <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>
 <span id="MergedGroup.LinkedDataset"></span>    LinkedDataset *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>
 <span id="MergedGroup.Groups"></span>    Groups        []*<a href="index.html#MergedGroup">MergedGroup</a>
 <span id="MergedGroup.Fields"></span>    Fields        []*<a href="index.html#MergedField">MergedField</a>
@@ -5121,13 +5010,65 @@ Properties returns associated property IDs
 		
 			
 			
-			<h2 id="Pointer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=83:216#L1">Pointer</a>
+			<h2 id="MigrationPlan">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/migrator.go?s=90:149#L1">MigrationPlan</a>
+				<a class="permalink" href="index.html#MigrationPlan">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type MigrationPlan struct {
+<span id="MigrationPlan.From"></span>    From *<a href="index.html#Pointer">Pointer</a>
+<span id="MigrationPlan.To"></span>    To   *<a href="index.html#Pointer">Pointer</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Migrator">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/migrator.go?s=18:88#L1">Migrator</a>
+				<a class="permalink" href="index.html#Migrator">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Migrator struct {
+<span id="Migrator.NewSchema"></span>    NewSchema *<a href="index.html#Schema">Schema</a>
+<span id="Migrator.Plans"></span>    Plans     []<a href="index.html#MigrationPlan">MigrationPlan</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Pointer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=143:273#L1">Pointer</a>
 				<a class="permalink" href="index.html#Pointer">&#xb6;</a>
 				
 				
 			</h2>
 			<p>
-Pointer _
+Pointer is a pointer to a field and an item in properties and schemas
 </p>
 
 			<pre>type Pointer struct {
@@ -5145,112 +5086,98 @@ Pointer _
 
 			
 				
-				<h3 id="NewPointer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=234:339#L3">NewPointer</a>
+				<h3 id="NewPointer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=312:417#L3">NewPointer</a>
 					<a class="permalink" href="index.html#NewPointer">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func NewPointer(sg *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, i *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
+				<pre>func NewPointer(sg *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, i *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
 				<p>
-NewPointer _
+NewPointer creates a new Pointer.
 </p>
 
 				
 				
 			
 				
-				<h3 id="PointField">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=523:627#L15">PointField</a>
+				<h3 id="PointField">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=652:756#L15">PointField</a>
 					<a class="permalink" href="index.html#PointField">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func PointField(sg *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, i *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
+				<pre>func PointField(sg *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, i *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
 				<p>
-PointField _
+PointField creates a new Pointer pointing the field in properties.
 </p>
 
 				
 				
 			
 				
-				<h3 id="PointFieldByItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1485:1564#L61">PointFieldByItem</a>
+				<h3 id="PointFieldByItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1736:1815#L53">PointFieldByItem</a>
 					<a class="permalink" href="index.html#PointFieldByItem">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func PointFieldByItem(i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
 				<p>
-PointFieldByItem _
+PointFieldByItem creates a new Pointer pointing to the field of the item in properties.
 </p>
 
 				
 				
 			
 				
-				<h3 id="PointFieldBySchemaGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1107:1201#L45">PointFieldBySchemaGroup</a>
+				<h3 id="PointFieldBySchemaGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1487:1581#L45">PointFieldBySchemaGroup</a>
 					<a class="permalink" href="index.html#PointFieldBySchemaGroup">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func PointFieldBySchemaGroup(sg <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
+				<pre>func PointFieldBySchemaGroup(sg <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
 				<p>
-PointFieldBySchemaGroup _
+PointFieldBySchemaGroup creates a new Pointer pointing to the field of the schema field in properties.
 </p>
 
 				
 				
 			
 				
-				<h3 id="PointFieldBySchemaGroupAndItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1303:1397#L53">PointFieldBySchemaGroupAndItem</a>
-					<a class="permalink" href="index.html#PointFieldBySchemaGroupAndItem">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func PointFieldBySchemaGroupAndItem(sg <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
-				<p>
-PointFieldBySchemaGroupAndItem _
-</p>
-
-				
-				
-			
-				
-				<h3 id="PointFieldOnly">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=750:808#L24">PointFieldOnly</a>
+				<h3 id="PointFieldOnly">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=932:990#L24">PointFieldOnly</a>
 					<a class="permalink" href="index.html#PointFieldOnly">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func PointFieldOnly(fid <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
 				<p>
-PointFieldOnly _
+PointField creates a new Pointer pointing the field in property schemas.
 </p>
 
 				
 				
 			
 				
-				<h3 id="PointItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=995:1039#L38">PointItem</a>
+				<h3 id="PointItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1298:1342#L38">PointItem</a>
 					<a class="permalink" href="index.html#PointItem">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func PointItem(i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
 				<p>
-PointItem _
+PointItem creates a new Pointer pointing to the item in properties.
 </p>
 
 				
 				
 			
 				
-				<h3 id="PointItemBySchema">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=873:933#L31">PointItemBySchema</a>
+				<h3 id="PointItemBySchema">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1121:1181#L31">PointItemBySchema</a>
 					<a class="permalink" href="index.html#PointItemBySchema">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func PointItemBySchema(sg <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
+				<pre>func PointItemBySchema(sg <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#Pointer">Pointer</a></pre>
 				<p>
-PointItemBySchema _
+PointItemBySchema creates a new Pointer pointing the schema item in property schemas.
 </p>
 
 				
@@ -5259,67 +5186,55 @@ PointItemBySchema _
 
 			
 				
-				<h3 id="Pointer.Clone">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1628:1662#L69">Clone</a>
+				<h3 id="Pointer.Clone">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1868:1902#L60">Clone</a>
 					<a class="permalink" href="index.html#Pointer.Clone">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) Clone() *<a href="index.html#Pointer">Pointer</a></pre>
-				<p>
-Clone _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.Field">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3438:3501#L164">Field</a>
+				<h3 id="Pointer.Field">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3526:3589#L148">Field</a>
 					<a class="permalink" href="index.html#Pointer.Field">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) Field() (f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-Field _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.FieldByItem">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2898:2988#L140">FieldByItem</a>
+				<h3 id="Pointer.FieldByItem">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3024:3114#L126">FieldByItem</a>
 					<a class="permalink" href="index.html#Pointer.FieldByItem">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) FieldByItem() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-FieldByItem _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.FieldBySchemaGroup">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3163:3268#L152">FieldBySchemaGroup</a>
+				<h3 id="Pointer.FieldBySchemaGroup">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3264:3369#L137">FieldBySchemaGroup</a>
 					<a class="permalink" href="index.html#Pointer.FieldBySchemaGroup">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) FieldBySchemaGroup() (sg <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-FieldBySchemaGroup _
-</p>
-
+				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) FieldBySchemaGroup() (sg <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.FieldRef">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3598:3652#L174">FieldRef</a>
+				<h3 id="Pointer.FieldRef">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3686:3740#L158">FieldRef</a>
 					<a class="permalink" href="index.html#Pointer.FieldRef">&#xb6;</a>
 					
 					
@@ -5331,67 +5246,55 @@ FieldBySchemaGroup _
 				
 			
 				
-				<h3 id="Pointer.GetAll">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3745:3853#L183">GetAll</a>
+				<h3 id="Pointer.GetAll">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=3821:3929#L166">GetAll</a>
 					<a class="permalink" href="index.html#Pointer.GetAll">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) GetAll() (sg *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, i *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>)</pre>
-				<p>
-GetAll _
-</p>
-
+				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) GetAll() (sg *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, i *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, f *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>)</pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.Item">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2606:2661#L121">Item</a>
+				<h3 id="Pointer.Item">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2749:2804#L108">Item</a>
 					<a class="permalink" href="index.html#Pointer.Item">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) Item() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-Item _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.ItemBySchemaGroup">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2124:2199#L93">ItemBySchemaGroup</a>
+				<h3 id="Pointer.ItemBySchemaGroup">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2305:2380#L82">ItemBySchemaGroup</a>
 					<a class="permalink" href="index.html#Pointer.ItemBySchemaGroup">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) ItemBySchemaGroup() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ItemBySchemaGroup _
-</p>
-
+				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) ItemBySchemaGroup() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.ItemBySchemaGroupAndItem">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=1857:1961#L81">ItemBySchemaGroupAndItem</a>
+				<h3 id="Pointer.ItemBySchemaGroupAndItem">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2063:2167#L71">ItemBySchemaGroupAndItem</a>
 					<a class="permalink" href="index.html#Pointer.ItemBySchemaGroupAndItem">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) ItemBySchemaGroupAndItem() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, i2 <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ItemBySchemaGroupAndItem _
-</p>
-
+				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) ItemBySchemaGroupAndItem() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, i2 <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Pointer.ItemRef">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2756:2802#L131">ItemRef</a>
+				<h3 id="Pointer.ItemRef">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2899:2945#L118">ItemRef</a>
 					<a class="permalink" href="index.html#Pointer.ItemRef">&#xb6;</a>
 					
 					
@@ -5403,16 +5306,13 @@ ItemBySchemaGroupAndItem _
 				
 			
 				
-				<h3 id="Pointer.SchemaGroupAndItem">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2332:2430#L104">SchemaGroupAndItem</a>
+				<h3 id="Pointer.SchemaGroupAndItem">func (*Pointer) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=2487:2585#L92">SchemaGroupAndItem</a>
 					<a class="permalink" href="index.html#Pointer.SchemaGroupAndItem">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) SchemaGroupAndItem() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>, i2 <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-SchemaGroupAndItem _
-</p>
-
+				<pre>func (p *<a href="index.html#Pointer">Pointer</a>) SchemaGroupAndItem() (i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>, i2 <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
 				
 				
 				
@@ -5596,7 +5496,7 @@ Value _
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Property">Property</a>) GroupBySchema(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#Group">Group</a></pre>
+				<pre>func (p *<a href="index.html#Property">Property</a>) GroupBySchema(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#Group">Group</a></pre>
 				
 				
 				
@@ -5608,7 +5508,7 @@ Value _
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Property">Property</a>) GroupListBySchema(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#GroupList">GroupList</a></pre>
+				<pre>func (p *<a href="index.html#Property">Property</a>) GroupListBySchema(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#GroupList">GroupList</a></pre>
 				
 				
 				
@@ -5692,9 +5592,9 @@ Value _
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Property">Property</a>) ItemBySchema(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) <a href="index.html#Item">Item</a></pre>
+				<pre>func (p *<a href="index.html#Property">Property</a>) ItemBySchema(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) <a href="index.html#Item">Item</a></pre>
 				<p>
-ItemBySchema returns a root item by a schema field ID.
+ItemBySchema returns a root item by a schema group ID.
 </p>
 
 				
@@ -5959,181 +5859,145 @@ Schema _
 
 			
 				
-				<h3 id="Schema.DetectDuplicatedFields">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=2027:2095#L119">DetectDuplicatedFields</a>
+				<h3 id="Schema.DetectDuplicatedFields">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1843:1911#L107">DetectDuplicatedFields</a>
 					<a class="permalink" href="index.html#Schema.DetectDuplicatedFields">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (s *<a href="index.html#Schema">Schema</a>) DetectDuplicatedFields() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
-				<p>
-DetectDuplicatedFields _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.Field">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=750:814#L40">Field</a>
+				<h3 id="Schema.Field">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=675:739#L34">Field</a>
 					<a class="permalink" href="index.html#Schema.Field">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) Field(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#SchemaField">SchemaField</a></pre>
-				<p>
-Field _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.FieldByPointer">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=966:1024#L53">FieldByPointer</a>
+				<h3 id="Schema.FieldByPointer">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=871:929#L46">FieldByPointer</a>
 					<a class="permalink" href="index.html#Schema.FieldByPointer">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) FieldByPointer(ptr *<a href="index.html#Pointer">Pointer</a>) *<a href="index.html#SchemaField">SchemaField</a></pre>
-				<p>
-FieldByPointer _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.Fields">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=545:585#L28">Fields</a>
+				<h3 id="Schema.Fields">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=481:521#L23">Fields</a>
 					<a class="permalink" href="index.html#Schema.Fields">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) Fields() []*<a href="index.html#SchemaField">SchemaField</a></pre>
-				<p>
-Fields _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.Group">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1296:1360#L73">Group</a>
+				<h3 id="Schema.Group">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1178:1242#L64">Group</a>
 					<a class="permalink" href="index.html#Schema.Group">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#Schema">Schema</a>) Group(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#SchemaGroup">SchemaGroup</a></pre>
-				<p>
-Group _
-</p>
-
+				<pre>func (p *<a href="index.html#Schema">Schema</a>) Group(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#SchemaGroup">SchemaGroup</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.GroupByField">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1496:1567#L86">GroupByField</a>
+				<h3 id="Schema.GroupByField">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1360:1431#L76">GroupByField</a>
 					<a class="permalink" href="index.html#Schema.GroupByField">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) GroupByField(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#SchemaGroup">SchemaGroup</a></pre>
-				<p>
-GroupByField _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.GroupByPointer">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1707:1765#L99">GroupByPointer</a>
+				<h3 id="Schema.GroupByPointer">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1551:1609#L88">GroupByPointer</a>
 					<a class="permalink" href="index.html#Schema.GroupByPointer">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) GroupByPointer(ptr *<a href="index.html#Pointer">Pointer</a>) *<a href="index.html#SchemaGroup">SchemaGroup</a></pre>
-				<p>
-GroupByPointer _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.Groups">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1162:1202#L65">Groups</a>
+				<h3 id="Schema.Groups">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=1055:1095#L57">Groups</a>
 					<a class="permalink" href="index.html#Schema.Groups">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) Groups() []*<a href="index.html#SchemaGroup">SchemaGroup</a></pre>
-				<p>
-Groups _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.ID">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=294:335#L10">ID</a>
+				<h3 id="Schema.ID">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=266:307#L8">ID</a>
 					<a class="permalink" href="index.html#Schema.ID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a></pre>
-				<p>
-ID _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.IDRef">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=365:410#L15">IDRef</a>
+				<h3 id="Schema.IDRef">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=326:371#L12">IDRef</a>
 					<a class="permalink" href="index.html#Schema.IDRef">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaID">PropertySchemaID</a></pre>
-				<p>
-IDRef _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.LinkableFields">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=2386:2434#L134">LinkableFields</a>
+				<h3 id="Schema.LinkableFields">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=2182:2230#L121">LinkableFields</a>
 					<a class="permalink" href="index.html#Schema.LinkableFields">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) LinkableFields() <a href="index.html#LinkableFields">LinkableFields</a></pre>
-				<p>
-LinkableFields _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Schema.Version">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=479:509#L23">Version</a>
+				<h3 id="Schema.Version">func (*Schema) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema.go?s=427:457#L19">Version</a>
 					<a class="permalink" href="index.html#Schema.Version">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (p *<a href="index.html#Schema">Schema</a>) Version() <a href="/reearth/reearth-backend/main/pkg/builtin/#int">int</a></pre>
-				<p>
-Version _
-</p>
-
+				
 				
 				
 				
@@ -6141,7 +6005,7 @@ Version _
 		
 			
 			
-			<h2 id="SchemaBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=555:595#L9">SchemaBuilder</a>
+			<h2 id="SchemaBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=519:559#L9">SchemaBuilder</a>
 				<a class="permalink" href="index.html#SchemaBuilder">&#xb6;</a>
 				
 				
@@ -6162,7 +6026,7 @@ Version _
 
 			
 				
-				<h3 id="NewSchema">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=597:628#L13">NewSchema</a>
+				<h3 id="NewSchema">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=561:592#L13">NewSchema</a>
 					<a class="permalink" href="index.html#NewSchema">&#xb6;</a>
 					
 					
@@ -6175,7 +6039,7 @@ Version _
 
 			
 				
-				<h3 id="SchemaBuilder.Build">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=671:719#L17">Build</a>
+				<h3 id="SchemaBuilder.Build">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=635:683#L17">Build</a>
 					<a class="permalink" href="index.html#SchemaBuilder.Build">&#xb6;</a>
 					
 					
@@ -6187,7 +6051,7 @@ Version _
 				
 			
 				
-				<h3 id="SchemaBuilder.Groups">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1308:1376#L48">Groups</a>
+				<h3 id="SchemaBuilder.Groups">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1272:1340#L48">Groups</a>
 					<a class="permalink" href="index.html#SchemaBuilder.Groups">&#xb6;</a>
 					
 					
@@ -6199,7 +6063,7 @@ Version _
 				
 			
 				
-				<h3 id="SchemaBuilder.ID">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1116:1181#L38">ID</a>
+				<h3 id="SchemaBuilder.ID">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1080:1145#L38">ID</a>
 					<a class="permalink" href="index.html#SchemaBuilder.ID">&#xb6;</a>
 					
 					
@@ -6211,7 +6075,7 @@ Version _
 				
 			
 				
-				<h3 id="SchemaBuilder.LinkableFields">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1668:1739#L65">LinkableFields</a>
+				<h3 id="SchemaBuilder.LinkableFields">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1632:1703#L65">LinkableFields</a>
 					<a class="permalink" href="index.html#SchemaBuilder.LinkableFields">&#xb6;</a>
 					
 					
@@ -6223,7 +6087,7 @@ Version _
 				
 			
 				
-				<h3 id="SchemaBuilder.MustBuild">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1003:1046#L30">MustBuild</a>
+				<h3 id="SchemaBuilder.MustBuild">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=967:1010#L30">MustBuild</a>
 					<a class="permalink" href="index.html#SchemaBuilder.MustBuild">&#xb6;</a>
 					
 					
@@ -6235,7 +6099,7 @@ Version _
 				
 			
 				
-				<h3 id="SchemaBuilder.Version">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1210:1269#L43">Version</a>
+				<h3 id="SchemaBuilder.Version">func (*SchemaBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_builder.go?s=1174:1233#L43">Version</a>
 					<a class="permalink" href="index.html#SchemaBuilder.Version">&#xb6;</a>
 					
 					
@@ -6941,7 +6805,7 @@ Fields returns a slice of fields
 					
 					
 				</h3>
-				<pre>func (s *<a href="index.html#SchemaGroup">SchemaGroup</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
+				<pre>func (s *<a href="index.html#SchemaGroup">SchemaGroup</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
 				<p>
 ID returns id
 </p>
@@ -6956,7 +6820,7 @@ ID returns id
 					
 					
 				</h3>
-				<pre>func (s *<a href="index.html#SchemaGroup">SchemaGroup</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a></pre>
+				<pre>func (s *<a href="index.html#SchemaGroup">SchemaGroup</a>) IDRef() *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a></pre>
 				
 				
 				
@@ -7139,7 +7003,7 @@ Title returns a title of the group
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#SchemaGroupBuilder">SchemaGroupBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#SchemaGroupBuilder">SchemaGroupBuilder</a></pre>
+				<pre>func (b *<a href="index.html#SchemaGroupBuilder">SchemaGroupBuilder</a>) ID(id <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#SchemaGroupBuilder">SchemaGroupBuilder</a></pre>
 				
 				
 				
@@ -7471,7 +7335,7 @@ Title returns a title of the group
 					
 					
 				</h3>
-				<pre>func (s *<a href="index.html#Sealed">Sealed</a>) ItemBySchemaGroup(i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#SealedItem">SealedItem</a></pre>
+				<pre>func (s *<a href="index.html#Sealed">Sealed</a>) ItemBySchemaGroup(i <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>) *<a href="index.html#SealedItem">SealedItem</a></pre>
 				
 				
 				
@@ -7517,7 +7381,7 @@ Title returns a title of the group
 			<pre>type SealedItem struct {
 <span id="SealedItem.Original"></span>    Original      *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>
 <span id="SealedItem.Parent"></span>    Parent        *<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyItemID">PropertyItemID</a>
-<span id="SealedItem.SchemaGroup"></span>    SchemaGroup   <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>
+<span id="SealedItem.SchemaGroup"></span>    SchemaGroup   <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaGroupID">PropertySchemaGroupID</a>
 <span id="SealedItem.LinkedDataset"></span>    LinkedDataset *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetID">DatasetID</a>
 <span id="SealedItem.Fields"></span>    Fields        []*<a href="index.html#SealedField">SealedField</a>
 <span id="SealedItem.Groups"></span>    Groups        []*<a href="index.html#SealedItem">SealedItem</a>
