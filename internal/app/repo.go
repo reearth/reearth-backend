@@ -74,7 +74,7 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 	gateways.Google = google.NewGoogle()
 
 	// SMTP Mailer
-	gateways.Mailer = mailer.NewWithSMTP(conf.SMTP.Host, conf.SMTP.Port, conf.SMTP.SMTPUsername, conf.SMTP.Password)
+	gateways.Mailer = initMailer(conf)
 
 	// release lock of all scenes
 	if err := repos.SceneLock.ReleaseAllLock(context.Background()); err != nil {
@@ -82,4 +82,13 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 	}
 
 	return repos, gateways
+}
+
+func initMailer(conf *Config) gateway.Mailer {
+	if conf.Mailer == "sendgrid" {
+		return mailer.NewWithSendGrid(conf.SendGrid.Name, conf.SendGrid.Email, conf.SendGrid.API)
+	} else if conf.Mailer == "smtp" {
+		return mailer.NewWithSMTP(conf.SMTP.Host, conf.SMTP.Port, conf.SMTP.SMTPUsername, conf.SMTP.Password)
+	}
+	return nil
 }

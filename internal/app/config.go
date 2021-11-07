@@ -18,6 +18,7 @@ type Config struct {
 	Dev          bool
 	DB           string `default:"mongodb://localhost"`
 	Auth0        Auth0Config
+	Mailer       string
 	SMTP         SMTPConfig
 	SendGrid     SendGridConfig
 	GraphQL      GraphQLConfig
