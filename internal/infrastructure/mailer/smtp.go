@@ -37,7 +37,7 @@ func (m *message) encodeContent() (string, error) {
 		return "", err
 	}
 	relatedWriter := multipart.NewWriter(relatedBuffer)
-	err = relatedWriter.SetBoundary(newBoundary)
+	err = relatedWriter.SetBoundary(fix70Boundary(newBoundary))
 	if err != nil {
 		return "", err
 	}
@@ -48,7 +48,7 @@ func (m *message) encodeContent() (string, error) {
 		return "", err
 	}
 	altWriter := multipart.NewWriter(altBuffer)
-	err = altWriter.SetBoundary(newBoundary)
+	err = altWriter.SetBoundary(fix70Boundary(newBoundary))
 	if err != nil {
 		return "", err
 	}
@@ -121,4 +121,11 @@ func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlC
 	auth := smtp.PlainAuth("", m.username, m.password, m.host)
 
 	return smtp.SendMail(m.host+":"+m.port, auth, m.username, emails, encodedMsg)
+}
+
+func fix70Boundary(b string) string {
+	if len(b) > 70 {
+		return b[0:69]
+	}
+	return b
 }
