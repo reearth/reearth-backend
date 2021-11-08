@@ -99,7 +99,10 @@ func Test_message_encodeMessage(t *testing.T) {
 		subject      string
 		plainContent string
 		htmlContent  string
-		want         []byte
+		wantTo       bool
+		wantSubject  bool
+		wantPlain    bool
+		wantHtml     bool
 		wantErr      bool
 	}{
 		{
@@ -108,6 +111,10 @@ func Test_message_encodeMessage(t *testing.T) {
 			subject:      "test",
 			plainContent: "plain content",
 			htmlContent:  `<h1>html content</h1>`,
+			wantTo:       true,
+			wantSubject:  true,
+			wantPlain:    true,
+			wantHtml:     true,
 			wantErr:      false,
 		},
 	}
@@ -116,12 +123,18 @@ func Test_message_encodeMessage(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
 			m := &message{
+				to:           []string{"someone@email.com"},
+				subject:      "test",
 				plainContent: tc.plainContent,
 				htmlContent:  tc.htmlContent,
 			}
-			got, err := m.encodeContent()
+			got, err := m.encodeMessage()
+			str := string(got)
 			assert.Equal(tt, tc.wantErr, err != nil)
-			assert.Equal(tt, tc.want, got)
+			assert.Equal(tt, tc.wantSubject, strings.Contains(str, tc.subject))
+			assert.Equal(tt, tc.wantTo, strings.Contains(str, tc.to[0]))
+			assert.Equal(tt, tc.wantPlain, strings.Contains(str, tc.plainContent))
+			assert.Equal(tt, tc.wantHtml, strings.Contains(str, tc.htmlContent))
 		})
 	}
 }
