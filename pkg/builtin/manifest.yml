@@ -61,11 +61,11 @@ extensions:
               title: Enable camera limiter
               defaultValue: false
               description: Enable camera limiter
-            # - id: enable_outline
-            #   type: bool
-            #   title: Show box entity
-            #   defaultValue: true
-            #   description: Display the box limits.
+            - id: enable_outline
+              type: bool
+              title: Show box entity
+              defaultValue: true
+              description: Display the box limits.
             - id: box_x
               type: number
               title: Center longitude
