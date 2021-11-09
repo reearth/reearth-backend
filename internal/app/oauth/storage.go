@@ -23,7 +23,6 @@ var (
 	clients   map[string]op.Client
 	requests  map[string]AuthRequest
 	keySet    jose.JSONWebKeySet
-	cert      x509.Certificate
 )
 
 type AuthStorage struct {
@@ -41,13 +40,13 @@ func NewAuthStorage(cfg *AuthSrvConfig) op.Storage {
 
 	s := &AuthStorage{}
 
-	initData(s)
+	initData()
 	initKeys(s)
 
 	return s
 }
 
-func initData(s *AuthStorage) {
+func initData() {
 	clients = map[string]op.Client{
 		"01FH69GFQ4DFCXS5XD91JK4HZ1": &ConfClient{
 			ID:              "01FH69GFQ4DFCXS5XD91JK4HZ1",
@@ -192,8 +191,8 @@ func (s *AuthStorage) SaveAuthCode(ctx context.Context, requestID, code string) 
 	}
 
 	request.code = code
-	s.updateRequest(ctx, requestID, request)
-	return nil
+	err := s.updateRequest(ctx, requestID, request)
+	return err
 }
 
 func (s *AuthStorage) DeleteAuthRequest(_ context.Context, requestID string) error {
@@ -201,11 +200,11 @@ func (s *AuthStorage) DeleteAuthRequest(_ context.Context, requestID string) err
 	return nil
 }
 
-func (s *AuthStorage) CreateAccessToken(ctx context.Context, request op.TokenRequest) (string, time.Time, error) {
+func (s *AuthStorage) CreateAccessToken(_ context.Context, _ op.TokenRequest) (string, time.Time, error) {
 	return "id", time.Now().UTC().Add(5 * time.Hour), nil
 }
 
-func (s *AuthStorage) CreateAccessAndRefreshTokens(ctx context.Context, request op.TokenRequest, currentRefreshToken string) (accessTokenID string, newRefreshToken string, expiration time.Time, err error) {
+func (s *AuthStorage) CreateAccessAndRefreshTokens(_ context.Context, request op.TokenRequest, _ string) (accessTokenID string, newRefreshToken string, expiration time.Time, err error) {
 	authReq := request.(*AuthRequest)
 	return "id", authReq.ID, time.Now().UTC().Add(5 * time.Minute), nil
 }
@@ -215,7 +214,7 @@ func (s *AuthStorage) TokenRequestByRefreshToken(ctx context.Context, refreshTok
 	return r.(op.RefreshTokenRequest), err
 }
 
-func (s *AuthStorage) TerminateSession(_ context.Context, userID, clientID string) error {
+func (s *AuthStorage) TerminateSession(_ context.Context, _, _ string) error {
 	return errors.New("not implemented")
 }
 
@@ -264,15 +263,15 @@ func (s *AuthStorage) GetClientByClientID(_ context.Context, clientID string) (o
 	return &ConfClient{ID: id, applicationType: appType, authMethod: authMethod, accessTokenType: accessTokenType, responseTypes: responseTypes, devMode: true}, nil */
 }
 
-func (s *AuthStorage) AuthorizeClientIDSecret(_ context.Context, id string, _ string) error {
+func (s *AuthStorage) AuthorizeClientIDSecret(_ context.Context, _ string, _ string) error {
 	return nil
 }
 
-func (s *AuthStorage) SetUserinfoFromToken(ctx context.Context, userinfo oidc.UserInfoSetter, tokenID, subject, origin string) error {
+func (s *AuthStorage) SetUserinfoFromToken(ctx context.Context, userinfo oidc.UserInfoSetter, _, _, _ string) error {
 	return s.SetUserinfoFromScopes(ctx, userinfo, "", "", []string{})
 }
 
-func (s *AuthStorage) SetUserinfoFromScopes(ctx context.Context, userinfo oidc.UserInfoSetter, subject, clientID string, scopes []string) error {
+func (s *AuthStorage) SetUserinfoFromScopes(ctx context.Context, userinfo oidc.UserInfoSetter, subject, _ string, _ []string) error {
 
 	request, err := s.AuthRequestBySubject(ctx, subject)
 	if err != nil {
@@ -295,7 +294,7 @@ func (s *AuthStorage) GetPrivateClaimsFromScopes(_ context.Context, _, _ string,
 	return map[string]interface{}{"private_claim": "test"}, nil
 }
 
-func (s *AuthStorage) SetIntrospectionFromToken(ctx context.Context, introspect oidc.IntrospectionResponse, tokenID, subject, clientID string) error {
+func (s *AuthStorage) SetIntrospectionFromToken(ctx context.Context, introspect oidc.IntrospectionResponse, _, subject, clientID string) error {
 	if err := s.SetUserinfoFromScopes(ctx, introspect, subject, clientID, []string{}); err != nil {
 		return err
 	}
@@ -307,7 +306,7 @@ func (s *AuthStorage) SetIntrospectionFromToken(ctx context.Context, introspect 
 	return nil
 }
 
-func (s *AuthStorage) ValidateJWTProfileScopes(ctx context.Context, userID string, scope []string) ([]string, error) {
+func (s *AuthStorage) ValidateJWTProfileScopes(_ context.Context, _ string, scope []string) ([]string, error) {
 	return scope, nil
 }
 
@@ -318,11 +317,11 @@ func (s *AuthStorage) CompleteAuthRequest(ctx context.Context, requestId, sub st
 	}
 	req := request.(*AuthRequest)
 	req.Complete(sub)
-	s.updateRequest(ctx, requestId, *req)
-	return nil
+	err = s.updateRequest(ctx, requestId, *req)
+	return err
 }
 
-func (s *AuthStorage) updateRequest(ctx context.Context, requestID string, req AuthRequest) error {
+func (s *AuthStorage) updateRequest(_ context.Context, requestID string, req AuthRequest) error {
 
 	if requestID == "" {
 		return errors.New("invalid id")
