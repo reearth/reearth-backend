@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
+	"strings"
 
 	"github.com/caos/oidc/pkg/op"
 	"github.com/gorilla/mux"
@@ -24,8 +26,9 @@ func AuthEndPoints(e *echo.Echo, r *echo.Group, cfg *ServerConfig) {
 	ctx := context.Background()
 
 	config := &op.Config{
-		Issuer:    cfg.Config.AuthSrv.Domain,
-		CryptoKey: sha256.Sum256([]byte(cfg.Config.AuthSrv.Key)),
+		Issuer:                cfg.Config.AuthSrv.Domain,
+		CryptoKey:             sha256.Sum256([]byte(cfg.Config.AuthSrv.Key)),
+		GrantTypeRefreshToken: true,
 	}
 	storage := oauth.NewAuthStorage(&oauth.AuthSrvConfig{
 		Domain: cfg.Config.AuthSrv.Domain,
@@ -51,9 +54,8 @@ func AuthEndPoints(e *echo.Echo, r *echo.Group, cfg *ServerConfig) {
 	}
 
 	// Actual login endpoint
-	r.POST("api/login", login(ctx, storage, usersController))
+	r.POST("api/login", login(ctx, cfg, storage, usersController))
 
-	// <-ctx.Done()
 }
 
 func setURLVarsHandler() func(handler http.Handler) http.Handler {
@@ -139,10 +141,9 @@ type Login struct {
 	AuthRequestID string `json:"id"`
 }
 
-func login(ctx context.Context, storage op.Storage, usersController *http1.UserController) func(ctx echo.Context) error {
+func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, usersController *http1.UserController) func(ctx echo.Context) error {
 	return func(ec echo.Context) error {
-		// r := ec.Request()
-		// w := ec.Response()
+
 		request := new(Login)
 		err := ec.Bind(&request)
 		if err != nil {
@@ -150,9 +151,15 @@ func login(ctx context.Context, storage op.Storage, usersController *http1.UserC
 			return err
 		}
 
+		authRequest, err := storage.AuthRequestByID(ctx, request.AuthRequestID)
+		if err != nil {
+			ec.Logger().Error("filed to parse login request")
+			return err
+		}
+
 		if len(request.Email) == 0 || len(request.Password) == 0 {
 			ec.Logger().Error("credentials are not provided")
-			return nil
+			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
 		}
 
 		// check user credentials from db
@@ -162,16 +169,39 @@ func login(ctx context.Context, storage op.Storage, usersController *http1.UserC
 		})
 		if err != nil {
 			ec.Logger().Error("wrong credentials!")
-			return ec.Redirect(http.StatusFound, "/login")
+			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
 		}
 
 		// Complete the auth request && set the subject
 		err = storage.(*oauth.AuthStorage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
 		if err != nil {
 			ec.Logger().Error("failed to complete the auth request !")
-			return ec.Redirect(http.StatusFound, "/login")
+			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
 		}
 
 		return ec.Redirect(http.StatusFound, "/authorize/callback?id="+request.AuthRequestID)
 	}
+}
+
+func redirectURL(domain string, secure bool, requestID string, error string) string {
+	domain = strings.TrimPrefix(domain, "http://")
+	domain = strings.TrimPrefix(domain, "https://")
+
+	schema := "http"
+	if secure {
+		schema = "https"
+	}
+
+	u := url.URL{
+		Scheme: schema,
+		Host:   domain,
+		Path:   "login",
+	}
+
+	queryValues := u.Query()
+	queryValues.Set("id", requestID)
+	queryValues.Set("error", error)
+	u.RawQuery = queryValues.Encode()
+
+	return u.String()
 }

@@ -69,14 +69,12 @@ func (c *ConfClient) DevMode() bool {
 }
 
 func (c *ConfClient) RestrictAdditionalIdTokenScopes() func(scopes []string) []string {
-	panic("not implemented")
 	return func(scopes []string) []string {
 		return scopes
 	}
 }
 
 func (c *ConfClient) RestrictAdditionalAccessTokenScopes() func(scopes []string) []string {
-	panic("not implemented")
 	return func(scopes []string) []string {
 		return scopes
 	}

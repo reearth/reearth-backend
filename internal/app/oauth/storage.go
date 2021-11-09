@@ -23,6 +23,7 @@ var (
 	clients   map[string]op.Client
 	requests  map[string]AuthRequest
 	keySet    jose.JSONWebKeySet
+	cert      x509.Certificate
 )
 
 type AuthStorage struct {
@@ -96,12 +97,18 @@ func initKeys(s *AuthStorage) {
 	}
 
 	caBytes, err := x509.CreateCertificate(rand.Reader, cert, cert, &key.PublicKey, key)
+	if err != nil {
+		panic("failed to create the cert")
+	}
 
-	t, err := x509.ParseCertificate(caBytes)
+	cert, err = x509.ParseCertificate(caBytes)
+	if err != nil {
+		panic("failed to create the cert")
+	}
 
 	keySet = jose.JSONWebKeySet{
 		Keys: []jose.JSONWebKey{
-			{Key: key.Public(), Use: "sig", Algorithm: "RS256", KeyID: "1", Certificates: []*x509.Certificate{t}},
+			{Key: key.Public(), Use: "sig", Algorithm: "RS256", KeyID: "1", Certificates: []*x509.Certificate{cert}},
 		},
 	}
 }
@@ -177,7 +184,7 @@ func (s *AuthStorage) AuthRequestBySubject(_ context.Context, subject string) (o
 	return nil, errors.New("invalid subject")
 }
 
-func (s *AuthStorage) SaveAuthCode(_ context.Context, requestID, code string) error {
+func (s *AuthStorage) SaveAuthCode(ctx context.Context, requestID, code string) error {
 
 	request, exists := requests[requestID]
 	if !exists {
@@ -185,6 +192,7 @@ func (s *AuthStorage) SaveAuthCode(_ context.Context, requestID, code string) er
 	}
 
 	request.code = code
+	s.updateRequest(ctx, requestID, request)
 	return nil
 }
 
@@ -198,11 +206,13 @@ func (s *AuthStorage) CreateAccessToken(ctx context.Context, request op.TokenReq
 }
 
 func (s *AuthStorage) CreateAccessAndRefreshTokens(ctx context.Context, request op.TokenRequest, currentRefreshToken string) (accessTokenID string, newRefreshToken string, expiration time.Time, err error) {
-	return "id", "refreshToken", time.Now().UTC().Add(5 * time.Minute), nil
+	authReq := request.(*AuthRequest)
+	return "id", authReq.ID, time.Now().UTC().Add(5 * time.Minute), nil
 }
 
 func (s *AuthStorage) TokenRequestByRefreshToken(ctx context.Context, refreshToken string) (op.RefreshTokenRequest, error) {
-	return nil, errors.New("not implemented")
+	r, err := s.AuthRequestByID(ctx, refreshToken)
+	return r.(op.RefreshTokenRequest), err
 }
 
 func (s *AuthStorage) TerminateSession(_ context.Context, userID, clientID string) error {
