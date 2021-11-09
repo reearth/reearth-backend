@@ -1,10 +1,11 @@
 package mailer
 
 import (
-	"github.com/reearth/reearth-backend/internal/usecase/gateway"
-	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
+
+	"github.com/reearth/reearth-backend/internal/usecase/gateway"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewWithSMTP(t *testing.T) {
@@ -135,42 +136,6 @@ func Test_message_encodeMessage(t *testing.T) {
 			assert.Equal(tt, tc.wantTo, strings.Contains(str, tc.to[0]))
 			assert.Equal(tt, tc.wantPlain, strings.Contains(str, tc.plainContent))
 			assert.Equal(tt, tc.wantHtml, strings.Contains(str, tc.htmlContent))
-		})
-	}
-}
-
-func Test_smtpMailer_SendMail(t *testing.T) {
-	type fields struct {
-		host     string
-		port     string
-		username string
-		password string
-	}
-	type args struct {
-		to           []gateway.Contact
-		subject      string
-		plainContent string
-		htmlContent  string
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			m := &smtpMailer{
-				host:     tt.fields.host,
-				port:     tt.fields.port,
-				username: tt.fields.username,
-				password: tt.fields.password,
-			}
-			if err := m.SendMail(tt.args.to, tt.args.subject, tt.args.plainContent, tt.args.htmlContent); (err != nil) != tt.wantErr {
-				t.Errorf("SendMail() error = %v, wantErr %v", err, tt.wantErr)
-			}
 		})
 	}
 }
