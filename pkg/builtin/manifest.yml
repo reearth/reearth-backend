@@ -1638,15 +1638,15 @@ extensions:
                 type: string
                 value: label
             - id: cluster_backgroundColor
-                type: string
-                ui: color
-                title: Background color
-                description: sets the background color of cluster entity.
+              type: string
+              ui: color
+              title: Background color
+              description: sets the background color of cluster entity.
             - id: cluster_image
-                type: url
-                title: Image
-                description: sets the image of cluster entity.
-                ui: image
+              type: url
+              title: Image
+              description: sets the image of cluster entity.
+              ui: image
         - id: layers
           title: Layers
           representativeField: layer
