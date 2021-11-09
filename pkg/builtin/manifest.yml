@@ -52,6 +52,50 @@ extensions:
               type: string
               title: Cesium Ion API access token
               description: Cesium Ion account users may use their personal API keys to be able to use their Cesium Ion assets(tile data, 3D data, etc) with their project.
+        - id: cameraLimiter
+          title: Camera Limiter
+          description: Set the camera limiting box.
+          fields:
+            - id: enable_camera_limiter
+              type: bool
+              title: Enable camera limiter
+              defaultValue: false
+              description: Enable camera limiter
+            # - id: enable_outline
+            #   type: bool
+            #   title: Show box entity
+            #   defaultValue: true
+            #   description: Display the box limits.
+            - id: box_x
+              type: number
+              title: Center longitude
+              defaultValue: -100.0
+              description: Set center point longitude
+            - id: box_y
+              type: number
+              title: Center latitude
+              defaultValue: 45.0
+              description: Set center point latitude
+            - id: box_z
+              type: number
+              title: Center height
+              defaultValue: 300000
+              description: Set center point height
+            - id: box_length
+              type: number
+              title: Box length
+              defaultValue: 300000
+              description: Set box length
+            - id: box_width
+              type: number
+              title: Box width
+              defaultValue: 1000000
+              description: Set box width
+            - id: box_height
+              type: number
+              title: Box height
+              defaultValue: 500000
+              description: Set box height           
         - id: tiles
           title: Tiles
           description: You may change the look of the Earth by obtaining map tile data and setting it here.
