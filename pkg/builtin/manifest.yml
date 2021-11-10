@@ -64,7 +64,7 @@ extensions:
             - id: enable_outline
               type: bool
               title: Show box entity
-              defaultValue: true
+              defaultValue: false
               description: Display the box limits.
             - id: box_x
               type: number
