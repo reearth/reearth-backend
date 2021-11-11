@@ -15,7 +15,6 @@ var TypeUnknown = Type("")
 
 var defaultTypes = TypePropertyMap{
 	TypeBool:         propertyBool,
-	TypeCamera:       propertyCamera,
 	TypeCoordinates:  propertyCoordinates,
 	TypeLatLng:       propertyLatLng,
 	TypeLatLngHeight: propertyLatLngHeight,
@@ -24,7 +23,6 @@ var defaultTypes = TypePropertyMap{
 	TypeRect:         propertyRect,
 	TypeRef:          propertyRef,
 	TypeString:       propertyString,
-	TypeTypography:   propertyTypography,
 	TypeURL:          propertyURL,
 }
 
