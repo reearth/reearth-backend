@@ -10,6 +10,7 @@ import (
 	"math/big"
 	mrand "math/rand"
 	"net"
+	"sync"
 	"time"
 
 	"github.com/caos/oidc/pkg/oidc"
@@ -19,6 +20,7 @@ import (
 )
 
 type Storage struct {
+	lock      sync.Mutex
 	appConfig *StorageConfig
 	clients   map[string]op.Client
 	requests  map[string]AuthRequest
@@ -104,6 +106,8 @@ func (s *Storage) Health(_ context.Context) error {
 }
 
 func (s *Storage) CreateAuthRequest(_ context.Context, authReq *oidc.AuthRequest, _ string) (op.AuthRequest, error) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 
 	ti := time.Now()
 	entropy := ulid.Monotonic(mrand.New(mrand.NewSource(ti.UnixNano())), 0)
@@ -141,6 +145,8 @@ func (s *Storage) CreateAuthRequest(_ context.Context, authReq *oidc.AuthRequest
 }
 
 func (s *Storage) AuthRequestByID(_ context.Context, requestID string) (op.AuthRequest, error) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 
 	if requestID == "" {
 		return nil, errors.New("invalid id")
@@ -153,6 +159,8 @@ func (s *Storage) AuthRequestByID(_ context.Context, requestID string) (op.AuthR
 }
 
 func (s *Storage) AuthRequestByCode(_ context.Context, code string) (op.AuthRequest, error) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 
 	if code == "" {
 		return nil, errors.New("invalid code")
@@ -166,6 +174,8 @@ func (s *Storage) AuthRequestByCode(_ context.Context, code string) (op.AuthRequ
 }
 
 func (s *Storage) AuthRequestBySubject(_ context.Context, subject string) (op.AuthRequest, error) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 
 	if subject == "" {
 		return nil, errors.New("invalid subject")
@@ -180,17 +190,20 @@ func (s *Storage) AuthRequestBySubject(_ context.Context, subject string) (op.Au
 
 func (s *Storage) SaveAuthCode(ctx context.Context, requestID, code string) error {
 
-	request, exists := s.requests[requestID]
-	if !exists {
-		return errors.New("not found")
+	request, err := s.AuthRequestByID(ctx, requestID)
+	if err != nil {
+		return err
 	}
-
-	request.code = code
-	err := s.updateRequest(ctx, requestID, request)
+	request2 := request.(*AuthRequest)
+	request2.code = code
+	err = s.updateRequest(ctx, requestID, *request2)
 	return err
 }
 
 func (s *Storage) DeleteAuthRequest(_ context.Context, requestID string) error {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	delete(s.clients, requestID)
 	return nil
 }
@@ -317,6 +330,8 @@ func (s *Storage) CompleteAuthRequest(ctx context.Context, requestId, sub string
 }
 
 func (s *Storage) updateRequest(_ context.Context, requestID string, req AuthRequest) error {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 
 	if requestID == "" {
 		return errors.New("invalid id")
