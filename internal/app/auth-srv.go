@@ -12,16 +12,16 @@ import (
 	"github.com/caos/oidc/pkg/op"
 	"github.com/gorilla/mux"
 	"github.com/labstack/echo/v4"
-	http1 "github.com/reearth/reearth-backend/internal/adapter/http"
 	"github.com/reearth/reearth-backend/internal/app/appauth"
 	"github.com/reearth/reearth-backend/internal/usecase/interactor"
+	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 
 	"github.com/golang/gddo/httputil/header"
 )
 
 func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *ServerConfig) {
 
-	usersController := http1.NewUserController(interactor.NewUser(cfg.Repos, cfg.Gateways, cfg.Config.SignupSecret))
+	userUsecase := interactor.NewUser(cfg.Repos, cfg.Gateways, cfg.Config.SignupSecret)
 
 	domain, err := url.Parse(cfg.Config.Auth.Domain)
 	if err != nil {
@@ -58,7 +58,7 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 	}
 
 	// Actual login endpoint
-	r.POST("api/login", login(ctx, cfg, storage, usersController))
+	r.POST("api/login", login(ctx, cfg, storage, userUsecase))
 
 }
 
@@ -145,7 +145,7 @@ type Login struct {
 	AuthRequestID string `json:"id" form:"id"`
 }
 
-func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, usersController *http1.UserController) func(ctx echo.Context) error {
+func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUsecase interfaces.User) func(ctx echo.Context) error {
 	return func(ec echo.Context) error {
 
 		request := new(Login)
@@ -167,7 +167,7 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, usersCont
 		}
 
 		// check user credentials from db
-		user, err := usersController.GetUserByCredentials(ctx, http1.UserCredentialInput{
+		user, err := userUsecase.GetUserByCredentials(ctx, interfaces.GetUserByCredentials{
 			Email:    request.Email,
 			Password: request.Password,
 		})

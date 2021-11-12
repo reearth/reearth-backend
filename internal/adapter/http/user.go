@@ -5,7 +5,6 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/user"
 )
 
 type UserController struct {
@@ -52,16 +51,4 @@ func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) 
 		Name:  u.Name(),
 		Email: u.Email(),
 	}, nil
-}
-
-func (c *UserController) GetUserByCredentials(ctx context.Context, input UserCredentialInput) (*user.User, error) {
-	u, err := c.usecase.GetUserByCredentials(ctx, interfaces.GetUserByCredentials{
-		Email:    input.Email,
-		Password: input.Password,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	return u, nil
 }
