@@ -197,6 +197,12 @@ type Camera struct {
 	Fov      float64 `json:"fov"`
 }
 
+type Cluster struct {
+	ID       id.ID   `json:"id"`
+	Name     *string `json:"name"`
+	Property id.ID   `json:"property"`
+}
+
 type CreateAssetInput struct {
 	TeamID id.ID          `json:"teamId"`
 	File   graphql.Upload `json:"file"`
@@ -979,6 +985,7 @@ type Scene struct {
 	DatasetSchemas        *DatasetSchemaConnection `json:"datasetSchemas"`
 	TagIds                []*id.ID                 `json:"tagIds"`
 	Tags                  []Tag                    `json:"tags"`
+	Clusters              []*Cluster               `json:"clusters"`
 }
 
 func (Scene) IsNode() {}

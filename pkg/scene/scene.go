@@ -19,6 +19,7 @@ type Scene struct {
 	pluginSystem      *PluginSystem
 	updatedAt         time.Time
 	property          id.PropertyID
+	clusters          *List
 }
 
 func (s *Scene) ID() id.SceneID {
@@ -118,4 +119,11 @@ func (s *Scene) Properties() []id.PropertyID {
 	ids = append(ids, s.pluginSystem.Properties()...)
 	ids = append(ids, s.widgetSystem.Properties()...)
 	return ids
+}
+
+func (s *Scene) Clusters() *List {
+	if s == nil {
+		return nil
+	}
+	return s.clusters
 }

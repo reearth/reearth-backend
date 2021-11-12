@@ -163,6 +163,12 @@ type ComplexityRoot struct {
 		Roll     func(childComplexity int) int
 	}
 
+	Cluster struct {
+		ID       func(childComplexity int) int
+		Name     func(childComplexity int) int
+		Property func(childComplexity int) int
+	}
+
 	CreateAssetPayload struct {
 		Asset func(childComplexity int) int
 	}
@@ -815,6 +821,7 @@ type ComplexityRoot struct {
 	}
 
 	Scene struct {
+		Clusters              func(childComplexity int) int
 		CreatedAt             func(childComplexity int) int
 		DatasetSchemas        func(childComplexity int, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) int
 		DynamicDatasetSchemas func(childComplexity int) int
@@ -1574,6 +1581,27 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Camera.Roll(childComplexity), true
+
+	case "Cluster.id":
+		if e.complexity.Cluster.ID == nil {
+			break
+		}
+
+		return e.complexity.Cluster.ID(childComplexity), true
+
+	case "Cluster.name":
+		if e.complexity.Cluster.Name == nil {
+			break
+		}
+
+		return e.complexity.Cluster.Name(childComplexity), true
+
+	case "Cluster.property":
+		if e.complexity.Cluster.Property == nil {
+			break
+		}
+
+		return e.complexity.Cluster.Property(childComplexity), true
 
 	case "CreateAssetPayload.asset":
 		if e.complexity.CreateAssetPayload.Asset == nil {
@@ -5123,6 +5151,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.RemoveWidgetPayload.WidgetID(childComplexity), true
 
+	case "Scene.clusters":
+		if e.complexity.Scene.Clusters == nil {
+			break
+		}
+
+		return e.complexity.Scene.Clusters(childComplexity), true
+
 	case "Scene.createdAt":
 		if e.complexity.Scene.CreatedAt == nil {
 			break
@@ -6374,6 +6409,7 @@ type Scene implements Node {
   ): DatasetSchemaConnection! @goField(forceResolver: true)
   tagIds: [ID!]!
   tags: [Tag!]! @goField(forceResolver: true)
+  clusters: [Cluster!]
 }
 
 enum SceneLockMode {
@@ -6820,6 +6856,11 @@ type TagGroup implements Tag {
 
 union Tags = TagItem | TagGroup
 
+type Cluster {
+  id: ID!
+  name: String
+  property: ID!
+}
 # InputType
 
 input CreateAssetInput {
@@ -10661,6 +10702,108 @@ func (ec *executionContext) _Camera_fov(ctx context.Context, field graphql.Colle
 	res := resTmp.(float64)
 	fc.Result = res
 	return ec.marshalNFloat2float64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Cluster_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Cluster) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Cluster",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(id.ID)
+	fc.Result = res
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Cluster_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Cluster) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Cluster",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Name, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Cluster_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Cluster) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Cluster",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Property, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(id.ID)
+	fc.Result = res
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _CreateAssetPayload_asset(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateAssetPayload) (ret graphql.Marshaler) {
@@ -26863,6 +27006,38 @@ func (ec *executionContext) _Scene_tags(ctx context.Context, field graphql.Colle
 	return ec.marshalNTag2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagᚄ(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Scene_clusters(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Scene) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Scene",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Clusters, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.Cluster)
+	fc.Result = res
+	return ec.marshalOCluster2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐClusterᚄ(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _ScenePlugin_pluginId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.ScenePlugin) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -34542,6 +34717,40 @@ func (ec *executionContext) _Camera(ctx context.Context, sel ast.SelectionSet, o
 	return out
 }
 
+var clusterImplementors = []string{"Cluster"}
+
+func (ec *executionContext) _Cluster(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Cluster) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, clusterImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Cluster")
+		case "id":
+			out.Values[i] = ec._Cluster_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "name":
+			out.Values[i] = ec._Cluster_name(ctx, field, obj)
+		case "property":
+			out.Values[i] = ec._Cluster_property(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var createAssetPayloadImplementors = []string{"CreateAssetPayload"}
 
 func (ec *executionContext) _CreateAssetPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.CreateAssetPayload) graphql.Marshaler {
@@ -38806,6 +39015,8 @@ func (ec *executionContext) _Scene(ctx context.Context, sel ast.SelectionSet, ob
 				}
 				return res
 			})
+		case "clusters":
+			out.Values[i] = ec._Scene_clusters(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -40390,6 +40601,16 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) marshalNCluster2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCluster(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Cluster) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._Cluster(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNCreateAssetInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateAssetInput(ctx context.Context, v interface{}) (gqlmodel.CreateAssetInput, error) {
@@ -43384,6 +43605,53 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 		return graphql.Null
 	}
 	return graphql.MarshalBoolean(*v)
+}
+
+func (ec *executionContext) marshalOCluster2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐClusterᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.Cluster) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNCluster2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCluster(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
 }
 
 func (ec *executionContext) marshalOCreateAssetPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCreateAssetPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.CreateAssetPayload) graphql.Marshaler {
