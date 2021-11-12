@@ -1,4 +1,4 @@
-package oauth
+package appauth
 
 import (
 	"time"
@@ -16,6 +16,7 @@ type AuthRequest struct {
 	state         string
 	ResponseType  oidc.ResponseType
 	scopes        []string
+	audiences     []string
 	RedirectURI   string
 	Nonce         string
 	CodeChallenge *oidc.CodeChallenge
@@ -38,15 +39,7 @@ func (a *AuthRequest) GetAMR() []string {
 }
 
 func (a *AuthRequest) GetAudience() []string {
-	audiences := []string{
-		appConfig.Domain,
-	}
-
-	if appConfig.Debug {
-		audiences = append(audiences, "http://localhost:8080")
-	}
-
-	return audiences
+	return a.audiences
 }
 
 func (a *AuthRequest) GetAuthTime() time.Time {

@@ -1,4 +1,4 @@
-package oauth
+package appauth
 
 import (
 	"fmt"
@@ -65,7 +65,7 @@ func (c *ConfClient) GrantTypes() []oidc.GrantType {
 }
 
 func (c *ConfClient) DevMode() bool {
-	return c.devMode && appConfig.Debug
+	return c.devMode
 }
 
 func (c *ConfClient) RestrictAdditionalIdTokenScopes() func(scopes []string) []string {

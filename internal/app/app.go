@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"errors"
 	"net/http"
 
@@ -13,7 +14,7 @@ import (
 	echotracer "go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo"
 )
 
-func initEcho(cfg *ServerConfig) *echo.Echo {
+func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 	if cfg.Config == nil {
 		log.Fatalln("ServerConfig.Config is nil")
 	}
@@ -69,7 +70,7 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	})
 
 	auth := e.Group("")
-	AuthEndPoints(e, auth, cfg)
+	authEndPoints(ctx, e, auth, cfg)
 
 	api := e.Group("/api")
 	publicAPI(e, api, cfg.Config, cfg.Repos, cfg.Gateways)

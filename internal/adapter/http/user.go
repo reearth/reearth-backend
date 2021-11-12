@@ -32,8 +32,8 @@ type CreateUserOutput struct {
 }
 
 type UserCredentialInput struct {
-	Email    string
-	Password string
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) (interface{}, error) {

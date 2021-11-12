@@ -13,25 +13,29 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/labstack/echo/v4"
 	http1 "github.com/reearth/reearth-backend/internal/adapter/http"
-	"github.com/reearth/reearth-backend/internal/app/oauth"
+	"github.com/reearth/reearth-backend/internal/app/appauth"
 	"github.com/reearth/reearth-backend/internal/usecase/interactor"
 
 	"github.com/golang/gddo/httputil/header"
 )
 
-func AuthEndPoints(e *echo.Echo, r *echo.Group, cfg *ServerConfig) {
+func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *ServerConfig) {
 
 	usersController := http1.NewUserController(interactor.NewUser(cfg.Repos, cfg.Gateways, cfg.Config.SignupSecret))
 
-	ctx := context.Background()
+	domain, err := url.Parse(cfg.Config.Auth.Domain)
+	if err != nil {
+		panic("not valid auth domain")
+	}
+	domain.Path = "/"
 
 	config := &op.Config{
-		Issuer:                cfg.Config.AuthSrv.Domain,
-		CryptoKey:             sha256.Sum256([]byte(cfg.Config.AuthSrv.Key)),
+		Issuer:                domain.String(),
+		CryptoKey:             sha256.Sum256([]byte(cfg.Config.Auth.Key)),
 		GrantTypeRefreshToken: true,
 	}
-	storage := oauth.NewAuthStorage(&oauth.AuthSrvConfig{
-		Domain: cfg.Config.AuthSrv.Domain,
+	storage := appauth.NewAuthStorage(&appauth.StorageConfig{
+		Domain: domain.String(),
 		Debug:  cfg.Debug,
 	})
 	handler, err := op.NewOpenIDProvider(
@@ -114,21 +118,21 @@ func jsonToFormHandler() func(handler http.Handler) http.Handler {
 
 func muxToEchoMapper(r *echo.Group) func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
 	return func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
-		url, err := route.GetPathTemplate()
+		path, err := route.GetPathTemplate()
 		if err != nil {
 			return err
 		}
 
 		methods, err := route.GetMethods()
 		if err != nil {
-			r.Any(url, echo.WrapHandler(route.GetHandler()))
-			fmt.Println("ANY| " + url)
+			r.Any(path, echo.WrapHandler(route.GetHandler()))
+			fmt.Println("ANY| " + path)
 			return nil
 		}
 
 		for _, method := range methods {
-			r.Add(method, url, echo.WrapHandler(route.GetHandler()))
-			fmt.Println(method + "| " + url)
+			r.Add(method, path, echo.WrapHandler(route.GetHandler()))
+			fmt.Println(method + "| " + path)
 		}
 
 		return nil
@@ -173,7 +177,7 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, usersCont
 		}
 
 		// Complete the auth request && set the subject
-		err = storage.(*oauth.AuthStorage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
+		err = storage.(*appauth.Storage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
 		if err != nil {
 			ec.Logger().Error("failed to complete the auth request !")
 			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
