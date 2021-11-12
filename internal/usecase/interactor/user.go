@@ -171,7 +171,7 @@ func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserB
 	}
 	// TODO: Check user password
 	if inp.Password != "123123123" {
-		return nil, errors.New("invalid credentials")
+		return nil, interfaces.ErrInvalidUserCredentials
 	}
 	return u, nil
 }

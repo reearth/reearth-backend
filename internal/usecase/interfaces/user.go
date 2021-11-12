@@ -15,6 +15,7 @@ var (
 	ErrUserInvalidPasswordConfirmation = errors.New("invalid password confirmation")
 	ErrUserInvalidLang                 = errors.New("invalid lang")
 	ErrSignupInvalidSecret             = errors.New("invalid secret")
+	ErrInvalidUserCredentials          = errors.New("invalid credentials")
 )
 
 type SignupParam struct {
