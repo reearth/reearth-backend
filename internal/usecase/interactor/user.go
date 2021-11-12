@@ -164,7 +164,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	return u, team, nil
 }
 
-func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.CredentialsParam) (u *user.User, err error) {
+func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserByCredentials) (u *user.User, err error) {
 	u, err = i.userRepo.FindByNameOrEmail(ctx, inp.Email)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 		return nil, err

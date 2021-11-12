@@ -55,7 +55,7 @@ func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) 
 }
 
 func (c *UserController) GetUserByCredentials(ctx context.Context, input UserCredentialInput) (*user.User, error) {
-	u, err := c.usecase.GetUserByCredentials(ctx, interfaces.CredentialsParam{
+	u, err := c.usecase.GetUserByCredentials(ctx, interfaces.GetUserByCredentials{
 		Email:    input.Email,
 		Password: input.Password,
 	})
