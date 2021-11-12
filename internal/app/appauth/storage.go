@@ -8,7 +8,7 @@ import (
 	"crypto/x509/pkix"
 	"errors"
 	"math/big"
-	mRand "math/rand"
+	mrand "math/rand"
 	"net"
 	"time"
 
@@ -116,7 +116,7 @@ func (s *Storage) Health(_ context.Context) error {
 func (s *Storage) CreateAuthRequest(_ context.Context, authReq *oidc.AuthRequest, _ string) (op.AuthRequest, error) {
 
 	ti := time.Now()
-	entropy := ulid.Monotonic(mRand.New(mRand.NewSource(ti.UnixNano())), 0)
+	entropy := ulid.Monotonic(mrand.New(mrand.NewSource(ti.UnixNano())), 0)
 
 	audiences := []string{
 		s.appConfig.Domain,
