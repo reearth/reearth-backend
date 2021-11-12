@@ -97,11 +97,11 @@ func (a *AuthRequest) Complete(sub string) {
 }
 
 func unique(list []string) []string {
-	allKeys := make(map[string]bool)
+	allKeys := make(map[string]struct{})
 	var uniqueList []string
 	for _, item := range list {
-		if _, value := allKeys[item]; !value {
-			allKeys[item] = true
+		if _, ok := allKeys[item]; !ok {
+			allKeys[item] = struct{}{}
 			uniqueList = append(uniqueList, item)
 		}
 	}
