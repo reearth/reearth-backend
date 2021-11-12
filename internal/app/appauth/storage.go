@@ -57,7 +57,7 @@ func initData(s *Storage) {
 			loginURI:        "http://localhost:3000/login?id=%s",
 			iDTokenLifetime: 5 * time.Minute,
 			clockSkew:       0,
-			devMode:         true,
+			devMode:         s.appConfig.Debug,
 		},
 	}
 
