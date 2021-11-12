@@ -136,16 +136,16 @@ func muxToEchoMapper(r *echo.Group) func(route *mux.Route, router *mux.Router, a
 }
 
 type Login struct {
-	Email         string `json:"username"`
-	Password      string `json:"password"`
-	AuthRequestID string `json:"id"`
+	Email         string `json:"username" form:"username"`
+	Password      string `json:"password" form:"password"`
+	AuthRequestID string `json:"id" form:"id"`
 }
 
 func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, usersController *http1.UserController) func(ctx echo.Context) error {
 	return func(ec echo.Context) error {
 
 		request := new(Login)
-		err := ec.Bind(&request)
+		err := ec.Bind(request)
 		if err != nil {
 			ec.Logger().Error("filed to parse login request")
 			return err
