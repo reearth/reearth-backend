@@ -21,7 +21,7 @@ func (b *Builder) Build() (*User, error) {
 	if b.p != nil {
 		err := b.u.SetPassword(*b.p)
 		if err != nil {
-			return nil, ErrEncodingPass
+			return nil, ErrEncodingPassword
 		}
 	}
 	return b.u, nil

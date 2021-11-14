@@ -276,3 +276,73 @@ func TestUser_UpdateName(t *testing.T) {
 	u.UpdateName("xxx")
 	assert.Equal(t, "xxx", u.Name())
 }
+
+func TestUser_MatchPassword(t *testing.T) {
+	encodedPass, _ := encodePassword("test")
+	type args struct {
+		pass string
+	}
+	tests := []struct {
+		name     string
+		password []byte
+		args     args
+		want     bool
+		wantErr  bool
+	}{
+		{
+			name:     "passwords should match",
+			password: encodedPass,
+			args: args{
+				pass: "test",
+			},
+			want:    true,
+			wantErr: false,
+		},
+		{
+			name:     "passwords shouldn't match",
+			password: encodedPass,
+			args: args{
+				pass: "xxx",
+			},
+			want:    false,
+			wantErr: false,
+		},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(tt *testing.T) {
+			u := &User{
+				password: tc.password,
+			}
+			got, err := u.MatchPassword(tc.args.pass)
+			assert.Equal(tt, tc.want, got)
+			assert.Equal(tt, tc.wantErr, err != nil)
+		})
+	}
+}
+
+func TestUser_SetPassword(t *testing.T) {
+	type args struct {
+		pass string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "should set the password",
+			args: args{
+				pass: "test",
+			},
+			want: "test",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			u := &User{}
+			_ = u.SetPassword(tt.args.pass)
+			match, _ := u.MatchPassword(tt.want)
+			assert.True(t, match)
+		})
+	}
+}

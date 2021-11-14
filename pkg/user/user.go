@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	ErrEncodingPass = errors.New("error encoding password")
+	ErrEncodingPassword = errors.New("error encoding password")
 )
 
 type User struct {
