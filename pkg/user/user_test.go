@@ -337,12 +337,12 @@ func TestUser_SetPassword(t *testing.T) {
 			want: "test",
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for _, tc := range tests {
+		t.Run(tc.name, func(tt *testing.T) {
 			u := &User{}
-			_ = u.SetPassword(tt.args.pass)
-			match, _ := u.MatchPassword(tt.want)
-			assert.True(t, match)
+			_ = u.SetPassword(tc.args.pass)
+			got, _ := verifyPassword(tc.want, u.password)
+			assert.True(tt, got)
 		})
 	}
 }
