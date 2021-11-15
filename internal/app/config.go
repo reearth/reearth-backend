@@ -43,6 +43,16 @@ type Auth0Config struct {
 type AuthConfig struct {
 	Domain string `default:"http://localhost:8080"`
 	Key    string
+	Pkix   AuthPkixConfig
+}
+
+type AuthPkixConfig struct {
+	Organization  string `default:"Company, INC."`
+	Country       string `default:"US"`
+	Province      string `default:""`
+	Locality      string `default:"San Francisco"`
+	StreetAddress string `default:"Golden Gate Bridge"`
+	PostalCode    string `default:"94016"`
 }
 
 type GraphQLConfig struct {

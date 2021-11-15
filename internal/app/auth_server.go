@@ -37,6 +37,14 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 	storage := appauth.NewAuthStorage(&appauth.StorageConfig{
 		Domain: domain.String(),
 		Debug:  cfg.Debug,
+		Pkix: appauth.AuthPkixConfig{
+			Organization:  cfg.Config.Auth.Pkix.Organization,
+			Country:       cfg.Config.Auth.Pkix.Country,
+			Province:      cfg.Config.Auth.Pkix.Province,
+			Locality:      cfg.Config.Auth.Pkix.Locality,
+			StreetAddress: cfg.Config.Auth.Pkix.StreetAddress,
+			PostalCode:    cfg.Config.Auth.Pkix.PostalCode,
+		},
 	})
 	handler, err := op.NewOpenIDProvider(
 		ctx,

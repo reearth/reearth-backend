@@ -166,7 +166,9 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 
 func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserByCredentials) (u *user.User, err error) {
 	u, err = i.userRepo.FindByNameOrEmail(ctx, inp.Email)
-	if err != nil || u == nil {
+	if err != nil && !errors.Is(rerror.ErrNotFound, err) {
+		return nil, err
+	} else if u == nil {
 		return nil, interfaces.ErrInvalidUserCredentials
 	}
 	// TODO: Check user password

@@ -31,22 +31,30 @@ type Storage struct {
 type StorageConfig struct {
 	Domain string `default:"http://localhost:8080"`
 	Debug  bool
+	Pkix   AuthPkixConfig
 }
 
-var dummyPkixName = pkix.Name{
-	Organization:  []string{"Company, INC."},
-	Country:       []string{"US"},
-	Province:      []string{""},
-	Locality:      []string{"San Francisco"},
-	StreetAddress: []string{"Golden Gate Bridge"},
-	PostalCode:    []string{"94016"},
+type AuthPkixConfig struct {
+	Organization  string
+	Country       string
+	Province      string
+	Locality      string
+	StreetAddress string
+	PostalCode    string
 }
 
 func NewAuthStorage(cfg *StorageConfig) op.Storage {
 
 	client := initLocalClient(cfg.Debug)
 
-	name := dummyPkixName
+	name := pkix.Name{
+		Organization:  []string{cfg.Pkix.Organization},
+		Country:       []string{cfg.Pkix.Country},
+		Province:      []string{cfg.Pkix.Province},
+		Locality:      []string{cfg.Pkix.Locality},
+		StreetAddress: []string{cfg.Pkix.StreetAddress},
+		PostalCode:    []string{cfg.Pkix.PostalCode},
+	}
 
 	key, keySet := initKeys(name)
 
