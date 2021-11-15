@@ -365,7 +365,7 @@ type Scene implements Node {
   ): DatasetSchemaConnection! @goField(forceResolver: true)
   tagIds: [ID!]!
   tags: [Tag!]! @goField(forceResolver: true)
-  clusters: [Cluster!]
+  clusters: [Cluster!]!
 }
 
 enum SceneLockMode {
@@ -817,6 +817,7 @@ type Cluster {
   name: String
   property: ID!
 }
+
 # InputType
 
 input CreateAssetInput {

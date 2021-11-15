@@ -100,7 +100,7 @@ func (b *Builder) Property(p id.PropertyID) *Builder {
 	return b
 }
 
-func (b *Builder) Clusters(cl *List) *Builder {
+func (b *Builder) Clusters(cl *ClusterList) *Builder {
 	b.scene.clusters = cl
 	return b
 }

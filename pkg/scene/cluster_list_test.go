@@ -15,15 +15,15 @@ func TestList_Add(t *testing.T) {
 	}
 	tests := []struct {
 		name string
-		list *List
+		list *ClusterList
 		args args
-		want *List
+		want *ClusterList
 	}{
 		{
 			name: "should add a new cluster",
-			list: &List{clusters: []*Cluster{c1}},
+			list: &ClusterList{clusters: []*Cluster{c1}},
 			args: args{clusters: []*Cluster{c2}},
-			want: NewListFrom([]*Cluster{c1, c2}),
+			want: NewClusterListFrom([]*Cluster{c1, c2}),
 		},
 		{
 			name: "nil_list: should not add a new cluster",
@@ -32,9 +32,9 @@ func TestList_Add(t *testing.T) {
 		},
 		{
 			name: "nil_list_clusters: should not add a new cluster",
-			list: &List{clusters: nil},
+			list: &ClusterList{clusters: nil},
 			args: args{clusters: []*Cluster{c1}},
-			want: &List{clusters: nil},
+			want: &ClusterList{clusters: nil},
 		},
 	}
 	for _, tc := range tests {
@@ -67,7 +67,7 @@ func TestList_Update(t *testing.T) {
 		name   string
 		fields fields
 		args   args
-		want   *List
+		want   *ClusterList
 	}{
 		{
 			name: "should update a cluster",
@@ -79,7 +79,7 @@ func TestList_Update(t *testing.T) {
 				name: "new name",
 				pid:  pid2,
 			},
-			want: NewListFrom([]*Cluster{c3, c2}),
+			want: NewClusterListFrom([]*Cluster{c3, c2}),
 		},
 		{
 			name: "nil list: shouldn't update any cluster",
@@ -91,7 +91,7 @@ func TestList_Update(t *testing.T) {
 				name: "new name",
 				pid:  pid2,
 			},
-			want: NewListFrom([]*Cluster{c1, c2}),
+			want: NewClusterListFrom([]*Cluster{c1, c2}),
 		},
 		{
 			name: "not existing: shouldn't update any cluster",
@@ -103,14 +103,14 @@ func TestList_Update(t *testing.T) {
 				name: "new name",
 				pid:  pid2,
 			},
-			want: NewListFrom([]*Cluster{c2}),
+			want: NewClusterListFrom([]*Cluster{c2}),
 		},
 	}
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			tl := &List{
+			tl := &ClusterList{
 				clusters: tc.fields.clusters,
 			}
 			tl.Update(tc.args.cid, tc.args.name, tc.args.pid)
@@ -139,7 +139,7 @@ func TestList_Clusters(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tl := &List{
+			tl := &ClusterList{
 				clusters: tt.fields.clusters,
 			}
 			assert.Equal(t, tt.want, tl.Clusters())
@@ -185,7 +185,7 @@ func TestList_Has(t *testing.T) {
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(tt *testing.T) {
-			tl := &List{
+			tl := &ClusterList{
 				clusters: tc.fields.clusters,
 			}
 			assert.Equal(tt, tc.want, tl.Has(tc.args.tid))
@@ -208,7 +208,7 @@ func TestList_Remove(t *testing.T) {
 		name   string
 		fields fields
 		args   args
-		want   *List
+		want   *ClusterList
 	}{
 		{
 			name: "should remove a cluster",
@@ -218,7 +218,7 @@ func TestList_Remove(t *testing.T) {
 			args: args{
 				cluster: c3.ID(),
 			},
-			want: NewListFrom([]*Cluster{c1, c2}),
+			want: NewClusterListFrom([]*Cluster{c1, c2}),
 		},
 		{
 			name: "not existing: should remove nothing",
@@ -228,14 +228,14 @@ func TestList_Remove(t *testing.T) {
 			args: args{
 				cluster: c3.ID(),
 			},
-			want: NewListFrom([]*Cluster{c1, c2}),
+			want: NewClusterListFrom([]*Cluster{c1, c2}),
 		},
 	}
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			tl := &List{
+			tl := &ClusterList{
 				clusters: tc.fields.clusters,
 			}
 			tl.Remove(tc.args.cluster)

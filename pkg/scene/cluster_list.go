@@ -2,26 +2,26 @@ package scene
 
 import "github.com/reearth/reearth-backend/pkg/id"
 
-type List struct {
+type ClusterList struct {
 	clusters []*Cluster
 }
 
-func NewList() *List {
-	return &List{clusters: []*Cluster{}}
+func NewClusterList() *ClusterList {
+	return &ClusterList{clusters: []*Cluster{}}
 }
 
-func NewListFrom(clusters []*Cluster) *List {
-	return &List{clusters: clusters}
+func NewClusterListFrom(clusters []*Cluster) *ClusterList {
+	return &ClusterList{clusters: clusters}
 }
 
-func (tl *List) Clusters() []*Cluster {
+func (tl *ClusterList) Clusters() []*Cluster {
 	if tl == nil || tl.clusters == nil {
 		return nil
 	}
 	return append([]*Cluster{}, tl.clusters...)
 }
 
-func (tl *List) Has(tid id.ClusterID) bool {
+func (tl *ClusterList) Has(tid id.ClusterID) bool {
 	if tl == nil || tl.clusters == nil {
 		return false
 	}
@@ -33,14 +33,14 @@ func (tl *List) Has(tid id.ClusterID) bool {
 	return false
 }
 
-func (tl *List) Add(clusters ...*Cluster) {
+func (tl *ClusterList) Add(clusters ...*Cluster) {
 	if tl == nil || tl.clusters == nil {
 		return
 	}
 	tl.clusters = append(tl.clusters, clusters...)
 }
 
-func (tl *List) Update(cid id.ClusterID, name string, pid id.PropertyID) {
+func (tl *ClusterList) Update(cid id.ClusterID, name string, pid id.PropertyID) {
 	if tl == nil || tl.clusters == nil || !tl.Has(cid) {
 		return
 	}
@@ -53,7 +53,7 @@ func (tl *List) Update(cid id.ClusterID, name string, pid id.PropertyID) {
 	}
 }
 
-func (tl *List) Remove(clusters ...id.ClusterID) {
+func (tl *ClusterList) Remove(clusters ...id.ClusterID) {
 	if tl == nil || tl.clusters == nil {
 		return
 	}

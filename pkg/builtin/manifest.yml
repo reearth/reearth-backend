@@ -51,7 +51,7 @@ extensions:
             - id: ion
               type: string
               title: Cesium Ion API access token
-              description: Cesium Ion account users may use their personal API keys to be able to use their Cesium Ion assets(tile data, 3D data, etc) with their project.
+              description: Cesium Ion account users may use their personal API keys to be able to use their Cesium Ion asSets(tile data, 3D data, etc) with their project.
         - id: tiles
           title: Tiles
           description: You may change the look of the Earth by obtaining map tile data and setting it here.
@@ -1587,7 +1587,7 @@ extensions:
   - id: cluster
     name: Cluster
     type: cluster
-    description: defines how layers are clustered together and displayed on earth.
+    description: Defines how layers are clustered together and displayed on earth.
     schema:
       groups:
         - id: default
@@ -1604,6 +1604,7 @@ extensions:
               defaultValue: 15
               min: 1
               max: 200
+              suffix: px
             - id: cluster_minSize
               type: number
               title: Minimum cluster size
@@ -1611,9 +1612,9 @@ extensions:
               defaultValue: 3
               min: 2
               max: 20
-            - id: cluster_sizeType
-              title: Size type
-              description: sets the size of cluster entity.
+            - id: cluster_maxSize
+              title: Max cluster size
+              description: Sets the size of cluster entity.
               defaultValue: 48
               type: number
               min: 1
@@ -1631,7 +1632,7 @@ extensions:
             - id: cluster_textColor
               type: string
               title: Text color
-              description: sets the text color of cluster entity.
+              description: Sets the text color of cluster entity.
               ui: color
               availableIf:
                 field: cluster_shapeType
@@ -1641,11 +1642,11 @@ extensions:
               type: string
               ui: color
               title: Background color
-              description: sets the background color of cluster entity.
+              description: Sets the background color of cluster entity.
             - id: cluster_image
               type: url
               title: Image
-              description: sets the image of cluster entity.
+              description: Sets the image of cluster entity.
               ui: image
         - id: layers
           title: Layers

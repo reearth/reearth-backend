@@ -101,14 +101,14 @@ func TestScene_Clusters(t *testing.T) {
 	tests := []struct {
 		name  string
 		scene *Scene
-		want  *List
+		want  *ClusterList
 	}{
 		{
 			name: "should return a cluster list",
 			scene: &Scene{
-				clusters: NewListFrom([]*Cluster{c1}),
+				clusters: NewClusterListFrom([]*Cluster{c1}),
 			},
-			want: NewListFrom([]*Cluster{c1}),
+			want: NewClusterListFrom([]*Cluster{c1}),
 		},
 	}
 	for _, tc := range tests {
