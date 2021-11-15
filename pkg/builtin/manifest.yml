@@ -51,7 +51,7 @@ extensions:
             - id: ion
               type: string
               title: Cesium Ion API access token
-              description: Cesium Ion account users may use their personal API keys to be able to use their Cesium Ion asSets(tile data, 3D data, etc) with their project.
+              description: Cesium Ion account users may use their personal API keys to be able to use their Cesium Ion assets(tile data, 3D data, etc) with their project.
         - id: tiles
           title: Tiles
           description: You may change the look of the Earth by obtaining map tile data and setting it here.

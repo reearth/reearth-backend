@@ -45,27 +45,27 @@ func TestList_Add(t *testing.T) {
 func TestList_Clusters(t *testing.T) {
 	c1, _ := NewCluster(id.NewClusterID(), "ccc", id.NewPropertyID())
 	c2, _ := NewCluster(id.NewClusterID(), "xxx", id.NewPropertyID())
-
-	type fields struct {
-		clusters []*Cluster
-	}
 	tests := []struct {
-		name   string
-		fields fields
-		want   []*Cluster
+		name string
+		list *ClusterList
+		want []*Cluster
 	}{
 		{
-			name:   "should return clusters",
-			fields: fields{clusters: []*Cluster{c1, c2}},
-			want:   []*Cluster{c1, c2},
+			name: "should return clusters",
+			list: NewClusterListFrom([]*Cluster{c1, c2}),
+			want: []*Cluster{c1, c2},
+		},
+		{
+			name: "nil_list: should return nil",
+			list: nil,
+			want: nil,
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tl := &ClusterList{
-				clusters: tt.fields.clusters,
-			}
-			assert.Equal(t, tt.want, tl.Clusters())
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+			assert.Equal(tt, tc.want, tc.list.Clusters())
 		})
 	}
 }
@@ -73,23 +73,18 @@ func TestList_Clusters(t *testing.T) {
 func TestList_Has(t *testing.T) {
 	c1, _ := NewCluster(id.NewClusterID(), "xxx", id.NewPropertyID())
 
-	type fields struct {
-		clusters []*Cluster
-	}
 	type args struct {
 		tid id.ClusterID
 	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   bool
+		name string
+		list *ClusterList
+		args args
+		want bool
 	}{
 		{
 			name: "should return true",
-			fields: fields{
-				clusters: []*Cluster{c1},
-			},
+			list: NewClusterListFrom([]*Cluster{c1}),
 			args: args{
 				tid: c1.ID(),
 			},
@@ -97,21 +92,24 @@ func TestList_Has(t *testing.T) {
 		},
 		{
 			name: "not existing: should return false",
-			fields: fields{
-				clusters: []*Cluster{c1},
-			},
+			list: NewClusterListFrom([]*Cluster{c1}),
 			args: args{
 				tid: id.NewClusterID(),
+			},
+			want: false,
+		},
+		{
+			name: "nil_list: should return false",
+			args: args{
+				tid: c1.ID(),
 			},
 			want: false,
 		},
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(tt *testing.T) {
-			tl := &ClusterList{
-				clusters: tc.fields.clusters,
-			}
-			assert.Equal(tt, tc.want, tl.Has(tc.args.tid))
+
+			assert.Equal(tt, tc.want, tc.list.Has(tc.args.tid))
 		})
 	}
 }
@@ -121,23 +119,18 @@ func TestList_Remove(t *testing.T) {
 	c2, _ := NewCluster(id.NewClusterID(), "xxx", id.NewPropertyID())
 	c3, _ := NewCluster(id.NewClusterID(), "xxx", id.NewPropertyID())
 
-	type fields struct {
-		clusters []*Cluster
-	}
 	type args struct {
 		cluster id.ClusterID
 	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   *ClusterList
+		name string
+		list *ClusterList
+		args args
+		want *ClusterList
 	}{
 		{
 			name: "should remove a cluster",
-			fields: fields{
-				clusters: []*Cluster{c1, c2, c3},
-			},
+			list: NewClusterListFrom([]*Cluster{c1, c2, c3}),
 			args: args{
 				cluster: c3.ID(),
 			},
@@ -145,24 +138,26 @@ func TestList_Remove(t *testing.T) {
 		},
 		{
 			name: "not existing: should remove nothing",
-			fields: fields{
-				clusters: []*Cluster{c1, c2},
-			},
+			list: NewClusterListFrom([]*Cluster{c1, c2}),
 			args: args{
 				cluster: c3.ID(),
 			},
 			want: NewClusterListFrom([]*Cluster{c1, c2}),
+		},
+		{
+			name: "nil_list: return nothing",
+			args: args{
+				cluster: c1.ID(),
+			},
+			want: nil,
 		},
 	}
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			tl := &ClusterList{
-				clusters: tc.fields.clusters,
-			}
-			tl.Remove(tc.args.cluster)
-			assert.Equal(tt, tc.want, tl)
+			tc.list.Remove(tc.args.cluster)
+			assert.Equal(tt, tc.want, tc.list)
 		})
 	}
 }
@@ -178,22 +173,30 @@ func TestClusterList_Get(t *testing.T) {
 		cid id.ClusterID
 	}
 	tests := []struct {
-		name     string
-		clusters []*Cluster
-		args     args
-		want     *Cluster
+		name string
+		list *ClusterList
+		args args
+		want *Cluster
 	}{
 		{
-			name:     "should get a cluster",
-			clusters: []*Cluster{c1, c2, c3},
+			name: "should get a cluster",
+			list: NewClusterListFrom([]*Cluster{c1, c2, c3}),
 			args: args{
 				cid: cid1,
 			},
 			want: c1,
 		},
 		{
-			name:     "not existing: should get nil",
-			clusters: []*Cluster{c2, c3},
+			name: "not existing: should get nil",
+			list: NewClusterListFrom([]*Cluster{c2, c3}),
+			args: args{
+				cid: cid1,
+			},
+			want: nil,
+		},
+		{
+			name: "nil_list: should return nil",
+			list: nil,
 			args: args{
 				cid: cid1,
 			},
@@ -204,10 +207,7 @@ func TestClusterList_Get(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			tl := &ClusterList{
-				clusters: tc.clusters,
-			}
-			got := tl.Get(tc.args.cid)
+			got := tc.list.Get(tc.args.cid)
 			assert.Equal(tt, tc.want, got)
 		})
 	}
