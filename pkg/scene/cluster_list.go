@@ -7,22 +7,22 @@ type ClusterList struct {
 }
 
 func NewClusterList() *ClusterList {
-	return &ClusterList{clusters: []*Cluster{}}
+	return &ClusterList{}
 }
 
 func NewClusterListFrom(clusters []*Cluster) *ClusterList {
-	return &ClusterList{clusters: clusters}
+	return &ClusterList{clusters: append([]*Cluster{}, clusters...)}
 }
 
 func (tl *ClusterList) Clusters() []*Cluster {
-	if tl == nil || tl.clusters == nil {
+	if tl == nil {
 		return nil
 	}
 	return append([]*Cluster{}, tl.clusters...)
 }
 
 func (tl *ClusterList) Has(tid id.ClusterID) bool {
-	if tl == nil || tl.clusters == nil {
+	if tl == nil {
 		return false
 	}
 	for _, cluster := range tl.clusters {
@@ -34,27 +34,26 @@ func (tl *ClusterList) Has(tid id.ClusterID) bool {
 }
 
 func (tl *ClusterList) Add(clusters ...*Cluster) {
-	if tl == nil || tl.clusters == nil {
+	if tl == nil {
 		return
 	}
 	tl.clusters = append(tl.clusters, clusters...)
 }
 
-func (tl *ClusterList) Update(cid id.ClusterID, name string, pid id.PropertyID) {
-	if tl == nil || tl.clusters == nil || !tl.Has(cid) {
-		return
+func (tl *ClusterList) Get(cid id.ClusterID) *Cluster {
+	if tl == nil {
+		return nil
 	}
-
 	for _, c := range tl.clusters {
 		if c.ID() == cid {
-			c.Rename(name)
-			c.UpdateProperty(pid)
+			return c
 		}
 	}
+	return nil
 }
 
 func (tl *ClusterList) Remove(clusters ...id.ClusterID) {
-	if tl == nil || tl.clusters == nil {
+	if tl == nil {
 		return
 	}
 	for i := 0; i < len(tl.clusters); i++ {
@@ -62,7 +61,6 @@ func (tl *ClusterList) Remove(clusters ...id.ClusterID) {
 			if tl.clusters[i].id == tid {
 				tl.clusters = append(tl.clusters[:i], tl.clusters[i+1:]...)
 				i--
-				break
 			}
 		}
 	}
