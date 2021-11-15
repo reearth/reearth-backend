@@ -30,11 +30,6 @@ type CreateUserOutput struct {
 	Email string `json:"email"`
 }
 
-type UserCredentialInput struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
 func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) (interface{}, error) {
 	u, _, err := c.usecase.Signup(ctx, interfaces.SignupParam{
 		Sub:    input.Sub,

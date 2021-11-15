@@ -52,9 +52,8 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 
 	router := handler.HttpHandler().(*mux.Router)
 
-	err = router.Walk(muxToEchoMapper(r))
-	if err != nil {
-		return
+	if err := router.Walk(muxToEchoMapper(r)); err != nil {
+		e.Logger.Fatal(err)
 	}
 
 	// Actual login endpoint
@@ -93,16 +92,13 @@ func jsonToFormHandler() func(handler http.Handler) http.Handler {
 				}
 			}
 
-			fmt.Println("JSON -> Form: " + r.URL.String())
-			err := r.ParseForm()
-			if err != nil {
+			if err := r.ParseForm(); err != nil {
 				return
 			}
 
 			var result map[string]string
 
-			err = json.NewDecoder(r.Body).Decode(&result)
-			if err != nil {
+			if err := json.NewDecoder(r.Body).Decode(&result); err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
 				return
 			}
@@ -139,7 +135,7 @@ func muxToEchoMapper(r *echo.Group) func(route *mux.Route, router *mux.Router, a
 	}
 }
 
-type Login struct {
+type loginForm struct {
 	Email         string `json:"username" form:"username"`
 	Password      string `json:"password" form:"password"`
 	AuthRequestID string `json:"id" form:"id"`
@@ -148,7 +144,7 @@ type Login struct {
 func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUsecase interfaces.User) func(ctx echo.Context) error {
 	return func(ec echo.Context) error {
 
-		request := new(Login)
+		request := new(loginForm)
 		err := ec.Bind(request)
 		if err != nil {
 			ec.Logger().Error("filed to parse login request")

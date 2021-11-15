@@ -33,48 +33,44 @@ type StorageConfig struct {
 	Debug  bool
 }
 
+var dummyPkixName = pkix.Name{
+	Organization:  []string{"Company, INC."},
+	Country:       []string{"US"},
+	Province:      []string{""},
+	Locality:      []string{"San Francisco"},
+	StreetAddress: []string{"Golden Gate Bridge"},
+	PostalCode:    []string{"94016"},
+}
+
 func NewAuthStorage(cfg *StorageConfig) op.Storage {
 
-	s := &Storage{
+	client := initLocalClient(cfg.Debug)
+
+	name := dummyPkixName
+
+	key, keySet := initKeys(name)
+
+	return &Storage{
 		appConfig: cfg,
+		requests:  make(map[string]AuthRequest),
+		clients: map[string]op.Client{
+			client.GetID(): client,
+		},
+		key:    key,
+		keySet: keySet,
 	}
-
-	initData(s)
-	initKeys(s)
-
-	return s
 }
 
-func initData(s *Storage) {
-
-	client := initLocalClient(s.appConfig.Debug)
-
-	s.clients = map[string]op.Client{
-		client.GetID(): client,
-	}
-
-	s.requests = make(map[string]AuthRequest)
-}
-
-func initKeys(s *Storage) {
+func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.JSONWebKeySet) {
 
 	key, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
 	}
 
-	s.key = key
-
 	cert := &x509.Certificate{
 		SerialNumber: big.NewInt(1658),
-		Subject: pkix.Name{
-			Organization:  []string{"Company, INC."},
-			Country:       []string{"US"},
-			Province:      []string{""},
-			Locality:      []string{"San Francisco"},
-			StreetAddress: []string{"Golden Gate Bridge"},
-			PostalCode:    []string{"94016"},
-		},
+		Subject:      name,
 		IPAddresses:  []net.IP{net.IPv4(127, 0, 0, 1), net.IPv6loopback},
 		NotBefore:    time.Now(),
 		NotAfter:     time.Now().AddDate(10, 0, 0),
@@ -94,7 +90,7 @@ func initKeys(s *Storage) {
 		panic("failed to create the cert")
 	}
 
-	s.keySet = jose.JSONWebKeySet{
+	return key, jose.JSONWebKeySet{
 		Keys: []jose.JSONWebKey{
 			{Key: key.Public(), Use: "sig", Algorithm: "RS256", KeyID: "1", Certificates: []*x509.Certificate{cert}},
 		},
@@ -219,6 +215,9 @@ func (s *Storage) CreateAccessAndRefreshTokens(_ context.Context, request op.Tok
 
 func (s *Storage) TokenRequestByRefreshToken(ctx context.Context, refreshToken string) (op.RefreshTokenRequest, error) {
 	r, err := s.AuthRequestByID(ctx, refreshToken)
+	if err != nil {
+		return nil, err
+	}
 	return r.(op.RefreshTokenRequest), err
 }
 
@@ -250,25 +249,6 @@ func (s *Storage) GetClientByClientID(_ context.Context, clientID string) (op.Cl
 	}
 
 	return client, nil
-
-	/*if id == "web" {
-		appType = op.ApplicationTypeWeb
-		authMethod = oidc.AuthMethodBasic
-		accessTokenType = op.AccessTokenTypeBearer
-		responseTypes = []oidc.ResponseType{oidc.ResponseTypeCode}
-	} else if id == "native" {
-		appType = op.ApplicationTypeNative
-		authMethod = oidc.AuthMethodNone
-		accessTokenType = op.AccessTokenTypeBearer
-		responseTypes = []oidc.ResponseType{oidc.ResponseTypeCode}
-	} else {
-		appType = op.ApplicationTypeUserAgent
-		authMethod = oidc.AuthMethodNone
-		accessTokenType = op.AccessTokenTypeJWT
-		responseTypes = []oidc.ResponseType{oidc.ResponseTypeIDToken, oidc.ResponseTypeIDTokenOnly}
-	}
-
-	return &ConfClient{ID: id, applicationType: appType, authMethod: authMethod, accessTokenType: accessTokenType, responseTypes: responseTypes, devMode: true}, nil */
 }
 
 func (s *Storage) AuthorizeClientIDSecret(_ context.Context, _ string, _ string) error {
