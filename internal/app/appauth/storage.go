@@ -15,12 +15,14 @@ import (
 	"github.com/caos/oidc/pkg/oidc"
 	"github.com/caos/oidc/pkg/op"
 	"github.com/oklog/ulid"
+	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"gopkg.in/square/go-jose.v2"
 )
 
 type Storage struct {
 	lock      sync.Mutex
 	appConfig *StorageConfig
+	userUC    interfaces.User
 	clients   map[string]op.Client
 	requests  map[string]AuthRequest
 	keySet    jose.JSONWebKeySet
@@ -55,7 +57,7 @@ var dummyName = pkix.Name{
 	PostalCode:         []string{"1"},
 }
 
-func NewAuthStorage(cfg *StorageConfig) op.Storage {
+func NewAuthStorage(userUC interfaces.User, cfg *StorageConfig) op.Storage {
 
 	client := initLocalClient(cfg.Debug)
 
@@ -77,6 +79,7 @@ func NewAuthStorage(cfg *StorageConfig) op.Storage {
 
 	return &Storage{
 		appConfig: cfg,
+		userUC:    userUC,
 		requests:  make(map[string]AuthRequest),
 		clients: map[string]op.Client{
 			client.GetID(): client,
@@ -288,14 +291,16 @@ func (s *Storage) SetUserinfoFromScopes(ctx context.Context, userinfo oidc.UserI
 		return err
 	}
 
+	user, err := s.userUC.GetUserBySubject(ctx, subject, nil)
+	if err != nil {
+		return err
+	}
+
 	userinfo.SetSubject(request.GetSubject())
-	userinfo.SetAddress(oidc.NewUserInfoAddress("Test 789\nPostfach 2", "", "", "", "", ""))
-	userinfo.SetEmail("yk.eukarya@gmail.com", true)
-	userinfo.SetPhone("0791234567", true)
-	userinfo.SetName("Test")
-	userinfo.AppendClaims("nickname", "test")
-	userinfo.AppendClaims("updated_at", "2021-10-04T18:15:46.472Z")
-	userinfo.AppendClaims("picture", "https://s.gravatar.com/avatar/170df899f275cf2d8e774f7424d46430?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fyk.png")
+	userinfo.SetEmail(user.Email(), true)
+	userinfo.SetName(user.Name())
+	userinfo.AppendClaims("lang", user.Lang())
+	userinfo.AppendClaims("theme", user.Theme())
 
 	return nil
 }

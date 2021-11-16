@@ -48,11 +48,13 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 		}
 	}
 
-	storage := appauth.NewAuthStorage(&appauth.StorageConfig{
-		Domain: domain.String(),
-		Debug:  cfg.Debug,
-		DN:     dn,
-	})
+	storage := appauth.NewAuthStorage(
+		userUsecase,
+		&appauth.StorageConfig{
+			Domain: domain.String(),
+			Debug:  cfg.Debug,
+			DN:     dn,
+		})
 	handler, err := op.NewOpenIDProvider(
 		ctx,
 		config,
