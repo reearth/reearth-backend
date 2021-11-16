@@ -19,7 +19,7 @@ type ConfClient struct {
 	redirectURIs       []string
 	logoutRedirectURIs []string
 	loginURI           string
-	iDTokenLifetime    time.Duration
+	idTokenLifetime    time.Duration
 	clockSkew          time.Duration
 	devMode            bool
 }
@@ -49,7 +49,7 @@ func (c *ConfClient) AuthMethod() oidc.AuthMethod {
 }
 
 func (c *ConfClient) IDTokenLifetime() time.Duration {
-	return c.iDTokenLifetime
+	return c.idTokenLifetime
 }
 
 func (c *ConfClient) AccessTokenType() op.AccessTokenType {

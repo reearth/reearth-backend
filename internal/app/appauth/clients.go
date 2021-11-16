@@ -18,7 +18,7 @@ func initLocalClient(devMode bool) op.Client {
 		redirectURIs:    []string{"http://localhost:3000"},
 		allowedScopes:   []string{"openid", "profile", "email"},
 		loginURI:        "http://localhost:3000/login?id=%s",
-		iDTokenLifetime: 5 * time.Minute,
+		idTokenLifetime: 5 * time.Minute,
 		clockSkew:       0,
 		devMode:         devMode,
 	}

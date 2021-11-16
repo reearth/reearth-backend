@@ -9,7 +9,6 @@ import (
 	"errors"
 	"math/big"
 	mrand "math/rand"
-	"net"
 	"sync"
 	"time"
 
@@ -31,29 +30,47 @@ type Storage struct {
 type StorageConfig struct {
 	Domain string `default:"http://localhost:8080"`
 	Debug  bool
-	Pkix   AuthPkixConfig
+	DN     *AuthDNConfig
 }
 
-type AuthPkixConfig struct {
-	Organization  string
-	Country       string
-	Province      string
-	Locality      string
-	StreetAddress string
-	PostalCode    string
+type AuthDNConfig struct {
+	CommonName         string
+	Organization       []string
+	OrganizationalUnit []string
+	Country            []string
+	Province           []string
+	Locality           []string
+	StreetAddress      []string
+	PostalCode         []string
+}
+
+var dummyName = pkix.Name{
+	CommonName:         "Dummy company, INC.",
+	Organization:       []string{"Dummy company, INC."},
+	OrganizationalUnit: []string{"Dummy OU"},
+	Country:            []string{"US"},
+	Province:           []string{"Dummy"},
+	Locality:           []string{"Dummy locality"},
+	StreetAddress:      []string{"Dummy street"},
+	PostalCode:         []string{"1"},
 }
 
 func NewAuthStorage(cfg *StorageConfig) op.Storage {
 
 	client := initLocalClient(cfg.Debug)
 
-	name := pkix.Name{
-		Organization:  []string{cfg.Pkix.Organization},
-		Country:       []string{cfg.Pkix.Country},
-		Province:      []string{cfg.Pkix.Province},
-		Locality:      []string{cfg.Pkix.Locality},
-		StreetAddress: []string{cfg.Pkix.StreetAddress},
-		PostalCode:    []string{cfg.Pkix.PostalCode},
+	name := dummyName
+	if cfg.DN != nil {
+		name = pkix.Name{
+			CommonName:         cfg.DN.CommonName,
+			Organization:       cfg.DN.Organization,
+			OrganizationalUnit: cfg.DN.OrganizationalUnit,
+			Country:            cfg.DN.Country,
+			Province:           cfg.DN.Province,
+			Locality:           cfg.DN.Locality,
+			StreetAddress:      cfg.DN.StreetAddress,
+			PostalCode:         cfg.DN.PostalCode,
+		}
 	}
 
 	key, keySet := initKeys(name)
@@ -77,18 +94,15 @@ func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.JSONWebKeySet) {
 	}
 
 	cert := &x509.Certificate{
-		SerialNumber: big.NewInt(1658),
+		SerialNumber: big.NewInt(1),
 		Subject:      name,
-		IPAddresses:  []net.IP{net.IPv4(127, 0, 0, 1), net.IPv6loopback},
 		NotBefore:    time.Now(),
-		NotAfter:     time.Now().AddDate(10, 0, 0),
+		NotAfter:     time.Now().AddDate(100, 0, 0),
 		IsCA:         true,
-		SubjectKeyId: []byte{1, 2, 3, 4, 6},
-		ExtKeyUsage:  []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth},
-		KeyUsage:     x509.KeyUsageCertSign,
+		KeyUsage:     x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
 	}
 
-	caBytes, err := x509.CreateCertificate(rand.Reader, cert, cert, &key.PublicKey, key)
+	caBytes, err := x509.CreateCertificate(rand.Reader, cert, cert, key.Public(), key)
 	if err != nil {
 		panic("failed to create the cert")
 	}
