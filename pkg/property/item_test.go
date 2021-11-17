@@ -60,7 +60,7 @@ func TestToGroup(t *testing.T) {
 				NewFieldUnsafe().
 					FieldUnsafe(propertySchemaField1ID).
 					TypeUnsafe(ValueTypeString).
-					ValueUnsafe(ValueTypeString.ValueFromUnsafe("xxx")).
+					ValueUnsafe(ValueTypeString.ValueFrom("xxx")).
 					Build(),
 			}).MustBuild(),
 	}

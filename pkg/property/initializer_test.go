@@ -94,7 +94,7 @@ func TestInitializerItem_Clone(t *testing.T) {
 			Fields: []*InitializerField{{
 				Field: id.PropertySchemaFieldID("name"),
 				Type:  ValueTypeString,
-				Value: ValueTypeString.ValueFromUnsafe("aaa"),
+				Value: ValueTypeString.ValueFrom("aaa"),
 				Links: []*InitializerLink{{
 					Dataset: id.NewDatasetID().Ref(),
 					Schema:  id.NewDatasetSchemaID(),
@@ -141,7 +141,7 @@ func TestInitializerItem_PropertyGroup(t *testing.T) {
 		Fields: []*InitializerField{{
 			Field: id.PropertySchemaFieldID("name"),
 			Type:  ValueTypeString,
-			Value: ValueTypeString.ValueFromUnsafe("aaa"),
+			Value: ValueTypeString.ValueFrom("aaa"),
 		}},
 	}
 
@@ -183,7 +183,7 @@ func TestInitializerGroup_Clone(t *testing.T) {
 		Fields: []*InitializerField{{
 			Field: id.PropertySchemaFieldID("name"),
 			Type:  ValueTypeString,
-			Value: ValueTypeString.ValueFromUnsafe("aaa"),
+			Value: ValueTypeString.ValueFrom("aaa"),
 			Links: []*InitializerLink{{
 				Dataset: id.NewDatasetID().Ref(),
 				Schema:  id.NewDatasetSchemaID(),
@@ -208,7 +208,7 @@ func TestInitializerGroup_PropertyGroup(t *testing.T) {
 		Fields: []*InitializerField{{
 			Field: id.PropertySchemaFieldID("name"),
 			Type:  ValueTypeString,
-			Value: ValueTypeString.ValueFromUnsafe("aaa"),
+			Value: ValueTypeString.ValueFrom("aaa"),
 		}},
 	}
 
@@ -231,7 +231,7 @@ func TestInitializerField_Clone(t *testing.T) {
 	field := &InitializerField{
 		Field: id.PropertySchemaFieldID("name"),
 		Type:  ValueTypeString,
-		Value: ValueTypeString.ValueFromUnsafe("aaa"),
+		Value: ValueTypeString.ValueFrom("aaa"),
 		Links: []*InitializerLink{{
 			Dataset: id.NewDatasetID().Ref(),
 			Schema:  id.NewDatasetSchemaID(),
@@ -249,7 +249,7 @@ func TestInitializerField_PropertyField(t *testing.T) {
 	field := &InitializerField{
 		Field: id.PropertySchemaFieldID("name"),
 		Type:  ValueTypeString,
-		Value: ValueTypeString.ValueFromUnsafe("aaa"),
+		Value: ValueTypeString.ValueFrom("aaa"),
 		Links: []*InitializerLink{{
 			Dataset: id.NewDatasetID().Ref(),
 			Schema:  id.NewDatasetSchemaID(),

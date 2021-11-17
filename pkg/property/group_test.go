@@ -28,7 +28,7 @@ func TestGroup_SchemaGroup(t *testing.T) {
 
 func TestGroup_HasLinkedField(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
 	ls := NewLinks([]*Link{l})
 	f := NewField(sf).Value(v).Link(ls).MustBuild()
@@ -66,7 +66,7 @@ func TestGroup_HasLinkedField(t *testing.T) {
 }
 func TestGroup_IsDatasetLinked(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
 	l := NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())
@@ -109,7 +109,7 @@ func TestGroup_IsDatasetLinked(t *testing.T) {
 
 func TestGroup_CollectDatasets(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	l := NewLink(dsid, id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
 	ls := NewLinks([]*Link{l})
@@ -143,7 +143,7 @@ func TestGroup_CollectDatasets(t *testing.T) {
 
 func TestGroup_FieldsByLinkedDataset(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
 	l := NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())
@@ -180,7 +180,7 @@ func TestGroup_FieldsByLinkedDataset(t *testing.T) {
 
 func TestGroup_IsEmpty(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField(sf).Value(v).MustBuild()
 	f2 := NewField(sf).MustBuild()
 
@@ -213,7 +213,7 @@ func TestGroup_IsEmpty(t *testing.T) {
 
 func TestGroup_Prune(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField(sf).Value(v).MustBuild()
 	f2 := NewField(sf).MustBuild()
 
@@ -309,7 +309,7 @@ func TestGroup_GetOrCreateField(t *testing.T) {
 func TestGroup_RemoveField(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	sf2 := NewSchemaField().ID("b").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField(sf).Value(v).MustBuild()
 	f2 := NewField(sf2).MustBuild()
 
@@ -343,7 +343,7 @@ func TestGroup_RemoveField(t *testing.T) {
 func TestGroup_FieldIDs(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	sf2 := NewSchemaField().ID("b").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField(sf).Value(v).MustBuild()
 	f2 := NewField(sf2).MustBuild()
 
@@ -375,7 +375,7 @@ func TestGroup_FieldIDs(t *testing.T) {
 func TestGroup_Field(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	sf2 := NewSchemaField().ID("b").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField(sf).Value(v).MustBuild()
 	f2 := NewField(sf2).MustBuild()
 
@@ -442,15 +442,15 @@ func TestGroup_UpdateNameFieldValue(t *testing.T) {
 			Name:     "update value",
 			Group:    NewGroup().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), "aa").MustBuild(),
 			PS:       NewSchema().ID(id.MustPropertySchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{sg}).MustBuild(),
-			Value:    ValueTypeString.ValueFromUnsafe("abc"),
+			Value:    ValueTypeString.ValueFrom("abc"),
 			FID:      "aa",
-			Expected: NewField(sf).Value(ValueTypeString.ValueFromUnsafe("abc")).MustBuild(),
+			Expected: NewField(sf).Value(ValueTypeString.ValueFrom("abc")).MustBuild(),
 		},
 		{
 			Name:     "invalid property field",
 			Group:    NewGroup().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), "aa").MustBuild(),
 			PS:       NewSchema().ID(id.MustPropertySchemaID("xx~1.0.0/bb")).Groups([]*SchemaGroup{sg2}).MustBuild(),
-			Value:    ValueTypeString.ValueFromUnsafe("abc"),
+			Value:    ValueTypeString.ValueFrom("abc"),
 			FID:      "aa",
 			Expected: nil,
 			Err:      ErrInvalidPropertyField,

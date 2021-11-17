@@ -19,7 +19,6 @@ var propertyString = TypeProperty{
 		_, ok := i.(string)
 		return ok
 	},
-	Compatible: []Type{},
 }
 
 func (v *Value) ValueString() (vv string, ok bool) {

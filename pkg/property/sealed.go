@@ -31,6 +31,13 @@ type SealedField struct {
 	PropertyValue *Value
 }
 
+func (f *SealedField) Value() *Value {
+	if f == nil {
+		return nil
+	}
+	return datasetValueOrPropertyValue(f.DatasetValue, f.PropertyValue)
+}
+
 func Seal(ctx context.Context, p *Merged, d dataset.GraphLoader) (*Sealed, error) {
 	if p == nil {
 		return nil, nil

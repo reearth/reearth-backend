@@ -102,7 +102,7 @@ func TestEncoder_Layers(t *testing.T) {
 		ID:            id.PropertySchemaFieldID("location"),
 		Type:          "latlng",
 		DatasetValue:  nil,
-		PropertyValue: v1.Value(),
+		PropertyValue: property.ValueTypeLatLng.ValueFrom(v1),
 	}
 	fl1 := []*property.SealedField{}
 	fl1 = append(fl1, &f1)
@@ -157,7 +157,7 @@ func TestEncoder_Layers(t *testing.T) {
 				PluginID:    id.OfficialPluginID.StringRef(),
 				ExtensionID: ex.StringRef(),
 				Name:        "test",
-				Property:    map[string]interface{}{"default": map[string]interface{}{"location": map[string]interface{}{"lat": 4.4, "lng": 53.4}}},
+				Property:    map[string]interface{}{"default": map[string]interface{}{"location": property.LatLng{Lat: 4.4, Lng: 53.4}}},
 				Infobox:     nil,
 			},
 		},
@@ -177,7 +177,6 @@ func TestEncoder_Layers(t *testing.T) {
 				assert.Equal(tt, tc.Expected.Name, res.Name)
 				assert.Equal(tt, *tc.Expected.PluginID, *res.PluginID)
 			}
-
 		})
 	}
 }

@@ -1,41 +1,12 @@
 package gqlmodel
 
 import (
-	"net/url"
-
 	"github.com/reearth/reearth-backend/pkg/dataset"
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 func ToDatasetValue(v *dataset.Value) *interface{} {
-	var res interface{}
-	if v == nil {
-		return nil
-	}
-	switch v2 := v.Value().(type) {
-	case bool:
-		res = v2
-	case float64:
-		res = v2
-	case string:
-		res = v2
-	case id.ID:
-		res = v2.String()
-	case *url.URL:
-		res = v2.String()
-	case dataset.LatLng:
-		res = LatLng{
-			Lat: v2.Lat,
-			Lng: v2.Lng,
-		}
-	case dataset.LatLngHeight:
-		res = LatLngHeight{
-			Lat:    v2.Lat,
-			Lng:    v2.Lng,
-			Height: v2.Height,
-		}
-	}
-	return &res
+	i := valueInterfaceToGqlValue(v.Value())
+	return &i
 }
 
 func ToDatasetValueType(t dataset.ValueType) ValueType {
@@ -58,10 +29,6 @@ func ToDatasetValueType(t dataset.ValueType) ValueType {
 	return ""
 }
 
-func ToDatasetSource(ds dataset.Source) string {
-	return ds.String()
-}
-
 func ToDatasetField(f *dataset.Field, parent *dataset.Dataset) *DatasetField {
 	if f == nil || parent == nil {
 		return nil
@@ -72,7 +39,7 @@ func ToDatasetField(f *dataset.Field, parent *dataset.Dataset) *DatasetField {
 		FieldID:  f.Field().ID(),
 		Type:     ToDatasetValueType(f.Type()),
 		Value:    ToDatasetValue(f.Value()),
-		Source:   ToDatasetSource(f.Source()),
+		Source:   f.Source(),
 	}
 }
 
@@ -90,7 +57,7 @@ func ToDataset(ds *dataset.Dataset) *Dataset {
 	return &Dataset{
 		ID:       ds.ID().ID(),
 		SchemaID: ds.Schema().ID(),
-		Source:   ToDatasetSource(ds.Source()),
+		Source:   ds.Source(),
 		Fields:   fields,
 	}
 }
@@ -108,14 +75,14 @@ func ToDatasetSchema(ds *dataset.Schema) *DatasetSchema {
 			Name:     f.Name(),
 			Type:     ToDatasetValueType(f.Type()),
 			SchemaID: ds.ID().ID(),
-			Source:   ToDatasetSource(f.Source()),
+			Source:   f.Source(),
 			RefID:    f.Ref().IDRef(),
 		})
 	}
 
 	return &DatasetSchema{
 		ID:                    ds.ID().ID(),
-		Source:                ToDatasetSource(ds.Source()),
+		Source:                ds.Source(),
 		Name:                  ds.Name(),
 		SceneID:               ds.Scene().ID(),
 		RepresentativeFieldID: ds.RepresentativeField().IDRef().IDRef(),

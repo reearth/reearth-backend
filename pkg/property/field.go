@@ -60,8 +60,7 @@ func (p *Field) ActualValue(ds *dataset.Dataset) *Value {
 			ldsfid := l.DatasetSchemaField()
 			if ldid != nil || ldsfid != nil || ds.ID() == *ldid {
 				if f := ds.Field(*ldsfid); f != nil {
-					v1, _ := valueFromDataset(f.Value())
-					return v1
+					return valueFromDataset(f.Value())
 				}
 			}
 		}
@@ -144,7 +143,7 @@ func (p *Field) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 		if dsid, dsfid := l.Last().Dataset(), l.Last().DatasetSchemaField(); dsid != nil && dsfid != nil {
 			dss, _ := dl(ctx, *dsid)
 			if dsf := dss[0].Field(*dsfid); dsf != nil {
-				if schemaField.Type() != valueTypeFromDataset(dsf.Type()) {
+				if schemaField.Type() != ValueType(dsf.Type()) {
 					p.Unlink()
 				}
 			}
@@ -184,9 +183,6 @@ func (p *Field) ValidateSchema(ps *SchemaField) error {
 	}
 	if p.ptype != p.value.Type() {
 		return errors.New("invalid field value type")
-	}
-	if !p.ptype.ValidateValue(p.value) {
-		return errors.New("invalid field value")
 	}
 	return nil
 }

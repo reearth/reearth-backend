@@ -78,12 +78,12 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField1ID).
 						TypeUnsafe(property.ValueTypeString).
-						ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("xxx")).
+						ValueUnsafe(property.ValueTypeString.ValueFrom("xxx")).
 						Build(),
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField2ID).
 						TypeUnsafe(property.ValueTypeNumber).
-						ValueUnsafe(property.ValueTypeNumber.ValueFromUnsafe(1)).
+						ValueUnsafe(property.ValueTypeNumber.ValueFrom(1)).
 						Build(),
 				}).MustBuild(),
 		}).
@@ -107,12 +107,12 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField1ID).
 						TypeUnsafe(property.ValueTypeString).
-						ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("yyy")).
+						ValueUnsafe(property.ValueTypeString.ValueFrom("yyy")).
 						Build(),
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField2ID).
 						TypeUnsafe(property.ValueTypeNumber).
-						ValueUnsafe(property.ValueTypeNumber.ValueFromUnsafe(1)).
+						ValueUnsafe(property.ValueTypeNumber.ValueFrom(1)).
 						Build(),
 				}).MustBuild(),
 		}).
@@ -134,12 +134,12 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField1ID).
 						TypeUnsafe(property.ValueTypeString).
-						ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("xxx")).
+						ValueUnsafe(property.ValueTypeString.ValueFrom("xxx")).
 						Build(),
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField3ID).
 						TypeUnsafe(property.ValueTypeString).
-						ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("test")).
+						ValueUnsafe(property.ValueTypeString.ValueFrom("test")).
 						Build(),
 				}).MustBuild(),
 		}).
@@ -201,7 +201,7 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField2ID).
 						TypeUnsafe(property.ValueTypeNumber).
-						ValueUnsafe(property.ValueTypeNumber.ValueFromUnsafe(1)).
+						ValueUnsafe(property.ValueTypeNumber.ValueFrom(1)).
 						Build(),
 				}).MustBuild(),
 		}).
@@ -236,7 +236,7 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField3ID).
 						TypeUnsafe(property.ValueTypeString).
-						ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("xxx")).
+						ValueUnsafe(property.ValueTypeString.ValueFrom("xxx")).
 						Build(),
 				}).MustBuild(),
 		}).
@@ -330,7 +330,7 @@ func TestSceneBuilder(t *testing.T) {
 						property.NewFieldUnsafe().
 							FieldUnsafe(propertySchemaField1ID).
 							TypeUnsafe(property.ValueTypeString).
-							ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("XYZ")).
+							ValueUnsafe(property.ValueTypeString.ValueFrom("XYZ")).
 							Build(),
 					}).MustBuild(),
 				property.NewGroup().ID(propertyItemID2).Schema(propertySchemaID, propertySchemaGroup2ID).
@@ -338,7 +338,7 @@ func TestSceneBuilder(t *testing.T) {
 						property.NewFieldUnsafe().
 							FieldUnsafe(propertySchemaField1ID).
 							TypeUnsafe(property.ValueTypeString).
-							ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("ZYX")).
+							ValueUnsafe(property.ValueTypeString.ValueFrom("ZYX")).
 							Build(),
 					}).MustBuild(),
 			}).MustBuild(),
@@ -372,7 +372,7 @@ func TestSceneBuilder(t *testing.T) {
 				property.NewFieldUnsafe().
 					FieldUnsafe(propertySchemaField1ID).
 					TypeUnsafe(property.ValueTypeString).
-					ValueUnsafe(property.ValueTypeString.ValueFromUnsafe("hogehoge")).
+					ValueUnsafe(property.ValueTypeString.ValueFrom("hogehoge")).
 					Build(),
 			}).MustBuild(),
 		}).

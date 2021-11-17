@@ -58,12 +58,12 @@ func TestSeal(t *testing.T) {
 								Fields: []*MergedField{
 									{
 										ID:    id.PropertySchemaFieldID("a"),
-										Value: ValueTypeString.ValueFromUnsafe("a"),
+										Value: ValueTypeString.ValueFrom("a"),
 										Type:  ValueTypeString,
 									},
 									{
 										ID:    id.PropertySchemaFieldID("b"),
-										Value: ValueTypeString.ValueFromUnsafe("b"),
+										Value: ValueTypeString.ValueFrom("b"),
 										Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 										Type:  ValueTypeString,
 									},
@@ -79,12 +79,12 @@ func TestSeal(t *testing.T) {
 						Fields: []*MergedField{
 							{
 								ID:    id.PropertySchemaFieldID("a"),
-								Value: ValueTypeString.ValueFromUnsafe("aaa"),
+								Value: ValueTypeString.ValueFrom("aaa"),
 								Type:  ValueTypeString,
 							},
 							{
 								ID:    id.PropertySchemaFieldID("b"),
-								Value: ValueTypeString.ValueFromUnsafe("aaa"),
+								Value: ValueTypeString.ValueFrom("aaa"),
 								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 								Type:  ValueTypeString,
 							},
@@ -117,12 +117,12 @@ func TestSeal(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -138,12 +138,12 @@ func TestSeal(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -227,12 +227,12 @@ func TestSealedItemFrom(t *testing.T) {
 						Fields: []*MergedField{
 							{
 								ID:    id.PropertySchemaFieldID("a"),
-								Value: ValueTypeString.ValueFromUnsafe("a"),
+								Value: ValueTypeString.ValueFrom("a"),
 								Type:  ValueTypeString,
 							},
 							{
 								ID:    id.PropertySchemaFieldID("b"),
-								Value: ValueTypeString.ValueFromUnsafe("b"),
+								Value: ValueTypeString.ValueFrom("b"),
 								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 								Type:  ValueTypeString,
 							},
@@ -259,12 +259,12 @@ func TestSealedItemFrom(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+								PropertyValue: ValueTypeString.ValueFrom("a"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+								PropertyValue: ValueTypeString.ValueFrom("b"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -289,12 +289,12 @@ func TestSealedItemFrom(t *testing.T) {
 						Fields: []*MergedField{
 							{
 								ID:    id.PropertySchemaFieldID("a"),
-								Value: ValueTypeString.ValueFromUnsafe("aaa"),
+								Value: ValueTypeString.ValueFrom("aaa"),
 								Type:  ValueTypeString,
 							},
 							{
 								ID:    id.PropertySchemaFieldID("b"),
-								Value: ValueTypeString.ValueFromUnsafe("aaa"),
+								Value: ValueTypeString.ValueFrom("aaa"),
 								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 								Type:  ValueTypeString,
 							},
@@ -322,12 +322,12 @@ func TestSealedItemFrom(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -382,12 +382,12 @@ func TestSealed_Interface(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -403,12 +403,12 @@ func TestSealed_Interface(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -467,12 +467,12 @@ func TestSealedItem_Match(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+								PropertyValue: ValueTypeString.ValueFrom("a"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+								PropertyValue: ValueTypeString.ValueFrom("b"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -527,12 +527,12 @@ func TestSealed_ItemBy(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -548,12 +548,12 @@ func TestSealed_ItemBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -575,12 +575,12 @@ func TestSealed_ItemBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+								PropertyValue: ValueTypeString.ValueFrom("a"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+								PropertyValue: ValueTypeString.ValueFrom("b"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -610,12 +610,12 @@ func TestSealed_ItemBy(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -631,12 +631,12 @@ func TestSealed_ItemBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -658,12 +658,12 @@ func TestSealed_ItemBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+								PropertyValue: ValueTypeString.ValueFrom("a"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+								PropertyValue: ValueTypeString.ValueFrom("b"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -693,12 +693,12 @@ func TestSealed_ItemBy(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -714,12 +714,12 @@ func TestSealed_ItemBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -774,12 +774,12 @@ func TestSealed_FieldBy(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -795,12 +795,12 @@ func TestSealed_FieldBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -811,7 +811,7 @@ func TestSealed_FieldBy(t *testing.T) {
 			Expected: &SealedField{
 				ID:            "a",
 				Type:          ValueTypeString,
-				PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+				PropertyValue: ValueTypeString.ValueFrom("aaa"),
 			},
 		},
 		{
@@ -836,12 +836,12 @@ func TestSealed_FieldBy(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -857,12 +857,12 @@ func TestSealed_FieldBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -873,7 +873,7 @@ func TestSealed_FieldBy(t *testing.T) {
 			Expected: &SealedField{
 				ID:            "a",
 				Type:          ValueTypeString,
-				PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+				PropertyValue: ValueTypeString.ValueFrom("aaa"),
 			},
 		},
 		{
@@ -898,12 +898,12 @@ func TestSealed_FieldBy(t *testing.T) {
 									{
 										ID:            "a",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("a"),
+										PropertyValue: ValueTypeString.ValueFrom("a"),
 									},
 									{
 										ID:            "b",
 										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFromUnsafe("b"),
+										PropertyValue: ValueTypeString.ValueFrom("b"),
 										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 									},
 								},
@@ -919,12 +919,12 @@ func TestSealed_FieldBy(t *testing.T) {
 							{
 								ID:            "a",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 							},
 							{
 								ID:            "b",
 								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+								PropertyValue: ValueTypeString.ValueFrom("aaa"),
 								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
 							},
 						},
@@ -935,7 +935,7 @@ func TestSealed_FieldBy(t *testing.T) {
 			Expected: &SealedField{
 				ID:            "a",
 				Type:          ValueTypeString,
-				PropertyValue: ValueTypeString.ValueFromUnsafe("aaa"),
+				PropertyValue: ValueTypeString.ValueFrom("aaa"),
 			},
 		},
 	}

@@ -10,7 +10,7 @@ import (
 
 func TestFieldBuilder_Value(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	b := NewField(p).Value(v).MustBuild()
 	assert.Equal(t, v, b.Value())
 }
@@ -49,7 +49,7 @@ func TestFieldBuilder_Build(t *testing.T) {
 		{
 			Name:  "fail invalid property type",
 			SF:    NewSchemaField().ID("A").Type(ValueTypeBool).MustBuild(),
-			Value: ValueTypeString.ValueFromUnsafe("vvv"),
+			Value: ValueTypeString.ValueFrom("vvv"),
 			Expected: struct {
 				PType ValueType
 				Links *Links
@@ -61,7 +61,7 @@ func TestFieldBuilder_Build(t *testing.T) {
 			Name:  "success",
 			SF:    NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
 			Links: NewLinks([]*Link{l}),
-			Value: ValueTypeString.ValueFromUnsafe("vvv"),
+			Value: ValueTypeString.ValueFrom("vvv"),
 			Expected: struct {
 				PType ValueType
 				Links *Links
@@ -69,7 +69,7 @@ func TestFieldBuilder_Build(t *testing.T) {
 			}{
 				PType: ValueTypeString,
 				Links: NewLinks([]*Link{l}),
-				Value: ValueTypeString.ValueFromUnsafe("vvv"),
+				Value: ValueTypeString.ValueFrom("vvv"),
 			},
 			Err: nil,
 		},
@@ -116,7 +116,7 @@ func TestFieldBuilder_MustBuild(t *testing.T) {
 		{
 			Name:  "fail invalid property type",
 			SF:    NewSchemaField().ID("A").Type(ValueTypeBool).MustBuild(),
-			Value: ValueTypeString.ValueFromUnsafe("vvv"),
+			Value: ValueTypeString.ValueFrom("vvv"),
 			Fails: true,
 			Expected: struct {
 				PType ValueType
@@ -128,7 +128,7 @@ func TestFieldBuilder_MustBuild(t *testing.T) {
 			Name:  "success",
 			SF:    NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
 			Links: NewLinks([]*Link{l}),
-			Value: ValueTypeString.ValueFromUnsafe("vvv"),
+			Value: ValueTypeString.ValueFrom("vvv"),
 			Expected: struct {
 				PType ValueType
 				Links *Links
@@ -136,7 +136,7 @@ func TestFieldBuilder_MustBuild(t *testing.T) {
 			}{
 				PType: ValueTypeString,
 				Links: NewLinks([]*Link{l}),
-				Value: ValueTypeString.ValueFromUnsafe("vvv"),
+				Value: ValueTypeString.ValueFrom("vvv"),
 			},
 		},
 	}
@@ -185,7 +185,7 @@ func TestFieldUnsafeBuilder_Build(t *testing.T) {
 		{
 			Name:  "success",
 			Links: NewLinks([]*Link{l}),
-			Value: ValueTypeString.ValueFromUnsafe("vvv"),
+			Value: ValueTypeString.ValueFrom("vvv"),
 			Type:  ValueTypeString,
 			Field: "a",
 			Expected: struct {
@@ -197,7 +197,7 @@ func TestFieldUnsafeBuilder_Build(t *testing.T) {
 				PType: ValueTypeString,
 				Field: "a",
 				Links: NewLinks([]*Link{l}),
-				Value: ValueTypeString.ValueFromUnsafe("vvv"),
+				Value: ValueTypeString.ValueFrom("vvv"),
 			},
 		},
 		{

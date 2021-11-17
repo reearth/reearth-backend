@@ -12,7 +12,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField(sf).Value(v).MustBuild()
 	testCases := []struct {
 		Name        string
@@ -74,7 +74,7 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
+	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField(sf).Value(v).MustBuild()
 	testCases := []struct {
 		Name        string

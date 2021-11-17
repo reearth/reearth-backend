@@ -131,19 +131,19 @@ func TestSchemaField_Validate(t *testing.T) {
 		{
 			Name:     "property type != value type",
 			SF:       NewSchemaField().ID("A").Type(ValueTypeNumber).MustBuild(),
-			Input:    ValueTypeBool.ValueFromUnsafe(true),
+			Input:    ValueTypeBool.ValueFrom(true),
 			Expected: false,
 		},
 		{
 			Name:     "validate min",
 			SF:       NewSchemaField().ID("A").Type(ValueTypeNumber).Min(10).MustBuild(),
-			Input:    ValueTypeNumber.ValueFromUnsafe(9),
+			Input:    ValueTypeNumber.ValueFrom(9),
 			Expected: false,
 		},
 		{
 			Name:     "validate max",
 			SF:       NewSchemaField().ID("A").Type(ValueTypeNumber).Max(10).MustBuild(),
-			Input:    ValueTypeNumber.ValueFromUnsafe(11),
+			Input:    ValueTypeNumber.ValueFrom(11),
 			Expected: false,
 		},
 		{
@@ -160,7 +160,7 @@ func TestSchemaField_Validate(t *testing.T) {
 					Icon:  "",
 				},
 			}).MustBuild(),
-			Input:    ValueTypeString.ValueFromUnsafe("xxx"),
+			Input:    ValueTypeString.ValueFrom("xxx"),
 			Expected: true,
 		},
 		{
@@ -177,13 +177,13 @@ func TestSchemaField_Validate(t *testing.T) {
 					Icon:  "",
 				},
 			}).MustBuild(),
-			Input:    ValueTypeString.ValueFromUnsafe("aaa"),
+			Input:    ValueTypeString.ValueFrom("aaa"),
 			Expected: false,
 		},
 		{
 			Name:     "validate other",
 			SF:       NewSchemaField().ID("A").Type(ValueTypeLatLng).MustBuild(),
-			Input:    ValueTypeLatLng.ValueFromUnsafe(LatLng{Lat: 10, Lng: 11}),
+			Input:    ValueTypeLatLng.ValueFrom(LatLng{Lat: 10, Lng: 11}),
 			Expected: true,
 		},
 	}
