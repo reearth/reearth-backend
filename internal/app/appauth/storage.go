@@ -27,6 +27,7 @@ type Storage struct {
 	requests         map[string]AuthRequest
 	keySet           jose.JSONWebKeySet
 	key              *rsa.PrivateKey
+	sigKey           jose.SigningKey
 }
 
 type StorageConfig struct {
@@ -75,21 +76,22 @@ func NewAuthStorage(cfg *StorageConfig, getUserBySubject func(context.Context, s
 		}
 	}
 
-	key, keySet := initKeys(name)
+	key, sigKey, keySet := initKeys(name)
 
 	return &Storage{
 		appConfig:        cfg,
 		getUserBySubject: getUserBySubject,
 		requests:         make(map[string]AuthRequest),
+		key:              key,
+		sigKey:           sigKey,
+		keySet:           keySet,
 		clients: map[string]op.Client{
 			client.GetID(): client,
 		},
-		key:    key,
-		keySet: keySet,
 	}
 }
 
-func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.JSONWebKeySet) {
+func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKeySet) {
 
 	key, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
@@ -115,9 +117,15 @@ func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.JSONWebKeySet) {
 		panic("failed to create the cert")
 	}
 
-	return key, jose.JSONWebKeySet{
+	keyID := "RE01"
+	sk := jose.SigningKey{
+		Algorithm: jose.RS256,
+		Key:       jose.JSONWebKey{Key: key, Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
+	}
+
+	return key, sk, jose.JSONWebKeySet{
 		Keys: []jose.JSONWebKey{
-			{Key: key.Public(), Use: "sig", Algorithm: "RS256", KeyID: "1", Certificates: []*x509.Certificate{cert}},
+			{Key: key.Public(), Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
 		},
 	}
 }
@@ -251,7 +259,7 @@ func (s *Storage) TerminateSession(_ context.Context, _, _ string) error {
 }
 
 func (s *Storage) GetSigningKey(_ context.Context, keyCh chan<- jose.SigningKey) {
-	keyCh <- jose.SigningKey{Algorithm: jose.RS256, Key: s.key}
+	keyCh <- s.sigKey
 }
 
 func (s *Storage) GetKeySet(_ context.Context) (*jose.JSONWebKeySet, error) {
