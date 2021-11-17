@@ -41,9 +41,15 @@ func (c *Cluster) Property() id.PropertyID {
 }
 
 func (c *Cluster) Rename(name string) {
+	if c == nil {
+		return
+	}
 	c.name = name
 }
 
 func (c *Cluster) UpdateProperty(pid id.PropertyID) {
+	if c == nil {
+		return
+	}
 	c.property = pid
 }

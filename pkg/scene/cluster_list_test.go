@@ -108,7 +108,6 @@ func TestList_Has(t *testing.T) {
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(tt *testing.T) {
-
 			assert.Equal(tt, tc.want, tc.list.Has(tc.args.tid))
 		})
 	}
