@@ -127,7 +127,7 @@ type AddMemberToTeamPayload struct {
 
 type AddPropertyItemInput struct {
 	PropertyID     id.ID                    `json:"propertyId"`
-	SchemaItemID   id.PropertySchemaFieldID `json:"schemaItemId"`
+	SchemaGroupID  id.PropertySchemaGroupID `json:"schemaGroupId"`
 	Index          *int                     `json:"index"`
 	NameFieldValue interface{}              `json:"nameFieldValue"`
 	NameFieldType  *ValueType               `json:"nameFieldType"`
@@ -522,7 +522,7 @@ func (LayerItem) IsLayer()  {}
 
 type LinkDatasetToPropertyValueInput struct {
 	PropertyID            id.ID                     `json:"propertyId"`
-	SchemaItemID          *id.PropertySchemaFieldID `json:"schemaItemId"`
+	SchemaGroupID         *id.PropertySchemaGroupID `json:"schemaGroupId"`
 	ItemID                *id.ID                    `json:"itemId"`
 	FieldID               id.PropertySchemaFieldID  `json:"fieldId"`
 	DatasetSchemaIds      []*id.ID                  `json:"datasetSchemaIds"`
@@ -589,7 +589,7 @@ type MergedPropertyGroup struct {
 	ParentPropertyID   *id.ID                   `json:"parentPropertyId"`
 	OriginalID         *id.ID                   `json:"originalId"`
 	ParentID           *id.ID                   `json:"parentId"`
-	SchemaGroupID      id.PropertySchemaFieldID `json:"schemaGroupId"`
+	SchemaGroupID      id.PropertySchemaGroupID `json:"schemaGroupId"`
 	SchemaID           *id.PropertySchemaID     `json:"schemaId"`
 	LinkedDatasetID    *id.ID                   `json:"linkedDatasetId"`
 	Fields             []*MergedPropertyField   `json:"fields"`
@@ -628,10 +628,10 @@ type MoveLayerPayload struct {
 }
 
 type MovePropertyItemInput struct {
-	PropertyID   id.ID                    `json:"propertyId"`
-	SchemaItemID id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       id.ID                    `json:"itemId"`
-	Index        int                      `json:"index"`
+	PropertyID    id.ID                    `json:"propertyId"`
+	SchemaGroupID id.PropertySchemaGroupID `json:"schemaGroupId"`
+	ItemID        id.ID                    `json:"itemId"`
+	Index         int                      `json:"index"`
 }
 
 type PageInfo struct {
@@ -784,7 +784,7 @@ type PropertyFieldPayload struct {
 type PropertyGroup struct {
 	ID            id.ID                    `json:"id"`
 	SchemaID      id.PropertySchemaID      `json:"schemaId"`
-	SchemaGroupID id.PropertySchemaFieldID `json:"schemaGroupId"`
+	SchemaGroupID id.PropertySchemaGroupID `json:"schemaGroupId"`
 	Fields        []*PropertyField         `json:"fields"`
 	Schema        *PropertySchema          `json:"schema"`
 	SchemaGroup   *PropertySchemaGroup     `json:"schemaGroup"`
@@ -795,7 +795,7 @@ func (PropertyGroup) IsPropertyItem() {}
 type PropertyGroupList struct {
 	ID            id.ID                    `json:"id"`
 	SchemaID      id.PropertySchemaID      `json:"schemaId"`
-	SchemaGroupID id.PropertySchemaFieldID `json:"schemaGroupId"`
+	SchemaGroupID id.PropertySchemaGroupID `json:"schemaGroupId"`
 	Groups        []*PropertyGroup         `json:"groups"`
 	Schema        *PropertySchema          `json:"schema"`
 	SchemaGroup   *PropertySchemaGroup     `json:"schemaGroup"`
@@ -851,7 +851,7 @@ type PropertySchemaFieldChoice struct {
 }
 
 type PropertySchemaGroup struct {
-	SchemaGroupID         id.PropertySchemaFieldID  `json:"schemaGroupId"`
+	SchemaGroupID         id.PropertySchemaGroupID  `json:"schemaGroupId"`
 	SchemaID              id.PropertySchemaID       `json:"schemaId"`
 	Fields                []*PropertySchemaField    `json:"fields"`
 	IsList                bool                      `json:"isList"`
@@ -935,16 +935,16 @@ type RemoveMyAuthInput struct {
 }
 
 type RemovePropertyFieldInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
+	PropertyID    id.ID                     `json:"propertyId"`
+	SchemaGroupID *id.PropertySchemaGroupID `json:"schemaGroupId"`
+	ItemID        *id.ID                    `json:"itemId"`
+	FieldID       id.PropertySchemaFieldID  `json:"fieldId"`
 }
 
 type RemovePropertyItemInput struct {
-	PropertyID   id.ID                    `json:"propertyId"`
-	SchemaItemID id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       id.ID                    `json:"itemId"`
+	PropertyID    id.ID                    `json:"propertyId"`
+	SchemaGroupID id.PropertySchemaGroupID `json:"schemaGroupId"`
+	ItemID        id.ID                    `json:"itemId"`
 }
 
 type RemoveTagInput struct {
@@ -1104,10 +1104,10 @@ type UninstallPluginPayload struct {
 }
 
 type UnlinkPropertyValueInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
+	PropertyID    id.ID                     `json:"propertyId"`
+	SchemaGroupID *id.PropertySchemaGroupID `json:"schemaGroupId"`
+	ItemID        *id.ID                    `json:"itemId"`
+	FieldID       id.PropertySchemaFieldID  `json:"fieldId"`
 }
 
 type UpdateDatasetSchemaInput struct {
@@ -1171,9 +1171,9 @@ type UpdateProjectInput struct {
 }
 
 type UpdatePropertyItemInput struct {
-	PropertyID   id.ID                               `json:"propertyId"`
-	SchemaItemID id.PropertySchemaFieldID            `json:"schemaItemId"`
-	Operations   []*UpdatePropertyItemOperationInput `json:"operations"`
+	PropertyID    id.ID                               `json:"propertyId"`
+	SchemaGroupID id.PropertySchemaGroupID            `json:"schemaGroupId"`
+	Operations    []*UpdatePropertyItemOperationInput `json:"operations"`
 }
 
 type UpdatePropertyItemOperationInput struct {
@@ -1185,12 +1185,12 @@ type UpdatePropertyItemOperationInput struct {
 }
 
 type UpdatePropertyValueInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
-	Value        interface{}               `json:"value"`
-	Type         ValueType                 `json:"type"`
+	PropertyID    id.ID                     `json:"propertyId"`
+	SchemaGroupID *id.PropertySchemaGroupID `json:"schemaGroupId"`
+	ItemID        *id.ID                    `json:"itemId"`
+	FieldID       id.PropertySchemaFieldID  `json:"fieldId"`
+	Value         interface{}               `json:"value"`
+	Type          ValueType                 `json:"type"`
 }
 
 type UpdateTagInput struct {
@@ -1248,11 +1248,11 @@ type UpgradePluginPayload struct {
 }
 
 type UploadFileToPropertyInput struct {
-	PropertyID   id.ID                     `json:"propertyId"`
-	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
-	ItemID       *id.ID                    `json:"itemId"`
-	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
-	File         graphql.Upload            `json:"file"`
+	PropertyID    id.ID                     `json:"propertyId"`
+	SchemaGroupID *id.PropertySchemaGroupID `json:"schemaGroupId"`
+	ItemID        *id.ID                    `json:"itemId"`
+	FieldID       id.PropertySchemaFieldID  `json:"fieldId"`
+	File          graphql.Upload            `json:"file"`
 }
 
 type UploadPluginInput struct {

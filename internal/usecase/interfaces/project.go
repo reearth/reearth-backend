@@ -45,23 +45,9 @@ type PublishProjectParam struct {
 	Status project.PublishmentStatus
 }
 
-type AddProjectDomainParam struct {
-	ID     id.ProjectID
-	Domain string
-}
-
-type VerifyProjectDomainParam struct {
-	ID     id.ProjectID
-	Domain string
-}
-
-type RemoveProjectDomainParam struct {
-	ID     id.ProjectID
-	Domain string
-}
-
 var (
-	ErrProjectAliasIsNotSet error = errors.New("project alias is not set")
+	ErrProjectAliasIsNotSet    error = errors.New("project alias is not set")
+	ErrProjectAliasAlreadyUsed error = errors.New("project alias is already used by another project")
 )
 
 type Project interface {
