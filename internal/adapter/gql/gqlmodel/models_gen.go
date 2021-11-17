@@ -39,6 +39,16 @@ type Tags interface {
 	IsTags()
 }
 
+type AddClusterInput struct {
+	SceneID    id.ID   `json:"sceneID"`
+	Name       *string `json:"name"`
+	PropertyID id.ID   `json:"propertyID"`
+}
+
+type AddClusterPayload struct {
+	Scene *Scene `json:"scene"`
+}
+
 type AddDatasetSchemaInput struct {
 	SceneID             id.ID  `json:"sceneId"`
 	Name                string `json:"name"`
@@ -885,6 +895,16 @@ type RemoveAssetPayload struct {
 	AssetID id.ID `json:"assetId"`
 }
 
+type RemoveClusterInput struct {
+	ClusterID id.ID `json:"clusterID"`
+	SceneID   id.ID `json:"sceneID"`
+}
+
+type RemoveClusterPayload struct {
+	Scene     *Scene `json:"scene"`
+	ClusterID id.ID  `json:"clusterID"`
+}
+
 type RemoveDatasetSchemaInput struct {
 	SchemaID id.ID `json:"schemaId"`
 	Force    *bool `json:"force"`
@@ -1108,6 +1128,17 @@ type UnlinkPropertyValueInput struct {
 	SchemaItemID *id.PropertySchemaFieldID `json:"schemaItemId"`
 	ItemID       *id.ID                    `json:"itemId"`
 	FieldID      id.PropertySchemaFieldID  `json:"fieldId"`
+}
+
+type UpdateClusterInput struct {
+	ClusterID  id.ID   `json:"clusterID"`
+	SceneID    id.ID   `json:"sceneID"`
+	Name       *string `json:"name"`
+	PropertyID *id.ID  `json:"propertyID"`
+}
+
+type UpdateClusterPayload struct {
+	Scene *Scene `json:"scene"`
 }
 
 type UpdateDatasetSchemaInput struct {

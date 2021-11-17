@@ -1216,6 +1216,24 @@ input RemoveTagInput {
   tagID: ID!
 }
 
+input AddClusterInput {
+  sceneID: ID!
+  name: String
+  propertyID: ID!
+}
+
+input UpdateClusterInput {
+  clusterID: ID!
+  sceneID: ID!
+  name: String
+  propertyID: ID
+}
+
+input RemoveClusterInput {
+  clusterID: ID!
+  sceneID: ID!
+}
+
 # Payload
 
 type CreateAssetPayload {
@@ -1446,6 +1464,19 @@ type RemoveTagPayload{
   tagId: ID!
 }
 
+type AddClusterPayload {
+  scene: Scene!
+}
+
+type UpdateClusterPayload {
+  scene: Scene!
+}
+
+type RemoveClusterPayload{
+  scene: Scene!
+  clusterID: ID!
+}
+
 # Connection
 
 type AssetConnection {
@@ -1583,6 +1614,9 @@ type Mutation {
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
   uploadPlugin(input: UploadPluginInput!): UploadPluginPayload
   upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload
+  addCluster(input: AddClusterInput!): AddClusterPayload
+  updateCluster(input: UpdateClusterInput!): UpdateClusterPayload
+  removeCluster(input: RemoveClusterInput!): RemoveClusterPayload
 
   # Dataset
   updateDatasetSchema(
