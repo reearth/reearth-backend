@@ -38,6 +38,7 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 	var dn *appauth.AuthDNConfig = nil
 	if cfg.Config.Auth.DN != nil {
 		dn = &appauth.AuthDNConfig{
+			CommonName:         cfg.Config.Auth.DN.CN,
 			Organization:       cfg.Config.Auth.DN.O,
 			OrganizationalUnit: cfg.Config.Auth.DN.OU,
 			Country:            cfg.Config.Auth.DN.C,
@@ -49,12 +50,13 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 	}
 
 	storage := appauth.NewAuthStorage(
-		userUsecase,
 		&appauth.StorageConfig{
 			Domain: domain.String(),
 			Debug:  cfg.Debug,
 			DN:     dn,
-		})
+		},
+		userUsecase.GetUserBySubject,
+	)
 	handler, err := op.NewOpenIDProvider(
 		ctx,
 		config,

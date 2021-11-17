@@ -15,18 +15,18 @@ import (
 	"github.com/caos/oidc/pkg/oidc"
 	"github.com/caos/oidc/pkg/op"
 	"github.com/oklog/ulid"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/pkg/user"
 	"gopkg.in/square/go-jose.v2"
 )
 
 type Storage struct {
-	lock      sync.Mutex
-	appConfig *StorageConfig
-	userUC    interfaces.User
-	clients   map[string]op.Client
-	requests  map[string]AuthRequest
-	keySet    jose.JSONWebKeySet
-	key       *rsa.PrivateKey
+	lock             sync.Mutex
+	appConfig        *StorageConfig
+	getUserBySubject func(context.Context, string) (*user.User, error)
+	clients          map[string]op.Client
+	requests         map[string]AuthRequest
+	keySet           jose.JSONWebKeySet
+	key              *rsa.PrivateKey
 }
 
 type StorageConfig struct {
@@ -57,7 +57,7 @@ var dummyName = pkix.Name{
 	PostalCode:         []string{"1"},
 }
 
-func NewAuthStorage(userUC interfaces.User, cfg *StorageConfig) op.Storage {
+func NewAuthStorage(cfg *StorageConfig, getUserBySubject func(context.Context, string) (*user.User, error)) op.Storage {
 
 	client := initLocalClient(cfg.Debug)
 
@@ -78,9 +78,9 @@ func NewAuthStorage(userUC interfaces.User, cfg *StorageConfig) op.Storage {
 	key, keySet := initKeys(name)
 
 	return &Storage{
-		appConfig: cfg,
-		userUC:    userUC,
-		requests:  make(map[string]AuthRequest),
+		appConfig:        cfg,
+		getUserBySubject: getUserBySubject,
+		requests:         make(map[string]AuthRequest),
 		clients: map[string]op.Client{
 			client.GetID(): client,
 		},
@@ -291,16 +291,16 @@ func (s *Storage) SetUserinfoFromScopes(ctx context.Context, userinfo oidc.UserI
 		return err
 	}
 
-	user, err := s.userUC.GetUserBySubject(ctx, subject, nil)
+	u, err := s.getUserBySubject(ctx, subject)
 	if err != nil {
 		return err
 	}
 
 	userinfo.SetSubject(request.GetSubject())
-	userinfo.SetEmail(user.Email(), true)
-	userinfo.SetName(user.Name())
-	userinfo.AppendClaims("lang", user.Lang())
-	userinfo.AppendClaims("theme", user.Theme())
+	userinfo.SetEmail(u.Email(), true)
+	userinfo.SetName(u.Name())
+	userinfo.AppendClaims("lang", u.Lang())
+	userinfo.AppendClaims("theme", u.Theme())
 
 	return nil
 }

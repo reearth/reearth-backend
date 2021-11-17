@@ -178,7 +178,7 @@ func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserB
 	return u, nil
 }
 
-func (i *User) GetUserBySubject(ctx context.Context, sub string, _ *usecase.Operator) (u *user.User, err error) {
+func (i *User) GetUserBySubject(ctx context.Context, sub string) (u *user.User, err error) {
 	u, err = i.userRepo.FindByAuth0Sub(ctx, sub)
 	if err != nil {
 		return nil, err

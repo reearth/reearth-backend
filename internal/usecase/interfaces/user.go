@@ -45,7 +45,7 @@ type User interface {
 	Fetch(context.Context, []id.UserID, *usecase.Operator) ([]*user.User, error)
 	Signup(context.Context, SignupParam) (*user.User, *user.Team, error)
 	GetUserByCredentials(context.Context, GetUserByCredentials) (*user.User, error)
-	GetUserBySubject(context.Context, string, *usecase.Operator) (*user.User, error)
+	GetUserBySubject(context.Context, string) (*user.User, error)
 	UpdateMe(context.Context, UpdateMeParam, *usecase.Operator) (*user.User, error)
 	RemoveMyAuth(context.Context, string, *usecase.Operator) (*user.User, error)
 	SearchUser(context.Context, string, *usecase.Operator) (*user.User, error)
