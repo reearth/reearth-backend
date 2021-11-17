@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -141,13 +140,11 @@ func muxToEchoMapper(r *echo.Group) func(route *mux.Route, router *mux.Router, a
 		methods, err := route.GetMethods()
 		if err != nil {
 			r.Any(path, echo.WrapHandler(route.GetHandler()))
-			fmt.Println("ANY| " + path)
 			return nil
 		}
 
 		for _, method := range methods {
 			r.Add(method, path, echo.WrapHandler(route.GetHandler()))
-			fmt.Println(method + "| " + path)
 		}
 
 		return nil
