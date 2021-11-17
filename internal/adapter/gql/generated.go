@@ -84,7 +84,8 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	AddClusterPayload struct {
-		Scene func(childComplexity int) int
+		Cluster func(childComplexity int) int
+		Scene   func(childComplexity int) int
 	}
 
 	AddDatasetSchemaPayload struct {
@@ -943,7 +944,8 @@ type ComplexityRoot struct {
 	}
 
 	UpdateClusterPayload struct {
-		Scene func(childComplexity int) int
+		Cluster func(childComplexity int) int
+		Scene   func(childComplexity int) int
 	}
 
 	UpdateDatasetSchemaPayload struct {
@@ -1334,6 +1336,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e}
 	_ = ec
 	switch typeName + "." + field {
+
+	case "AddClusterPayload.cluster":
+		if e.complexity.AddClusterPayload.Cluster == nil {
+			break
+		}
+
+		return e.complexity.AddClusterPayload.Cluster(childComplexity), true
 
 	case "AddClusterPayload.scene":
 		if e.complexity.AddClusterPayload.Scene == nil {
@@ -5143,7 +5152,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.RemoveAssetPayload.AssetID(childComplexity), true
 
-	case "RemoveClusterPayload.clusterID":
+	case "RemoveClusterPayload.clusterId":
 		if e.complexity.RemoveClusterPayload.ClusterID == nil {
 			break
 		}
@@ -5759,6 +5768,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.UninstallPluginPayload.Scene(childComplexity), true
+
+	case "UpdateClusterPayload.cluster":
+		if e.complexity.UpdateClusterPayload.Cluster == nil {
+			break
+		}
+
+		return e.complexity.UpdateClusterPayload.Cluster(childComplexity), true
 
 	case "UpdateClusterPayload.scene":
 		if e.complexity.UpdateClusterPayload.Scene == nil {
@@ -6941,7 +6957,7 @@ union Tags = TagItem | TagGroup
 
 type Cluster {
   id: ID!
-  name: String
+  name: String!
   property: ID!
 }
 
@@ -7344,21 +7360,21 @@ input RemoveTagInput {
 }
 
 input AddClusterInput {
-  sceneID: ID!
-  name: String
-  propertyID: ID!
+  sceneId: ID!
+  name: String!
+  propertyId: ID!
 }
 
 input UpdateClusterInput {
-  clusterID: ID!
-  sceneID: ID!
+  clusterId: ID!
+  sceneId: ID!
   name: String
-  propertyID: ID
+  propertyId: ID
 }
 
 input RemoveClusterInput {
-  clusterID: ID!
-  sceneID: ID!
+  clusterId: ID!
+  sceneId: ID!
 }
 
 # Payload
@@ -7593,15 +7609,17 @@ type RemoveTagPayload{
 
 type AddClusterPayload {
   scene: Scene!
+  cluster: Cluster!
 }
 
 type UpdateClusterPayload {
   scene: Scene!
+  cluster: Cluster!
 }
 
 type RemoveClusterPayload{
   scene: Scene!
-  clusterID: ID!
+  clusterId: ID!
 }
 
 # Connection
@@ -9596,6 +9614,41 @@ func (ec *executionContext) _AddClusterPayload_scene(ctx context.Context, field 
 	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _AddClusterPayload_cluster(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddClusterPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "AddClusterPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Cluster, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.Cluster)
+	fc.Result = res
+	return ec.marshalNCluster2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCluster(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _AddDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.AddDatasetSchemaPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -10962,11 +11015,14 @@ func (ec *executionContext) _Cluster_name(ctx context.Context, field graphql.Col
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Cluster_property(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Cluster) (ret graphql.Marshaler) {
@@ -26349,7 +26405,7 @@ func (ec *executionContext) _RemoveClusterPayload_scene(ctx context.Context, fie
 	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RemoveClusterPayload_clusterID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveClusterPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _RemoveClusterPayload_clusterId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveClusterPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -29299,6 +29355,41 @@ func (ec *executionContext) _UpdateClusterPayload_scene(ctx context.Context, fie
 	return ec.marshalNScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _UpdateClusterPayload_cluster(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateClusterPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "UpdateClusterPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Cluster, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.Cluster)
+	fc.Result = res
+	return ec.marshalNCluster2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐCluster(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _UpdateDatasetSchemaPayload_datasetSchema(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateDatasetSchemaPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -31870,10 +31961,10 @@ func (ec *executionContext) unmarshalInputAddClusterInput(ctx context.Context, o
 
 	for k, v := range asMap {
 		switch k {
-		case "sceneID":
+		case "sceneId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
 			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
@@ -31882,14 +31973,14 @@ func (ec *executionContext) unmarshalInputAddClusterInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
-			it.Name, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Name, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "propertyID":
+		case "propertyId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyId"))
 			it.PropertyID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
@@ -33236,18 +33327,18 @@ func (ec *executionContext) unmarshalInputRemoveClusterInput(ctx context.Context
 
 	for k, v := range asMap {
 		switch k {
-		case "clusterID":
+		case "clusterId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clusterID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clusterId"))
 			it.ClusterID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "sceneID":
+		case "sceneId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
 			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
@@ -33733,18 +33824,18 @@ func (ec *executionContext) unmarshalInputUpdateClusterInput(ctx context.Context
 
 	for k, v := range asMap {
 		switch k {
-		case "clusterID":
+		case "clusterId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clusterID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clusterId"))
 			it.ClusterID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "sceneID":
+		case "sceneId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("sceneId"))
 			it.SceneID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
@@ -33757,10 +33848,10 @@ func (ec *executionContext) unmarshalInputUpdateClusterInput(ctx context.Context
 			if err != nil {
 				return it, err
 			}
-		case "propertyID":
+		case "propertyId":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyId"))
 			it.PropertyID, err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
@@ -34790,6 +34881,11 @@ func (ec *executionContext) _AddClusterPayload(ctx context.Context, sel ast.Sele
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "cluster":
+			out.Values[i] = ec._AddClusterPayload_cluster(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -35302,6 +35398,9 @@ func (ec *executionContext) _Cluster(ctx context.Context, sel ast.SelectionSet, 
 			}
 		case "name":
 			out.Values[i] = ec._Cluster_name(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "property":
 			out.Values[i] = ec._Cluster_property(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -39246,8 +39345,8 @@ func (ec *executionContext) _RemoveClusterPayload(ctx context.Context, sel ast.S
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "clusterID":
-			out.Values[i] = ec._RemoveClusterPayload_clusterID(ctx, field, obj)
+		case "clusterId":
+			out.Values[i] = ec._RemoveClusterPayload_clusterId(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -40194,6 +40293,11 @@ func (ec *executionContext) _UpdateClusterPayload(ctx context.Context, sel ast.S
 			out.Values[i] = graphql.MarshalString("UpdateClusterPayload")
 		case "scene":
 			out.Values[i] = ec._UpdateClusterPayload_scene(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "cluster":
+			out.Values[i] = ec._UpdateClusterPayload_cluster(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

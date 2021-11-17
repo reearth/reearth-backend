@@ -199,20 +199,21 @@ func (r *mutationResolver) UpgradePlugin(ctx context.Context, input gqlmodel.Upg
 func (r *mutationResolver) AddCluster(ctx context.Context, input gqlmodel.AddClusterInput) (*gqlmodel.AddClusterPayload, error) {
 	exit := trace(ctx)
 	defer exit()
-	s, err := r.usecases.Scene.AddCluster(ctx, id.SceneID(input.SceneID), input.Name, id.PropertyID(input.PropertyID), getOperator(ctx))
+	s, c, err := r.usecases.Scene.AddCluster(ctx, id.SceneID(input.SceneID), input.Name, id.PropertyID(input.PropertyID), getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
 	return &gqlmodel.AddClusterPayload{
-		Scene: gqlmodel.ToScene(s),
+		Scene:   gqlmodel.ToScene(s),
+		Cluster: gqlmodel.ToCluster(c),
 	}, nil
 }
 
 func (r *mutationResolver) UpdateCluster(ctx context.Context, input gqlmodel.UpdateClusterInput) (*gqlmodel.UpdateClusterPayload, error) {
 	exit := trace(ctx)
 	defer exit()
-	s, err := r.usecases.Scene.UpdateCluster(ctx, interfaces.UpdateClusterParam{
+	s, c, err := r.usecases.Scene.UpdateCluster(ctx, interfaces.UpdateClusterParam{
 		ClusterID:  id.ClusterID(input.ClusterID),
 		SceneID:    id.SceneID(input.SceneID),
 		Name:       input.Name,
@@ -223,7 +224,8 @@ func (r *mutationResolver) UpdateCluster(ctx context.Context, input gqlmodel.Upd
 	}
 
 	return &gqlmodel.UpdateClusterPayload{
-		Scene: gqlmodel.ToScene(s),
+		Scene:   gqlmodel.ToScene(s),
+		Cluster: gqlmodel.ToCluster(c),
 	}, nil
 }
 

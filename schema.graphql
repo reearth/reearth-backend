@@ -814,7 +814,7 @@ union Tags = TagItem | TagGroup
 
 type Cluster {
   id: ID!
-  name: String
+  name: String!
   property: ID!
 }
 
@@ -1217,21 +1217,21 @@ input RemoveTagInput {
 }
 
 input AddClusterInput {
-  sceneID: ID!
-  name: String
-  propertyID: ID!
+  sceneId: ID!
+  name: String!
+  propertyId: ID!
 }
 
 input UpdateClusterInput {
-  clusterID: ID!
-  sceneID: ID!
+  clusterId: ID!
+  sceneId: ID!
   name: String
-  propertyID: ID
+  propertyId: ID
 }
 
 input RemoveClusterInput {
-  clusterID: ID!
-  sceneID: ID!
+  clusterId: ID!
+  sceneId: ID!
 }
 
 # Payload
@@ -1466,15 +1466,17 @@ type RemoveTagPayload{
 
 type AddClusterPayload {
   scene: Scene!
+  cluster: Cluster!
 }
 
 type UpdateClusterPayload {
   scene: Scene!
+  cluster: Cluster!
 }
 
 type RemoveClusterPayload{
   scene: Scene!
-  clusterID: ID!
+  clusterId: ID!
 }
 
 # Connection

@@ -40,13 +40,14 @@ type Tags interface {
 }
 
 type AddClusterInput struct {
-	SceneID    id.ID   `json:"sceneID"`
-	Name       *string `json:"name"`
-	PropertyID id.ID   `json:"propertyID"`
+	SceneID    id.ID  `json:"sceneId"`
+	Name       string `json:"name"`
+	PropertyID id.ID  `json:"propertyId"`
 }
 
 type AddClusterPayload struct {
-	Scene *Scene `json:"scene"`
+	Scene   *Scene   `json:"scene"`
+	Cluster *Cluster `json:"cluster"`
 }
 
 type AddDatasetSchemaInput struct {
@@ -208,9 +209,9 @@ type Camera struct {
 }
 
 type Cluster struct {
-	ID       id.ID   `json:"id"`
-	Name     *string `json:"name"`
-	Property id.ID   `json:"property"`
+	ID       id.ID  `json:"id"`
+	Name     string `json:"name"`
+	Property id.ID  `json:"property"`
 }
 
 type CreateAssetInput struct {
@@ -896,13 +897,13 @@ type RemoveAssetPayload struct {
 }
 
 type RemoveClusterInput struct {
-	ClusterID id.ID `json:"clusterID"`
-	SceneID   id.ID `json:"sceneID"`
+	ClusterID id.ID `json:"clusterId"`
+	SceneID   id.ID `json:"sceneId"`
 }
 
 type RemoveClusterPayload struct {
 	Scene     *Scene `json:"scene"`
-	ClusterID id.ID  `json:"clusterID"`
+	ClusterID id.ID  `json:"clusterId"`
 }
 
 type RemoveDatasetSchemaInput struct {
@@ -1131,14 +1132,15 @@ type UnlinkPropertyValueInput struct {
 }
 
 type UpdateClusterInput struct {
-	ClusterID  id.ID   `json:"clusterID"`
-	SceneID    id.ID   `json:"sceneID"`
+	ClusterID  id.ID   `json:"clusterId"`
+	SceneID    id.ID   `json:"sceneId"`
 	Name       *string `json:"name"`
-	PropertyID *id.ID  `json:"propertyID"`
+	PropertyID *id.ID  `json:"propertyId"`
 }
 
 type UpdateClusterPayload struct {
-	Scene *Scene `json:"scene"`
+	Scene   *Scene   `json:"scene"`
+	Cluster *Cluster `json:"cluster"`
 }
 
 type UpdateDatasetSchemaInput struct {
