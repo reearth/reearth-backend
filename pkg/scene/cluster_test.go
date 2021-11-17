@@ -150,23 +150,19 @@ func TestNew(t *testing.T) {
 func TestCluster_Rename(t *testing.T) {
 	propertyId := id.NewPropertyID()
 	clusterId := id.NewClusterID()
-	type fields struct {
-		id       id.ClusterID
-		name     string
-		property id.PropertyID
-	}
+
 	type args struct {
 		name string
 	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   *Cluster
+		name    string
+		cluster *Cluster
+		args    args
+		want    *Cluster
 	}{
 		{
 			name: "should change the name",
-			fields: fields{
+			cluster: &Cluster{
 				id:       clusterId,
 				name:     "ccc",
 				property: propertyId,
@@ -180,16 +176,20 @@ func TestCluster_Rename(t *testing.T) {
 				property: propertyId,
 			},
 		},
+		{
+			name: "shouldn't change the name",
+			args: args{
+				name: "xxx",
+			},
+			want: nil,
+		},
 	}
 	for _, tc := range tests {
+		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
-			c := &Cluster{
-				id:       tc.fields.id,
-				name:     tc.fields.name,
-				property: tc.fields.property,
-			}
-			c.Rename(tc.args.name)
-			assert.Equal(tt, tc.want, c)
+			tt.Parallel()
+			tc.cluster.Rename(tc.args.name)
+			assert.Equal(tt, tc.want, tc.cluster)
 		})
 	}
 }
@@ -198,23 +198,19 @@ func TestCluster_UpdateProperty(t *testing.T) {
 	propertyId := id.NewPropertyID()
 	propertyId2 := id.NewPropertyID()
 	clusterId := id.NewClusterID()
-	type fields struct {
-		id       id.ClusterID
-		name     string
-		property id.PropertyID
-	}
+
 	type args struct {
 		property id.PropertyID
 	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
-		want   *Cluster
+		name    string
+		cluster *Cluster
+		args    args
+		want    *Cluster
 	}{
 		{
 			name: "should update the property",
-			fields: fields{
+			cluster: &Cluster{
 				id:       clusterId,
 				name:     "ccc",
 				property: propertyId,
@@ -228,17 +224,21 @@ func TestCluster_UpdateProperty(t *testing.T) {
 				property: propertyId2,
 			},
 		},
+		{
+			name: "shouldn't update the property",
+			args: args{
+				property: propertyId2,
+			},
+			want: nil,
+		},
 	}
 
 	for _, tc := range tests {
+		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
-			c := &Cluster{
-				id:       tc.fields.id,
-				name:     tc.fields.name,
-				property: tc.fields.property,
-			}
-			c.UpdateProperty(tc.args.property)
-			assert.Equal(tt, tc.want, c)
+			tt.Parallel()
+			tc.cluster.UpdateProperty(tc.args.property)
+			assert.Equal(tt, tc.want, tc.cluster)
 		})
 	}
 }
