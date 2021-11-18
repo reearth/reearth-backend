@@ -315,7 +315,11 @@ func TestUser_MatchPassword(t *testing.T) {
 			}
 			got, err := u.MatchPassword(tc.args.pass)
 			assert.Equal(tt, tc.want, got)
-			assert.Equal(tt, tc.wantErr, err != nil)
+			if tc.wantErr {
+				assert.Error(tt, err)
+			} else {
+				assert.NoError(tt, err)
+			}
 		})
 	}
 }
@@ -341,7 +345,8 @@ func TestUser_SetPassword(t *testing.T) {
 		t.Run(tc.name, func(tt *testing.T) {
 			u := &User{}
 			_ = u.SetPassword(tc.args.pass)
-			got, _ := verifyPassword(tc.want, u.password)
+			got, err := verifyPassword(tc.want, u.password)
+			assert.NoError(tt, err)
 			assert.True(tt, got)
 		})
 	}

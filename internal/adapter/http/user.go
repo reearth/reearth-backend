@@ -46,9 +46,6 @@ func (c *UserController) Signup(ctx context.Context, input SignupInput) (interfa
 	if err != nil {
 		return nil, err
 	}
-	if input.Email != nil {
-		//	send verification email (done somewhere else)
-	}
 
 	return SignupOutput{
 		ID:    u.ID().String(),
