@@ -222,8 +222,11 @@ func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserB
 	} else if u == nil {
 		return nil, interfaces.ErrInvalidUserEmail
 	}
-	// TODO: Check user password
-	if inp.Password != "123123123" {
+	matched, err := u.MatchPassword(inp.Password)
+	if err != nil {
+		return nil, err
+	}
+	if !matched {
 		return nil, interfaces.ErrSignupInvalidPassword
 	}
 	return u, nil
