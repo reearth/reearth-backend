@@ -16,7 +16,7 @@ var (
 	ErrUserInvalidLang                 = errors.New("invalid lang")
 	ErrSignupInvalidSecret             = errors.New("invalid secret")
 	ErrSignupInvalidName               = errors.New("invalid name")
-	ErrSignupInvalidEmail              = errors.New("invalid email")
+	ErrInvalidUserEmail                = errors.New("invalid email")
 	ErrSignupInvalidPassword           = errors.New("invalid password")
 )
 
@@ -32,6 +32,11 @@ type SignupParam struct {
 	TeamID   *id.TeamID
 }
 
+type GetUserByCredentials struct {
+	Email    string
+	Password string
+}
+
 type UpdateMeParam struct {
 	Name                 *string
 	Email                *string
@@ -44,6 +49,8 @@ type UpdateMeParam struct {
 type User interface {
 	Fetch(context.Context, []id.UserID, *usecase.Operator) ([]*user.User, error)
 	Signup(context.Context, SignupParam) (*user.User, *user.Team, error)
+	GetUserByCredentials(context.Context, GetUserByCredentials) (*user.User, error)
+	GetUserBySubject(context.Context, string) (*user.User, error)
 	UpdateMe(context.Context, UpdateMeParam, *usecase.Operator) (*user.User, error)
 	RemoveMyAuth(context.Context, string, *usecase.Operator) (*user.User, error)
 	SearchUser(context.Context, string, *usecase.Operator) (*user.User, error)

@@ -277,6 +277,45 @@ func TestUser_UpdateName(t *testing.T) {
 	assert.Equal(t, "xxx", u.Name())
 }
 
+func TestUser_GetAuthByProvider(t *testing.T) {
+	testCases := []struct {
+		Name     string
+		User     *User
+		Provider string
+		Expected *Auth
+	}{
+		{
+			Name: "existing auth",
+			User: New().NewID().Auths([]Auth{{
+				Provider: "xxx",
+				Sub:      "zzz",
+			}}).MustBuild(),
+			Provider: "xxx",
+			Expected: &Auth{
+				Provider: "xxx",
+				Sub:      "zzz",
+			},
+		},
+		{
+			Name: "not existing auth",
+			User: New().NewID().Auths([]Auth{{
+				Provider: "xxx",
+				Sub:      "zzz",
+			}}).MustBuild(),
+			Provider: "yyy",
+			Expected: nil,
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			res := tc.User.GetAuthByProvider(tc.Provider)
+			assert.Equal(tt, tc.Expected, res)
+		})
+	}
+}
+
 func TestUser_MatchPassword(t *testing.T) {
 	encodedPass, _ := encodePassword("test")
 	type args struct {

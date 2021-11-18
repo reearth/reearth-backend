@@ -110,6 +110,18 @@ func (u *User) RemoveAuth(a Auth) bool {
 	return false
 }
 
+func (u *User) GetAuthByProvider(provider string) *Auth {
+	if u == nil || u.auths == nil {
+		return nil
+	}
+	for _, b := range u.auths {
+		if provider == b.Provider {
+			return &b
+		}
+	}
+	return nil
+}
+
 func (u *User) RemoveAuthByProvider(provider string) bool {
 	if u == nil || provider == "auth0" {
 		return false

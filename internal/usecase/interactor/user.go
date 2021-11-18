@@ -145,7 +145,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 			return nil, nil, interfaces.ErrSignupInvalidName
 		}
 		if _, err := mail.ParseAddress(*inp.Email); err != nil {
-			return nil, nil, interfaces.ErrSignupInvalidEmail
+			return nil, nil, interfaces.ErrInvalidUserEmail
 		}
 		if *inp.Password == "" {
 			return nil, nil, interfaces.ErrSignupInvalidPassword
@@ -213,6 +213,28 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	}
 
 	return u, team, nil
+}
+
+func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserByCredentials) (u *user.User, err error) {
+	u, err = i.userRepo.FindByNameOrEmail(ctx, inp.Email)
+	if err != nil && !errors.Is(rerror.ErrNotFound, err) {
+		return nil, err
+	} else if u == nil {
+		return nil, interfaces.ErrInvalidUserEmail
+	}
+	// TODO: Check user password
+	if inp.Password != "123123123" {
+		return nil, interfaces.ErrSignupInvalidPassword
+	}
+	return u, nil
+}
+
+func (i *User) GetUserBySubject(ctx context.Context, sub string) (u *user.User, err error) {
+	u, err = i.userRepo.FindByAuth0Sub(ctx, sub)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
 }
 
 func (i *User) UpdateMe(ctx context.Context, p interfaces.UpdateMeParam, operator *usecase.Operator) (u *user.User, err error) {
