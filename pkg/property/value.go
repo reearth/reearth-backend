@@ -17,6 +17,7 @@ type Polygon = value.Polygon
 type ValueType value.Type
 
 var (
+	ValueTypeUnknown      = ValueType(value.TypeUnknown)
 	ValueTypeBool         = ValueType(value.TypeBool)
 	ValueTypeNumber       = ValueType(value.TypeNumber)
 	ValueTypeString       = ValueType(value.TypeString)
