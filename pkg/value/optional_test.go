@@ -298,3 +298,33 @@ func TestOptionalValue_SetValue(t *testing.T) {
 		})
 	}
 }
+
+func TestOptionalValue_Clone(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *OptionalValue
+	}{
+		{
+			name:   "ok",
+			target: &OptionalValue{t: TypeString, v: TypeString.ValueFrom("foo", nil)},
+		},
+		{
+			name:   "empty",
+			target: &OptionalValue{},
+		},
+		{
+			name:   "nil",
+			target: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.Clone()
+			assert.Equal(t, tt.target, res)
+			if tt.target != nil {
+				assert.NotSame(t, tt.target, res)
+			}
+		})
+	}
+}

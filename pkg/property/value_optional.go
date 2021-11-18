@@ -53,6 +53,19 @@ func (ov *OptionalValue) TypeAndValue() (ValueType, *Value) {
 	return ov.Type(), ov.Value()
 }
 
+func (ov *OptionalValue) Clone() *OptionalValue {
+	if ov == nil {
+		return nil
+	}
+	nov := ov.ov.Clone()
+	if nov == nil {
+		return nil
+	}
+	return &OptionalValue{
+		ov: *nov,
+	}
+}
+
 func (ov *OptionalValue) SetValue(v *Value) {
 	if ov == nil {
 		return

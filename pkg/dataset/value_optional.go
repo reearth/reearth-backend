@@ -63,3 +63,16 @@ func (ov *OptionalValue) SetValue(v *Value) {
 		ov.ov.SetValue(&v.v)
 	}
 }
+
+func (ov *OptionalValue) Clone() *OptionalValue {
+	if ov == nil {
+		return nil
+	}
+	nov := ov.ov.Clone()
+	if nov == nil {
+		return nil
+	}
+	return &OptionalValue{
+		ov: *nov,
+	}
+}

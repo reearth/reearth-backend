@@ -49,3 +49,13 @@ func (ov *OptionalValue) SetValue(v *Value) {
 	}
 	ov.v = v.Clone()
 }
+
+func (ov *OptionalValue) Clone() *OptionalValue {
+	if ov == nil {
+		return nil
+	}
+	return &OptionalValue{
+		t: ov.t,
+		v: ov.v.Clone(),
+	}
+}
