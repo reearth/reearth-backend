@@ -4,7 +4,6 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/value"
 )
 
@@ -214,15 +213,4 @@ func ValueFromStringOrNumber(s string) *Value {
 	}
 
 	return ValueTypeString.ValueFrom(s)
-}
-
-func valueFromDataset(v *dataset.Value) *Value {
-	return ValueType(value.Type(v.Type())).ValueFrom(v.Value())
-}
-
-func datasetValueOrPropertyValue(dv *dataset.Value, pv *Value) *Value {
-	if dv != nil {
-		return valueFromDataset(dv)
-	}
-	return pv
 }

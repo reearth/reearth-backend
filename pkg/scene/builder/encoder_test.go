@@ -99,10 +99,12 @@ func TestEncoder_Layers(t *testing.T) {
 	}
 
 	f1 := property.SealedField{
-		ID:            id.PropertySchemaFieldID("location"),
-		Type:          "latlng",
-		DatasetValue:  nil,
-		PropertyValue: property.ValueTypeLatLng.ValueFrom(v1),
+		ID: id.PropertySchemaFieldID("location"),
+		Val: property.NewValueAndDatasetValue(
+			property.ValueTypeLatLng,
+			nil,
+			property.ValueTypeLatLng.ValueFrom(v1),
+		),
 	}
 	fl1 := []*property.SealedField{}
 	fl1 = append(fl1, &f1)

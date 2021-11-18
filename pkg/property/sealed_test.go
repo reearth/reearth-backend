@@ -115,15 +115,20 @@ func TestSeal(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("a"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("bbb"),
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 								},
 							},
@@ -136,15 +141,20 @@ func TestSeal(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -257,15 +267,20 @@ func TestSealedItemFrom(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("a"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("a"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("b"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("b"),
+								),
 							},
 						},
 					},
@@ -320,15 +335,20 @@ func TestSealedItemFrom(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -380,15 +400,20 @@ func TestSealed_Interface(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("a"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("bbb"),
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 								},
 							},
@@ -401,15 +426,20 @@ func TestSealed_Interface(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -465,15 +495,20 @@ func TestSealedItem_Match(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("a"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("a"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("b"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("b"),
+								),
 							},
 						},
 					},
@@ -525,15 +560,20 @@ func TestSealed_ItemBy(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("a"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("bbb"),
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 								},
 							},
@@ -546,15 +586,20 @@ func TestSealed_ItemBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("b"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -573,15 +618,20 @@ func TestSealed_ItemBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("a"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("a"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("b"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("b"),
+								),
 							},
 						},
 					},
@@ -608,15 +658,20 @@ func TestSealed_ItemBy(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("a"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("bbb"),
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 								},
 							},
@@ -629,15 +684,20 @@ func TestSealed_ItemBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -656,15 +716,20 @@ func TestSealed_ItemBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("a"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("a"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("b"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("b"),
+								),
 							},
 						},
 					},
@@ -691,15 +756,20 @@ func TestSealed_ItemBy(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("a"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("bbb"),
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 								},
 							},
@@ -712,15 +782,20 @@ func TestSealed_ItemBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -772,15 +847,20 @@ func TestSealed_FieldBy(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("a"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("bbb"),
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 								},
 							},
@@ -793,15 +873,20 @@ func TestSealed_FieldBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -809,9 +894,12 @@ func TestSealed_FieldBy(t *testing.T) {
 			},
 			Input: NewPointer(psiid1.Ref(), i1id.Ref(), id.PropertySchemaFieldID("a").Ref()),
 			Expected: &SealedField{
-				ID:            "a",
-				Type:          ValueTypeString,
-				PropertyValue: ValueTypeString.ValueFrom("aaa"),
+				ID: "a",
+				Val: NewValueAndDatasetValue(
+					ValueTypeString,
+					nil,
+					ValueTypeString.ValueFrom("aaa"),
+				),
 			},
 		},
 		{
@@ -834,15 +922,20 @@ func TestSealed_FieldBy(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("a"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("b"),
+											ValueTypeString.ValueFrom("bbb"),
+										),
 									},
 								},
 							},
@@ -855,15 +948,20 @@ func TestSealed_FieldBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -871,9 +969,12 @@ func TestSealed_FieldBy(t *testing.T) {
 			},
 			Input: NewPointer(nil, i3id.Ref(), id.PropertySchemaFieldID("a").Ref()),
 			Expected: &SealedField{
-				ID:            "a",
-				Type:          ValueTypeString,
-				PropertyValue: ValueTypeString.ValueFrom("aaa"),
+				ID: "a",
+				Val: NewValueAndDatasetValue(
+					ValueTypeString,
+					nil,
+					ValueTypeString.ValueFrom("aaa"),
+				),
 			},
 		},
 		{
@@ -896,15 +997,20 @@ func TestSealed_FieldBy(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*SealedField{
 									{
-										ID:            "a",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("a"),
+										ID: "a",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											nil,
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 									{
-										ID:            "b",
-										Type:          ValueTypeString,
-										PropertyValue: ValueTypeString.ValueFrom("b"),
-										DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+										ID: "b",
+										Val: NewValueAndDatasetValue(
+											ValueTypeString,
+											dataset.ValueTypeString.ValueFrom("bbb"),
+											ValueTypeString.ValueFrom("b"),
+										),
 									},
 								},
 							},
@@ -917,15 +1023,20 @@ func TestSealed_FieldBy(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*SealedField{
 							{
-								ID:            "a",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
+								ID: "a",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									nil,
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 							{
-								ID:            "b",
-								Type:          ValueTypeString,
-								PropertyValue: ValueTypeString.ValueFrom("aaa"),
-								DatasetValue:  dataset.ValueTypeString.ValueFrom("bbb"),
+								ID: "b",
+								Val: NewValueAndDatasetValue(
+									ValueTypeString,
+									dataset.ValueTypeString.ValueFrom("bbb"),
+									ValueTypeString.ValueFrom("aaa"),
+								),
 							},
 						},
 					},
@@ -933,9 +1044,12 @@ func TestSealed_FieldBy(t *testing.T) {
 			},
 			Input: NewPointer(nil, nil, id.PropertySchemaFieldID("a").Ref()),
 			Expected: &SealedField{
-				ID:            "a",
-				Type:          ValueTypeString,
-				PropertyValue: ValueTypeString.ValueFrom("aaa"),
+				ID: "a",
+				Val: NewValueAndDatasetValue(
+					ValueTypeString,
+					nil,
+					ValueTypeString.ValueFrom("aaa"),
+				),
 			},
 		},
 	}

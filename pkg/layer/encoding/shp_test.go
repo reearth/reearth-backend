@@ -41,14 +41,16 @@ func TestEncodeSHP(t *testing.T) {
 								SchemaGroup: id.PropertySchemaGroupID("default"),
 								Fields: []*property.SealedField{
 									{
-										ID:           id.PropertySchemaFieldID("polygon"),
-										Type:         "polygon",
-										DatasetValue: nil,
-										PropertyValue: property.ValueTypePolygon.ValueFrom(property.Polygon{property.Coordinates{
-											{Lat: 3.4, Lng: 5.34, Height: 100},
-											{Lat: 45.4, Lng: 2.34, Height: 100},
-											{Lat: 34.66, Lng: 654.34, Height: 100},
-										}}),
+										ID: id.PropertySchemaFieldID("polygon"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypePolygon,
+											nil,
+											property.ValueTypePolygon.ValueFrom(property.Polygon{property.Coordinates{
+												{Lat: 3.4, Lng: 5.34, Height: 100},
+												{Lat: 45.4, Lng: 2.34, Height: 100},
+												{Lat: 34.66, Lng: 654.34, Height: 100},
+											}}),
+										),
 									},
 								},
 							},
@@ -95,14 +97,16 @@ func TestEncodeSHP(t *testing.T) {
 								SchemaGroup: id.PropertySchemaGroupID("default"),
 								Fields: []*property.SealedField{
 									{
-										ID:           id.PropertySchemaFieldID("coordinates"),
-										Type:         "polyline",
-										DatasetValue: nil,
-										PropertyValue: property.ValueTypeCoordinates.ValueFrom(property.Coordinates{
-											{Lat: 3.4, Lng: 5.34, Height: 100},
-											{Lat: 45.4, Lng: 2.34, Height: 100},
-											{Lat: 34.66, Lng: 654.34, Height: 100},
-										}),
+										ID: id.PropertySchemaFieldID("coordinates"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeCoordinates,
+											nil,
+											property.ValueTypeCoordinates.ValueFrom(property.Coordinates{
+												{Lat: 3.4, Lng: 5.34, Height: 100},
+												{Lat: 45.4, Lng: 2.34, Height: 100},
+												{Lat: 34.66, Lng: 654.34, Height: 100},
+											}),
+										),
 									},
 								},
 							},

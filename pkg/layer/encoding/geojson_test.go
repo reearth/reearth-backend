@@ -39,19 +39,28 @@ func TestGeoJSONEncoder_Encode(t *testing.T) {
 								SchemaGroup: id.PropertySchemaGroupID("default"),
 								Fields: []*property.SealedField{
 									{
-										ID:            id.PropertySchemaFieldID("location"),
-										Type:          property.ValueTypeLatLng,
-										PropertyValue: property.ValueTypeLatLng.ValueFrom(property.LatLng{Lat: 4.4, Lng: 53.4}),
+										ID: id.PropertySchemaFieldID("location"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeLatLng,
+											nil,
+											property.ValueTypeLatLng.ValueFrom(property.LatLng{Lat: 4.4, Lng: 53.4}),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("pointColor"),
-										Type:          property.ValueTypeString,
-										PropertyValue: property.ValueTypeString.ValueFrom("#7fff00ff"),
+										ID: id.PropertySchemaFieldID("pointColor"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeString,
+											nil,
+											property.ValueTypeString.ValueFrom("#7fff00ff"),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("height"),
-										Type:          property.ValueTypeNumber,
-										PropertyValue: property.ValueTypeNumber.ValueFrom(34),
+										ID: id.PropertySchemaFieldID("height"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeNumber,
+											nil,
+											property.ValueTypeNumber.ValueFrom(34),
+										),
 									},
 								},
 							},
@@ -85,33 +94,48 @@ func TestGeoJSONEncoder_Encode(t *testing.T) {
 								SchemaGroup: id.PropertySchemaGroupID("default"),
 								Fields: []*property.SealedField{
 									{
-										ID:   id.PropertySchemaFieldID("polygon"),
-										Type: "polygon",
-										PropertyValue: property.ValueTypePolygon.ValueFrom(property.Polygon{property.Coordinates{
-											{Lat: 3.4, Lng: 5.34, Height: 100},
-											{Lat: 45.4, Lng: 2.34, Height: 100},
-											{Lat: 34.66, Lng: 654.34, Height: 100},
-										}}),
+										ID: id.PropertySchemaFieldID("polygon"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypePolygon,
+											nil,
+											property.ValueTypePolygon.ValueFrom(property.Polygon{property.Coordinates{
+												{Lat: 3.4, Lng: 5.34, Height: 100},
+												{Lat: 45.4, Lng: 2.34, Height: 100},
+												{Lat: 34.66, Lng: 654.34, Height: 100},
+											}}),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("fillColor"),
-										Type:          property.ValueTypeString,
-										PropertyValue: property.ValueTypeString.ValueFrom("#7c3b3b"),
+										ID: id.PropertySchemaFieldID("fillColor"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeString,
+											nil,
+											property.ValueTypeString.ValueFrom("#7c3b3b"),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("strokeColor"),
-										Type:          property.ValueTypeString,
-										PropertyValue: property.ValueTypeString.ValueFrom("#ff3343"),
+										ID: id.PropertySchemaFieldID("strokeColor"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeString,
+											nil,
+											property.ValueTypeString.ValueFrom("#ff3343"),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("strokeWidth"),
-										Type:          property.ValueTypeNumber,
-										PropertyValue: property.ValueTypeNumber.ValueFrom(3),
+										ID: id.PropertySchemaFieldID("strokeWidth"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeNumber,
+											nil,
+											property.ValueTypeNumber.ValueFrom(3),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("strokeWidth"),
-										Type:          property.ValueTypeNumber,
-										PropertyValue: property.ValueTypeNumber.ValueFrom(3),
+										ID: id.PropertySchemaFieldID("strokeWidth"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeNumber,
+											nil,
+											property.ValueTypeNumber.ValueFrom(3),
+										),
 									},
 								},
 							},
@@ -147,23 +171,32 @@ func TestGeoJSONEncoder_Encode(t *testing.T) {
 								SchemaGroup: id.PropertySchemaGroupID("default"),
 								Fields: []*property.SealedField{
 									{
-										ID:   id.PropertySchemaFieldID("coordinates"),
-										Type: property.ValueTypeCoordinates,
-										PropertyValue: property.ValueTypeCoordinates.ValueFrom(property.Coordinates{
-											{Lat: 3.4, Lng: 5.34, Height: 100},
-											{Lat: 45.4, Lng: 2.34, Height: 100},
-											{Lat: 34.66, Lng: 654.34, Height: 100},
-										}),
+										ID: id.PropertySchemaFieldID("coordinates"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeCoordinates,
+											nil,
+											property.ValueTypeCoordinates.ValueFrom(property.Coordinates{
+												{Lat: 3.4, Lng: 5.34, Height: 100},
+												{Lat: 45.4, Lng: 2.34, Height: 100},
+												{Lat: 34.66, Lng: 654.34, Height: 100},
+											}),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("strokeColor"),
-										Type:          property.ValueTypeString,
-										PropertyValue: property.ValueTypeString.ValueFrom("#ff3343"),
+										ID: id.PropertySchemaFieldID("strokeColor"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeString,
+											nil,
+											property.ValueTypeString.ValueFrom("#ff3343"),
+										),
 									},
 									{
-										ID:            id.PropertySchemaFieldID("strokeWidth"),
-										Type:          property.ValueTypeNumber,
-										PropertyValue: property.ValueTypeNumber.ValueFrom(3),
+										ID: id.PropertySchemaFieldID("strokeWidth"),
+										Val: property.NewValueAndDatasetValue(
+											property.ValueTypeNumber,
+											nil,
+											property.ValueTypeNumber.ValueFrom(3),
+										),
 									},
 								},
 							},
