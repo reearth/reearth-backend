@@ -11,7 +11,7 @@ import (
 func TestFieldBuilder_Value(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	b := NewField(p).Value(v).MustBuild()
+	b := NewField(p).Value(OptionalValueFrom(v)).MustBuild()
 	assert.Equal(t, v, b.Value())
 }
 
@@ -78,7 +78,7 @@ func TestFieldBuilder_Build(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := NewField(tc.SF).Value(tc.Value).Link(tc.Links).Build()
+			res, err := NewField(tc.SF).Value(OptionalValueFrom(tc.Value)).Link(tc.Links).Build()
 			if err == nil {
 				assert.Equal(tt, tc.Expected.Links, res.Links())
 				assert.Equal(tt, tc.Expected.PType, res.Type())
@@ -151,9 +151,9 @@ func TestFieldBuilder_MustBuild(t *testing.T) {
 						assert.Nil(tt, res)
 					}
 				}()
-				res = NewField(tc.SF).Value(tc.Value).Link(tc.Links).MustBuild()
+				res = NewField(tc.SF).Value(OptionalValueFrom(tc.Value)).Link(tc.Links).MustBuild()
 			} else {
-				res = NewField(tc.SF).Value(tc.Value).Link(tc.Links).MustBuild()
+				res = NewField(tc.SF).Value(OptionalValueFrom(tc.Value)).Link(tc.Links).MustBuild()
 				assert.Equal(tt, tc.Expected.Links, res.Links())
 				assert.Equal(tt, tc.Expected.PType, res.Type())
 				assert.Equal(tt, tc.Expected.Value, res.Value())
@@ -223,7 +223,7 @@ func TestFieldUnsafeBuilder_Build(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := NewFieldUnsafe().ValueUnsafe(tc.Value).LinksUnsafe(tc.Links).TypeUnsafe(tc.Type).FieldUnsafe(tc.Field).Build()
+			res := NewFieldUnsafe().ValueUnsafe(NewOptionalValue(tc.Type, tc.Value)).LinksUnsafe(tc.Links).FieldUnsafe(tc.Field).Build()
 			assert.Equal(tt, tc.Expected.Links, res.Links())
 			assert.Equal(tt, tc.Expected.PType, res.Type())
 			assert.Equal(tt, tc.Expected.Value, res.Value())

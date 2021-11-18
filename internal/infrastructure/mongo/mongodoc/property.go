@@ -221,8 +221,7 @@ func toModelPropertyField(f *PropertyFieldDocument) *property.Field {
 	vt := property.ValueType(f.Type)
 	field := property.NewFieldUnsafe().
 		FieldUnsafe(id.PropertySchemaFieldID(f.Field)).
-		TypeUnsafe(vt).
-		ValueUnsafe(toModelPropertyValue(f.Value, f.Type)).
+		ValueUnsafe(property.NewOptionalValue(vt, toModelPropertyValue(f.Value, f.Type))).
 		LinksUnsafe(flinks).
 		Build()
 

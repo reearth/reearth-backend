@@ -17,17 +17,15 @@ var (
 
 type Field struct {
 	field id.PropertySchemaFieldID
-	ptype ValueType
 	links *Links
-	value *Value
+	v     *OptionalValue
 }
 
 func (p *Field) Clone() *Field {
 	return &Field{
 		field: p.field,
-		ptype: p.ptype,
-		value: p.value.Clone(),
 		links: p.links.Clone(),
+		v:     p.v.Clone(),
 	}
 }
 
@@ -43,14 +41,17 @@ func (p *Field) Links() *Links {
 }
 
 func (p *Field) Type() ValueType {
-	return p.ptype
+	if p == nil {
+		return ValueTypeUnknown
+	}
+	return p.v.Type()
 }
 
 func (p *Field) Value() *Value {
 	if p == nil {
 		return nil
 	}
-	return p.value
+	return p.v.Value()
 }
 
 func (p *Field) ActualValue(ds *dataset.Dataset) *Value {
@@ -66,7 +67,7 @@ func (p *Field) ActualValue(ds *dataset.Dataset) *Value {
 		}
 		return nil
 	}
-	return p.value
+	return p.Value()
 }
 
 func (p *Field) HasLinkedField() bool {
@@ -94,26 +95,41 @@ func (p *Field) IsDatasetLinked(s id.DatasetSchemaID, i id.DatasetID) bool {
 }
 
 func (p *Field) Update(value *Value, field *SchemaField) error {
-	if field == nil || p.field != field.ID() || !field.Validate(value) {
+	if p == nil {
+		return nil
+	}
+	if field == nil || p.field != field.ID() || !field.Validate(p.v) {
 		return ErrInvalidPropertyValue
 	}
-	p.value = value
+	p.v.SetValue(value)
 	return nil
 }
 
 func (p *Field) UpdateUnsafe(value *Value) {
-	p.value = value
+	if p == nil {
+		return
+	}
+	p.v.SetValue(value)
 }
 
 func (p *Field) Link(links *Links) {
+	if p == nil {
+		return
+	}
 	p.links = links.Clone()
 }
 
 func (p *Field) Unlink() {
+	if p == nil {
+		return
+	}
 	p.links = nil
 }
 
 func (p *Field) UpdateField(field id.PropertySchemaFieldID) {
+	if p == nil {
+		return
+	}
 	p.field = field
 }
 
@@ -133,7 +149,7 @@ func (p *Field) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 	invalid := schemaField == nil
 
 	// if value is not compatible for type, value will be cleared
-	if !schemaField.Validate(p.Value()) {
+	if !schemaField.Validate(p.v) {
 		p.UpdateUnsafe(nil)
 	}
 
@@ -178,11 +194,8 @@ func (p *Field) ValidateSchema(ps *SchemaField) error {
 	if ps == nil {
 		return errors.New("schema not found")
 	}
-	if p.ptype != ps.Type() {
-		return errors.New("invalid field type")
-	}
-	if p.ptype != p.value.Type() {
-		return errors.New("invalid field value type")
+	if p.v == nil {
+		return errors.New("invalid field value and type")
 	}
 	return nil
 }

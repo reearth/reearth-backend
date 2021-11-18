@@ -53,19 +53,19 @@ func TestPropertyMigrateSchema(t *testing.T) {
 	fields := []*Field{
 		// should remain
 		NewFieldUnsafe().FieldUnsafe(schemaField1ID).
-			ValueUnsafe(ValueTypeString.ValueFrom("foobar")).
+			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("foobar"))).
 			Build(),
 		// should be removed because of max
 		NewFieldUnsafe().FieldUnsafe(schemaField2ID).
-			ValueUnsafe(ValueTypeNumber.ValueFrom(101)).
+			ValueUnsafe(OptionalValueFrom(ValueTypeNumber.ValueFrom(101))).
 			Build(),
 		// should remain
 		NewFieldUnsafe().FieldUnsafe(schemaField3ID).
-			ValueUnsafe(ValueTypeNumber.ValueFrom(1)).
+			ValueUnsafe(OptionalValueFrom(ValueTypeNumber.ValueFrom(1))).
 			Build(),
 		// should be removed because of choices
 		NewFieldUnsafe().FieldUnsafe(schemaField4ID).
-			ValueUnsafe(ValueTypeString.ValueFrom("z")).
+			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("z"))).
 			Build(),
 		// should remain
 		NewFieldUnsafe().FieldUnsafe(schemaField5ID).
@@ -81,11 +81,11 @@ func TestPropertyMigrateSchema(t *testing.T) {
 			Build(),
 		// should be removed because of type
 		NewFieldUnsafe().FieldUnsafe(schemaField7ID).
-			ValueUnsafe(ValueTypeString.ValueFrom("hogehoge")).
+			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
 			Build(),
 		// should be removed because of not existing field
 		NewFieldUnsafe().FieldUnsafe(schemaField8ID).
-			ValueUnsafe(ValueTypeString.ValueFrom("hogehoge")).
+			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
 			Build(),
 	}
 	items := []Item{

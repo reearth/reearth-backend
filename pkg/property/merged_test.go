@@ -31,17 +31,17 @@ func TestMerge(t *testing.T) {
 	i8id := id.NewPropertyItemID()
 
 	fields1 := []*Field{
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(ValueTypeString.ValueFrom("a")).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("b")).ValueUnsafe(ValueTypeString.ValueFrom("b")).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("e")).TypeUnsafe(ValueTypeString).LinksUnsafe(NewLinks([]*Link{NewLink(d2, ds, df)})).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).TypeUnsafe(ValueTypeNumber).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("a"))).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("b")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("b"))).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("e")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(NewLinks([]*Link{NewLink(d2, ds, df)})).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeNumber, nil)).Build(),
 	}
 
 	fields2 := []*Field{
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(ValueTypeString.ValueFrom("1")).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("c")).ValueUnsafe(ValueTypeString.ValueFrom("2")).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("d")).TypeUnsafe(ValueTypeString).LinksUnsafe(NewLinks([]*Link{NewLinkFieldOnly(ds, df)})).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).TypeUnsafe(ValueTypeString).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("1"))).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("c")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("2"))).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("d")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(NewLinks([]*Link{NewLinkFieldOnly(ds, df)})).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).Build(),
 	}
 
 	groups1 := []*Group{
