@@ -1,6 +1,8 @@
 package mongodoc
 
 import (
+	"time"
+
 	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -8,15 +10,23 @@ import (
 	user1 "github.com/reearth/reearth-backend/pkg/user"
 )
 
+type PasswordResetDocument struct {
+	Token     string
+	CreatedAt time.Time
+	ExpiresAt time.Time
+	IsUsed    bool
+}
+
 type UserDocument struct {
-	ID           string
-	Name         string
-	Email        string
-	Auth0Sub     string
-	Auth0SubList []string
-	Team         string
-	Lang         string
-	Theme        string
+	ID            string
+	Name          string
+	Email         string
+	Auth0Sub      string
+	Auth0SubList  []string
+	Team          string
+	Lang          string
+	Theme         string
+	PasswordReset *PasswordResetDocument
 }
 
 type UserConsumer struct {
@@ -47,6 +57,7 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 	for _, a := range auths {
 		authsdoc = append(authsdoc, a.Sub)
 	}
+	pwdReset := user.PasswordReset()
 
 	return &UserDocument{
 		ID:           id,
@@ -56,6 +67,12 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 		Team:         user.Team().String(),
 		Lang:         user.Lang().String(),
 		Theme:        string(user.Theme()),
+		PasswordReset: &PasswordResetDocument{
+			Token:     pwdReset.Token,
+			CreatedAt: pwdReset.CreatedAt,
+			ExpiresAt: pwdReset.ExpiresAt,
+			IsUsed:    pwdReset.IsUsed,
+		},
 	}, id
 }
 
@@ -83,6 +100,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Team(tid).
 		LangFrom(d.Lang).
 		Theme(user.Theme(d.Theme)).
+		PasswordReset(d.PasswordReset.Token, d.PasswordReset.IsUsed, d.PasswordReset.ExpiresAt, d.PasswordReset.CreatedAt).
 		Build()
 	if err != nil {
 		return nil, err

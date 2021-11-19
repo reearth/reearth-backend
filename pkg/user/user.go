@@ -13,14 +13,15 @@ var (
 )
 
 type User struct {
-	id       id.UserID
-	name     string
-	email    string
-	password []byte
-	team     id.TeamID
-	auths    []Auth
-	lang     language.Tag
-	theme    Theme
+	id            id.UserID
+	name          string
+	email         string
+	password      []byte
+	team          id.TeamID
+	auths         []Auth
+	lang          language.Tag
+	theme         Theme
+	passwordReset *PasswordReset
 }
 
 func (u *User) ID() id.UserID {
@@ -173,4 +174,12 @@ func verifyPassword(toVerify string, encoded []byte) (bool, error) {
 	}
 
 	return ok, nil
+}
+
+func (u *User) PasswordReset() *PasswordReset {
+	return u.passwordReset
+}
+
+func (u *User) CreatePasswordReset() {
+	u.passwordReset = NewPasswordReset()
 }

@@ -17,6 +17,15 @@ func NewUserController(usecase interfaces.User) *UserController {
 	}
 }
 
+type PasswordResetRequestInput struct {
+	Email *string `json:"email"`
+}
+
+type PasswordResetConfirmInput struct {
+	Token    *string `json:"token"`
+	Password *string `json:"password"`
+}
+
 type SignupInput struct {
 	Sub      *string    `json:"sub"`
 	Secret   *string    `json:"secret"`
@@ -52,4 +61,26 @@ func (c *UserController) Signup(ctx context.Context, input SignupInput) (interfa
 		Name:  u.Name(),
 		Email: u.Email(),
 	}, nil
+}
+
+func (c *UserController) PasswordResetRequest(ctx context.Context, input PasswordResetRequestInput) (interface{}, error) {
+	ok, err := c.usecase.PasswordResetRequest(ctx, interfaces.PasswordResetRequestParam{
+		Email: input.Email,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if ok {
+		//	send password reset link via email
+	}
+
+	return true, nil
+}
+
+func (c *UserController) PasswordResetConfirm(ctx context.Context, input PasswordResetConfirmInput) (interface{}, error) {
+	return c.usecase.PasswordResetConfirm(ctx, interfaces.PasswordResetConfirmParam{
+		Token:    input.Token,
+		Password: input.Password,
+	})
 }
