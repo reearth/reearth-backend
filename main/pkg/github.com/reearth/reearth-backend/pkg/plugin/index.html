@@ -401,18 +401,13 @@
 			
 				
 				<pre>var (
-    <span class="comment">// ErrPluginExtensionDuplicated _</span>
-    <span id="ErrPluginExtensionDuplicated">ErrPluginExtensionDuplicated</span> <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a> = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;plugin extension duplicated&#34;)
-    <span class="comment">// ExtensionTypePrimitive _</span>
-    <span id="ExtensionTypePrimitive">ExtensionTypePrimitive</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;primitive&#34;
-    <span class="comment">// ExtensionTypeWidget _</span>
-    <span id="ExtensionTypeWidget">ExtensionTypeWidget</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;widget&#34;
-    <span class="comment">// ExtensionTypeBlock _</span>
-    <span id="ExtensionTypeBlock">ExtensionTypeBlock</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;block&#34;
-    <span class="comment">// ExtensionTypeVisualizer _</span>
-    <span id="ExtensionTypeVisualizer">ExtensionTypeVisualizer</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;visualizer&#34;
-    <span class="comment">// ExtensionTypeInfobox _</span>
-    <span id="ExtensionTypeInfobox">ExtensionTypeInfobox</span> <a href="index.html#ExtensionType">ExtensionType</a> = &#34;infobox&#34;
+    <span id="ErrPluginExtensionDuplicated">ErrPluginExtensionDuplicated</span> <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>         = <a href="http://localhost:8080/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;plugin extension duplicated&#34;)
+    <span id="ExtensionTypePrimitive">ExtensionTypePrimitive</span>       <a href="index.html#ExtensionType">ExtensionType</a> = &#34;primitive&#34;
+    <span id="ExtensionTypeWidget">ExtensionTypeWidget</span>          <a href="index.html#ExtensionType">ExtensionType</a> = &#34;widget&#34;
+    <span id="ExtensionTypeBlock">ExtensionTypeBlock</span>           <a href="index.html#ExtensionType">ExtensionType</a> = &#34;block&#34;
+    <span id="ExtensionTypeVisualizer">ExtensionTypeVisualizer</span>      <a href="index.html#ExtensionType">ExtensionType</a> = &#34;visualizer&#34;
+    <span id="ExtensionTypeInfobox">ExtensionTypeInfobox</span>         <a href="index.html#ExtensionType">ExtensionType</a> = &#34;infobox&#34;
+    <span id="ExtensionTypeCluster">ExtensionTypeCluster</span>         <a href="index.html#ExtensionType">ExtensionType</a> = &#34;cluster&#34;
 )</pre>
 			
 		
@@ -564,7 +559,7 @@
 		
 			
 			
-			<h2 id="Extension">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=716:1003#L18">Extension</a>
+			<h2 id="Extension">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=646:933#L13">Extension</a>
 				<a class="permalink" href="index.html#Extension">&#xb6;</a>
 				
 				
@@ -587,7 +582,7 @@
 
 			
 				
-				<h3 id="Extension.Description">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1205:1250#L42">Description</a>
+				<h3 id="Extension.Description">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1135:1180#L37">Description</a>
 					<a class="permalink" href="index.html#Extension.Description">&#xb6;</a>
 					
 					
@@ -599,7 +594,7 @@
 				
 			
 				
-				<h3 id="Extension.ID">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1005:1050#L30">ID</a>
+				<h3 id="Extension.ID">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=935:980#L25">ID</a>
 					<a class="permalink" href="index.html#Extension.ID">&#xb6;</a>
 					
 					
@@ -611,7 +606,7 @@
 				
 			
 				
-				<h3 id="Extension.Icon">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1285:1318#L46">Icon</a>
+				<h3 id="Extension.Icon">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1215:1248#L41">Icon</a>
 					<a class="permalink" href="index.html#Extension.Icon">&#xb6;</a>
 					
 					
@@ -623,7 +618,7 @@
 				
 			
 				
-				<h3 id="Extension.Name">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1139:1177#L38">Name</a>
+				<h3 id="Extension.Name">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1069:1107#L33">Name</a>
 					<a class="permalink" href="index.html#Extension.Name">&#xb6;</a>
 					
 					
@@ -635,7 +630,7 @@
 				
 			
 				
-				<h3 id="Extension.Rename">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1663:1707#L69">Rename</a>
+				<h3 id="Extension.Rename">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1593:1637#L64">Rename</a>
 					<a class="permalink" href="index.html#Extension.Rename">&#xb6;</a>
 					
 					
@@ -647,7 +642,7 @@
 				
 			
 				
-				<h3 id="Extension.Schema">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1339:1387#L50">Schema</a>
+				<h3 id="Extension.Schema">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1269:1317#L45">Schema</a>
 					<a class="permalink" href="index.html#Extension.Schema">&#xb6;</a>
 					
 					
@@ -659,7 +654,7 @@
 				
 			
 				
-				<h3 id="Extension.SetDescription">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1736:1787#L74">SetDescription</a>
+				<h3 id="Extension.SetDescription">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1666:1717#L69">SetDescription</a>
 					<a class="permalink" href="index.html#Extension.SetDescription">&#xb6;</a>
 					
 					
@@ -671,7 +666,7 @@
 				
 			
 				
-				<h3 id="Extension.SingleOnly">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1491:1528#L58">SingleOnly</a>
+				<h3 id="Extension.SingleOnly">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1421:1458#L53">SingleOnly</a>
 					<a class="permalink" href="index.html#Extension.SingleOnly">&#xb6;</a>
 					
 					
@@ -683,7 +678,7 @@
 				
 			
 				
-				<h3 id="Extension.Type">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1069:1109#L34">Type</a>
+				<h3 id="Extension.Type">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=999:1039#L29">Type</a>
 					<a class="permalink" href="index.html#Extension.Type">&#xb6;</a>
 					
 					
@@ -695,7 +690,7 @@
 				
 			
 				
-				<h3 id="Extension.Visualizer">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1410:1464#L54">Visualizer</a>
+				<h3 id="Extension.Visualizer">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1340:1394#L49">Visualizer</a>
 					<a class="permalink" href="index.html#Extension.Visualizer">&#xb6;</a>
 					
 					
@@ -707,7 +702,7 @@
 				
 			
 				
-				<h3 id="Extension.WidgetLayout">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1555:1603#L62">WidgetLayout</a>
+				<h3 id="Extension.WidgetLayout">func (*Extension) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1485:1533#L57">WidgetLayout</a>
 					<a class="permalink" href="index.html#Extension.WidgetLayout">&#xb6;</a>
 					
 					
@@ -1173,7 +1168,7 @@ Version _
 		
 			
 			
-			<h2 id="WidgetAreaType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3571:3597#L154">WidgetAreaType</a>
+			<h2 id="WidgetAreaType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3501:3527#L149">WidgetAreaType</a>
 				<a class="permalink" href="index.html#WidgetAreaType">&#xb6;</a>
 				
 				
@@ -1195,7 +1190,7 @@ Version _
 		
 			
 			
-			<h2 id="WidgetLayout">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1821:2005#L78">WidgetLayout</a>
+			<h2 id="WidgetLayout">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1751:1935#L73">WidgetLayout</a>
 				<a class="permalink" href="index.html#WidgetLayout">&#xb6;</a>
 				
 				
@@ -1216,7 +1211,7 @@ Version _
 
 			
 				
-				<h3 id="NewWidgetLayout">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2171:2308#L90">NewWidgetLayout</a>
+				<h3 id="NewWidgetLayout">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2101:2238#L85">NewWidgetLayout</a>
 					<a class="permalink" href="index.html#NewWidgetLayout">&#xb6;</a>
 					
 					
@@ -1229,7 +1224,7 @@ Version _
 
 			
 				
-				<h3 id="WidgetLayout.DefaultLocation">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2920:2975#L120">DefaultLocation</a>
+				<h3 id="WidgetLayout.DefaultLocation">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2850:2905#L115">DefaultLocation</a>
 					<a class="permalink" href="index.html#WidgetLayout.DefaultLocation">&#xb6;</a>
 					
 					
@@ -1241,7 +1236,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLayout.Extendable">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2007:2064#L86">Extendable</a>
+				<h3 id="WidgetLayout.Extendable">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=1937:1994#L81">Extendable</a>
 					<a class="permalink" href="index.html#WidgetLayout.Extendable">&#xb6;</a>
 					
 					
@@ -1253,7 +1248,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLayout.Extended">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2796:2833#L112">Extended</a>
+				<h3 id="WidgetLayout.Extended">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2726:2763#L107">Extended</a>
 					<a class="permalink" href="index.html#WidgetLayout.Extended">&#xb6;</a>
 					
 					
@@ -1265,7 +1260,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLayout.Floating">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2858:2895#L116">Floating</a>
+				<h3 id="WidgetLayout.Floating">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2788:2825#L111">Floating</a>
 					<a class="permalink" href="index.html#WidgetLayout.Floating">&#xb6;</a>
 					
 					
@@ -1277,7 +1272,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLayout.HorizontallyExtendable">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2620:2671#L104">HorizontallyExtendable</a>
+				<h3 id="WidgetLayout.HorizontallyExtendable">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2550:2601#L99">HorizontallyExtendable</a>
 					<a class="permalink" href="index.html#WidgetLayout.HorizontallyExtendable">&#xb6;</a>
 					
 					
@@ -1289,7 +1284,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLayout.Ref">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2562:2603#L100">Ref</a>
+				<h3 id="WidgetLayout.Ref">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2492:2533#L95">Ref</a>
 					<a class="permalink" href="index.html#WidgetLayout.Ref">&#xb6;</a>
 					
 					
@@ -1301,7 +1296,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLayout.VerticallyExtendable">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2710:2759#L108">VerticallyExtendable</a>
+				<h3 id="WidgetLayout.VerticallyExtendable">func (WidgetLayout) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2640:2689#L103">VerticallyExtendable</a>
 					<a class="permalink" href="index.html#WidgetLayout.VerticallyExtendable">&#xb6;</a>
 					
 					
@@ -1315,7 +1310,7 @@ Version _
 		
 			
 			
-			<h2 id="WidgetLocation">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3064:3169#L127">WidgetLocation</a>
+			<h2 id="WidgetLocation">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=2994:3099#L122">WidgetLocation</a>
 				<a class="permalink" href="index.html#WidgetLocation">&#xb6;</a>
 				
 				
@@ -1340,7 +1335,7 @@ Version _
 
 			
 				
-				<h3 id="WidgetLocation.CopyRef">func (*WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3339:3389#L141">CopyRef</a>
+				<h3 id="WidgetLocation.CopyRef">func (*WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3269:3319#L136">CopyRef</a>
 					<a class="permalink" href="index.html#WidgetLocation.CopyRef">&#xb6;</a>
 					
 					
@@ -1352,7 +1347,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLocation.Horizontal">func (WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3171:3212#L133">Horizontal</a>
+				<h3 id="WidgetLocation.Horizontal">func (WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3101:3142#L128">Horizontal</a>
 					<a class="permalink" href="index.html#WidgetLocation.Horizontal">&#xb6;</a>
 					
 					
@@ -1364,7 +1359,7 @@ Version _
 				
 			
 				
-				<h3 id="WidgetLocation.Vertical">func (WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3259:3298#L137">Vertical</a>
+				<h3 id="WidgetLocation.Vertical">func (WidgetLocation) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3189:3228#L132">Vertical</a>
 					<a class="permalink" href="index.html#WidgetLocation.Vertical">&#xb6;</a>
 					
 					
@@ -1378,7 +1373,7 @@ Version _
 		
 			
 			
-			<h2 id="WidgetSectionType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3541:3570#L153">WidgetSectionType</a>
+			<h2 id="WidgetSectionType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3471:3500#L148">WidgetSectionType</a>
 				<a class="permalink" href="index.html#WidgetSectionType">&#xb6;</a>
 				
 				
@@ -1400,7 +1395,7 @@ Version _
 		
 			
 			
-			<h2 id="WidgetZoneType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3514:3540#L152">WidgetZoneType</a>
+			<h2 id="WidgetZoneType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/plugin/extension.go?s=3444:3470#L147">WidgetZoneType</a>
 				<a class="permalink" href="index.html#WidgetZoneType">&#xb6;</a>
 				
 				

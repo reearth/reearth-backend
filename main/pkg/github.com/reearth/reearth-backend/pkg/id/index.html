@@ -117,6 +117,9 @@
 				<dd><a href="index.html#AssetIDToKeys">func AssetIDToKeys(ids []AssetID) []string</a></dd>
 			
 				
+				<dd><a href="index.html#ClusterIDToKeys">func ClusterIDToKeys(ids []ClusterID) []string</a></dd>
+			
+				
 				<dd><a href="index.html#DatasetIDToKeys">func DatasetIDToKeys(ids []DatasetID) []string</a></dd>
 			
 				
@@ -260,6 +263,106 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#AssetIDSet.Merge">func (s *AssetIDSet) Merge(s2 *AssetIDSet) *AssetIDSet</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ClusterID">type ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDFrom">func ClusterIDFrom(i string) (nid ClusterID, err error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDFromRef">func ClusterIDFromRef(i *string) *ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDFromRefID">func ClusterIDFromRefID(i *ID) *ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDsFrom">func ClusterIDsFrom(ids []string) ([]ClusterID, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDsFromID">func ClusterIDsFromID(ids []ID) []ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDsFromIDRef">func ClusterIDsFromIDRef(ids []*ID) []ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#MustClusterID">func MustClusterID(i string) ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewClusterID">func NewClusterID() ClusterID</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.Contains">func (d ClusterID) Contains(ids []ClusterID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.CopyRef">func (d *ClusterID) CopyRef() *ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.GoString">func (d ClusterID) GoString() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.ID">func (d ClusterID) ID() ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.IDRef">func (d *ClusterID) IDRef() *ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.IsNil">func (d ClusterID) IsNil() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.MarhsalJSON">func (d *ClusterID) MarhsalJSON() ([]byte, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.MarshalText">func (d *ClusterID) MarshalText() ([]byte, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.Ref">func (d ClusterID) Ref() *ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.RefString">func (d ClusterID) RefString() *string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.String">func (d ClusterID) String() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.StringRef">func (d *ClusterID) StringRef() *string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.UnmarhsalJSON">func (d *ClusterID) UnmarhsalJSON(bs []byte) (err error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterID.UnmarshalText">func (d *ClusterID) UnmarshalText(text []byte) (err error)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ClusterIDSet">type ClusterIDSet</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewClusterIDSet">func NewClusterIDSet() *ClusterIDSet</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDSet.Add">func (s *ClusterIDSet) Add(p ...ClusterID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDSet.AddRef">func (s *ClusterIDSet) AddRef(p *ClusterID)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDSet.All">func (s *ClusterIDSet) All() []ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDSet.Clear">func (s *ClusterIDSet) Clear()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDSet.Clone">func (s *ClusterIDSet) Clone() *ClusterIDSet</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDSet.Has">func (s *ClusterIDSet) Has(p ClusterID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDSet.Merge">func (s *ClusterIDSet) Merge(s2 *ClusterIDSet) *ClusterIDSet</a></dd>
 				
 			
 				
@@ -570,6 +673,12 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#AssetIDsToIDRef">func AssetIDsToIDRef(ids []*AssetID) []*ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDsToID">func ClusterIDsToID(ids []ClusterID) []ID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterIDsToIDRef">func ClusterIDsToIDRef(ids []*ClusterID) []*ID</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#DatasetIDsToID">func DatasetIDsToID(ids []DatasetID) []ID</a></dd>
@@ -1878,6 +1987,8 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/asset_gen.go">asset_gen.go</a>
 			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go">cluster_gen.go</a>
+			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_gen.go">dataset_gen.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/dataset_schema_field_gen.go">dataset_schema_field_gen.go</a>
@@ -1952,6 +2063,22 @@
 			<pre>func AssetIDToKeys(ids []<a href="index.html#AssetID">AssetID</a>) []<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 			<p>
 AssetIDToKeys converts IDs into a string slice.
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="ClusterIDToKeys">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=3155:3201#L143">ClusterIDToKeys</a>
+				<a class="permalink" href="index.html#ClusterIDToKeys">&#xb6;</a>
+				
+				
+			</h2>
+			<pre>func ClusterIDToKeys(ids []<a href="index.html#ClusterID">ClusterID</a>) []<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+			<p>
+ClusterIDToKeys converts IDs into a string slice.
 </p>
 
 			
@@ -2684,6 +2811,500 @@ Has checks if the ID exists in the set
 					
 				</h3>
 				<pre>func (s *<a href="index.html#AssetIDSet">AssetIDSet</a>) Merge(s2 *<a href="index.html#AssetIDSet">AssetIDSet</a>) *<a href="index.html#AssetIDSet">AssetIDSet</a></pre>
+				<p>
+Merge returns a merged set
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ClusterID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=111:128#L1">ClusterID</a>
+				<a class="permalink" href="index.html#ClusterID">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+ClusterID is an ID for Cluster.
+</p>
+
+			<pre>type ClusterID <a href="index.html#ID">ID</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="ClusterIDFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=291:346#L6">ClusterIDFrom</a>
+					<a class="permalink" href="index.html#ClusterIDFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDFrom(i <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) (nid <a href="index.html#ClusterID">ClusterID</a>, err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+ClusterIDFrom generates a new ClusterID from a string.
+</p>
+
+				
+				
+			
+				
+				<h3 id="ClusterIDFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=734:777#L26">ClusterIDFromRef</a>
+					<a class="permalink" href="index.html#ClusterIDFromRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDFromRef(i *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+ClusterIDFromRef generates a new ClusterID from a string ref.
+</p>
+
+				
+				
+			
+				
+				<h3 id="ClusterIDFromRefID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=950:991#L36">ClusterIDFromRefID</a>
+					<a class="permalink" href="index.html#ClusterIDFromRefID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDFromRefID(i *<a href="index.html#ID">ID</a>) *<a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+ClusterIDFromRefID generates a new ClusterID from a ref of a generic ID.
+</p>
+
+				
+				
+			
+				
+				<h3 id="ClusterIDsFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=3378:3432#L152">ClusterIDsFrom</a>
+					<a class="permalink" href="index.html#ClusterIDsFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDsFrom(ids []<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) ([]<a href="index.html#ClusterID">ClusterID</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+ClusterIDsFrom converts a string slice into a ID slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="ClusterIDsFromID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=3688:3731#L165">ClusterIDsFromID</a>
+					<a class="permalink" href="index.html#ClusterIDsFromID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDsFromID(ids []<a href="index.html#ID">ID</a>) []<a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+ClusterIDsFromID converts a generic ID slice into a ID slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="ClusterIDsFromIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=3931:3978#L174">ClusterIDsFromIDRef</a>
+					<a class="permalink" href="index.html#ClusterIDsFromIDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDsFromIDRef(ids []*<a href="index.html#ID">ID</a>) []<a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+ClusterIDsFromIDRef converts a ref of a generic ID slice into a ID slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="MustClusterID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=546:584#L17">MustClusterID</a>
+					<a class="permalink" href="index.html#MustClusterID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func MustClusterID(i <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) <a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+MustClusterID generates a new ClusterID from a string, but panics if the string cannot be parsed.
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewClusterID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=173:202#L1">NewClusterID</a>
+					<a class="permalink" href="index.html#NewClusterID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewClusterID() <a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+NewClusterID generates a new ClusterId.
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="ClusterID.Contains">func (ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1665:1714#L72">Contains</a>
+					<a class="permalink" href="index.html#ClusterID.Contains">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ClusterID">ClusterID</a>) Contains(ids []<a href="index.html#ClusterID">ClusterID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Contains returns whether the id is contained in the slice.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.CopyRef">func (*ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1851:1891#L82">CopyRef</a>
+					<a class="permalink" href="index.html#ClusterID.CopyRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ClusterID">ClusterID</a>) CopyRef() *<a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+CopyRef returns a copy of a reference.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.GoString">func (ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1291:1327#L55">GoString</a>
+					<a class="permalink" href="index.html#ClusterID.GoString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ClusterID">ClusterID</a>) GoString() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+GoString implements fmt.GoStringer interface.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.ID">func (ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1090:1116#L45">ID</a>
+					<a class="permalink" href="index.html#ClusterID.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ClusterID">ClusterID</a>) ID() <a href="index.html#ID">ID</a></pre>
+				<p>
+ID returns a domain ID.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.IDRef">func (*ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1995:2026#L91">IDRef</a>
+					<a class="permalink" href="index.html#ClusterID.IDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ClusterID">ClusterID</a>) IDRef() *<a href="index.html#ID">ID</a></pre>
+				<p>
+IDRef returns a reference of a domain id.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.IsNil">func (ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=3043:3074#L138">IsNil</a>
+					<a class="permalink" href="index.html#ClusterID.IsNil">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ClusterID">ClusterID</a>) IsNil() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Ref returns true if a ID is nil or zero-value
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.MarhsalJSON">func (*ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=2312:2361#L109">MarhsalJSON</a>
+					<a class="permalink" href="index.html#ClusterID.MarhsalJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ClusterID">ClusterID</a>) MarhsalJSON() ([]<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+MarhsalJSON implements json.Marhsaler interface
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.MarshalText">func (*ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=2697:2746#L124">MarshalText</a>
+					<a class="permalink" href="index.html#ClusterID.MarshalText">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ClusterID">ClusterID</a>) MarshalText() ([]<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+MarshalText implements encoding.TextMarshaler interface
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.Ref">func (ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1541:1576#L66">Ref</a>
+					<a class="permalink" href="index.html#ClusterID.Ref">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ClusterID">ClusterID</a>) Ref() *<a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+Ref returns a reference.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.RefString">func (ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1435:1473#L60">RefString</a>
+					<a class="permalink" href="index.html#ClusterID.RefString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ClusterID">ClusterID</a>) RefString() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+RefString returns a reference of string representation.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.String">func (ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=1179:1213#L50">String</a>
+					<a class="permalink" href="index.html#ClusterID.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="index.html#ClusterID">ClusterID</a>) String() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+String returns a string representation.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.StringRef">func (*ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=2150:2189#L100">StringRef</a>
+					<a class="permalink" href="index.html#ClusterID.StringRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ClusterID">ClusterID</a>) StringRef() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				<p>
+StringRef returns a reference of a string representation.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.UnmarhsalJSON">func (*ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=2455:2511#L114">UnmarhsalJSON</a>
+					<a class="permalink" href="index.html#ClusterID.UnmarhsalJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ClusterID">ClusterID</a>) UnmarhsalJSON(bs []<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>) (err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+UnmarhsalJSON implements json.Unmarshaler interface
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterID.UnmarshalText">func (*ClusterID) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=2883:2941#L132">UnmarshalText</a>
+					<a class="permalink" href="index.html#ClusterID.UnmarshalText">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (d *<a href="index.html#ClusterID">ClusterID</a>) UnmarshalText(text []<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>) (err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<p>
+UnmarshalText implements encoding.TextUnmarshaler interface
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ClusterIDSet">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=4618:4687#L203">ClusterIDSet</a>
+				<a class="permalink" href="index.html#ClusterIDSet">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+ClusterIDSet represents a set of ClusterIDs
+</p>
+
+			<pre>type ClusterIDSet struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewClusterIDSet">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=4735:4771#L209">NewClusterIDSet</a>
+					<a class="permalink" href="index.html#NewClusterIDSet">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewClusterIDSet() *<a href="index.html#ClusterIDSet">ClusterIDSet</a></pre>
+				<p>
+NewClusterIDSet creates a new ClusterIDSet
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="ClusterIDSet.Add">func (*ClusterIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=4855:4897#L214">Add</a>
+					<a class="permalink" href="index.html#ClusterIDSet.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) Add(p ...<a href="index.html#ClusterID">ClusterID</a>)</pre>
+				<p>
+Add adds a new ID if it does not exists in the set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterIDSet.AddRef">func (*ClusterIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=5209:5252#L233">AddRef</a>
+					<a class="permalink" href="index.html#ClusterIDSet.AddRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) AddRef(p *<a href="index.html#ClusterID">ClusterID</a>)</pre>
+				<p>
+AddRef adds a new ID ref if it does not exists in the set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterIDSet.All">func (*ClusterIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=5632:5672#L259">All</a>
+					<a class="permalink" href="index.html#ClusterIDSet.All">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) All() []<a href="index.html#ClusterID">ClusterID</a></pre>
+				<p>
+All returns stored all IDs as a slice
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterIDSet.Clear">func (*ClusterIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=5506:5536#L250">Clear</a>
+					<a class="permalink" href="index.html#ClusterIDSet.Clear">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) Clear()</pre>
+				<p>
+Clear clears all stored IDs
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterIDSet.Clone">func (*ClusterIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=5777:5821#L267">Clone</a>
+					<a class="permalink" href="index.html#ClusterIDSet.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) Clone() *<a href="index.html#ClusterIDSet">ClusterIDSet</a></pre>
+				<p>
+Clone returns a cloned set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterIDSet.Has">func (*ClusterIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=5350:5394#L241">Has</a>
+					<a class="permalink" href="index.html#ClusterIDSet.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) Has(p <a href="index.html#ClusterID">ClusterID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Has checks if the ID exists in the set
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterIDSet.Merge">func (*ClusterIDSet) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=5954:6014#L277">Merge</a>
+					<a class="permalink" href="index.html#ClusterIDSet.Merge">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) Merge(s2 *<a href="index.html#ClusterIDSet">ClusterIDSet</a>) *<a href="index.html#ClusterIDSet">ClusterIDSet</a></pre>
 				<p>
 Merge returns a merged set
 </p>
@@ -4220,6 +4841,34 @@ AssetIDsToID converts a ID slice into a generic ID slice.
 				<pre>func AssetIDsToIDRef(ids []*<a href="index.html#AssetID">AssetID</a>) []*<a href="index.html#ID">ID</a></pre>
 				<p>
 AssetIDsToIDRef converts a ID ref slice into a generic ID ref slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="ClusterIDsToID">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=4186:4227#L185">ClusterIDsToID</a>
+					<a class="permalink" href="index.html#ClusterIDsToID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDsToID(ids []<a href="index.html#ClusterID">ClusterID</a>) []<a href="index.html#ID">ID</a></pre>
+				<p>
+ClusterIDsToID converts a ID slice into a generic ID slice.
+</p>
+
+				
+				
+			
+				
+				<h3 id="ClusterIDsToIDRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/id/cluster_gen.go?s=4411:4457#L194">ClusterIDsToIDRef</a>
+					<a class="permalink" href="index.html#ClusterIDsToIDRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ClusterIDsToIDRef(ids []*<a href="index.html#ClusterID">ClusterID</a>) []*<a href="index.html#ID">ID</a></pre>
+				<p>
+ClusterIDsToIDRef converts a ID ref slice into a generic ID ref slice.
 </p>
 
 				

@@ -127,6 +127,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Build">func (b *Builder) Build() (*Scene, error)</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Clusters">func (b *Builder) Clusters(cl *ClusterList) *Builder</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#Builder.ID">func (b *Builder) ID(id id.SceneID) *Builder</a></dd>
 				
 					
@@ -158,6 +161,55 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Builder.WidgetSystem">func (b *Builder) WidgetSystem(widgetSystem *WidgetSystem) *Builder</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Cluster">type Cluster</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewCluster">func NewCluster(cid id.ClusterID, name string, pid id.PropertyID) (*Cluster, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Cluster.ID">func (c *Cluster) ID() id.ClusterID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Cluster.Name">func (c *Cluster) Name() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Cluster.Property">func (c *Cluster) Property() id.PropertyID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Cluster.Rename">func (c *Cluster) Rename(name string)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Cluster.UpdateProperty">func (c *Cluster) UpdateProperty(pid id.PropertyID)</a></dd>
+				
+			
+				
+				<dd><a href="index.html#ClusterList">type ClusterList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewClusterList">func NewClusterList() *ClusterList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewClusterListFrom">func NewClusterListFrom(clusters []*Cluster) *ClusterList</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterList.Add">func (tl *ClusterList) Add(clusters ...*Cluster)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterList.Clusters">func (tl *ClusterList) Clusters() []*Cluster</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterList.Get">func (tl *ClusterList) Get(cid id.ClusterID) *Cluster</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterList.Has">func (tl *ClusterList) Has(tid id.ClusterID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ClusterList.Remove">func (tl *ClusterList) Remove(clusters ...id.ClusterID)</a></dd>
 				
 			
 				
@@ -223,6 +275,9 @@
 				
 				<dd><a href="index.html#Scene">type Scene</a></dd>
 				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Scene.Clusters">func (s *Scene) Clusters() *ClusterList</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Scene.CreatedAt">func (s *Scene) CreatedAt() time.Time</a></dd>
@@ -476,6 +531,10 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go">builder.go</a>
 			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go">cluster.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go">cluster_list.go</a>
+			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/lock.go">lock.go</a>
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/plugin.go">plugin.go</a>
@@ -565,6 +624,18 @@
 Build _
 </p>
 
+				
+				
+				
+			
+				
+				<h3 id="Builder.Clusters">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/builder.go?s=1990:2042#L93">Clusters</a>
+					<a class="permalink" href="index.html#Builder.Clusters">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Clusters(cl *<a href="index.html#ClusterList">ClusterList</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
 				
 				
 				
@@ -696,6 +767,209 @@ Build _
 					
 				</h3>
 				<pre>func (b *<a href="index.html#Builder">Builder</a>) WidgetSystem(widgetSystem *<a href="index.html#WidgetSystem">WidgetSystem</a>) *<a href="index.html#Builder">Builder</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Cluster">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go?s=67:154#L1">Cluster</a>
+				<a class="permalink" href="index.html#Cluster">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Cluster struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewCluster">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go?s=156:239#L1">NewCluster</a>
+					<a class="permalink" href="index.html#NewCluster">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewCluster(cid <a href="../id/index.html">id</a>.<a href="../id/index.html#ClusterID">ClusterID</a>, name <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>, pid <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>) (*<a href="index.html#Cluster">Cluster</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="Cluster.ID">func (*Cluster) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go?s=381:416#L12">ID</a>
+					<a class="permalink" href="index.html#Cluster.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (c *<a href="index.html#Cluster">Cluster</a>) ID() <a href="../id/index.html">id</a>.<a href="../id/index.html#ClusterID">ClusterID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Cluster.Name">func (*Cluster) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go?s=477:508#L19">Name</a>
+					<a class="permalink" href="index.html#Cluster.Name">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (c *<a href="index.html#Cluster">Cluster</a>) Name() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Cluster.Property">func (*Cluster) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go?s=559:601#L26">Property</a>
+					<a class="permalink" href="index.html#Cluster.Property">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (c *<a href="index.html#Cluster">Cluster</a>) Property() <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Cluster.Rename">func (*Cluster) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go?s=669:706#L33">Rename</a>
+					<a class="permalink" href="index.html#Cluster.Rename">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (c *<a href="index.html#Cluster">Cluster</a>) Rename(name <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Cluster.UpdateProperty">func (*Cluster) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster.go?s=754:805#L40">UpdateProperty</a>
+					<a class="permalink" href="index.html#Cluster.UpdateProperty">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (c *<a href="index.html#Cluster">Cluster</a>) UpdateProperty(pid <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ClusterList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=67:115#L1">ClusterList</a>
+				<a class="permalink" href="index.html#ClusterList">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type ClusterList struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewClusterList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=117:151#L1">NewClusterList</a>
+					<a class="permalink" href="index.html#NewClusterList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewClusterList() *<a href="index.html#ClusterList">ClusterList</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="NewClusterListFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=180:237#L3">NewClusterListFrom</a>
+					<a class="permalink" href="index.html#NewClusterListFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewClusterListFrom(clusters []*<a href="index.html#Cluster">Cluster</a>) *<a href="index.html#ClusterList">ClusterList</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="ClusterList.Add">func (*ClusterList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=627:675#L26">Add</a>
+					<a class="permalink" href="index.html#ClusterList.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#ClusterList">ClusterList</a>) Add(clusters ...*<a href="index.html#Cluster">Cluster</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ClusterList.Clusters">func (*ClusterList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=309:353#L7">Clusters</a>
+					<a class="permalink" href="index.html#ClusterList.Clusters">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#ClusterList">ClusterList</a>) Clusters() []*<a href="index.html#Cluster">Cluster</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ClusterList.Get">func (*ClusterList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=757:810#L33">Get</a>
+					<a class="permalink" href="index.html#ClusterList.Get">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#ClusterList">ClusterList</a>) Get(cid <a href="../id/index.html">id</a>.<a href="../id/index.html#ClusterID">ClusterID</a>) *<a href="index.html#Cluster">Cluster</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ClusterList.Has">func (*ClusterList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=436:485#L14">Has</a>
+					<a class="permalink" href="index.html#ClusterList.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#ClusterList">ClusterList</a>) Has(tid <a href="../id/index.html">id</a>.<a href="../id/index.html#ClusterID">ClusterID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ClusterList.Remove">func (*ClusterList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/cluster_list.go?s=933:988#L45">Remove</a>
+					<a class="permalink" href="index.html#ClusterList.Remove">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tl *<a href="index.html#ClusterList">ClusterList</a>) Remove(clusters ...<a href="../id/index.html">id</a>.<a href="../id/index.html#ClusterID">ClusterID</a>)</pre>
 				
 				
 				
@@ -1019,7 +1293,7 @@ Upgrade _
 		
 			
 			
-			<h2 id="Scene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=151:459#L2">Scene</a>
+			<h2 id="Scene">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=151:491#L2">Scene</a>
 				<a class="permalink" href="index.html#Scene">&#xb6;</a>
 				
 				
@@ -1042,7 +1316,19 @@ Upgrade _
 
 			
 				
-				<h3 id="Scene.CreatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=551:588#L21">CreatedAt</a>
+				<h3 id="Scene.Clusters">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=2063:2102#L114">Clusters</a>
+					<a class="permalink" href="index.html#Scene.Clusters">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (s *<a href="index.html#Scene">Scene</a>) Clusters() *<a href="index.html#ClusterList">ClusterList</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Scene.CreatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=583:620#L22">CreatedAt</a>
 					<a class="permalink" href="index.html#Scene.CreatedAt">&#xb6;</a>
 					
 					
@@ -1054,7 +1340,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.ID">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=461:492#L14">ID</a>
+				<h3 id="Scene.ID">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=493:524#L15">ID</a>
 					<a class="permalink" href="index.html#Scene.ID">&#xb6;</a>
 					
 					
@@ -1066,7 +1352,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.IsTeamIncluded">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1609:1663#L91">IsTeamIncluded</a>
+				<h3 id="Scene.IsTeamIncluded">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1641:1695#L92">IsTeamIncluded</a>
 					<a class="permalink" href="index.html#Scene.IsTeamIncluded">&#xb6;</a>
 					
 					
@@ -1078,7 +1364,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.PluginSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1296:1340#L70">PluginSystem</a>
+				<h3 id="Scene.PluginSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1328:1372#L71">PluginSystem</a>
 					<a class="permalink" href="index.html#Scene.PluginSystem">&#xb6;</a>
 					
 					
@@ -1090,7 +1376,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Project">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=665:703#L28">Project</a>
+				<h3 id="Scene.Project">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=697:735#L29">Project</a>
 					<a class="permalink" href="index.html#Scene.Project">&#xb6;</a>
 					
 					
@@ -1102,7 +1388,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Properties">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1800:1844#L103">Properties</a>
+				<h3 id="Scene.Properties">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1832:1876#L104">Properties</a>
 					<a class="permalink" href="index.html#Scene.Properties">&#xb6;</a>
 					
 					
@@ -1114,7 +1400,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Property">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=861:901#L42">Property</a>
+				<h3 id="Scene.Property">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=893:933#L43">Property</a>
 					<a class="permalink" href="index.html#Scene.Property">&#xb6;</a>
 					
 					
@@ -1126,7 +1412,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.RootLayer">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=969:1007#L49">RootLayer</a>
+				<h3 id="Scene.RootLayer">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1001:1039#L50">RootLayer</a>
 					<a class="permalink" href="index.html#Scene.RootLayer">&#xb6;</a>
 					
 					
@@ -1138,7 +1424,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.SetUpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1502:1551#L84">SetUpdatedAt</a>
+				<h3 id="Scene.SetUpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1534:1583#L85">SetUpdatedAt</a>
 					<a class="permalink" href="index.html#Scene.SetUpdatedAt">&#xb6;</a>
 					
 					
@@ -1150,7 +1436,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.Team">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=769:801#L35">Team</a>
+				<h3 id="Scene.Team">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=801:833#L36">Team</a>
 					<a class="permalink" href="index.html#Scene.Team">&#xb6;</a>
 					
 					
@@ -1162,7 +1448,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.UpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1400:1437#L77">UpdatedAt</a>
+				<h3 id="Scene.UpdatedAt">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1432:1469#L78">UpdatedAt</a>
 					<a class="permalink" href="index.html#Scene.UpdatedAt">&#xb6;</a>
 					
 					
@@ -1174,7 +1460,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.WidgetAlignSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1177:1231#L63">WidgetAlignSystem</a>
+				<h3 id="Scene.WidgetAlignSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1209:1263#L64">WidgetAlignSystem</a>
 					<a class="permalink" href="index.html#Scene.WidgetAlignSystem">&#xb6;</a>
 					
 					
@@ -1186,7 +1472,7 @@ Upgrade _
 				
 			
 				
-				<h3 id="Scene.WidgetSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1073:1117#L56">WidgetSystem</a>
+				<h3 id="Scene.WidgetSystem">func (*Scene) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/scene/scene.go?s=1105:1149#L57">WidgetSystem</a>
 					<a class="permalink" href="index.html#Scene.WidgetSystem">&#xb6;</a>
 					
 					
