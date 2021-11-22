@@ -18,6 +18,7 @@ type Config struct {
 	Dev          bool
 	DB           string `default:"mongodb://localhost"`
 	Auth0        Auth0Config
+	Auth         AuthConfig
 	Mailer       string
 	SMTP         SMTPConfig
 	SendGrid     SendGridConfig
@@ -40,6 +41,23 @@ type Auth0Config struct {
 	ClientID     string
 	ClientSecret string
 	WebClientID  string
+}
+
+type AuthConfig struct {
+	Domain string `default:"http://localhost:8080"`
+	Key    string
+	DN     *AuthDNConfig
+}
+
+type AuthDNConfig struct {
+	CN         string
+	O          []string
+	OU         []string
+	C          []string
+	L          []string
+	ST         []string
+	Street     []string
+	PostalCode []string
 }
 
 type GraphQLConfig struct {
