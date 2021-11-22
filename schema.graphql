@@ -375,6 +375,7 @@ type Scene implements Node {
   ): DatasetSchemaConnection! @goField(forceResolver: true)
   tagIds: [ID!]!
   tags: [Tag!]! @goField(forceResolver: true)
+  clusters: [Cluster!]!
 }
 
 enum SceneLockMode {
@@ -821,6 +822,12 @@ type TagGroup implements Tag {
 
 union Tags = TagItem | TagGroup
 
+type Cluster {
+  id: ID!
+  name: String!
+  property: ID!
+}
+
 # InputType
 
 input CreateAssetInput {
@@ -1219,6 +1226,24 @@ input RemoveTagInput {
   tagID: ID!
 }
 
+input AddClusterInput {
+  sceneId: ID!
+  name: String!
+  propertyId: ID!
+}
+
+input UpdateClusterInput {
+  clusterId: ID!
+  sceneId: ID!
+  name: String
+  propertyId: ID
+}
+
+input RemoveClusterInput {
+  clusterId: ID!
+  sceneId: ID!
+}
+
 # Payload
 
 type CreateAssetPayload {
@@ -1449,6 +1474,21 @@ type RemoveTagPayload{
   tagId: ID!
 }
 
+type AddClusterPayload {
+  scene: Scene!
+  cluster: Cluster!
+}
+
+type UpdateClusterPayload {
+  scene: Scene!
+  cluster: Cluster!
+}
+
+type RemoveClusterPayload{
+  scene: Scene!
+  clusterId: ID!
+}
+
 # Connection
 
 type AssetConnection {
@@ -1587,6 +1627,9 @@ type Mutation {
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
   uploadPlugin(input: UploadPluginInput!): UploadPluginPayload
   upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload
+  addCluster(input: AddClusterInput!): AddClusterPayload
+  updateCluster(input: UpdateClusterInput!): UpdateClusterPayload
+  removeCluster(input: RemoveClusterInput!): RemoveClusterPayload
 
   # Dataset
   updateDatasetSchema(
