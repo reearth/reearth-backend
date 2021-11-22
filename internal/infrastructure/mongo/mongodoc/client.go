@@ -164,7 +164,7 @@ func getCursor(raw bson.Raw, key string) (*usecase.Cursor, error) {
 	return &c, nil
 }
 
-func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, sortFilter *bson.E, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -180,6 +180,9 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, p
 	reverse := false
 	var limit int64
 	findOptions := options.Find()
+	if sortFilter != nil {
+		findOptions.Sort = appendE(findOptions.Sort, *sortFilter)
+	}
 	if first := p.First; first != nil {
 		limit = int64(*first)
 		findOptions.Sort = bson.D{

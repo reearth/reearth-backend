@@ -22,7 +22,7 @@ func (r *teamResolver) Assets(ctx context.Context, obj *gqlmodel.Team, first *in
 	exit := trace(ctx)
 	defer exit()
 
-	return r.loaders.Asset.FindByTeam(ctx, obj.ID, first, last, before, after)
+	return r.loaders.Asset.FindByTeam(ctx, obj.ID, nil, first, last, before, after)
 }
 
 func (r *teamResolver) Projects(ctx context.Context, obj *gqlmodel.Team, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.ProjectConnection, error) {

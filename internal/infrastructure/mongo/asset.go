@@ -4,9 +4,11 @@ import (
 	"context"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
 	"github.com/reearth/reearth-backend/internal/usecase"
+	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/asset"
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -52,11 +54,27 @@ func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
 	return r.client.RemoveOne(ctx, id.String())
 }
 
-func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
-	filter := bson.D{
+func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, filter *interfaces.AssetFilterType, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+	var sortFilter primitive.E
+	filter2 := *filter
+	switch filter2 {
+	case interfaces.AssetFilterName:
+		sortFilter = primitive.E{Key: "name", Value: 1}
+	case interfaces.AssetFilterSize:
+		sortFilter = primitive.E{Key: "size", Value: 1}
+	case interfaces.AssetFilterReverseName:
+		sortFilter = primitive.E{Key: "name", Value: -1}
+	case interfaces.AssetFilterReverseSize:
+		sortFilter = primitive.E{Key: "size", Value: -1}
+	case interfaces.AssetFilterReverseDate:
+		sortFilter = primitive.E{Key: "createdat", Value: -1}
+	default:
+		sortFilter = primitive.E{Key: "createdat", Value: 1}
+	}
+	f := bson.D{
 		{Key: "team", Value: id.String()},
 	}
-	return r.paginate(ctx, filter, pagination)
+	return r.paginate(ctx, f, sortFilter, pagination)
 }
 
 func (r *assetRepo) init() {
@@ -66,9 +84,9 @@ func (r *assetRepo) init() {
 	}
 }
 
-func (r *assetRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *assetRepo) paginate(ctx context.Context, filter bson.D, sortFilter bson.E, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	var c mongodoc.AssetConsumer
-	pageInfo, err2 := r.client.Paginate(ctx, filter, pagination, &c)
+	pageInfo, err2 := r.client.Paginate(ctx, filter, &sortFilter, pagination, &c)
 	if err2 != nil {
 		return nil, nil, rerror.ErrInternalBy(err2)
 	}

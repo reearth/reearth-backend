@@ -144,6 +144,15 @@ type Asset implements Node {
   team: Team @goField(forceResolver: true)
 }
 
+enum AssetFilterType {
+  DATE
+  SIZE
+  NAME
+  REVERSE_DATE
+  REVERSE_SIZE
+  REVERSE_NAME
+}
+
 # User
 
 type User implements Node {
@@ -1504,6 +1513,7 @@ type Query {
   scene(projectId: ID!): Scene
   assets(
     teamId: ID!
+    filter: AssetFilterType
     first: Int
     last: Int
     after: Cursor

@@ -2,6 +2,7 @@ package gql
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
@@ -32,9 +33,14 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 	return assets, nil
 }
 
-func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
+func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, filter *gqlmodel.AssetFilterType, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
-	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), p, getOperator(ctx))
+	var f interfaces.AssetFilterType
+	if filter != nil {
+		f = interfaces.AssetFilterType(*filter)
+	}
+	fmt.Println(f)
+	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), &f, p, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}

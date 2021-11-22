@@ -752,7 +752,7 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Assets                func(childComplexity int, teamID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) int
+		Assets                func(childComplexity int, teamID id.ID, filter *gqlmodel.AssetFilterType, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) int
 		CheckProjectAlias     func(childComplexity int, alias string) int
 		DatasetSchemas        func(childComplexity int, sceneID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) int
 		Datasets              func(childComplexity int, datasetSchemaID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) int
@@ -1248,7 +1248,7 @@ type QueryResolver interface {
 	Plugins(ctx context.Context, id []*id.PluginID) ([]*gqlmodel.Plugin, error)
 	Layer(ctx context.Context, id id.ID) (gqlmodel.Layer, error)
 	Scene(ctx context.Context, projectID id.ID) (*gqlmodel.Scene, error)
-	Assets(ctx context.Context, teamID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error)
+	Assets(ctx context.Context, teamID id.ID, filter *gqlmodel.AssetFilterType, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error)
 	Projects(ctx context.Context, teamID id.ID, includeArchived *bool, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.ProjectConnection, error)
 	DatasetSchemas(ctx context.Context, sceneID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error)
 	Datasets(ctx context.Context, datasetSchemaID id.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetConnection, error)
@@ -4822,7 +4822,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Assets(childComplexity, args["teamId"].(id.ID), args["first"].(*int), args["last"].(*int), args["after"].(*usecase.Cursor), args["before"].(*usecase.Cursor)), true
+		return e.complexity.Query.Assets(childComplexity, args["teamId"].(id.ID), args["filter"].(*gqlmodel.AssetFilterType), args["first"].(*int), args["last"].(*int), args["after"].(*usecase.Cursor), args["before"].(*usecase.Cursor)), true
 
 	case "Query.checkProjectAlias":
 		if e.complexity.Query.CheckProjectAlias == nil {
@@ -6151,6 +6151,15 @@ type Asset implements Node {
   url: String!
   contentType: String!
   team: Team @goField(forceResolver: true)
+}
+
+enum AssetFilterType {
+  DATE
+  SIZE
+  NAME
+  REVERSE_DATE
+  REVERSE_SIZE
+  REVERSE_NAME
 }
 
 # User
@@ -7513,6 +7522,7 @@ type Query {
   scene(projectId: ID!): Scene
   assets(
     teamId: ID!
+    filter: AssetFilterType
     first: Int
     last: Int
     after: Cursor
@@ -8786,42 +8796,51 @@ func (ec *executionContext) field_Query_assets_args(ctx context.Context, rawArgs
 		}
 	}
 	args["teamId"] = arg0
-	var arg1 *int
-	if tmp, ok := rawArgs["first"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("first"))
-		arg1, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+	var arg1 *gqlmodel.AssetFilterType
+	if tmp, ok := rawArgs["filter"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("filter"))
+		arg1, err = ec.unmarshalOAssetFilterType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetFilterType(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["first"] = arg1
+	args["filter"] = arg1
 	var arg2 *int
-	if tmp, ok := rawArgs["last"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("last"))
+	if tmp, ok := rawArgs["first"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("first"))
 		arg2, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["last"] = arg2
-	var arg3 *usecase.Cursor
-	if tmp, ok := rawArgs["after"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("after"))
-		arg3, err = ec.unmarshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, tmp)
+	args["first"] = arg2
+	var arg3 *int
+	if tmp, ok := rawArgs["last"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("last"))
+		arg3, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["after"] = arg3
+	args["last"] = arg3
 	var arg4 *usecase.Cursor
-	if tmp, ok := rawArgs["before"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("before"))
+	if tmp, ok := rawArgs["after"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("after"))
 		arg4, err = ec.unmarshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["before"] = arg4
+	args["after"] = arg4
+	var arg5 *usecase.Cursor
+	if tmp, ok := rawArgs["before"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("before"))
+		arg5, err = ec.unmarshalOCursor2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋusecaseᚐCursor(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["before"] = arg5
 	return args, nil
 }
 
@@ -25271,7 +25290,7 @@ func (ec *executionContext) _Query_assets(ctx context.Context, field graphql.Col
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Assets(rctx, args["teamId"].(id.ID), args["first"].(*int), args["last"].(*int), args["after"].(*usecase.Cursor), args["before"].(*usecase.Cursor))
+		return ec.resolvers.Query().Assets(rctx, args["teamId"].(id.ID), args["filter"].(*gqlmodel.AssetFilterType), args["first"].(*int), args["last"].(*int), args["after"].(*usecase.Cursor), args["before"].(*usecase.Cursor))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -43362,6 +43381,22 @@ func (ec *executionContext) marshalOAsset2ᚖgithubᚗcomᚋreearthᚋreearthᚑ
 		return graphql.Null
 	}
 	return ec._Asset(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOAssetFilterType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetFilterType(ctx context.Context, v interface{}) (*gqlmodel.AssetFilterType, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var res = new(gqlmodel.AssetFilterType)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOAssetFilterType2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAssetFilterType(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AssetFilterType) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return v
 }
 
 func (ec *executionContext) marshalOAttachTagItemToGroupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐAttachTagItemToGroupPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.AttachTagItemToGroupPayload) graphql.Marshaler {

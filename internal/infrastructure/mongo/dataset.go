@@ -287,7 +287,7 @@ func (r *datasetRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) err
 
 func (r *datasetRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) (dataset.List, *usecase.PageInfo, error) {
 	var c mongodoc.DatasetConsumer
-	pageInfo, err2 := r.client.Paginate(ctx, filter, pagination, &c)
+	pageInfo, err2 := r.client.Paginate(ctx, filter, nil, pagination, &c)
 	if err2 != nil {
 		return nil, nil, rerror.ErrInternalBy(err2)
 	}

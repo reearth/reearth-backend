@@ -1320,6 +1320,55 @@ type WidgetZone struct {
 	Right  *WidgetSection `json:"right"`
 }
 
+type AssetFilterType string
+
+const (
+	AssetFilterTypeDate        AssetFilterType = "DATE"
+	AssetFilterTypeSize        AssetFilterType = "SIZE"
+	AssetFilterTypeName        AssetFilterType = "NAME"
+	AssetFilterTypeReverseDate AssetFilterType = "REVERSE_DATE"
+	AssetFilterTypeReverseSize AssetFilterType = "REVERSE_SIZE"
+	AssetFilterTypeReverseName AssetFilterType = "REVERSE_NAME"
+)
+
+var AllAssetFilterType = []AssetFilterType{
+	AssetFilterTypeDate,
+	AssetFilterTypeSize,
+	AssetFilterTypeName,
+	AssetFilterTypeReverseDate,
+	AssetFilterTypeReverseSize,
+	AssetFilterTypeReverseName,
+}
+
+func (e AssetFilterType) IsValid() bool {
+	switch e {
+	case AssetFilterTypeDate, AssetFilterTypeSize, AssetFilterTypeName, AssetFilterTypeReverseDate, AssetFilterTypeReverseSize, AssetFilterTypeReverseName:
+		return true
+	}
+	return false
+}
+
+func (e AssetFilterType) String() string {
+	return string(e)
+}
+
+func (e *AssetFilterType) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = AssetFilterType(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid AssetFilterType", str)
+	}
+	return nil
+}
+
+func (e AssetFilterType) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
 type LayerEncodingFormat string
 
 const (
