@@ -26,6 +26,7 @@ type UserDocument struct {
 	Team          string
 	Lang          string
 	Theme         string
+	Password      []byte
 	PasswordReset *PasswordResetDocument
 }
 
@@ -67,6 +68,7 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 		Team:         user.Team().String(),
 		Lang:         user.Lang().String(),
 		Theme:        string(user.Theme()),
+		Password:     user.Password(),
 		PasswordReset: &PasswordResetDocument{
 			Token:     pwdReset.Token,
 			CreatedAt: pwdReset.CreatedAt,
@@ -99,6 +101,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Auths(auths).
 		Team(tid).
 		LangFrom(d.Lang).
+		Password("", d.Password).
 		Theme(user.Theme(d.Theme)).
 		PasswordReset(d.PasswordReset.Token, d.PasswordReset.IsUsed, d.PasswordReset.ExpiresAt, d.PasswordReset.CreatedAt).
 		Build()

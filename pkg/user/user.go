@@ -48,6 +48,10 @@ func (u *User) Theme() Theme {
 	return u.theme
 }
 
+func (u *User) Password() []byte {
+	return u.password
+}
+
 func (u *User) UpdateName(name string) {
 	u.name = name
 }
