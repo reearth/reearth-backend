@@ -53,20 +53,20 @@ func (m *message) encodeContent() (string, error) {
 		return "", err
 	}
 	var content io.Writer
-	content, err = altWriter.CreatePart(textproto.MIMEHeader{"Content-Type": {"text/plain"}})
-	if err != nil {
-		return "", err
-	}
-
-	_, err = content.Write([]byte(m.plainContent + `\r\n\r\n`))
-	if err != nil {
-		return "", err
-	}
 	content, err = altWriter.CreatePart(textproto.MIMEHeader{"Content-Type": {"text/html"}})
 	if err != nil {
 		return "", err
 	}
-	_, err = content.Write([]byte(m.htmlContent + `\r\n`))
+
+	_, err = content.Write([]byte(m.htmlContent + "\r\n\r\n"))
+	if err != nil {
+		return "", err
+	}
+	content, err = altWriter.CreatePart(textproto.MIMEHeader{"Content-Type": {"text/plain"}})
+	if err != nil {
+		return "", err
+	}
+	_, err = content.Write([]byte(m.plainContent + "\r\n"))
 	if err != nil {
 		return "", err
 	}
