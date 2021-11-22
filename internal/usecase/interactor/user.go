@@ -170,9 +170,6 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 			return nil, nil, errors.New("existed user email")
 		}
 
-		if err != nil {
-			return nil, nil, err
-		}
 		name = *inp.Name
 		email = *inp.Email
 	}

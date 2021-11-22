@@ -17,6 +17,7 @@ type UserDocument struct {
 	Team         string
 	Lang         string
 	Theme        string
+	Password     []byte
 }
 
 type UserConsumer struct {
@@ -56,6 +57,7 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 		Team:         user.Team().String(),
 		Lang:         user.Lang().String(),
 		Theme:        string(user.Theme()),
+		Password:     user.Password(),
 	}, id
 }
 
@@ -82,6 +84,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Auths(auths).
 		Team(tid).
 		LangFrom(d.Lang).
+		Password("", d.Password).
 		Theme(user.Theme(d.Theme)).
 		Build()
 	if err != nil {

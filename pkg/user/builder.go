@@ -55,8 +55,12 @@ func (b *Builder) Email(email string) *Builder {
 	return b
 }
 
-func (b *Builder) Password(password string) *Builder {
-	b.p = &password
+func (b *Builder) Password(strPassword string, binPassword []byte) *Builder {
+	if binPassword == nil {
+		b.p = &strPassword
+	} else {
+		b.u.password = binPassword
+	}
 	return b
 }
 
