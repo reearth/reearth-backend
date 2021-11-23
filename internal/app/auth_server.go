@@ -18,6 +18,12 @@ import (
 	"github.com/golang/gddo/httputil/header"
 )
 
+var (
+	loginEndpoint  = "api/login"
+	logoutEndpoint = "v2/logout"
+	jwksEndpoint   = ".well-known/jwks.json"
+)
+
 func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *ServerConfig) {
 
 	userUsecase := interactor.NewUser(cfg.Repos, cfg.Gateways, cfg.Config.SignupSecret)
@@ -62,7 +68,8 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 		storage,
 		op.WithHttpInterceptors(jsonToFormHandler()),
 		op.WithHttpInterceptors(setURLVarsHandler()),
-		op.WithCustomKeysEndpoint(op.NewEndpoint(".well-known/jwks.json")),
+		op.WithCustomEndSessionEndpoint(op.NewEndpoint(logoutEndpoint)),
+		op.WithCustomKeysEndpoint(op.NewEndpoint(jwksEndpoint)),
 	)
 	if err != nil {
 		e.Logger.Fatal(err)
@@ -75,7 +82,9 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 	}
 
 	// Actual login endpoint
-	r.POST("api/login", login(ctx, cfg, storage, userUsecase))
+	r.POST(loginEndpoint, login(ctx, cfg, storage, userUsecase))
+
+	r.GET(logoutEndpoint, logout(ctx, cfg, storage, userUsecase))
 
 }
 
@@ -196,6 +205,13 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		}
 
 		return ec.Redirect(http.StatusFound, "/authorize/callback?id="+request.AuthRequestID)
+	}
+}
+
+func logout(_ context.Context, _ *ServerConfig, _ op.Storage, _ interfaces.User) func(ctx echo.Context) error {
+	return func(ec echo.Context) error {
+		u := ec.QueryParam("returnTo")
+		return ec.Redirect(http.StatusFound, u)
 	}
 }
 
