@@ -416,7 +416,7 @@ func TestUser_PasswordReset(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			assert.Equal(tt, tc.Expected, tc.User.passwordReset)
+			assert.Equal(tt, tc.Expected, tc.User.PasswordReset())
 		})
 	}
 }
