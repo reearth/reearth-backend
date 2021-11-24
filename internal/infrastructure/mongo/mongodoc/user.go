@@ -13,8 +13,6 @@ import (
 type PasswordResetDocument struct {
 	Token     string
 	CreatedAt time.Time
-	ExpiresAt time.Time
-	IsUsed    bool
 }
 
 type UserDocument struct {
@@ -60,21 +58,24 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 	}
 	pwdReset := user.PasswordReset()
 
-	return &UserDocument{
-		ID:           id,
-		Name:         user.Name(),
-		Email:        user.Email(),
-		Auth0SubList: authsdoc,
-		Team:         user.Team().String(),
-		Lang:         user.Lang().String(),
-		Theme:        string(user.Theme()),
-		Password:     user.Password(),
-		PasswordReset: &PasswordResetDocument{
+	var pwdResetDoc *PasswordResetDocument
+	if pwdReset != nil {
+		pwdResetDoc = &PasswordResetDocument{
 			Token:     pwdReset.Token,
 			CreatedAt: pwdReset.CreatedAt,
-			ExpiresAt: pwdReset.ExpiresAt,
-			IsUsed:    pwdReset.IsUsed,
-		},
+		}
+	}
+
+	return &UserDocument{
+		ID:            id,
+		Name:          user.Name(),
+		Email:         user.Email(),
+		Auth0SubList:  authsdoc,
+		Team:          user.Team().String(),
+		Lang:          user.Lang().String(),
+		Theme:         string(user.Theme()),
+		Password:      user.Password(),
+		PasswordReset: pwdResetDoc,
 	}, id
 }
 
@@ -94,7 +95,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 	if d.Auth0Sub != "" {
 		auths = append(auths, user.AuthFromAuth0Sub(d.Auth0Sub))
 	}
-	user, err := user1.New().
+	builder := user1.New().
 		ID(uid).
 		Name(d.Name).
 		Email(d.Email).
@@ -102,11 +103,13 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Team(tid).
 		LangFrom(d.Lang).
 		Password("", d.Password).
-		Theme(user.Theme(d.Theme)).
-		PasswordReset(d.PasswordReset.Token, d.PasswordReset.IsUsed, d.PasswordReset.ExpiresAt, d.PasswordReset.CreatedAt).
-		Build()
+		Theme(user.Theme(d.Theme))
+	if d.PasswordReset != nil {
+		builder = builder.PasswordReset(d.PasswordReset.Token, d.PasswordReset.CreatedAt)
+	}
+	u, err := builder.Build()
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
+	return u, nil
 }

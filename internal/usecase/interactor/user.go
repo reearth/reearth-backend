@@ -237,31 +237,26 @@ func (i *User) GetUserBySubject(ctx context.Context, sub string) (u *user.User, 
 	return u, nil
 }
 
-func (i *User) PasswordResetRequest(ctx context.Context, param interfaces.PasswordResetRequestParam) (bool, error) {
+func (i *User) StartPasswordReset(ctx context.Context, param interfaces.PasswordResetRequestParam) error {
 	u, err := i.userRepo.FindByEmail(ctx, *param.Email)
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	u.CreatePasswordReset()
 
 	err = i.userRepo.Save(ctx, u)
 	if err != nil {
-		return false, err
+		return err
 	}
 
-	return true, nil
+	return nil
 }
 
-func (i *User) PasswordResetConfirm(ctx context.Context, param interfaces.PasswordResetConfirmParam) (bool, error) {
-	u, err := i.userRepo.FindByPasswordResetRequest(ctx, *param.Token)
-	if err != nil {
-		return false, err
-	}
-
+func (i *User) PasswordReset(ctx context.Context, param interfaces.PasswordResetConfirmParam) error {
 	tx, err := i.transaction.Begin()
 	if err != nil {
-		return false, err
+		return err
 	}
 	defer func() {
 		if err2 := tx.End(ctx); err == nil && err2 != nil {
@@ -269,27 +264,32 @@ func (i *User) PasswordResetConfirm(ctx context.Context, param interfaces.Passwo
 		}
 	}()
 
+	u, err := i.userRepo.FindByPasswordResetRequest(ctx, *param.Token)
+	if err != nil {
+		return err
+	}
+
 	passwordReset := u.PasswordReset()
 	ok := passwordReset.IsValidRequest(*param.Token)
 
 	if !ok {
-		return false, nil
+		return interfaces.ErrUserInvalidPasswordReset
 	}
 
-	passwordReset.MarkAsUsed()
+	u.RemovePasswordReset()
 
 	err = u.SetPassword(*param.Password)
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	err = i.userRepo.Save(ctx, u)
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	tx.Commit()
-	return true, nil
+	return nil
 }
 
 func (i *User) UpdateMe(ctx context.Context, p interfaces.UpdateMeParam, operator *usecase.Operator) (u *user.User, err error) {

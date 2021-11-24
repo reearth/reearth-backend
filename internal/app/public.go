@@ -39,32 +39,29 @@ func publicAPI(
 		return c.JSON(http.StatusOK, output)
 	})
 
-	r.POST("/password-reset-request", func(c echo.Context) error {
-		var inp http1.PasswordResetRequestInput
+	r.POST("/password-reset", func(c echo.Context) error {
+		var inp http1.PasswordResetInput
 		if err := c.Bind(&inp); err != nil {
-			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
-		}
-
-		output, err := controller.PasswordResetRequest(c.Request().Context(), inp)
-		if err != nil {
 			return err
 		}
 
-		return c.JSON(http.StatusOK, output)
-	})
-
-	r.POST("/password-reset-confirm", func(c echo.Context) error {
-		var inp http1.PasswordResetConfirmInput
-		if err := c.Bind(&inp); err != nil {
-			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
+		if inp.Email != nil {
+			err := controller.StartPasswordReset(c.Request().Context(), inp)
+			if err != nil {
+				return err
+			}
+			return c.JSON(http.StatusOK, true)
 		}
 
-		output, err := controller.PasswordResetConfirm(c.Request().Context(), inp)
-		if err != nil {
-			return err
+		if inp.Token != nil && inp.Password != nil {
+			err := controller.PasswordReset(c.Request().Context(), inp)
+			if err != nil {
+				return err
+			}
+			return c.JSON(http.StatusOK, true)
 		}
 
-		return c.JSON(http.StatusOK, output)
+		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Bad reset password request"}
 	})
 
 	r.GET("/published/:name", func(c echo.Context) error {

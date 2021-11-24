@@ -187,3 +187,7 @@ func (u *User) PasswordReset() *PasswordReset {
 func (u *User) CreatePasswordReset() {
 	u.passwordReset = NewPasswordReset()
 }
+
+func (u *User) RemovePasswordReset() {
+	u.passwordReset = nil
+}

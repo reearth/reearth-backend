@@ -95,12 +95,10 @@ func (b *Builder) Auths(auths []Auth) *Builder {
 	return b
 }
 
-func (b *Builder) PasswordReset(token string, isUsed bool, expiresAt, createdAt time.Time) *Builder {
+func (b *Builder) PasswordReset(token string, createdAt time.Time) *Builder {
 	b.u.passwordReset = &PasswordReset{
 		Token:     token,
 		CreatedAt: createdAt,
-		ExpiresAt: expiresAt,
-		IsUsed:    isUsed,
 	}
 	return b
 }

@@ -13,6 +13,7 @@ import (
 
 var (
 	ErrUserInvalidPasswordConfirmation = errors.New("invalid password confirmation")
+	ErrUserInvalidPasswordReset        = errors.New("invalid password reset request")
 	ErrUserInvalidLang                 = errors.New("invalid lang")
 	ErrSignupInvalidSecret             = errors.New("invalid secret")
 	ErrSignupInvalidName               = errors.New("invalid name")
@@ -60,8 +61,8 @@ type User interface {
 	Signup(context.Context, SignupParam) (*user.User, *user.Team, error)
 	GetUserByCredentials(context.Context, GetUserByCredentials) (*user.User, error)
 	GetUserBySubject(context.Context, string) (*user.User, error)
-	PasswordResetRequest(context.Context, PasswordResetRequestParam) (bool, error)
-	PasswordResetConfirm(context.Context, PasswordResetConfirmParam) (bool, error)
+	StartPasswordReset(context.Context, PasswordResetRequestParam) error
+	PasswordReset(context.Context, PasswordResetConfirmParam) error
 	UpdateMe(context.Context, UpdateMeParam, *usecase.Operator) (*user.User, error)
 	RemoveMyAuth(context.Context, string, *usecase.Operator) (*user.User, error)
 	SearchUser(context.Context, string, *usecase.Operator) (*user.User, error)
