@@ -38,15 +38,6 @@ type GetUserByCredentials struct {
 	Password string
 }
 
-type PasswordResetRequestParam struct {
-	Email *string
-}
-
-type PasswordResetConfirmParam struct {
-	Token    *string
-	Password *string
-}
-
 type UpdateMeParam struct {
 	Name                 *string
 	Email                *string
@@ -61,8 +52,8 @@ type User interface {
 	Signup(context.Context, SignupParam) (*user.User, *user.Team, error)
 	GetUserByCredentials(context.Context, GetUserByCredentials) (*user.User, error)
 	GetUserBySubject(context.Context, string) (*user.User, error)
-	StartPasswordReset(context.Context, PasswordResetRequestParam) error
-	PasswordReset(context.Context, PasswordResetConfirmParam) error
+	StartPasswordReset(context.Context, string) error
+	PasswordReset(context.Context, string, string) error
 	UpdateMe(context.Context, UpdateMeParam, *usecase.Operator) (*user.User, error)
 	RemoveMyAuth(context.Context, string, *usecase.Operator) (*user.User, error)
 	SearchUser(context.Context, string, *usecase.Operator) (*user.User, error)

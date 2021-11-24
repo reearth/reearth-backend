@@ -61,9 +61,7 @@ func (c *UserController) Signup(ctx context.Context, input SignupInput) (interfa
 }
 
 func (c *UserController) StartPasswordReset(ctx context.Context, input PasswordResetInput) error {
-	err := c.usecase.StartPasswordReset(ctx, interfaces.PasswordResetRequestParam{
-		Email: input.Email,
-	})
+	err := c.usecase.StartPasswordReset(ctx, *input.Email)
 	if err != nil {
 		return err
 	}
@@ -74,8 +72,5 @@ func (c *UserController) StartPasswordReset(ctx context.Context, input PasswordR
 }
 
 func (c *UserController) PasswordReset(ctx context.Context, input PasswordResetInput) error {
-	return c.usecase.PasswordReset(ctx, interfaces.PasswordResetConfirmParam{
-		Token:    input.Token,
-		Password: input.Password,
-	})
+	return c.usecase.PasswordReset(ctx, *input.Password, *input.Token)
 }

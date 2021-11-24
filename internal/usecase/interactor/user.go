@@ -237,8 +237,8 @@ func (i *User) GetUserBySubject(ctx context.Context, sub string) (u *user.User, 
 	return u, nil
 }
 
-func (i *User) StartPasswordReset(ctx context.Context, param interfaces.PasswordResetRequestParam) error {
-	u, err := i.userRepo.FindByEmail(ctx, *param.Email)
+func (i *User) StartPasswordReset(ctx context.Context, email string) error {
+	u, err := i.userRepo.FindByEmail(ctx, email)
 	if err != nil {
 		return err
 	}
@@ -253,7 +253,7 @@ func (i *User) StartPasswordReset(ctx context.Context, param interfaces.Password
 	return nil
 }
 
-func (i *User) PasswordReset(ctx context.Context, param interfaces.PasswordResetConfirmParam) error {
+func (i *User) PasswordReset(ctx context.Context, password, token string) error {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return err
@@ -264,13 +264,13 @@ func (i *User) PasswordReset(ctx context.Context, param interfaces.PasswordReset
 		}
 	}()
 
-	u, err := i.userRepo.FindByPasswordResetRequest(ctx, *param.Token)
+	u, err := i.userRepo.FindByPasswordResetRequest(ctx, token)
 	if err != nil {
 		return err
 	}
 
 	passwordReset := u.PasswordReset()
-	ok := passwordReset.IsValidRequest(*param.Token)
+	ok := passwordReset.IsValidRequest(token)
 
 	if !ok {
 		return interfaces.ErrUserInvalidPasswordReset
@@ -278,7 +278,7 @@ func (i *User) PasswordReset(ctx context.Context, param interfaces.PasswordReset
 
 	u.RemovePasswordReset()
 
-	err = u.SetPassword(*param.Password)
+	err = u.SetPassword(password)
 	if err != nil {
 		return err
 	}
