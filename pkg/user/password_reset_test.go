@@ -11,7 +11,7 @@ func TestNewPasswordReset(t *testing.T) {
 	pr := NewPasswordReset()
 	assert.NotNil(t, pr)
 	assert.NotEmpty(t, pr.Token)
-	assert.True(t, pr.CreatedAt.Sub(time.Now()) < 1*time.Second)
+	assert.True(t, time.Until(pr.CreatedAt) < 1*time.Second)
 }
 
 func TestPasswordReset_IsValidRequest(t *testing.T) {
