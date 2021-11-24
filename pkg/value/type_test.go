@@ -6,6 +6,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type tpmock struct {
+	TypeProperty
+}
+
+func (*tpmock) I2V(i interface{}) (interface{}, bool) {
+	return i.(string) + "a", true
+}
+
+func (*tpmock) V2I(v interface{}) (interface{}, bool) {
+	return v.(string) + "bar", true
+}
+
 func TestType_Default(t *testing.T) {
 	tests := []struct {
 		name string
@@ -39,11 +51,7 @@ func TestType_Default(t *testing.T) {
 
 func TestType_ValueFrom(t *testing.T) {
 	tpm := TypePropertyMap{
-		Type("foo"): TypeProperty{
-			I2V: func(v interface{}) (interface{}, bool) {
-				return v.(string) + "a", true
-			},
-		},
+		Type("foo"): &tpmock{},
 	}
 
 	type args struct {

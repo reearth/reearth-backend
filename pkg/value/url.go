@@ -4,42 +4,43 @@ import "net/url"
 
 var TypeURL Type = "url"
 
-var propertyURL = TypeProperty{
-	I2V: func(i interface{}) (interface{}, bool) {
-		if v, ok := i.(url.URL); ok {
-			return &v, true
-		}
+type propertyURL struct{}
 
-		if v, ok := i.(*url.URL); ok {
-			if v == nil {
-				return nil, false
-			}
-			return v, true
-		}
+func (*propertyURL) I2V(i interface{}) (interface{}, bool) {
+	if v, ok := i.(url.URL); ok {
+		return &v, true
+	}
 
-		if v, ok := i.(string); ok {
-			if u, err := url.Parse(v); err == nil {
-				return u, true
-			}
-		}
-
-		return nil, false
-	},
-	V2I: func(v interface{}) (interface{}, bool) {
-		u, ok := v.(*url.URL)
-		if !ok {
+	if v, ok := i.(*url.URL); ok {
+		if v == nil {
 			return nil, false
 		}
-		if u == nil {
-			return "", true
+		return v, true
+	}
+
+	if v, ok := i.(string); ok {
+		if u, err := url.Parse(v); err == nil {
+			return u, true
 		}
-		return u.String(), true
-	},
-	Validate: func(i interface{}) bool {
-		_, ok := i.(*url.URL)
-		return ok
-	},
-	Compatible: []Type{},
+	}
+
+	return nil, false
+}
+
+func (*propertyURL) V2I(v interface{}) (interface{}, bool) {
+	u, ok := v.(*url.URL)
+	if !ok {
+		return nil, false
+	}
+	if u == nil {
+		return "", true
+	}
+	return u.String(), true
+}
+
+func (*propertyURL) Validate(i interface{}) bool {
+	_, ok := i.(*url.URL)
+	return ok
 }
 
 func (v *Value) ValueURL() (vv *url.URL, ok bool) {

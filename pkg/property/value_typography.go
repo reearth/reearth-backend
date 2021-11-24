@@ -94,33 +94,35 @@ func (t *TextAlign) StringRef() *string {
 	return &t2
 }
 
-var typePropertyTypography = value.TypeProperty{
-	I2V: func(i interface{}) (interface{}, bool) {
-		if v, ok := i.(Typography); ok {
-			return v, true
-		}
+type typePropertyTypography struct{}
 
-		if v, ok := i.(*Typography); ok {
-			if v != nil {
-				return *v, true
-			}
-			return nil, false
-		}
-
-		v := Typography{}
-		if err := mapstructure.Decode(i, &v); err == nil {
-			return v, true
-		}
-
-		return nil, false
-	},
-	V2I: func(v interface{}) (interface{}, bool) {
+func (*typePropertyTypography) I2V(i interface{}) (interface{}, bool) {
+	if v, ok := i.(Typography); ok {
 		return v, true
-	},
-	Validate: func(i interface{}) bool {
-		_, ok := i.(Typography)
-		return ok
-	},
+	}
+
+	if v, ok := i.(*Typography); ok {
+		if v != nil {
+			return *v, true
+		}
+		return nil, false
+	}
+
+	v := Typography{}
+	if err := mapstructure.Decode(i, &v); err == nil {
+		return v, true
+	}
+
+	return nil, false
+}
+
+func (*typePropertyTypography) V2I(v interface{}) (interface{}, bool) {
+	return v, true
+}
+
+func (*typePropertyTypography) Validate(i interface{}) bool {
+	_, ok := i.(Typography)
+	return ok
 }
 
 func (v *Value) ValueTypography() (vv Typography, ok bool) {

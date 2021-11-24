@@ -30,42 +30,43 @@ func CoordinatesFrom(coords []float64) Coordinates {
 
 var TypeCoordinates Type = "coordinates"
 
-var propertyCoordinates = TypeProperty{
-	I2V: func(i interface{}) (interface{}, bool) {
-		if v, ok := i.(Coordinates); ok {
-			return v, true
-		} else if v, ok := i.(*Coordinates); ok {
-			if v != nil {
-				return *v, true
-			}
-			return nil, false
-		} else if v2, ok := i.([]float64); ok {
-			if v2 == nil {
-				return nil, false
-			}
-			return CoordinatesFrom(v2), true
-		}
+type propertyCoordinates struct{}
 
-		v2 := Coordinates{}
-		if err := mapstructure.Decode(i, &v2); err == nil {
-			return v2, true
-		}
-
-		v1 := []float64{}
-		if err := mapstructure.Decode(i, &v1); err == nil {
-			return CoordinatesFrom(v1), true
-		}
-
-		return nil, false
-	},
-	V2I: func(v interface{}) (interface{}, bool) {
+func (*propertyCoordinates) I2V(i interface{}) (interface{}, bool) {
+	if v, ok := i.(Coordinates); ok {
 		return v, true
-	},
-	Validate: func(i interface{}) bool {
-		_, ok := i.(bool)
-		return ok
-	},
-	Compatible: []Type{},
+	} else if v, ok := i.(*Coordinates); ok {
+		if v != nil {
+			return *v, true
+		}
+		return nil, false
+	} else if v2, ok := i.([]float64); ok {
+		if v2 == nil {
+			return nil, false
+		}
+		return CoordinatesFrom(v2), true
+	}
+
+	v2 := Coordinates{}
+	if err := mapstructure.Decode(i, &v2); err == nil {
+		return v2, true
+	}
+
+	v1 := []float64{}
+	if err := mapstructure.Decode(i, &v1); err == nil {
+		return CoordinatesFrom(v1), true
+	}
+
+	return nil, false
+}
+
+func (*propertyCoordinates) V2I(v interface{}) (interface{}, bool) {
+	return v, true
+}
+
+func (*propertyCoordinates) Validate(i interface{}) bool {
+	_, ok := i.(bool)
+	return ok
 }
 
 func (v *Value) ValueCoordinates() (vv Coordinates, ok bool) {

@@ -41,14 +41,23 @@ func TestValue_IsEmpty(t *testing.T) {
 }
 
 func TestValue_Clone(t *testing.T) {
+	tp := &tpmock{}
+	tpm := TypePropertyMap{
+		Type("hoge"): tp,
+	}
+
 	tests := []struct {
-		name    string
-		value   *Value
-		wantnil bool
+		name  string
+		value *Value
+		want  *Value
 	}{
 		{
 			name: "ok",
 			value: &Value{
+				t: TypeString,
+				v: "foo",
+			},
+			want: &Value{
 				t: TypeString,
 				v: "foo",
 			},
@@ -58,18 +67,23 @@ func TestValue_Clone(t *testing.T) {
 			value: &Value{
 				t: Type("hoge"),
 				v: "foo",
-				p: TypePropertyMap{Type("hoge"): TypeProperty{
-					I2V: func(i interface{}) (interface{}, bool) { return i, true },
-				}},
+				p: tpm,
+			},
+			want: &Value{
+				t: Type("hoge"),
+				v: "fooa",
+				p: tpm,
 			},
 		},
 		{
-			name: "nil",
+			name:  "nil",
+			value: nil,
+			want:  nil,
 		},
 		{
-			name:    "empty",
-			value:   &Value{},
-			wantnil: true,
+			name:  "empty",
+			value: &Value{},
+			want:  nil,
 		},
 	}
 
@@ -77,11 +91,7 @@ func TestValue_Clone(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			want := tt.value
-			if tt.wantnil {
-				want = nil
-			}
-			assert.Equal(t, want, tt.value.Clone())
+			assert.Equal(t, tt.want, tt.value.Clone())
 		})
 	}
 }
@@ -152,40 +162,41 @@ func TestValue_Type(t *testing.T) {
 }
 
 func TestValue_TypeProperty(t *testing.T) {
-	typePropertyHoge := TypeProperty{}
+	tp := &tpmock{}
+	tpm := TypePropertyMap{
+		Type("hoge"): tp,
+	}
 
 	tests := []struct {
 		name  string
 		value *Value
 		want  TypeProperty
 	}{
-		// {
-		// 	name: "default type",
-		// 	value: &Value{
-		// 		v: "string",
-		// 		t: TypeString,
-		// 	},
-		// 	want: defaultTypes[TypeString],
-		// },
+		{
+			name: "default type",
+			value: &Value{
+				v: "string",
+				t: TypeString,
+			},
+			want: defaultTypes[TypeString],
+		},
 		{
 			name: "custom type",
 			value: &Value{
 				v: "string",
 				t: Type("hoge"),
-				p: TypePropertyMap{
-					Type("hoge"): typePropertyHoge,
-				},
+				p: tpm,
 			},
-			want: typePropertyHoge,
+			want: tp,
 		},
 		{
 			name:  "empty",
 			value: &Value{},
-			want:  TypeProperty{},
+			want:  nil,
 		},
 		{
 			name: "nil",
-			want: TypeProperty{},
+			want: nil,
 		},
 	}
 
@@ -193,12 +204,22 @@ func TestValue_TypeProperty(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			assert.Equal(t, tt.want, tt.value.TypeProperty())
+			res := tt.value.TypeProperty()
+			if tt.want == nil {
+				assert.Nil(t, res)
+			} else {
+				assert.Same(t, tt.want, res)
+			}
 		})
 	}
 }
 
 func TestValue_Interface(t *testing.T) {
+	tp := &tpmock{}
+	tpm := TypePropertyMap{
+		"foo": tp,
+	}
+
 	tests := []struct {
 		name  string
 		value *Value
@@ -217,13 +238,7 @@ func TestValue_Interface(t *testing.T) {
 		{
 			name: "custom",
 			value: &Value{
-				p: TypePropertyMap{
-					Type("foo"): TypeProperty{
-						V2I: func(v interface{}) (interface{}, bool) {
-							return v.(string) + "bar", true
-						},
-					},
-				},
+				p: tpm,
 				t: Type("foo"),
 				v: "foo",
 			},

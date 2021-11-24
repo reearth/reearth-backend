@@ -30,8 +30,8 @@ var (
 )
 
 var types = value.TypePropertyMap{
-	TypeTypography: typePropertyTypography,
-	TypeCamera:     typePropertyCamera,
+	TypeTypography: &typePropertyTypography{},
+	TypeCamera:     &typePropertyCamera{},
 }
 
 func (vt ValueType) Valid() bool {

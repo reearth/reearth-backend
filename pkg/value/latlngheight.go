@@ -21,33 +21,34 @@ func (l *LatLngHeight) Clone() *LatLngHeight {
 
 var TypeLatLngHeight Type = "latlngheight"
 
-var propertyLatLngHeight = TypeProperty{
-	I2V: func(i interface{}) (interface{}, bool) {
-		if v, ok := i.(LatLngHeight); ok {
-			return v, true
-		}
+type propertyLatLngHeight struct{}
 
-		if v, ok := i.(*LatLngHeight); ok {
-			if v != nil {
-				return *v, false
-			}
-			return nil, false
-		}
+func (*propertyLatLngHeight) I2V(i interface{}) (interface{}, bool) {
+	if v, ok := i.(LatLngHeight); ok {
+		return v, true
+	}
 
-		v := LatLngHeight{}
-		if err := mapstructure.Decode(i, &v); err == nil {
-			return v, true
+	if v, ok := i.(*LatLngHeight); ok {
+		if v != nil {
+			return *v, false
 		}
 		return nil, false
-	},
-	V2I: func(v interface{}) (interface{}, bool) {
+	}
+
+	v := LatLngHeight{}
+	if err := mapstructure.Decode(i, &v); err == nil {
 		return v, true
-	},
-	Validate: func(i interface{}) bool {
-		_, ok := i.(LatLngHeight)
-		return ok
-	},
-	Compatible: []Type{},
+	}
+	return nil, false
+}
+
+func (*propertyLatLngHeight) V2I(v interface{}) (interface{}, bool) {
+	return v, true
+}
+
+func (*propertyLatLngHeight) Validate(i interface{}) bool {
+	_, ok := i.(LatLngHeight)
+	return ok
 }
 
 func (v *Value) ValueLatLngHeight() (vv LatLngHeight, ok bool) {

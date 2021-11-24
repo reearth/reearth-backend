@@ -56,7 +56,7 @@ func (v *Value) Interface() interface{} {
 		return nil
 	}
 
-	if tp := v.TypeProperty(); tp.V2I != nil {
+	if tp := v.TypeProperty(); tp != nil {
 		if i, ok2 := tp.V2I(v.v); ok2 {
 			return i
 		}
@@ -70,7 +70,7 @@ func (v *Value) Validate() bool {
 		return false
 	}
 
-	if tp := v.TypeProperty(); tp.Validate != nil {
+	if tp := v.TypeProperty(); tp != nil {
 		return tp.Validate(v)
 	}
 

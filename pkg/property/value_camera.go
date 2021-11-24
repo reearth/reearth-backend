@@ -32,32 +32,34 @@ func (c *Camera) Clone() *Camera {
 	}
 }
 
-var typePropertyCamera = value.TypeProperty{
-	I2V: func(i interface{}) (interface{}, bool) {
-		if v, ok := i.(Camera); ok {
-			return v, true
-		}
+type typePropertyCamera struct{}
 
-		if v, ok := i.(*Camera); ok {
-			if v != nil {
-				return *v, true
-			}
-			return nil, false
-		}
+func (*typePropertyCamera) I2V(i interface{}) (interface{}, bool) {
+	if v, ok := i.(Camera); ok {
+		return v, true
+	}
 
-		v := Camera{}
-		if err := mapstructure.Decode(i, &v); err == nil {
-			return v, true
+	if v, ok := i.(*Camera); ok {
+		if v != nil {
+			return *v, true
 		}
 		return nil, false
-	},
-	V2I: func(v interface{}) (interface{}, bool) {
+	}
+
+	v := Camera{}
+	if err := mapstructure.Decode(i, &v); err == nil {
 		return v, true
-	},
-	Validate: func(i interface{}) bool {
-		_, ok := i.(Camera)
-		return ok
-	},
+	}
+	return nil, false
+}
+
+func (*typePropertyCamera) V2I(v interface{}) (interface{}, bool) {
+	return v, true
+}
+
+func (*typePropertyCamera) Validate(i interface{}) bool {
+	_, ok := i.(Camera)
+	return ok
 }
 
 func (v *Value) ValueCamera() (vv Camera, ok bool) {
