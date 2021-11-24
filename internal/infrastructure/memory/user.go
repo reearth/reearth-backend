@@ -72,6 +72,24 @@ func (r *User) FindByAuth0Sub(ctx context.Context, auth0sub string) (*user.User,
 	return nil, rerror.ErrNotFound
 }
 
+func (r *User) FindByPasswordResetRequest(ctx context.Context, token string) (*user.User, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	if token == "" {
+		return nil, rerror.ErrInvalidParams
+	}
+
+	for _, u := range r.data {
+		pwdReq := u.PasswordReset()
+		if pwdReq != nil && pwdReq.Token == token {
+			return &u, nil
+		}
+	}
+
+	return nil, rerror.ErrNotFound
+}
+
 func (r *User) FindByEmail(ctx context.Context, email string) (*user.User, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
