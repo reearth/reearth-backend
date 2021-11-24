@@ -2,6 +2,7 @@ package user
 
 import (
 	"testing"
+	"time"
 
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
@@ -387,6 +388,83 @@ func TestUser_SetPassword(t *testing.T) {
 			got, err := verifyPassword(tc.want, u.password)
 			assert.NoError(tt, err)
 			assert.True(tt, got)
+		})
+	}
+}
+
+func TestUser_PasswordReset(t *testing.T) {
+	testCases := []struct {
+		Name     string
+		User     *User
+		Expected *PasswordReset
+	}{
+		{
+			Name:     "not password request",
+			User:     New().NewID().MustBuild(),
+			Expected: nil,
+		},
+		{
+			Name: "create new password request over existing one",
+			User: New().NewID().PasswordReset("xzy", time.Unix(0, 0)).MustBuild(),
+			Expected: &PasswordReset{
+				Token:     "xzy",
+				CreatedAt: time.Unix(0, 0),
+			},
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			assert.Equal(tt, tc.Expected, tc.User.passwordReset)
+		})
+	}
+}
+
+func TestUser_CreatePasswordReset(t *testing.T) {
+	testCases := []struct {
+		Name string
+		User *User
+	}{
+		{
+			Name: "create new password request",
+			User: New().NewID().MustBuild(),
+		},
+		{
+			Name: "create new password request over existing one",
+			User: New().NewID().PasswordReset("xzy", time.Now()).MustBuild(),
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			tc.User.CreatePasswordReset()
+			assert.NotNil(tt, tc.User.passwordReset)
+		})
+	}
+}
+
+func TestUser_RemovePasswordReset(t *testing.T) {
+	testCases := []struct {
+		Name string
+		User *User
+	}{
+		{
+			Name: "remove none existing password request",
+			User: New().NewID().MustBuild(),
+		},
+		{
+			Name: "remove existing password request",
+			User: New().NewID().PasswordReset("xzy", time.Now()).MustBuild(),
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			tc.User.RemovePasswordReset()
+			assert.Nil(tt, tc.User.passwordReset)
 		})
 	}
 }

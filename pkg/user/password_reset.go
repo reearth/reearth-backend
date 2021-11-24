@@ -23,5 +23,5 @@ func generateToken() string {
 }
 
 func (pr *PasswordReset) IsValidRequest(token string) bool {
-	return pr != nil && pr.Token == token && pr.CreatedAt.Add(24*time.Hour).Before(time.Now())
+	return pr != nil && pr.Token == token && pr.CreatedAt.Add(24*time.Hour).After(time.Now())
 }

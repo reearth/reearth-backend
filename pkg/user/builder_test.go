@@ -3,6 +3,7 @@ package user
 import (
 	"errors"
 	"testing"
+	"time"
 
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
@@ -13,6 +14,7 @@ func TestBuilder_ID(t *testing.T) {
 	uid := id.NewUserID()
 	b := New().ID(uid).MustBuild()
 	assert.Equal(t, uid, b.ID())
+	assert.Nil(t, b.passwordReset)
 }
 
 func TestBuilder_Name(t *testing.T) {
@@ -83,6 +85,31 @@ func TestBuilder_LangFrom(t *testing.T) {
 			tt.Parallel()
 			b := New().NewID().LangFrom(tc.Lang).MustBuild()
 			assert.Equal(t, tc.Expected, b.Lang())
+		})
+	}
+}
+
+func TestBuilder_PasswordReset(t *testing.T) {
+	testCases := []struct {
+		Name, Token string
+		CreatedAt   time.Time
+		Expected    PasswordReset
+	}{
+		{
+			Name:      "Test1",
+			Token:     "xyz",
+			CreatedAt: time.Unix(0, 0),
+			Expected: PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(0, 0),
+			},
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			u := New().NewID().PasswordReset(tc.Token, tc.CreatedAt).MustBuild()
+			assert.Equal(t, tc.Expected, *u.passwordReset)
 		})
 	}
 }
