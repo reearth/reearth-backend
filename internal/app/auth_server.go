@@ -20,7 +20,7 @@ import (
 
 var (
 	loginEndpoint  = "api/login"
-	logoutEndpoint = "v2/logout"
+	logoutEndpoint = "api/logout"
 	jwksEndpoint   = ".well-known/jwks.json"
 )
 
@@ -84,10 +84,12 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 	// Actual login endpoint
 	r.POST(loginEndpoint, login(ctx, cfg, storage, userUsecase))
 
-	r.GET(logoutEndpoint, func(ec echo.Context) error {
-		u := ec.QueryParam("returnTo")
-		return ec.Redirect(http.StatusTemporaryRedirect, u)
-	})
+	r.GET(logoutEndpoint, logout())
+
+	// used for auth0/auth0-react; the logout endpoint URL is hard-coded
+	// can be removed when the mentioned issue is solved
+	// https://github.com/auth0/auth0-spa-js/issues/845
+	r.GET("v2/logout", logout())
 
 }
 
@@ -208,6 +210,13 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		}
 
 		return ec.Redirect(http.StatusFound, "/authorize/callback?id="+request.AuthRequestID)
+	}
+}
+
+func logout() func(ec echo.Context) error {
+	return func(ec echo.Context) error {
+		u := ec.QueryParam("returnTo")
+		return ec.Redirect(http.StatusTemporaryRedirect, u)
 	}
 }
 
