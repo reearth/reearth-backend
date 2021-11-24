@@ -84,7 +84,10 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 	// Actual login endpoint
 	r.POST(loginEndpoint, login(ctx, cfg, storage, userUsecase))
 
-	r.GET(logoutEndpoint, logout(ctx, cfg, storage, userUsecase))
+	r.GET(logoutEndpoint, func(ec echo.Context) error {
+		u := ec.QueryParam("returnTo")
+		return ec.Redirect(http.StatusTemporaryRedirect, u)
+	})
 
 }
 
@@ -205,13 +208,6 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		}
 
 		return ec.Redirect(http.StatusFound, "/authorize/callback?id="+request.AuthRequestID)
-	}
-}
-
-func logout(_ context.Context, _ *ServerConfig, _ op.Storage, _ interfaces.User) func(ctx echo.Context) error {
-	return func(ec echo.Context) error {
-		u := ec.QueryParam("returnTo")
-		return ec.Redirect(http.StatusFound, u)
 	}
 }
 
