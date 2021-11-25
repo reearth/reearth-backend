@@ -62,7 +62,6 @@ func Test_message_encodeContent(t *testing.T) {
 			plainContent: "plain content",
 			htmlContent:  `<h1>html content</h1>`,
 			wantContentTypes: []string{
-				"Content-Type: multipart/related",
 				"Content-Type: multipart/alternative",
 				"Content-Type: text/plain",
 				"Content-Type: text/html",
