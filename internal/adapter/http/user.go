@@ -17,6 +17,14 @@ func NewUserController(usecase interfaces.User) *UserController {
 	}
 }
 
+type VerifyUserInput struct {
+	Email string `json:"email"`
+}
+
+type VerifyUserOutput struct {
+	Message string `json:"message"`
+}
+
 type CreateUserInput struct {
 	Sub    string     `json:"sub"`
 	Secret string     `json:"secret"`
@@ -30,6 +38,13 @@ type CreateUserOutput struct {
 	Email string `json:"email"`
 }
 
+func (c *UserController) CreateVerification(ctx context.Context, input VerifyUserInput) (interface{}, error) {
+	res, err := c.usecase.CreateVerification(ctx, input.Email)
+	if err != nil {
+		return nil, err
+	}
+	return VerifyUserOutput{Message: res}, nil
+}
 func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) (interface{}, error) {
 	u, _, err := c.usecase.Signup(ctx, interfaces.SignupParam{
 		Sub:    input.Sub,

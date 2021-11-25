@@ -39,6 +39,20 @@ func publicAPI(
 		return c.JSON(http.StatusOK, output)
 	})
 
+	r.POST("/signup/verify", func(c echo.Context) error {
+		var inp http1.VerifyUserInput
+		if err := c.Bind(&inp); err != nil {
+			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
+		}
+
+		output, err := controller.CreateVerification(c.Request().Context(), inp)
+		if err != nil {
+			return err
+		}
+
+		return c.JSON(http.StatusOK, output)
+	})
+
 	r.GET("/published/:name", func(c echo.Context) error {
 		name := c.Param("name")
 		if name == "" {

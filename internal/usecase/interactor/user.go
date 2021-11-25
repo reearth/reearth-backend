@@ -397,3 +397,7 @@ func (i *User) DeleteMe(ctx context.Context, userID id.UserID, operator *usecase
 	tx.Commit()
 	return nil
 }
+
+func (i *User) CreateVerification(ctx context.Context, s string) (string, error) {
+	return "", nil
+}
