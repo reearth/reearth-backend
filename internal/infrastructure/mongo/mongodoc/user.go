@@ -95,7 +95,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 	if d.Auth0Sub != "" {
 		auths = append(auths, user.AuthFromAuth0Sub(d.Auth0Sub))
 	}
-	builder := user1.New().
+	u, err := user1.New().
 		ID(uid).
 		Name(d.Name).
 		Email(d.Email).
@@ -103,13 +103,22 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Team(tid).
 		LangFrom(d.Lang).
 		Password("", d.Password).
-		Theme(user.Theme(d.Theme))
-	if d.PasswordReset != nil {
-		builder = builder.PasswordReset(d.PasswordReset.Token, d.PasswordReset.CreatedAt)
-	}
-	u, err := builder.Build()
+		PasswordReset(d.PasswordReset.Model()).
+		Theme(user.Theme(d.Theme)).
+		Build()
+
 	if err != nil {
 		return nil, err
 	}
 	return u, nil
+}
+
+func (d *PasswordResetDocument) Model() *user1.PasswordReset {
+	if d == nil {
+		return nil
+	}
+	return &user1.PasswordReset{
+		Token:     d.Token,
+		CreatedAt: d.CreatedAt,
+	}
 }

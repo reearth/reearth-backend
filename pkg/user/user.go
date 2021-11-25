@@ -184,10 +184,6 @@ func (u *User) PasswordReset() *PasswordReset {
 	return u.passwordReset
 }
 
-func (u *User) CreatePasswordReset() {
-	u.passwordReset = NewPasswordReset()
-}
-
-func (u *User) RemovePasswordReset() {
-	u.passwordReset = nil
+func (u *User) SetPasswordReset(pr *PasswordReset) {
+	u.passwordReset = pr.Clone()
 }

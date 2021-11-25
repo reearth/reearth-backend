@@ -57,7 +57,7 @@ func TestPasswordReset_IsValidRequest(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equal(t, tt.want, tt.pr.IsValidRequest(tt.token))
+			assert.Equal(t, tt.want, tt.pr.Valid(tt.token))
 		})
 	}
 }
@@ -72,4 +72,28 @@ func Test_generateToken(t *testing.T) {
 	assert.NotEmpty(t, t2)
 	assert.NotEqual(t, t1, t2)
 
+}
+
+func TestPasswordResetFrom(t *testing.T) {
+	tests := []struct {
+		name      string
+		token     string
+		createdAt time.Time
+		want      *PasswordReset
+	}{
+		{
+			name:      "prFrom",
+			token:     "xyz",
+			createdAt: time.Unix(1, 1),
+			want: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, PasswordResetFrom(tt.token, tt.createdAt))
+		})
+	}
 }

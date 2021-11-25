@@ -405,7 +405,7 @@ func TestUser_PasswordReset(t *testing.T) {
 		},
 		{
 			Name: "create new password request over existing one",
-			User: New().NewID().PasswordReset("xzy", time.Unix(0, 0)).MustBuild(),
+			User: New().NewID().PasswordReset(&PasswordReset{"xzy", time.Unix(0, 0)}).MustBuild(),
 			Expected: &PasswordReset{
 				Token:     "xzy",
 				CreatedAt: time.Unix(0, 0),
@@ -421,50 +421,72 @@ func TestUser_PasswordReset(t *testing.T) {
 	}
 }
 
-func TestUser_CreatePasswordReset(t *testing.T) {
-	testCases := []struct {
-		Name string
-		User *User
+func TestUser_SetPasswordReset(t *testing.T) {
+	tests := []struct {
+		Name     string
+		User     *User
+		Pr       *PasswordReset
+		Expected *PasswordReset
 	}{
+		{
+			Name:     "nil",
+			User:     New().NewID().MustBuild(),
+			Pr:       nil,
+			Expected: nil,
+		},
+		{
+			Name: "nil",
+			User: New().NewID().MustBuild(),
+			Pr: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+			Expected: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+		},
 		{
 			Name: "create new password request",
 			User: New().NewID().MustBuild(),
+			Pr: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+			Expected: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
 		},
 		{
 			Name: "create new password request over existing one",
-			User: New().NewID().PasswordReset("xzy", time.Now()).MustBuild(),
-		},
-	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			tc.User.CreatePasswordReset()
-			assert.NotNil(tt, tc.User.passwordReset)
-		})
-	}
-}
-
-func TestUser_RemovePasswordReset(t *testing.T) {
-	testCases := []struct {
-		Name string
-		User *User
-	}{
-		{
-			Name: "remove none existing password request",
-			User: New().NewID().MustBuild(),
+			User: New().NewID().PasswordReset(&PasswordReset{"xzy", time.Now()}).MustBuild(),
+			Pr: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+			Expected: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
 		},
 		{
-			Name: "remove existing password request",
-			User: New().NewID().PasswordReset("xzy", time.Now()).MustBuild(),
+			Name:     "remove none existing password request",
+			User:     New().NewID().MustBuild(),
+			Pr:       nil,
+			Expected: nil,
+		},
+		{
+			Name:     "remove existing password request",
+			User:     New().NewID().PasswordReset(&PasswordReset{"xzy", time.Now()}).MustBuild(),
+			Pr:       nil,
+			Expected: nil,
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			tc.User.RemovePasswordReset()
-			assert.Nil(tt, tc.User.passwordReset)
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			tt.User.SetPasswordReset(tt.Pr)
+			assert.Equal(t, tt.Expected, tt.User.PasswordReset())
 		})
 	}
 }

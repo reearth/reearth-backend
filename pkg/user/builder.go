@@ -1,8 +1,6 @@
 package user
 
 import (
-	"time"
-
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
 )
@@ -95,10 +93,7 @@ func (b *Builder) Auths(auths []Auth) *Builder {
 	return b
 }
 
-func (b *Builder) PasswordReset(token string, createdAt time.Time) *Builder {
-	b.u.passwordReset = &PasswordReset{
-		Token:     token,
-		CreatedAt: createdAt,
-	}
+func (b *Builder) PasswordReset(pr *PasswordReset) *Builder {
+	b.u.passwordReset = pr
 	return b
 }

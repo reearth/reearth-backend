@@ -45,17 +45,15 @@ func publicAPI(
 			return err
 		}
 
-		if inp.Email != nil {
-			err := controller.StartPasswordReset(c.Request().Context(), inp)
-			if err != nil {
+		if len(inp.Email) > 0 {
+			if err := controller.StartPasswordReset(c.Request().Context(), inp); err != nil {
 				return err
 			}
 			return c.JSON(http.StatusOK, true)
 		}
 
-		if inp.Token != nil && inp.Password != nil {
-			err := controller.PasswordReset(c.Request().Context(), inp)
-			if err != nil {
+		if len(inp.Token) > 0 && len(inp.Password) > 0 {
+			if err := controller.PasswordReset(c.Request().Context(), inp); err != nil {
 				return err
 			}
 			return c.JSON(http.StatusOK, true)
