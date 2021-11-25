@@ -6291,9 +6291,6 @@ enum AssetFilterType {
   DATE
   SIZE
   NAME
-  REVERSE_DATE
-  REVERSE_SIZE
-  REVERSE_NAME
 }
 
 # User

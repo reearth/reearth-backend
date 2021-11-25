@@ -7,6 +7,7 @@ import (
 	"io"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
+	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -164,44 +165,50 @@ func getCursor(raw bson.Raw, key string) (*usecase.Cursor, error) {
 	return &c, nil
 }
 
-func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, sortFilter *bson.E, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, sortFilter *interfaces.AssetFilterType, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	if p == nil {
 		return nil, nil
 	}
 	coll := c.Collection(col)
 
 	key := "id"
+	if sortFilter != nil {
+		sortFilter2 := *sortFilter
+		switch sortFilter2 {
+		case interfaces.AssetFilterName:
+			key = "name"
+		case interfaces.AssetFilterSize:
+			key = "size"
+		}
+	}
 
 	count, err := coll.CountDocuments(ctx, filter)
 	if err != nil {
 		return nil, fmt.Errorf("failed to count documents: %v", err.Error())
 	}
 
-	reverse := false
 	var limit int64
 	findOptions := options.Find()
-	if sortFilter != nil {
-		findOptions.Sort = appendE(findOptions.Sort, *sortFilter)
-	}
+	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
+
 	if first := p.First; first != nil {
 		limit = int64(*first)
 		findOptions.Sort = bson.D{
 			{Key: key, Value: 1},
 		}
 		if after := p.After; after != nil {
-			filter = appendE(filter, bson.E{Key: key, Value: bson.D{
+			filter = appendE(filter, bson.E{Key: "id", Value: bson.D{
 				{Key: "$gt", Value: *after},
 			}})
 		}
 	}
 	if last := p.Last; last != nil {
-		reverse = true
 		limit = int64(*last)
 		findOptions.Sort = bson.D{
 			{Key: key, Value: -1},
 		}
 		if before := p.Before; before != nil {
-			filter = appendE(filter, bson.E{Key: key, Value: bson.D{
+			filter = appendE(filter, bson.E{Key: "id", Value: bson.D{
 				{Key: "$lt", Value: *before},
 			}})
 		}
@@ -236,13 +243,6 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 		results = results[:len(results)-1]
 	}
 
-	if reverse {
-		for i := len(results)/2 - 1; i >= 0; i-- {
-			opp := len(results) - 1 - i
-			results[i], results[opp] = results[opp], results[i]
-		}
-	}
-
 	for _, result := range results {
 		if err := consumer.Consume(result); err != nil {
 			return nil, err
@@ -251,12 +251,12 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 
 	var startCursor, endCursor *usecase.Cursor
 	if len(results) > 0 {
-		sc, err := getCursor(results[0], key)
+		sc, err := getCursor(results[0], "id")
 		if err != nil {
 			return nil, fmt.Errorf("failed to get start cursor: %v", err.Error())
 		}
 		startCursor = sc
-		ec, err := getCursor(results[len(results)-1], key)
+		ec, err := getCursor(results[len(results)-1], "id")
 		if err != nil {
 			return nil, fmt.Errorf("failed to get end cursor: %v", err.Error())
 		}

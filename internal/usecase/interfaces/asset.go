@@ -13,12 +13,9 @@ import (
 type AssetFilterType string
 
 const (
-	AssetFilterDate        AssetFilterType = "DATE"
-	AssetFilterSize        AssetFilterType = "SIZE"
-	AssetFilterName        AssetFilterType = "NAME"
-	AssetFilterReverseDate AssetFilterType = "REVERSE_DATE"
-	AssetFilterReverseSize AssetFilterType = "REVERSE_SIZE"
-	AssetFilterReverseName AssetFilterType = "REVERSE_NAME"
+	AssetFilterDate AssetFilterType = "DATE"
+	AssetFilterSize AssetFilterType = "SIZE"
+	AssetFilterName AssetFilterType = "NAME"
 )
 
 type CreateAssetParam struct {

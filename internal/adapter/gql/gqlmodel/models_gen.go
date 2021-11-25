@@ -1363,26 +1363,20 @@ type WidgetZone struct {
 type AssetFilterType string
 
 const (
-	AssetFilterTypeDate        AssetFilterType = "DATE"
-	AssetFilterTypeSize        AssetFilterType = "SIZE"
-	AssetFilterTypeName        AssetFilterType = "NAME"
-	AssetFilterTypeReverseDate AssetFilterType = "REVERSE_DATE"
-	AssetFilterTypeReverseSize AssetFilterType = "REVERSE_SIZE"
-	AssetFilterTypeReverseName AssetFilterType = "REVERSE_NAME"
+	AssetFilterTypeDate AssetFilterType = "DATE"
+	AssetFilterTypeSize AssetFilterType = "SIZE"
+	AssetFilterTypeName AssetFilterType = "NAME"
 )
 
 var AllAssetFilterType = []AssetFilterType{
 	AssetFilterTypeDate,
 	AssetFilterTypeSize,
 	AssetFilterTypeName,
-	AssetFilterTypeReverseDate,
-	AssetFilterTypeReverseSize,
-	AssetFilterTypeReverseName,
 }
 
 func (e AssetFilterType) IsValid() bool {
 	switch e {
-	case AssetFilterTypeDate, AssetFilterTypeSize, AssetFilterTypeName, AssetFilterTypeReverseDate, AssetFilterTypeReverseSize, AssetFilterTypeReverseName:
+	case AssetFilterTypeDate, AssetFilterTypeSize, AssetFilterTypeName:
 		return true
 	}
 	return false
