@@ -1,77 +1,103 @@
 package user
 
 import (
-	"reflect"
+	"regexp"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewVerification(t *testing.T) {
+
+	type fields struct {
+		verified   bool
+		code       bool
+		expiration bool
+	}
+
 	tests := []struct {
 		name string
-		want *Verification
+		want fields
 	}{
-		// TODO: Add test cases.
+		{
+			name: "init verification struct",
+
+			want: fields{
+				verified:   false,
+				code:       true,
+				expiration: true,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewVerification(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewVerification() = %v, want %v", got, tt.want)
-			}
+			got := NewVerification()
+			assert.Equal(t, tt.want.verified, got.IsVerified())
+			assert.Equal(t, tt.want.code, len(got.Code()) > 0)
+			assert.Equal(t, tt.want.expiration, !got.Expiration().IsZero())
 		})
 	}
 }
 
 func TestVerification_Code(t *testing.T) {
-	type fields struct {
-		verified   bool
-		code       string
-		expiration time.Time
-	}
 	tests := []struct {
-		name   string
-		fields fields
-		want   string
+		name         string
+		verification *Verification
+		want         string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should return a code string",
+			verification: &Verification{
+				verified:   false,
+				code:       "xxx",
+				expiration: time.Time{},
+			},
+			want: "xxx",
+		},
+		{
+			name: "should return a empty string",
+			want: "",
+		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			v := &Verification{
-				verified:   tt.fields.verified,
-				code:       tt.fields.code,
-				expiration: tt.fields.expiration,
-			}
-			if got := v.Code(); got != tt.want {
-				t.Errorf("Code() = %v, want %v", got, tt.want)
-			}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+
+			assert.Equal(tt, tc.want, tc.verification.Code())
 		})
 	}
 }
 
 func TestVerification_Expiration(t *testing.T) {
-	type fields struct {
-		verified   bool
-		code       string
-		expiration time.Time
-	}
+	e := time.Now()
+
 	tests := []struct {
-		name   string
-		fields fields
-		want   time.Time
+		name         string
+		verification *Verification
+		want         time.Time
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should return now date",
+			verification: &Verification{
+				verified:   false,
+				code:       "",
+				expiration: e,
+			},
+			want: e,
+		},
+		{
+			name:         "should return zero time",
+			verification: nil,
+			want:         time.Time{},
+		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			v := &Verification{
-				verified:   tt.fields.verified,
-				code:       tt.fields.code,
-				expiration: tt.fields.expiration,
-			}
-			if got := v.Expiration(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Expiration() = %v, want %v", got, tt.want)
-			}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+			assert.Equal(tt, tc.want, tc.verification.Expiration())
 		})
 	}
 }
@@ -104,71 +130,81 @@ func TestVerification_IsExpired(t *testing.T) {
 }
 
 func TestVerification_IsVerified(t *testing.T) {
-	type fields struct {
-		verified   bool
-		code       string
-		expiration time.Time
-	}
 	tests := []struct {
-		name   string
-		fields fields
-		want   bool
+		name         string
+		verification *Verification
+		want         bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should return true",
+			verification: &Verification{
+				verified: true,
+			},
+			want: true,
+		},
+		{
+			name:         "should return false",
+			verification: nil,
+			want:         false,
+		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			v := &Verification{
-				verified:   tt.fields.verified,
-				code:       tt.fields.code,
-				expiration: tt.fields.expiration,
-			}
-			if got := v.IsVerified(); got != tt.want {
-				t.Errorf("IsVerified() = %v, want %v", got, tt.want)
-			}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+			assert.Equal(tt, tc.want, tc.verification.IsVerified())
 		})
 	}
 }
 
 func TestVerification_SetVerified(t *testing.T) {
-	type fields struct {
-		verified   bool
-		code       string
-		expiration time.Time
-	}
-	type args struct {
-		b bool
-	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
+		name         string
+		verification *Verification
+		input        bool
+		want         bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should set true",
+			verification: &Verification{
+				verified: false,
+			},
+			input: true,
+			want:  true,
+		},
+		{
+			name:         "should return false",
+			verification: nil,
+			want:         false,
+		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			v := &Verification{
-				verified:   tt.fields.verified,
-				code:       tt.fields.code,
-				expiration: tt.fields.expiration,
-			}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
+			tc.verification.SetVerified(tc.input)
+			assert.Equal(tt, tc.want, tc.verification.IsVerified())
 		})
 	}
 }
 
 func Test_generateCode(t *testing.T) {
+	var regx = regexp.MustCompile(`[a-zA-Z0-9]{5}`)
+	str := generateCode()
+
 	tests := []struct {
 		name string
 		want string
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should generate a valid code",
+			want: str,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := generateCode(); got != tt.want {
-				t.Errorf("generateCode() = %v, want %v", got, tt.want)
-			}
+			got := regx.FindString(str)
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }

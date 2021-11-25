@@ -12,14 +12,23 @@ type Verification struct {
 }
 
 func (v *Verification) IsVerified() bool {
+	if v == nil {
+		return false
+	}
 	return v.verified
 }
 
 func (v *Verification) Code() string {
+	if v == nil {
+		return ""
+	}
 	return v.code
 }
 
 func (v *Verification) Expiration() time.Time {
+	if v == nil {
+		return time.Time{}
+	}
 	return v.expiration
 }
 
@@ -34,11 +43,17 @@ func generateCode() string {
 }
 
 func (v *Verification) IsExpired() bool {
+	if v == nil {
+		return true
+	}
 	now := time.Now()
 	return now.After(v.expiration)
 }
 
 func (v *Verification) SetVerified(b bool) {
+	if v == nil {
+		return
+	}
 	v.verified = b
 }
 
