@@ -106,10 +106,3 @@ func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlC
 
 	return smtp.SendMail(m.host+":"+m.port, auth, m.username, emails, encodedMsg)
 }
-
-func fix70Boundary(b string) string {
-	if len(b) > 70 {
-		return b[0:69]
-	}
-	return b
-}
