@@ -19,6 +19,9 @@ type Config struct {
 	DB           string `default:"mongodb://localhost"`
 	Auth0        Auth0Config
 	Auth         AuthConfig
+	Mailer       string
+	SMTP         SMTPConfig
+	SendGrid     SendGridConfig
 	GraphQL      GraphQLConfig
 	Published    PublishedConfig
 	GCPProject   string `envconfig:"GOOGLE_CLOUD_PROJECT"`
@@ -68,6 +71,20 @@ type PublishedConfig struct {
 type GCSConfig struct {
 	BucketName              string
 	PublicationCacheControl string
+}
+
+type SendGridConfig struct {
+	Email string
+	Name  string
+	API   string
+}
+
+type SMTPConfig struct {
+	Host         string
+	Port         string
+	SMTPUsername string
+	Email        string
+	Password     string
 }
 
 func ReadConfig(debug bool) (*Config, error) {
