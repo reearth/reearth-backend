@@ -2,9 +2,11 @@ package mailer
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
+	"net/mail"
 	"net/smtp"
 	"net/textproto"
 	"strings"
@@ -87,6 +89,10 @@ func NewWithSMTP(host, port, username, password string) gateway.Mailer {
 func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlContent string) error {
 	emails := make([]string, 0, len(to))
 	for _, c := range to {
+		_, err := mail.ParseAddress(c.Email)
+		if err != nil {
+			return fmt.Errorf("invalid email %s", c.Email)
+		}
 		emails = append(emails, c.Email)
 	}
 
@@ -103,6 +109,8 @@ func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlC
 	}
 
 	auth := smtp.PlainAuth("", m.username, m.password, m.host)
-
+	if len(m.host) == 0 {
+		return errors.New("invalid smtp url")
+	}
 	return smtp.SendMail(m.host+":"+m.port, auth, m.username, emails, encodedMsg)
 }
