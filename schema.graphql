@@ -144,7 +144,7 @@ type Asset implements Node {
   team: Team @goField(forceResolver: true)
 }
 
-enum AssetFilterType {
+enum AssetSortType {
   DATE
   SIZE
   NAME
@@ -1550,7 +1550,7 @@ type Query {
   scene(projectId: ID!): Scene
   assets(
     teamId: ID!
-    filter: AssetFilterType
+    sort: AssetSortType
     first: Int
     last: Int
     after: Cursor

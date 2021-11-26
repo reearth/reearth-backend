@@ -34,29 +34,29 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 	return assets, nil
 }
 
-func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, filter *gqlmodel.AssetFilterType, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
+func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, sortType *gqlmodel.AssetSortType, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
 
 	findOptions := options.Find()
 	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
 
-	sortType := "id"
-	if filter != nil {
-		switch *filter {
-		case gqlmodel.AssetFilterTypeName:
-			sortType = "name"
-		case gqlmodel.AssetFilterTypeSize:
-			sortType = "size"
+	sortKey := "id"
+	if sortType != nil {
+		switch *sortType {
+		case gqlmodel.AssetSortTypeName:
+			sortKey = "name"
+		case gqlmodel.AssetSortTypeSize:
+			sortKey = "size"
 		}
 	}
 
 	if first != nil {
 		findOptions.Sort = bson.D{
-			{Key: sortType, Value: 1},
+			{Key: sortKey, Value: 1},
 		}
 	} else if last != nil {
 		findOptions.Sort = bson.D{
-			{Key: sortType, Value: -1},
+			{Key: sortKey, Value: -1},
 		}
 	}
 

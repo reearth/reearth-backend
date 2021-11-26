@@ -14,11 +14,11 @@ func (r *Resolver) Query() QueryResolver {
 
 type queryResolver struct{ *Resolver }
 
-func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, filter *gqlmodel.AssetFilterType, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
+func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, sortType *gqlmodel.AssetSortType, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	exit := trace(ctx)
 	defer exit()
 
-	return r.loaders.Asset.FindByTeam(ctx, teamID, filter, first, last, before, after)
+	return r.loaders.Asset.FindByTeam(ctx, teamID, sortType, first, last, before, after)
 }
 
 func (r *queryResolver) Me(ctx context.Context) (*gqlmodel.User, error) {
