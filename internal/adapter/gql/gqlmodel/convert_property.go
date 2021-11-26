@@ -88,7 +88,7 @@ func FromPropertyValueAndType(v interface{}, t ValueType) *property.Value {
 	default:
 		v = gqlValueToValueInterface(v2)
 	}
-	return property.ValueType(t).ValueFrom(v)
+	return FromPropertyValueType(t).ValueFrom(v)
 }
 
 func fromTextAlign(t *TextAlign) *property.TextAlign {
@@ -133,9 +133,69 @@ func ToPropertyField(f *property.Field, parent *property.Property, gl *property.
 		SchemaID: parent.Schema(),
 		FieldID:  f.Field(),
 		Value:    ToPropertyValue(f.Value()),
-		Type:     ValueType(f.Type()),
+		Type:     ToPropertyValueType(f.Type()),
 		Links:    links,
 	}
+}
+
+func ToPropertyValueType(t property.ValueType) ValueType {
+	switch t {
+	case property.ValueTypeBool:
+		return ValueTypeBool
+	case property.ValueTypeString:
+		return ValueTypeString
+	case property.ValueTypeNumber:
+		return ValueTypeNumber
+	case property.ValueTypeLatLng:
+		return ValueTypeLatlng
+	case property.ValueTypeLatLngHeight:
+		return ValueTypeLatlngheight
+	case property.ValueTypeCoordinates:
+		return ValueTypeCoordinates
+	case property.ValueTypePolygon:
+		return ValueTypePolygon
+	case property.ValueTypeRect:
+		return ValueTypeRect
+	case property.ValueTypeURL:
+		return ValueTypeURL
+	case property.ValueTypeRef:
+		return ValueTypeRef
+	case property.ValueTypeTypography:
+		return ValueTypeTypography
+	case property.ValueTypeCamera:
+		return ValueTypeCamera
+	}
+	return ""
+}
+
+func FromPropertyValueType(t ValueType) property.ValueType {
+	switch t {
+	case ValueTypeBool:
+		return property.ValueTypeBool
+	case ValueTypeString:
+		return property.ValueTypeString
+	case ValueTypeNumber:
+		return property.ValueTypeNumber
+	case ValueTypeLatlng:
+		return property.ValueTypeLatLng
+	case ValueTypeLatlngheight:
+		return property.ValueTypeLatLngHeight
+	case ValueTypeCoordinates:
+		return property.ValueTypeCoordinates
+	case ValueTypePolygon:
+		return property.ValueTypePolygon
+	case ValueTypeRect:
+		return property.ValueTypeRect
+	case ValueTypeURL:
+		return property.ValueTypeURL
+	case ValueTypeRef:
+		return property.ValueTypeRef
+	case ValueTypeTypography:
+		return property.ValueTypeTypography
+	case ValueTypeCamera:
+		return property.ValueTypeCamera
+	}
+	return property.ValueTypeUnknown
 }
 
 func ToPropertyFieldLinks(flinks *property.Links) []*PropertyFieldLink {
@@ -249,7 +309,7 @@ func ToPropertySchemaField(f *property.SchemaField) *PropertySchemaField {
 
 	return &PropertySchemaField{
 		FieldID:                  f.ID(),
-		Type:                     ValueType(f.Type()),
+		Type:                     ToPropertyValueType(f.Type()),
 		Title:                    f.Title().String(),
 		Description:              f.Description().String(),
 		Prefix:                   stringToRef(f.Prefix()),
@@ -359,7 +419,7 @@ func ToMergedPropertyField(f *property.MergedField, s id.PropertySchemaID) *Merg
 		SchemaID:   s,
 		Links:      ToPropertyFieldLinks(f.Links),
 		Value:      ToPropertyValue(f.Value),
-		Type:       ValueType(f.Type),
+		Type:       ToPropertyValueType(f.Type),
 		Overridden: f.Overridden,
 	}
 }
@@ -451,7 +511,7 @@ func ToPropertyConditon(c *property.Condition) *PropertyCondition {
 	return &PropertyCondition{
 		FieldID: c.Field,
 		Value:   ToPropertyValue(c.Value),
-		Type:    ValueType(c.Value.Type()),
+		Type:    ToPropertyValueType(c.Value.Type()),
 	}
 }
 
@@ -487,4 +547,13 @@ func propertyFieldID(property *property.Property, groupList *property.GroupList,
 	sb.WriteString(field.Field().String())
 
 	return sb.String()
+}
+
+func getPropertySchemaFieldIDFromGQLPropertyFieldID(i string) string {
+	const sep = "_"
+	s := strings.Split(i, sep)
+	if len(s) > 0 {
+		return s[len(s)-1]
+	}
+	return ""
 }

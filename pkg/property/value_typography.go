@@ -2,10 +2,9 @@ package property
 
 import (
 	"github.com/mitchellh/mapstructure"
-	"github.com/reearth/reearth-backend/pkg/value"
 )
 
-var TypeTypography = value.Type("typography")
+var ValueTypeTypography = ValueType("typography")
 
 type Typography struct {
 	FontFamily *string    `json:"fontFamily" mapstructure:"fontFamily"`

@@ -2,10 +2,9 @@ package property
 
 import (
 	"github.com/mitchellh/mapstructure"
-	"github.com/reearth/reearth-backend/pkg/value"
 )
 
-var TypeCamera = value.Type("camera")
+var ValueTypeCamera = ValueType("camera")
 
 type Camera struct {
 	Lat      float64 `json:"lat" mapstructure:"lat"`
