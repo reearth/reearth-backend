@@ -2,6 +2,7 @@ package gqlmodel
 
 import (
 	"net/url"
+	"strings"
 
 	"github.com/reearth/reearth-backend/pkg/value"
 )
@@ -144,4 +145,12 @@ func gqlValueToValueInterface(v interface{}) interface{} {
 		}
 	}
 	return nil
+}
+
+func ToValueType(t value.Type) ValueType {
+	return ValueType(strings.ToUpper(string(t)))
+}
+
+func FromValueType(t ValueType) value.Type {
+	return value.Type(strings.ToLower(string(t)))
 }

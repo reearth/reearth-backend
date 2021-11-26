@@ -2,31 +2,12 @@ package gqlmodel
 
 import (
 	"github.com/reearth/reearth-backend/pkg/dataset"
+	"github.com/reearth/reearth-backend/pkg/value"
 )
 
 func ToDatasetValue(v *dataset.Value) *interface{} {
 	i := valueInterfaceToGqlValue(v.Value())
 	return &i
-}
-
-func ToDatasetValueType(t dataset.ValueType) ValueType {
-	switch t {
-	case dataset.ValueTypeBool:
-		return ValueTypeBool
-	case dataset.ValueTypeNumber:
-		return ValueTypeNumber
-	case dataset.ValueTypeString:
-		return ValueTypeString
-	case dataset.ValueTypeLatLng:
-		return ValueTypeLatlng
-	case dataset.ValueTypeLatLngHeight:
-		return ValueTypeLatlngheight
-	case dataset.ValueTypeURL:
-		return ValueTypeURL
-	case dataset.ValueTypeRef:
-		return ValueTypeRef
-	}
-	return ""
 }
 
 func ToDatasetField(f *dataset.Field, parent *dataset.Dataset) *DatasetField {
@@ -37,7 +18,7 @@ func ToDatasetField(f *dataset.Field, parent *dataset.Dataset) *DatasetField {
 	return &DatasetField{
 		SchemaID: parent.Schema().ID(),
 		FieldID:  f.Field().ID(),
-		Type:     ToDatasetValueType(f.Type()),
+		Type:     ToValueType(value.Type(f.Type())),
 		Value:    ToDatasetValue(f.Value()),
 		Source:   f.Source(),
 	}
@@ -73,7 +54,7 @@ func ToDatasetSchema(ds *dataset.Schema) *DatasetSchema {
 		fields = append(fields, &DatasetSchemaField{
 			ID:       f.ID().ID(),
 			Name:     f.Name(),
-			Type:     ToDatasetValueType(f.Type()),
+			Type:     ToValueType(value.Type(f.Type())),
 			SchemaID: ds.ID().ID(),
 			Source:   f.Source(),
 			RefID:    f.Ref().IDRef(),
