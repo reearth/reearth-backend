@@ -3,7 +3,7 @@ package user
 import (
 	"time"
 
-	"github.com/dgryski/trifles/uuid"
+	"github.com/google/uuid"
 )
 
 type PasswordReset struct {
@@ -26,10 +26,10 @@ func PasswordResetFrom(token string, createdAt time.Time) *PasswordReset {
 }
 
 func generateToken() string {
-	return uuid.UUIDv4()
+	return uuid.New().String()
 }
 
-func (pr *PasswordReset) Valid(token string) bool {
+func (pr *PasswordReset) Validate(token string) bool {
 	return pr != nil && pr.Token == token && pr.CreatedAt.Add(24*time.Hour).After(time.Now())
 }
 

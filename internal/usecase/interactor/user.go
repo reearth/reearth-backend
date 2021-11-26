@@ -280,7 +280,7 @@ func (i *User) PasswordReset(ctx context.Context, password, token string) error 
 	}
 
 	passwordReset := u.PasswordReset()
-	ok := passwordReset.Valid(token)
+	ok := passwordReset.Validate(token)
 
 	if !ok {
 		return interfaces.ErrUserInvalidPasswordReset

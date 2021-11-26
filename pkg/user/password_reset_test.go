@@ -14,7 +14,7 @@ func TestNewPasswordReset(t *testing.T) {
 	assert.True(t, time.Until(pr.CreatedAt) < 1*time.Second)
 }
 
-func TestPasswordReset_IsValidRequest(t *testing.T) {
+func TestPasswordReset_Validate(t *testing.T) {
 	tests := []struct {
 		name  string
 		pr    *PasswordReset
@@ -57,7 +57,7 @@ func TestPasswordReset_IsValidRequest(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equal(t, tt.want, tt.pr.Valid(tt.token))
+			assert.Equal(t, tt.want, tt.pr.Validate(tt.token))
 		})
 	}
 }
