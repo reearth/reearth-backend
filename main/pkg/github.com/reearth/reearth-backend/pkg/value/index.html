@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>value - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/godoc/style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="../../../../../../lib/godoc/jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.17.3";</script>
+<script src="../../../../../../lib/godoc/godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="/reearth/reearth-backend/main/pkg/github.com/reearth/reearth-backend/">GoDoc</a></div>
+<a href="index.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form style="display:none" method="GET" action="/reearth/reearth-backend/main/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package value
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/reearth/reearth-backend/pkg/value"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="index.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="index.html#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="index.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="index.html#Coordinates">type Coordinates</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#CoordinatesFrom">func CoordinatesFrom(coords []float64) Coordinates</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#LatLng">type LatLng</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LatLng.Clone">func (l *LatLng) Clone() *LatLng</a></dd>
+				
+			
+				
+				<dd><a href="index.html#LatLngHeight">type LatLngHeight</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#LatLngHeight.Clone">func (l *LatLngHeight) Clone() *LatLngHeight</a></dd>
+				
+			
+				
+				<dd><a href="index.html#OptionalValue">type OptionalValue</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewOptionalValue">func NewOptionalValue(t Type, v *Value) *OptionalValue</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValueFrom">func OptionalValueFrom(v *Value) *OptionalValue</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.Clone">func (ov *OptionalValue) Clone() *OptionalValue</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.SetValue">func (ov *OptionalValue) SetValue(v *Value)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.Type">func (ov *OptionalValue) Type() Type</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.TypeAndValue">func (ov *OptionalValue) TypeAndValue() (Type, *Value)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.Value">func (ov *OptionalValue) Value() *Value</a></dd>
+				
+			
+				
+				<dd><a href="index.html#Polygon">type Polygon</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#PolygonFrom">func PolygonFrom(rings [][]float64) Polygon</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Rect">type Rect</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Type">type Type</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Type.Default">func (t Type) Default() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Type.ValueFrom">func (t Type) ValueFrom(i interface{}, p TypePropertyMap) *Value</a></dd>
+				
+			
+				
+				<dd><a href="index.html#TypeProperty">type TypeProperty</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TypePropertyMap">type TypePropertyMap</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#Value">type Value</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Clone">func (v *Value) Clone() *Value</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Interface">func (v *Value) Interface() interface{}</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.IsEmpty">func (v *Value) IsEmpty() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.MarshalJSON">func (v *Value) MarshalJSON() ([]byte, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Type">func (v *Value) Type() Type</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.TypeProperty">func (v *Value) TypeProperty() (tp TypeProperty)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Validate">func (v *Value) Validate() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.Value">func (v *Value) Value() interface{}</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueBool">func (v *Value) ValueBool() (vv bool, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueCoordinates">func (v *Value) ValueCoordinates() (vv Coordinates, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLng">func (v *Value) ValueLatLng() (vv LatLng, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLngHeight">func (v *Value) ValueLatLngHeight() (vv LatLngHeight, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueNumber">func (v *Value) ValueNumber() (vv float64, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValuePolygon">func (v *Value) ValuePolygon() (vv Polygon, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueRect">func (v *Value) ValueRect() (vv Rect, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueRef">func (v *Value) ValueRef() (vv string, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueString">func (v *Value) ValueString() (vv string, ok bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueURL">func (v *Value) ValueURL() (vv *url.URL, ok bool)</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/bool.go">bool.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/coordinates.go">coordinates.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlng.go">latlng.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlngheight.go">latlngheight.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/number.go">number.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go">optional.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/polygon.go">polygon.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/rect.go">rect.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/ref.go">ref.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/string.go">string.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/type.go">type.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/url.go">url.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go">value.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				
+				<pre>var <span id="TypeUnknown">TypeUnknown</span> = <a href="index.html#Type">Type</a>(&#34;&#34;)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Coordinates">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/coordinates.go?s=59:90#L1">Coordinates</a>
+				<a class="permalink" href="index.html#Coordinates">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Coordinates []<a href="index.html#LatLngHeight">LatLngHeight</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="CoordinatesFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/coordinates.go?s=194:244#L1">CoordinatesFrom</a>
+					<a class="permalink" href="index.html#CoordinatesFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func CoordinatesFrom(coords []<a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a>) <a href="index.html#Coordinates">Coordinates</a></pre>
+				<p>
+CoordinatesFrom generates a new Coordinates from slice such as [lon, lat, alt, lon, lat, alt, ...]
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="LatLng">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlng.go?s=59:171#L1">LatLng</a>
+				<a class="permalink" href="index.html#LatLng">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type LatLng struct {
+<span id="LatLng.Lat"></span>    Lat <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lat&#34; mapstructure:&#34;lat&#34;`
+<span id="LatLng.Lng"></span>    Lng <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lng&#34; mapstructure:&#34;lng&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="LatLng.Clone">func (*LatLng) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlng.go?s=173:205#L1">Clone</a>
+					<a class="permalink" href="index.html#LatLng.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#LatLng">LatLng</a>) Clone() *<a href="index.html#LatLng">LatLng</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="LatLngHeight">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlngheight.go?s=59:237#L1">LatLngHeight</a>
+				<a class="permalink" href="index.html#LatLngHeight">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type LatLngHeight struct {
+<span id="LatLngHeight.Lat"></span>    Lat    <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lat&#34; mapstructure:&#34;lat&#34;`
+<span id="LatLngHeight.Lng"></span>    Lng    <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lng&#34; mapstructure:&#34;lng&#34;`
+<span id="LatLngHeight.Height"></span>    Height <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;height&#34; mapstructure:&#34;height&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="LatLngHeight.Clone">func (*LatLngHeight) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlngheight.go?s=239:283#L1">Clone</a>
+					<a class="permalink" href="index.html#LatLngHeight.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (l *<a href="index.html#LatLngHeight">LatLngHeight</a>) Clone() *<a href="index.html#LatLngHeight">LatLngHeight</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="OptionalValue">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=15:62#L1">OptionalValue</a>
+				<a class="permalink" href="index.html#OptionalValue">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type OptionalValue struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewOptionalValue">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=64:118#L1">NewOptionalValue</a>
+					<a class="permalink" href="index.html#NewOptionalValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewOptionalValue(t <a href="index.html#Type">Type</a>, v *<a href="index.html#Value">Value</a>) *<a href="index.html#OptionalValue">OptionalValue</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="OptionalValueFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=237:284#L8">OptionalValueFrom</a>
+					<a class="permalink" href="index.html#OptionalValueFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func OptionalValueFrom(v *<a href="index.html#Value">Value</a>) *<a href="index.html#OptionalValue">OptionalValue</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="OptionalValue.Clone">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=859:906#L43">Clone</a>
+					<a class="permalink" href="index.html#OptionalValue.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) Clone() *<a href="index.html#OptionalValue">OptionalValue</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.SetValue">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=707:750#L36">SetValue</a>
+					<a class="permalink" href="index.html#OptionalValue.SetValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) SetValue(v *<a href="index.html#Value">Value</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.Type">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=386:422#L18">Type</a>
+					<a class="permalink" href="index.html#OptionalValue.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) Type() <a href="index.html#Type">Type</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.TypeAndValue">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=617:671#L32">TypeAndValue</a>
+					<a class="permalink" href="index.html#OptionalValue.TypeAndValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) TypeAndValue() (<a href="index.html#Type">Type</a>, *<a href="index.html#Value">Value</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.Value">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/optional.go?s=481:520#L25">Value</a>
+					<a class="permalink" href="index.html#OptionalValue.Value">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) Value() *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Polygon">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/polygon.go?s=93:119#L1">Polygon</a>
+				<a class="permalink" href="index.html#Polygon">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Polygon []<a href="index.html#Coordinates">Coordinates</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="PolygonFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/polygon.go?s=121:164#L1">PolygonFrom</a>
+					<a class="permalink" href="index.html#PolygonFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func PolygonFrom(rings [][]<a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a>) <a href="index.html#Polygon">Polygon</a></pre>
+				
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Rect">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/rect.go?s=87:307#L1">Rect</a>
+				<a class="permalink" href="index.html#Rect">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Rect struct {
+<span id="Rect.West"></span>    West  <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;west&#34; mapstructure:&#34;west&#34;`
+<span id="Rect.South"></span>    South <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;south&#34; mapstructure:&#34;south&#34;`
+<span id="Rect.East"></span>    East  <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;east&#34; mapstructure:&#34;east&#34;`
+<span id="Rect.North"></span>    North <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;north&#34; mapstructure:&#34;north&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Type">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/type.go?s=15:31#L1">Type</a>
+				<a class="permalink" href="index.html#Type">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Type <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+
+			
+
+			
+				
+				<pre>var <span id="TypeBool">TypeBool</span> <a href="index.html#Type">Type</a> = &#34;bool&#34;</pre>
+			
+				
+				<pre>var <span id="TypeCoordinates">TypeCoordinates</span> <a href="index.html#Type">Type</a> = &#34;coordinates&#34;</pre>
+			
+				
+				<pre>var <span id="TypeLatLng">TypeLatLng</span> <a href="index.html#Type">Type</a> = &#34;latlng&#34;</pre>
+			
+				
+				<pre>var <span id="TypeLatLngHeight">TypeLatLngHeight</span> <a href="index.html#Type">Type</a> = &#34;latlngheight&#34;</pre>
+			
+				
+				<pre>var <span id="TypeNumber">TypeNumber</span> <a href="index.html#Type">Type</a> = &#34;number&#34;</pre>
+			
+				
+				<pre>var <span id="TypePolygon">TypePolygon</span> <a href="index.html#Type">Type</a> = &#34;polygon&#34;</pre>
+			
+				
+				<pre>var <span id="TypeRect">TypeRect</span> <a href="index.html#Type">Type</a> = &#34;rect&#34;</pre>
+			
+				
+				<pre>var <span id="TypeRef">TypeRef</span> <a href="index.html#Type">Type</a> = &#34;ref&#34;</pre>
+			
+				
+				<pre>var <span id="TypeString">TypeString</span> <a href="index.html#Type">Type</a> = &#34;string&#34;</pre>
+			
+				
+				<pre>var <span id="TypeURL">TypeURL</span> <a href="index.html#Type">Type</a> = &#34;url&#34;</pre>
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Type.Default">func (Type) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/type.go?s=665:693#L18">Default</a>
+					<a class="permalink" href="index.html#Type.Default">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t <a href="index.html#Type">Type</a>) Default() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Type.ValueFrom">func (Type) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/type.go?s=736:800#L23">ValueFrom</a>
+					<a class="permalink" href="index.html#Type.ValueFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t <a href="index.html#Type">Type</a>) ValueFrom(i interface{}, p <a href="index.html#TypePropertyMap">TypePropertyMap</a>) *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TypeProperty">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/type.go?s=33:168#L1">TypeProperty</a>
+				<a class="permalink" href="index.html#TypeProperty">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TypeProperty interface {
+    I2V(interface{}) (interface{}, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)
+    V2I(interface{}) (interface{}, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)
+    Validate(interface{}) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TypePropertyMap">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/type.go?s=170:214#L1">TypePropertyMap</a>
+				<a class="permalink" href="index.html#TypePropertyMap">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TypePropertyMap = map[<a href="index.html#Type">Type</a>]<a href="index.html#TypeProperty">TypeProperty</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Value">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=44:107#L1">Value</a>
+				<a class="permalink" href="index.html#Value">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Value struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Value.Clone">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=198:228#L7">Clone</a>
+					<a class="permalink" href="index.html#Value.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Clone() *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.Interface">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=740:779#L44">Interface</a>
+					<a class="permalink" href="index.html#Value.Interface">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Interface() interface{}</pre>
+				<p>
+Interface converts the value into generic representation
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Value.IsEmpty">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=109:139#L3">IsEmpty</a>
+					<a class="permalink" href="index.html#Value.IsEmpty">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) IsEmpty() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.MarshalJSON">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=1120:1165#L70">MarshalJSON</a>
+					<a class="permalink" href="index.html#Value.MarshalJSON">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) MarshalJSON() ([]<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.Type">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=384:411#L21">Type</a>
+					<a class="permalink" href="index.html#Value.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Type() <a href="index.html#Type">Type</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.TypeProperty">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=468:516#L28">TypeProperty</a>
+					<a class="permalink" href="index.html#Value.TypeProperty">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) TypeProperty() (tp <a href="index.html#TypeProperty">TypeProperty</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.Validate">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=945:976#L58">Validate</a>
+					<a class="permalink" href="index.html#Value.Validate">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Validate() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.Value">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/value.go?s=300:335#L14">Value</a>
+					<a class="permalink" href="index.html#Value.Value">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) Value() interface{}</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueBool">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/bool.go?s=431:477#L16">ValueBool</a>
+					<a class="permalink" href="index.html#Value.ValueBool">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueBool() (vv <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueCoordinates">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/coordinates.go?s=1364:1424#L62">ValueCoordinates</a>
+					<a class="permalink" href="index.html#Value.ValueCoordinates">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueCoordinates() (vv <a href="index.html#Coordinates">Coordinates</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueLatLng">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlng.go?s=844:894#L39">ValueLatLng</a>
+					<a class="permalink" href="index.html#Value.ValueLatLng">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLng() (vv <a href="index.html#LatLng">LatLng</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueLatLngHeight">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/latlngheight.go?s=1013:1075#L44">ValueLatLngHeight</a>
+					<a class="permalink" href="index.html#Value.ValueLatLngHeight">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLngHeight() (vv <a href="index.html#LatLngHeight">LatLngHeight</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueNumber">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/number.go?s=1880:1931#L102">ValueNumber</a>
+					<a class="permalink" href="index.html#Value.ValueNumber">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueNumber() (vv <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValuePolygon">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/polygon.go?s=930:982#L43">ValuePolygon</a>
+					<a class="permalink" href="index.html#Value.ValuePolygon">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValuePolygon() (vv <a href="index.html#Polygon">Polygon</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueRect">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/rect.go?s=818:864#L33">ValueRect</a>
+					<a class="permalink" href="index.html#Value.ValueRect">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueRect() (vv <a href="index.html#Rect">Rect</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueRef">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/ref.go?s=600:647#L24">ValueRef</a>
+					<a class="permalink" href="index.html#Value.ValueRef">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueRef() (vv <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueString">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/string.go?s=437:487#L16">ValueString</a>
+					<a class="permalink" href="index.html#Value.ValueString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueString() (vv <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Value.ValueURL">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/value/url.go?s=683:732#L36">ValueURL</a>
+					<a class="permalink" href="index.html#Value.ValueURL">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueURL() (vv *<a href="/reearth/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.17.3.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="/reearth/reearth-backend/main/LICENSE">BSD license</a>.<br>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

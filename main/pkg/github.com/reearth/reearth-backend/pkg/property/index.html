@@ -150,9 +150,6 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Camera.Clone">func (c *Camera) Clone() *Camera</a></dd>
 				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Camera.Value">func (c Camera) Value() *Value</a></dd>
-				
 			
 				
 				<dd><a href="index.html#Condition">type Condition</a></dd>
@@ -165,12 +162,6 @@
 				
 				<dd><a href="index.html#Coordinates">type Coordinates</a></dd>
 				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#CoordinatesFrom">func CoordinatesFrom(coords []float64) Coordinates</a></dd>
-				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Coordinates.Value">func (t Coordinates) Value() *Value</a></dd>
 				
 			
 				
@@ -257,7 +248,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#FieldBuilder.MustBuild">func (b *FieldBuilder) MustBuild() *Field</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#FieldBuilder.Value">func (b *FieldBuilder) Value(v *Value) *FieldBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#FieldBuilder.Value">func (b *FieldBuilder) Value(v *OptionalValue) *FieldBuilder</a></dd>
 				
 			
 				
@@ -277,10 +268,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#FieldUnsafeBuilder.LinksUnsafe">func (b *FieldUnsafeBuilder) LinksUnsafe(l *Links) *FieldUnsafeBuilder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#FieldUnsafeBuilder.TypeUnsafe">func (b *FieldUnsafeBuilder) TypeUnsafe(t ValueType) *FieldUnsafeBuilder</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#FieldUnsafeBuilder.ValueUnsafe">func (b *FieldUnsafeBuilder) ValueUnsafe(v *Value) *FieldUnsafeBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#FieldUnsafeBuilder.ValueUnsafe">func (b *FieldUnsafeBuilder) ValueUnsafe(v *OptionalValue) *FieldUnsafeBuilder</a></dd>
 				
 			
 				
@@ -609,22 +597,10 @@
 				<dd><a href="index.html#LatLng">type LatLng</a></dd>
 				
 				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#LatLng.Clone">func (l *LatLng) Clone() *LatLng</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#LatLng.Value">func (l LatLng) Value() *Value</a></dd>
-				
 			
 				
 				<dd><a href="index.html#LatLngHeight">type LatLngHeight</a></dd>
 				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#LatLngHeight.Clone">func (l *LatLngHeight) Clone() *LatLngHeight</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#LatLngHeight.Value">func (l LatLngHeight) Value() *Value</a></dd>
 				
 			
 				
@@ -838,6 +814,32 @@
 				
 			
 				
+				<dd><a href="index.html#OptionalValue">type OptionalValue</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewOptionalValue">func NewOptionalValue(t ValueType, v *Value) *OptionalValue</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValueFrom">func OptionalValueFrom(v *Value) *OptionalValue</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.Clone">func (ov *OptionalValue) Clone() *OptionalValue</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.SetValue">func (ov *OptionalValue) SetValue(v *Value)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.Type">func (ov *OptionalValue) Type() ValueType</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.TypeAndValue">func (ov *OptionalValue) TypeAndValue() (ValueType, *Value)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#OptionalValue.Value">func (ov *OptionalValue) Value() *Value</a></dd>
+				
+			
+				
 				<dd><a href="index.html#Pointer">type Pointer</a></dd>
 				
 					
@@ -899,9 +901,6 @@
 				
 				<dd><a href="index.html#Polygon">type Polygon</a></dd>
 				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Polygon.Value">func (t Polygon) Value() *Value</a></dd>
 				
 			
 				
@@ -1011,9 +1010,6 @@
 				
 				<dd><a href="index.html#Rect">type Rect</a></dd>
 				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Rect.Value">func (t Rect) Value() *Value</a></dd>
 				
 			
 				
@@ -1136,7 +1132,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.UI">func (p *SchemaField) UI() *SchemaFieldUI</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.Validate">func (p *SchemaField) Validate(value *Value) bool</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#SchemaField.Validate">func (p *SchemaField) Validate(value *OptionalValue) bool</a></dd>
 				
 			
 				
@@ -1374,6 +1370,9 @@
 				<dd><a href="index.html#SealedField">type SealedField</a></dd>
 				
 				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#SealedField.Value">func (f *SealedField) Value() *Value</a></dd>
+				
 			
 				
 				<dd><a href="index.html#SealedItem">type SealedItem</a></dd>
@@ -1416,9 +1415,6 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Typography.Clone">func (t *Typography) Clone() *Typography</a></dd>
 				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Typography.Value">func (t Typography) Value() *Value</a></dd>
-				
 			
 				
 				<dd><a href="index.html#Validator">type Validator</a></dd>
@@ -1431,6 +1427,9 @@
 				
 				<dd><a href="index.html#Value">type Value</a></dd>
 				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueFromStringOrNumber">func ValueFromStringOrNumber(s string) *Value</a></dd>
+				
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Value.Clone">func (v *Value) Clone() *Value</a></dd>
@@ -1442,89 +1441,77 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Value.IsEmpty">func (v *Value) IsEmpty() bool</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.MarshalJSON">func (v *Value) MarshalJSON() ([]byte, error)</a></dd>
-				
-					
 					<dd>&nbsp; &nbsp; <a href="index.html#Value.Type">func (v *Value) Type() ValueType</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Value.Value">func (v *Value) Value() interface{}</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueBool">func (v *Value) ValueBool() (vv bool, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueBool">func (v *Value) ValueBool() *bool</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueCamera">func (v *Value) ValueCamera() (vv Camera, ok bool)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueCoordinates">func (v *Value) ValueCoordinates() (vv Coordinates, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueCoordinates">func (v *Value) ValueCoordinates() *Coordinates</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLng">func (v *Value) ValueLatLng() (vv LatLng, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLng">func (v *Value) ValueLatLng() *LatLng</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLngHeight">func (v *Value) ValueLatLngHeight() (vv LatLngHeight, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueLatLngHeight">func (v *Value) ValueLatLngHeight() *LatLngHeight</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueNumber">func (v *Value) ValueNumber() (vv float64, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueNumber">func (v *Value) ValueNumber() *float64</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValuePolygon">func (v *Value) ValuePolygon() (vv Polygon, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValuePolygon">func (v *Value) ValuePolygon() *Polygon</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueRect">func (v *Value) ValueRect() (vv Rect, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueRect">func (v *Value) ValueRect() *Rect</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueRef">func (v *Value) ValueRef() (vv id.ID, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueRef">func (v *Value) ValueRef() *string</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueString">func (v *Value) ValueString() (vv string, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueString">func (v *Value) ValueString() *string</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueTypography">func (v *Value) ValueTypography() (vv Typography, ok bool)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueURL">func (v *Value) ValueURL() (vv *url.URL, ok bool)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Value.ValueURL">func (v *Value) ValueURL() *url.URL</a></dd>
 				
 			
 				
-				<dd><a href="index.html#ValueInner">type ValueInner</a></dd>
+				<dd><a href="index.html#ValueAndDatasetValue">type ValueAndDatasetValue</a></dd>
 				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewValueAndDatasetValue">func NewValueAndDatasetValue(ty ValueType, d *dataset.Value, p *Value) *ValueAndDatasetValue</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueAndDatasetValue.DatasetValue">func (v *ValueAndDatasetValue) DatasetValue() *dataset.Value</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueAndDatasetValue.PropertyValue">func (v *ValueAndDatasetValue) PropertyValue() *Value</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueAndDatasetValue.Type">func (v *ValueAndDatasetValue) Type() ValueType</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueAndDatasetValue.Value">func (v *ValueAndDatasetValue) Value() *Value</a></dd>
 				
 			
 				
 				<dd><a href="index.html#ValueType">type ValueType</a></dd>
 				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueTypeFrom">func ValueTypeFrom(t string) (ValueType, bool)</a></dd>
-				
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.MarshalJSON">func (t *ValueType) MarshalJSON() ([]byte, error)</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.Valid">func (vt ValueType) Valid() bool</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.MarshalText">func (t *ValueType) MarshalText() ([]byte, error)</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.MustBeValue">func (t ValueType) MustBeValue(v interface{}) *Value</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.UnmarshalJSON">func (t *ValueType) UnmarshalJSON(bs []byte) (err error)</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.UnmarshalText">func (t *ValueType) UnmarshalText(text []byte) (err error)</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.Validate">func (t ValueType) Validate() (ValueType, bool)</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.ValidateValue">func (t ValueType) ValidateValue(v *Value) bool</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.ValueFrom">func (t ValueType) ValueFrom(v interface{}) (*Value, bool)</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.ValueFromUnsafe">func (t ValueType) ValueFromUnsafe(v interface{}) *Value</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#ValueType.ValueFrom">func (vt ValueType) ValueFrom(i interface{}) *Value</a></dd>
 				
 			
 			
@@ -1596,9 +1583,13 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go">value.go</a>
 			
-				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_converter.go">value_converter.go</a>
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_camera.go">value_camera.go</a>
 			
-				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go">value_type.go</a>
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_dataset.go">value_dataset.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go">value_optional.go</a>
+			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go">value_typography.go</a>
 			
 			</span>
 			</p>
@@ -1632,12 +1623,33 @@
 			
 				
 				<pre>var (
+    <span id="ValueTypeUnknown">ValueTypeUnknown</span>      = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeUnknown">TypeUnknown</a>)
+    <span id="ValueTypeBool">ValueTypeBool</span>         = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeBool">TypeBool</a>)
+    <span id="ValueTypeNumber">ValueTypeNumber</span>       = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeNumber">TypeNumber</a>)
+    <span id="ValueTypeString">ValueTypeString</span>       = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeString">TypeString</a>)
+    <span id="ValueTypeRef">ValueTypeRef</span>          = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeRef">TypeRef</a>)
+    <span id="ValueTypeURL">ValueTypeURL</span>          = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeURL">TypeURL</a>)
+    <span id="ValueTypeLatLng">ValueTypeLatLng</span>       = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeLatLng">TypeLatLng</a>)
+    <span id="ValueTypeLatLngHeight">ValueTypeLatLngHeight</span> = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeLatLngHeight">TypeLatLngHeight</a>)
+    <span id="ValueTypeCoordinates">ValueTypeCoordinates</span>  = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeCoordinates">TypeCoordinates</a>)
+    <span id="ValueTypePolygon">ValueTypePolygon</span>      = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypePolygon">TypePolygon</a>)
+    <span id="ValueTypeRect">ValueTypeRect</span>         = <a href="index.html#ValueType">ValueType</a>(<a href="../value/index.html">value</a>.<a href="../value/index.html#TypeRect">TypeRect</a>)
+)</pre>
+			
+				
+				<pre>var (
     <span class="comment">// ErrInvalidItem _</span>
     <span id="ErrInvalidItem">ErrInvalidItem</span> = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid item&#34;)
 )</pre>
 			
 				
 				<pre>var <span id="ErrSchemaDoesNotMatch">ErrSchemaDoesNotMatch</span> = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;schema of the initializer does not match schema of the argument&#34;)</pre>
+			
+				
+				<pre>var <span id="ValueTypeCamera">ValueTypeCamera</span> = <a href="index.html#ValueType">ValueType</a>(&#34;camera&#34;)</pre>
+			
+				
+				<pre>var <span id="ValueTypeTypography">ValueTypeTypography</span> = <a href="index.html#ValueType">ValueType</a>(&#34;typography&#34;)</pre>
 			
 		
 		
@@ -1791,15 +1803,12 @@ Schema _
 		
 			
 			
-			<h2 id="Camera">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=701:1097#L34">Camera</a>
+			<h2 id="Camera">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_camera.go?s=110:506#L1">Camera</a>
 				<a class="permalink" href="index.html#Camera">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Camera _
-</p>
-
+			
 			<pre>type Camera struct {
 <span id="Camera.Lat"></span>    Lat      <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lat&#34; mapstructure:&#34;lat&#34;`
 <span id="Camera.Lng"></span>    Lng      <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lng&#34; mapstructure:&#34;lng&#34;`
@@ -1823,31 +1832,13 @@ Camera _
 
 			
 				
-				<h3 id="Camera.Clone">func (*Camera) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1110:1142#L45">Clone</a>
+				<h3 id="Camera.Clone">func (*Camera) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_camera.go?s=508:540#L9">Clone</a>
 					<a class="permalink" href="index.html#Camera.Clone">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (c *<a href="index.html#Camera">Camera</a>) Clone() *<a href="index.html#Camera">Camera</a></pre>
-				<p>
-Clone _
-</p>
-
 				
-				
-				
-			
-				
-				<h3 id="Camera.Value">func (Camera) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4549:4579#L208">Value</a>
-					<a class="permalink" href="index.html#Camera.Value">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (c <a href="index.html#Camera">Camera</a>) Value() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Value _
-</p>
-
 				
 				
 				
@@ -1899,16 +1890,13 @@ Clone _
 		
 			
 			
-			<h2 id="Coordinates">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=3599:3630#L160">Coordinates</a>
+			<h2 id="Coordinates">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=167:203#L2">Coordinates</a>
 				<a class="permalink" href="index.html#Coordinates">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Coordinates _
-</p>
-
-			<pre>type Coordinates []<a href="index.html#LatLngHeight">LatLngHeight</a></pre>
+			
+			<pre>type Coordinates = <a href="../value/index.html">value</a>.<a href="../value/index.html#Coordinates">Coordinates</a></pre>
 
 			
 
@@ -1919,41 +1907,12 @@ Coordinates _
 			
 
 			
-				
-				<h3 id="CoordinatesFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=3734:3784#L163">CoordinatesFrom</a>
-					<a class="permalink" href="index.html#CoordinatesFrom">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func CoordinatesFrom(coords []<a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a>) <a href="index.html#Coordinates">Coordinates</a></pre>
-				<p>
-CoordinatesFrom generates a new Coordinates from slice such as [lon, lat, alt, lon, lat, alt, ...]
-</p>
 
-				
-				
-			
-
-			
-				
-				<h3 id="Coordinates.Value">func (Coordinates) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4737:4772#L218">Value</a>
-					<a class="permalink" href="index.html#Coordinates.Value">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#Coordinates">Coordinates</a>) Value() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Value _
-</p>
-
-				
-				
-				
 			
 		
 			
 			
-			<h2 id="DatasetMigrationParam">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=4025:4364#L184">DatasetMigrationParam</a>
+			<h2 id="DatasetMigrationParam">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=3991:4330#L193">DatasetMigrationParam</a>
 				<a class="permalink" href="index.html#DatasetMigrationParam">&#xb6;</a>
 				
 				
@@ -1982,7 +1941,7 @@ Value _
 		
 			
 			
-			<h2 id="Field">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=408:506#L8">Field</a>
+			<h2 id="Field">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=408:497#L8">Field</a>
 				<a class="permalink" href="index.html#Field">&#xb6;</a>
 				
 				
@@ -2005,7 +1964,7 @@ Value _
 
 			
 				
-				<h3 id="Field.ActualValue">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=941:996#L46">ActualValue</a>
+				<h3 id="Field.ActualValue">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=961:1016#L47">ActualValue</a>
 					<a class="permalink" href="index.html#Field.ActualValue">&#xb6;</a>
 					
 					
@@ -2017,7 +1976,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Clone">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=508:538#L15">Clone</a>
+				<h3 id="Field.Clone">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=499:529#L14">Clone</a>
 					<a class="permalink" href="index.html#Field.Clone">&#xb6;</a>
 					
 					
@@ -2029,7 +1988,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.CollectDatasets">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1394:1442#L67">CollectDatasets</a>
+				<h3 id="Field.CollectDatasets">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1399:1447#L67">CollectDatasets</a>
 					<a class="permalink" href="index.html#Field.CollectDatasets">&#xb6;</a>
 					
 					
@@ -2041,7 +2000,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.DatasetValue">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=3191:3287#L147">DatasetValue</a>
+				<h3 id="Field.DatasetValue">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=3324:3420#L162">DatasetValue</a>
 					<a class="permalink" href="index.html#Field.DatasetValue">&#xb6;</a>
 					
 					
@@ -2053,7 +2012,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Field">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=651:699#L24">Field</a>
+				<h3 id="Field.Field">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=620:668#L22">Field</a>
 					<a class="permalink" href="index.html#Field.Field">&#xb6;</a>
 					
 					
@@ -2065,7 +2024,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.HasLinkedField">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1322:1359#L63">HasLinkedField</a>
+				<h3 id="Field.HasLinkedField">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1327:1364#L63">HasLinkedField</a>
 					<a class="permalink" href="index.html#Field.HasLinkedField">&#xb6;</a>
 					
 					
@@ -2077,7 +2036,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.IsDatasetLinked">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1641:1715#L83">IsDatasetLinked</a>
+				<h3 id="Field.IsDatasetLinked">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1646:1720#L83">IsDatasetLinked</a>
 					<a class="permalink" href="index.html#Field.IsDatasetLinked">&#xb6;</a>
 					
 					
@@ -2089,7 +2048,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.IsEmpty">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2224:2254#L111">IsEmpty</a>
+				<h3 id="Field.IsEmpty">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2374:2404#L126">IsEmpty</a>
 					<a class="permalink" href="index.html#Field.IsEmpty">&#xb6;</a>
 					
 					
@@ -2101,7 +2060,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Link">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2032:2066#L99">Link</a>
+				<h3 id="Field.Link">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2101:2135#L105">Link</a>
 					<a class="permalink" href="index.html#Field.Link">&#xb6;</a>
 					
 					
@@ -2113,7 +2072,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Links">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=721:751#L28">Links</a>
+				<h3 id="Field.Links">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=690:720#L26">Links</a>
 					<a class="permalink" href="index.html#Field.Links">&#xb6;</a>
 					
 					
@@ -2125,7 +2084,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.MigrateDataset">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=3366:3421#L154">MigrateDataset</a>
+				<h3 id="Field.MigrateDataset">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=3499:3554#L169">MigrateDataset</a>
 					<a class="permalink" href="index.html#Field.MigrateDataset">&#xb6;</a>
 					
 					
@@ -2137,7 +2096,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.MigrateSchema">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2323:2416#L115">MigrateSchema</a>
+				<h3 id="Field.MigrateSchema">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2473:2566#L130">MigrateSchema</a>
 					<a class="permalink" href="index.html#Field.MigrateSchema">&#xb6;</a>
 					
 					
@@ -2149,7 +2108,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Type">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=804:836#L35">Type</a>
+				<h3 id="Field.Type">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=773:805#L33">Type</a>
 					<a class="permalink" href="index.html#Field.Type">&#xb6;</a>
 					
 					
@@ -2161,7 +2120,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Unlink">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2097:2121#L103">Unlink</a>
+				<h3 id="Field.Unlink">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2193:2217#L112">Unlink</a>
 					<a class="permalink" href="index.html#Field.Unlink">&#xb6;</a>
 					
 					
@@ -2173,7 +2132,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Update">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1764:1826#L87">Update</a>
+				<h3 id="Field.Update">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1769:1831#L87">Update</a>
 					<a class="permalink" href="index.html#Field.Update">&#xb6;</a>
 					
 					
@@ -2185,7 +2144,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.UpdateField">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2142:2201#L107">UpdateField</a>
+				<h3 id="Field.UpdateField">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2265:2324#L119">UpdateField</a>
 					<a class="permalink" href="index.html#Field.UpdateField">&#xb6;</a>
 					
 					
@@ -2197,7 +2156,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.UpdateUnsafe">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=1967:2009#L95">UpdateUnsafe</a>
+				<h3 id="Field.UpdateUnsafe">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=2005:2047#L98">UpdateUnsafe</a>
 					<a class="permalink" href="index.html#Field.UpdateUnsafe">&#xb6;</a>
 					
 					
@@ -2209,7 +2168,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.ValidateSchema">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=3625:3678#L165">ValidateSchema</a>
+				<h3 id="Field.ValidateSchema">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=3758:3811#L180">ValidateSchema</a>
 					<a class="permalink" href="index.html#Field.ValidateSchema">&#xb6;</a>
 					
 					
@@ -2221,7 +2180,7 @@ Value _
 				
 			
 				
-				<h3 id="Field.Value">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=858:888#L39">Value</a>
+				<h3 id="Field.Value">func (*Field) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field.go?s=874:904#L40">Value</a>
 					<a class="permalink" href="index.html#Field.Value">&#xb6;</a>
 					
 					
@@ -2235,15 +2194,12 @@ Value _
 		
 			
 			
-			<h2 id="FieldBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=88:146#L1">FieldBuilder</a>
+			<h2 id="FieldBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=70:128#L1">FieldBuilder</a>
 				<a class="permalink" href="index.html#FieldBuilder">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-FieldBuilder _
-</p>
-
+			
 			<pre>type FieldBuilder struct {
     <span class="comment">// contains filtered or unexported fields</span>
 }
@@ -2259,77 +2215,62 @@ FieldBuilder _
 
 			
 				
-				<h3 id="NewField">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=232:275#L7">NewField</a>
+				<h3 id="NewField">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=176:219#L4">NewField</a>
 					<a class="permalink" href="index.html#NewField">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func NewField(p *<a href="index.html#SchemaField">SchemaField</a>) *<a href="index.html#FieldBuilder">FieldBuilder</a></pre>
-				<p>
-NewField _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="FieldBuilder.Build">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=356:402#L15">Build</a>
+				<h3 id="FieldBuilder.Build">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=289:335#L11">Build</a>
 					<a class="permalink" href="index.html#FieldBuilder.Build">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#FieldBuilder">FieldBuilder</a>) Build() (*<a href="index.html#Field">Field</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
-				<p>
-Build _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="FieldBuilder.Link">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1133:1184#L58">Link</a>
+				<h3 id="FieldBuilder.Link">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=925:976#L43">Link</a>
 					<a class="permalink" href="index.html#FieldBuilder.Link">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#FieldBuilder">FieldBuilder</a>) Link(l *<a href="index.html#Links">Links</a>) *<a href="index.html#FieldBuilder">FieldBuilder</a></pre>
-				<p>
-Link _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="FieldBuilder.MustBuild">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=611:652#L26">MustBuild</a>
+				<h3 id="FieldBuilder.MustBuild">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=525:566#L21">MustBuild</a>
 					<a class="permalink" href="index.html#FieldBuilder.MustBuild">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#FieldBuilder">FieldBuilder</a>) MustBuild() *<a href="index.html#Field">Field</a></pre>
-				<p>
-MustBuild _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="FieldBuilder.Value">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=966:1018#L48">Value</a>
+				<h3 id="FieldBuilder.Value">func (*FieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=830:890#L38">Value</a>
 					<a class="permalink" href="index.html#FieldBuilder.Value">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#FieldBuilder">FieldBuilder</a>) Value(v *<a href="index.html#Value">Value</a>) *<a href="index.html#FieldBuilder">FieldBuilder</a></pre>
-				<p>
-Value _
-</p>
-
+				<pre>func (b *<a href="index.html#FieldBuilder">FieldBuilder</a>) Value(v *<a href="index.html#OptionalValue">OptionalValue</a>) *<a href="index.html#FieldBuilder">FieldBuilder</a></pre>
+				
 				
 				
 				
@@ -2337,15 +2278,12 @@ Value _
 		
 			
 			
-			<h2 id="FieldUnsafeBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=172:216#L2">FieldUnsafeBuilder</a>
+			<h2 id="FieldUnsafeBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=130:174#L1">FieldUnsafeBuilder</a>
 				<a class="permalink" href="index.html#FieldUnsafeBuilder">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-FieldUnsafeBuilder _
-</p>
-
+			
 			<pre>type FieldUnsafeBuilder struct {
     <span class="comment">// contains filtered or unexported fields</span>
 }
@@ -2361,92 +2299,62 @@ FieldUnsafeBuilder _
 
 			
 				
-				<h3 id="NewFieldUnsafe">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1243:1284#L64">NewFieldUnsafe</a>
+				<h3 id="NewFieldUnsafe">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1015:1056#L48">NewFieldUnsafe</a>
 					<a class="permalink" href="index.html#NewFieldUnsafe">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func NewFieldUnsafe() *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a></pre>
-				<p>
-NewFieldUnsafe _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="FieldUnsafeBuilder.Build">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1348:1391#L71">Build</a>
+				<h3 id="FieldUnsafeBuilder.Build">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1109:1152#L54">Build</a>
 					<a class="permalink" href="index.html#FieldUnsafeBuilder.Build">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a>) Build() *<a href="index.html#Field">Field</a></pre>
-				<p>
-Build _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="FieldUnsafeBuilder.FieldUnsafe">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1426:1514#L76">FieldUnsafe</a>
+				<h3 id="FieldUnsafeBuilder.FieldUnsafe">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1170:1258#L58">FieldUnsafe</a>
 					<a class="permalink" href="index.html#FieldUnsafeBuilder.FieldUnsafe">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a>) FieldUnsafe(f <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>) *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a></pre>
-				<p>
-FieldUnsafe _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="FieldUnsafeBuilder.LinksUnsafe">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1881:1951#L101">LinksUnsafe</a>
+				<h3 id="FieldUnsafeBuilder.LinksUnsafe">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1402:1472#L68">LinksUnsafe</a>
 					<a class="permalink" href="index.html#FieldUnsafeBuilder.LinksUnsafe">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (b *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a>) LinksUnsafe(l *<a href="index.html#Links">Links</a>) *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a></pre>
-				<p>
-LinksUnsafe _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="FieldUnsafeBuilder.TypeUnsafe">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1561:1633#L82">TypeUnsafe</a>
-					<a class="permalink" href="index.html#FieldUnsafeBuilder.TypeUnsafe">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (b *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a>) TypeUnsafe(t <a href="index.html#ValueType">ValueType</a>) *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a></pre>
-				<p>
-TypeUnsafe _
-</p>
-
-				
-				
-				
-			
-				
-				<h3 id="FieldUnsafeBuilder.ValueUnsafe">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1681:1751#L88">ValueUnsafe</a>
+				<h3 id="FieldUnsafeBuilder.ValueUnsafe">func (*FieldUnsafeBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/field_builder.go?s=1289:1367#L63">ValueUnsafe</a>
 					<a class="permalink" href="index.html#FieldUnsafeBuilder.ValueUnsafe">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a>) ValueUnsafe(v *<a href="index.html#Value">Value</a>) *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a></pre>
-				<p>
-ValueUnsafe _
-</p>
-
+				<pre>func (b *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a>) ValueUnsafe(v *<a href="index.html#OptionalValue">OptionalValue</a>) *<a href="index.html#FieldUnsafeBuilder">FieldUnsafeBuilder</a></pre>
+				
 				
 				
 				
@@ -3722,7 +3630,7 @@ PropertyIncludingEmpty generates a new property, but even if the initializer is 
 		
 			
 			
-			<h2 id="InitializerLink">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/initializer.go?s=6007:6185#L272">InitializerLink</a>
+			<h2 id="InitializerLink">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/initializer.go?s=6014:6192#L272">InitializerLink</a>
 				<a class="permalink" href="index.html#InitializerLink">&#xb6;</a>
 				
 				
@@ -3747,7 +3655,7 @@ PropertyIncludingEmpty generates a new property, but even if the initializer is 
 
 			
 				
-				<h3 id="InitializerLink.Clone">func (*InitializerLink) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/initializer.go?s=6187:6237#L278">Clone</a>
+				<h3 id="InitializerLink.Clone">func (*InitializerLink) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/initializer.go?s=6194:6244#L278">Clone</a>
 					<a class="permalink" href="index.html#InitializerLink.Clone">&#xb6;</a>
 					
 					
@@ -3759,7 +3667,7 @@ PropertyIncludingEmpty generates a new property, but even if the initializer is 
 				
 			
 				
-				<h3 id="InitializerLink.PropertyLink">func (*InitializerLink) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/initializer.go?s=6377:6423#L290">PropertyLink</a>
+				<h3 id="InitializerLink.PropertyLink">func (*InitializerLink) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/initializer.go?s=6384:6430#L290">PropertyLink</a>
 					<a class="permalink" href="index.html#InitializerLink.PropertyLink">&#xb6;</a>
 					
 					
@@ -3918,20 +3826,13 @@ PropertyIncludingEmpty generates a new property, but even if the initializer is 
 		
 			
 			
-			<h2 id="LatLng">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=77:189#L1">LatLng</a>
+			<h2 id="LatLng">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=101:127#L1">LatLng</a>
 				<a class="permalink" href="index.html#LatLng">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-LatLng _
-</p>
-
-			<pre>type LatLng struct {
-<span id="LatLng.Lat"></span>    Lat <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lat&#34; mapstructure:&#34;lat&#34;`
-<span id="LatLng.Lng"></span>    Lng <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lng&#34; mapstructure:&#34;lng&#34;`
-}
-</pre>
+			
+			<pre>type LatLng = <a href="../value/index.html">value</a>.<a href="../value/index.html#LatLng">LatLng</a></pre>
 
 			
 
@@ -3943,55 +3844,17 @@ LatLng _
 
 			
 
-			
-				
-				<h3 id="LatLng.Clone">func (*LatLng) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=202:234#L4">Clone</a>
-					<a class="permalink" href="index.html#LatLng.Clone">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l *<a href="index.html#LatLng">LatLng</a>) Clone() *<a href="index.html#LatLng">LatLng</a></pre>
-				<p>
-Clone _
-</p>
-
-				
-				
-				
-			
-				
-				<h3 id="LatLng.Value">func (LatLng) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4357:4387#L198">Value</a>
-					<a class="permalink" href="index.html#LatLng.Value">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l <a href="index.html#LatLng">LatLng</a>) Value() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Value _
-</p>
-
-				
-				
-				
 			
 		
 			
 			
-			<h2 id="LatLngHeight">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=337:515#L15">LatLngHeight</a>
+			<h2 id="LatLngHeight">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=128:166#L1">LatLngHeight</a>
 				<a class="permalink" href="index.html#LatLngHeight">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-LatLngHeight _
-</p>
-
-			<pre>type LatLngHeight struct {
-<span id="LatLngHeight.Lat"></span>    Lat    <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lat&#34; mapstructure:&#34;lat&#34;`
-<span id="LatLngHeight.Lng"></span>    Lng    <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;lng&#34; mapstructure:&#34;lng&#34;`
-<span id="LatLngHeight.Height"></span>    Height <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;height&#34; mapstructure:&#34;height&#34;`
-}
-</pre>
+			
+			<pre>type LatLngHeight = <a href="../value/index.html">value</a>.<a href="../value/index.html#LatLngHeight">LatLngHeight</a></pre>
 
 			
 
@@ -4003,36 +3866,6 @@ LatLngHeight _
 
 			
 
-			
-				
-				<h3 id="LatLngHeight.Clone">func (*LatLngHeight) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=528:572#L22">Clone</a>
-					<a class="permalink" href="index.html#LatLngHeight.Clone">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l *<a href="index.html#LatLngHeight">LatLngHeight</a>) Clone() *<a href="index.html#LatLngHeight">LatLngHeight</a></pre>
-				<p>
-Clone _
-</p>
-
-				
-				
-				
-			
-				
-				<h3 id="LatLngHeight.Value">func (LatLngHeight) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4447:4483#L203">Value</a>
-					<a class="permalink" href="index.html#LatLngHeight.Value">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l <a href="index.html#LatLngHeight">LatLngHeight</a>) Value() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Value _
-</p>
-
-				
-				
-				
 			
 		
 			
@@ -5062,6 +4895,113 @@ Properties returns associated property IDs
 		
 			
 			
+			<h2 id="OptionalValue">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=73:126#L1">OptionalValue</a>
+				<a class="permalink" href="index.html#OptionalValue">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type OptionalValue struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewOptionalValue">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=128:187#L1">NewOptionalValue</a>
+					<a class="permalink" href="index.html#NewOptionalValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewOptionalValue(t <a href="index.html#ValueType">ValueType</a>, v *<a href="index.html#Value">Value</a>) *<a href="index.html#OptionalValue">OptionalValue</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="OptionalValueFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=357:404#L11">OptionalValueFrom</a>
+					<a class="permalink" href="index.html#OptionalValueFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func OptionalValueFrom(v *<a href="index.html#Value">Value</a>) *<a href="index.html#OptionalValue">OptionalValue</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="OptionalValue.Clone">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=920:967#L46">Clone</a>
+					<a class="permalink" href="index.html#OptionalValue.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) Clone() *<a href="index.html#OptionalValue">OptionalValue</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.SetValue">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=1099:1142#L59">SetValue</a>
+					<a class="permalink" href="index.html#OptionalValue.SetValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) SetValue(v *<a href="index.html#Value">Value</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.Type">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=548:589#L24">Type</a>
+					<a class="permalink" href="index.html#OptionalValue.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) Type() <a href="index.html#ValueType">ValueType</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.TypeAndValue">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=825:884#L42">TypeAndValue</a>
+					<a class="permalink" href="index.html#OptionalValue.TypeAndValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) TypeAndValue() (<a href="index.html#ValueType">ValueType</a>, *<a href="index.html#Value">Value</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="OptionalValue.Value">func (*OptionalValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_optional.go?s=672:711#L31">Value</a>
+					<a class="permalink" href="index.html#OptionalValue.Value">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ov *<a href="index.html#OptionalValue">OptionalValue</a>) Value() *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
 			<h2 id="Pointer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/pointer.go?s=143:273#L1">Pointer</a>
 				<a class="permalink" href="index.html#Pointer">&#xb6;</a>
 				
@@ -5320,16 +5260,13 @@ PointItemBySchema creates a new Pointer pointing the schema item in property sch
 		
 			
 			
-			<h2 id="Polygon">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4086:4112#L187">Polygon</a>
+			<h2 id="Polygon">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=227:255#L4">Polygon</a>
 				<a class="permalink" href="index.html#Polygon">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Polygon _
-</p>
-
-			<pre>type Polygon []<a href="index.html#Coordinates">Coordinates</a></pre>
+			
+			<pre>type Polygon = <a href="../value/index.html">value</a>.<a href="../value/index.html#Polygon">Polygon</a></pre>
 
 			
 
@@ -5341,21 +5278,6 @@ Polygon _
 
 			
 
-			
-				
-				<h3 id="Polygon.Value">func (Polygon) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4837:4868#L223">Value</a>
-					<a class="permalink" href="index.html#Polygon.Value">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#Polygon">Polygon</a>) Value() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Value _
-</p>
-
-				
-				
-				
 			
 		
 			
@@ -5787,22 +5709,13 @@ TODO: group migration
 		
 			
 			
-			<h2 id="Rect">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4124:4344#L190">Rect</a>
+			<h2 id="Rect">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=204:226#L3">Rect</a>
 				<a class="permalink" href="index.html#Rect">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Rect _
-</p>
-
-			<pre>type Rect struct {
-<span id="Rect.West"></span>    West  <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;west&#34; mapstructure:&#34;west&#34;`
-<span id="Rect.South"></span>    South <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;south&#34; mapstructure:&#34;south&#34;`
-<span id="Rect.East"></span>    East  <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;east&#34; mapstructure:&#34;east&#34;`
-<span id="Rect.North"></span>    North <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a> `json:&#34;north&#34; mapstructure:&#34;north&#34;`
-}
-</pre>
+			
+			<pre>type Rect = <a href="../value/index.html">value</a>.<a href="../value/index.html#Rect">Rect</a></pre>
 
 			
 
@@ -5814,21 +5727,6 @@ Rect _
 
 			
 
-			
-				
-				<h3 id="Rect.Value">func (Rect) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4929:4957#L228">Value</a>
-					<a class="permalink" href="index.html#Rect.Value">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#Rect">Rect</a>) Value() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Value _
-</p>
-
-				
-				
-				
 			
 		
 			
@@ -6256,7 +6154,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaField.SetDescription">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2746:2799#L154">SetDescription</a>
+				<h3 id="SchemaField.SetDescription">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2721:2774#L148">SetDescription</a>
 					<a class="permalink" href="index.html#SchemaField.SetDescription">&#xb6;</a>
 					
 					
@@ -6268,7 +6166,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaField.SetTitle">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2667:2716#L150">SetTitle</a>
+				<h3 id="SchemaField.SetTitle">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2642:2691#L144">SetTitle</a>
 					<a class="permalink" href="index.html#SchemaField.SetTitle">&#xb6;</a>
 					
 					
@@ -6328,12 +6226,12 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaField.Validate">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2066:2115#L111">Validate</a>
+				<h3 id="SchemaField.Validate">func (*SchemaField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2066:2123#L111">Validate</a>
 					<a class="permalink" href="index.html#SchemaField.Validate">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (p *<a href="index.html#SchemaField">SchemaField</a>) Validate(value *<a href="index.html#Value">Value</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				<pre>func (p *<a href="index.html#SchemaField">SchemaField</a>) Validate(value *<a href="index.html#OptionalValue">OptionalValue</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				
 				
 				
@@ -6388,7 +6286,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Choices">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2600:2685#L118">Choices</a>
+				<h3 id="SchemaFieldBuilder.Choices">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2594:2679#L118">Choices</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Choices">&#xb6;</a>
 					
 					
@@ -6400,7 +6298,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.DefaultValue">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1638:1709#L62">DefaultValue</a>
+				<h3 id="SchemaFieldBuilder.DefaultValue">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1632:1703#L62">DefaultValue</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.DefaultValue">&#xb6;</a>
 					
 					
@@ -6412,7 +6310,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Description">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1285:1370#L47">Description</a>
+				<h3 id="SchemaFieldBuilder.Description">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1279:1364#L47">Description</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Description">&#xb6;</a>
 					
 					
@@ -6424,7 +6322,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.ID">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=938:1018#L32">ID</a>
+				<h3 id="SchemaFieldBuilder.ID">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=932:1012#L32">ID</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.ID">&#xb6;</a>
 					
 					
@@ -6436,7 +6334,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.IsAvailableIf">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2895:2974#L130">IsAvailableIf</a>
+				<h3 id="SchemaFieldBuilder.IsAvailableIf">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2889:2968#L130">IsAvailableIf</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.IsAvailableIf">&#xb6;</a>
 					
 					
@@ -6448,7 +6346,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Max">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2179:2244#L92">Max</a>
+				<h3 id="SchemaFieldBuilder.Max">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2173:2238#L92">Max</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Max">&#xb6;</a>
 					
 					
@@ -6460,7 +6358,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.MaxRef">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2442:2511#L108">MaxRef</a>
+				<h3 id="SchemaFieldBuilder.MaxRef">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2436:2505#L108">MaxRef</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.MaxRef">&#xb6;</a>
 					
 					
@@ -6472,7 +6370,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Min">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2074:2139#L86">Min</a>
+				<h3 id="SchemaFieldBuilder.Min">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2068:2133#L86">Min</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Min">&#xb6;</a>
 					
 					
@@ -6484,7 +6382,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.MinRef">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2284:2353#L98">MinRef</a>
+				<h3 id="SchemaFieldBuilder.MinRef">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=2278:2347#L98">MinRef</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.MinRef">&#xb6;</a>
 					
 					
@@ -6496,7 +6394,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.MustBuild">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=815:868#L24">MustBuild</a>
+				<h3 id="SchemaFieldBuilder.MustBuild">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=809:862#L24">MustBuild</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.MustBuild">&#xb6;</a>
 					
 					
@@ -6508,7 +6406,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Name">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1173:1244#L42">Name</a>
+				<h3 id="SchemaFieldBuilder.Name">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1167:1238#L42">Name</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Name">&#xb6;</a>
 					
 					
@@ -6520,7 +6418,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Prefix">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1424:1494#L52">Prefix</a>
+				<h3 id="SchemaFieldBuilder.Prefix">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1418:1488#L52">Prefix</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Prefix">&#xb6;</a>
 					
 					
@@ -6532,7 +6430,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Suffix">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1531:1601#L57">Suffix</a>
+				<h3 id="SchemaFieldBuilder.Suffix">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1525:1595#L57">Suffix</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Suffix">&#xb6;</a>
 					
 					
@@ -6544,7 +6442,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.Type">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1047:1124#L37">Type</a>
+				<h3 id="SchemaFieldBuilder.Type">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1041:1118#L37">Type</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.Type">&#xb6;</a>
 					
 					
@@ -6556,7 +6454,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.UI">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1814:1883#L72">UI</a>
+				<h3 id="SchemaFieldBuilder.UI">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1808:1877#L72">UI</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.UI">&#xb6;</a>
 					
 					
@@ -6568,7 +6466,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldBuilder.UIRef">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1912:1985#L77">UIRef</a>
+				<h3 id="SchemaFieldBuilder.UIRef">func (*SchemaFieldBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field_builder.go?s=1906:1979#L77">UIRef</a>
 					<a class="permalink" href="index.html#SchemaFieldBuilder.UIRef">&#xb6;</a>
 					
 					
@@ -6607,7 +6505,7 @@ Schema _
 
 			
 				
-				<h3 id="SchemaFieldChoice.Copy">func (SchemaFieldChoice) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2910:2961#L162">Copy</a>
+				<h3 id="SchemaFieldChoice.Copy">func (SchemaFieldChoice) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2885:2936#L156">Copy</a>
 					<a class="permalink" href="index.html#SchemaFieldChoice.Copy">&#xb6;</a>
 					
 					
@@ -6619,7 +6517,7 @@ Schema _
 				
 			
 				
-				<h3 id="SchemaFieldChoice.SetTitle">func (*SchemaFieldChoice) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2833:2884#L158">SetTitle</a>
+				<h3 id="SchemaFieldChoice.SetTitle">func (*SchemaFieldChoice) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/schema_field.go?s=2808:2859#L152">SetTitle</a>
 					<a class="permalink" href="index.html#SchemaFieldChoice.SetTitle">&#xb6;</a>
 					
 					
@@ -7246,7 +7144,7 @@ Title returns a title of the group
 
 			
 				
-				<h3 id="Seal">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=684:765#L24">Seal</a>
+				<h3 id="Seal">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=719:800#L29">Seal</a>
 					<a class="permalink" href="index.html#Seal">&#xb6;</a>
 					
 					
@@ -7257,7 +7155,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="SealProperty">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=1191:1250#L46">SealProperty</a>
+				<h3 id="SealProperty">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=1226:1285#L51">SealProperty</a>
 					<a class="permalink" href="index.html#SealProperty">&#xb6;</a>
 					
 					
@@ -7270,7 +7168,7 @@ Title returns a title of the group
 
 			
 				
-				<h3 id="Sealed.Field">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4201:4265#L197">Field</a>
+				<h3 id="Sealed.Field">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4135:4199#L197">Field</a>
 					<a class="permalink" href="index.html#Sealed.Field">&#xb6;</a>
 					
 					
@@ -7282,7 +7180,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="Sealed.FieldBy">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4396:4447#L209">FieldBy</a>
+				<h3 id="Sealed.FieldBy">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4330:4381#L209">FieldBy</a>
 					<a class="permalink" href="index.html#Sealed.FieldBy">&#xb6;</a>
 					
 					
@@ -7294,7 +7192,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="Sealed.Interface">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=2559:2610#L105">Interface</a>
+				<h3 id="Sealed.Interface">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=2602:2653#L111">Interface</a>
 					<a class="permalink" href="index.html#Sealed.Interface">&#xb6;</a>
 					
 					
@@ -7306,7 +7204,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="Sealed.Item">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=3521:3575#L157">Item</a>
+				<h3 id="Sealed.Item">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=3455:3509#L157">Item</a>
 					<a class="permalink" href="index.html#Sealed.Item">&#xb6;</a>
 					
 					
@@ -7318,7 +7216,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="Sealed.ItemBy">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=3751:3800#L172">ItemBy</a>
+				<h3 id="Sealed.ItemBy">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=3685:3734#L172">ItemBy</a>
 					<a class="permalink" href="index.html#Sealed.ItemBy">&#xb6;</a>
 					
 					
@@ -7330,7 +7228,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="Sealed.ItemBySchemaGroup">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=3995:4069#L185">ItemBySchemaGroup</a>
+				<h3 id="Sealed.ItemBySchemaGroup">func (*Sealed) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=3929:4003#L185">ItemBySchemaGroup</a>
 					<a class="permalink" href="index.html#Sealed.ItemBySchemaGroup">&#xb6;</a>
 					
 					
@@ -7344,17 +7242,15 @@ Title returns a title of the group
 		
 			
 			
-			<h2 id="SealedField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=538:682#L17">SealedField</a>
+			<h2 id="SealedField">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=538:622#L17">SealedField</a>
 				<a class="permalink" href="index.html#SealedField">&#xb6;</a>
 				
 				
 			</h2>
 			
 			<pre>type SealedField struct {
-<span id="SealedField.ID"></span>    ID            <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>
-<span id="SealedField.Type"></span>    Type          <a href="index.html#ValueType">ValueType</a>
-<span id="SealedField.DatasetValue"></span>    DatasetValue  *<a href="../dataset/index.html">dataset</a>.<a href="../dataset/index.html#Value">Value</a>
-<span id="SealedField.PropertyValue"></span>    PropertyValue *<a href="index.html#Value">Value</a>
+<span id="SealedField.ID"></span>    ID  <a href="../id/index.html">id</a>.<a href="../id/index.html#PropertySchemaFieldID">PropertySchemaFieldID</a>
+<span id="SealedField.Val"></span>    Val *<a href="index.html#ValueAndDatasetValue">ValueAndDatasetValue</a>
 }
 </pre>
 
@@ -7368,6 +7264,18 @@ Title returns a title of the group
 
 			
 
+			
+				
+				<h3 id="SealedField.Value">func (*SealedField) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=624:660#L22">Value</a>
+					<a class="permalink" href="index.html#SealedField.Value">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (f *<a href="index.html#SealedField">SealedField</a>) Value() *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+				
 			
 		
 			
@@ -7400,7 +7308,7 @@ Title returns a title of the group
 
 			
 				
-				<h3 id="SealedItem.Field">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=5082:5150#L244">Field</a>
+				<h3 id="SealedItem.Field">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=5016:5084#L244">Field</a>
 					<a class="permalink" href="index.html#SealedItem.Field">&#xb6;</a>
 					
 					
@@ -7412,7 +7320,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="SealedItem.Group">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4905:4965#L232">Group</a>
+				<h3 id="SealedItem.Group">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4839:4899#L232">Group</a>
 					<a class="permalink" href="index.html#SealedItem.Group">&#xb6;</a>
 					
 					
@@ -7424,7 +7332,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="SealedItem.Interface">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=2811:2855#L121">Interface</a>
+				<h3 id="SealedItem.Interface">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=2854:2898#L127">Interface</a>
 					<a class="permalink" href="index.html#SealedItem.Interface">&#xb6;</a>
 					
 					
@@ -7436,7 +7344,7 @@ Title returns a title of the group
 				
 			
 				
-				<h3 id="SealedItem.Match">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4728:4781#L225">Match</a>
+				<h3 id="SealedItem.Match">func (*SealedItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/sealed.go?s=4662:4715#L225">Match</a>
 					<a class="permalink" href="index.html#SealedItem.Match">&#xb6;</a>
 					
 					
@@ -7450,29 +7358,21 @@ Title returns a title of the group
 		
 			
 			
-			<h2 id="TextAlign">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2234:2255#L90">TextAlign</a>
+			<h2 id="TextAlign">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=966:987#L26">TextAlign</a>
 				<a class="permalink" href="index.html#TextAlign">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-TextAlign _
-</p>
-
+			
 			<pre>type TextAlign <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
 
 			
 				
 				<pre>const (
-    <span class="comment">// TextAlignLeft _</span>
-    <span id="TextAlignLeft">TextAlignLeft</span> <a href="index.html#TextAlign">TextAlign</a> = &#34;left&#34;
-    <span class="comment">// TextAlignCenter _</span>
-    <span id="TextAlignCenter">TextAlignCenter</span> <a href="index.html#TextAlign">TextAlign</a> = &#34;center&#34;
-    <span class="comment">// TextAlignRight _</span>
-    <span id="TextAlignRight">TextAlignRight</span> <a href="index.html#TextAlign">TextAlign</a> = &#34;right&#34;
-    <span class="comment">// TextAlignJustify _</span>
-    <span id="TextAlignJustify">TextAlignJustify</span> <a href="index.html#TextAlign">TextAlign</a> = &#34;justify&#34;
-    <span class="comment">// TextAlignJustifyAll _</span>
+    <span id="TextAlignLeft">TextAlignLeft</span>       <a href="index.html#TextAlign">TextAlign</a> = &#34;left&#34;
+    <span id="TextAlignCenter">TextAlignCenter</span>     <a href="index.html#TextAlign">TextAlign</a> = &#34;center&#34;
+    <span id="TextAlignRight">TextAlignRight</span>      <a href="index.html#TextAlign">TextAlign</a> = &#34;right&#34;
+    <span id="TextAlignJustify">TextAlignJustify</span>    <a href="index.html#TextAlign">TextAlign</a> = &#34;justify&#34;
     <span id="TextAlignJustifyAll">TextAlignJustifyAll</span> <a href="index.html#TextAlign">TextAlign</a> = &#34;justify_all&#34;
 )</pre>
 			
@@ -7485,61 +7385,49 @@ TextAlign _
 
 			
 				
-				<h3 id="TextAlignFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2594:2640#L106">TextAlignFrom</a>
+				<h3 id="TextAlignFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=1213:1259#L36">TextAlignFrom</a>
 					<a class="permalink" href="index.html#TextAlignFrom">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func TextAlignFrom(t <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) (<a href="index.html#TextAlign">TextAlign</a>, <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-TextAlignFrom _
-</p>
-
+				
 				
 				
 			
 				
-				<h3 id="TextAlignFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2997:3040#L123">TextAlignFromRef</a>
+				<h3 id="TextAlignFromRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=1594:1637#L52">TextAlignFromRef</a>
 					<a class="permalink" href="index.html#TextAlignFromRef">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func TextAlignFromRef(t *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#TextAlign">TextAlign</a></pre>
-				<p>
-TextAlignFromRef _
-</p>
-
+				
 				
 				
 			
 
 			
 				
-				<h3 id="TextAlign.String">func (TextAlign) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=3403:3437#L146">String</a>
+				<h3 id="TextAlign.String">func (TextAlign) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=1988:2022#L74">String</a>
 					<a class="permalink" href="index.html#TextAlign.String">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (t <a href="index.html#TextAlign">TextAlign</a>) String() <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
-				<p>
-String _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="TextAlign.StringRef">func (*TextAlign) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=3476:3515#L151">StringRef</a>
+				<h3 id="TextAlign.StringRef">func (*TextAlign) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=2046:2085#L78">StringRef</a>
 					<a class="permalink" href="index.html#TextAlign.StringRef">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (t *<a href="index.html#TextAlign">TextAlign</a>) StringRef() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
-				<p>
-StringRef _
-</p>
-
+				
 				
 				
 				
@@ -7547,15 +7435,12 @@ StringRef _
 		
 			
 			
-			<h2 id="Typography">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1360:1900#L61">Typography</a>
+			<h2 id="Typography">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=118:658#L1">Typography</a>
 				<a class="permalink" href="index.html#Typography">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Typography _
-</p>
-
+			
 			<pre>type Typography struct {
 <span id="Typography.FontFamily"></span>    FontFamily *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;fontFamily&#34; mapstructure:&#34;fontFamily&#34;`
 <span id="Typography.FontWeight"></span>    FontWeight *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>    `json:&#34;fontWeight&#34; mapstructure:&#34;fontWeight&#34;`
@@ -7580,31 +7465,13 @@ Typography _
 
 			
 				
-				<h3 id="Typography.Clone">func (*Typography) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1913:1953#L73">Clone</a>
+				<h3 id="Typography.Clone">func (*Typography) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=660:700#L10">Clone</a>
 					<a class="permalink" href="index.html#Typography.Clone">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (t *<a href="index.html#Typography">Typography</a>) Clone() *<a href="index.html#Typography">Typography</a></pre>
-				<p>
-Clone _
-</p>
-
 				
-				
-				
-			
-				
-				<h3 id="Typography.Value">func (Typography) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=4639:4673#L213">Value</a>
-					<a class="permalink" href="index.html#Typography.Value">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#Typography">Typography</a>) Value() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Value _
-</p>
-
 				
 				
 				
@@ -7649,15 +7516,12 @@ Value _
 		
 			
 			
-			<h2 id="Value">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=2280:2329#L95">Value</a>
+			<h2 id="Value">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1315:1351#L42">Value</a>
 				<a class="permalink" href="index.html#Value">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-Value _
-</p>
-
+			
 			<pre>type Value struct {
     <span class="comment">// contains filtered or unexported fields</span>
 }
@@ -7672,271 +7536,219 @@ Value _
 			
 
 			
+				
+				<h3 id="ValueFromStringOrNumber">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=3293:3338#L192">ValueFromStringOrNumber</a>
+					<a class="permalink" href="index.html#ValueFromStringOrNumber">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func ValueFromStringOrNumber(s <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+			
 
 			
 				
-				<h3 id="Value.Clone">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=2422:2452#L106">Clone</a>
+				<h3 id="Value.Clone">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1423:1453#L50">Clone</a>
 					<a class="permalink" href="index.html#Value.Clone">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (v *<a href="index.html#Value">Value</a>) Clone() *<a href="index.html#Value">Value</a></pre>
-				<p>
-Clone _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.Interface">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=11852:11891#L530">Interface</a>
+				<h3 id="Value.Interface">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1780:1819#L75">Interface</a>
 					<a class="permalink" href="index.html#Value.Interface">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (v *<a href="index.html#Value">Value</a>) Interface() interface{}</pre>
-				<p>
-Interface converts the value into generic representation
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.IsEmpty">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=2344:2374#L101">IsEmpty</a>
+				<h3 id="Value.IsEmpty">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1353:1383#L46">IsEmpty</a>
 					<a class="permalink" href="index.html#Value.IsEmpty">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (v *<a href="index.html#Value">Value</a>) IsEmpty() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
-				<p>
-IsEmpty _
-</p>
-
-				
-				
-				
-			
-				
-				<h3 id="Value.MarshalJSON">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=13068:13113#L591">MarshalJSON</a>
-					<a class="permalink" href="index.html#Value.MarshalJSON">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) MarshalJSON() ([]<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
 				
 			
 				
-				<h3 id="Value.Type">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=4249:4281#L230">Type</a>
+				<h3 id="Value.Type">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1564:1596#L61">Type</a>
 					<a class="permalink" href="index.html#Value.Type">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (v *<a href="index.html#Value">Value</a>) Type() <a href="index.html#ValueType">ValueType</a></pre>
-				<p>
-Type _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.Value">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=2533:2568#L114">Value</a>
+				<h3 id="Value.Value">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1688:1723#L68">Value</a>
 					<a class="permalink" href="index.html#Value.Value">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (v *<a href="index.html#Value">Value</a>) Value() interface{}</pre>
-				<p>
-Value _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueBool">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=2633:2679#L122">ValueBool</a>
+				<h3 id="Value.ValueBool">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1880:1913#L82">ValueBool</a>
 					<a class="permalink" href="index.html#Value.ValueBool">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueBool() (vv <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueBool  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueBool() *<a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueCamera">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3565:3615#L185">ValueCamera</a>
+				<h3 id="Value.ValueCamera">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_camera.go?s=1278:1328#L54">ValueCamera</a>
 					<a class="permalink" href="index.html#Value.ValueCamera">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (v *<a href="index.html#Value">Value</a>) ValueCamera() (vv <a href="index.html#Camera">Camera</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueCamera  _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueCoordinates">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3850:3910#L203">ValueCoordinates</a>
+				<h3 id="Value.ValueCoordinates">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2861:2908#L159">ValueCoordinates</a>
 					<a class="permalink" href="index.html#Value.ValueCoordinates">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueCoordinates() (vv <a href="index.html#Coordinates">Coordinates</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueCoordinates  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueCoordinates() *<a href="index.html#Coordinates">Coordinates</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueLatLng">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3277:3327#L167">ValueLatLng</a>
+				<h3 id="Value.ValueLatLng">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2563:2600#L137">ValueLatLng</a>
 					<a class="permalink" href="index.html#Value.ValueLatLng">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLng() (vv <a href="index.html#LatLng">LatLng</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueLatLng  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLng() *<a href="index.html#LatLng">LatLng</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueLatLngHeight">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3415:3477#L176">ValueLatLngHeight</a>
+				<h3 id="Value.ValueLatLngHeight">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2703:2752#L148">ValueLatLngHeight</a>
 					<a class="permalink" href="index.html#Value.ValueLatLngHeight">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLngHeight() (vv <a href="index.html#LatLngHeight">LatLngHeight</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueLatLngHeight  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueLatLngHeight() *<a href="index.html#LatLngHeight">LatLngHeight</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueNumber">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=2758:2809#L131">ValueNumber</a>
+				<h3 id="Value.ValueNumber">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2014:2052#L93">ValueNumber</a>
 					<a class="permalink" href="index.html#Value.ValueNumber">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueNumber() (vv <a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueNumber _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueNumber() *<a href="/reearth/reearth-backend/main/pkg/builtin/#float64">float64</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValuePolygon">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3998:4050#L212">ValuePolygon</a>
+				<h3 id="Value.ValuePolygon">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=3150:3189#L181">ValuePolygon</a>
 					<a class="permalink" href="index.html#Value.ValuePolygon">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValuePolygon() (vv <a href="index.html#Polygon">Polygon</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValuePolygon  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValuePolygon() *<a href="index.html#Polygon">Polygon</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueRect">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=4131:4177#L221">ValueRect</a>
+				<h3 id="Value.ValueRect">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=3016:3049#L170">ValueRect</a>
 					<a class="permalink" href="index.html#Value.ValueRect">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueRect() (vv <a href="index.html#Rect">Rect</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueRect  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueRect() *<a href="index.html#Rect">Rect</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueRef">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3020:3066#L149">ValueRef</a>
+				<h3 id="Value.ValueRef">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2295:2329#L115">ValueRef</a>
 					<a class="permalink" href="index.html#Value.ValueRef">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueRef() (vv <a href="../id/index.html">id</a>.<a href="../id/index.html#ID">ID</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueRef _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueRef() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueString">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=2892:2942#L140">ValueString</a>
+				<h3 id="Value.ValueString">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2155:2192#L104">ValueString</a>
 					<a class="permalink" href="index.html#Value.ValueString">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueString() (vv <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueString  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueString() *<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueTypography">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3701:3759#L194">ValueTypography</a>
+				<h3 id="Value.ValueTypography">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_typography.go?s=2721:2779#L117">ValueTypography</a>
 					<a class="permalink" href="index.html#Value.ValueTypography">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (v *<a href="index.html#Value">Value</a>) ValueTypography() (vv <a href="index.html#Typography">Typography</a>, ok <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueTypography  _
-</p>
-
+				
 				
 				
 				
 			
 				
-				<h3 id="Value.ValueURL">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=3144:3193#L158">ValueURL</a>
+				<h3 id="Value.ValueURL">func (*Value) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=2429:2464#L126">ValueURL</a>
 					<a class="permalink" href="index.html#Value.ValueURL">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (v *<a href="index.html#Value">Value</a>) ValueURL() (vv *<a href="/reearth/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a>, ok <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueURL  _
-</p>
-
+				<pre>func (v *<a href="index.html#Value">Value</a>) ValueURL() *<a href="/reearth/reearth-backend/main/pkg/net/url/">url</a>.<a href="http://localhost:8080/pkg/net/url/#URL">URL</a></pre>
+				
 				
 				
 				
@@ -7944,15 +7756,16 @@ ValueURL  _
 		
 			
 			
-			<h2 id="ValueInner">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=18:63#L1">ValueInner</a>
-				<a class="permalink" href="index.html#ValueInner">&#xb6;</a>
+			<h2 id="ValueAndDatasetValue">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_dataset.go?s=128:205#L1">ValueAndDatasetValue</a>
+				<a class="permalink" href="index.html#ValueAndDatasetValue">&#xb6;</a>
 				
 				
 			</h2>
 			
-			<pre>type ValueInner interface {
-    Value() *<a href="index.html#Value">Value</a>
-}</pre>
+			<pre>type ValueAndDatasetValue struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
 
 			
 
@@ -7963,191 +7776,109 @@ ValueURL  _
 			
 
 			
+				
+				<h3 id="NewValueAndDatasetValue">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_dataset.go?s=207:299#L4">NewValueAndDatasetValue</a>
+					<a class="permalink" href="index.html#NewValueAndDatasetValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewValueAndDatasetValue(ty <a href="index.html#ValueType">ValueType</a>, d *<a href="../dataset/index.html">dataset</a>.<a href="../dataset/index.html#Value">Value</a>, p *<a href="index.html#Value">Value</a>) *<a href="index.html#ValueAndDatasetValue">ValueAndDatasetValue</a></pre>
+				
+				
+				
+			
 
+			
+				
+				<h3 id="ValueAndDatasetValue.DatasetValue">func (*ValueAndDatasetValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_dataset.go?s=613:673#L31">DatasetValue</a>
+					<a class="permalink" href="index.html#ValueAndDatasetValue.DatasetValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#ValueAndDatasetValue">ValueAndDatasetValue</a>) DatasetValue() *<a href="../dataset/index.html">dataset</a>.<a href="../dataset/index.html#Value">Value</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ValueAndDatasetValue.PropertyValue">func (*ValueAndDatasetValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_dataset.go?s=749:802#L38">PropertyValue</a>
+					<a class="permalink" href="index.html#ValueAndDatasetValue.PropertyValue">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#ValueAndDatasetValue">ValueAndDatasetValue</a>) PropertyValue() *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ValueAndDatasetValue.Type">func (*ValueAndDatasetValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_dataset.go?s=504:551#L24">Type</a>
+					<a class="permalink" href="index.html#ValueAndDatasetValue.Type">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#ValueAndDatasetValue">ValueAndDatasetValue</a>) Type() <a href="index.html#ValueType">ValueType</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ValueAndDatasetValue.Value">func (*ValueAndDatasetValue) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_dataset.go?s=878:923#L45">Value</a>
+					<a class="permalink" href="index.html#ValueAndDatasetValue.Value">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (v *<a href="index.html#ValueAndDatasetValue">ValueAndDatasetValue</a>) Value() *<a href="index.html#Value">Value</a></pre>
+				
+				
+				
+				
 			
 		
 			
 			
-			<h2 id="ValueType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=163:184#L3">ValueType</a>
+			<h2 id="ValueType">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=257:282#L6">ValueType</a>
 				<a class="permalink" href="index.html#ValueType">&#xb6;</a>
 				
 				
 			</h2>
-			<p>
-ValueType _
-</p>
-
-			<pre>type ValueType <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a></pre>
-
 			
-				
-				<pre>const (
-    <span class="comment">// ValueTypeBool _</span>
-    <span id="ValueTypeBool">ValueTypeBool</span> <a href="index.html#ValueType">ValueType</a> = &#34;bool&#34;
-    <span class="comment">// ValueTypeNumber _</span>
-    <span id="ValueTypeNumber">ValueTypeNumber</span> <a href="index.html#ValueType">ValueType</a> = &#34;number&#34;
-    <span class="comment">// ValueTypeString _</span>
-    <span id="ValueTypeString">ValueTypeString</span> <a href="index.html#ValueType">ValueType</a> = &#34;string&#34;
-    <span class="comment">// ValueTypeRef _</span>
-    <span id="ValueTypeRef">ValueTypeRef</span> <a href="index.html#ValueType">ValueType</a> = &#34;ref&#34;
-    <span class="comment">// ValueTypeURL _</span>
-    <span id="ValueTypeURL">ValueTypeURL</span> <a href="index.html#ValueType">ValueType</a> = &#34;url&#34;
-    <span class="comment">// ValueTypeLatLng _</span>
-    <span id="ValueTypeLatLng">ValueTypeLatLng</span> <a href="index.html#ValueType">ValueType</a> = &#34;latlng&#34;
-    <span class="comment">// ValueTypeLatLngHeight _</span>
-    <span id="ValueTypeLatLngHeight">ValueTypeLatLngHeight</span> <a href="index.html#ValueType">ValueType</a> = &#34;latlngheight&#34;
-    <span class="comment">// ValueTypeCamera _</span>
-    <span id="ValueTypeCamera">ValueTypeCamera</span> <a href="index.html#ValueType">ValueType</a> = &#34;camera&#34;
-    <span class="comment">// ValueTypeTypography _</span>
-    <span id="ValueTypeTypography">ValueTypeTypography</span> <a href="index.html#ValueType">ValueType</a> = &#34;typography&#34;
-    <span class="comment">// ValueTypeCoordinates _</span>
-    <span id="ValueTypeCoordinates">ValueTypeCoordinates</span> <a href="index.html#ValueType">ValueType</a> = &#34;coordinates&#34;
-    <span class="comment">// ValueTypePolygon</span>
-    <span id="ValueTypePolygon">ValueTypePolygon</span> <a href="index.html#ValueType">ValueType</a> = &#34;polygon&#34;
-    <span class="comment">// ValueTypeRect</span>
-    <span id="ValueTypeRect">ValueTypeRect</span> <a href="index.html#ValueType">ValueType</a> = &#34;rect&#34;
-)</pre>
+			<pre>type ValueType <a href="../value/index.html">value</a>.<a href="../value/index.html#Type">Type</a></pre>
+
 			
 
 			
 
 			
 			
+			
+
 			
 
 			
 				
-				<h3 id="ValueTypeFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=950:996#L33">ValueTypeFrom</a>
-					<a class="permalink" href="index.html#ValueTypeFrom">&#xb6;</a>
+				<h3 id="ValueType.Valid">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1035:1067#L27">Valid</a>
+					<a class="permalink" href="index.html#ValueType.Valid">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func ValueTypeFrom(t <a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>) (<a href="index.html#ValueType">ValueType</a>, <a href="http://localhost:8080/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueTypeFrom _
-</p>
-
-				
-				
-			
-
-			
-				
-				<h3 id="ValueType.MarshalJSON">func (*ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=11086:11135#L493">MarshalJSON</a>
-					<a class="permalink" href="index.html#ValueType.MarshalJSON">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t *<a href="index.html#ValueType">ValueType</a>) MarshalJSON() ([]<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
+				<pre>func (vt <a href="index.html#ValueType">ValueType</a>) Valid() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
 				
 				
 				
 				
 			
 				
-				<h3 id="ValueType.MarshalText">func (*ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=11480:11529#L513">MarshalText</a>
-					<a class="permalink" href="index.html#ValueType.MarshalText">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t *<a href="index.html#ValueType">ValueType</a>) MarshalText() ([]<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>, <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="ValueType.MustBeValue">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=4459:4511#L243">MustBeValue</a>
-					<a class="permalink" href="index.html#ValueType.MustBeValue">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#ValueType">ValueType</a>) MustBeValue(v interface{}) *<a href="index.html#Value">Value</a></pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="ValueType.UnmarshalJSON">func (*ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=11210:11266#L500">UnmarshalJSON</a>
-					<a class="permalink" href="index.html#ValueType.UnmarshalJSON">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t *<a href="index.html#ValueType">ValueType</a>) UnmarshalJSON(bs []<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>) (err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="ValueType.UnmarshalText">func (*ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=11595:11653#L520">UnmarshalText</a>
-					<a class="permalink" href="index.html#ValueType.UnmarshalText">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t *<a href="index.html#ValueType">ValueType</a>) UnmarshalText(text []<a href="/reearth/reearth-backend/main/pkg/builtin/#byte">byte</a>) (err <a href="http://localhost:8080/pkg/builtin/#error">error</a>)</pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="ValueType.Validate">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=1731:1778#L64">Validate</a>
-					<a class="permalink" href="index.html#ValueType.Validate">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#ValueType">ValueType</a>) Validate() (<a href="index.html#ValueType">ValueType</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-Validate _
-</p>
-
-				
-				
-				
-			
-				
-				<h3 id="ValueType.ValidateValue">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=10014:10061#L432">ValidateValue</a>
-					<a class="permalink" href="index.html#ValueType.ValidateValue">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#ValueType">ValueType</a>) ValidateValue(v *<a href="index.html#Value">Value</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
-				<p>
-ValidateValue _
-</p>
-
-				
-				
-				
-			
-				
-				<h3 id="ValueType.ValueFrom">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=4631:4689#L252">ValueFrom</a>
+				<h3 id="ValueType.ValueFrom">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value.go?s=1164:1215#L34">ValueFrom</a>
 					<a class="permalink" href="index.html#ValueType.ValueFrom">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (t <a href="index.html#ValueType">ValueType</a>) ValueFrom(v interface{}) (*<a href="index.html#Value">Value</a>, <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
-				<p>
-ValueFrom _
-</p>
-
+				<pre>func (vt <a href="index.html#ValueType">ValueType</a>) ValueFrom(i interface{}) *<a href="index.html#Value">Value</a></pre>
 				
-				
-				
-			
-				
-				<h3 id="ValueType.ValueFromUnsafe">func (ValueType) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/property/value_type.go?s=4361:4417#L238">ValueFromUnsafe</a>
-					<a class="permalink" href="index.html#ValueType.ValueFromUnsafe">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (t <a href="index.html#ValueType">ValueType</a>) ValueFromUnsafe(v interface{}) *<a href="index.html#Value">Value</a></pre>
-				<p>
-ValueFromUnsafe _
-</p>
-
 				
 				
 				

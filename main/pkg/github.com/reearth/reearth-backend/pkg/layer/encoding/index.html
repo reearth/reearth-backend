@@ -110,8 +110,6 @@
 			<dl>
 			
 			
-				<dd><a href="index.html#pkg-variables">Variables</a></dd>
-			
 			
 			
 				
@@ -163,7 +161,7 @@
 				
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#KMLEncoder.Encode">func (e *KMLEncoder) Encode(layer merging.SealedLayer) error</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#KMLEncoder.Encode">func (e *KMLEncoder) Encode(layer merging.SealedLayer) (err error)</a></dd>
 				
 			
 				
@@ -212,17 +210,11 @@
 
 		
 		
-			<h2 id="pkg-variables">Variables</h2>
-			
-				
-				<pre>var <span id="ErrInvalidColor">ErrInvalidColor</span> = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;invalid color&#34;)</pre>
-			
-		
 		
 		
 			
 			
-			<h2 id="CZMLEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=263:308#L4">CZMLEncoder</a>
+			<h2 id="CZMLEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=212:257#L3">CZMLEncoder</a>
 				<a class="permalink" href="index.html#CZMLEncoder">&#xb6;</a>
 				
 				
@@ -243,7 +235,7 @@
 
 			
 				
-				<h3 id="NewCZMLEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=310:355#L8">NewCZMLEncoder</a>
+				<h3 id="NewCZMLEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=259:304#L7">NewCZMLEncoder</a>
 					<a class="permalink" href="index.html#NewCZMLEncoder">&#xb6;</a>
 					
 					
@@ -256,7 +248,7 @@
 
 			
 				
-				<h3 id="CZMLEncoder.Encode">func (*CZMLEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=6192:6253#L238">Encode</a>
+				<h3 id="CZMLEncoder.Encode">func (*CZMLEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/czml.go?s=4202:4263#L158">Encode</a>
 					<a class="permalink" href="index.html#CZMLEncoder.Encode">&#xb6;</a>
 					
 					
@@ -391,7 +383,7 @@
 
 			
 				
-				<h3 id="GeoJSONEncoder.Encode">func (*GeoJSONEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/geojson.go?s=4788:4852#L178">Encode</a>
+				<h3 id="GeoJSONEncoder.Encode">func (*GeoJSONEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/geojson.go?s=3271:3335#L119">Encode</a>
 					<a class="permalink" href="index.html#GeoJSONEncoder.Encode">&#xb6;</a>
 					
 					
@@ -405,7 +397,7 @@
 		
 			
 			
-			<h2 id="KMLEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=282:355#L7">KMLEncoder</a>
+			<h2 id="KMLEncoder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=181:254#L2">KMLEncoder</a>
 				<a class="permalink" href="index.html#KMLEncoder">&#xb6;</a>
 				
 				
@@ -426,7 +418,7 @@
 
 			
 				
-				<h3 id="NewKMLEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=357:400#L12">NewKMLEncoder</a>
+				<h3 id="NewKMLEncoder">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=256:299#L7">NewKMLEncoder</a>
 					<a class="permalink" href="index.html#NewKMLEncoder">&#xb6;</a>
 					
 					
@@ -439,12 +431,12 @@
 
 			
 				
-				<h3 id="KMLEncoder.Encode">func (*KMLEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=9559:9619#L383">Encode</a>
+				<h3 id="KMLEncoder.Encode">func (*KMLEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/kml.go?s=6537:6603#L249">Encode</a>
 					<a class="permalink" href="index.html#KMLEncoder.Encode">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (e *<a href="index.html#KMLEncoder">KMLEncoder</a>) Encode(layer <a href="../merging/index.html">merging</a>.<a href="../merging/index.html#SealedLayer">SealedLayer</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
+				<pre>func (e *<a href="index.html#KMLEncoder">KMLEncoder</a>) Encode(layer <a href="../merging/index.html">merging</a>.<a href="../merging/index.html#SealedLayer">SealedLayer</a>) (err <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>)</pre>
 				
 				
 				
@@ -487,7 +479,7 @@
 
 			
 				
-				<h3 id="SHPEncoder.Encode">func (*SHPEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/shp.go?s=3895:3955#L168">Encode</a>
+				<h3 id="SHPEncoder.Encode">func (*SHPEncoder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/encoding/shp.go?s=3122:3182#L143">Encode</a>
 					<a class="permalink" href="index.html#SHPEncoder.Encode">&#xb6;</a>
 					
 					
