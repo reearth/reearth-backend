@@ -9,13 +9,12 @@ import (
 	"strings"
 
 	"github.com/caos/oidc/pkg/op"
+	"github.com/golang/gddo/httputil/header"
 	"github.com/gorilla/mux"
 	"github.com/labstack/echo/v4"
 	"github.com/reearth/reearth-backend/internal/app/appauth"
 	"github.com/reearth/reearth-backend/internal/usecase/interactor"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
-
-	"github.com/golang/gddo/httputil/header"
 )
 
 var (
@@ -60,6 +59,7 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 			Debug:  cfg.Debug,
 			DN:     dn,
 		},
+		cfg.Repos.AuthRequest,
 		userUsecase.GetUserBySubject,
 	)
 	handler, err := op.NewOpenIDProvider(

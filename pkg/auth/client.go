@@ -1,4 +1,4 @@
-package appauth
+package auth
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ type ConfClient struct {
 	devMode            bool
 }
 
-func initLocalClient(devMode bool) op.Client {
+func NewLocalClient(devMode bool) op.Client {
 	return &ConfClient{
 		ID:              "01FH69GFQ4DFCXS5XD91JK4HZ1",
 		applicationType: op.ApplicationTypeWeb,
