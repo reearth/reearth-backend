@@ -127,8 +127,7 @@ func ToPropertyField(f *property.Field, parent *property.Property, gl *property.
 	}
 
 	return &PropertyField{
-		// TODO: PropertySchemaFieldID is mismatched
-		ID:       id.PropertySchemaFieldID(propertyFieldID(parent, gl, g, f)),
+		ID:       propertyFieldID(parent, gl, g, f),
 		ParentID: parent.ID().ID(),
 		SchemaID: parent.Schema(),
 		FieldID:  f.Field(),
