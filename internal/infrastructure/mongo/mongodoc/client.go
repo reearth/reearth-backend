@@ -7,7 +7,6 @@ import (
 	"io"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -165,22 +164,13 @@ func getCursor(raw bson.Raw, key string) (*usecase.Cursor, error) {
 	return &c, nil
 }
 
-func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, sortFilter *interfaces.AssetFilterType, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, findOptions *options.FindOptions, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	if p == nil {
 		return nil, nil
 	}
 	coll := c.Collection(col)
 
 	key := "id"
-	if sortFilter != nil {
-		sortFilter2 := *sortFilter
-		switch sortFilter2 {
-		case interfaces.AssetFilterName:
-			key = "name"
-		case interfaces.AssetFilterSize:
-			key = "size"
-		}
-	}
 
 	count, err := coll.CountDocuments(ctx, filter)
 	if err != nil {
@@ -188,37 +178,36 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 	}
 
 	var limit int64
-	findOptions := options.Find()
-	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
 
 	if first := p.First; first != nil {
 		limit = int64(*first)
-		findOptions.Sort = bson.D{
-			{Key: key, Value: 1},
-		}
 		if after := p.After; after != nil {
-			filter = appendE(filter, bson.E{Key: "id", Value: bson.D{
+			filter = appendE(filter, bson.E{Key: key, Value: bson.D{
 				{Key: "$gt", Value: *after},
 			}})
 		}
-	}
-	if last := p.Last; last != nil {
+	} else if last := p.Last; last != nil {
 		limit = int64(*last)
-		findOptions.Sort = bson.D{
-			{Key: key, Value: -1},
-		}
 		if before := p.Before; before != nil {
-			filter = appendE(filter, bson.E{Key: "id", Value: bson.D{
+			filter = appendE(filter, bson.E{Key: key, Value: bson.D{
 				{Key: "$lt", Value: *before},
 			}})
 		}
 	}
+
+	var findOptions2 *options.FindOptions
+	if findOptions != nil {
+		findOptions2 = findOptions
+	} else {
+		findOptions2 = options.Find()
+	}
+
 	// 更に読める要素があるのか確かめるために一つ多めに読み出す
 	// Read one more element so that we can see whether there's a further one
 	limit++
-	findOptions.Limit = &limit
+	findOptions2.Limit = &limit
 
-	cursor, err := coll.Find(ctx, filter, findOptions)
+	cursor, err := coll.Find(ctx, filter, findOptions2)
 	if err != nil {
 		return nil, fmt.Errorf("failed to find: %v", err.Error())
 	}
@@ -251,12 +240,12 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 
 	var startCursor, endCursor *usecase.Cursor
 	if len(results) > 0 {
-		sc, err := getCursor(results[0], "id")
+		sc, err := getCursor(results[0], key)
 		if err != nil {
 			return nil, fmt.Errorf("failed to get start cursor: %v", err.Error())
 		}
 		startCursor = sc
-		ec, err := getCursor(results[len(results)-1], "id")
+		ec, err := getCursor(results[len(results)-1], key)
 		if err != nil {
 			return nil, fmt.Errorf("failed to get end cursor: %v", err.Error())
 		}

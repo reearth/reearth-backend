@@ -5,11 +5,11 @@ import (
 	"sync"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/asset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Asset struct {
@@ -67,7 +67,7 @@ func (r *Asset) Remove(ctx context.Context, id id.AssetID) error {
 	return nil
 }
 
-func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, sortFilter *interfaces.AssetFilterType, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 

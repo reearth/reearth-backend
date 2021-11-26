@@ -2,13 +2,14 @@ package gql
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type AssetLoader struct {
@@ -35,12 +36,31 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 
 func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, filter *gqlmodel.AssetFilterType, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
-	var f interfaces.AssetFilterType
+
+	findOptions := options.Find()
+	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
+
+	sortType := "id"
 	if filter != nil {
-		f = interfaces.AssetFilterType(*filter)
+		switch *filter {
+		case gqlmodel.AssetFilterTypeName:
+			sortType = "name"
+		case gqlmodel.AssetFilterTypeSize:
+			sortType = "size"
+		}
 	}
-	fmt.Println(f)
-	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), &f, p, getOperator(ctx))
+
+	if first != nil {
+		findOptions.Sort = bson.D{
+			{Key: sortType, Value: 1},
+		}
+	} else if last != nil {
+		findOptions.Sort = bson.D{
+			{Key: sortType, Value: -1},
+		}
+	}
+
+	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), findOptions, p, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}

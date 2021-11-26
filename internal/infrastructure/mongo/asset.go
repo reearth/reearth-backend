@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
 	"github.com/reearth/reearth-backend/internal/usecase"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/asset"
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -53,11 +53,11 @@ func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
 	return r.client.RemoveOne(ctx, id.String())
 }
 
-func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, filter *interfaces.AssetFilterType, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
-	f := bson.D{
+func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+	filter := bson.D{
 		{Key: "team", Value: id.String()},
 	}
-	return r.paginate(ctx, f, filter, pagination)
+	return r.paginate(ctx, filter, findOptions, pagination)
 }
 
 func (r *assetRepo) init() {
@@ -67,9 +67,9 @@ func (r *assetRepo) init() {
 	}
 }
 
-func (r *assetRepo) paginate(ctx context.Context, filter bson.D, sortFilter *interfaces.AssetFilterType, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *assetRepo) paginate(ctx context.Context, filter bson.D, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	var c mongodoc.AssetConsumer
-	pageInfo, err2 := r.client.Paginate(ctx, filter, sortFilter, pagination, &c)
+	pageInfo, err2 := r.client.Paginate(ctx, filter, findOptions, pagination, &c)
 	if err2 != nil {
 		return nil, nil, rerror.ErrInternalBy(err2)
 	}

@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type ClientCollection struct {
@@ -29,8 +29,8 @@ func (c *ClientCollection) Count(ctx context.Context, filter interface{}) (int64
 	return c.Client.Count(ctx, c.CollectionName, filter)
 }
 
-func (c *ClientCollection) Paginate(ctx context.Context, filter interface{}, sortFilter *interfaces.AssetFilterType, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
-	return c.Client.Paginate(ctx, c.CollectionName, filter, sortFilter, p, consumer)
+func (c *ClientCollection) Paginate(ctx context.Context, filter interface{}, findOptions *options.FindOptions, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+	return c.Client.Paginate(ctx, c.CollectionName, filter, findOptions, p, consumer)
 }
 
 func (c *ClientCollection) SaveOne(ctx context.Context, id string, replacement interface{}) error {
