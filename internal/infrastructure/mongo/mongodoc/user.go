@@ -1,6 +1,8 @@
 package mongodoc
 
 import (
+	"time"
+
 	"go.mongodb.org/mongo-driver/bson"
 
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -17,6 +19,13 @@ type UserDocument struct {
 	Team         string
 	Lang         string
 	Theme        string
+	Verification *UserVerificationDoc
+}
+
+type UserVerificationDoc struct {
+	Code       string
+	Expiration time.Time
+	Verified   bool
 }
 
 type UserConsumer struct {
@@ -56,6 +65,11 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 		Team:         user.Team().String(),
 		Lang:         user.Lang().String(),
 		Theme:        string(user.Theme()),
+		Verification: &UserVerificationDoc{
+			Code:       user.Verification().Code(),
+			Expiration: user.Verification().Expiration(),
+			Verified:   user.Verification().IsVerified(),
+		},
 	}, id
 }
 
@@ -75,6 +89,12 @@ func (d *UserDocument) Model() (*user1.User, error) {
 	if d.Auth0Sub != "" {
 		auths = append(auths, user.AuthFromAuth0Sub(d.Auth0Sub))
 	}
+	var v *user.Verification
+	if d.Verification != nil {
+
+		v = user.NewVerificationFrom(d.Verification.Code, d.Verification.Expiration, d.Verification.Verified)
+	}
+
 	user, err := user1.New().
 		ID(uid).
 		Name(d.Name).
@@ -82,6 +102,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Auths(auths).
 		Team(tid).
 		LangFrom(d.Lang).
+		Verification(v).
 		Theme(user.Theme(d.Theme)).
 		Build()
 	if err != nil {

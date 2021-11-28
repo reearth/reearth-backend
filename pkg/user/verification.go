@@ -65,3 +65,12 @@ func NewVerification() *Verification {
 	}
 	return v
 }
+
+func NewVerificationFrom(c string, e time.Time, b bool) *Verification {
+	v := &Verification{
+		verified:   b,
+		code:       c,
+		expiration: e,
+	}
+	return v
+}

@@ -135,3 +135,7 @@ func (u *User) RemoveAuthByProvider(provider string) bool {
 func (u *User) ClearAuths() {
 	u.auths = []Auth{}
 }
+
+func (u *User) SetVerification(v *Verification) {
+	u.verification = v
+}

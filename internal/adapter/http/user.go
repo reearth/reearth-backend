@@ -17,12 +17,17 @@ func NewUserController(usecase interfaces.User) *UserController {
 	}
 }
 
-type VerifyUserInput struct {
+type CreateVerificationInput struct {
 	Email string `json:"email"`
 }
 
-type VerifyUserOutput struct {
+type CreateVerificationOutput struct {
 	Message string `json:"message"`
+}
+
+type VerifyUserOutput struct {
+	UserID   string `json:"userId"`
+	Verified bool   `json:"verified"`
 }
 
 type CreateUserInput struct {
@@ -38,13 +43,6 @@ type CreateUserOutput struct {
 	Email string `json:"email"`
 }
 
-func (c *UserController) CreateVerification(ctx context.Context, input VerifyUserInput) (interface{}, error) {
-	res, err := c.usecase.CreateVerification(ctx, input.Email)
-	if err != nil {
-		return nil, err
-	}
-	return VerifyUserOutput{Message: res}, nil
-}
 func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) (interface{}, error) {
 	u, _, err := c.usecase.Signup(ctx, interfaces.SignupParam{
 		Sub:    input.Sub,
@@ -60,5 +58,24 @@ func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) 
 		ID:    u.ID().String(),
 		Name:  u.Name(),
 		Email: u.Email(),
+	}, nil
+}
+
+func (c *UserController) CreateVerification(ctx context.Context, input CreateVerificationInput) (interface{}, error) {
+	res, err := c.usecase.CreateVerification(ctx, input.Email)
+	if err != nil {
+		return nil, err
+	}
+	return CreateVerificationOutput{Message: res}, nil
+}
+
+func (c *UserController) VerifyUser(ctx context.Context, code string) (interface{}, error) {
+	u, err := c.usecase.VerifyUser(ctx, code)
+	if err != nil {
+		return nil, err
+	}
+	return VerifyUserOutput{
+		UserID:   u.ID().String(),
+		Verified: u.Verification().IsVerified(),
 	}, nil
 }

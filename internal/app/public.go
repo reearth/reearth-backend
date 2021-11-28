@@ -40,12 +40,25 @@ func publicAPI(
 	})
 
 	r.POST("/signup/verify", func(c echo.Context) error {
-		var inp http1.VerifyUserInput
+		var inp http1.CreateVerificationInput
 		if err := c.Bind(&inp); err != nil {
 			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
 		}
-
 		output, err := controller.CreateVerification(c.Request().Context(), inp)
+		if err != nil {
+			return err
+		}
+
+		return c.JSON(http.StatusOK, output)
+	})
+
+	r.GET("/signup/verify/:code", func(c echo.Context) error {
+		code := c.Param("code")
+		if len(code) == 0 {
+			return echo.ErrBadRequest
+		}
+
+		output, err := controller.VerifyUser(c.Request().Context(), code)
 		if err != nil {
 			return err
 		}

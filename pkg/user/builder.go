@@ -76,3 +76,8 @@ func (b *Builder) Auths(auths []Auth) *Builder {
 	b.u.auths = append([]Auth{}, auths...)
 	return b
 }
+
+func (b *Builder) Verification(v *Verification) *Builder {
+	b.u.verification = v
+	return b
+}
