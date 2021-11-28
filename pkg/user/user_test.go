@@ -2,6 +2,7 @@ package user
 
 import (
 	"testing"
+	"time"
 
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
@@ -314,4 +315,16 @@ func TestUser_GetAuthByProvider(t *testing.T) {
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}
+}
+
+func TestUser_SetVerification(t *testing.T) {
+	var input *User
+	input = &User{}
+	v := &Verification{
+		verified:   false,
+		code:       "xxx",
+		expiration: time.Time{},
+	}
+	input.SetVerification(v)
+	assert.Equal(t, v, input.Verification())
 }
