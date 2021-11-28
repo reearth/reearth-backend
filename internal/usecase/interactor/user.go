@@ -28,6 +28,7 @@ type User struct {
 	transaction       repo.Transaction
 	file              gateway.File
 	authenticator     gateway.Authenticator
+	mailer            gateway.Mailer
 	signupSecret      string
 }
 
@@ -46,6 +47,7 @@ func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) inter
 		file:              g.File,
 		authenticator:     g.Authenticator,
 		signupSecret:      signupSecret,
+		mailer:            g.Mailer,
 	}
 }
 
@@ -413,6 +415,15 @@ func (i *User) CreateVerification(ctx context.Context, email string) (string, er
 		return "", err
 	}
 
+	err = i.mailer.SendMail([]gateway.Contact{
+		{
+			Email: u.Email(),
+			Name:  u.Name(),
+		},
+	}, "email verification", "", "")
+	if err != nil {
+		return "", err
+	}
 	tx.Commit()
 	return "verification created", nil
 }
