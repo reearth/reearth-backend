@@ -37,6 +37,7 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/paulmach/go.geojson v1.4.0
 	github.com/pkg/errors v0.9.1
+	github.com/sendgrid/sendgrid-go v3.10.3+incompatible
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/spf13/afero v1.6.0
@@ -91,6 +92,7 @@ require (
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/sendgrid/rest v2.6.5+incompatible // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.1 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
