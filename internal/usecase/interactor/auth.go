@@ -1,4 +1,4 @@
-package appauth
+package interactor
 
 import (
 	"context"

@@ -12,7 +12,6 @@ import (
 	"github.com/golang/gddo/httputil/header"
 	"github.com/gorilla/mux"
 	"github.com/labstack/echo/v4"
-	"github.com/reearth/reearth-backend/internal/app/appauth"
 	"github.com/reearth/reearth-backend/internal/usecase/interactor"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 )
@@ -39,9 +38,9 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 		GrantTypeRefreshToken: true,
 	}
 
-	var dn *appauth.AuthDNConfig = nil
+	var dn *interactor.AuthDNConfig = nil
 	if cfg.Config.Auth.DN != nil {
-		dn = &appauth.AuthDNConfig{
+		dn = &interactor.AuthDNConfig{
 			CommonName:         cfg.Config.Auth.DN.CN,
 			Organization:       cfg.Config.Auth.DN.O,
 			OrganizationalUnit: cfg.Config.Auth.DN.OU,
@@ -53,8 +52,8 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 		}
 	}
 
-	storage := appauth.NewAuthStorage(
-		&appauth.StorageConfig{
+	storage := interactor.NewAuthStorage(
+		&interactor.StorageConfig{
 			Domain: domain.String(),
 			Debug:  cfg.Debug,
 			DN:     dn,
@@ -203,7 +202,7 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		}
 
 		// Complete the auth request && set the subject
-		err = storage.(*appauth.Storage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
+		err = storage.(*interactor.Storage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
 		if err != nil {
 			ec.Logger().Error("failed to complete the auth request !")
 			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
