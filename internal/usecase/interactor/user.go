@@ -237,6 +237,69 @@ func (i *User) GetUserBySubject(ctx context.Context, sub string) (u *user.User, 
 	return u, nil
 }
 
+func (i *User) StartPasswordReset(ctx context.Context, email string) error {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	u, err := i.userRepo.FindByEmail(ctx, email)
+	if err != nil {
+		return err
+	}
+
+	u.SetPasswordReset(user.NewPasswordReset())
+
+	if err := i.userRepo.Save(ctx, u); err != nil {
+		return err
+	}
+
+	tx.Commit()
+	return nil
+}
+
+func (i *User) PasswordReset(ctx context.Context, password, token string) error {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	u, err := i.userRepo.FindByPasswordResetRequest(ctx, token)
+	if err != nil {
+		return err
+	}
+
+	passwordReset := u.PasswordReset()
+	ok := passwordReset.Validate(token)
+
+	if !ok {
+		return interfaces.ErrUserInvalidPasswordReset
+	}
+
+	u.SetPasswordReset(nil)
+
+	if err := u.SetPassword(password); err != nil {
+		return err
+	}
+
+	if err := i.userRepo.Save(ctx, u); err != nil {
+		return err
+	}
+
+	tx.Commit()
+	return nil
+}
+
 func (i *User) UpdateMe(ctx context.Context, p interfaces.UpdateMeParam, operator *usecase.Operator) (u *user.User, err error) {
 	if err := i.OnlyOperator(operator); err != nil {
 		return nil, err

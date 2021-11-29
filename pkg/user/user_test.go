@@ -2,6 +2,7 @@ package user
 
 import (
 	"testing"
+	"time"
 
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
@@ -387,6 +388,105 @@ func TestUser_SetPassword(t *testing.T) {
 			got, err := verifyPassword(tc.want, u.password)
 			assert.NoError(tt, err)
 			assert.True(tt, got)
+		})
+	}
+}
+
+func TestUser_PasswordReset(t *testing.T) {
+	testCases := []struct {
+		Name     string
+		User     *User
+		Expected *PasswordReset
+	}{
+		{
+			Name:     "not password request",
+			User:     New().NewID().MustBuild(),
+			Expected: nil,
+		},
+		{
+			Name: "create new password request over existing one",
+			User: New().NewID().PasswordReset(&PasswordReset{"xzy", time.Unix(0, 0)}).MustBuild(),
+			Expected: &PasswordReset{
+				Token:     "xzy",
+				CreatedAt: time.Unix(0, 0),
+			},
+		},
+	}
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			assert.Equal(tt, tc.Expected, tc.User.PasswordReset())
+		})
+	}
+}
+
+func TestUser_SetPasswordReset(t *testing.T) {
+	tests := []struct {
+		Name     string
+		User     *User
+		Pr       *PasswordReset
+		Expected *PasswordReset
+	}{
+		{
+			Name:     "nil",
+			User:     New().NewID().MustBuild(),
+			Pr:       nil,
+			Expected: nil,
+		},
+		{
+			Name: "nil",
+			User: New().NewID().MustBuild(),
+			Pr: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+			Expected: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+		},
+		{
+			Name: "create new password request",
+			User: New().NewID().MustBuild(),
+			Pr: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+			Expected: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+		},
+		{
+			Name: "create new password request over existing one",
+			User: New().NewID().PasswordReset(&PasswordReset{"xzy", time.Now()}).MustBuild(),
+			Pr: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+			Expected: &PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(1, 1),
+			},
+		},
+		{
+			Name:     "remove none existing password request",
+			User:     New().NewID().MustBuild(),
+			Pr:       nil,
+			Expected: nil,
+		},
+		{
+			Name:     "remove existing password request",
+			User:     New().NewID().PasswordReset(&PasswordReset{"xzy", time.Now()}).MustBuild(),
+			Pr:       nil,
+			Expected: nil,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			tt.User.SetPasswordReset(tt.Pr)
+			assert.Equal(t, tt.Expected, tt.User.PasswordReset())
 		})
 	}
 }

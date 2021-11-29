@@ -92,3 +92,8 @@ func (b *Builder) Auths(auths []Auth) *Builder {
 	b.u.auths = append([]Auth{}, auths...)
 	return b
 }
+
+func (b *Builder) PasswordReset(pr *PasswordReset) *Builder {
+	b.u.passwordReset = pr
+	return b
+}
