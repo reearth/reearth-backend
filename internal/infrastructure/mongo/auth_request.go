@@ -53,16 +53,6 @@ func (r *authRequestRepo) Remove(ctx context.Context, requestID id.AuthRequestID
 	return r.client.RemoveOne(ctx, requestID.String())
 }
 
-func (r *authRequestRepo) find(ctx context.Context, dst []*auth.Request, filter bson.D) ([]*auth.Request, error) {
-	c := mongodoc.AuthRequestConsumer{
-		Rows: dst,
-	}
-	if err := r.client.Find(ctx, filter, &c); err != nil {
-		return nil, err
-	}
-	return c.Rows, nil
-}
-
 func (r *authRequestRepo) findOne(ctx context.Context, filter bson.D) (*auth.Request, error) {
 	dst := make([]*auth.Request, 0, 1)
 	c := mongodoc.AuthRequestConsumer{
