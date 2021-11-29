@@ -59,3 +59,20 @@ func (ov *Optional) Clone() *Optional {
 		v: ov.v.Clone(),
 	}
 }
+
+// Cast tries to convert the value to the new type and generates a new Optional. If cast was failed, it returns nil.
+func (ov *Optional) Cast(t Type, p TypePropertyMap) *Optional {
+	if ov == nil || ov.t == TypeUnknown {
+		return nil
+	}
+	if ov.v == nil {
+		return NewOptional(t, nil)
+	}
+
+	nv := ov.v.Cast(t, p)
+	if nv == nil {
+		return nil // failed to cast
+	}
+
+	return NewOptional(t, nv)
+}

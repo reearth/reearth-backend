@@ -76,3 +76,14 @@ func (ov *OptionalValue) SetValue(v *Value) {
 		ov.ov.SetValue(&v.v)
 	}
 }
+
+func (ov *OptionalValue) Cast(t ValueType) *OptionalValue {
+	if ov == nil {
+		return nil
+	}
+	vv := ov.ov.Cast(value.Type(t), types)
+	if vv == nil {
+		return nil
+	}
+	return &OptionalValue{ov: *vv}
+}

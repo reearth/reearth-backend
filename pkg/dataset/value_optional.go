@@ -76,3 +76,14 @@ func (ov *OptionalValue) Clone() *OptionalValue {
 		ov: *nov,
 	}
 }
+
+func (ov *OptionalValue) Cast(t ValueType) *OptionalValue {
+	if ov == nil {
+		return nil
+	}
+	vv := ov.ov.Cast(value.Type(t), nil)
+	if vv == nil {
+		return nil
+	}
+	return &OptionalValue{ov: *vv}
+}

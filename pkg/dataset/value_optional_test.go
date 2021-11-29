@@ -301,3 +301,52 @@ func TestOptionalValue_Clone(t *testing.T) {
 		})
 	}
 }
+
+func TestOptionalValue_Cast(t *testing.T) {
+	type args struct {
+		t ValueType
+	}
+	tests := []struct {
+		name   string
+		target *OptionalValue
+		args   args
+		want   *OptionalValue
+	}{
+		{
+			name:   "diff type",
+			target: &OptionalValue{ov: *value.OptionalFrom(value.TypeNumber.ValueFrom(1.1, nil))},
+			args:   args{t: ValueTypeString},
+			want:   &OptionalValue{ov: *value.OptionalFrom(value.TypeString.ValueFrom("1.1", nil))},
+		},
+		{
+			name:   "same type",
+			target: &OptionalValue{ov: *value.OptionalFrom(value.TypeNumber.ValueFrom(1.1, nil))},
+			args:   args{t: ValueTypeNumber},
+			want:   &OptionalValue{ov: *value.OptionalFrom(value.TypeNumber.ValueFrom(1.1, nil))},
+		},
+		{
+			name:   "failed to cast",
+			target: &OptionalValue{ov: *value.OptionalFrom(value.TypeLatLng.ValueFrom(LatLng{Lat: 1, Lng: 2}, nil))},
+			args:   args{t: ValueTypeString},
+			want:   nil,
+		},
+		{
+			name:   "empty",
+			target: &OptionalValue{},
+			args:   args{t: ValueTypeString},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{t: ValueTypeString},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Cast(tt.args.t))
+		})
+	}
+}
