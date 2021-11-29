@@ -6,6 +6,8 @@ import (
 	"github.com/google/uuid"
 )
 
+var timeNow = time.Now
+
 type PasswordReset struct {
 	Token     string
 	CreatedAt time.Time
@@ -14,7 +16,7 @@ type PasswordReset struct {
 func NewPasswordReset() *PasswordReset {
 	return &PasswordReset{
 		Token:     generateToken(),
-		CreatedAt: time.Now(),
+		CreatedAt: timeNow(),
 	}
 }
 

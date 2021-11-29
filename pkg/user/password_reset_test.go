@@ -8,11 +8,14 @@ import (
 )
 
 func TestNewPasswordReset(t *testing.T) {
+	mockTime := time.Now()
+	timeNow = func() time.Time {
+		return mockTime
+	}
 	pr := NewPasswordReset()
 	assert.NotNil(t, pr)
 	assert.NotEmpty(t, pr.Token)
-	timeNow := time.Now().Add(1 * time.Second)
-	assert.Less(t, pr.CreatedAt.Unix(), timeNow.Unix())
+	assert.Equal(t, mockTime, pr.CreatedAt)
 }
 
 func TestPasswordReset_Validate(t *testing.T) {
