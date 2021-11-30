@@ -327,3 +327,26 @@ func TestUser_SetVerification(t *testing.T) {
 	input.SetVerification(v)
 	assert.Equal(t, v, input.verification)
 }
+
+func TestUser_Verification(t *testing.T) {
+	v, _ := NewVerification()
+	tests := []struct {
+		name         string
+		verification *Verification
+		want         *Verification
+	}{
+		{
+			name:         "should return the same verification",
+			verification: v,
+			want:         v,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			u := &User{
+				verification: tt.verification,
+			}
+			assert.Equal(t, tt.want, u.verification)
+		})
+	}
+}
