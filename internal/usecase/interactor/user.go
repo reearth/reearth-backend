@@ -409,7 +409,11 @@ func (i *User) CreateVerification(ctx context.Context, email string) error {
 	if err != nil {
 		return err
 	}
-	u.SetVerification(user.NewVerification())
+	v, err := user.NewVerification()
+	if err != nil {
+		return err
+	}
+	u.SetVerification(v)
 	err = i.userRepo.Save(ctx, u)
 	if err != nil {
 		return err

@@ -1,11 +1,13 @@
 package user
 
 import (
-	"math/rand"
+	"crypto/rand"
+	"errors"
+	"math/big"
 	"time"
 )
 
-var verificationCodeChars = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+var codeAlphabet = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 
 type Verification struct {
 	verified   bool
@@ -34,13 +36,16 @@ func (v *Verification) Expiration() time.Time {
 	return v.expiration
 }
 
-func generateCode() string {
-	rand.Seed(time.Now().UnixNano())
-	b := make([]rune, 5)
-	for i := range b {
-		b[i] = verificationCodeChars[rand.Intn(len(verificationCodeChars))]
+func generateCode() (string, error) {
+	code := ""
+	for i := 0; i < 5; i++ {
+		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(codeAlphabet))))
+		if err != nil {
+			return "", err
+		}
+		code += string(codeAlphabet[n.Int64()])
 	}
-	return string(b)
+	return code, nil
 }
 
 func (v *Verification) IsExpired() bool {
@@ -58,13 +63,17 @@ func (v *Verification) SetVerified(b bool) {
 	v.verified = b
 }
 
-func NewVerification() *Verification {
+func NewVerification() (*Verification, error) {
+	c, err := generateCode()
+	if err != nil {
+		return nil, errors.New("error generating verification code")
+	}
 	v := &Verification{
 		verified:   false,
-		code:       generateCode(),
+		code:       c,
 		expiration: time.Now().Add(time.Hour * 24),
 	}
-	return v
+	return v, nil
 }
 
 func VerificationFrom(c string, e time.Time, b bool) *Verification {

@@ -31,7 +31,8 @@ func TestNewVerification(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := NewVerification()
+			got, err := NewVerification()
+			assert.NoError(t, err)
 			assert.Equal(t, tt.want.verified, got.IsVerified())
 			assert.Equal(t, tt.want.code, len(got.Code()) > 0)
 			assert.Equal(t, tt.want.expiration, !got.Expiration().IsZero())
@@ -102,6 +103,9 @@ func TestVerification_Expiration(t *testing.T) {
 }
 
 func TestVerification_IsExpired(t *testing.T) {
+	tim, _ := time.Parse(time.RFC3339, "2021-03-16T04:19:57.592Z")
+	tim2, _ := time.Parse(time.RFC3339, "2022-03-16T04:19:57.592Z")
+
 	type fields struct {
 		verified   bool
 		code       string
@@ -112,18 +116,35 @@ func TestVerification_IsExpired(t *testing.T) {
 		fields fields
 		want   bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "should be expired",
+			fields: fields{
+				verified:   false,
+				code:       "xxx",
+				expiration: tim,
+			},
+			want: true,
+		},
+		{
+			name: "shouldn't be expired",
+			fields: fields{
+				verified:   false,
+				code:       "xxx",
+				expiration: tim2,
+			},
+			want: false,
+		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(tt *testing.T) {
+			tt.Parallel()
 			v := &Verification{
-				verified:   tt.fields.verified,
-				code:       tt.fields.code,
-				expiration: tt.fields.expiration,
+				verified:   tc.fields.verified,
+				code:       tc.fields.code,
+				expiration: tc.fields.expiration,
 			}
-			if got := v.IsExpired(); got != tt.want {
-				t.Errorf("IsExpired() = %v, want %v", got, tt.want)
-			}
+			assert.Equal(tt, tc.want, v.IsExpired())
 		})
 	}
 }
@@ -189,8 +210,8 @@ func TestVerification_SetVerified(t *testing.T) {
 
 func Test_generateCode(t *testing.T) {
 	var regx = regexp.MustCompile(`[a-zA-Z0-9]{5}`)
-	str := generateCode()
-
+	str, err := generateCode()
+	assert.NoError(t, err)
 	tests := []struct {
 		name string
 		want string
