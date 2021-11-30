@@ -9,7 +9,6 @@ import (
 )
 
 func TestNewVerification(t *testing.T) {
-
 	type fields struct {
 		verified   bool
 		code       bool

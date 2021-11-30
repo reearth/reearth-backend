@@ -56,6 +56,14 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 	for _, a := range auths {
 		authsdoc = append(authsdoc, a.Sub)
 	}
+	var v *UserVerificationDoc
+	if user.Verification() != nil {
+		v = &UserVerificationDoc{
+			Code:       user.Verification().Code(),
+			Expiration: user.Verification().Expiration(),
+			Verified:   user.Verification().IsVerified(),
+		}
+	}
 
 	return &UserDocument{
 		ID:           id,
@@ -65,11 +73,7 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 		Team:         user.Team().String(),
 		Lang:         user.Lang().String(),
 		Theme:        string(user.Theme()),
-		Verification: &UserVerificationDoc{
-			Code:       user.Verification().Code(),
-			Expiration: user.Verification().Expiration(),
-			Verified:   user.Verification().IsVerified(),
-		},
+		Verification: v,
 	}, id
 }
 
@@ -91,8 +95,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 	}
 	var v *user.Verification
 	if d.Verification != nil {
-
-		v = user.NewVerificationFrom(d.Verification.Code, d.Verification.Expiration, d.Verification.Verified)
+		v = user.VerificationFrom(d.Verification.Code, d.Verification.Expiration, d.Verification.Verified)
 	}
 
 	user, err := user1.New().

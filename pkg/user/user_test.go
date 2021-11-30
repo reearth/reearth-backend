@@ -318,13 +318,12 @@ func TestUser_GetAuthByProvider(t *testing.T) {
 }
 
 func TestUser_SetVerification(t *testing.T) {
-	var input *User
-	input = &User{}
+	input := &User{}
 	v := &Verification{
 		verified:   false,
 		code:       "xxx",
 		expiration: time.Time{},
 	}
 	input.SetVerification(v)
-	assert.Equal(t, v, input.Verification())
+	assert.Equal(t, v, input.verification)
 }

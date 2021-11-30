@@ -21,10 +21,6 @@ type CreateVerificationInput struct {
 	Email string `json:"email"`
 }
 
-type CreateVerificationOutput struct {
-	Message string `json:"message"`
-}
-
 type VerifyUserOutput struct {
 	UserID   string `json:"userId"`
 	Verified bool   `json:"verified"`
@@ -61,12 +57,12 @@ func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) 
 	}, nil
 }
 
-func (c *UserController) CreateVerification(ctx context.Context, input CreateVerificationInput) (interface{}, error) {
-	res, err := c.usecase.CreateVerification(ctx, input.Email)
+func (c *UserController) CreateVerification(ctx context.Context, input CreateVerificationInput) error {
+	err := c.usecase.CreateVerification(ctx, input.Email)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return CreateVerificationOutput{Message: res}, nil
+	return nil
 }
 
 func (c *UserController) VerifyUser(ctx context.Context, code string) (interface{}, error) {

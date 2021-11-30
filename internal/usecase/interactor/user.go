@@ -400,19 +400,19 @@ func (i *User) DeleteMe(ctx context.Context, userID id.UserID, operator *usecase
 	return nil
 }
 
-func (i *User) CreateVerification(ctx context.Context, email string) (string, error) {
+func (i *User) CreateVerification(ctx context.Context, email string) error {
 	tx, err := i.transaction.Begin()
 	if err != nil {
-		return "", err
+		return err
 	}
 	u, err := i.userRepo.FindByEmail(ctx, email)
 	if err != nil {
-		return "", err
+		return err
 	}
 	u.SetVerification(user.NewVerification())
 	err = i.userRepo.Save(ctx, u)
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	err = i.mailer.SendMail([]gateway.Contact{
@@ -422,10 +422,10 @@ func (i *User) CreateVerification(ctx context.Context, email string) (string, er
 		},
 	}, "email verification", "", "")
 	if err != nil {
-		return "", err
+		return err
 	}
 	tx.Commit()
-	return "verification created", nil
+	return nil
 }
 
 func (i *User) VerifyUser(ctx context.Context, code string) (*user.User, error) {

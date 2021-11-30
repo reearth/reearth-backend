@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+var verificationCodeChars = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+
 type Verification struct {
 	verified   bool
 	code       string
@@ -34,10 +36,9 @@ func (v *Verification) Expiration() time.Time {
 
 func generateCode() string {
 	rand.Seed(time.Now().UnixNano())
-	var chars = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 	b := make([]rune, 5)
 	for i := range b {
-		b[i] = chars[rand.Intn(len(chars))]
+		b[i] = verificationCodeChars[rand.Intn(len(verificationCodeChars))]
 	}
 	return string(b)
 }
@@ -66,7 +67,7 @@ func NewVerification() *Verification {
 	return v
 }
 
-func NewVerificationFrom(c string, e time.Time, b bool) *Verification {
+func VerificationFrom(c string, e time.Time, b bool) *Verification {
 	v := &Verification{
 		verified:   b,
 		code:       c,
