@@ -35,3 +35,11 @@ func GraphLoaderFromMapAndGraph(m Map, g GraphLoader) GraphLoader {
 		return g(ctx, root, fields...)
 	}
 }
+
+func (l GraphLoader) ByGraphPointer(ctx context.Context, p *GraphPointer) (List, *Field, error) {
+	d := p.First().Dataset()
+	if d == nil {
+		return nil, nil, nil
+	}
+	return l(ctx, *d, p.Fields()...)
+}

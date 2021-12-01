@@ -41,3 +41,22 @@ func LoaderFromMap(data map[id.DatasetID]*Dataset) Loader {
 		return res, nil
 	}
 }
+
+func (l Loader) FindByPointer(ctx context.Context, p *Pointer) (*Dataset, *Field, error) {
+	if l == nil {
+		return nil, nil, nil
+	}
+	pd := p.Dataset()
+	if pd == nil {
+		return nil, nil, nil
+	}
+	d, err := l(ctx, *p.Dataset())
+	if err != nil {
+		return nil, nil, err
+	}
+	df := d.First()
+	if df == nil {
+		return nil, nil, nil
+	}
+	return df, df.FieldByPointer(p), nil
+}

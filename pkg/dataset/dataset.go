@@ -57,6 +57,15 @@ func (d *Dataset) Field(id id.DatasetSchemaFieldID) *Field {
 	return d.fields[id]
 }
 
+func (d *Dataset) FieldByPointer(p *Pointer) *Field {
+	if d == nil || p.IsEmpty() || d.Schema() != p.Schema() {
+		return nil
+	} else if pd := p.Dataset(); pd != nil && d.ID() != *pd {
+		return nil
+	}
+	return d.Field(p.Field())
+}
+
 func (d *Dataset) FieldRef(id *id.DatasetSchemaFieldID) *Field {
 	if d == nil || id == nil {
 		return nil

@@ -111,12 +111,17 @@ func (d *Schema) FieldByType(t ValueType) *SchemaField {
 	return nil
 }
 
-// Dynamic _
+func (d *Schema) FieldByPointer(p *Pointer) *SchemaField {
+	if d == nil || p.IsEmpty() || d.ID() != p.Schema() {
+		return nil
+	}
+	return d.Field(p.Field())
+}
+
 func (d *Schema) Dynamic() bool {
 	return d.dynamic
 }
 
-// Rename _
 func (u *Schema) Rename(name string) {
 	u.name = name
 }
