@@ -44,12 +44,11 @@ func publicAPI(
 		if err := c.Bind(&inp); err != nil {
 			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
 		}
-		err := controller.CreateVerification(c.Request().Context(), inp)
-		if err != nil {
+		if err := controller.CreateVerification(c.Request().Context(), inp); err != nil {
 			return err
 		}
 
-		return c.String(http.StatusOK, "email sent")
+		return c.NoContent(http.StatusOK)
 	})
 
 	r.POST("/signup/verify/:code", func(c echo.Context) error {

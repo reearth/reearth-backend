@@ -329,7 +329,7 @@ func TestUser_SetVerification(t *testing.T) {
 }
 
 func TestUser_Verification(t *testing.T) {
-	v, _ := NewVerification()
+	v := NewVerification()
 	tests := []struct {
 		name         string
 		verification *Verification
@@ -346,7 +346,7 @@ func TestUser_Verification(t *testing.T) {
 			u := &User{
 				verification: tt.verification,
 			}
-			assert.Equal(t, tt.want, u.verification)
+			assert.Equal(t, tt.want, u.Verification())
 		})
 	}
 }

@@ -1,9 +1,10 @@
 package user
 
 import (
-	"regexp"
 	"testing"
 	"time"
+
+	"github.com/google/uuid"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -31,8 +32,7 @@ func TestNewVerification(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewVerification()
-			assert.NoError(t, err)
+			got := NewVerification()
 			assert.Equal(t, tt.want.verified, got.IsVerified())
 			assert.Equal(t, tt.want.code, len(got.Code()) > 0)
 			assert.Equal(t, tt.want.expiration, !got.Expiration().IsZero())
@@ -104,7 +104,7 @@ func TestVerification_Expiration(t *testing.T) {
 
 func TestVerification_IsExpired(t *testing.T) {
 	tim, _ := time.Parse(time.RFC3339, "2021-03-16T04:19:57.592Z")
-	tim2, _ := time.Parse(time.RFC3339, "2022-03-16T04:19:57.592Z")
+	tim2 := time.Now().Add(time.Hour * 24)
 
 	type fields struct {
 		verified   bool
@@ -209,22 +209,7 @@ func TestVerification_SetVerified(t *testing.T) {
 }
 
 func Test_generateCode(t *testing.T) {
-	var regx = regexp.MustCompile(`[a-zA-Z0-9]{5}`)
-	str, err := generateCode()
+	str := generateCode()
+	_, err := uuid.Parse(str)
 	assert.NoError(t, err)
-	tests := []struct {
-		name string
-		want string
-	}{
-		{
-			name: "should generate a valid code",
-			want: str,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := regx.FindString(str)
-			assert.Equal(t, tt.want, got)
-		})
-	}
 }

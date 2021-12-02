@@ -58,8 +58,7 @@ func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) 
 }
 
 func (c *UserController) CreateVerification(ctx context.Context, input CreateVerificationInput) error {
-	err := c.usecase.CreateVerification(ctx, input.Email)
-	if err != nil {
+	if err := c.usecase.CreateVerification(ctx, input.Email); err != nil {
 		return err
 	}
 	return nil
