@@ -22,3 +22,7 @@ var MustFieldID = id.MustDatasetSchemaFieldID
 var IDFrom = id.DatasetIDFrom
 var SchemaIDFrom = id.DatasetSchemaIDFrom
 var FieldIDFrom = id.DatasetSchemaFieldIDFrom
+
+var NewIDSet = id.NewDatasetIDSet
+var NewSchemaIDDset = id.NewDatasetSchemaIDSet
+var NewFieldIDDset = id.NewDatasetSchemaFieldIDSet

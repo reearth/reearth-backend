@@ -2,10 +2,8 @@ package dataset
 
 import "github.com/reearth/reearth-backend/pkg/id"
 
-// SchemaList _
 type SchemaList []*Schema
 
-// Map _
 func (dsl SchemaList) Map() SchemaMap {
 	if dsl == nil {
 		return nil
@@ -19,10 +17,17 @@ func (dsl SchemaList) Map() SchemaMap {
 	return m
 }
 
-// SchemaMap _
+func (dsl SchemaList) Find(fn func(s *Schema) bool) *Schema {
+	for _, s := range dsl {
+		if fn(s) {
+			return s
+		}
+	}
+	return nil
+}
+
 type SchemaMap map[id.DatasetSchemaID]*Schema
 
-// Slice _
 func (dsm SchemaMap) Slice() SchemaList {
 	if dsm == nil {
 		return nil
@@ -36,7 +41,6 @@ func (dsm SchemaMap) Slice() SchemaList {
 	return res
 }
 
-// GraphSearchByFields _
 func (dsm SchemaMap) GraphSearchByFields(root id.DatasetSchemaID, fields ...id.DatasetSchemaFieldID) (SchemaList, *SchemaField) {
 	res := make(SchemaList, 0, len(fields))
 	currentDs := dsm[root]

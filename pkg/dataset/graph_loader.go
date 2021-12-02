@@ -37,6 +37,11 @@ func GraphLoaderFromMapAndGraph(m Map, g GraphLoader) GraphLoader {
 }
 
 func (l GraphLoader) ByGraphPointer(ctx context.Context, p *GraphPointer) (List, *Field, error) {
+	if p.IsLinkedFully() {
+		last := p.Last()
+		return l(ctx, *last.Dataset(), last.Field())
+	}
+
 	d := p.First().Dataset()
 	if d == nil {
 		return nil, nil, nil

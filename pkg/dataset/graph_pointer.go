@@ -5,7 +5,7 @@ type GraphPointer struct {
 }
 
 func NewGraphPointer(p []*Pointer) *GraphPointer {
-	if len(p) == 0 || p[0].Dataset() == nil {
+	if len(p) == 0 {
 		return nil
 	}
 	pointers := make([]*Pointer, 0, len(p))
@@ -35,8 +35,9 @@ func (l *GraphPointer) WithDataset(ds ID) *GraphPointer {
 	}
 
 	links := l.Clone()
-	first := l.First()
-	links.pointers[0] = first.PointAt(&ds)
+	if links.First().Dataset() == nil {
+		links.pointers[0] = links.pointers[0].PointAt(&ds)
+	}
 	return links
 }
 

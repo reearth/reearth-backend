@@ -29,11 +29,13 @@ func TestNewGraphPointer(t *testing.T) {
 			},
 		},
 		{
-			name: "invalid",
+			name: "ok2",
 			args: args{
 				p: []*Pointer{PointAtField(s, f)},
 			},
-			want: nil,
+			want: &GraphPointer{
+				[]*Pointer{PointAtField(s, f)},
+			},
 		},
 		{
 			name: "empty",
@@ -118,13 +120,25 @@ func TestGraphPointer_WithDataset(t *testing.T) {
 		{
 			name: "ok",
 			target: &GraphPointer{
+				[]*Pointer{PointAtField(s, f), PointAt(d, s, f)},
+			},
+			args: args{
+				ds: d,
+			},
+			want: &GraphPointer{
+				[]*Pointer{PointAt(d, s, f), PointAt(d, s, f)},
+			},
+		},
+		{
+			name: "not changed",
+			target: &GraphPointer{
 				[]*Pointer{PointAt(d, s, f), PointAt(d, s, f)},
 			},
 			args: args{
 				ds: d2,
 			},
 			want: &GraphPointer{
-				[]*Pointer{PointAt(d2, s, f), PointAt(d, s, f)},
+				[]*Pointer{PointAt(d, s, f), PointAt(d, s, f)},
 			},
 		},
 		{
