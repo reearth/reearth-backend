@@ -69,14 +69,14 @@ func TestPropertyMigrateSchema(t *testing.T) {
 			Build(),
 		// should remain
 		NewFieldUnsafe().FieldUnsafe(schemaField5ID).
-			LinksUnsafe(NewLinks([]*Link{
-				NewLink(datasetID, datasetSchemaID, datasetFieldID),
+			LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+				dataset.PointAt(datasetID, datasetSchemaID, datasetFieldID),
 			})).
 			Build(),
 		// should be removed because of linked dataset field value type
 		NewFieldUnsafe().FieldUnsafe(schemaField6ID).
-			LinksUnsafe(NewLinks([]*Link{
-				NewLink(datasetID, datasetSchemaID, datasetFieldID),
+			LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+				dataset.PointAt(datasetID, datasetSchemaID, datasetFieldID),
 			})).
 			Build(),
 		// should be removed because of type

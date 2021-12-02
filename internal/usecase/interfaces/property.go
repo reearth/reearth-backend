@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/file"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
@@ -30,7 +31,7 @@ type UploadFileParam struct {
 type LinkPropertyValueParam struct {
 	PropertyID id.PropertyID
 	Pointer    *property.Pointer
-	Links      *property.Links
+	Links      *dataset.GraphPointer
 }
 
 type UnlinkPropertyValueParam struct {

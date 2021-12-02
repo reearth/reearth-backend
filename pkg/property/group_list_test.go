@@ -3,6 +3,7 @@ package property
 import (
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
@@ -47,7 +48,7 @@ func TestGroupList_HasLinkedField(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())}}).MustBuild()
+	f := NewField(sf).Value(OptionalValueFrom(v)).Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(dsid, dssid, id.NewDatasetSchemaFieldID())})).MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 	groups2 := []*Group{NewGroup().ID(pid).MustBuild()}
 	testCases := []struct {
@@ -85,7 +86,7 @@ func TestGroupList_CollectDatasets(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())}}).MustBuild()
+	f := NewField(sf).Value(OptionalValueFrom(v)).Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(dsid, dssid, id.NewDatasetSchemaFieldID())})).MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 	groups2 := []*Group{NewGroup().ID(pid).MustBuild()}
 	testCases := []struct {
@@ -122,7 +123,7 @@ func TestGroupList_FieldsByLinkedDataset(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())}}).MustBuild()
+	f := NewField(sf).Value(OptionalValueFrom(v)).Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(dsid, dssid, id.NewDatasetSchemaFieldID())})).MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 	groups2 := []*Group{NewGroup().ID(pid).MustBuild()}
 	testCases := []struct {
@@ -159,7 +160,7 @@ func TestGroupList_IsEmpty(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())}}).MustBuild()
+	f := NewField(sf).Value(OptionalValueFrom(v)).Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(dsid, dssid, id.NewDatasetSchemaFieldID())})).MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 	testCases := []struct {
 		Name     string

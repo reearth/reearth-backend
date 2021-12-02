@@ -291,17 +291,12 @@ func (i *Property) LinkValue(ctx context.Context, inp interfaces.LinkPropertyVal
 	propertyScenes := []id.SceneID{p.Scene()}
 
 	if inp.Links != nil {
-		dsids := inp.Links.DatasetSchemaIDs()
-		dids := inp.Links.DatasetIDs()
-		dss, err := i.datasetSchemaRepo.FindByIDs(ctx, dsids, propertyScenes)
+		ds, err := i.datasetRepo.FindByIDs(ctx, inp.Links.Datasets(), propertyScenes)
 		if err != nil {
 			return nil, nil, nil, nil, err
 		}
-		ds, err := i.datasetRepo.FindByIDs(ctx, dids, propertyScenes)
-		if err != nil {
-			return nil, nil, nil, nil, err
-		}
-		if !inp.Links.Validate(dss.Map(), ds.Map()) {
+		// validate
+		if _, f, err := ds.GraphLoader().ByGraphPointer(ctx, inp.Links); f == nil || err != nil {
 			return nil, nil, nil, nil, interfaces.ErrInvalidPropertyLinks
 		}
 	}

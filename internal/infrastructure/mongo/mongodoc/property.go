@@ -3,6 +3,7 @@ package mongodoc
 import (
 	"go.mongodb.org/mongo-driver/bson"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
 )
@@ -107,13 +108,13 @@ func newPropertyField(f *property.Field) *PropertyFieldDocument {
 		Value: f.Value().Interface(),
 	}
 
-	if links := f.Links().Links(); links != nil {
+	if links := f.Links().Pointers(); links != nil {
 		field.Links = make([]*PropertyLinkDocument, 0, len(links))
 		for _, l := range links {
 			field.Links = append(field.Links, &PropertyLinkDocument{
-				Schema:  l.DatasetSchema().StringRef(),
+				Schema:  l.Schema().RefString(),
 				Dataset: l.Dataset().StringRef(),
-				Field:   l.DatasetSchemaField().StringRef(),
+				Field:   l.Field().RefString(),
 			})
 		}
 	}
@@ -198,24 +199,24 @@ func toModelPropertyField(f *PropertyFieldDocument) *property.Field {
 		return nil
 	}
 
-	var flinks *property.Links
+	var flinks *dataset.GraphPointer
 	if f.Links != nil {
-		links := make([]*property.Link, 0, len(f.Links))
+		links := make([]*dataset.Pointer, 0, len(f.Links))
 		for _, l := range f.Links {
-			var link *property.Link
+			var link *dataset.Pointer
 			d := id.DatasetIDFromRef(l.Dataset)
 			ds := id.DatasetSchemaIDFromRef(l.Schema)
 			df := id.DatasetSchemaFieldIDFromRef(l.Field)
 			if d != nil && ds != nil && df != nil {
-				link = property.NewLink(*d, *ds, *df)
+				link = dataset.PointAt(*d, *ds, *df)
 			} else if ds != nil && df != nil {
-				link = property.NewLinkFieldOnly(*ds, *df)
+				link = dataset.PointAtField(*ds, *df)
 			} else {
 				continue
 			}
 			links = append(links, link)
 		}
-		flinks = property.NewLinks(links)
+		flinks = dataset.NewGraphPointer(links)
 	}
 
 	vt := property.ValueType(f.Type)

@@ -3,7 +3,6 @@ package property
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -53,7 +52,6 @@ func (g *Group) Schema() id.PropertySchemaID {
 	return g.itemBase.Schema
 }
 
-// SchemaRef _
 func (g *Group) SchemaRef() *id.PropertySchemaID {
 	if g == nil {
 		return nil
@@ -66,7 +64,7 @@ func (g *Group) HasLinkedField() bool {
 		return false
 	}
 	for _, f := range g.fields {
-		if f.HasLinkedField() {
+		if f.Links() != nil {
 			return true
 		}
 	}
@@ -92,7 +90,7 @@ func (g *Group) FieldsByLinkedDataset(s id.DatasetSchemaID, i id.DatasetID) []*F
 	}
 	res := []*Field{}
 	for _, f := range g.fields {
-		if f.Links().IsDatasetLinked(s, i) {
+		if f.Links().HasSchemaAndDataset(s, i) {
 			res = append(res, f)
 		}
 	}
@@ -224,15 +222,6 @@ func (g *Group) Field(fid id.PropertySchemaFieldID) *Field {
 	return nil
 }
 
-func (g *Group) MigrateDataset(q DatasetMigrationParam) {
-	if g == nil {
-		return
-	}
-	for _, f := range g.fields {
-		f.MigrateDataset(q)
-	}
-}
-
 func (g *Group) UpdateNameFieldValue(ps *Schema, value *Value) error {
 	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
 		return nil
@@ -262,8 +251,9 @@ func (p *Group) ValidateSchema(ps *SchemaGroup) error {
 	}
 
 	for _, i := range p.fields {
-		if err := i.ValidateSchema(ps.Field(i.Field())); err != nil {
-			return fmt.Errorf("%s: %w", i.Field(), err)
+		f := ps.Field(i.Field())
+		if f.Type() != i.Type() {
+			return errors.New("invalid field type")
 		}
 	}
 

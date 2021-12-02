@@ -3,6 +3,7 @@ package gqlmodel
 import (
 	"strings"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/value"
@@ -122,7 +123,7 @@ func ToPropertyField(f *property.Field, parent *property.Property, gl *property.
 	var links []*PropertyFieldLink
 	if flinks := f.Links(); flinks != nil {
 		links = make([]*PropertyFieldLink, 0, flinks.Len())
-		for _, l := range flinks.Links() {
+		for _, l := range flinks.Pointers() {
 			links = append(links, ToPropertyFieldLink(l))
 		}
 	}
@@ -138,24 +139,24 @@ func ToPropertyField(f *property.Field, parent *property.Property, gl *property.
 	}
 }
 
-func ToPropertyFieldLinks(flinks *property.Links) []*PropertyFieldLink {
+func ToPropertyFieldLinks(flinks *dataset.GraphPointer) []*PropertyFieldLink {
 	if flinks == nil {
 		return nil
 	}
 	var links []*PropertyFieldLink
 	links = make([]*PropertyFieldLink, 0, flinks.Len())
-	for _, l := range flinks.Links() {
+	for _, l := range flinks.Pointers() {
 		links = append(links, ToPropertyFieldLink(l))
 	}
 	return links
 }
 
-func FromPropertyFieldLink(datasetSchema, ds, fields []*id.ID) *property.Links {
+func FromPropertyFieldLink(datasetSchema, ds, fields []*id.ID) *dataset.GraphPointer {
 	if len(datasetSchema) != len(fields) || (ds != nil && len(ds) != len(fields) && len(ds) > 1) {
 		return nil
 	}
 
-	links := make([]*property.Link, 0, len(datasetSchema))
+	links := make([]*dataset.Pointer, 0, len(datasetSchema))
 	for i, dss := range datasetSchema {
 		f := fields[i]
 		if dss == nil || f == nil {
@@ -164,24 +165,24 @@ func FromPropertyFieldLink(datasetSchema, ds, fields []*id.ID) *property.Links {
 		dsid := id.DatasetSchemaID(*dss)
 		dsfid := id.DatasetSchemaFieldID(*f)
 		if len(ds) == 0 || (len(ds) == 1 && i > 0) {
-			links = append(links, property.NewLinkFieldOnly(dsid, dsfid))
+			links = append(links, dataset.PointAtField(dsid, dsfid))
 		} else {
 			d := ds[i]
 			if d == nil {
 				return nil
 			}
-			links = append(links, property.NewLink(id.DatasetID(*d), dsid, dsfid))
+			links = append(links, dataset.PointAt(id.DatasetID(*d), dsid, dsfid))
 		}
 	}
 
-	return property.NewLinks(links)
+	return dataset.NewGraphPointer(links)
 }
 
-func ToPropertyFieldLink(link *property.Link) *PropertyFieldLink {
+func ToPropertyFieldLink(link *dataset.Pointer) *PropertyFieldLink {
 	return &PropertyFieldLink{
 		DatasetID:            link.Dataset().IDRef(),
-		DatasetSchemaID:      link.DatasetSchema().ID(),
-		DatasetSchemaFieldID: link.DatasetSchemaField().ID(),
+		DatasetSchemaID:      link.Schema().ID(),
+		DatasetSchemaFieldID: link.Field().ID(),
 	}
 }
 

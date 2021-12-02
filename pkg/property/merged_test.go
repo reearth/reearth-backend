@@ -3,6 +3,7 @@ package property
 import (
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 
 	"github.com/stretchr/testify/assert"
@@ -33,14 +34,14 @@ func TestMerge(t *testing.T) {
 	fields1 := []*Field{
 		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("a"))).Build(),
 		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("b")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("b"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("e")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(NewLinks([]*Link{NewLink(d2, ds, df)})).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("e")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)})).Build(),
 		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeNumber, nil)).Build(),
 	}
 
 	fields2 := []*Field{
 		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("1"))).Build(),
 		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("c")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("2"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("d")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(NewLinks([]*Link{NewLinkFieldOnly(ds, df)})).Build(),
+		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("d")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAtField(ds, df)})).Build(),
 		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).Build(),
 	}
 
@@ -66,10 +67,10 @@ func TestMerge(t *testing.T) {
 
 	sid := id.NewSceneID()
 	op := New().ID(opid).Scene(sid).Schema(psid).Items(items1).MustBuild()
-	pp := New().NewID().Scene(sid).Schema(psid2).MustBuild()
-	pp2 := New().ID(ppid).Scene(sid).Schema(psid).Items(items2).MustBuild()
+	ppempty := New().NewID().Scene(sid).Schema(psid2).MustBuild()
+	pp := New().ID(ppid).Scene(sid).Schema(psid).Items(items2).MustBuild()
 
-	// Merge(op, pp2, &d)
+	// Merge(op, pp, &d)
 	expected1 := &Merged{
 		Original:      opid.Ref(),
 		Parent:        ppid.Ref(),
@@ -100,7 +101,7 @@ func TestMerge(t *testing.T) {
 							},
 							{
 								ID:    id.PropertySchemaFieldID("e"),
-								Links: NewLinks([]*Link{NewLink(d2, ds, df)}),
+								Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)}),
 								Type:  ValueTypeString,
 							},
 							{
@@ -130,7 +131,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("e"),
-						Links: NewLinks([]*Link{NewLink(d2, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)}),
 						Type:  ValueTypeString,
 					},
 					{
@@ -140,7 +141,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("d"),
-						Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 						Type:  ValueTypeString,
 					},
 				},
@@ -163,7 +164,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("e"),
-						Links: NewLinks([]*Link{NewLink(d2, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)}),
 						Type:  ValueTypeString,
 					},
 					{
@@ -190,7 +191,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("d"),
-						Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 						Type:  ValueTypeString,
 					},
 					{
@@ -233,7 +234,7 @@ func TestMerge(t *testing.T) {
 							},
 							{
 								ID:    id.PropertySchemaFieldID("e"),
-								Links: NewLinks([]*Link{NewLink(d2, ds, df)}),
+								Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)}),
 								Type:  ValueTypeString,
 							},
 							{
@@ -262,7 +263,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("e"),
-						Links: NewLinks([]*Link{NewLink(d2, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)}),
 						Type:  ValueTypeString,
 					},
 					{
@@ -289,7 +290,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("e"),
-						Links: NewLinks([]*Link{NewLink(d2, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)}),
 						Type:  ValueTypeString,
 					},
 					{
@@ -301,7 +302,7 @@ func TestMerge(t *testing.T) {
 		},
 	}
 
-	// Merge(nil, pp2, &d)
+	// Merge(nil, pp, &d)
 	expected3 := &Merged{
 		Original:      nil,
 		Parent:        ppid.Ref(),
@@ -332,7 +333,7 @@ func TestMerge(t *testing.T) {
 							},
 							{
 								ID:    id.PropertySchemaFieldID("d"),
-								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+								Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 								Type:  ValueTypeString,
 							},
 							{
@@ -361,7 +362,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("d"),
-						Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 						Type:  ValueTypeString,
 					},
 					{
@@ -388,7 +389,7 @@ func TestMerge(t *testing.T) {
 					},
 					{
 						ID:    id.PropertySchemaFieldID("d"),
-						Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+						Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 						Type:  ValueTypeString,
 					},
 					{
@@ -400,14 +401,54 @@ func TestMerge(t *testing.T) {
 		},
 	}
 
-	merged0 := Merge(nil, nil, nil)
-	assert.Nil(t, merged0)
-	merged1 := Merge(op, pp, nil)
-	assert.Nil(t, merged1)
-	merged2 := Merge(op, pp2, &d)
-	assert.Equal(t, expected1, merged2)
-	merged3 := Merge(op, nil, &d)
-	assert.Equal(t, expected2, merged3)
-	merged4 := Merge(nil, pp2, &d)
-	assert.Equal(t, expected3, merged4)
+	tests := []struct {
+		name string
+		o    *Property
+		p    *Property
+		l    *id.DatasetID
+		want *Merged
+	}{
+		{
+			name: "nil",
+			o:    nil,
+			p:    nil,
+			l:    nil,
+			want: nil,
+		},
+		{
+			name: "empty parent",
+			o:    op,
+			p:    ppempty,
+			l:    nil,
+			want: nil,
+		},
+		{
+			name: "ok",
+			o:    op,
+			p:    pp,
+			l:    &d,
+			want: expected1,
+		},
+		{
+			name: "original only",
+			o:    op,
+			p:    nil,
+			l:    &d,
+			want: expected2,
+		},
+		{
+			name: "parent only",
+			o:    nil,
+			p:    pp,
+			l:    &d,
+			want: expected3,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := Merge(tt.o, tt.p, tt.l)
+			assert.Equal(t, tt.want, actual)
+		})
+	}
 }

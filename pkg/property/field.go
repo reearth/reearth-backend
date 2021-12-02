@@ -17,7 +17,7 @@ var (
 
 type Field struct {
 	field id.PropertySchemaFieldID
-	links *Links
+	links *dataset.GraphPointer
 	v     *OptionalValue
 }
 
@@ -33,7 +33,7 @@ func (p *Field) Field() id.PropertySchemaFieldID {
 	return p.field
 }
 
-func (p *Field) Links() *Links {
+func (p *Field) Links() *dataset.GraphPointer {
 	if p == nil {
 		return nil
 	}
@@ -54,24 +54,21 @@ func (p *Field) Value() *Value {
 	return p.v.Value()
 }
 
-func (p *Field) ActualValue(ds *dataset.Dataset) *Value {
+func (p *Field) ActualValue(ds *dataset.Dataset) *ValueAndDatasetValue {
+	var dv *dataset.Value
 	if p.links != nil {
-		if l := p.links.Last(); l != nil {
-			ldid := l.Dataset()
-			ldsfid := l.DatasetSchemaField()
-			if ldid != nil || ldsfid != nil || ds.ID() == *ldid {
-				if f := ds.Field(*ldsfid); f != nil {
-					return valueFromDataset(f.Value())
-				}
+		if l := p.links.Last(); !l.IsEmpty() {
+			d := l.Dataset()
+			if d != nil && ds.ID() == *d {
+				dv = ds.Field(l.Field()).Value()
+			} else {
+				return nil
 			}
+		} else {
+			return nil
 		}
-		return nil
 	}
-	return p.Value()
-}
-
-func (p *Field) HasLinkedField() bool {
-	return p.Links().IsLinked()
+	return NewValueAndDatasetValue(p.Type(), dv, p.Value())
 }
 
 func (p *Field) CollectDatasets() []id.DatasetID {
@@ -91,7 +88,7 @@ func (p *Field) CollectDatasets() []id.DatasetID {
 }
 
 func (p *Field) IsDatasetLinked(s id.DatasetSchemaID, i id.DatasetID) bool {
-	return p.Links().HasDatasetOrSchema(s, i)
+	return p.Links().HasSchemaAndDataset(s, i)
 }
 
 func (p *Field) Update(value *Value, field *SchemaField) error {
@@ -112,7 +109,7 @@ func (p *Field) UpdateUnsafe(value *Value) {
 	p.v.SetValue(value)
 }
 
-func (p *Field) Link(links *Links) {
+func (p *Field) Link(links *dataset.GraphPointer) {
 	if p == nil {
 		return
 	}
@@ -120,10 +117,7 @@ func (p *Field) Link(links *Links) {
 }
 
 func (p *Field) Unlink() {
-	if p == nil {
-		return
-	}
-	p.links = nil
+	p.Link(nil)
 }
 
 func (p *Field) UpdateField(field id.PropertySchemaFieldID) {
@@ -156,9 +150,9 @@ func (p *Field) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 	// If linked dataset is not compatible for type, it will be unlinked
 	l := p.Links()
 	if dl != nil && l.IsLinkedFully() {
-		if dsid, dsfid := l.Last().Dataset(), l.Last().DatasetSchemaField(); dsid != nil && dsfid != nil {
+		if dsid, dsfid := l.Last().Dataset(), l.Last().Field(); dsid != nil {
 			dss, _ := dl(ctx, *dsid)
-			if dsf := dss[0].Field(*dsfid); dsf != nil {
+			if dsf := dss[0].Field(dsfid); dsf != nil {
 				if schemaField.Type() != ValueType(dsf.Type()) {
 					p.Unlink()
 				}
@@ -167,43 +161,4 @@ func (p *Field) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 	}
 
 	return !invalid
-}
-
-func (p *Field) DatasetValue(ctx context.Context, d dataset.GraphLoader) (*dataset.Value, error) {
-	if p == nil {
-		return nil, nil
-	}
-	return p.links.DatasetValue(ctx, d)
-}
-
-func (p *Field) MigrateDataset(q DatasetMigrationParam) {
-	if p == nil {
-		return
-	}
-	link := p.Links()
-	link.Replace(q.OldDatasetSchemaMap, q.OldDatasetMap, q.DatasetFieldIDMap)
-	if !link.Validate(q.NewDatasetSchemaMap, q.NewDatasetMap) {
-		p.Unlink()
-	}
-}
-
-func (p *Field) ValidateSchema(ps *SchemaField) error {
-	if p == nil {
-		return nil
-	}
-	if ps == nil {
-		return errors.New("schema not found")
-	}
-	if p.v == nil {
-		return errors.New("invalid field value and type")
-	}
-	return nil
-}
-
-type DatasetMigrationParam struct {
-	OldDatasetSchemaMap map[id.DatasetSchemaID]id.DatasetSchemaID
-	OldDatasetMap       map[id.DatasetID]id.DatasetID
-	DatasetFieldIDMap   map[id.DatasetSchemaFieldID]id.DatasetSchemaFieldID
-	NewDatasetSchemaMap map[id.DatasetSchemaID]*dataset.Schema
-	NewDatasetMap       map[id.DatasetID]*dataset.Dataset
 }

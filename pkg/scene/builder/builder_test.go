@@ -163,9 +163,9 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField1ID).
 						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
-							property.NewLink(ds2id, dss2id, ds2f1),
-							property.NewLink(ds3id, dss3id, ds3f1),
+						LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+							dataset.PointAt(ds2id, dss2id, ds2f1),
+							dataset.PointAt(ds3id, dss3id, ds3f1),
 						})).
 						Build(),
 				}).MustBuild(),
@@ -222,8 +222,8 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField1ID).
 						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
-							property.NewLinkFieldOnly(dss3id, ds3f1),
+						LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+							dataset.PointAtField(dss3id, ds3f1),
 						})).
 						Build(),
 					property.NewFieldUnsafe().
@@ -259,8 +259,8 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField1ID).
 						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
-							property.NewLinkFieldOnly(dss1id, ds1f2),
+						LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+							dataset.PointAtField(dss1id, ds1f2),
 						})).
 						Build(),
 				}).MustBuild(),
@@ -284,19 +284,19 @@ func TestSceneBuilder(t *testing.T) {
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField1ID).
 						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
-							property.NewLinkFieldOnly(dss1id, ds1f1),
-							property.NewLinkFieldOnly(dss2id, ds2f1),
-							property.NewLinkFieldOnly(dss3id, ds3f1),
+						LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+							dataset.PointAtField(dss1id, ds1f1),
+							dataset.PointAtField(dss2id, ds2f1),
+							dataset.PointAtField(dss3id, ds3f1),
 						})).
 						Build(),
 					property.NewFieldUnsafe().
 						FieldUnsafe(propertySchemaField2ID).
 						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
-							property.NewLinkFieldOnly(dss1id, ds1f1),
-							property.NewLinkFieldOnly(dss2id, ds2f1),
-							property.NewLinkFieldOnly(dss3id, ds3f1),
+						LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+							dataset.PointAtField(dss1id, ds1f1),
+							dataset.PointAtField(dss2id, ds2f1),
+							dataset.PointAtField(dss3id, ds3f1),
 						})).
 						Build(),
 				}).MustBuild(),

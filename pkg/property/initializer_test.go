@@ -3,6 +3,7 @@ package property
 import (
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
@@ -260,7 +261,7 @@ func TestInitializerField_PropertyField(t *testing.T) {
 	expected := NewFieldUnsafe().
 		FieldUnsafe(field.Field).
 		ValueUnsafe(NewOptionalValue(field.Type, field.Value)).
-		LinksUnsafe(NewLinks([]*Link{NewLink(*field.Links[0].Dataset.CopyRef(), field.Links[0].Schema, field.Links[0].Field)})).
+		LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(*field.Links[0].Dataset.CopyRef(), field.Links[0].Schema, field.Links[0].Field)})).
 		Build()
 
 	assert.Equal(t, expected, field.PropertyField())
@@ -285,7 +286,7 @@ func TestInitializerLink_PropertyLink(t *testing.T) {
 		Field:   id.NewDatasetSchemaFieldID(),
 	}
 
-	expected := NewLink(*link.Dataset.CopyRef(), link.Schema, link.Field)
+	expected := dataset.PointAt(*link.Dataset.CopyRef(), link.Schema, link.Field)
 
 	assert.Equal(t, expected, link.PropertyLink())
 }

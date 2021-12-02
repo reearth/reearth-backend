@@ -64,7 +64,7 @@ func TestSeal(t *testing.T) {
 									{
 										ID:    id.PropertySchemaFieldID("b"),
 										Value: ValueTypeString.ValueFrom("b"),
-										Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+										Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 										Type:  ValueTypeString,
 									},
 								},
@@ -85,7 +85,7 @@ func TestSeal(t *testing.T) {
 							{
 								ID:    id.PropertySchemaFieldID("b"),
 								Value: ValueTypeString.ValueFrom("aaa"),
-								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+								Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 								Type:  ValueTypeString,
 							},
 						},
@@ -243,7 +243,7 @@ func TestSealedItemFrom(t *testing.T) {
 							{
 								ID:    id.PropertySchemaFieldID("b"),
 								Value: ValueTypeString.ValueFrom("b"),
-								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+								Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 								Type:  ValueTypeString,
 							},
 						},
@@ -310,7 +310,7 @@ func TestSealedItemFrom(t *testing.T) {
 							{
 								ID:    id.PropertySchemaFieldID("b"),
 								Value: ValueTypeString.ValueFrom("aaa"),
-								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
+								Links: dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d, ds, df)}),
 								Type:  ValueTypeString,
 							},
 						},

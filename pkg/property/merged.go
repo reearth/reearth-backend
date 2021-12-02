@@ -1,8 +1,6 @@
 package property
 
 import (
-	"context"
-
 	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -31,7 +29,7 @@ type MergedField struct {
 	ID         id.PropertySchemaFieldID
 	Type       ValueType
 	Value      *Value
-	Links      *Links
+	Links      *dataset.GraphPointer
 	Overridden bool
 }
 
@@ -57,7 +55,7 @@ func (m *MergedGroup) Datasets() []id.DatasetID {
 		if f == nil {
 			continue
 		}
-		ids = append(ids, f.Links.DatasetIDs()...)
+		ids = append(ids, f.Links.Datasets()...)
 	}
 	return ids
 }
@@ -98,13 +96,6 @@ func (m MergedMetadata) Merge(o *Property, p *Property) *Merged {
 		return nil
 	}
 	return Merge(o, p, m.LinkedDataset)
-}
-
-func (f *MergedField) DatasetValue(ctx context.Context, d dataset.GraphLoader) (*dataset.Value, error) {
-	if f == nil {
-		return nil, nil
-	}
-	return f.Links.DatasetValue(ctx, d)
 }
 
 // Merge merges two properties
@@ -274,14 +265,22 @@ func mergeField(original, parent *Field, linked *id.DatasetID) *MergedField {
 		overridden = parent != nil
 	}
 
-	var links *Links
+	var links *dataset.GraphPointer
 	if l := original.Links(); l != nil {
 		// original links are used but dataset is overrided
-		links = l.ApplyDataset(linked)
+		if linked != nil {
+			links = l.WithDataset(*linked)
+		} else {
+			links = l.Clone()
+		}
 		overridden = parent != nil
 	} else if l := parent.Links(); l != nil {
 		// parent links are used and dataset is overrided
-		links = l.ApplyDataset(linked)
+		if linked != nil {
+			links = l.WithDataset(*linked)
+		} else {
+			links = l.Clone()
+		}
 	}
 
 	return &MergedField{

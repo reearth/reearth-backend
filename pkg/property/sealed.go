@@ -103,12 +103,16 @@ func sealedGroupList(ctx context.Context, gl []*MergedGroup, d dataset.GraphLoad
 func sealedGroup(ctx context.Context, fields []*MergedField, d dataset.GraphLoader) ([]*SealedField, error) {
 	res := []*SealedField{}
 	for _, f := range fields {
-		dv, err := f.DatasetValue(ctx, d)
-		if err != nil {
-			return nil, err
+		var dv *dataset.Value
+		if f.Links != nil {
+			_, df, err := d.ByGraphPointer(ctx, f.Links)
+			if err != nil {
+				return nil, err
+			}
+			dv = df.Value().Clone()
 		}
 
-		if val := NewValueAndDatasetValue(f.Type, dv.Clone(), f.Value.Clone()); val != nil {
+		if val := NewValueAndDatasetValue(f.Type, dv, f.Value.Clone()); val != nil {
 			res = append(res, &SealedField{
 				ID:  f.ID,
 				Val: val,

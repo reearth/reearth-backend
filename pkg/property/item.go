@@ -21,7 +21,6 @@ type Item interface {
 	IsEmpty() bool
 	Prune()
 	MigrateSchema(context.Context, *Schema, dataset.Loader)
-	MigrateDataset(DatasetMigrationParam)
 	ValidateSchema(*SchemaGroup) error
 }
 

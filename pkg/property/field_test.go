@@ -13,24 +13,24 @@ func TestField_ActualValue(t *testing.T) {
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
 	dssfid := id.NewDatasetSchemaFieldID()
-	l := NewLink(dsid, dssid, dssfid)
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(dsid, dssid, dssfid)
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 
 	testCases := []struct {
 		Name     string
 		Field    *Field
 		DS       *dataset.Dataset
-		Expected *Value
+		Expected *ValueAndDatasetValue
 	}{
 		{
 			Name:     "nil links",
 			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).MustBuild(),
-			Expected: ValueTypeString.ValueFrom("vvv"),
+			Expected: NewValueAndDatasetValue(ValueTypeString, nil, ValueTypeString.ValueFrom("vvv")),
 		},
 		{
-			Name:     "nil last link",
-			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(&Links{}).MustBuild(),
-			Expected: nil,
+			Name:     "empty links",
+			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(&dataset.GraphPointer{}).MustBuild(),
+			Expected: NewValueAndDatasetValue(ValueTypeString, nil, ValueTypeString.ValueFrom("vvv")),
 		},
 		{
 			Name:  "dataset value",
@@ -41,7 +41,13 @@ func TestField_ActualValue(t *testing.T) {
 					dataset.NewField(dssfid, dataset.ValueTypeString.ValueFrom("xxx"), "")},
 				).
 				MustBuild(),
-			Expected: ValueTypeString.ValueFrom("xxx"),
+			Expected: NewValueAndDatasetValue(ValueTypeString, dataset.ValueTypeString.ValueFrom("xxx"), ValueTypeString.ValueFrom("vvv")),
+		},
+		{
+			Name:     "dataset value missing",
+			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(ls).MustBuild(),
+			DS:       dataset.New().ID(dsid).Schema(dssid).MustBuild(),
+			Expected: NewValueAndDatasetValue(ValueTypeString, nil, ValueTypeString.ValueFrom("vvv")),
 		},
 	}
 
@@ -60,8 +66,8 @@ func TestField_CollectDatasets(t *testing.T) {
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
 	dssfid := id.NewDatasetSchemaFieldID()
-	l := NewLink(dsid, dssid, dssfid)
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(dsid, dssid, dssfid)
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 
 	testCases := []struct {
 		Name     string
@@ -91,8 +97,8 @@ func TestField_CollectDatasets(t *testing.T) {
 
 func TestField_Clone(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 	b := NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(ls).MustBuild()
 	r := b.Clone()
 	assert.Equal(t, b, r)
@@ -104,12 +110,12 @@ func TestField(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
 	b := NewField(p).MustBuild()
 	assert.True(t, b.IsEmpty())
-	l := NewLink(did, dsid, id.NewDatasetSchemaFieldID())
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(did, dsid, id.NewDatasetSchemaFieldID())
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 	b.Link(ls)
 	assert.True(t, b.IsDatasetLinked(dsid, did))
 	b.Unlink()
-	assert.False(t, b.HasLinkedField())
+	assert.Nil(t, b.Links())
 }
 
 func TestField_Update(t *testing.T) {

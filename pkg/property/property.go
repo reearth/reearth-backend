@@ -440,9 +440,9 @@ func (p *Property) AutoLinkField(s *Schema, v ValueType, d id.DatasetSchemaID, d
 	f, _, _, ok := p.GetOrCreateField(s, ptr)
 	if ok {
 		if ds == nil {
-			f.Link(NewLinks([]*Link{NewLinkFieldOnly(d, *df)}))
+			f.Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAtField(d, *df)}))
 		} else {
-			f.Link(NewLinks([]*Link{NewLink(*ds, d, *df)}))
+			f.Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(*ds, d, *df)}))
 		}
 	}
 }
@@ -458,16 +458,6 @@ func (p *Property) MigrateSchema(ctx context.Context, newSchema *Schema, dl data
 		f.MigrateSchema(ctx, newSchema, dl)
 	}
 
-	p.Prune()
-}
-
-func (p *Property) MigrateDataset(q DatasetMigrationParam) {
-	if p == nil {
-		return
-	}
-	for _, f := range p.items {
-		f.MigrateDataset(q)
-	}
 	p.Prune()
 }
 

@@ -1,6 +1,9 @@
 package property
 
-import "github.com/reearth/reearth-backend/pkg/id"
+import (
+	"github.com/reearth/reearth-backend/pkg/dataset"
+	"github.com/reearth/reearth-backend/pkg/id"
+)
 
 type FieldBuilder struct {
 	p   *Field
@@ -50,7 +53,7 @@ func (b *FieldBuilder) Value(v *OptionalValue) *FieldBuilder {
 	return b
 }
 
-func (b *FieldBuilder) Link(l *Links) *FieldBuilder {
+func (b *FieldBuilder) Link(l *dataset.GraphPointer) *FieldBuilder {
 	b.p.links = l.Clone()
 	return b
 }
@@ -75,7 +78,7 @@ func (b *FieldUnsafeBuilder) ValueUnsafe(v *OptionalValue) *FieldUnsafeBuilder {
 	return b
 }
 
-func (b *FieldUnsafeBuilder) LinksUnsafe(l *Links) *FieldUnsafeBuilder {
+func (b *FieldUnsafeBuilder) LinksUnsafe(l *dataset.GraphPointer) *FieldUnsafeBuilder {
 	b.p.links = l.Clone()
 	return b
 }

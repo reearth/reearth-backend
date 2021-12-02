@@ -4,6 +4,7 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
@@ -29,8 +30,8 @@ func TestGroup_SchemaGroup(t *testing.T) {
 func TestGroup_HasLinkedField(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
 	f2 := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
 
@@ -69,8 +70,8 @@ func TestGroup_IsDatasetLinked(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
-	l := NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(dsid, dssid, id.NewDatasetSchemaFieldID())
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
 	f2 := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
 
@@ -111,8 +112,8 @@ func TestGroup_CollectDatasets(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
-	l := NewLink(dsid, id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(dsid, id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
 
 	testCases := []struct {
@@ -146,8 +147,8 @@ func TestGroup_FieldsByLinkedDataset(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := id.NewDatasetID()
 	dssid := id.NewDatasetSchemaID()
-	l := NewLink(dsid, dssid, id.NewDatasetSchemaFieldID())
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(dsid, dssid, id.NewDatasetSchemaFieldID())
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
 
 	testCases := []struct {

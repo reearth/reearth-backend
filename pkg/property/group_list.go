@@ -9,16 +9,13 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-// GroupList _
 type GroupList struct {
 	itemBase
 	groups []*Group
 }
 
-// List implements Item interface
 var _ Item = &GroupList{}
 
-// ID returns id
 func (g *GroupList) ID() id.PropertyItemID {
 	if g == nil {
 		return id.PropertyItemID{}
@@ -26,7 +23,6 @@ func (g *GroupList) ID() id.PropertyItemID {
 	return g.itemBase.ID
 }
 
-// IDRef returns a reference of id
 func (g *GroupList) IDRef() *id.PropertyItemID {
 	if g == nil {
 		return nil
@@ -34,7 +30,6 @@ func (g *GroupList) IDRef() *id.PropertyItemID {
 	return g.itemBase.ID.Ref()
 }
 
-// SchemaGroup returns id of schema group
 func (g *GroupList) SchemaGroup() id.PropertySchemaGroupID {
 	if g == nil {
 		return id.PropertySchemaGroupID("")
@@ -42,7 +37,6 @@ func (g *GroupList) SchemaGroup() id.PropertySchemaGroupID {
 	return g.itemBase.SchemaGroup
 }
 
-// SchemaGroupRef _
 func (g *GroupList) SchemaGroupRef() *id.PropertySchemaGroupID {
 	if g == nil {
 		return nil
@@ -50,7 +44,6 @@ func (g *GroupList) SchemaGroupRef() *id.PropertySchemaGroupID {
 	return g.itemBase.SchemaGroup.Ref()
 }
 
-// Schema _
 func (g *GroupList) Schema() id.PropertySchemaID {
 	if g == nil {
 		return id.PropertySchemaID{}
@@ -58,7 +51,6 @@ func (g *GroupList) Schema() id.PropertySchemaID {
 	return g.itemBase.Schema
 }
 
-// SchemaRef _
 func (g *GroupList) SchemaRef() *id.PropertySchemaID {
 	if g == nil {
 		return nil
@@ -66,7 +58,6 @@ func (g *GroupList) SchemaRef() *id.PropertySchemaID {
 	return g.itemBase.Schema.Ref()
 }
 
-// HasLinkedField _
 func (g *GroupList) HasLinkedField() bool {
 	if g == nil {
 		return false
@@ -79,7 +70,6 @@ func (g *GroupList) HasLinkedField() bool {
 	return false
 }
 
-// CollectDatasets _
 func (g *GroupList) CollectDatasets() []id.DatasetID {
 	if g == nil {
 		return nil
@@ -93,7 +83,6 @@ func (g *GroupList) CollectDatasets() []id.DatasetID {
 	return res
 }
 
-// FieldsByLinkedDataset _
 func (g *GroupList) FieldsByLinkedDataset(s id.DatasetSchemaID, i id.DatasetID) []*Field {
 	if g == nil {
 		return nil
@@ -105,7 +94,6 @@ func (g *GroupList) FieldsByLinkedDataset(s id.DatasetSchemaID, i id.DatasetID) 
 	return res
 }
 
-// IsDatasetLinked _
 func (g *GroupList) IsDatasetLinked(s id.DatasetSchemaID, i id.DatasetID) bool {
 	if g == nil {
 		return false
@@ -118,12 +106,10 @@ func (g *GroupList) IsDatasetLinked(s id.DatasetSchemaID, i id.DatasetID) bool {
 	return false
 }
 
-// IsEmpty _
 func (g *GroupList) IsEmpty() bool {
 	return g != nil && (g.groups == nil || len(g.groups) == 0)
 }
 
-// Prune _
 func (g *GroupList) Prune() {
 	if g == nil {
 		return
@@ -133,7 +119,6 @@ func (g *GroupList) Prune() {
 	}
 }
 
-// MigrateSchema _
 func (g *GroupList) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset.Loader) {
 	if g == nil || dl == nil {
 		return
@@ -148,7 +133,6 @@ func (g *GroupList) MigrateSchema(ctx context.Context, newSchema *Schema, dl dat
 	g.Prune()
 }
 
-// Groups returns a slice of groups
 func (g *GroupList) Groups() []*Group {
 	if g == nil {
 		return nil
@@ -156,7 +140,6 @@ func (g *GroupList) Groups() []*Group {
 	return append([]*Group{}, g.groups...)
 }
 
-// GetGroup returns a group whose id is specified
 func (g *GroupList) GetGroup(gid id.PropertyItemID) *Group {
 	if g == nil {
 		return nil
@@ -169,7 +152,6 @@ func (g *GroupList) GetGroup(gid id.PropertyItemID) *Group {
 	return nil
 }
 
-// GroupAt returns a group whose index is specified
 func (g *GroupList) GroupAt(i int) *Group {
 	if g == nil || i < 0 || i > len(g.groups)-1 {
 		return nil
@@ -177,7 +159,6 @@ func (g *GroupList) GroupAt(i int) *Group {
 	return g.groups[i]
 }
 
-// Has _
 func (g *GroupList) Has(i id.PropertyItemID) bool {
 	if g == nil {
 		return false
@@ -190,7 +171,6 @@ func (g *GroupList) Has(i id.PropertyItemID) bool {
 	return false
 }
 
-// Count _
 func (g *GroupList) Count() int {
 	if g == nil {
 		return 0
@@ -198,7 +178,6 @@ func (g *GroupList) Count() int {
 	return len(g.groups)
 }
 
-// Add _
 func (g *GroupList) Add(gg *Group, index int) {
 	if g == nil || g.Has(gg.ID()) {
 		return
@@ -212,7 +191,6 @@ func (g *GroupList) Add(gg *Group, index int) {
 	}
 }
 
-// AddOrMove _
 func (g *GroupList) AddOrMove(gg *Group, index int) {
 	if g == nil {
 		return
@@ -231,7 +209,6 @@ func (g *GroupList) AddOrMove(gg *Group, index int) {
 	g.groups = append(g.groups[:index], append([]*Group{gg}, g.groups[index:]...)...)
 }
 
-// Move _
 func (g *GroupList) Move(id id.PropertyItemID, toIndex int) {
 	if g == nil {
 		return
@@ -245,7 +222,6 @@ func (g *GroupList) Move(id id.PropertyItemID, toIndex int) {
 	}
 }
 
-// MoveAt _
 func (g *GroupList) MoveAt(fromIndex int, toIndex int) {
 	if g == nil {
 		return
@@ -270,7 +246,6 @@ func (g *GroupList) MoveAt(fromIndex int, toIndex int) {
 	g.groups = append(newSlice, g.groups[toIndex:]...)
 }
 
-// Remove _
 func (g *GroupList) Remove(id id.PropertyItemID) bool {
 	if g == nil {
 		return false
@@ -286,7 +261,6 @@ func (g *GroupList) Remove(id id.PropertyItemID) bool {
 	return false
 }
 
-// RemoveAt _
 func (g *GroupList) RemoveAt(index int) {
 	if g == nil {
 		return
@@ -305,7 +279,6 @@ func (g *GroupList) RemoveAt(index int) {
 	g.groups = append(g.groups[:index], groups...)
 }
 
-// Empty _
 func (g *GroupList) Empty() {
 	if g == nil {
 		return
@@ -314,7 +287,6 @@ func (g *GroupList) Empty() {
 	g.groups = []*Group{}
 }
 
-// GetOrCreateField _
 func (g *GroupList) GetOrCreateField(ps *Schema, ptr *Pointer) (*Field, bool) {
 	if g == nil || ptr == nil || ps == nil || ps.ID() != g.Schema() {
 		return nil, false
@@ -337,7 +309,6 @@ func (g *GroupList) GetOrCreateField(ps *Schema, ptr *Pointer) (*Field, bool) {
 	return i.GetOrCreateField(ps, fid)
 }
 
-// CreateAndAddListItem _
 func (g *GroupList) CreateAndAddListItem(ps *Schema, index *int) *Group {
 	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
 		return nil
@@ -358,16 +329,6 @@ func (g *GroupList) CreateAndAddListItem(ps *Schema, index *int) *Group {
 	}
 
 	return nil
-}
-
-// MigrateDataset _
-func (g *GroupList) MigrateDataset(q DatasetMigrationParam) {
-	if g == nil {
-		return
-	}
-	for _, f := range g.groups {
-		f.MigrateDataset(q)
-	}
 }
 
 func (p *GroupList) ValidateSchema(ps *SchemaGroup) error {

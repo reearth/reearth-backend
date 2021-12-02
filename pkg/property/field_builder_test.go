@@ -4,6 +4,7 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
@@ -17,22 +18,22 @@ func TestFieldBuilder_Value(t *testing.T) {
 
 func TestFieldBuilder_Link(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
-	ls := NewLinks([]*Link{l})
+	l := dataset.PointAt(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	ls := dataset.NewGraphPointer([]*dataset.Pointer{l})
 	b := NewField(p).Link(ls).MustBuild()
 	assert.Equal(t, ls, b.Links())
 }
 
 func TestFieldBuilder_Build(t *testing.T) {
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	l := dataset.PointAt(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
 	testCases := []struct {
 		Name     string
-		Links    *Links
+		Links    *dataset.GraphPointer
 		Value    *Value
 		SF       *SchemaField
 		Expected struct {
 			PType ValueType
-			Links *Links
+			Links *dataset.GraphPointer
 			Value *Value
 		}
 		Err error
@@ -41,7 +42,7 @@ func TestFieldBuilder_Build(t *testing.T) {
 			Name: "fail invalid property id",
 			Expected: struct {
 				PType ValueType
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{},
 			Err: id.ErrInvalidID,
@@ -52,7 +53,7 @@ func TestFieldBuilder_Build(t *testing.T) {
 			Value: ValueTypeString.ValueFrom("vvv"),
 			Expected: struct {
 				PType ValueType
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{},
 			Err: ErrInvalidPropertyType,
@@ -60,15 +61,15 @@ func TestFieldBuilder_Build(t *testing.T) {
 		{
 			Name:  "success",
 			SF:    NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
-			Links: NewLinks([]*Link{l}),
+			Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 			Value: ValueTypeString.ValueFrom("vvv"),
 			Expected: struct {
 				PType ValueType
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{
 				PType: ValueTypeString,
-				Links: NewLinks([]*Link{l}),
+				Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 				Value: ValueTypeString.ValueFrom("vvv"),
 			},
 			Err: nil,
@@ -91,16 +92,16 @@ func TestFieldBuilder_Build(t *testing.T) {
 }
 
 func TestFieldBuilder_MustBuild(t *testing.T) {
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	l := dataset.PointAt(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
 	testCases := []struct {
 		Name     string
 		Fails    bool
-		Links    *Links
+		Links    *dataset.GraphPointer
 		Value    *Value
 		SF       *SchemaField
 		Expected struct {
 			PType ValueType
-			Links *Links
+			Links *dataset.GraphPointer
 			Value *Value
 		}
 	}{
@@ -109,7 +110,7 @@ func TestFieldBuilder_MustBuild(t *testing.T) {
 			Fails: true,
 			Expected: struct {
 				PType ValueType
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{},
 		},
@@ -120,22 +121,22 @@ func TestFieldBuilder_MustBuild(t *testing.T) {
 			Fails: true,
 			Expected: struct {
 				PType ValueType
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{},
 		},
 		{
 			Name:  "success",
 			SF:    NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
-			Links: NewLinks([]*Link{l}),
+			Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 			Value: ValueTypeString.ValueFrom("vvv"),
 			Expected: struct {
 				PType ValueType
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{
 				PType: ValueTypeString,
-				Links: NewLinks([]*Link{l}),
+				Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 				Value: ValueTypeString.ValueFrom("vvv"),
 			},
 		},
@@ -168,53 +169,53 @@ func TestNewFieldUnsafe(t *testing.T) {
 }
 
 func TestFieldUnsafeBuilder_Build(t *testing.T) {
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	l := dataset.PointAt(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
 	testCases := []struct {
 		Name     string
-		Links    *Links
+		Links    *dataset.GraphPointer
 		Value    *Value
 		Type     ValueType
 		Field    id.PropertySchemaFieldID
 		Expected struct {
 			PType ValueType
 			Field id.PropertySchemaFieldID
-			Links *Links
+			Links *dataset.GraphPointer
 			Value *Value
 		}
 	}{
 		{
 			Name:  "success",
-			Links: NewLinks([]*Link{l}),
+			Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 			Value: ValueTypeString.ValueFrom("vvv"),
 			Type:  ValueTypeString,
 			Field: "a",
 			Expected: struct {
 				PType ValueType
 				Field id.PropertySchemaFieldID
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{
 				PType: ValueTypeString,
 				Field: "a",
-				Links: NewLinks([]*Link{l}),
+				Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 				Value: ValueTypeString.ValueFrom("vvv"),
 			},
 		},
 		{
 			Name:  "nil value",
-			Links: NewLinks([]*Link{l}),
+			Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 			Value: nil,
 			Type:  ValueTypeString,
 			Field: "a",
 			Expected: struct {
 				PType ValueType
 				Field id.PropertySchemaFieldID
-				Links *Links
+				Links *dataset.GraphPointer
 				Value *Value
 			}{
 				PType: ValueTypeString,
 				Field: "a",
-				Links: NewLinks([]*Link{l}),
+				Links: dataset.NewGraphPointer([]*dataset.Pointer{l}),
 				Value: nil,
 			},
 		},

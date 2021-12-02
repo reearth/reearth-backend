@@ -5,6 +5,7 @@ package property
 import (
 	"errors"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
@@ -264,16 +265,16 @@ func (p *InitializerField) PropertyField() *Field {
 		return nil
 	}
 
-	var plinks *Links
+	var plinks *dataset.GraphPointer
 	if p.Links != nil {
-		links := make([]*Link, 0, len(p.Links))
+		links := make([]*dataset.Pointer, 0, len(p.Links))
 		for _, l := range p.Links {
 			link := l.PropertyLink()
 			if link != nil {
 				links = append(links, link)
 			}
 		}
-		plinks = NewLinks(links)
+		plinks = dataset.NewGraphPointer(links)
 	}
 
 	return NewFieldUnsafe().LinksUnsafe(plinks).FieldUnsafe(p.Field).ValueUnsafe(NewOptionalValue(p.Type, p.Value.Clone())).Build()
@@ -297,14 +298,14 @@ func (p *InitializerLink) Clone() *InitializerLink {
 	}
 }
 
-func (p *InitializerLink) PropertyLink() *Link {
+func (p *InitializerLink) PropertyLink() *dataset.Pointer {
 	if p == nil {
 		return nil
 	}
 
 	if p.Dataset == nil {
-		return NewLinkFieldOnly(p.Schema, p.Field)
+		return dataset.PointAtField(p.Schema, p.Field)
 	}
 
-	return NewLink(*p.Dataset, p.Schema, p.Field)
+	return dataset.PointAt(*p.Dataset, p.Schema, p.Field)
 }

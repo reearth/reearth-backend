@@ -57,7 +57,8 @@ func (v *ValueAndDatasetValue) Value() *Value {
 		return nil
 	}
 	if v.d != nil {
-		return valueFromDataset(v.d)
+		dv := valueFromDataset(v.d)
+		return dv
 	}
 	return v.p
 }
