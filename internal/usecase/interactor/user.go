@@ -1,9 +1,13 @@
 package interactor
 
 import (
+	"bytes"
 	"context"
+	_ "embed"
 	"errors"
+	htmlTmpl "html/template"
 	"net/mail"
+	textTmpl "text/template"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
@@ -29,8 +33,16 @@ type User struct {
 	transaction       repo.Transaction
 	file              gateway.File
 	authenticator     gateway.Authenticator
+	mailer            gateway.Mailer
 	signupSecret      string
 }
+
+var (
+	//go:embed emails/password_reset_html.tmpl
+	passwordResetHTMLTMPL string
+	//go:embed emails/password_reset_text.tmpl
+	passwordResetTextTMPL string
+)
 
 func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) interfaces.User {
 	return &User{
@@ -47,6 +59,7 @@ func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) inter
 		file:              g.File,
 		authenticator:     g.Authenticator,
 		signupSecret:      signupSecret,
+		mailer:            g.Mailer,
 	}
 }
 
@@ -253,9 +266,39 @@ func (i *User) StartPasswordReset(ctx context.Context, email string) error {
 		return err
 	}
 
-	u.SetPasswordReset(user.NewPasswordReset())
+	pr := user.NewPasswordReset()
+	u.SetPasswordReset(pr)
 
 	if err := i.userRepo.Save(ctx, u); err != nil {
+		return err
+	}
+
+	t1, err := textTmpl.New("passwordReset").Parse(passwordResetTextTMPL)
+	if err != nil {
+		return err
+	}
+	t2, err := htmlTmpl.New("passwordReset").Parse(passwordResetHTMLTMPL)
+	if err != nil {
+		return err
+	}
+	var TextOut, HTMLOut bytes.Buffer
+	link := "localhost:3000/?pwd-reset-token=" + pr.Token
+	err = t1.Execute(&TextOut, link)
+	if err != nil {
+		return err
+	}
+	err = t2.Execute(&HTMLOut, link)
+	if err != nil {
+		return err
+	}
+
+	err = i.mailer.SendMail([]gateway.Contact{
+		{
+			Email: u.Email(),
+			Name:  u.Name(),
+		},
+	}, "Password reset", TextOut.String(), HTMLOut.String())
+	if err != nil {
 		return err
 	}
 
