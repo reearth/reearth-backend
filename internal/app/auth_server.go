@@ -202,7 +202,7 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		}
 
 		// Complete the auth request && set the subject
-		err = storage.(*interactor.Storage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
+		err = storage.(*interactor.AuthStorage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
 		if err != nil {
 			ec.Logger().Error("failed to complete the auth request !")
 			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))

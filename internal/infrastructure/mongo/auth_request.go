@@ -3,13 +3,12 @@ package mongo
 import (
 	"context"
 
-	"github.com/reearth/reearth-backend/pkg/auth"
-	"go.mongodb.org/mongo-driver/bson"
-
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
+	"github.com/reearth/reearth-backend/pkg/auth"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/log"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type authRequestRepo struct {
@@ -30,7 +29,7 @@ func (r *authRequestRepo) init() {
 }
 
 func (r *authRequestRepo) FindByID(ctx context.Context, id2 id.AuthRequestID) (*auth.Request, error) {
-	filter := bson.D{{Key: "id", Value: id.ID(id2).String()}}
+	filter := bson.D{{Key: "id", Value: id2.String()}}
 	return r.findOne(ctx, filter)
 }
 

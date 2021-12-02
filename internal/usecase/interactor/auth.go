@@ -8,7 +8,6 @@ import (
 	"crypto/x509/pkix"
 	"errors"
 	"math/big"
-	"sync"
 	"time"
 
 	"github.com/caos/oidc/pkg/oidc"
@@ -20,8 +19,7 @@ import (
 	"gopkg.in/square/go-jose.v2"
 )
 
-type Storage struct {
-	lock             sync.Mutex
+type AuthStorage struct {
 	appConfig        *StorageConfig
 	getUserBySubject func(context.Context, string) (*user.User, error)
 	clients          map[string]op.Client
@@ -79,7 +77,7 @@ func NewAuthStorage(cfg *StorageConfig, request repo.AuthRequest, getUserBySubje
 
 	key, sigKey, keySet := initKeys(name)
 
-	return &Storage{
+	return &AuthStorage{
 		appConfig:        cfg,
 		getUserBySubject: getUserBySubject,
 		requests:         request,
@@ -131,14 +129,11 @@ func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKey
 	}
 }
 
-func (s *Storage) Health(_ context.Context) error {
+func (s *AuthStorage) Health(_ context.Context) error {
 	return nil
 }
 
-func (s *Storage) CreateAuthRequest(ctx context.Context, authReq *oidc.AuthRequest, _ string) (op.AuthRequest, error) {
-	s.lock.Lock()
-	defer s.lock.Unlock()
-
+func (s *AuthStorage) CreateAuthRequest(ctx context.Context, authReq *oidc.AuthRequest, _ string) (op.AuthRequest, error) {
 	audiences := []string{
 		s.appConfig.Domain,
 	}
@@ -153,7 +148,7 @@ func (s *Storage) CreateAuthRequest(ctx context.Context, authReq *oidc.AuthReque
 			Method:    authReq.CodeChallengeMethod,
 		}
 	}
-	var request = auth.New().
+	var request = auth.NewRequest().
 		NewID().
 		ClientID(authReq.ClientID).
 		State(authReq.State).
@@ -173,10 +168,7 @@ func (s *Storage) CreateAuthRequest(ctx context.Context, authReq *oidc.AuthReque
 	return request, nil
 }
 
-func (s *Storage) AuthRequestByID(ctx context.Context, requestID string) (op.AuthRequest, error) {
-	s.lock.Lock()
-	defer s.lock.Unlock()
-
+func (s *AuthStorage) AuthRequestByID(ctx context.Context, requestID string) (op.AuthRequest, error) {
 	if requestID == "" {
 		return nil, errors.New("invalid id")
 	}
@@ -191,20 +183,14 @@ func (s *Storage) AuthRequestByID(ctx context.Context, requestID string) (op.Aut
 	return request, nil
 }
 
-func (s *Storage) AuthRequestByCode(ctx context.Context, code string) (op.AuthRequest, error) {
-	s.lock.Lock()
-	defer s.lock.Unlock()
-
+func (s *AuthStorage) AuthRequestByCode(ctx context.Context, code string) (op.AuthRequest, error) {
 	if code == "" {
 		return nil, errors.New("invalid code")
 	}
 	return s.requests.FindByCode(ctx, code)
 }
 
-func (s *Storage) AuthRequestBySubject(ctx context.Context, subject string) (op.AuthRequest, error) {
-	s.lock.Lock()
-	defer s.lock.Unlock()
-
+func (s *AuthStorage) AuthRequestBySubject(ctx context.Context, subject string) (op.AuthRequest, error) {
 	if subject == "" {
 		return nil, errors.New("invalid subject")
 	}
@@ -212,7 +198,7 @@ func (s *Storage) AuthRequestBySubject(ctx context.Context, subject string) (op.
 	return s.requests.FindBySubject(ctx, subject)
 }
 
-func (s *Storage) SaveAuthCode(ctx context.Context, requestID, code string) error {
+func (s *AuthStorage) SaveAuthCode(ctx context.Context, requestID, code string) error {
 
 	request, err := s.AuthRequestByID(ctx, requestID)
 	if err != nil {
@@ -224,24 +210,21 @@ func (s *Storage) SaveAuthCode(ctx context.Context, requestID, code string) erro
 	return err
 }
 
-func (s *Storage) DeleteAuthRequest(_ context.Context, requestID string) error {
-	s.lock.Lock()
-	defer s.lock.Unlock()
-
+func (s *AuthStorage) DeleteAuthRequest(_ context.Context, requestID string) error {
 	delete(s.clients, requestID)
 	return nil
 }
 
-func (s *Storage) CreateAccessToken(_ context.Context, _ op.TokenRequest) (string, time.Time, error) {
+func (s *AuthStorage) CreateAccessToken(_ context.Context, _ op.TokenRequest) (string, time.Time, error) {
 	return "id", time.Now().UTC().Add(5 * time.Hour), nil
 }
 
-func (s *Storage) CreateAccessAndRefreshTokens(_ context.Context, request op.TokenRequest, _ string) (accessTokenID string, newRefreshToken string, expiration time.Time, err error) {
+func (s *AuthStorage) CreateAccessAndRefreshTokens(_ context.Context, request op.TokenRequest, _ string) (accessTokenID string, newRefreshToken string, expiration time.Time, err error) {
 	authReq := request.(*auth.Request)
 	return "id", authReq.GetID(), time.Now().UTC().Add(5 * time.Minute), nil
 }
 
-func (s *Storage) TokenRequestByRefreshToken(ctx context.Context, refreshToken string) (op.RefreshTokenRequest, error) {
+func (s *AuthStorage) TokenRequestByRefreshToken(ctx context.Context, refreshToken string) (op.RefreshTokenRequest, error) {
 	r, err := s.AuthRequestByID(ctx, refreshToken)
 	if err != nil {
 		return nil, err
@@ -249,23 +232,23 @@ func (s *Storage) TokenRequestByRefreshToken(ctx context.Context, refreshToken s
 	return r.(op.RefreshTokenRequest), err
 }
 
-func (s *Storage) TerminateSession(_ context.Context, _, _ string) error {
+func (s *AuthStorage) TerminateSession(_ context.Context, _, _ string) error {
 	return errors.New("not implemented")
 }
 
-func (s *Storage) GetSigningKey(_ context.Context, keyCh chan<- jose.SigningKey) {
+func (s *AuthStorage) GetSigningKey(_ context.Context, keyCh chan<- jose.SigningKey) {
 	keyCh <- s.sigKey
 }
 
-func (s *Storage) GetKeySet(_ context.Context) (*jose.JSONWebKeySet, error) {
+func (s *AuthStorage) GetKeySet(_ context.Context) (*jose.JSONWebKeySet, error) {
 	return &s.keySet, nil
 }
 
-func (s *Storage) GetKeyByIDAndUserID(_ context.Context, kid, _ string) (*jose.JSONWebKey, error) {
+func (s *AuthStorage) GetKeyByIDAndUserID(_ context.Context, kid, _ string) (*jose.JSONWebKey, error) {
 	return &s.keySet.Key(kid)[0], nil
 }
 
-func (s *Storage) GetClientByClientID(_ context.Context, clientID string) (op.Client, error) {
+func (s *AuthStorage) GetClientByClientID(_ context.Context, clientID string) (op.Client, error) {
 
 	if clientID == "" {
 		return nil, errors.New("invalid client id")
@@ -279,15 +262,15 @@ func (s *Storage) GetClientByClientID(_ context.Context, clientID string) (op.Cl
 	return client, nil
 }
 
-func (s *Storage) AuthorizeClientIDSecret(_ context.Context, _ string, _ string) error {
+func (s *AuthStorage) AuthorizeClientIDSecret(_ context.Context, _ string, _ string) error {
 	return nil
 }
 
-func (s *Storage) SetUserinfoFromToken(ctx context.Context, userinfo oidc.UserInfoSetter, _, _, _ string) error {
+func (s *AuthStorage) SetUserinfoFromToken(ctx context.Context, userinfo oidc.UserInfoSetter, _, _, _ string) error {
 	return s.SetUserinfoFromScopes(ctx, userinfo, "", "", []string{})
 }
 
-func (s *Storage) SetUserinfoFromScopes(ctx context.Context, userinfo oidc.UserInfoSetter, subject, _ string, _ []string) error {
+func (s *AuthStorage) SetUserinfoFromScopes(ctx context.Context, userinfo oidc.UserInfoSetter, subject, _ string, _ []string) error {
 
 	request, err := s.AuthRequestBySubject(ctx, subject)
 	if err != nil {
@@ -308,11 +291,11 @@ func (s *Storage) SetUserinfoFromScopes(ctx context.Context, userinfo oidc.UserI
 	return nil
 }
 
-func (s *Storage) GetPrivateClaimsFromScopes(_ context.Context, _, _ string, _ []string) (map[string]interface{}, error) {
+func (s *AuthStorage) GetPrivateClaimsFromScopes(_ context.Context, _, _ string, _ []string) (map[string]interface{}, error) {
 	return map[string]interface{}{"private_claim": "test"}, nil
 }
 
-func (s *Storage) SetIntrospectionFromToken(ctx context.Context, introspect oidc.IntrospectionResponse, _, subject, clientID string) error {
+func (s *AuthStorage) SetIntrospectionFromToken(ctx context.Context, introspect oidc.IntrospectionResponse, _, subject, clientID string) error {
 	if err := s.SetUserinfoFromScopes(ctx, introspect, subject, clientID, []string{}); err != nil {
 		return err
 	}
@@ -324,11 +307,11 @@ func (s *Storage) SetIntrospectionFromToken(ctx context.Context, introspect oidc
 	return nil
 }
 
-func (s *Storage) ValidateJWTProfileScopes(_ context.Context, _ string, scope []string) ([]string, error) {
+func (s *AuthStorage) ValidateJWTProfileScopes(_ context.Context, _ string, scope []string) ([]string, error) {
 	return scope, nil
 }
 
-func (s *Storage) CompleteAuthRequest(ctx context.Context, requestId, sub string) error {
+func (s *AuthStorage) CompleteAuthRequest(ctx context.Context, requestId, sub string) error {
 	request, err := s.AuthRequestByID(ctx, requestId)
 	if err != nil {
 		return err
@@ -339,10 +322,7 @@ func (s *Storage) CompleteAuthRequest(ctx context.Context, requestId, sub string
 	return err
 }
 
-func (s *Storage) updateRequest(ctx context.Context, requestID string, req auth.Request) error {
-	s.lock.Lock()
-	defer s.lock.Unlock()
-
+func (s *AuthStorage) updateRequest(ctx context.Context, requestID string, req auth.Request) error {
 	if requestID == "" {
 		return errors.New("invalid id")
 	}

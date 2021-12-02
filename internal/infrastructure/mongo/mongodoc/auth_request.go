@@ -85,7 +85,7 @@ func (d *AuthRequestDocument) Model() (*auth.Request, error) {
 		return nil, nil
 	}
 
-	uuid, err := id.AuthRequestIDFrom(d.ID)
+	ulid, err := id.AuthRequestIDFrom(d.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (d *AuthRequestDocument) Model() (*auth.Request, error) {
 			Method:    oidc.CodeChallengeMethod(d.CodeChallenge.Method),
 		}
 	}
-	var req = auth.New().
-		ID(uuid).
+	var req = auth.NewRequest().
+		ID(ulid).
 		ClientID(d.ClientID).
 		Subject(d.Subject).
 		Code(d.Code).
