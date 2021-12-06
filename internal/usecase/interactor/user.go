@@ -52,11 +52,11 @@ func init() {
 	var err error
 	passwordResetTextTMPL, err = textTmpl.New("passwordReset").Parse(passwordResetTextTMPLStr)
 	if err != nil {
-		log.Panicf("password reset email template parse error: %s", err)
+		log.Panicf("password reset email template parse error: %s\n", err)
 	}
 	passwordResetHTMLTMPL, err = htmlTmpl.New("passwordReset").Parse(passwordResetHTMLTMPLStr)
 	if err != nil {
-		log.Panicf("password reset email template parse error: %s", err)
+		log.Panicf("password reset email template parse error: %s\n", err)
 	}
 }
 
