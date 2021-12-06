@@ -89,6 +89,17 @@ func (v *Value) Interface() interface{} {
 	return v.v.Interface()
 }
 
+func (v *Value) Cast(vt ValueType) *Value {
+	if v == nil {
+		return nil
+	}
+	nv := v.v.Cast(value.Type(vt), types)
+	if nv == nil {
+		return nil
+	}
+	return &Value{v: *nv}
+}
+
 func (v *Value) ValueBool() *bool {
 	if v == nil {
 		return nil
