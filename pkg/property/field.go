@@ -102,6 +102,14 @@ func (p *Field) Update(value *Value, field *SchemaField) error {
 	return nil
 }
 
+func (p *Field) Cast(t ValueType) {
+	if p == nil || p.Type() == t {
+		return
+	}
+	p.v = p.v.Cast(t)
+	p.Unlink()
+}
+
 func (p *Field) UpdateUnsafe(value *Value) {
 	if p == nil {
 		return
