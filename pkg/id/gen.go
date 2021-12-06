@@ -11,6 +11,7 @@
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=user_gen.go --name=User
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=dataset_schema_field_gen.go --name=DatasetSchemaField
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=infobox_field_gen.go --name=InfoboxField
+//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id.tmpl --output=auth_request_gen.go --name=AuthRequest
 
 // Testing
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=asset_gen_test.go --name=Asset
@@ -26,5 +27,6 @@
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=user_gen_test.go --name=User
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=dataset_schema_field_gen_test.go --name=DatasetSchemaField
 //go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=infobox_field_gen_test.go --name=InfoboxField
+//go:generate go run github.com/reearth/reearth-backend/tools/cmd/gen --template=id_test.tmpl --output=auth_request_gen_test.go --name=AuthRequest
 
 package id

@@ -1,4 +1,4 @@
-package appauth
+package auth
 
 import (
 	"fmt"
@@ -8,8 +8,8 @@ import (
 	"github.com/caos/oidc/pkg/op"
 )
 
-type ConfClient struct {
-	ID                 string
+type Client struct {
+	id                 string
 	applicationType    op.ApplicationType
 	authMethod         oidc.AuthMethod
 	accessTokenType    op.AccessTokenType
@@ -24,9 +24,9 @@ type ConfClient struct {
 	devMode            bool
 }
 
-func initLocalClient(devMode bool) op.Client {
-	return &ConfClient{
-		ID:              "01FH69GFQ4DFCXS5XD91JK4HZ1",
+func NewLocalClient(devMode bool) op.Client {
+	return &Client{
+		id:              "01FH69GFQ4DFCXS5XD91JK4HZ1",
 		applicationType: op.ApplicationTypeWeb,
 		authMethod:      oidc.AuthMethodNone,
 		accessTokenType: op.AccessTokenTypeJWT,
@@ -41,63 +41,63 @@ func initLocalClient(devMode bool) op.Client {
 	}
 }
 
-func (c *ConfClient) GetID() string {
-	return c.ID
+func (c *Client) GetID() string {
+	return c.id
 }
 
-func (c *ConfClient) RedirectURIs() []string {
+func (c *Client) RedirectURIs() []string {
 	return c.redirectURIs
 }
 
-func (c *ConfClient) PostLogoutRedirectURIs() []string {
+func (c *Client) PostLogoutRedirectURIs() []string {
 	return c.logoutRedirectURIs
 }
 
-func (c *ConfClient) LoginURL(id string) string {
+func (c *Client) LoginURL(id string) string {
 	return fmt.Sprintf(c.loginURI, id)
 }
 
-func (c *ConfClient) ApplicationType() op.ApplicationType {
+func (c *Client) ApplicationType() op.ApplicationType {
 	return c.applicationType
 }
 
-func (c *ConfClient) AuthMethod() oidc.AuthMethod {
+func (c *Client) AuthMethod() oidc.AuthMethod {
 	return c.authMethod
 }
 
-func (c *ConfClient) IDTokenLifetime() time.Duration {
+func (c *Client) IDTokenLifetime() time.Duration {
 	return c.idTokenLifetime
 }
 
-func (c *ConfClient) AccessTokenType() op.AccessTokenType {
+func (c *Client) AccessTokenType() op.AccessTokenType {
 	return c.accessTokenType
 }
 
-func (c *ConfClient) ResponseTypes() []oidc.ResponseType {
+func (c *Client) ResponseTypes() []oidc.ResponseType {
 	return c.responseTypes
 }
 
-func (c *ConfClient) GrantTypes() []oidc.GrantType {
+func (c *Client) GrantTypes() []oidc.GrantType {
 	return c.grantTypes
 }
 
-func (c *ConfClient) DevMode() bool {
+func (c *Client) DevMode() bool {
 	return c.devMode
 }
 
-func (c *ConfClient) RestrictAdditionalIdTokenScopes() func(scopes []string) []string {
+func (c *Client) RestrictAdditionalIdTokenScopes() func(scopes []string) []string {
 	return func(scopes []string) []string {
 		return scopes
 	}
 }
 
-func (c *ConfClient) RestrictAdditionalAccessTokenScopes() func(scopes []string) []string {
+func (c *Client) RestrictAdditionalAccessTokenScopes() func(scopes []string) []string {
 	return func(scopes []string) []string {
 		return scopes
 	}
 }
 
-func (c *ConfClient) IsScopeAllowed(scope string) bool {
+func (c *Client) IsScopeAllowed(scope string) bool {
 	for _, clientScope := range c.allowedScopes {
 		if clientScope == scope {
 			return true
@@ -106,10 +106,10 @@ func (c *ConfClient) IsScopeAllowed(scope string) bool {
 	return false
 }
 
-func (c *ConfClient) IDTokenUserinfoClaimsAssertion() bool {
+func (c *Client) IDTokenUserinfoClaimsAssertion() bool {
 	return false
 }
 
-func (c *ConfClient) ClockSkew() time.Duration {
+func (c *Client) ClockSkew() time.Duration {
 	return c.clockSkew
 }
