@@ -99,12 +99,12 @@ extensions:
               type: number
               title: Target area width
               min: 5
-              default: 5000
+              default: 1000000
             - id: target_height
               type: number
               title: Target area height
               min: 5
-              default: 5000
+              default: 1000000
         - id: tiles
           title: Tiles
           description: You may change the look of the Earth by obtaining map tile data and setting it here.
