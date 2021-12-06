@@ -14,6 +14,15 @@ extensions:
           terrain:
             title: 地形
             description: 有効にすると、標高データが読み込みこまれ、立体的な地形を表現することができます。
+          terrainType:
+            title: 地形の種類
+            description: 地形の種類を指定します。
+          terrainExaggeration:
+            title: 地形の強調
+            description: 地形の強調を設定します。デフォルトは1.0（誇張しない）です。2.0は、地形を2倍に拡大します。0.0の値は地形を完全に平らにします。
+          terrainExaggerationRelativeHeight:
+            title: 地形の強調の基準
+            description: 地形が誇張される高さです。デフォルトは0.0です。この高さより上にある地形は上方に、この高さより下にある地形は下方にスケールされます。
           depthTestAgainstTerrain:
             title: 地形の下を非表示
             description: 地形の下にあるオブジェクトを非表示にします。標高データの読み込み状況によってオブジェクトが表示されたり隠れたりすることがあります。
@@ -749,3 +758,37 @@ extensions:
             title: カメラ画角
           layerCamera:
             title: カメラ
+  cluster:
+    name: クラスタ
+    description: レイヤーを自動的にまとめて表示することが可能なクラスタを設定します。
+    propertySchema:
+      default:
+        title: デフォルト
+        fields:
+          cluster_name:
+            title: クラスタ名
+            description: クラスタの名前を指定します。
+          cluster_pixelRange:
+            title: 最小範囲
+            description: 画面上の何ピクセル分の範囲にあるレイヤーをクラスタにまとめるかを最小値で指定します。
+          cluster_minSize:
+            title: 最小サイズ
+            description: クラスタが表示される最小のレイヤー数
+          cluster_maxSize:
+            title: 最大サイズ
+            description: クラスタに属することが可能な最大レイヤー数
+          cluster_shapeType:
+            title: 表示方法
+            description: 画面上で表示されるクラスタの表示方法を指定します。
+            choices:
+              pin: ピン
+              label: ラベル
+          cluster_textColor:
+            title: 文字色
+            description: 画面上で表示されるクラスタの文字色を指定します。
+          cluster_backgroundColor:
+            title: 背景色
+            description: 画面上で表示されるクラスタの背景色を指定します。
+          cluster_image:
+            title: 画像
+            description: 画面上で表示されるクラスタの画像を指定します。
