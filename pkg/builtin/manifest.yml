@@ -94,15 +94,15 @@ extensions:
               description: Display the limiter boundaries.
             - id: target_area
               type: camera
-              title: Target area   
+              title: Target max height   
             - id: target_width
               type: number
-              title: Target area width
+              title: Target width
               min: 5
               default: 1000000
             - id: target_height
               type: number
-              title: Target area height
+              title: Target length
               min: 5
               default: 1000000
         - id: tiles
