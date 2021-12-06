@@ -17,6 +17,15 @@ func NewUserController(usecase interfaces.User) *UserController {
 	}
 }
 
+type CreateVerificationInput struct {
+	Email string `json:"email"`
+}
+
+type VerifyUserOutput struct {
+	UserID   string `json:"userId"`
+	Verified bool   `json:"verified"`
+}
+
 type CreateUserInput struct {
 	Sub    string     `json:"sub"`
 	Secret string     `json:"secret"`
@@ -45,5 +54,23 @@ func (c *UserController) CreateUser(ctx context.Context, input CreateUserInput) 
 		ID:    u.ID().String(),
 		Name:  u.Name(),
 		Email: u.Email(),
+	}, nil
+}
+
+func (c *UserController) CreateVerification(ctx context.Context, input CreateVerificationInput) error {
+	if err := c.usecase.CreateVerification(ctx, input.Email); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *UserController) VerifyUser(ctx context.Context, code string) (interface{}, error) {
+	u, err := c.usecase.VerifyUser(ctx, code)
+	if err != nil {
+		return nil, err
+	}
+	return VerifyUserOutput{
+		UserID:   u.ID().String(),
+		Verified: u.Verification().IsVerified(),
 	}, nil
 }

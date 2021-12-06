@@ -28,6 +28,7 @@ type User struct {
 	transaction       repo.Transaction
 	file              gateway.File
 	authenticator     gateway.Authenticator
+	mailer            gateway.Mailer
 	signupSecret      string
 }
 
@@ -46,6 +47,7 @@ func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) inter
 		file:              g.File,
 		authenticator:     g.Authenticator,
 		signupSecret:      signupSecret,
+		mailer:            g.Mailer,
 	}
 }
 
@@ -396,4 +398,54 @@ func (i *User) DeleteMe(ctx context.Context, userID id.UserID, operator *usecase
 
 	tx.Commit()
 	return nil
+}
+
+func (i *User) CreateVerification(ctx context.Context, email string) error {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return err
+	}
+	u, err := i.userRepo.FindByEmail(ctx, email)
+	if err != nil {
+		return err
+	}
+	u.SetVerification(user.NewVerification())
+	err = i.userRepo.Save(ctx, u)
+	if err != nil {
+		return err
+	}
+
+	err = i.mailer.SendMail([]gateway.Contact{
+		{
+			Email: u.Email(),
+			Name:  u.Name(),
+		},
+	}, "email verification", "", "")
+	if err != nil {
+		return err
+	}
+	tx.Commit()
+	return nil
+}
+
+func (i *User) VerifyUser(ctx context.Context, code string) (*user.User, error) {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return nil, err
+	}
+	u, err := i.userRepo.FindByVerification(ctx, code)
+	if err != nil {
+		return nil, err
+	}
+	if u.Verification().IsExpired() {
+		return nil, errors.New("verification expired")
+	}
+	u.Verification().SetVerified(true)
+	err = i.userRepo.Save(ctx, u)
+	if err != nil {
+		return nil, err
+	}
+
+	tx.Commit()
+	return u, nil
 }
