@@ -1,15 +1,20 @@
 package interactor
 
 import (
+	"bytes"
 	"context"
+	_ "embed"
 	"errors"
+	htmlTmpl "html/template"
 	"net/mail"
+	textTmpl "text/template"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/project"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/user"
@@ -29,7 +34,30 @@ type User struct {
 	transaction       repo.Transaction
 	file              gateway.File
 	authenticator     gateway.Authenticator
+	mailer            gateway.Mailer
 	signupSecret      string
+}
+
+var (
+	//go:embed emails/password_reset_html.tmpl
+	passwordResetHTMLTMPLStr string
+	//go:embed emails/password_reset_text.tmpl
+	passwordResetTextTMPLStr string
+
+	passwordResetTextTMPL *textTmpl.Template
+	passwordResetHTMLTMPL *htmlTmpl.Template
+)
+
+func init() {
+	var err error
+	passwordResetTextTMPL, err = textTmpl.New("passwordReset").Parse(passwordResetTextTMPLStr)
+	if err != nil {
+		log.Panicf("password reset email template parse error: %s\n", err)
+	}
+	passwordResetHTMLTMPL, err = htmlTmpl.New("passwordReset").Parse(passwordResetHTMLTMPLStr)
+	if err != nil {
+		log.Panicf("password reset email template parse error: %s\n", err)
+	}
 }
 
 func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) interfaces.User {
@@ -47,6 +75,7 @@ func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) inter
 		file:              g.File,
 		authenticator:     g.Authenticator,
 		signupSecret:      signupSecret,
+		mailer:            g.Mailer,
 	}
 }
 
@@ -253,9 +282,31 @@ func (i *User) StartPasswordReset(ctx context.Context, email string) error {
 		return err
 	}
 
-	u.SetPasswordReset(user.NewPasswordReset())
+	pr := user.NewPasswordReset()
+	u.SetPasswordReset(pr)
 
 	if err := i.userRepo.Save(ctx, u); err != nil {
+		return err
+	}
+
+	var TextOut, HTMLOut bytes.Buffer
+	link := "localhost:3000/?pwd-reset-token=" + pr.Token
+	err = passwordResetTextTMPL.Execute(&TextOut, link)
+	if err != nil {
+		return err
+	}
+	err = passwordResetHTMLTMPL.Execute(&HTMLOut, link)
+	if err != nil {
+		return err
+	}
+
+	err = i.mailer.SendMail([]gateway.Contact{
+		{
+			Email: u.Email(),
+			Name:  u.Name(),
+		},
+	}, "Password reset", TextOut.String(), HTMLOut.String())
+	if err != nil {
 		return err
 	}
 
