@@ -2,7 +2,6 @@ package property
 
 import (
 	"net/url"
-	"strconv"
 
 	"github.com/reearth/reearth-backend/pkg/value"
 )
@@ -211,16 +210,12 @@ func (v *Value) ValuePolygon() *Polygon {
 }
 
 func ValueFromStringOrNumber(s string) *Value {
-	if vint, err := strconv.Atoi(s); err == nil {
-		return ValueTypeNumber.ValueFrom(vint)
+	if s == "true" || s == "false" || s == "TRUE" || s == "FALSE" || s == "True" || s == "False" {
+		return ValueTypeBool.ValueFrom(s)
 	}
 
-	if vfloat64, err := strconv.ParseFloat(s, 64); err == nil {
-		return ValueTypeNumber.ValueFrom(vfloat64)
-	}
-
-	if vbool, err := strconv.ParseBool(s); err == nil {
-		return ValueTypeBool.ValueFrom(vbool)
+	if v := ValueTypeNumber.ValueFrom(s); v != nil {
+		return v
 	}
 
 	return ValueTypeString.ValueFrom(s)

@@ -328,7 +328,7 @@ func TestOptionalValue_Cast(t *testing.T) {
 			name:   "failed to cast",
 			target: &OptionalValue{ov: *value.OptionalFrom(value.TypeLatLng.ValueFrom(LatLng{Lat: 1, Lng: 2}, types))},
 			args:   args{t: ValueTypeString},
-			want:   nil,
+			want:   &OptionalValue{ov: *value.NewOptional(value.TypeString, nil)},
 		},
 		{
 			name:   "empty",
