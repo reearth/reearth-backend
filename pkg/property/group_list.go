@@ -70,14 +70,14 @@ func (g *GroupList) HasLinkedField() bool {
 	return false
 }
 
-func (g *GroupList) CollectDatasets() []id.DatasetID {
+func (g *GroupList) Datasets() []id.DatasetID {
 	if g == nil {
 		return nil
 	}
 	res := []id.DatasetID{}
 
 	for _, f := range g.groups {
-		res = append(res, f.CollectDatasets()...)
+		res = append(res, f.Datasets()...)
 	}
 
 	return res

@@ -71,7 +71,7 @@ func (p *Field) ActualValue(ds *dataset.Dataset) *ValueAndDatasetValue {
 	return NewValueAndDatasetValue(p.Type(), dv, p.Value())
 }
 
-func (p *Field) CollectDatasets() []id.DatasetID {
+func (p *Field) Datasets() []id.DatasetID {
 	if p == nil {
 		return nil
 	}

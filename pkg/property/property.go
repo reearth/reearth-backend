@@ -184,14 +184,14 @@ func (p *Property) IsDatasetLinked(s id.DatasetSchemaID, i id.DatasetID) bool {
 	return false
 }
 
-func (p *Property) CollectDatasets() []id.DatasetID {
+func (p *Property) Datasets() []id.DatasetID {
 	if p == nil {
 		return nil
 	}
 	res := []id.DatasetID{}
 
 	for _, f := range p.items {
-		res = append(res, f.CollectDatasets()...)
+		res = append(res, f.Datasets()...)
 	}
 
 	return res

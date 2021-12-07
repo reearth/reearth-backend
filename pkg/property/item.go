@@ -15,7 +15,7 @@ type Item interface {
 	Schema() id.PropertySchemaID
 	SchemaRef() *id.PropertySchemaID
 	HasLinkedField() bool
-	CollectDatasets() []id.DatasetID
+	Datasets() []id.DatasetID
 	FieldsByLinkedDataset(id.DatasetSchemaID, id.DatasetID) []*Field
 	IsDatasetLinked(id.DatasetSchemaID, id.DatasetID) bool
 	IsEmpty() bool
