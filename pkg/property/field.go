@@ -145,7 +145,7 @@ func (p *Field) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 	}
 
 	fid := p.Field()
-	schemaField := newSchema.Field(fid)
+	schemaField := newSchema.Groups().Field(fid)
 
 	// If field is not found in new schema, this field should be removed
 	invalid := schemaField == nil

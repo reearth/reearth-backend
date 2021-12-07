@@ -65,8 +65,6 @@ func TestSchemaGroup(t *testing.T) {
 
 			assert.Equal(tt, tc.Expected.GID, tc.G.ID())
 			assert.Equal(tt, tc.Expected.GIDRef, tc.G.IDRef())
-			assert.Equal(tt, tc.Expected.SID, tc.G.Schema())
-			assert.Equal(tt, tc.Expected.SIDRef, tc.G.SchemaRef())
 			assert.Equal(tt, tc.Expected.Fields, tc.G.Fields())
 			assert.Equal(tt, tc.Expected.IsList, tc.G.IsList())
 			assert.Equal(tt, tc.Expected.IsAvailableIf, tc.G.IsAvailableIf())

@@ -197,21 +197,25 @@ func (i *PropertySchema) schema(pluginID id.PluginID, idstr string) (*property.S
 			Build()
 	}
 
-	// items
-	items := make([]*property.SchemaGroup, 0, len(i.Groups))
+	// groups
+	groups := make([]*property.SchemaGroup, 0, len(i.Groups))
 	for _, d := range i.Groups {
 		item, err := d.schemaGroup(psid)
 		if err != nil {
 			return nil, rerror.From(fmt.Sprintf("item (%s)", d.ID), err)
 		}
-		items = append(items, item)
+		groups = append(groups, item)
+	}
+	sgroups := property.NewSchemaGroupList(groups)
+	if sgroups == nil {
+		return nil, fmt.Errorf("invalid group; it is empty or it may contain some duplicated groups or fields")
 	}
 
 	// schema
 	schema, err := property.NewSchema().
 		ID(psid).
 		Version(int(i.Version)).
-		Groups(items).
+		GroupList(sgroups).
 		LinkableFields(i.Linkable.linkable()).
 		Build()
 	if err != nil {
@@ -230,15 +234,14 @@ func (p *PropertyLinkableFields) linkable() property.LinkableFields {
 	}
 }
 
-func (p *PropertyPointer) pointer() *property.Pointer {
+func (p *PropertyPointer) pointer() *property.SchemaFieldPointer {
 	if p == nil || p.FieldID == "" && p.SchemaGroupID == "" {
 		return nil
 	}
-	return property.NewPointer(
-		id.PropertySchemaGroupIDFrom(&p.SchemaGroupID),
-		nil,
-		id.PropertySchemaFieldIDFrom(&p.FieldID),
-	)
+	return &property.SchemaFieldPointer{
+		SchemaGroup: id.PropertySchemaGroupID(p.SchemaGroupID),
+		Field:       id.PropertySchemaFieldID(p.FieldID),
+	}
 }
 
 func (i PropertySchemaGroup) schemaGroup(sid id.PropertySchemaID) (*property.SchemaGroup, error) {

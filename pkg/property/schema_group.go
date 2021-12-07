@@ -16,7 +16,6 @@ type SchemaGroup struct {
 	representativeField *id.PropertySchemaFieldID
 }
 
-// ID returns id
 func (s *SchemaGroup) ID() id.PropertySchemaGroupID {
 	if s == nil {
 		return id.PropertySchemaGroupID("")

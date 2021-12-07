@@ -192,9 +192,9 @@ func TestMergeManifestTranslation(t *testing.T) {
 			assert.Equal(tt, tc.Expected.PluginName, res.Plugin.Name())
 			assert.Equal(tt, tc.Expected.PluginDesc, res.Plugin.Description())
 			assert.Equal(tt, tc.Expected.ExtName, res.Plugin.Extension(id.PluginExtensionID("test_ext")).Name())
-			assert.Equal(tt, tc.Expected.PsTitle, res.ExtensionSchema[0].Group("test_ps").Title())
-			assert.Equal(tt, tc.Expected.FieldTitle, res.ExtensionSchema[0].Group("test_ps").Field("test_field").Title())
-			assert.Equal(tt, tc.Expected.FieldDesc, res.ExtensionSchema[0].Group("test_ps").Field("test_field").Description())
+			assert.Equal(tt, tc.Expected.PsTitle, res.ExtensionSchema[0].Groups().Group("test_ps").Title())
+			assert.Equal(tt, tc.Expected.FieldTitle, res.ExtensionSchema[0].Groups().Group("test_ps").Field("test_field").Title())
+			assert.Equal(tt, tc.Expected.FieldDesc, res.ExtensionSchema[0].Groups().Group("test_ps").Field("test_field").Description())
 		})
 	}
 }

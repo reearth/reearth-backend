@@ -2,7 +2,6 @@ package property
 
 import (
 	"errors"
-	"fmt"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -12,7 +11,6 @@ import (
 func TestSchemaBuilder_Build(t *testing.T) {
 	sf := NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
 	sg := NewSchemaGroup().ID("aaa").Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Fields([]*SchemaField{sf}).MustBuild()
-	sg2 := NewSchemaGroup().ID("daa").Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Fields([]*SchemaField{sf}).MustBuild()
 	testCases := []struct {
 		Name     string
 		Id       id.PropertySchemaID
@@ -34,14 +32,8 @@ func TestSchemaBuilder_Build(t *testing.T) {
 		{
 			Name:     "fail: invalid linkable field",
 			Id:       id.MustPropertySchemaID("xx~1.0.0/aa"),
-			Linkable: LinkableFields{LatLng: NewPointer(nil, nil, id.PropertySchemaFieldID("xx").Ref())},
+			Linkable: LinkableFields{LatLng: &SchemaFieldPointer{Field: FieldID("xx")}},
 			Err:      ErrInvalidPropertyLinkableField,
-		},
-		{
-			Name:   "fail: duplicated field",
-			Id:     id.MustPropertySchemaID("xx~1.0.0/aa"),
-			Groups: []*SchemaGroup{sg, sg2},
-			Err:    fmt.Errorf("%s: %s %s", ErrDuplicatedField, id.MustPropertySchemaID("xx~1.0.0/aa"), []id.PropertySchemaFieldID{"aa"}),
 		},
 		{
 			Name:    "success",
@@ -69,7 +61,7 @@ func TestSchemaBuilder_Build(t *testing.T) {
 				Build()
 			if err == nil {
 				assert.Equal(tt, tc.Expected.Linkable, res.LinkableFields())
-				assert.Equal(tt, tc.Expected.Groups, res.Groups())
+				assert.Equal(tt, tc.Expected.Groups, res.Groups().Groups())
 				assert.Equal(tt, tc.Expected.Id, res.ID())
 				assert.Equal(tt, tc.Expected.Version, res.Version())
 			} else {
@@ -104,7 +96,7 @@ func TestSchemaBuilder_MustBuild(t *testing.T) {
 		{
 			Name:     "fail: invalid linkable field",
 			Id:       id.MustPropertySchemaID("xx~1.0.0/aa"),
-			Linkable: LinkableFields{LatLng: NewPointer(nil, nil, id.PropertySchemaFieldID("xx").Ref())},
+			Linkable: LinkableFields{LatLng: &SchemaFieldPointer{Field: FieldID("xx")}},
 			Fails:    true,
 		},
 		{
@@ -152,7 +144,7 @@ func TestSchemaBuilder_MustBuild(t *testing.T) {
 					LinkableFields(tc.Linkable).
 					MustBuild()
 				assert.Equal(tt, tc.Expected.Linkable, res.LinkableFields())
-				assert.Equal(tt, tc.Expected.Groups, res.Groups())
+				assert.Equal(tt, tc.Expected.Groups, res.Groups().Groups())
 				assert.Equal(tt, tc.Expected.Id, res.ID())
 				assert.Equal(tt, tc.Expected.Version, res.Version())
 			}

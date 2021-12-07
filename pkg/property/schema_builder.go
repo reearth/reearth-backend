@@ -2,7 +2,6 @@ package property
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/reearth/reearth-backend/pkg/id"
 )
@@ -27,9 +26,6 @@ func NewSchema() *SchemaBuilder {
 func (b *SchemaBuilder) Build() (*Schema, error) {
 	if b.p.id.IsNil() {
 		return nil, id.ErrInvalidID
-	}
-	if d := b.p.DetectDuplicatedFields(); len(d) > 0 {
-		return nil, fmt.Errorf("%s: %s %s", ErrDuplicatedField, b.p.id, d)
 	}
 	if !b.p.linkable.Validate(b.p) {
 		return nil, ErrInvalidPropertyLinkableField
@@ -56,19 +52,12 @@ func (b *SchemaBuilder) Version(version int) *SchemaBuilder {
 }
 
 func (b *SchemaBuilder) Groups(groups []*SchemaGroup) *SchemaBuilder {
-	newGroups := []*SchemaGroup{}
-	ids := map[id.PropertySchemaGroupID]struct{}{}
-	for _, f := range groups {
-		if f == nil {
-			continue
-		}
-		if _, ok := ids[f.ID()]; ok {
-			continue
-		}
-		ids[f.ID()] = struct{}{}
-		newGroups = append(newGroups, f)
-	}
-	b.p.groups = newGroups
+	b.p.groups = NewSchemaGroupList(groups)
+	return b
+}
+
+func (b *SchemaBuilder) GroupList(groups *SchemaGroupList) *SchemaBuilder {
+	b.p.groups = groups
 	return b
 }
 

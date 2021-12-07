@@ -247,7 +247,7 @@ func (p *Property) UpdateValue(ps *Schema, ptr *Pointer, v *Value) (*Field, *Gro
 		return nil, nil, nil, nil
 	}
 
-	if err := field.Update(v, ps.Field(field.Field())); err != nil {
+	if err := field.Update(v, ps.Groups().Field(field.Field())); err != nil {
 		return nil, nil, nil, err
 	}
 
@@ -302,7 +302,7 @@ func (p *Property) GetOrCreateItem(ps *Schema, ptr *Pointer) (Item, *GroupList) 
 		return nil, nil
 	}
 
-	psg := ps.Group(psgid)
+	psg := ps.Groups().Group(psgid)
 	if psg == nil {
 		return nil, nil
 	}
@@ -326,9 +326,9 @@ func (p *Property) GetOrCreateGroup(ps *Schema, ptr *Pointer) (*Group, *GroupLis
 
 	var psg *SchemaGroup
 	if psgid, ok := ptr.ItemBySchemaGroup(); ok {
-		psg = ps.Group(psgid)
+		psg = ps.Groups().Group(psgid)
 	} else if f, ok := ptr.Field(); ok {
-		psg = ps.GroupByField(f)
+		psg = ps.Groups().GroupByField(f)
 	}
 	if psg == nil {
 		return nil, nil
@@ -345,9 +345,9 @@ func (p *Property) GetOrCreateGroupList(ps *Schema, ptr *Pointer) *GroupList {
 
 	var psg *SchemaGroup
 	if psgid, ok := ptr.ItemBySchemaGroup(); ok {
-		psg = ps.Group(psgid)
+		psg = ps.Groups().Group(psgid)
 	} else if f, ok := ptr.Field(); ok {
-		psg = ps.GroupByField(f)
+		psg = ps.Groups().GroupByField(f)
 	}
 	if psg == nil {
 		return nil
@@ -398,22 +398,19 @@ func (p *Property) UpdateLinkableValue(s *Schema, v *Value) {
 		return
 	}
 
-	var ptr *Pointer
-	switch v.Type() {
-	case ValueTypeLatLng:
-		ptr = s.linkable.LatLng
-	case ValueTypeURL:
-		ptr = s.linkable.URL
+	sfid := s.linkable.FieldByType(v.Type())
+	if sfid == nil {
+		return
 	}
 
-	sf := s.FieldByPointer(ptr)
+	sf := s.Groups().GroupAndField(*sfid)
 	if sf == nil {
 		return
 	}
 
-	f, _, _, ok := p.GetOrCreateField(s, ptr)
+	f, _, _, ok := p.GetOrCreateField(s, sf.Pointer())
 	if ok {
-		if err := f.Update(v, sf); err != nil {
+		if err := f.Update(v, sf.Field); err != nil {
 			p.Prune()
 		}
 	}
@@ -424,20 +421,17 @@ func (p *Property) AutoLinkField(s *Schema, v ValueType, d id.DatasetSchemaID, d
 		return
 	}
 
-	var ptr *Pointer
-	switch v {
-	case ValueTypeLatLng:
-		ptr = s.linkable.LatLng
-	case ValueTypeURL:
-		ptr = s.linkable.URL
+	sfid := s.linkable.FieldByType(v)
+	if sfid == nil {
+		return
 	}
 
-	sf := s.FieldByPointer(ptr)
+	sf := s.Groups().GroupAndField(*sfid)
 	if sf == nil {
 		return
 	}
 
-	f, _, _, ok := p.GetOrCreateField(s, ptr)
+	f, _, _, ok := p.GetOrCreateField(s, sf.Pointer())
 	if ok {
 		if ds == nil {
 			f.Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAtField(d, *df)}))
@@ -474,7 +468,7 @@ func (p *Property) ValidateSchema(ps *Schema) error {
 
 	for _, i := range p.items {
 		sg := i.SchemaGroup()
-		if err := i.ValidateSchema(ps.Group(sg)); err != nil {
+		if err := i.ValidateSchema(ps.Groups().Group(sg)); err != nil {
 			return fmt.Errorf("%s (%s): %w", p.ID(), sg, err)
 		}
 	}

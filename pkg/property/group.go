@@ -152,7 +152,7 @@ func (g *Group) GetOrCreateField(ps *Schema, fid id.PropertySchemaFieldID) (*Fie
 	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
 		return nil, false
 	}
-	psg := ps.Group(g.SchemaGroup())
+	psg := ps.Groups().Group(g.SchemaGroup())
 	if psg == nil {
 		return nil, false
 	}
@@ -226,7 +226,7 @@ func (g *Group) UpdateNameFieldValue(ps *Schema, value *Value) error {
 	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
 		return nil
 	}
-	if psg := ps.GroupByPointer(NewPointer(&g.itemBase.SchemaGroup, nil, nil)); psg != nil {
+	if psg := ps.Groups().Group(g.itemBase.SchemaGroup); psg != nil {
 		if representativeField := psg.RepresentativeFieldID(); representativeField != nil {
 			if f, _ := g.GetOrCreateField(ps, *representativeField); f != nil {
 				return f.Update(value, psg.Field(*representativeField))

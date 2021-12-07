@@ -291,7 +291,7 @@ func (g *GroupList) GetOrCreateField(ps *Schema, ptr *Pointer) (*Field, bool) {
 	if g == nil || ptr == nil || ps == nil || ps.ID() != g.Schema() {
 		return nil, false
 	}
-	psg := ps.Group(g.SchemaGroup())
+	psg := ps.Groups().Group(g.SchemaGroup())
 	if psg == nil {
 		return nil, false
 	}
@@ -313,7 +313,7 @@ func (g *GroupList) CreateAndAddListItem(ps *Schema, index *int) *Group {
 	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
 		return nil
 	}
-	psg := ps.Group(g.SchemaGroup())
+	psg := ps.Groups().Group(g.SchemaGroup())
 	if psg == nil {
 		return nil
 	}

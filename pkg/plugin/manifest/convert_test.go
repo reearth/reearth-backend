@@ -329,12 +329,10 @@ func TestExtension(t *testing.T) {
 }
 
 func TestPointer(t *testing.T) {
-	sg := "aaa"
-	f := "xxx"
 	testCases := []struct {
 		name     string
 		pp       *PropertyPointer
-		expected *property.Pointer
+		expected *property.SchemaFieldPointer
 	}{
 		{
 			name:     "failed nil PropertyPointer",
@@ -352,10 +350,13 @@ func TestPointer(t *testing.T) {
 		{
 			name: "success",
 			pp: &PropertyPointer{
-				FieldID:       "xxx",
 				SchemaGroupID: "aaa",
+				FieldID:       "xxx",
 			},
-			expected: property.NewPointer(id.PropertySchemaGroupIDFrom(&sg), nil, id.PropertySchemaFieldIDFrom(&f)),
+			expected: &property.SchemaFieldPointer{
+				SchemaGroup: id.PropertySchemaGroupID("aaa"),
+				Field:       id.PropertySchemaFieldID("xxx"),
+			},
 		},
 	}
 	for _, tc := range testCases {
@@ -366,6 +367,7 @@ func TestPointer(t *testing.T) {
 		})
 	}
 }
+
 func TestCondition(t *testing.T) {
 	v := toValue("xxx", "string")
 	testCases := []struct {
@@ -402,7 +404,6 @@ func TestCondition(t *testing.T) {
 
 func TestLinkable(t *testing.T) {
 	l := "location"
-	d := "default"
 	u := "url"
 	testCases := []struct {
 		name     string
@@ -427,8 +428,14 @@ func TestLinkable(t *testing.T) {
 				},
 			},
 			expected: property.LinkableFields{
-				LatLng: property.NewPointer(id.PropertySchemaGroupIDFrom(&d), nil, id.PropertySchemaFieldIDFrom(&l)),
-				URL:    property.NewPointer(id.PropertySchemaGroupIDFrom(&d), nil, id.PropertySchemaFieldIDFrom(&u)),
+				LatLng: &property.SchemaFieldPointer{
+					SchemaGroup: id.PropertySchemaGroupID("default"),
+					Field:       id.PropertySchemaFieldID(l),
+				},
+				URL: &property.SchemaFieldPointer{
+					SchemaGroup: id.PropertySchemaGroupID("default"),
+					Field:       id.PropertySchemaFieldID(u),
+				},
 			},
 		},
 	}
@@ -507,11 +514,11 @@ func TestSchema(t *testing.T) {
 			tt.Parallel()
 			res, err := tc.ps.schema(tc.pid, tc.psid)
 			if tc.err == "" {
-				assert.Equal(tt, len(tc.expected.Groups()), len(res.Groups()))
+				assert.Equal(tt, len(tc.expected.Groups().Groups()), len(res.Groups().Groups()))
 				assert.Equal(tt, tc.expected.LinkableFields(), res.LinkableFields())
 				assert.Equal(tt, tc.expected.Version(), res.Version())
-				if len(res.Groups()) > 0 {
-					exg := tc.expected.Group(res.Groups()[0].ID())
+				if len(res.Groups().Groups()) > 0 {
+					exg := tc.expected.Groups().Group(res.Groups().Groups()[0].ID())
 					assert.NotNil(tt, exg)
 				}
 			} else {
