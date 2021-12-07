@@ -9,14 +9,11 @@ import (
 
 type Item interface {
 	ID() id.PropertyItemID
-	IDRef() *id.PropertyItemID
 	SchemaGroup() id.PropertySchemaGroupID
-	SchemaGroupRef() *id.PropertySchemaGroupID
 	Schema() id.PropertySchemaID
-	SchemaRef() *id.PropertySchemaID
+	FieldsByLinkedDataset(id.DatasetSchemaID, id.DatasetID) []*Field
 	HasLinkedField() bool
 	Datasets() []id.DatasetID
-	FieldsByLinkedDataset(id.DatasetSchemaID, id.DatasetID) []*Field
 	IsDatasetLinked(id.DatasetSchemaID, id.DatasetID) bool
 	IsEmpty() bool
 	Prune()

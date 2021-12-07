@@ -216,11 +216,11 @@ func mergeItem(o, p Item, linked *id.DatasetID) *MergedGroup {
 	var oid, pid *id.PropertyItemID
 	var sg id.PropertySchemaGroupID
 	if o != nil {
-		oid = o.IDRef()
+		oid = o.ID().Ref()
 		sg = o.SchemaGroup()
 	}
 	if p != nil {
-		pid = p.IDRef()
+		pid = p.ID().Ref()
 		sg = p.SchemaGroup()
 	}
 

@@ -8,40 +8,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGroupList_IDRef(t *testing.T) {
-	var b *GroupList
-	assert.Nil(t, b.IDRef())
-	b = NewGroupList().NewID().MustBuild()
-	assert.NotNil(t, b.IDRef())
-}
-
-func TestGroupList_SchemaRef(t *testing.T) {
-	testCases := []struct {
-		Name           string
-		GL             *GroupList
-		ExpectedSG     *id.PropertySchemaGroupID
-		ExpectedSchema *id.PropertySchemaID
-	}{
-		{
-			Name: "nil group list",
-		},
-		{
-			Name:           "success",
-			GL:             NewGroupList().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), id.PropertySchemaGroupID("xx")).MustBuild(),
-			ExpectedSG:     id.PropertySchemaGroupID("xx").Ref(),
-			ExpectedSchema: id.MustPropertySchemaID("xx~1.0.0/aa").Ref(),
-		},
-	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			assert.Equal(tt, tc.ExpectedSG, tc.GL.SchemaGroupRef())
-			assert.Equal(tt, tc.ExpectedSchema, tc.GL.SchemaRef())
-		})
-	}
-}
-
 func TestGroupList_HasLinkedField(t *testing.T) {
 	pid := id.NewPropertyItemID()
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
@@ -669,7 +635,7 @@ func TestGroupList_GetOrCreateField(t *testing.T) {
 			Name:   "success",
 			GL:     NewGroupList().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), "aa").Groups([]*Group{g}).MustBuild(),
 			Schema: NewSchema().ID(id.MustPropertySchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{sg}).MustBuild(),
-			Ptr:    NewPointer(nil, g.IDRef(), sf.ID().Ref()),
+			Ptr:    NewPointer(nil, g.ID().Ref(), sf.ID().Ref()),
 			Expected: struct {
 				Ok    bool
 				Field *Field
@@ -682,19 +648,19 @@ func TestGroupList_GetOrCreateField(t *testing.T) {
 			Name:   "can't get a group",
 			GL:     NewGroupList().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), "aa").MustBuild(),
 			Schema: NewSchema().ID(id.MustPropertySchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{sg}).MustBuild(),
-			Ptr:    NewPointer(nil, g.IDRef(), sf.ID().Ref()),
+			Ptr:    NewPointer(nil, g.ID().Ref(), sf.ID().Ref()),
 		},
 		{
 			Name:   "FieldByItem not ok: sg!=nil",
 			GL:     NewGroupList().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), "aa").Groups([]*Group{g}).MustBuild(),
 			Schema: NewSchema().ID(id.MustPropertySchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{sg}).MustBuild(),
-			Ptr:    NewPointer(sg.IDRef(), g.IDRef(), sf.ID().Ref()),
+			Ptr:    NewPointer(sg.IDRef(), g.ID().Ref(), sf.ID().Ref()),
 		},
 		{
 			Name:   "psg == nil",
 			GL:     NewGroupList().NewID().Groups([]*Group{g}).MustBuild(),
 			Schema: NewSchema().ID(id.MustPropertySchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{sg}).MustBuild(),
-			Ptr:    NewPointer(nil, g.IDRef(), sf.ID().Ref()),
+			Ptr:    NewPointer(nil, g.ID().Ref(), sf.ID().Ref()),
 		},
 	}
 

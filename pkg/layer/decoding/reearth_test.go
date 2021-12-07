@@ -183,7 +183,7 @@ func TestReearthDecoder_Decode(t *testing.T) {
 					SchemaItem: id.PropertySchemaGroupID("hoge"),
 					Groups: []*property.InitializerGroup{
 						{
-							ID: property.ToGroupList(prop.Items()[0]).GroupAt(0).IDRef(),
+							ID: property.ToGroupList(prop.Items()[0]).GroupAt(0).ID().Ref(),
 							Fields: []*property.InitializerField{
 								{
 									Field: id.PropertySchemaFieldID("foobar"),
@@ -193,7 +193,7 @@ func TestReearthDecoder_Decode(t *testing.T) {
 							},
 						},
 						{
-							ID: property.ToGroupList(prop.Items()[0]).GroupAt(1).IDRef(),
+							ID: property.ToGroupList(prop.Items()[0]).GroupAt(1).ID().Ref(),
 							Fields: []*property.InitializerField{
 								{
 									Field: id.PropertySchemaFieldID("foobar"),

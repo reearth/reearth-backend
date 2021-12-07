@@ -24,13 +24,6 @@ func (g *Group) ID() id.PropertyItemID {
 	return g.itemBase.ID
 }
 
-func (g *Group) IDRef() *id.PropertyItemID {
-	if g == nil {
-		return nil
-	}
-	return g.itemBase.ID.Ref()
-}
-
 func (g *Group) SchemaGroup() id.PropertySchemaGroupID {
 	if g == nil {
 		return id.PropertySchemaGroupID("")
@@ -38,25 +31,11 @@ func (g *Group) SchemaGroup() id.PropertySchemaGroupID {
 	return g.itemBase.SchemaGroup
 }
 
-func (g *Group) SchemaGroupRef() *id.PropertySchemaGroupID {
-	if g == nil {
-		return nil
-	}
-	return g.itemBase.SchemaGroup.Ref()
-}
-
 func (g *Group) Schema() id.PropertySchemaID {
 	if g == nil {
 		return id.PropertySchemaID{}
 	}
 	return g.itemBase.Schema
-}
-
-func (g *Group) SchemaRef() *id.PropertySchemaID {
-	if g == nil {
-		return nil
-	}
-	return g.itemBase.Schema.Ref()
 }
 
 func (g *Group) HasLinkedField() bool {

@@ -9,22 +9,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGroup_IDRef(t *testing.T) {
-	gid := id.NewPropertyItemID()
-	var g *Group
-	assert.Nil(t, g.IDRef())
-	g = NewGroup().ID(gid).MustBuild()
-	assert.Equal(t, gid.Ref(), g.IDRef())
-}
-
 func TestGroup_SchemaGroup(t *testing.T) {
 	var g *Group
-	assert.Nil(t, g.SchemaGroupRef())
 	assert.Equal(t, id.PropertySchemaGroupID(""), g.SchemaGroup())
 	pfid := id.PropertySchemaGroupID("aa")
 	g = NewGroup().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), pfid).MustBuild()
 	assert.Equal(t, pfid, g.SchemaGroup())
-	assert.Equal(t, pfid.Ref(), g.SchemaGroupRef())
 }
 
 func TestGroup_HasLinkedField(t *testing.T) {
