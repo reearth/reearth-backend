@@ -66,7 +66,7 @@ func (m *DatasetMigrator) MigrateGroup(ctx context.Context, g *Group) error {
 	if m == nil {
 		return nil
 	}
-	for _, f := range g.Fields() {
+	for _, f := range g.Fields(nil) {
 		if err := m.MigrateField(ctx, f); err != nil {
 			return err
 		}

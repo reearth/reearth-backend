@@ -332,3 +332,90 @@ func (p *GroupList) ValidateSchema(ps *SchemaGroup) error {
 
 	return nil
 }
+
+func (p *GroupList) Clone() *GroupList {
+	if p == nil {
+		return nil
+	}
+	groups := make([]*Group, 0, len(p.groups))
+	for _, g := range p.groups {
+		groups = append(groups, g.Clone())
+	}
+	return &GroupList{
+		groups:   groups,
+		itemBase: p.itemBase,
+	}
+}
+
+func (p *GroupList) CloneItem() Item {
+	return p.Clone()
+}
+
+func (g *GroupList) Fields(ptr *Pointer) []*Field {
+	if g == nil || len(g.groups) == 0 {
+		return nil
+	}
+
+	var fields []*Field
+	if ptr == nil {
+		for _, g := range g.groups {
+			if f := g.Fields(nil); len(f) > 0 {
+				fields = append(fields, f...)
+			}
+		}
+		return fields
+	}
+
+	if pi, ok := ptr.Item(); ok {
+		if g.ID() == pi {
+			return g.Fields(nil)
+		}
+		return g.GetGroup(pi).Fields(ptr)
+	}
+
+	if psg, ok := ptr.ItemBySchemaGroup(); ok && psg == g.SchemaGroup() {
+		fields = make([]*Field, 0, len(g.groups))
+		for _, g := range g.groups {
+			if f := g.Fields(ptr); len(f) > 0 {
+				fields = append(fields, f...)
+			}
+		}
+		return fields
+	}
+
+	if fid, ok := ptr.Field(); ok {
+		fields = make([]*Field, 0, len(g.groups))
+		for _, g := range g.groups {
+			if f := g.Field(fid); f != nil {
+				fields = append(fields, f)
+			}
+		}
+		return fields
+	}
+
+	return nil
+}
+
+func (g *GroupList) RemoveFields(ptr *Pointer) {
+	if g == nil {
+		return
+	}
+
+	if i, f, ok := ptr.FieldByItem(); ok {
+		g.GetGroup(i).RemoveField(f)
+		return
+	}
+
+	if psg, pf, ok := ptr.FieldBySchemaGroup(); ok && psg == g.SchemaGroup() {
+		for _, g := range g.groups {
+			g.RemoveField(pf)
+		}
+		return
+	}
+
+	if fid, ok := ptr.Field(); ok {
+		for _, g := range g.groups {
+			g.RemoveField(fid)
+		}
+	}
+}

@@ -161,7 +161,7 @@ func (g *Group) RemoveField(fid id.PropertySchemaFieldID) {
 	if g == nil {
 		return
 	}
-	for i, f := range g.fields {
+	for i, f := range g.Fields(nil) {
 		if f.Field() == fid {
 			g.fields = append(g.fields[:i], g.fields[i+1:]...)
 			return
@@ -178,14 +178,6 @@ func (g *Group) FieldIDs() []id.PropertySchemaFieldID {
 		fields = append(fields, f.Field())
 	}
 	return fields
-}
-
-// Fields returns a slice of fields
-func (g *Group) Fields() []*Field {
-	if g == nil {
-		return nil
-	}
-	return append([]*Field{}, g.fields...)
 }
 
 // Field returns a field whose id is specified
@@ -237,4 +229,68 @@ func (p *Group) ValidateSchema(ps *SchemaGroup) error {
 	}
 
 	return nil
+}
+
+func (p *Group) Clone() *Group {
+	if p == nil {
+		return nil
+	}
+	fields := make([]*Field, 0, len(p.fields))
+	for _, f := range p.fields {
+		fields = append(fields, f.Clone())
+	}
+	return &Group{
+		fields:   fields,
+		itemBase: p.itemBase,
+	}
+}
+
+func (p *Group) CloneItem() Item {
+	return p.Clone()
+}
+
+func (g *Group) Fields(p *Pointer) []*Field {
+	if g == nil || len(g.fields) == 0 {
+		return nil
+	}
+
+	if p == nil {
+		return append(g.fields[:0:0], g.fields...)
+	}
+
+	fid, ok := p.Field()
+	if !ok {
+		if sgid, ok := p.ItemBySchemaGroup(); ok {
+			if sgid == g.SchemaGroup() {
+				return g.Fields(nil)
+			}
+		return nil
+	}
+
+		if iid, ok := p.Item(); ok {
+			if iid == g.ID() {
+				return g.Fields(nil)
+			}
+		return nil
+	}
+
+		return nil
+	}
+
+	if f := g.Field(fid); f != nil {
+	return []*Field{f}
+	}
+
+	return nil
+}
+
+func (g *Group) RemoveFields(ptr *Pointer) {
+	if g == nil || ptr == nil {
+		return
+	}
+	f, ok := ptr.Field()
+	if !ok {
+		return
+	}
+	g.RemoveField(f)
 }

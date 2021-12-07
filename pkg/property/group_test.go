@@ -9,6 +9,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	testGroup1 = NewGroup().NewID().Schema(testSchema1.ID(), testSchemaGroup1.ID()).Fields([]*Field{testField1}).MustBuild()
+	testGroup2 = NewGroup().NewID().Schema(testSchema1.ID(), testSchemaGroup2.ID()).Fields([]*Field{testField2}).MustBuild()
+)
+
 func TestGroup_SchemaGroup(t *testing.T) {
 	var g *Group
 	assert.Equal(t, id.PropertySchemaGroupID(""), g.SchemaGroup())
@@ -228,7 +233,7 @@ func TestGroup_Prune(t *testing.T) {
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
 			tc.Group.Prune()
-			assert.Equal(tt, tc.Expected, tc.Group.Fields())
+			assert.Equal(tt, tc.Expected, tc.Group.Fields(nil))
 		})
 	}
 }
@@ -326,7 +331,7 @@ func TestGroup_RemoveField(t *testing.T) {
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
 			tc.Group.RemoveField(tc.Input)
-			assert.Equal(tt, tc.Expected, tc.Group.Fields())
+			assert.Equal(tt, tc.Expected, tc.Group.Fields(nil))
 		})
 	}
 }
@@ -456,6 +461,177 @@ func TestGroup_UpdateNameFieldValue(t *testing.T) {
 				assert.Equal(tt, tc.Expected, tc.Group.Field(tc.FID))
 			} else {
 				assert.True(tt, errors.As(res, &tc.Err))
+			}
+		})
+	}
+}
+
+func TestGroup_Clone(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Group
+		n      bool
+	}{
+		{
+			name:   "ok",
+			target: testGroup1.Clone(),
+		},
+		{
+			name: "nil",
+			n:    true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.Clone()
+			if tt.n {
+				assert.Nil(t, res)
+			} else {
+				assert.Equal(t, tt.target, res)
+				assert.NotSame(t, tt.target, res)
+			}
+		})
+	}
+}
+
+func TestGroup_CloneItem(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Group
+		n      bool
+	}{
+		{
+			name:   "ok",
+			target: testGroup1.Clone(),
+		},
+		{
+			name: "nil",
+			n:    true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.CloneItem()
+			if tt.n {
+				assert.Nil(t, res)
+			} else {
+				assert.Equal(t, tt.target, res)
+				assert.NotSame(t, tt.target, res)
+			}
+		})
+	}
+}
+
+func TestGroup_Fields(t *testing.T) {
+	type args struct {
+		p *Pointer
+	}
+	tests := []struct {
+		name   string
+		target *Group
+		args   args
+		want   []*Field
+	}{
+		{
+			name:   "all",
+			target: testGroup1,
+			args:   args{p: nil},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "specified",
+			target: testGroup1,
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "specified schema group",
+			target: testGroup1,
+			args:   args{p: PointItemBySchema(testGroup1.SchemaGroup())},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "specified item",
+			target: testGroup1,
+			args:   args{p: PointItem(testGroup1.ID())},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "not found",
+			target: testGroup1,
+			args:   args{p: PointFieldOnly("xxxxxx")},
+			want:   nil,
+		},
+		{
+			name:   "empty",
+			target: &Group{},
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Fields(tt.args.p))
+		})
+	}
+}
+
+func TestGroup_RemoveFields(t *testing.T) {
+	type args struct {
+		p *Pointer
+	}
+	tests := []struct {
+		name   string
+		target *Group
+		args   args
+		want   []*Field
+	}{
+		{
+			name:   "nil pointer",
+			target: testGroup1.Clone(),
+			args:   args{p: nil},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "specified",
+			target: testGroup1.Clone(),
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   []*Field{},
+		},
+		{
+			name:   "not found",
+			target: testGroup1.Clone(),
+			args:   args{p: PointFieldOnly("xxxxxx")},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "empty",
+			target: &Group{},
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.target.RemoveFields(tt.args.p)
+			if tt.target != nil {
+				assert.Equal(t, tt.want, tt.target.fields)
 			}
 		})
 	}

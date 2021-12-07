@@ -8,6 +8,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	testField1 = NewField(testSchemaField1).Value(OptionalValueFrom(ValueTypeString.ValueFrom("aaa"))).MustBuild()
+	testField2 = NewField(testSchemaField3).Value(NewOptionalValue(ValueTypeLatLng, nil)).MustBuild()
+)
+
 func TestField_ActualValue(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
 	dsid := id.NewDatasetID()

@@ -59,7 +59,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 			tt.Parallel()
 			res, err := NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.Schema, tc.SchemaGroup).Build()
 			if err == nil {
-				assert.Equal(tt, tc.Expected.Fields, res.Fields())
+				assert.Equal(tt, tc.Expected.Fields, res.Fields(nil))
 				assert.Equal(tt, tc.Expected.Schema, res.Schema())
 				assert.Equal(tt, tc.Expected.SchemaGroup, res.SchemaGroup())
 				assert.Equal(tt, tc.Expected.Id, res.ID())
@@ -128,7 +128,7 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 				res = NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.Schema, tc.SchemaGroup).MustBuild()
 			} else {
 				res = NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.Schema, tc.SchemaGroup).MustBuild()
-				assert.Equal(tt, tc.Expected.Fields, res.Fields())
+				assert.Equal(tt, tc.Expected.Fields, res.Fields(nil))
 				assert.Equal(tt, tc.Expected.Schema, res.Schema())
 				assert.Equal(tt, tc.Expected.SchemaGroup, res.SchemaGroup())
 				assert.Equal(tt, tc.Expected.Id, res.ID())

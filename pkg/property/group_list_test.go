@@ -8,6 +8,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	testGroupList1 = NewGroupList().NewID().Schema(testSchema1.ID(), testSchemaGroup2.ID()).Groups([]*Group{testGroup2}).MustBuild()
+)
+
 func TestGroupList_HasLinkedField(t *testing.T) {
 	pid := id.NewPropertyItemID()
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
@@ -702,8 +706,179 @@ func TestGroupList_CreateAndAddListItem(t *testing.T) {
 			tt.Parallel()
 			res := tc.GL.CreateAndAddListItem(tc.Schema, tc.Index)
 			assert.Equal(tt, tc.Expected.Schema(), res.Schema())
-			assert.Equal(tt, tc.Expected.Fields(), res.Fields())
+			assert.Equal(tt, tc.Expected.Fields(nil), res.Fields(nil))
 			assert.Equal(tt, tc.Expected.SchemaGroup(), res.SchemaGroup())
+		})
+	}
+}
+
+func TestGroupList_Clone(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *GroupList
+		n      bool
+	}{
+		{
+			name:   "ok",
+			target: testGroupList1.Clone(),
+		},
+		{
+			name: "nil",
+			n:    true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.Clone()
+			if tt.n {
+				assert.Nil(t, res)
+			} else {
+				assert.Equal(t, tt.target, res)
+				assert.NotSame(t, tt.target, res)
+			}
+		})
+	}
+}
+
+func TestGroupList_CloneItem(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *GroupList
+		n      bool
+	}{
+		{
+			name:   "ok",
+			target: testGroupList1.Clone(),
+		},
+		{
+			name: "nil",
+			n:    true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.CloneItem()
+			if tt.n {
+				assert.Nil(t, res)
+			} else {
+				assert.Equal(t, tt.target, res)
+				assert.NotSame(t, tt.target, res)
+			}
+		})
+	}
+}
+
+func TestGroupList_Fields(t *testing.T) {
+	type args struct {
+		p *Pointer
+	}
+	tests := []struct {
+		name   string
+		target *GroupList
+		args   args
+		want   []*Field
+	}{
+		{
+			name:   "all",
+			target: testGroupList1,
+			args:   args{p: nil},
+			want:   []*Field{testField2},
+		},
+		{
+			name:   "specified",
+			target: testGroupList1,
+			args:   args{p: PointFieldOnly(testField2.Field())},
+			want:   []*Field{testField2},
+		},
+		{
+			name:   "not found",
+			target: testGroupList1,
+			args:   args{p: PointFieldOnly("xxxxxx")},
+			want:   []*Field{},
+		},
+		{
+			name:   "empty",
+			target: &GroupList{},
+			args:   args{p: PointFieldOnly(testField2.Field())},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{p: PointFieldOnly(testField2.Field())},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Fields(tt.args.p))
+		})
+	}
+}
+
+func TestGroupList_RemoveFields(t *testing.T) {
+	type args struct {
+		p *Pointer
+	}
+	tests := []struct {
+		name   string
+		target *GroupList
+		args   args
+		want   []*Field
+	}{
+		{
+			name:   "nil pointer",
+			target: testGroupList1.Clone(),
+			args:   args{p: nil},
+			want:   []*Field{testField2},
+		},
+		{
+			name:   "specified",
+			target: testGroupList1.Clone(),
+			args:   args{p: PointFieldOnly(testField2.Field())},
+			want:   nil,
+		},
+		{
+			name:   "specified schema group",
+			target: testGroupList1.Clone(),
+			args:   args{p: PointItemBySchema(testGroupList1.SchemaGroup())},
+			want:   nil,
+		},
+		{
+			name:   "specified item",
+			target: testGroupList1.Clone(),
+			args:   args{p: PointItem(testGroupList1.ID())},
+			want:   nil,
+		},
+		{
+			name:   "not found",
+			target: testGroupList1.Clone(),
+			args:   args{p: PointFieldOnly("xxxxxx")},
+			want:   []*Field{testField2},
+		},
+		{
+			name:   "empty",
+			target: &GroupList{},
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.target.RemoveFields(tt.args.p)
+			if tt.target != nil {
+				assert.Equal(t, tt.want, tt.target.Fields(nil))
+			}
 		})
 	}
 }

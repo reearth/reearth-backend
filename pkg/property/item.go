@@ -19,6 +19,9 @@ type Item interface {
 	Prune()
 	MigrateSchema(context.Context, *Schema, dataset.Loader)
 	ValidateSchema(*SchemaGroup) error
+	Fields(*Pointer) []*Field
+	RemoveFields(*Pointer)
+	CloneItem() Item
 }
 
 type itemBase struct {

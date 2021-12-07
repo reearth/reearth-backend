@@ -161,6 +161,44 @@ func (p *Property) HasLinkedField() bool {
 	return false
 }
 
+func (p *Property) Clone() *Property {
+	if p == nil {
+		return nil
+	}
+
+	items := make([]Item, 0, len(p.items))
+	for _, i := range p.items {
+		items = append(items, i.CloneItem())
+	}
+
+	return &Property{
+		id:     p.id,
+		schema: p.schema,
+		scene:  p.scene,
+		items:  items,
+	}
+}
+
+func (p *Property) Fields(ptr *Pointer) []*Field {
+	if p == nil || len(p.items) == 0 {
+		return nil
+	}
+	res := []*Field{}
+	for _, g := range p.items {
+		res = append(res, g.Fields(ptr)...)
+	}
+	return res
+}
+
+func (p *Property) RemoveFields(ptr *Pointer) {
+	if p == nil {
+		return
+	}
+	for _, g := range p.items {
+		g.RemoveFields(ptr)
+	}
+}
+
 func (p *Property) FieldsByLinkedDataset(s id.DatasetSchemaID, i id.DatasetID) []*Field {
 	if p == nil {
 		return nil

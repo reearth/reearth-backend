@@ -398,7 +398,7 @@ func ToPropertyGroup(g *property.Group, p *property.Property, gl *property.Group
 		return nil
 	}
 
-	gfields := g.Fields()
+	gfields := g.Fields(nil)
 	fields := make([]*PropertyField, 0, len(gfields))
 	for _, f := range gfields {
 		fields = append(fields, ToPropertyField(f, p, gl, g))

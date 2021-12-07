@@ -10,6 +10,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	testProperty1 = New().NewID().Schema(testSchema1.ID()).Scene(id.NewSceneID()).Items([]Item{testGroup1, testGroupList1}).MustBuild()
+)
+
 func TestPropertyMigrateSchema(t *testing.T) {
 	sceneID := id.NewSceneID()
 	oldSchema, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test")
@@ -103,7 +107,7 @@ func TestPropertyMigrateSchema(t *testing.T) {
 	property.MigrateSchema(context.Background(), schema, dataset.LoaderFrom([]*dataset.Dataset{ds}))
 
 	newGroup := ToGroup(property.ItemBySchema(schemaGroupID))
-	newFields := newGroup.Fields()
+	newFields := newGroup.Fields(nil)
 
 	assert.Equal(t, schema.ID(), property.Schema())
 	assert.Equal(t, 1, len(property.Items()))
@@ -191,7 +195,7 @@ func TestGetOrCreateField(t *testing.T) {
 	i := ToGroup(p.ItemBySchema(sg1id))
 	assert.Equal(t, sid, i.Schema())
 	assert.Equal(t, sg1id, i.SchemaGroup())
-	assert.Equal(t, []*Field{f}, i.Fields())
+	assert.Equal(t, []*Field{f}, i.Fields(nil))
 	field, _, _ := p.Field(PointFieldBySchemaGroup(sg1id, sf1id))
 	assert.Equal(t, f, field)
 
@@ -272,4 +276,133 @@ func TestRemoveListItem(t *testing.T) {
 	assert.True(t, ok)
 	assert.Equal(t, []*Group{}, gl.Groups())
 	assert.Equal(t, 0, len(p.Items()))
+}
+
+func TestProperty_Clone(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Property
+		n      bool
+	}{
+		{
+			name:   "ok",
+			target: testProperty1,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			n:      true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.Clone()
+			if tt.n {
+				assert.Nil(t, tt.target)
+			} else {
+				assert.Equal(t, tt.target, res)
+				assert.NotSame(t, tt.target, res)
+			}
+		})
+	}
+}
+
+func TestProperty_Fields(t *testing.T) {
+	type args struct {
+		p *Pointer
+	}
+	tests := []struct {
+		name   string
+		target *Property
+		args   args
+		want   []*Field
+	}{
+		{
+			name:   "all",
+			target: testProperty1,
+			args:   args{p: nil},
+			want:   []*Field{testField1, testField2},
+		},
+		{
+			name:   "specified",
+			target: testProperty1,
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "not found",
+			target: testProperty1,
+			args:   args{p: PointFieldOnly("xxxxxx")},
+			want:   []*Field{},
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Fields(tt.args.p))
+		})
+	}
+}
+
+func TestProperty_RemoveFields(t *testing.T) {
+	type args struct {
+		p *Pointer
+	}
+	tests := []struct {
+		name   string
+		args   args
+		target *Property
+		want   []*Field
+	}{
+		{
+			name:   "nil pointer",
+			target: testProperty1.Clone(),
+			args:   args{p: nil},
+			want:   []*Field{testField1, testField2},
+		},
+		{
+			name:   "specified",
+			target: testProperty1.Clone(),
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   []*Field{testField2},
+		},
+		{
+			name:   "not found",
+			target: testProperty1.Clone(),
+			args:   args{p: PointFieldOnly("xxxxxx")},
+			want:   []*Field{testField1, testField2},
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{p: PointFieldOnly(testField1.Field())},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.target.RemoveFields(tt.args.p)
+			assert.Equal(t, tt.want, tt.target.Fields(nil))
+		})
+	}
 }
