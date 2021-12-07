@@ -2,12 +2,16 @@ package property
 
 import "github.com/reearth/reearth-backend/pkg/id"
 
-// Schema _
 type Schema struct {
 	id       id.PropertySchemaID
 	version  int
 	groups   []*SchemaGroup
 	linkable LinkableFields
+}
+
+type SchemaGroupAndField struct {
+	Group *SchemaGroup
+	Field *SchemaField
 }
 
 type LinkableFields struct {
@@ -111,6 +115,35 @@ func (p *Schema) GroupByPointer(ptr *Pointer) *SchemaGroup {
 		}
 	}
 
+	return nil
+}
+
+func (gf SchemaGroupAndField) IsEmpty() bool {
+	return gf.Group == nil && gf.Field == nil
+}
+
+func (p *Schema) GroupAndFields() []SchemaGroupAndField {
+	if p == nil {
+		return nil
+	}
+	fields := []SchemaGroupAndField{}
+	for _, g := range p.groups {
+		for _, f := range g.Fields() {
+			fields = append(fields, SchemaGroupAndField{Group: g, Field: f})
+		}
+	}
+	return fields
+}
+
+func (p *Schema) GroupAndField(f FieldID) *SchemaGroupAndField {
+	if p == nil {
+		return nil
+	}
+	for _, g := range p.groups {
+		if gf := g.Field(f); gf != nil {
+			return &SchemaGroupAndField{Group: g, Field: gf}
+		}
+	}
 	return nil
 }
 
