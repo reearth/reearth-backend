@@ -94,13 +94,14 @@ extensions:
               description: Display the limiter boundaries.
             - id: target_area
               type: camera
-              title: Target max height   
+              title: Target max height  
+              description: Defines camera limiter center point and the maximum height that user can view 
             - id: target_width
               type: number
               title: Target width
               min: 5
               defaultValue: 1000000
-            - id: target_height
+            - id: target_length
               type: number
               title: Target length
               min: 5
