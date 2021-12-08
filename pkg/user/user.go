@@ -159,6 +159,9 @@ func (u *User) SetPassword(pass string) error {
 }
 
 func (u *User) MatchPassword(pass string) (bool, error) {
+	if u == nil || len(u.password) == 0 {
+		return false, nil
+	}
 	return verifyPassword(pass, u.password)
 }
 

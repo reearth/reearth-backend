@@ -59,7 +59,7 @@ func (b *Builder) Password(strPassword string, binPassword []byte) *Builder {
 	if binPassword == nil {
 		b.p = &strPassword
 	} else {
-		b.u.password = binPassword
+		b.u.password = append(binPassword[:0:0], binPassword...)
 	}
 	return b
 }
