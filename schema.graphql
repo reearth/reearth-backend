@@ -816,7 +816,8 @@ union Tags = TagItem | TagGroup
 type Cluster {
   id: ID!
   name: String!
-  property: ID!
+  propertyId: ID!
+  property: Property @goField(forceResolver: true)
 }
 
 # InputType
