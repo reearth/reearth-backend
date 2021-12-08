@@ -221,7 +221,7 @@ func TestGroupList_GetGroup(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			assert.Equal(tt, tc.Expected, tc.GL.GetGroup(tc.Input))
+			assert.Equal(tt, tc.Expected, tc.GL.Group(tc.Input))
 		})
 	}
 }

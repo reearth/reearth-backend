@@ -119,7 +119,7 @@ func (g *GroupList) Groups() []*Group {
 	return append([]*Group{}, g.groups...)
 }
 
-func (g *GroupList) GetGroup(gid id.PropertyItemID) *Group {
+func (g *GroupList) Group(gid id.PropertyItemID) *Group {
 	if g == nil {
 		return nil
 	}
@@ -280,7 +280,7 @@ func (g *GroupList) GetOrCreateField(ps *Schema, ptr *Pointer) (*Field, bool) {
 		return nil, false
 	}
 
-	i := g.GetGroup(item)
+	i := g.Group(item)
 	if i == nil {
 		return nil, false
 	}
