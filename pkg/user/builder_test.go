@@ -225,3 +225,37 @@ func TestBuilder_MustBuild(t *testing.T) {
 		})
 	}
 }
+
+func TestBuilder_Verification(t *testing.T) {
+	tests := []struct {
+		name  string
+		input *Verification
+		want  *Builder
+	}{
+		{
+			name: "should return verification",
+			input: &Verification{
+				verified:   true,
+				code:       "xxx",
+				expiration: time.Time{},
+			},
+
+			want: &Builder{
+				u: &User{
+					verification: &Verification{
+						verified:   true,
+						code:       "xxx",
+						expiration: time.Time{},
+					},
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			b := New()
+			b.Verification(tt.input)
+			assert.Equal(t, tt.want, b)
+		})
+	}
+}

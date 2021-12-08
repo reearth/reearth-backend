@@ -33,6 +33,22 @@ type SignupInput struct {
 	Password *string    `json:"password"`
 }
 
+type CreateVerificationInput struct {
+	Email string `json:"email"`
+}
+
+type VerifyUserOutput struct {
+	UserID   string `json:"userId"`
+	Verified bool   `json:"verified"`
+}
+
+type CreateUserInput struct {
+	Sub    string     `json:"sub"`
+	Secret string     `json:"secret"`
+	UserID *id.UserID `json:"userId"`
+	TeamID *id.TeamID `json:"teamId"`
+}
+
 type SignupOutput struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
@@ -57,6 +73,24 @@ func (c *UserController) Signup(ctx context.Context, input SignupInput) (interfa
 		ID:    u.ID().String(),
 		Name:  u.Name(),
 		Email: u.Email(),
+	}, nil
+}
+
+func (c *UserController) CreateVerification(ctx context.Context, input CreateVerificationInput) error {
+	if err := c.usecase.CreateVerification(ctx, input.Email); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *UserController) VerifyUser(ctx context.Context, code string) (interface{}, error) {
+	u, err := c.usecase.VerifyUser(ctx, code)
+	if err != nil {
+		return nil, err
+	}
+	return VerifyUserOutput{
+		UserID:   u.ID().String(),
+		Verified: u.Verification().IsVerified(),
 	}, nil
 }
 

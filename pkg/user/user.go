@@ -21,6 +21,7 @@ type User struct {
 	auths         []Auth
 	lang          language.Tag
 	theme         Theme
+	verification  *Verification
 	passwordReset *PasswordReset
 }
 
@@ -70,6 +71,10 @@ func (u *User) UpdateLang(lang language.Tag) {
 
 func (u *User) UpdateTheme(t Theme) {
 	u.theme = t
+}
+
+func (u *User) Verification() *Verification {
+	return u.verification
 }
 
 func (u *User) Auths() []Auth {
@@ -186,4 +191,8 @@ func (u *User) PasswordReset() *PasswordReset {
 
 func (u *User) SetPasswordReset(pr *PasswordReset) {
 	u.passwordReset = pr.Clone()
+}
+
+func (u *User) SetVerification(v *Verification) {
+	u.verification = v
 }

@@ -97,3 +97,8 @@ func (b *Builder) PasswordReset(pr *PasswordReset) *Builder {
 	b.u.passwordReset = pr
 	return b
 }
+
+func (b *Builder) Verification(v *Verification) *Builder {
+	b.u.verification = v
+	return b
+}

@@ -26,6 +26,13 @@ type UserDocument struct {
 	Theme         string
 	Password      []byte
 	PasswordReset *PasswordResetDocument
+	Verification  *UserVerificationDoc
+}
+
+type UserVerificationDoc struct {
+	Code       string
+	Expiration time.Time
+	Verified   bool
 }
 
 type UserConsumer struct {
@@ -56,6 +63,14 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 	for _, a := range auths {
 		authsdoc = append(authsdoc, a.Sub)
 	}
+	var v *UserVerificationDoc
+	if user.Verification() != nil {
+		v = &UserVerificationDoc{
+			Code:       user.Verification().Code(),
+			Expiration: user.Verification().Expiration(),
+			Verified:   user.Verification().IsVerified(),
+		}
+	}
 	pwdReset := user.PasswordReset()
 
 	var pwdResetDoc *PasswordResetDocument
@@ -74,6 +89,7 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 		Team:          user.Team().String(),
 		Lang:          user.Lang().String(),
 		Theme:         string(user.Theme()),
+		Verification:  v,
 		Password:      user.Password(),
 		PasswordReset: pwdResetDoc,
 	}, id
@@ -95,6 +111,11 @@ func (d *UserDocument) Model() (*user1.User, error) {
 	if d.Auth0Sub != "" {
 		auths = append(auths, user.AuthFromAuth0Sub(d.Auth0Sub))
 	}
+	var v *user.Verification
+	if d.Verification != nil {
+		v = user.VerificationFrom(d.Verification.Code, d.Verification.Expiration, d.Verification.Verified)
+	}
+
 	u, err := user1.New().
 		ID(uid).
 		Name(d.Name).
@@ -102,6 +123,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Auths(auths).
 		Team(tid).
 		LangFrom(d.Lang).
+		Verification(v).
 		Password("", d.Password).
 		PasswordReset(d.PasswordReset.Model()).
 		Theme(user.Theme(d.Theme)).
