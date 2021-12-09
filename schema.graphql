@@ -1221,7 +1221,6 @@ input RemoveTagInput {
 input AddClusterInput {
   sceneId: ID!
   name: String!
-  propertyId: ID!
 }
 
 input UpdateClusterInput {

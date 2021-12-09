@@ -40,9 +40,8 @@ type Tags interface {
 }
 
 type AddClusterInput struct {
-	SceneID    id.ID  `json:"sceneId"`
-	Name       string `json:"name"`
-	PropertyID id.ID  `json:"propertyId"`
+	SceneID id.ID  `json:"sceneId"`
+	Name    string `json:"name"`
 }
 
 type AddClusterPayload struct {

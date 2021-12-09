@@ -7376,7 +7376,6 @@ input RemoveTagInput {
 input AddClusterInput {
   sceneId: ID!
   name: String!
-  propertyId: ID!
 }
 
 input UpdateClusterInput {
@@ -32020,14 +32019,6 @@ func (ec *executionContext) unmarshalInputAddClusterInput(ctx context.Context, o
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
 			it.Name, err = ec.unmarshalNString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "propertyId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("propertyId"))
-			it.PropertyID, err = ec.unmarshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
