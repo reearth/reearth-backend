@@ -40,7 +40,7 @@ func Init(p InitParams) (*User, *Team, error) {
 		Email(p.Email).
 		Auths([]Auth{*p.Sub}).
 		Lang(*p.Lang).
-		Password(p.Password, nil).
+		PasswordPlainText(p.Password).
 		Theme(*p.Theme).
 		Build()
 	if err != nil {
