@@ -720,6 +720,12 @@ func (i *Scene) AddCluster(ctx context.Context, sceneID id.SceneID, name string,
 		return nil, nil, err
 	}
 	s.Clusters().Add(cluster)
+
+	err = i.propertyRepo.Save(ctx, prop)
+	if err != nil {
+		return nil, nil, err
+	}
+
 	err = i.sceneRepo.Save(ctx, s)
 	if err != nil {
 		return nil, nil, err
