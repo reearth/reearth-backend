@@ -26,7 +26,6 @@ type AuthStorage struct {
 	getUserBySubject func(context.Context, string) (*user.User, error)
 	clients          map[string]op.Client
 	requests         repo.AuthRequest
-	config           repo.Config
 	keySet           jose.JSONWebKeySet
 	key              *rsa.PrivateKey
 	sigKey           jose.SigningKey
