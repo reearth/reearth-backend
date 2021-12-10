@@ -36,7 +36,6 @@ type PropertyLinkDocument struct {
 type PropertyItemDocument struct {
 	Type        string
 	ID          string
-	Schema      string
 	SchemaGroup string
 	Groups      []*PropertyItemDocument
 	Fields      []*PropertyFieldDocument
@@ -150,7 +149,6 @@ func newPropertyItem(f property.Item) *PropertyItemDocument {
 	return &PropertyItemDocument{
 		Type:        t,
 		ID:          f.ID().String(),
-		Schema:      f.Schema().String(),
 		SchemaGroup: string(f.SchemaGroup()),
 		Groups:      items,
 		Fields:      fields,
@@ -237,13 +235,8 @@ func toModelPropertyItem(f *PropertyItemDocument) (property.Item, error) {
 	var i property.Item
 	var err error
 	var iid id.PropertyItemID
-	var sid id.PropertySchemaID
 
 	iid, err = id.PropertyItemIDFrom(f.ID)
-	if err != nil {
-		return nil, err
-	}
-	sid, err = id.PropertySchemaIDFrom(f.Schema)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +250,7 @@ func toModelPropertyItem(f *PropertyItemDocument) (property.Item, error) {
 
 		i, err = property.NewGroup().
 			ID(iid).
-			Schema(sid, gid).
+			Schema(gid).
 			Fields(fields).
 			Build()
 	} else if f.Type == typePropertyItemGroupList {
@@ -274,7 +267,7 @@ func toModelPropertyItem(f *PropertyItemDocument) (property.Item, error) {
 
 		i, err = property.NewGroupList().
 			ID(iid).
-			Schema(sid, gid).
+			Schema(gid).
 			Groups(items).
 			Build()
 	}

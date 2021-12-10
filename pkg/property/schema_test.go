@@ -8,14 +8,13 @@ import (
 )
 
 var (
-	testSchemaID = id.MustPropertySchemaID("xx~1.0.0/aa")
-	testSchema1  = NewSchema().ID(testSchemaID).Groups([]*SchemaGroup{testSchemaGroup1, testSchemaGroup2}).MustBuild()
+	testSchema1 = NewSchema().ID(id.MustPropertySchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{testSchemaGroup1, testSchemaGroup2}).MustBuild()
 )
 
 func TestLinkableField_Validate(t *testing.T) {
 	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
-	sg := NewSchemaGroup().ID("aaa").Schema(sid).Fields([]*SchemaField{sf}).MustBuild()
+	sg := NewSchemaGroup().ID("aaa").Fields([]*SchemaField{sf}).MustBuild()
 
 	tests := []struct {
 		Name     string

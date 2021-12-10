@@ -23,13 +23,6 @@ func (p *Schema) ID() id.PropertySchemaID {
 	return p.id
 }
 
-func (p *Schema) IDRef() *id.PropertySchemaID {
-	if p == nil {
-		return nil
-	}
-	return p.id.Ref()
-}
-
 func (p *Schema) Version() int {
 	return p.version
 }

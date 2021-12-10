@@ -189,7 +189,7 @@ func (doc *PropertySchemaDocument) Model() (*property.Schema, error) {
 
 	groups := make([]*property.SchemaGroup, 0, len(doc.Groups))
 	for _, g := range doc.Groups {
-		g2, err := toModelPropertySchemaGroup(g, pid)
+		g2, err := toModelPropertySchemaGroup(g)
 		if err != nil {
 			return nil, err
 		}
@@ -247,7 +247,7 @@ func newPropertySchemaGroup(p *property.SchemaGroup) *PropertySchemaGroupDocumen
 	}
 }
 
-func toModelPropertySchemaGroup(d *PropertySchemaGroupDocument, sid id.PropertySchemaID) (*property.SchemaGroup, error) {
+func toModelPropertySchemaGroup(d *PropertySchemaGroupDocument) (*property.SchemaGroup, error) {
 	if d == nil {
 		return nil, nil
 	}
@@ -263,12 +263,11 @@ func toModelPropertySchemaGroup(d *PropertySchemaGroupDocument, sid id.PropertyS
 
 	return property.NewSchemaGroup().
 		ID(id.PropertySchemaGroupID(d.ID)).
-		Schema(sid).
 		IsList(d.List).
 		Title(d.Title).
 		IsAvailableIf(toModelPropertyCondition(d.IsAvailableIf)).
 		Fields(fields).
-		Build()
+		Build(), nil
 }
 
 func ToDocPropertyLinkableFields(l property.LinkableFields) *PropertyLinkableFieldsDocument {

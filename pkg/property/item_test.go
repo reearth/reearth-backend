@@ -9,11 +9,11 @@ import (
 
 func TestInitItemFrom(t *testing.T) {
 	sf := NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
-	sg := NewSchemaGroup().ID("aa").Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Fields([]*SchemaField{sf}).MustBuild()
-	sgl := NewSchemaGroup().ID("aa").IsList(true).Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Fields([]*SchemaField{sf}).MustBuild()
+	sg := NewSchemaGroup().ID("aa").Fields([]*SchemaField{sf}).MustBuild()
+	sgl := NewSchemaGroup().ID("aa").IsList(true).Fields([]*SchemaField{sf}).MustBuild()
 	iid := id.NewPropertyItemID()
-	propertySchemaID := id.MustPropertySchemaID("xx~1.0.0/aa")
 	propertySchemaField1ID := id.PropertySchemaGroupID("aa")
+
 	testCases := []struct {
 		Name     string
 		SG       *SchemaGroup
@@ -25,12 +25,12 @@ func TestInitItemFrom(t *testing.T) {
 		{
 			Name:     "init item from group",
 			SG:       sg,
-			Expected: NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaField1ID).MustBuild(),
+			Expected: NewGroup().ID(iid).Schema(propertySchemaField1ID).MustBuild(),
 		},
 		{
 			Name:     "init item from group list",
 			SG:       sgl,
-			Expected: NewGroupList().ID(iid).Schema(propertySchemaID, propertySchemaField1ID).MustBuild(),
+			Expected: NewGroupList().ID(iid).Schema(propertySchemaField1ID).MustBuild(),
 		},
 	}
 
@@ -40,7 +40,6 @@ func TestInitItemFrom(t *testing.T) {
 			tt.Parallel()
 			res := InitItemFrom(tc.SG)
 			if res != nil {
-				assert.Equal(tt, tc.Expected.Schema(), res.Schema())
 				assert.Equal(tt, tc.Expected.SchemaGroup(), res.SchemaGroup())
 			} else {
 				assert.Nil(tt, tc.Expected)
@@ -55,7 +54,7 @@ func TestToGroup(t *testing.T) {
 	propertySchemaField1ID := id.PropertySchemaFieldID("a")
 	propertySchemaGroup1ID := id.PropertySchemaGroupID("A")
 	il := []Item{
-		NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
+		NewGroup().ID(iid).Schema(propertySchemaGroup1ID).
 			Fields([]*Field{
 				NewField().
 					Field(propertySchemaField1ID).
@@ -65,7 +64,6 @@ func TestToGroup(t *testing.T) {
 	}
 	p := New().NewID().Scene(id.NewSceneID()).Items(il).Schema(propertySchemaID).MustBuild()
 	g := ToGroup(p.ItemBySchema(propertySchemaGroup1ID))
-	assert.Equal(t, propertySchemaID, g.Schema())
 	assert.Equal(t, propertySchemaGroup1ID, g.SchemaGroup())
 	assert.Equal(t, iid, g.ID())
 }
@@ -75,11 +73,10 @@ func TestToGroupList(t *testing.T) {
 	propertySchemaID := id.MustPropertySchemaID("xxx~1.1.1/aa")
 	propertySchemaGroup1ID := id.PropertySchemaGroupID("A")
 	il := []Item{
-		NewGroupList().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).MustBuild(),
+		NewGroupList().ID(iid).Schema(propertySchemaGroup1ID).MustBuild(),
 	}
 	p := New().NewID().Scene(id.NewSceneID()).Items(il).Schema(propertySchemaID).MustBuild()
 	g := ToGroupList(p.ItemBySchema(propertySchemaGroup1ID))
-	assert.Equal(t, propertySchemaID, g.Schema())
 	assert.Equal(t, propertySchemaGroup1ID, g.SchemaGroup())
 	assert.Equal(t, iid, g.ID())
 }

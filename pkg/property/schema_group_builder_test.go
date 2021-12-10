@@ -15,7 +15,6 @@ func TestSchemaGroupBuilder_Build(t *testing.T) {
 
 	type expected struct {
 		ID            id.PropertySchemaGroupID
-		Sid           id.PropertySchemaID
 		Fields        []*SchemaField
 		List          bool
 		IsAvailableIf *Condition
@@ -50,7 +49,6 @@ func TestSchemaGroupBuilder_Build(t *testing.T) {
 			Title: i18n.StringFrom("tt"),
 			Expected: expected{
 				ID:     gid,
-				Sid:    sid,
 				Fields: []*SchemaField{sf},
 				List:   true,
 				IsAvailableIf: &Condition{
@@ -73,7 +71,6 @@ func TestSchemaGroupBuilder_Build(t *testing.T) {
 			Title: i18n.StringFrom("tt"),
 			Expected: expected{
 				ID:     gid,
-				Sid:    sid,
 				Fields: []*SchemaField{sf},
 				List:   true,
 				IsAvailableIf: &Condition{
@@ -89,24 +86,18 @@ func TestSchemaGroupBuilder_Build(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := NewSchemaGroup().
+			res := NewSchemaGroup().
 				ID(tc.ID).
-				Schema(tc.Sid).
 				Fields(tc.Fields).
 				IsList(tc.List).
 				Title(tc.Title).
 				IsAvailableIf(tc.IsAvailableIf).
 				Build()
-			if tc.Err == nil {
-				assert.Equal(tt, tc.Expected.IsAvailableIf, res.IsAvailableIf())
-				assert.Equal(tt, tc.Expected.Sid, res.Schema())
-				assert.Equal(tt, tc.Expected.ID, res.ID())
-				assert.Equal(tt, tc.Expected.Title, res.Title())
-				assert.Equal(tt, tc.Expected.List, res.IsList())
-				assert.Equal(tt, tc.Expected.Fields, res.Fields())
-			} else {
-				assert.Equal(tt, tc.Err, err)
-			}
+			assert.Equal(tt, tc.Expected.IsAvailableIf, res.IsAvailableIf())
+			assert.Equal(tt, tc.Expected.ID, res.ID())
+			assert.Equal(tt, tc.Expected.Title, res.Title())
+			assert.Equal(tt, tc.Expected.List, res.IsList())
+			assert.Equal(tt, tc.Expected.Fields, res.Fields())
 		})
 	}
 }

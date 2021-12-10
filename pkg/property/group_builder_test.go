@@ -22,7 +22,6 @@ func TestGroupBuilder_Build(t *testing.T) {
 		Fields      []*Field
 		Expected    struct {
 			Id          id.PropertyItemID
-			Schema      id.PropertySchemaID
 			SchemaGroup id.PropertySchemaGroupID
 			Fields      []*Field
 		}
@@ -40,12 +39,10 @@ func TestGroupBuilder_Build(t *testing.T) {
 			Fields:      []*Field{f},
 			Expected: struct {
 				Id          id.PropertyItemID
-				Schema      id.PropertySchemaID
 				SchemaGroup id.PropertySchemaGroupID
 				Fields      []*Field
 			}{
 				Id:          iid,
-				Schema:      sid,
 				SchemaGroup: "a",
 				Fields:      []*Field{f},
 			},
@@ -57,10 +54,9 @@ func TestGroupBuilder_Build(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.Schema, tc.SchemaGroup).Build()
+			res, err := NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.SchemaGroup).Build()
 			if err == nil {
 				assert.Equal(tt, tc.Expected.Fields, res.Fields(nil))
-				assert.Equal(tt, tc.Expected.Schema, res.Schema())
 				assert.Equal(tt, tc.Expected.SchemaGroup, res.SchemaGroup())
 				assert.Equal(tt, tc.Expected.Id, res.ID())
 			} else {
@@ -72,7 +68,6 @@ func TestGroupBuilder_Build(t *testing.T) {
 
 func TestGroupBuilder_MustBuild(t *testing.T) {
 	iid := id.NewPropertyItemID()
-	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
 	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField().Field("a").Value(OptionalValueFrom(v)).Build()
 
@@ -85,7 +80,6 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 		Fields      []*Field
 		Expected    struct {
 			Id          id.PropertyItemID
-			Schema      id.PropertySchemaID
 			SchemaGroup id.PropertySchemaGroupID
 			Fields      []*Field
 		}
@@ -97,17 +91,14 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 		{
 			Name:        "success",
 			Id:          iid,
-			Schema:      sid,
 			SchemaGroup: "a",
 			Fields:      []*Field{f},
 			Expected: struct {
 				Id          id.PropertyItemID
-				Schema      id.PropertySchemaID
 				SchemaGroup id.PropertySchemaGroupID
 				Fields      []*Field
 			}{
 				Id:          iid,
-				Schema:      sid,
 				SchemaGroup: "a",
 				Fields:      []*Field{f},
 			},
@@ -120,16 +111,12 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 			tt.Parallel()
 			var res *Group
 			if tc.Fail {
-				defer func() {
-					if r := recover(); r != nil {
-						assert.Nil(tt, res)
-					}
-				}()
-				res = NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.Schema, tc.SchemaGroup).MustBuild()
+				assert.Panics(t, func() {
+					_ = NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.SchemaGroup).MustBuild()
+				})
 			} else {
-				res = NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.Schema, tc.SchemaGroup).MustBuild()
+				res = NewGroup().ID(tc.Id).Fields(tc.Fields).Schema(tc.SchemaGroup).MustBuild()
 				assert.Equal(tt, tc.Expected.Fields, res.Fields(nil))
-				assert.Equal(tt, tc.Expected.Schema, res.Schema())
 				assert.Equal(tt, tc.Expected.SchemaGroup, res.SchemaGroup())
 				assert.Equal(tt, tc.Expected.Id, res.ID())
 			}
@@ -146,8 +133,7 @@ func TestGroupBuilder_NewID(t *testing.T) {
 func TestGroupBuilder_InitGroupFrom(t *testing.T) {
 	var sg *SchemaGroup
 	assert.Nil(t, InitGroupFrom(sg))
-	sg = NewSchemaGroup().ID("a").Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).MustBuild()
+	sg = NewSchemaGroup().ID("a").MustBuild()
 	g := InitGroupFrom(sg)
 	assert.Equal(t, sg.ID(), g.SchemaGroup())
-	assert.Equal(t, sg.Schema(), g.Schema())
 }

@@ -1,7 +1,6 @@
 package layerops
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
@@ -34,6 +33,7 @@ func TestInitialize(t *testing.T) {
 		Extensions(es).
 		MustBuild()
 	s := id.NewSceneID()
+
 	testCases := []struct {
 		name          string
 		sceneID       *id.SceneID
@@ -59,6 +59,7 @@ func TestInitialize(t *testing.T) {
 			err:           ErrExtensionTypeMustBePrimitive,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
@@ -70,12 +71,13 @@ func TestInitialize(t *testing.T) {
 				ExtensionID:   tc.extID,
 				Name:          tc.name,
 			}.Initialize()
+
 			if tc.err == nil {
 				assert.NoError(tt, err)
 				assert.NotNil(tt, layerItem)
 				assert.NotNil(tt, property)
 			} else {
-				assert.True(t, errors.As(err, &tc.err))
+				assert.Equal(t, tc.err, err)
 			}
 		})
 	}

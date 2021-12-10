@@ -8,7 +8,6 @@ import (
 // SchemaGroup represents a group of property that has some fields
 type SchemaGroup struct {
 	id                  id.PropertySchemaGroupID
-	sid                 id.PropertySchemaID
 	fields              []*SchemaField
 	list                bool
 	isAvailableIf       *Condition
@@ -21,27 +20,6 @@ func (s *SchemaGroup) ID() id.PropertySchemaGroupID {
 		return id.PropertySchemaGroupID("")
 	}
 	return s.id
-}
-
-func (s *SchemaGroup) IDRef() *id.PropertySchemaGroupID {
-	if s == nil {
-		return nil
-	}
-	return s.id.Ref()
-}
-
-func (s *SchemaGroup) Schema() id.PropertySchemaID {
-	if s == nil {
-		return id.PropertySchemaID{}
-	}
-	return s.sid
-}
-
-func (s *SchemaGroup) SchemaRef() *id.PropertySchemaID {
-	if s == nil {
-		return nil
-	}
-	return &s.sid
 }
 
 // Fields returns a slice of fields

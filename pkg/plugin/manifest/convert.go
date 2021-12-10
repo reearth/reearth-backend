@@ -68,7 +68,7 @@ func (i *Root) manifest(sid *id.SceneID) (*Manifest, error) {
 		Author(author).
 		Description(i18n.StringFrom(desc)).
 		RepositoryURL(repository).
-		Schema(pluginSchema.IDRef()).
+		Schema(pluginSchema.ID().Ref()).
 		Extensions(extensions).
 		Build()
 	if err != nil {
@@ -200,7 +200,7 @@ func (i *PropertySchema) schema(pluginID id.PluginID, idstr string) (*property.S
 	// groups
 	groups := make([]*property.SchemaGroup, 0, len(i.Groups))
 	for _, d := range i.Groups {
-		item, err := d.schemaGroup(psid)
+		item, err := d.schemaGroup()
 		if err != nil {
 			return nil, rerror.From(fmt.Sprintf("item (%s)", d.ID), err)
 		}
@@ -244,7 +244,7 @@ func (p *PropertyPointer) pointer() *property.SchemaFieldPointer {
 	}
 }
 
-func (i PropertySchemaGroup) schemaGroup(sid id.PropertySchemaID) (*property.SchemaGroup, error) {
+func (i PropertySchemaGroup) schemaGroup() (*property.SchemaGroup, error) {
 	title := i.Title
 	var representativeField *id.PropertySchemaFieldID
 	if i.RepresentativeField != nil {
@@ -263,13 +263,12 @@ func (i PropertySchemaGroup) schemaGroup(sid id.PropertySchemaID) (*property.Sch
 
 	return property.NewSchemaGroup().
 		ID(id.PropertySchemaGroupID(i.ID)).
-		Schema(sid).
 		IsList(i.List).
 		Fields(fields).
 		Title(i18n.StringFrom(title)).
 		RepresentativeField(representativeField).
 		IsAvailableIf(i.AvailableIf.condition()).
-		Build()
+		Build(), nil
 }
 
 func (o *PropertyCondition) condition() *property.Condition {

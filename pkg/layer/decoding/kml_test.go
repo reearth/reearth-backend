@@ -552,7 +552,7 @@ func TestKMLdecodePlacemark(t *testing.T) {
 				NewID().
 				Name("Point").
 				Scene(s).
-				Property(point.IDRef()).
+				Property(point.ID().Ref()).
 				Extension(&pointExt).
 				Plugin(&id.OfficialPluginID).
 				MustBuild(),
@@ -576,7 +576,7 @@ func TestKMLdecodePlacemark(t *testing.T) {
 				NewID().
 				Name("Polyline").
 				Scene(s).
-				Property(polyline.IDRef()).
+				Property(polyline.ID().Ref()).
 				Extension(&polylineExt).
 				Plugin(&id.OfficialPluginID).
 				MustBuild(),
@@ -607,7 +607,7 @@ func TestKMLdecodePlacemark(t *testing.T) {
 				NewID().
 				Name("Polygon").
 				Scene(s).
-				Property(polygon.IDRef()).
+				Property(polygon.ID().Ref()).
 				Extension(&polygonExt).
 				Plugin(&id.OfficialPluginID).
 				MustBuild(),
@@ -672,7 +672,7 @@ func TestKMLdecodePlacemark(t *testing.T) {
 //		NewID().
 //		Name("test_placemark").
 //		Scene(s).
-//		Property(point.IDRef()).
+//		Property(point.ID().Ref()).
 //		Extension(&pointExt).
 //		Plugin(&id.OfficialPluginID).
 //		MustBuild()

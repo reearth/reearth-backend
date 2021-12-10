@@ -162,7 +162,7 @@ func (d *CZMLDecoder) decodeLayer(t string, coords []float64, style interface{},
 		NewID().
 		Name(layerName).
 		Scene(d.sceneId).
-		Property(p.IDRef()).
+		Property(p.ID().Ref()).
 		Extension(&ex).
 		Plugin(&id.OfficialPluginID).
 		Build()

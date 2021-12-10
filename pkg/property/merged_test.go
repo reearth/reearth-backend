@@ -46,23 +46,23 @@ func TestMerge(t *testing.T) {
 	}
 
 	groups1 := []*Group{
-		NewGroup().ID(i7id).Schema(psid, psgid1).Fields(fields1).MustBuild(),
+		NewGroup().ID(i7id).Schema(psgid1).Fields(fields1).MustBuild(),
 	}
 
 	groups2 := []*Group{
-		NewGroup().ID(i8id).Schema(psid, psgid1).Fields(fields2).MustBuild(),
+		NewGroup().ID(i8id).Schema(psgid1).Fields(fields2).MustBuild(),
 	}
 
 	items1 := []Item{
-		NewGroupList().ID(i1id).Schema(psid, psgid1).Groups(groups1).MustBuild(),
-		NewGroup().ID(i2id).Schema(psid, psgid2).Fields(fields1).MustBuild(),
-		NewGroup().ID(i3id).Schema(psid, psgid3).Fields(fields1).MustBuild(),
+		NewGroupList().ID(i1id).Schema(psgid1).Groups(groups1).MustBuild(),
+		NewGroup().ID(i2id).Schema(psgid2).Fields(fields1).MustBuild(),
+		NewGroup().ID(i3id).Schema(psgid3).Fields(fields1).MustBuild(),
 	}
 
 	items2 := []Item{
-		NewGroupList().ID(i4id).Schema(psid, psgid1).Groups(groups2).MustBuild(),
-		NewGroup().ID(i5id).Schema(psid, psgid2).Fields(fields2).MustBuild(),
-		NewGroup().ID(i6id).Schema(psid, psgid4).Fields(fields2).MustBuild(),
+		NewGroupList().ID(i4id).Schema(psgid1).Groups(groups2).MustBuild(),
+		NewGroup().ID(i5id).Schema(psgid2).Fields(fields2).MustBuild(),
+		NewGroup().ID(i6id).Schema(psgid4).Fields(fields2).MustBuild(),
 	}
 
 	sid := id.NewSceneID()

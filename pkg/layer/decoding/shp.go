@@ -38,7 +38,7 @@ func (shd *ShapeDecoder) getLayer(t string, coords interface{}) (*layer.Item, *p
 		NewItem().
 		NewID().
 		Scene(shd.sceneId).
-		Property(p.IDRef()).
+		Property(p.ID().Ref()).
 		Extension(&ex).
 		Plugin(&id.OfficialPluginID).
 		Build()

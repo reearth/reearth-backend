@@ -16,8 +16,8 @@ var (
 
 func TestPropertyMigrateSchema(t *testing.T) {
 	sceneID := id.NewSceneID()
-	oldSchema, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test")
-	newSchema, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test2")
+	oldSchema := id.MustPropertySchemaID("hoge~1.0.0/test")
+	newSchema := id.MustPropertySchemaID("hoge~1.0.0/test2")
 	schemaField1ID := id.PropertySchemaFieldID("a")
 	schemaField2ID := id.PropertySchemaFieldID("b")
 	schemaField3ID := id.PropertySchemaFieldID("c")
@@ -51,7 +51,7 @@ func TestPropertyMigrateSchema(t *testing.T) {
 		schemaField7,
 	}
 	schemaGroups := []*SchemaGroup{
-		NewSchemaGroup().ID(schemaGroupID).Schema(oldSchema).Fields(schemaFields).MustBuild(),
+		NewSchemaGroup().ID(schemaGroupID).Fields(schemaFields).MustBuild(),
 	}
 
 	fields := []*Field{
@@ -95,7 +95,7 @@ func TestPropertyMigrateSchema(t *testing.T) {
 			Build(),
 	}
 	items := []Item{
-		NewGroup().NewID().Schema(oldSchema, schemaGroupID).Fields(fields).MustBuild(),
+		NewGroup().NewID().Schema(schemaGroupID).Fields(fields).MustBuild(),
 	}
 
 	datasetFields := []*dataset.Field{
@@ -113,7 +113,6 @@ func TestPropertyMigrateSchema(t *testing.T) {
 
 	assert.Equal(t, schema.ID(), property.Schema())
 	assert.Equal(t, 1, len(property.Items()))
-	assert.Equal(t, schema.ID(), newGroup.Schema())
 	assert.Equal(t, 3, len(newFields))
 	assert.NotNil(t, newGroup.Field(schemaField1ID))
 	assert.NotNil(t, newGroup.Field(schemaField3ID))
@@ -122,16 +121,16 @@ func TestPropertyMigrateSchema(t *testing.T) {
 
 func TestGetOrCreateItem(t *testing.T) {
 	sceneID := id.NewSceneID()
-	sid, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test")
+	sid := id.MustPropertySchemaID("hoge~1.0.0/test")
 	sf1id := id.PropertySchemaFieldID("a")
 	sf2id := id.PropertySchemaFieldID("b")
 	sg1id := id.PropertySchemaGroupID("c")
 	sg2id := id.PropertySchemaGroupID("d")
 
 	sf1 := NewSchemaField().ID(sf1id).Type(ValueTypeString).MustBuild()
-	sg1 := NewSchemaGroup().ID(sg1id).Schema(sid).Fields([]*SchemaField{sf1}).MustBuild()
+	sg1 := NewSchemaGroup().ID(sg1id).Fields([]*SchemaField{sf1}).MustBuild()
 	sf2 := NewSchemaField().ID(sf2id).Type(ValueTypeString).MustBuild()
-	sg2 := NewSchemaGroup().ID(sg2id).Schema(sid).Fields([]*SchemaField{sf2}).IsList(true).MustBuild()
+	sg2 := NewSchemaGroup().ID(sg2id).Fields([]*SchemaField{sf2}).IsList(true).MustBuild()
 	s := NewSchema().ID(sid).Groups([]*SchemaGroup{sg1, sg2}).MustBuild()
 
 	p := New().NewID().Scene(sceneID).Schema(sid).MustBuild()
@@ -142,7 +141,6 @@ func TestGetOrCreateItem(t *testing.T) {
 
 	i, _ := p.GetOrCreateItem(s, PointItemBySchema(sg1id))
 	assert.NotNil(t, i)
-	assert.Equal(t, sid, i.Schema())
 	assert.Equal(t, sg1id, i.SchemaGroup())
 	assert.Equal(t, i, ToGroup(p.ItemBySchema(sg1id)))
 	assert.Equal(t, []Item{i}, p.Items())
@@ -158,7 +156,6 @@ func TestGetOrCreateItem(t *testing.T) {
 
 	i3, _ := p.GetOrCreateItem(s, PointItemBySchema(sg2id))
 	assert.NotNil(t, i3)
-	assert.Equal(t, sid, i3.Schema())
 	assert.Equal(t, sg2id, i3.SchemaGroup())
 	assert.Equal(t, i3, ToGroupList(p.ItemBySchema(sg2id)))
 	assert.Equal(t, []Item{i, i3}, p.Items())
@@ -172,16 +169,16 @@ func TestGetOrCreateItem(t *testing.T) {
 
 func TestGetOrCreateField(t *testing.T) {
 	sceneID := id.NewSceneID()
-	sid, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test")
+	sid := id.MustPropertySchemaID("hoge~1.0.0/test")
 	sf1id := id.PropertySchemaFieldID("a")
 	sf2id := id.PropertySchemaFieldID("b")
 	sg1id := id.PropertySchemaGroupID("c")
 	sg2id := id.PropertySchemaGroupID("d")
 
 	sf1 := NewSchemaField().ID(sf1id).Type(ValueTypeString).MustBuild()
-	sg1 := NewSchemaGroup().ID(sg1id).Schema(sid).Fields([]*SchemaField{sf1}).MustBuild()
+	sg1 := NewSchemaGroup().ID(sg1id).Fields([]*SchemaField{sf1}).MustBuild()
 	sf2 := NewSchemaField().ID(sf2id).Type(ValueTypeString).MustBuild()
-	sg2 := NewSchemaGroup().ID(sg2id).Schema(sid).Fields([]*SchemaField{sf2}).IsList(true).MustBuild()
+	sg2 := NewSchemaGroup().ID(sg2id).Fields([]*SchemaField{sf2}).IsList(true).MustBuild()
 	s := NewSchema().ID(sid).Groups([]*SchemaGroup{sg1, sg2}).MustBuild()
 
 	p := New().NewID().Scene(sceneID).Schema(sid).MustBuild()
@@ -195,7 +192,6 @@ func TestGetOrCreateField(t *testing.T) {
 	assert.True(t, created)
 	assert.Equal(t, sf1id, f.Field())
 	i := ToGroup(p.ItemBySchema(sg1id))
-	assert.Equal(t, sid, i.Schema())
 	assert.Equal(t, sg1id, i.SchemaGroup())
 	assert.Equal(t, []*Field{f}, i.Fields(nil))
 	field, _, _ := p.Field(PointFieldBySchemaGroup(sg1id, sf1id))
@@ -224,11 +220,11 @@ func TestGetOrCreateField(t *testing.T) {
 
 func TestAddListItem(t *testing.T) {
 	sceneID := id.NewSceneID()
-	sid, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test")
+	sid := id.MustPropertySchemaID("hoge~1.0.0/test")
 	sfid := id.PropertySchemaFieldID("a")
 	sgid := id.PropertySchemaGroupID("b")
 	sf := NewSchemaField().ID(sfid).Type(ValueTypeString).MustBuild()
-	sg := NewSchemaGroup().ID(sgid).Schema(sid).Fields([]*SchemaField{sf}).IsList(true).MustBuild()
+	sg := NewSchemaGroup().ID(sgid).Fields([]*SchemaField{sf}).IsList(true).MustBuild()
 	ps := NewSchema().ID(sid).Groups([]*SchemaGroup{sg}).MustBuild()
 	p := New().NewID().Scene(sceneID).Schema(sid).MustBuild()
 
@@ -246,11 +242,11 @@ func TestAddListItem(t *testing.T) {
 
 func TestMoveListItem(t *testing.T) {
 	sceneID := id.NewSceneID()
-	sid, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test")
+	sid := id.MustPropertySchemaID("hoge~1.0.0/test")
 	sgid := id.PropertySchemaGroupID("b")
-	g1 := NewGroup().NewID().Schema(sid, sgid).MustBuild()
-	g2 := NewGroup().NewID().Schema(sid, sgid).MustBuild()
-	gl := NewGroupList().NewID().Schema(sid, sgid).Groups([]*Group{g1, g2}).MustBuild()
+	g1 := NewGroup().NewID().Schema(sgid).MustBuild()
+	g2 := NewGroup().NewID().Schema(sgid).MustBuild()
+	gl := NewGroupList().NewID().Schema(sgid).Groups([]*Group{g1, g2}).MustBuild()
 	p := New().NewID().Scene(sceneID).Schema(sid).Items([]Item{gl}).MustBuild()
 
 	assert.Equal(t, []*Group{g1, g2}, gl.Groups())
@@ -261,11 +257,11 @@ func TestMoveListItem(t *testing.T) {
 
 func TestRemoveListItem(t *testing.T) {
 	sceneID := id.NewSceneID()
-	sid, _ := id.PropertySchemaIDFrom("hoge~1.0.0/test")
+	sid := id.MustPropertySchemaID("hoge~1.0.0/test")
 	sgid := id.PropertySchemaGroupID("b")
-	g1 := NewGroup().NewID().Schema(sid, sgid).MustBuild()
-	g2 := NewGroup().NewID().Schema(sid, sgid).MustBuild()
-	gl := NewGroupList().NewID().Schema(sid, sgid).Groups([]*Group{g1, g2}).MustBuild()
+	g1 := NewGroup().NewID().Schema(sgid).MustBuild()
+	g2 := NewGroup().NewID().Schema(sgid).MustBuild()
+	gl := NewGroupList().NewID().Schema(sgid).Groups([]*Group{g1, g2}).MustBuild()
 	p := New().NewID().Scene(sceneID).Schema(sid).Items([]Item{gl}).MustBuild()
 
 	assert.Equal(t, []*Group{g1, g2}, gl.Groups())
@@ -424,19 +420,19 @@ func TestProperty_MoveFields(t *testing.T) {
 	f1 := NewField().Field(FieldID("x")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("aaa"))).Build()
 	f2 := NewField().Field(FieldID("y")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("bbb"))).Build()
 	p := New().NewID().Scene(id.NewSceneID()).Schema(testSchema1.ID()).Items([]Item{
-		NewGroup().NewID().Schema(testSchema1.ID(), sg1).Fields([]*Field{
+		NewGroup().NewID().Schema(sg1).Fields([]*Field{
 			f1,
 		}).MustBuild(),
-		NewGroup().NewID().Schema(testSchema1.ID(), sg2).Fields([]*Field{
+		NewGroup().NewID().Schema(sg2).Fields([]*Field{
 			// empty
 		}).MustBuild(),
-		NewGroupList().NewID().Schema(testSchema1.ID(), sg3).Groups([]*Group{
-			NewGroup().NewID().Schema(testSchema1.ID(), sg3).Fields([]*Field{
+		NewGroupList().NewID().Schema(sg3).Groups([]*Group{
+			NewGroup().NewID().Schema(sg3).Fields([]*Field{
 				f2,
 			}).MustBuild(),
 		}).MustBuild(),
-		NewGroupList().NewID().Schema(testSchema1.ID(), sg4).Groups([]*Group{
-			NewGroup().NewID().Schema(testSchema1.ID(), sg4).Fields([]*Field{
+		NewGroupList().NewID().Schema(sg4).Groups([]*Group{
+			NewGroup().NewID().Schema(sg4).Fields([]*Field{
 				// empty
 			}).MustBuild(),
 		}).MustBuild(),

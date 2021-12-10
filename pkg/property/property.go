@@ -10,28 +10,30 @@ import (
 )
 
 type Property struct {
-	id     id.PropertyID
+	id     ID
 	scene  id.SceneID
-	schema id.PropertySchemaID
+	schema SchemaID
 	items  []Item
 }
 
-func (p *Property) ID() id.PropertyID {
+func (p *Property) ID() ID {
+	if p == nil {
+		return ID{}
+	}
 	return p.id
 }
 
-func (p *Property) IDRef() *id.PropertyID {
-	if p == nil {
-		return nil
-	}
-	return p.id.Ref()
-}
-
 func (p *Property) Scene() id.SceneID {
+	if p == nil {
+		return id.SceneID{}
+	}
 	return p.scene
 }
 
-func (p *Property) Schema() id.PropertySchemaID {
+func (p *Property) Schema() SchemaID {
+	if p == nil {
+		return SchemaID{}
+	}
 	return p.schema
 }
 
@@ -62,7 +64,7 @@ func (p *Property) Items() []Item {
 	return append([]Item{}, p.items...)
 }
 
-func (p *Property) Item(id id.PropertyItemID) (Item, *GroupList) {
+func (p *Property) Item(id ItemID) (Item, *GroupList) {
 	if p == nil {
 		return nil, nil
 	}
@@ -80,7 +82,7 @@ func (p *Property) Item(id id.PropertyItemID) (Item, *GroupList) {
 }
 
 // ItemBySchema returns a root item by a schema group ID.
-func (p *Property) ItemBySchema(id id.PropertySchemaGroupID) Item {
+func (p *Property) ItemBySchema(id SchemaGroupID) Item {
 	if p == nil {
 		return nil
 	}
@@ -92,7 +94,7 @@ func (p *Property) ItemBySchema(id id.PropertySchemaGroupID) Item {
 	return nil
 }
 
-func (p *Property) GroupBySchema(id id.PropertySchemaGroupID) *Group {
+func (p *Property) GroupBySchema(id SchemaGroupID) *Group {
 	i := p.ItemBySchema(id)
 	if i == nil {
 		return nil
@@ -103,7 +105,7 @@ func (p *Property) GroupBySchema(id id.PropertySchemaGroupID) *Group {
 	return nil
 }
 
-func (p *Property) GroupListBySchema(id id.PropertySchemaGroupID) *GroupList {
+func (p *Property) GroupListBySchema(id SchemaGroupID) *GroupList {
 	i := p.ItemBySchema(id)
 	if i == nil {
 		return nil

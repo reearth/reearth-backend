@@ -16,7 +16,7 @@ func InitGroupListFrom(g *SchemaGroup) *GroupList {
 	if g == nil || !g.IsList() {
 		return nil
 	}
-	g2, _ := NewGroupList().NewID().Schema(g.Schema(), g.ID()).Build()
+	g2, _ := NewGroupList().NewID().Schema(g.ID()).Build()
 	return g2
 }
 
@@ -50,8 +50,7 @@ func (b *GroupListBuilder) NewID() *GroupListBuilder {
 	return b
 }
 
-func (b *GroupListBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaGroupID) *GroupListBuilder {
-	b.p.itemBase.Schema = s
+func (b *GroupListBuilder) Schema(g id.PropertySchemaGroupID) *GroupListBuilder {
 	b.p.itemBase.SchemaGroup = g
 	return b
 }

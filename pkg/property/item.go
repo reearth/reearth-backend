@@ -10,7 +10,6 @@ import (
 type Item interface {
 	ID() id.PropertyItemID
 	SchemaGroup() id.PropertySchemaGroupID
-	Schema() id.PropertySchemaID
 	FieldsByLinkedDataset(id.DatasetSchemaID, id.DatasetID) []*Field
 	HasLinkedField() bool
 	Datasets() []id.DatasetID
@@ -26,7 +25,6 @@ type Item interface {
 
 type itemBase struct {
 	ID          id.PropertyItemID
-	Schema      id.PropertySchemaID
 	SchemaGroup id.PropertySchemaGroupID
 }
 

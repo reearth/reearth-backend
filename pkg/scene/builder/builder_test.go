@@ -73,7 +73,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField1ID).
@@ -91,7 +91,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer1p.IDRef()).
+		Property(layer1p.ID().Ref()).
 		MustBuild()
 
 	// layer2: normal layer group
@@ -100,7 +100,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField1ID).
@@ -118,14 +118,14 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer21p.IDRef()).
+		Property(layer21p.ID().Ref()).
 		MustBuild()
 	layer2p := property.New().
 		NewID().
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField1ID).
@@ -147,7 +147,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer2p.IDRef()).
+		Property(layer2p.ID().Ref()).
 		Infobox(layer2ib).
 		Layers(layer.NewIDList([]id.LayerID{layer21.ID()})).
 		MustBuild()
@@ -158,7 +158,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField1ID).
@@ -180,7 +180,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer3p.IDRef()).
+		Property(layer3p.ID().Ref()).
 		Infobox(layer3ib).
 		MustBuild()
 
@@ -190,7 +190,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField2ID).
@@ -208,7 +208,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer41p.IDRef()).
+		Property(layer41p.ID().Ref()).
 		Infobox(layer41ib).
 		LinkedDataset(&ds3id).
 		MustBuild()
@@ -217,7 +217,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField1ID).
@@ -242,7 +242,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer4p.IDRef()).
+		Property(layer4p.ID().Ref()).
 		Infobox(layer4ib).
 		LinkedDatasetSchema(&dss3id).
 		Layers(layer.NewIDList([]id.LayerID{layer41.ID()})).
@@ -254,7 +254,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField1ID).
@@ -271,7 +271,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer51p.IDRef()).
+		Property(layer51p.ID().Ref()).
 		LinkedDataset(&ds1id).
 		MustBuild()
 	layer5p := property.New().
@@ -279,7 +279,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).
 				Fields([]*property.Field{
 					property.NewField().
 						Field(propertySchemaField1ID).
@@ -307,7 +307,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer5p.IDRef()).
+		Property(layer5p.ID().Ref()).
 		LinkedDatasetSchema(&dss1id).
 		Layers(layer.NewIDList([]id.LayerID{layer51.ID()})).
 		MustBuild()
@@ -316,15 +316,15 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroupList().NewID().Schema(propertySchemaID, propertySchemaGroup2ID).Groups([]*property.Group{
-				property.NewGroup().ID(propertyItemID1).Schema(propertySchemaID, propertySchemaGroup2ID).
+			property.NewGroupList().NewID().Schema(propertySchemaGroup2ID).Groups([]*property.Group{
+				property.NewGroup().ID(propertyItemID1).Schema(propertySchemaGroup2ID).
 					Fields([]*property.Field{
 						property.NewField().
 							Field(propertySchemaField1ID).
 							Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("XYZ"))).
 							Build(),
 					}).MustBuild(),
-				property.NewGroup().ID(propertyItemID2).Schema(propertySchemaID, propertySchemaGroup2ID).
+				property.NewGroup().ID(propertyItemID2).Schema(propertySchemaGroup2ID).
 					Fields([]*property.Field{
 						property.NewField().
 							Field(propertySchemaField1ID).
@@ -339,7 +339,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Plugin(&pluginID).
 		Extension(&pluginExtension1ID).
-		Property(layer6p.IDRef()).
+		Property(layer6p.ID().Ref()).
 		MustBuild()
 
 	// root layer
@@ -358,7 +358,7 @@ func TestSceneBuilder(t *testing.T) {
 		Scene(sceneID).
 		Schema(propertySchemaID).
 		Items([]property.Item{
-			property.NewGroup().NewID().Schema(propertySchemaID, propertySchemaGroup1ID).Fields([]*property.Field{
+			property.NewGroup().NewID().Schema(propertySchemaGroup1ID).Fields([]*property.Field{
 				property.NewField().
 					Field(propertySchemaField1ID).
 					Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("hogehoge"))).

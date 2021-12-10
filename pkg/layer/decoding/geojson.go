@@ -240,7 +240,7 @@ func (d *GeoJSONDecoder) decodeLayer() (*layer.Item, *property.Property, error) 
 		NewID().
 		Name(layerName).
 		Scene(d.sceneId).
-		Property(p.IDRef()).
+		Property(p.ID().Ref()).
 		Extension(&ex).
 		Plugin(&id.OfficialPluginID).
 		Build()

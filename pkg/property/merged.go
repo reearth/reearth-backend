@@ -119,8 +119,8 @@ func Merge(o *Property, p *Property, linked *id.DatasetID) *Merged {
 	}
 
 	return &Merged{
-		Original:      o.IDRef(),
-		Parent:        p.IDRef(),
+		Original:      o.ID().Ref(),
+		Parent:        p.ID().Ref(),
 		Schema:        schema,
 		Groups:        mergeItems(o.Items(), p.Items(), linked2),
 		LinkedDataset: linked2,

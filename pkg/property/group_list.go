@@ -30,13 +30,6 @@ func (g *GroupList) SchemaGroup() id.PropertySchemaGroupID {
 	return g.itemBase.SchemaGroup
 }
 
-func (g *GroupList) Schema() id.PropertySchemaID {
-	if g == nil {
-		return id.PropertySchemaID{}
-	}
-	return g.itemBase.Schema
-}
-
 func (g *GroupList) HasLinkedField() bool {
 	if g == nil {
 		return false
@@ -102,8 +95,6 @@ func (g *GroupList) MigrateSchema(ctx context.Context, newSchema *Schema, dl dat
 	if g == nil || dl == nil {
 		return
 	}
-
-	g.itemBase.Schema = newSchema.ID()
 
 	for _, f := range g.groups {
 		f.MigrateSchema(ctx, newSchema, dl)
@@ -278,7 +269,7 @@ func (g *GroupList) Empty() {
 }
 
 func (g *GroupList) GetOrCreateField(ps *Schema, ptr *Pointer) (*Field, bool) {
-	if g == nil || ptr == nil || ps == nil || ps.ID() != g.Schema() {
+	if g == nil || ptr == nil || ps == nil {
 		return nil, false
 	}
 	psg := ps.Groups().Group(g.SchemaGroup())
@@ -300,7 +291,7 @@ func (g *GroupList) GetOrCreateField(ps *Schema, ptr *Pointer) (*Field, bool) {
 }
 
 func (g *GroupList) CreateAndAddListItem(ps *Schema, index *int) *Group {
-	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
+	if g == nil || ps == nil {
 		return nil
 	}
 	psg := ps.Groups().Group(g.SchemaGroup())
@@ -327,9 +318,6 @@ func (p *GroupList) ValidateSchema(ps *SchemaGroup) error {
 	}
 	if ps == nil {
 		return errors.New("invalid schema")
-	}
-	if !p.Schema().Equal(ps.Schema()) {
-		return errors.New("invalid schema id")
 	}
 	if p.SchemaGroup() != ps.ID() {
 		return errors.New("invalid schema group id")

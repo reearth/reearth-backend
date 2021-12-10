@@ -241,7 +241,7 @@ func (d *KMLDecoder) decodePlacemark(p kml.Placemark) (*layer.Item, *property.Pr
 		NewID().
 		Name(layerName).
 		Scene(d.sceneId).
-		Property(prop.IDRef()).
+		Property(prop.ID().Ref()).
 		Extension(&ex).
 		Plugin(&id.OfficialPluginID).
 		Build()

@@ -504,10 +504,18 @@ func TestSchema(t *testing.T) {
 				Linkable: nil,
 				Version:  0,
 			},
-			pid:      id.OfficialPluginID,
-			expected: property.NewSchema().ID(id.MustPropertySchemaID("reearth/marker")).Groups([]*property.SchemaGroup{property.NewSchemaGroup().ID("default").Schema(id.MustPropertySchemaID("reearth/cesium")).Fields([]*property.SchemaField{property.NewSchemaField().ID("location").Type(property.ValueTypeLatLng).MustBuild()}).MustBuild()}).MustBuild(),
+			pid: id.OfficialPluginID,
+			expected: property.NewSchema().
+				ID(id.MustPropertySchemaID("reearth/marker")).
+				Groups([]*property.SchemaGroup{
+					property.NewSchemaGroup().ID("default").Fields([]*property.SchemaField{
+						property.NewSchemaField().ID("location").Type(property.ValueTypeLatLng).MustBuild(),
+					}).MustBuild(),
+				}).
+				MustBuild(),
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
@@ -534,7 +542,6 @@ func TestSchemaGroup(t *testing.T) {
 	testCases := []struct {
 		name     string
 		psg      PropertySchemaGroup
-		sid      id.PropertySchemaID
 		expected *property.SchemaGroup
 		err      string
 	}{
@@ -561,8 +568,16 @@ func TestSchemaGroup(t *testing.T) {
 				List:  false,
 				Title: "marker",
 			},
-			sid:      id.MustPropertySchemaID("reearth/cesium"),
-			expected: property.NewSchemaGroup().ID("default").Title(i18n.StringFrom("marker")).Title(i18n.StringFrom(str)).Schema(id.MustPropertySchemaID("reearth/cesium")).Fields([]*property.SchemaField{property.NewSchemaField().ID("location").Type(property.ValueTypeLatLng).MustBuild()}).MustBuild(),
+			expected: property.NewSchemaGroup().
+				ID("default").
+				Title(i18n.StringFrom(str)).
+				Fields([]*property.SchemaField{
+					property.NewSchemaField().
+						ID("location").
+						Type(property.ValueTypeLatLng).
+						MustBuild(),
+				}).
+				MustBuild(),
 		},
 		{
 			name: "fail invalid schema field",
@@ -587,20 +602,19 @@ func TestSchemaGroup(t *testing.T) {
 				List:  false,
 				Title: "marker",
 			},
-			sid:      id.MustPropertySchemaID("reearth/cesium"),
 			expected: nil,
 			err:      "field (location): invalid value type: xx",
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := tc.psg.schemaGroup(tc.sid)
+			res, err := tc.psg.schemaGroup()
 			if tc.err == "" {
 				assert.Equal(tt, tc.expected.Title().String(), res.Title().String())
 				assert.Equal(tt, tc.expected.Title(), res.Title())
-				assert.Equal(tt, tc.expected.Schema(), res.Schema())
 				assert.Equal(tt, len(tc.expected.Fields()), len(res.Fields()))
 				if len(res.Fields()) > 0 {
 					exf := res.Fields()[0]

@@ -15,28 +15,23 @@ func NewSchemaGroup() *SchemaGroupBuilder {
 	}
 }
 
-func (b *SchemaGroupBuilder) Build() (*SchemaGroup, error) {
-	if b.p.sid.IsNil() {
-		return nil, id.ErrInvalidID
+func (b *SchemaGroupBuilder) Build() *SchemaGroup {
+	if b.p.id == "" {
+		return nil
 	}
-	return b.p, nil
+	return b.p
 }
 
 func (b *SchemaGroupBuilder) MustBuild() *SchemaGroup {
-	p, err := b.Build()
-	if err != nil {
-		panic(err)
+	p := b.Build()
+	if p == nil {
+		panic("invalid property schema group")
 	}
 	return p
 }
 
 func (b *SchemaGroupBuilder) ID(id id.PropertySchemaGroupID) *SchemaGroupBuilder {
 	b.p.id = id
-	return b
-}
-
-func (b *SchemaGroupBuilder) Schema(sid id.PropertySchemaID) *SchemaGroupBuilder {
-	b.p.sid = sid
 	return b
 }
 

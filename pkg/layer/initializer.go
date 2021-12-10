@@ -118,7 +118,7 @@ func (i *Initializer) Layer(sid id.SceneID) (r InitializerResult, err error) {
 		return
 	}
 	if lp != nil {
-		pid = lp.IDRef()
+		pid = lp.ID().Ref()
 		r.Properties = r.Properties.Add(lp)
 	}
 
@@ -228,7 +228,7 @@ func (i *InitializerInfobox) Infobox(scene id.SceneID) (*Infobox, property.Map, 
 			return nil, nil, ErrInitializationPropertyWith(err)
 		}
 		if ibp != nil {
-			ibpid = ibp.IDRef()
+			ibpid = ibp.ID().Ref()
 			pm = pm.Add(ibp)
 		}
 	}
@@ -284,7 +284,7 @@ func (i *InitializerInfoboxField) InfoboxField(scene id.SceneID) (*InfoboxField,
 			return nil, nil, ErrInitializationPropertyWith(err)
 		}
 		if p != nil {
-			pid = p.IDRef()
+			pid = p.ID().Ref()
 		}
 	}
 	if pid == nil {

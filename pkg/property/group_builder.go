@@ -16,12 +16,12 @@ func InitGroupFrom(g *SchemaGroup) *Group {
 	if g == nil {
 		return nil
 	}
-	g2, _ := NewGroup().NewID().Schema(g.Schema(), g.ID()).Build()
+	g2, _ := NewGroup().NewID().Schema(g.ID()).Build()
 	return g2
 }
 
 func (b *GroupBuilder) Build() (*Group, error) {
-	if id.ID(b.p.itemBase.ID).IsNil() {
+	if b.p.itemBase.ID.IsNil() {
 		return nil, id.ErrInvalidID
 	}
 	return b.p, nil
@@ -50,8 +50,7 @@ func (b *GroupBuilder) NewID() *GroupBuilder {
 	return b
 }
 
-func (b *GroupBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaGroupID) *GroupBuilder {
-	b.p.itemBase.Schema = s
+func (b *GroupBuilder) Schema(g id.PropertySchemaGroupID) *GroupBuilder {
 	b.p.itemBase.SchemaGroup = g
 	return b
 }
