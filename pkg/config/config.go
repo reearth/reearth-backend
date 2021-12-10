@@ -4,6 +4,12 @@ import "sort"
 
 type Config struct {
 	Migration int64
+	Auth      *Auth
+}
+
+type Auth struct {
+	Cert []byte
+	Key  []byte
 }
 
 func (c *Config) NextMigrations(migrations []int64) []int64 {

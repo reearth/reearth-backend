@@ -6,6 +6,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"crypto/x509/pkix"
+	"encoding/pem"
 	"errors"
 	"math/big"
 	"time"
@@ -14,6 +15,7 @@ import (
 	"github.com/caos/oidc/pkg/op"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/auth"
+	config2 "github.com/reearth/reearth-backend/pkg/config"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/user"
 	"gopkg.in/square/go-jose.v2"
@@ -24,6 +26,7 @@ type AuthStorage struct {
 	getUserBySubject func(context.Context, string) (*user.User, error)
 	clients          map[string]op.Client
 	requests         repo.AuthRequest
+	config           repo.Config
 	keySet           jose.JSONWebKeySet
 	key              *rsa.PrivateKey
 	sigKey           jose.SigningKey
@@ -57,7 +60,7 @@ var dummyName = pkix.Name{
 	PostalCode:         []string{"1"},
 }
 
-func NewAuthStorage(cfg *StorageConfig, request repo.AuthRequest, getUserBySubject func(context.Context, string) (*user.User, error)) op.Storage {
+func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRequest, config repo.Config, getUserBySubject func(context.Context, string) (*user.User, error)) op.Storage {
 
 	client := auth.NewLocalClient(cfg.Debug)
 
@@ -74,8 +77,31 @@ func NewAuthStorage(cfg *StorageConfig, request repo.AuthRequest, getUserBySubje
 			PostalCode:         cfg.DN.PostalCode,
 		}
 	}
+	c, err := config.Load(ctx)
+	if err != nil {
+		panic("Could not load auth config")
+	}
 
-	key, sigKey, keySet := initKeys(name)
+	var keyBytes, certBytes []byte
+	if c.Auth != nil {
+		keyBytes = c.Auth.Key
+		certBytes = c.Auth.Cert
+	} else {
+		keyBytes, certBytes, err = generateCert(name)
+		if err != nil {
+			panic("Could not generate raw cert")
+		}
+		c.Auth = &config2.Auth{
+			Key:  keyBytes,
+			Cert: certBytes,
+		}
+		err := config.Save(ctx, c)
+		if err != nil {
+			panic("Could not save raw cert")
+		}
+	}
+
+	key, sigKey, keySet := initKeys(keyBytes, certBytes)
 
 	return &AuthStorage{
 		appConfig:        cfg,
@@ -90,28 +116,19 @@ func NewAuthStorage(cfg *StorageConfig, request repo.AuthRequest, getUserBySubje
 	}
 }
 
-func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKeySet) {
+func initKeys(keyBytes, certBytes []byte) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKeySet) {
 
-	key, err := rsa.GenerateKey(rand.Reader, 2048)
+	block, _ := pem.Decode(keyBytes)
+	if block == nil {
+		panic("failed to create the key")
+	}
+
+	key, err := x509.ParsePKCS1PrivateKey(block.Bytes)
 	if err != nil {
-		panic(err)
+		panic("failed to create the key")
 	}
 
-	cert := &x509.Certificate{
-		SerialNumber: big.NewInt(1),
-		Subject:      name,
-		NotBefore:    time.Now(),
-		NotAfter:     time.Now().AddDate(100, 0, 0),
-		IsCA:         true,
-		KeyUsage:     x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
-	}
-
-	caBytes, err := x509.CreateCertificate(rand.Reader, cert, cert, key.Public(), key)
-	if err != nil {
-		panic("failed to create the cert")
-	}
-
-	cert, err = x509.ParseCertificate(caBytes)
+	cert, err := x509.ParseCertificate(certBytes)
 	if err != nil {
 		panic("failed to create the cert")
 	}
@@ -127,6 +144,34 @@ func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKey
 			{Key: key.Public(), Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
 		},
 	}
+}
+
+func generateCert(name pkix.Name) (keyPem, certPem []byte, err error) {
+	key, err := rsa.GenerateKey(rand.Reader, 2048)
+	if err != nil {
+		panic(err)
+	}
+
+	keyPem = pem.EncodeToMemory(&pem.Block{
+		Type:  "RSA PRIVATE KEY",
+		Bytes: x509.MarshalPKCS1PrivateKey(key),
+	})
+
+	cert := &x509.Certificate{
+		SerialNumber: big.NewInt(1),
+		Subject:      name,
+		NotBefore:    time.Now(),
+		NotAfter:     time.Now().AddDate(100, 0, 0),
+		IsCA:         true,
+		KeyUsage:     x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
+	}
+
+	certPem, err = x509.CreateCertificate(rand.Reader, cert, cert, key.Public(), key)
+	if err != nil {
+		panic("failed to create the cert")
+	}
+
+	return
 }
 
 func (s *AuthStorage) Health(_ context.Context) error {
