@@ -153,15 +153,27 @@ func (g *Group) GetOrCreateField(ps *Schema, fid id.PropertySchemaFieldID) (*Fie
 		return nil, false
 	}
 
-	g.fields = append(g.fields, field)
+	g.AddFields(field)
 	return field, true
+}
+
+func (g *Group) AddFields(fields ...*Field) {
+	if g == nil || fields == nil {
+		return
+	}
+	for _, f := range fields {
+		if field := g.Field(f.Field()); field != nil {
+			g.RemoveField(f.Field())
+		}
+		g.fields = append(g.fields, f)
+	}
 }
 
 func (g *Group) RemoveField(fid id.PropertySchemaFieldID) {
 	if g == nil {
 		return
 	}
-	for i, f := range g.Fields(nil) {
+	for i, f := range g.fields {
 		if f.Field() == fid {
 			g.fields = append(g.fields[:i], g.fields[i+1:]...)
 			return
@@ -250,47 +262,25 @@ func (p *Group) CloneItem() Item {
 }
 
 func (g *Group) Fields(p *Pointer) []*Field {
-	if g == nil || len(g.fields) == 0 {
+	if g == nil || len(g.fields) == 0 || (p != nil && !p.TestItem(g.SchemaGroup(), g.ID())) {
 		return nil
 	}
 
-	if p == nil {
-		return append(g.fields[:0:0], g.fields...)
-	}
-
-	fid, ok := p.Field()
-	if !ok {
-		if sgid, ok := p.ItemBySchemaGroup(); ok {
-			if sgid == g.SchemaGroup() {
-				return g.Fields(nil)
-			}
+	if fid, ok := p.Field(); ok {
+		if f := g.Field(fid); f != nil {
+			return []*Field{f}
+		}
 		return nil
 	}
 
-		if iid, ok := p.Item(); ok {
-			if iid == g.ID() {
-				return g.Fields(nil)
-			}
-		return nil
-	}
-
-		return nil
-	}
-
-	if f := g.Field(fid); f != nil {
-	return []*Field{f}
-	}
-
-	return nil
+	return append(g.fields[:0:0], g.fields...)
 }
 
 func (g *Group) RemoveFields(ptr *Pointer) {
 	if g == nil || ptr == nil {
 		return
 	}
-	f, ok := ptr.Field()
-	if !ok {
-		return
+	if f, ok := ptr.FieldIfItemIs(g.SchemaGroup(), g.ID()); ok {
+		g.RemoveField(f)
 	}
-	g.RemoveField(f)
 }

@@ -406,3 +406,129 @@ func TestProperty_RemoveFields(t *testing.T) {
 		})
 	}
 }
+
+func TestProperty_MoveFields(t *testing.T) {
+	sg1 := SchemaGroupID("aaa")
+	sg2 := SchemaGroupID("bbb")
+	sg3 := SchemaGroupID("ccc")
+	sg4 := SchemaGroupID("ddd")
+
+	f1 := NewFieldUnsafe().FieldUnsafe(FieldID("x")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("aaa"))).Build()
+	f2 := NewFieldUnsafe().FieldUnsafe(FieldID("y")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("bbb"))).Build()
+	p := New().NewID().Scene(id.NewSceneID()).Schema(testSchema1.ID()).Items([]Item{
+		NewGroup().NewID().Schema(testSchema1.ID(), sg1).Fields([]*Field{
+			f1,
+		}).MustBuild(),
+		NewGroup().NewID().Schema(testSchema1.ID(), sg2).Fields([]*Field{
+			// empty
+		}).MustBuild(),
+		NewGroupList().NewID().Schema(testSchema1.ID(), sg3).Groups([]*Group{
+			NewGroup().NewID().Schema(testSchema1.ID(), sg3).Fields([]*Field{
+				f2,
+			}).MustBuild(),
+		}).MustBuild(),
+		NewGroupList().NewID().Schema(testSchema1.ID(), sg4).Groups([]*Group{
+			NewGroup().NewID().Schema(testSchema1.ID(), sg4).Fields([]*Field{
+				// empty
+			}).MustBuild(),
+		}).MustBuild(),
+	}).MustBuild()
+
+	type args struct {
+		f    FieldID
+		from SchemaGroupID
+		to   SchemaGroupID
+	}
+	tests := []struct {
+		name       string
+		target     *Property
+		args       args
+		fromFields []*Field
+		toFields   []*Field
+	}{
+		{
+			name:   "group->group",
+			target: p.Clone(),
+			args: args{
+				f:    f1.Field(),
+				from: sg1,
+				to:   sg2,
+			},
+			fromFields: []*Field{},   // deleted
+			toFields:   []*Field{f1}, // added
+		},
+		{
+			name:   "group->group failed",
+			target: p.Clone(),
+			args: args{
+				f:    f2.Field(),
+				from: sg1,
+				to:   sg2,
+			},
+			fromFields: []*Field{f1}, // not deleted
+			toFields:   []*Field{},   // not added
+		},
+		{
+			name:   "group list->group list",
+			target: p.Clone(),
+			args: args{
+				f:    f2.Field(),
+				from: sg3,
+				to:   sg4,
+			},
+			fromFields: []*Field{}, // deleted
+			toFields:   []*Field{}, // not added
+		},
+		{
+			name:   "group->group list",
+			target: testProperty1.Clone(),
+			args: args{
+				f:    f1.Field(),
+				from: sg1,
+				to:   sg4,
+			},
+			fromFields: []*Field{}, // deleted
+			toFields:   []*Field{}, // not added
+		},
+		{
+			name:   "group list->group",
+			target: testProperty1.Clone(),
+			args: args{
+				f:    f2.Field(),
+				from: sg3,
+				to:   sg2,
+			},
+			fromFields: []*Field{}, // deleted
+			toFields:   []*Field{}, // not added
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			args: args{
+				f:    f1.Field(),
+				from: sg1,
+				to:   sg2,
+			},
+			fromFields: nil,
+			toFields:   nil,
+		},
+		{
+			name: "nil",
+			args: args{
+				f:    f1.Field(),
+				from: sg1,
+				to:   sg2,
+			},
+			fromFields: nil,
+			toFields:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.target.MoveFields(tt.args.f, tt.args.from, tt.args.to)
+			assert.Equal(t, tt.fromFields, tt.target.Fields(PointItemBySchema(tt.args.from)))
+			assert.Equal(t, tt.toFields, tt.target.Fields(PointItemBySchema(tt.args.to)))
+		})
+	}
+}

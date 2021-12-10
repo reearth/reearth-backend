@@ -123,12 +123,23 @@ func (g *GroupList) Group(gid id.PropertyItemID) *Group {
 	if g == nil {
 		return nil
 	}
-	for _, f := range g.groups {
-		if f.ID() == gid {
-			return f
+	for _, g := range g.groups {
+		if g.ID() == gid {
+			return g
 		}
 	}
 	return nil
+}
+
+func (g *GroupList) GroupByPointer(ptr *Pointer) *Group {
+	if g == nil {
+		return nil
+	}
+	gid, ok := ptr.Item()
+	if !ok {
+		return nil
+	}
+	return g.Group(gid)
 }
 
 func (g *GroupList) GroupAt(i int) *Group {
@@ -352,48 +363,25 @@ func (p *GroupList) CloneItem() Item {
 }
 
 func (g *GroupList) Fields(ptr *Pointer) []*Field {
-	if g == nil || len(g.groups) == 0 {
+	if g == nil || len(g.groups) == 0 || (ptr != nil && !ptr.TestSchemaGroup(g.SchemaGroup())) {
 		return nil
 	}
 
-	var fields []*Field
-	if ptr == nil {
-		for _, g := range g.groups {
-			if f := g.Fields(nil); len(f) > 0 {
-				fields = append(fields, f...)
-			}
-		}
-		return fields
-	}
-
-	if pi, ok := ptr.Item(); ok {
-		if g.ID() == pi {
-			return g.Fields(nil)
-		}
-		return g.GetGroup(pi).Fields(ptr)
-	}
-
-	if psg, ok := ptr.ItemBySchemaGroup(); ok && psg == g.SchemaGroup() {
-		fields = make([]*Field, 0, len(g.groups))
-		for _, g := range g.groups {
-			if f := g.Fields(ptr); len(f) > 0 {
-				fields = append(fields, f...)
-			}
-		}
-		return fields
+	if pi, ok := ptr.Item(); ok && g.ID() != pi {
+		return g.Group(pi).Fields(ptr)
 	}
 
 	if fid, ok := ptr.Field(); ok {
-		fields = make([]*Field, 0, len(g.groups))
-		for _, g := range g.groups {
-			if f := g.Field(fid); f != nil {
-				fields = append(fields, f)
-			}
-		}
-		return fields
+		ptr = PointFieldOnly(fid)
 	}
 
-	return nil
+	var fields []*Field
+	for _, g := range g.groups {
+		if f := g.Fields(ptr); len(f) > 0 {
+			fields = append(fields, f...)
+		}
+	}
+	return fields
 }
 
 func (g *GroupList) RemoveFields(ptr *Pointer) {
@@ -401,8 +389,8 @@ func (g *GroupList) RemoveFields(ptr *Pointer) {
 		return
 	}
 
-	if i, f, ok := ptr.FieldByItem(); ok {
-		g.GetGroup(i).RemoveField(f)
+	if i, ok := ptr.Item(); ok {
+		g.Group(i).RemoveFields(ptr)
 		return
 	}
 

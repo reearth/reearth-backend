@@ -4,9 +4,9 @@ import "github.com/reearth/reearth-backend/pkg/id"
 
 // Pointer is a pointer to a field and an item in properties and schemas
 type Pointer struct {
-	schemaItem *id.PropertySchemaGroupID
-	item       *id.PropertyItemID
-	field      *id.PropertySchemaFieldID
+	schemaGroup *id.PropertySchemaGroupID
+	item        *id.PropertyItemID
+	field       *id.PropertySchemaFieldID
 }
 
 // NewPointer creates a new Pointer.
@@ -15,32 +15,37 @@ func NewPointer(sg *id.PropertySchemaGroupID, i *id.PropertyItemID, f *id.Proper
 		return nil
 	}
 	return &Pointer{
-		schemaItem: sg.CopyRef(),
-		item:       i.CopyRef(),
-		field:      f.CopyRef(),
+		schemaGroup: sg.CopyRef(),
+		item:        i.CopyRef(),
+		field:       f.CopyRef(),
 	}
 }
 
-// PointField creates a new Pointer pointing the field in properties.
+// PointToEverything creates a new Pointer pointing to all items and fields.
+func PointToEverything() *Pointer {
+	return &Pointer{}
+}
+
+// PointField creates a new Pointer pointing to the field.
 func PointField(sg *id.PropertySchemaGroupID, i *id.PropertyItemID, f id.PropertySchemaFieldID) *Pointer {
 	return &Pointer{
-		schemaItem: sg.CopyRef(),
-		item:       i.CopyRef(),
-		field:      &f,
+		schemaGroup: sg.CopyRef(),
+		item:        i.CopyRef(),
+		field:       &f,
 	}
 }
 
-// PointField creates a new Pointer pointing the field in property schemas.
+// PointField creates a new Pointer pointing to the field in property schemas.
 func PointFieldOnly(fid id.PropertySchemaFieldID) *Pointer {
 	return &Pointer{
 		field: &fid,
 	}
 }
 
-// PointItemBySchema creates a new Pointer pointing the schema item in property schemas.
+// PointItemBySchema creates a new Pointer pointing to the schema item in property schemas.
 func PointItemBySchema(sg id.PropertySchemaGroupID) *Pointer {
 	return &Pointer{
-		schemaItem: &sg,
+		schemaGroup: &sg,
 	}
 }
 
@@ -54,8 +59,8 @@ func PointItem(i id.PropertyItemID) *Pointer {
 // PointFieldBySchemaGroup creates a new Pointer pointing to the field of the schema field in properties.
 func PointFieldBySchemaGroup(sg id.PropertySchemaGroupID, f id.PropertySchemaFieldID) *Pointer {
 	return &Pointer{
-		schemaItem: &sg,
-		field:      &f,
+		schemaGroup: &sg,
+		field:       &f,
 	}
 }
 
@@ -72,46 +77,30 @@ func (p *Pointer) Clone() *Pointer {
 		return nil
 	}
 	return &Pointer{
-		field:      p.field.CopyRef(),
-		item:       p.item.CopyRef(),
-		schemaItem: p.schemaItem.CopyRef(),
+		field:       p.field.CopyRef(),
+		item:        p.item.CopyRef(),
+		schemaGroup: p.schemaGroup.CopyRef(),
 	}
 }
 
 func (p *Pointer) ItemBySchemaGroupAndItem() (i id.PropertySchemaGroupID, i2 id.PropertyItemID, ok bool) {
-	if p == nil || p.schemaItem == nil || p.item == nil {
+	if p == nil || p.schemaGroup == nil || p.item == nil {
 		ok = false
 		return
 	}
-	i = *p.schemaItem
+	i = *p.schemaGroup
 	i2 = *p.item
 	ok = true
 	return
 }
 
 func (p *Pointer) ItemBySchemaGroup() (i id.PropertySchemaGroupID, ok bool) {
-	if p == nil || p.schemaItem == nil {
+	if p == nil || p.schemaGroup == nil {
 		ok = false
 		return
 	}
-	i = *p.schemaItem
+	i = *p.schemaGroup
 	ok = true
-	return
-}
-
-func (p *Pointer) SchemaGroupAndItem() (i id.PropertySchemaGroupID, i2 id.PropertyItemID, ok bool) {
-	ok = false
-	if p == nil {
-		return
-	}
-	if p.schemaItem != nil {
-		i = *p.schemaItem
-		ok = true
-	}
-	if p.item != nil {
-		i2 = *p.item
-		ok = true
-	}
 	return
 }
 
@@ -126,15 +115,15 @@ func (p *Pointer) Item() (i id.PropertyItemID, ok bool) {
 }
 
 func (p *Pointer) ItemRef() *id.PropertyItemID {
-	if p == nil || p.item == nil {
+	i, ok := p.Item()
+	if !ok {
 		return nil
 	}
-	f := *p.item
-	return &f
+	return i.Ref()
 }
 
 func (p *Pointer) FieldByItem() (i id.PropertyItemID, f id.PropertySchemaFieldID, ok bool) {
-	if p == nil || p.item == nil || p.schemaItem != nil || p.field == nil {
+	if p == nil || p.item == nil || p.schemaGroup != nil || p.field == nil {
 		ok = false
 		return
 	}
@@ -145,11 +134,11 @@ func (p *Pointer) FieldByItem() (i id.PropertyItemID, f id.PropertySchemaFieldID
 }
 
 func (p *Pointer) FieldBySchemaGroup() (sg id.PropertySchemaGroupID, f id.PropertySchemaFieldID, ok bool) {
-	if p == nil || p.schemaItem == nil || p.item != nil || p.field == nil {
+	if p == nil || p.schemaGroup == nil || p.item != nil || p.field == nil {
 		ok = false
 		return
 	}
-	sg = *p.schemaItem
+	sg = *p.schemaGroup
 	f = *p.field
 	ok = true
 	return
@@ -166,18 +155,70 @@ func (p *Pointer) Field() (f id.PropertySchemaFieldID, ok bool) {
 }
 
 func (p *Pointer) FieldRef() *id.PropertySchemaFieldID {
-	if p == nil || p.field == nil {
+	f, ok := p.Field()
+	if !ok {
 		return nil
 	}
-	f := *p.field
-	return &f
+	return f.Ref()
+}
+
+func (p *Pointer) FieldOnly() (f FieldID, ok bool) {
+	if p == nil || p.field == nil || p.item != nil || p.schemaGroup != nil {
+		ok = false
+		return
+	}
+	f = *p.field
+	ok = true
+	return
+}
+
+func (p *Pointer) FieldOnlyRef() *FieldID {
+	f, ok := p.FieldOnly()
+	if !ok {
+		return nil
+	}
+	return f.Ref()
+}
+
+func (p *Pointer) FieldIfItemIs(sg SchemaGroupID, i ItemID) (f FieldID, ok bool) {
+	if p == nil || p.field == nil || !p.TestItem(sg, i) {
+		ok = false
+		return
+	}
+	f = *p.field
+	ok = true
+	return
+}
+
+func (p *Pointer) FieldIfItemIsRef(sg SchemaGroupID, i ItemID) *FieldID {
+	f, ok := p.FieldIfItemIs(sg, i)
+	if !ok {
+		return nil
+	}
+	return f.Ref()
+}
+
+func (p *Pointer) Test(sg SchemaGroupID, i ItemID, f FieldID) bool {
+	return p.TestItem(sg, i) && p.TestField(f)
+}
+
+func (p *Pointer) TestItem(sg SchemaGroupID, i ItemID) bool {
+	return p.TestSchemaGroup(sg) && (p.item == nil || *p.item == i)
+}
+
+func (p *Pointer) TestSchemaGroup(sg SchemaGroupID) bool {
+	return p != nil && (p.schemaGroup == nil || *p.schemaGroup == sg)
+}
+
+func (p *Pointer) TestField(f FieldID) bool {
+	return p != nil && (p.field == nil || *p.field == f)
 }
 
 func (p *Pointer) GetAll() (sg *id.PropertySchemaGroupID, i *id.PropertyItemID, f *id.PropertySchemaFieldID) {
 	if p == nil {
 		return
 	}
-	sg = p.schemaItem.CopyRef()
+	sg = p.schemaGroup.CopyRef()
 	i = p.item.CopyRef()
 	f = p.field.CopyRef()
 	return

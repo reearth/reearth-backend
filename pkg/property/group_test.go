@@ -585,6 +585,58 @@ func TestGroup_Fields(t *testing.T) {
 	}
 }
 
+func TestGroup_AddFields(t *testing.T) {
+	type args struct {
+		fields []*Field
+	}
+	tests := []struct {
+		name   string
+		target *Group
+		args   args
+		want   []*Field
+	}{
+		{
+			name:   "nil field",
+			target: testGroup1.Clone(),
+			args:   args{},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "duplicated",
+			target: testGroup1.Clone(),
+			args:   args{fields: []*Field{testField1.Clone()}},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "added",
+			target: testGroup1.Clone(),
+			args:   args{fields: []*Field{testField2.Clone()}},
+			want:   []*Field{testField1, testField2},
+		},
+		{
+			name:   "empty",
+			target: &Group{},
+			args:   args{fields: []*Field{testField1.Clone()}},
+			want:   []*Field{testField1},
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{fields: []*Field{testField1.Clone()}},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.target.AddFields(tt.args.fields...)
+			if tt.target != nil {
+				assert.Equal(t, tt.want, tt.target.fields)
+			}
+		})
+	}
+}
+
 func TestGroup_RemoveFields(t *testing.T) {
 	type args struct {
 		p *Pointer

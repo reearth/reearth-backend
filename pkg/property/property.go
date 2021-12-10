@@ -226,8 +226,8 @@ func (p *Property) Datasets() []id.DatasetID {
 	if p == nil {
 		return nil
 	}
-	res := []id.DatasetID{}
 
+	res := []id.DatasetID{}
 	for _, f := range p.items {
 		res = append(res, f.Datasets()...)
 	}
@@ -236,17 +236,15 @@ func (p *Property) Datasets() []id.DatasetID {
 }
 
 func (p *Property) RemoveItem(ptr *Pointer) {
-	if p == nil {
+	if p == nil || ptr == nil {
 		return
 	}
-	sgid, iid, ok := ptr.SchemaGroupAndItem()
-	if !ok {
-		return
-	}
-	for i, item := range p.items {
-		if item.ID() == iid || item.SchemaGroup() == sgid {
+
+	for i := 0; i < len(p.items); i++ {
+		item := p.items[i]
+		if ptr.TestItem(item.SchemaGroup(), item.ID()) {
 			p.items = append(p.items[:i], p.items[i+1:]...)
-			return
+			i--
 		}
 	}
 }
@@ -512,4 +510,29 @@ func (p *Property) ValidateSchema(ps *Schema) error {
 	}
 
 	return nil
+}
+
+// MoveFields moves fields between items. Only fields in Groups can be moved to another Group, fields in GroupLists will simply be deleted.
+func (p *Property) MoveFields(f FieldID, from, to SchemaGroupID) {
+	if p == nil {
+		return
+	}
+
+	fromItem := p.ItemBySchema(from)
+	if fromItem == nil {
+		return
+	}
+
+	fields := p.Fields(PointFieldBySchemaGroup(from, f))
+	if len(fields) == 0 {
+		return
+	}
+
+	toGroup := p.GroupBySchema(to)
+	for _, f := range fields {
+		fromItem.RemoveFields(PointFieldOnly(f.Field()))
+		if toGroup != nil {
+			toGroup.AddFields(f)
+		}
+	}
 }

@@ -192,7 +192,7 @@ func TestGroupList_Prune(t *testing.T) {
 	}
 }
 
-func TestGroupList_GetGroup(t *testing.T) {
+func TestGroupList_Group(t *testing.T) {
 	pid := id.NewPropertyItemID()
 	g := NewGroup().ID(pid).MustBuild()
 	testCases := []struct {
@@ -226,11 +226,61 @@ func TestGroupList_GetGroup(t *testing.T) {
 	}
 }
 
+func TestGroupList_GroupByPointer(t *testing.T) {
+	g1 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
+	g2 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
+	g3 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
+	g4 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
+	gl := NewGroupList().NewID().Schema(testSchema1.ID(), "xx").Groups([]*Group{g1, g2, g3, g4}).MustBuild()
+
+	tests := []struct {
+		Name     string
+		Target   *GroupList
+		Args     *Pointer
+		Expected *Group
+	}{
+		{
+			Name:     "nil",
+			Target:   nil,
+			Args:     PointItem(g3.ID()),
+			Expected: nil,
+		},
+		{
+			Name:     "nil pointer",
+			Target:   gl,
+			Args:     nil,
+			Expected: nil,
+		},
+		{
+			Name:     "not found",
+			Target:   gl,
+			Args:     PointItem(NewItemID()),
+			Expected: nil,
+		},
+		{
+			Name:     "found",
+			Target:   gl,
+			Args:     PointItem(g3.ID()),
+			Expected: g3,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.Expected, tt.Target.GroupByPointer(tt.Args))
+		})
+	}
+}
+
 func TestGroupList_GroupAt(t *testing.T) {
 	g1 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
 	g2 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
 	g3 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
 	g4 := NewGroup().ID(id.NewPropertyItemID()).MustBuild()
+	gl := NewGroupList().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), "xx").Groups([]*Group{g1, g2, g3, g4}).MustBuild()
+
 	testCases := []struct {
 		Name     string
 		Index    int
@@ -243,15 +293,17 @@ func TestGroupList_GroupAt(t *testing.T) {
 		{
 			Name:  "index < 0",
 			Index: -1,
+			GL:    gl,
 		},
 		{
 			Name:  "index > len(g)-1",
 			Index: 4,
+			GL:    gl,
 		},
 		{
 			Name:     "found",
 			Index:    2,
-			GL:       NewGroupList().NewID().Schema(id.MustPropertySchemaID("xx~1.0.0/aa"), "xx").Groups([]*Group{g1, g2, g3, g4}).MustBuild(),
+			GL:       gl,
 			Expected: g3,
 		},
 	}
