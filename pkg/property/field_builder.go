@@ -2,7 +2,6 @@ package property
 
 import (
 	"github.com/reearth/reearth-backend/pkg/dataset"
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type FieldBuilder struct {
@@ -14,37 +13,29 @@ type FieldUnsafeBuilder struct {
 	p *Field
 }
 
-func NewField(p *SchemaField) *FieldBuilder {
-	b := &FieldBuilder{
+func NewField() *FieldBuilder {
+	return &FieldBuilder{
 		p: &Field{},
 	}
-	return b.schemaField(p)
 }
 
-func (b *FieldBuilder) Build() (*Field, error) {
-	if b.p.field == id.PropertySchemaFieldID("") {
-		return nil, id.ErrInvalidID
+func (b *FieldBuilder) Build() *Field {
+	if b.p.field == FieldID("") || b.p.v == nil {
+		return nil
 	}
-	if b.psf != nil && !b.psf.Validate(b.p.v) {
-		return nil, ErrInvalidPropertyValue
-	}
-	return b.p, nil
+	return b.p
 }
 
 func (b *FieldBuilder) MustBuild() *Field {
-	p, err := b.Build()
-	if err != nil {
-		panic(err)
+	p := b.Build()
+	if p == nil {
+		panic("invalid field")
 	}
 	return p
 }
 
-func (b *FieldBuilder) schemaField(p *SchemaField) *FieldBuilder {
-	if p != nil {
-		b.psf = p
-		b.p.field = p.ID()
-		b.p.v = NewOptionalValue(p.Type(), p.DefaultValue().Clone())
-	}
+func (b *FieldBuilder) Field(f FieldID) *FieldBuilder {
+	b.p.field = f
 	return b
 }
 
@@ -54,31 +45,6 @@ func (b *FieldBuilder) Value(v *OptionalValue) *FieldBuilder {
 }
 
 func (b *FieldBuilder) Link(l *dataset.GraphPointer) *FieldBuilder {
-	b.p.links = l.Clone()
-	return b
-}
-
-func NewFieldUnsafe() *FieldUnsafeBuilder {
-	return &FieldUnsafeBuilder{
-		p: &Field{},
-	}
-}
-
-func (b *FieldUnsafeBuilder) Build() *Field {
-	return b.p
-}
-
-func (b *FieldUnsafeBuilder) FieldUnsafe(f id.PropertySchemaFieldID) *FieldUnsafeBuilder {
-	b.p.field = f
-	return b
-}
-
-func (b *FieldUnsafeBuilder) ValueUnsafe(v *OptionalValue) *FieldUnsafeBuilder {
-	b.p.v = v.Clone()
-	return b
-}
-
-func (b *FieldUnsafeBuilder) LinksUnsafe(l *dataset.GraphPointer) *FieldUnsafeBuilder {
 	b.p.links = l.Clone()
 	return b
 }

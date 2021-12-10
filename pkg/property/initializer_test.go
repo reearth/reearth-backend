@@ -147,7 +147,7 @@ func TestInitializerItem_PropertyGroup(t *testing.T) {
 	}
 
 	expected := NewItem().ID(*item.ID).Schema(parent, item.SchemaItem).Group().Fields([]*Field{
-		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).ValueUnsafe(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
+		NewField().Field(item.Fields[0].Field).Value(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
 	}).MustBuild()
 
 	assert.Equal(t, expected, item.PropertyGroup(parent))
@@ -214,7 +214,7 @@ func TestInitializerGroup_PropertyGroup(t *testing.T) {
 	}
 
 	expected := NewItem().ID(*item.ID).Schema(parent, parentItem).Group().Fields([]*Field{
-		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).ValueUnsafe(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
+		NewField().Field(item.Fields[0].Field).Value(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
 	}).MustBuild()
 
 	p, err := item.PropertyGroup(parent, parentItem)
@@ -258,10 +258,10 @@ func TestInitializerField_PropertyField(t *testing.T) {
 		}},
 	}
 
-	expected := NewFieldUnsafe().
-		FieldUnsafe(field.Field).
-		ValueUnsafe(NewOptionalValue(field.Type, field.Value)).
-		LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(*field.Links[0].Dataset.CopyRef(), field.Links[0].Schema, field.Links[0].Field)})).
+	expected := NewField().
+		Field(field.Field).
+		Value(NewOptionalValue(field.Type, field.Value)).
+		Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(*field.Links[0].Dataset.CopyRef(), field.Links[0].Schema, field.Links[0].Field)})).
 		Build()
 
 	assert.Equal(t, expected, field.PropertyField())

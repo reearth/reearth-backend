@@ -56,40 +56,42 @@ func TestPropertyMigrateSchema(t *testing.T) {
 
 	fields := []*Field{
 		// should remain
-		NewFieldUnsafe().FieldUnsafe(schemaField1ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("foobar"))).
+		NewField().Field(schemaField1ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("foobar"))).
 			Build(),
 		// should be removed because of max
-		NewFieldUnsafe().FieldUnsafe(schemaField2ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeNumber.ValueFrom(101))).
+		NewField().Field(schemaField2ID).
+			Value(OptionalValueFrom(ValueTypeNumber.ValueFrom(101))).
 			Build(),
 		// should remain
-		NewFieldUnsafe().FieldUnsafe(schemaField3ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeNumber.ValueFrom(1))).
+		NewField().Field(schemaField3ID).
+			Value(OptionalValueFrom(ValueTypeNumber.ValueFrom(1))).
 			Build(),
 		// should be removed because of choices
-		NewFieldUnsafe().FieldUnsafe(schemaField4ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("z"))).
+		NewField().Field(schemaField4ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("z"))).
 			Build(),
 		// should remain
-		NewFieldUnsafe().FieldUnsafe(schemaField5ID).
-			LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+		NewField().Field(schemaField5ID).
+			Value(NewOptionalValue(ValueTypeString, nil)).
+			Link(dataset.NewGraphPointer([]*dataset.Pointer{
 				dataset.PointAt(datasetID, datasetSchemaID, datasetFieldID),
 			})).
 			Build(),
 		// should be removed because of linked dataset field value type
-		NewFieldUnsafe().FieldUnsafe(schemaField6ID).
-			LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{
+		NewField().Field(schemaField6ID).
+			Value(NewOptionalValue(ValueTypeNumber, nil)).
+			Link(dataset.NewGraphPointer([]*dataset.Pointer{
 				dataset.PointAt(datasetID, datasetSchemaID, datasetFieldID),
 			})).
 			Build(),
 		// should be removed because of type
-		NewFieldUnsafe().FieldUnsafe(schemaField7ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
+		NewField().Field(schemaField7ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
 			Build(),
 		// should be removed because of not existing field
-		NewFieldUnsafe().FieldUnsafe(schemaField8ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
+		NewField().Field(schemaField8ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
 			Build(),
 	}
 	items := []Item{
@@ -380,6 +382,12 @@ func TestProperty_RemoveFields(t *testing.T) {
 			want:   []*Field{testField2},
 		},
 		{
+			name:   "item only",
+			target: testProperty1.Clone(),
+			args:   args{p: PointItem(testGroupList1.ID())},
+			want:   []*Field{testField1, testField2},
+		},
+		{
 			name:   "not found",
 			target: testProperty1.Clone(),
 			args:   args{p: PointFieldOnly("xxxxxx")},
@@ -413,8 +421,8 @@ func TestProperty_MoveFields(t *testing.T) {
 	sg3 := SchemaGroupID("ccc")
 	sg4 := SchemaGroupID("ddd")
 
-	f1 := NewFieldUnsafe().FieldUnsafe(FieldID("x")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("aaa"))).Build()
-	f2 := NewFieldUnsafe().FieldUnsafe(FieldID("y")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("bbb"))).Build()
+	f1 := NewField().Field(FieldID("x")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("aaa"))).Build()
+	f2 := NewField().Field(FieldID("y")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("bbb"))).Build()
 	p := New().NewID().Scene(id.NewSceneID()).Schema(testSchema1.ID()).Items([]Item{
 		NewGroup().NewID().Schema(testSchema1.ID(), sg1).Fields([]*Field{
 			f1,

@@ -55,24 +55,24 @@ func TestBuilder_Items(t *testing.T) {
 			Input: []Item{
 				NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+						NewField().
+							Field(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 							Build(),
 					}).MustBuild(),
 				NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+						NewField().
+							Field(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 							Build(),
 					}).MustBuild(),
 			},
 			Expected: []Item{NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
 				Fields([]*Field{
-					NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+					NewField().
+						Field(propertySchemaField1ID).
+						Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 						Build(),
 				}).MustBuild()},
 		},
@@ -122,9 +122,9 @@ func TestBuilder_Build(t *testing.T) {
 			Items: []Item{
 				NewGroup().ID(iid).Schema(scid, propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+						NewField().
+							Field(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 							Build(),
 					}).MustBuild()},
 			Expected: struct {
@@ -139,9 +139,9 @@ func TestBuilder_Build(t *testing.T) {
 				Items: []Item{
 					NewGroup().ID(iid).Schema(scid, propertySchemaGroup1ID).
 						Fields([]*Field{
-							NewFieldUnsafe().
-								FieldUnsafe(propertySchemaField1ID).
-								ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+							NewField().
+								Field(propertySchemaField1ID).
+								Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 								Build(),
 						}).MustBuild()},
 			},
@@ -173,9 +173,9 @@ func TestBuilder_Build(t *testing.T) {
 			Items: []Item{
 				NewGroup().ID(iid).Schema(id.MustPropertySchemaID("zzz~1.1.1/aa"), propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+						NewField().
+							Field(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 							Build(),
 					}).MustBuild()},
 			Err: ErrInvalidItem,

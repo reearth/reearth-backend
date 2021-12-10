@@ -32,17 +32,17 @@ func TestMerge(t *testing.T) {
 	i8id := id.NewPropertyItemID()
 
 	fields1 := []*Field{
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("a"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("b")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("b"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("e")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)})).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeNumber, nil)).Build(),
+		NewField().Field(id.PropertySchemaFieldID("a")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("a"))).Build(),
+		NewField().Field(id.PropertySchemaFieldID("b")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("b"))).Build(),
+		NewField().Field(id.PropertySchemaFieldID("e")).Value(NewOptionalValue(ValueTypeString, nil)).Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAt(d2, ds, df)})).Build(),
+		NewField().Field(id.PropertySchemaFieldID("f")).Value(NewOptionalValue(ValueTypeNumber, nil)).Build(),
 	}
 
 	fields2 := []*Field{
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("1"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("c")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("2"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("d")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAtField(ds, df)})).Build(),
-		NewFieldUnsafe().FieldUnsafe(id.PropertySchemaFieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).Build(),
+		NewField().Field(id.PropertySchemaFieldID("a")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("1"))).Build(),
+		NewField().Field(id.PropertySchemaFieldID("c")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("2"))).Build(),
+		NewField().Field(id.PropertySchemaFieldID("d")).Value(NewOptionalValue(ValueTypeString, nil)).Link(dataset.NewGraphPointer([]*dataset.Pointer{dataset.PointAtField(ds, df)})).Build(),
+		NewField().Field(id.PropertySchemaFieldID("f")).Value(NewOptionalValue(ValueTypeString, nil)).Build(),
 	}
 
 	groups1 := []*Group{

@@ -22,6 +22,9 @@ type Field struct {
 }
 
 func (p *Field) Clone() *Field {
+	if p == nil {
+		return nil
+	}
 	return &Field{
 		field: p.field,
 		links: p.links.Clone(),
@@ -30,6 +33,9 @@ func (p *Field) Clone() *Field {
 }
 
 func (p *Field) Field() id.PropertySchemaFieldID {
+	if p == nil {
+		return FieldID("")
+	}
 	return p.field
 }
 
@@ -55,6 +61,10 @@ func (p *Field) Value() *Value {
 }
 
 func (p *Field) ActualValue(ds *dataset.Dataset) *ValueAndDatasetValue {
+	if p == nil {
+		return nil
+	}
+
 	var dv *dataset.Value
 	if p.links != nil {
 		if l := p.links.Last(); !l.IsEmpty() {
@@ -75,8 +85,8 @@ func (p *Field) Datasets() []id.DatasetID {
 	if p == nil {
 		return nil
 	}
-	res := []id.DatasetID{}
 
+	res := []id.DatasetID{}
 	if p.Links().IsLinkedFully() {
 		dsid := p.Links().Last().Dataset()
 		if dsid != nil {

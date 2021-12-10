@@ -11,10 +11,10 @@ import (
 func TestGroupBuilder_Build(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
-	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	testCases := []struct {
+	f := NewField().Field("a").Value(OptionalValueFrom(v)).Build()
+
+	tests := []struct {
 		Name        string
 		Id          id.PropertyItemID
 		Schema      id.PropertySchemaID
@@ -53,7 +53,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
@@ -73,10 +73,10 @@ func TestGroupBuilder_Build(t *testing.T) {
 func TestGroupBuilder_MustBuild(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
-	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	testCases := []struct {
+	f := NewField().Field("a").Value(OptionalValueFrom(v)).Build()
+
+	tests := []struct {
 		Name        string
 		Fail        bool
 		Id          id.PropertyItemID
@@ -114,7 +114,7 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()

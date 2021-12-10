@@ -148,7 +148,7 @@ func (g *Group) GetOrCreateField(ps *Schema, fid id.PropertySchemaFieldID) (*Fie
 	}
 
 	// if the field does not exist, create it here
-	field, _ = NewField(psf).Build()
+	field = NewField().Field(fid).Value(NewOptionalValue(psf.Type(), nil)).Build()
 	if field == nil {
 		return nil, false
 	}

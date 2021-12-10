@@ -220,10 +220,10 @@ func toModelPropertyField(f *PropertyFieldDocument) *property.Field {
 	}
 
 	vt := property.ValueType(f.Type)
-	field := property.NewFieldUnsafe().
-		FieldUnsafe(id.PropertySchemaFieldID(f.Field)).
-		ValueUnsafe(property.NewOptionalValue(vt, toModelPropertyValue(f.Value, f.Type))).
-		LinksUnsafe(flinks).
+	field := property.NewField().
+		Field(id.PropertySchemaFieldID(f.Field)).
+		Value(property.NewOptionalValue(vt, toModelPropertyValue(f.Value, f.Type))).
+		Link(flinks).
 		Build()
 
 	return field

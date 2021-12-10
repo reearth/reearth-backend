@@ -57,9 +57,9 @@ func TestToGroup(t *testing.T) {
 	il := []Item{
 		NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
 			Fields([]*Field{
-				NewFieldUnsafe().
-					FieldUnsafe(propertySchemaField1ID).
-					ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+				NewField().
+					Field(propertySchemaField1ID).
+					Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 					Build(),
 			}).MustBuild(),
 	}
