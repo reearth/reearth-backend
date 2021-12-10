@@ -44,7 +44,7 @@ func ClusterIDFromRef(i *string) *ClusterID {
 
 // ClusterIDFromRefID generates a new ClusterID from a ref of a generic ID.
 func ClusterIDFromRefID(i *ID) *ClusterID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := ClusterID(*i)
@@ -68,12 +68,18 @@ func (d ClusterID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d ClusterID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d ClusterID) Ref() *ClusterID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d ClusterID) Contains(ids []ClusterID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *ClusterID) CopyRef() *ClusterID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *ClusterID) CopyRef() *ClusterID {
 
 // IDRef returns a reference of a domain id.
 func (d *ClusterID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *ClusterID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *ClusterID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

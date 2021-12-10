@@ -44,7 +44,7 @@ func TeamIDFromRef(i *string) *TeamID {
 
 // TeamIDFromRefID generates a new TeamID from a ref of a generic ID.
 func TeamIDFromRefID(i *ID) *TeamID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := TeamID(*i)
@@ -68,12 +68,18 @@ func (d TeamID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d TeamID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d TeamID) Ref() *TeamID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d TeamID) Contains(ids []TeamID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *TeamID) CopyRef() *TeamID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *TeamID) CopyRef() *TeamID {
 
 // IDRef returns a reference of a domain id.
 func (d *TeamID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *TeamID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *TeamID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

@@ -44,7 +44,7 @@ func TagIDFromRef(i *string) *TagID {
 
 // TagIDFromRefID generates a new TagID from a ref of a generic ID.
 func TagIDFromRefID(i *ID) *TagID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := TagID(*i)
@@ -68,12 +68,18 @@ func (d TagID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d TagID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d TagID) Ref() *TagID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d TagID) Contains(ids []TagID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *TagID) CopyRef() *TagID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *TagID) CopyRef() *TagID {
 
 // IDRef returns a reference of a domain id.
 func (d *TagID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *TagID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *TagID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

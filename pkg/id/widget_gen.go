@@ -44,7 +44,7 @@ func WidgetIDFromRef(i *string) *WidgetID {
 
 // WidgetIDFromRefID generates a new WidgetID from a ref of a generic ID.
 func WidgetIDFromRefID(i *ID) *WidgetID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := WidgetID(*i)
@@ -68,12 +68,18 @@ func (d WidgetID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d WidgetID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d WidgetID) Ref() *WidgetID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d WidgetID) Contains(ids []WidgetID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *WidgetID) CopyRef() *WidgetID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *WidgetID) CopyRef() *WidgetID {
 
 // IDRef returns a reference of a domain id.
 func (d *WidgetID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *WidgetID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *WidgetID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

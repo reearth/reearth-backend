@@ -44,7 +44,7 @@ func SceneIDFromRef(i *string) *SceneID {
 
 // SceneIDFromRefID generates a new SceneID from a ref of a generic ID.
 func SceneIDFromRefID(i *ID) *SceneID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := SceneID(*i)
@@ -68,12 +68,18 @@ func (d SceneID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d SceneID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d SceneID) Ref() *SceneID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d SceneID) Contains(ids []SceneID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *SceneID) CopyRef() *SceneID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *SceneID) CopyRef() *SceneID {
 
 // IDRef returns a reference of a domain id.
 func (d *SceneID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *SceneID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *SceneID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

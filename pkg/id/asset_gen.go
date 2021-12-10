@@ -44,7 +44,7 @@ func AssetIDFromRef(i *string) *AssetID {
 
 // AssetIDFromRefID generates a new AssetID from a ref of a generic ID.
 func AssetIDFromRefID(i *ID) *AssetID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := AssetID(*i)
@@ -68,12 +68,18 @@ func (d AssetID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d AssetID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d AssetID) Ref() *AssetID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d AssetID) Contains(ids []AssetID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *AssetID) CopyRef() *AssetID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *AssetID) CopyRef() *AssetID {
 
 // IDRef returns a reference of a domain id.
 func (d *AssetID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *AssetID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *AssetID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

@@ -44,7 +44,7 @@ func PropertyItemIDFromRef(i *string) *PropertyItemID {
 
 // PropertyItemIDFromRefID generates a new PropertyItemID from a ref of a generic ID.
 func PropertyItemIDFromRefID(i *ID) *PropertyItemID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := PropertyItemID(*i)
@@ -68,12 +68,18 @@ func (d PropertyItemID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d PropertyItemID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d PropertyItemID) Ref() *PropertyItemID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d PropertyItemID) Contains(ids []PropertyItemID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *PropertyItemID) CopyRef() *PropertyItemID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *PropertyItemID) CopyRef() *PropertyItemID {
 
 // IDRef returns a reference of a domain id.
 func (d *PropertyItemID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *PropertyItemID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *PropertyItemID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

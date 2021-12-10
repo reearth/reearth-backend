@@ -44,7 +44,7 @@ func LayerIDFromRef(i *string) *LayerID {
 
 // LayerIDFromRefID generates a new LayerID from a ref of a generic ID.
 func LayerIDFromRefID(i *ID) *LayerID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := LayerID(*i)
@@ -68,12 +68,18 @@ func (d LayerID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d LayerID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d LayerID) Ref() *LayerID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d LayerID) Contains(ids []LayerID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *LayerID) CopyRef() *LayerID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *LayerID) CopyRef() *LayerID {
 
 // IDRef returns a reference of a domain id.
 func (d *LayerID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *LayerID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *LayerID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

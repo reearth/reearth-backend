@@ -44,7 +44,7 @@ func DatasetIDFromRef(i *string) *DatasetID {
 
 // DatasetIDFromRefID generates a new DatasetID from a ref of a generic ID.
 func DatasetIDFromRefID(i *ID) *DatasetID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := DatasetID(*i)
@@ -68,12 +68,18 @@ func (d DatasetID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d DatasetID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d DatasetID) Ref() *DatasetID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d DatasetID) Contains(ids []DatasetID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *DatasetID) CopyRef() *DatasetID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *DatasetID) CopyRef() *DatasetID {
 
 // IDRef returns a reference of a domain id.
 func (d *DatasetID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *DatasetID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *DatasetID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

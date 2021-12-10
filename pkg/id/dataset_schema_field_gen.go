@@ -44,7 +44,7 @@ func DatasetSchemaFieldIDFromRef(i *string) *DatasetSchemaFieldID {
 
 // DatasetSchemaFieldIDFromRefID generates a new DatasetSchemaFieldID from a ref of a generic ID.
 func DatasetSchemaFieldIDFromRefID(i *ID) *DatasetSchemaFieldID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := DatasetSchemaFieldID(*i)
@@ -68,12 +68,18 @@ func (d DatasetSchemaFieldID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d DatasetSchemaFieldID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d DatasetSchemaFieldID) Ref() *DatasetSchemaFieldID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d DatasetSchemaFieldID) Contains(ids []DatasetSchemaFieldID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *DatasetSchemaFieldID) CopyRef() *DatasetSchemaFieldID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *DatasetSchemaFieldID) CopyRef() *DatasetSchemaFieldID {
 
 // IDRef returns a reference of a domain id.
 func (d *DatasetSchemaFieldID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *DatasetSchemaFieldID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *DatasetSchemaFieldID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()

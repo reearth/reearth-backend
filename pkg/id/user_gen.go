@@ -44,7 +44,7 @@ func UserIDFromRef(i *string) *UserID {
 
 // UserIDFromRefID generates a new UserID from a ref of a generic ID.
 func UserIDFromRefID(i *ID) *UserID {
-	if i == nil {
+	if i == nil || i.IsNil() {
 		return nil
 	}
 	nid := UserID(*i)
@@ -68,12 +68,18 @@ func (d UserID) GoString() string {
 
 // RefString returns a reference of string representation.
 func (d UserID) RefString() *string {
+	if d.IsNil() {
+		return nil
+	}
 	id := ID(d).String()
 	return &id
 }
 
 // Ref returns a reference.
 func (d UserID) Ref() *UserID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
@@ -90,7 +96,7 @@ func (d UserID) Contains(ids []UserID) bool {
 
 // CopyRef returns a copy of a reference.
 func (d *UserID) CopyRef() *UserID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -99,7 +105,7 @@ func (d *UserID) CopyRef() *UserID {
 
 // IDRef returns a reference of a domain id.
 func (d *UserID) IDRef() *ID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d)
@@ -108,7 +114,7 @@ func (d *UserID) IDRef() *ID {
 
 // StringRef returns a reference of a string representation.
 func (d *UserID) StringRef() *string {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	id := ID(*d).String()
