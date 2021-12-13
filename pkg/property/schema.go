@@ -1,9 +1,7 @@
 package property
 
-import "github.com/reearth/reearth-backend/pkg/id"
-
 type Schema struct {
-	id       id.PropertySchemaID
+	id       SchemaID
 	version  int
 	groups   *SchemaGroupList
 	linkable LinkableFields
@@ -14,11 +12,17 @@ type LinkableFields struct {
 	URL    *SchemaFieldPointer
 }
 
-func (p *Schema) ID() id.PropertySchemaID {
+func (p *Schema) ID() SchemaID {
+	if p == nil {
+		return SchemaID{}
+	}
 	return p.id
 }
 
 func (p *Schema) Version() int {
+	if p == nil {
+		return 0
+	}
 	return p.version
 }
 

@@ -80,18 +80,24 @@ func (d PropertySchemaID) System() bool {
 
 // String returns a string representation.
 func (d PropertySchemaID) String() string {
+	if d.IsNil() {
+		return ""
+	}
 	return d.plugin.String() + "/" + d.id
 }
 
 // Ref returns a reference.
 func (d PropertySchemaID) Ref() *PropertySchemaID {
+	if d.IsNil() {
+		return nil
+	}
 	d2 := d
 	return &d2
 }
 
 // CopyRef returns a copy of a reference.
 func (d *PropertySchemaID) CopyRef() *PropertySchemaID {
-	if d == nil {
+	if d == nil || d.IsNil() {
 		return nil
 	}
 	d2 := *d
@@ -100,7 +106,7 @@ func (d *PropertySchemaID) CopyRef() *PropertySchemaID {
 
 // IsNil checks if ID is empty or not.
 func (d PropertySchemaID) IsNil() bool {
-	return d.plugin == PluginID{} && d.id == ""
+	return d.plugin.IsNil() && d.id == ""
 }
 
 // Equal returns true if two IDs are equal.

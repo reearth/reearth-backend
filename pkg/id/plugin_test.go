@@ -690,3 +690,28 @@ func TestPluginIDsFrom(t *testing.T) {
 		})
 	}
 }
+
+func TestPluginID_IsNil(t *testing.T) {
+	tests := []struct {
+		name   string
+		target PluginID
+		want   bool
+	}{
+		{
+			name:   "present",
+			target: PluginID{name: "a"},
+			want:   false,
+		},
+		{
+			name:   "empty",
+			target: PluginID{},
+			want:   true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.IsNil())
+		})
+	}
+}

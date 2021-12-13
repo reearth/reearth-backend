@@ -105,6 +105,11 @@ func PluginIDFromRef(id *string) *PluginID {
 	return &did
 }
 
+// IsNil checks if ID is empty or not.
+func (d PluginID) IsNil() bool {
+	return d.name == "" && d.version == "" && d.scene == nil && d.sys == false
+}
+
 // Name returns a name.
 func (d PluginID) Name() string {
 	return d.name

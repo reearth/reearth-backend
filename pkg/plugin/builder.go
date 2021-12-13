@@ -71,8 +71,7 @@ func (b *Builder) Schema(schema *id.PropertySchemaID) *Builder {
 	if schema == nil {
 		b.p.schema = nil
 	} else {
-		sid := *schema
-		b.p.schema = &sid
+		b.p.schema = schema.CopyRef()
 	}
 	return b
 }
