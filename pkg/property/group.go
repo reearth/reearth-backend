@@ -149,27 +149,26 @@ func (g *Group) GetOrCreateField(ps *Schema, fid id.PropertySchemaFieldID) (*Fie
 }
 
 func (g *Group) AddFields(fields ...*Field) {
-	if g == nil || fields == nil {
+	if g == nil {
 		return
 	}
 	for _, f := range fields {
-		if field := g.Field(f.Field()); field != nil {
-			g.RemoveField(f.Field())
-		}
+		_ = g.RemoveField(f.Field())
 		g.fields = append(g.fields, f)
 	}
 }
 
-func (g *Group) RemoveField(fid id.PropertySchemaFieldID) {
+func (g *Group) RemoveField(fid id.PropertySchemaFieldID) (res bool) {
 	if g == nil {
 		return
 	}
 	for i, f := range g.fields {
 		if f.Field() == fid {
 			g.fields = append(g.fields[:i], g.fields[i+1:]...)
-			return
+			return true
 		}
 	}
+	return
 }
 
 func (g *Group) FieldIDs() []id.PropertySchemaFieldID {
@@ -264,11 +263,14 @@ func (g *Group) Fields(p *Pointer) []*Field {
 	return append(g.fields[:0:0], g.fields...)
 }
 
-func (g *Group) RemoveFields(ptr *Pointer) {
+func (g *Group) RemoveFields(ptr *Pointer) (res bool) {
 	if g == nil || ptr == nil {
-		return
+		return false
 	}
 	if f, ok := ptr.FieldIfItemIs(g.SchemaGroup(), g.ID()); ok {
-		g.RemoveField(f)
+		if g.RemoveField(f) {
+			res = true
+		}
 	}
+	return
 }

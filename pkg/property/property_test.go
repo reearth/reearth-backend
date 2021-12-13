@@ -360,53 +360,60 @@ func TestProperty_RemoveFields(t *testing.T) {
 		p *Pointer
 	}
 	tests := []struct {
-		name   string
-		args   args
-		target *Property
-		want   []*Field
+		name       string
+		args       args
+		target     *Property
+		want       bool
+		wantFields []*Field
 	}{
 		{
-			name:   "nil pointer",
-			target: testProperty1.Clone(),
-			args:   args{p: nil},
-			want:   []*Field{testField1, testField2},
+			name:       "nil pointer",
+			target:     testProperty1.Clone(),
+			args:       args{p: nil},
+			want:       false,
+			wantFields: []*Field{testField1, testField2},
 		},
 		{
-			name:   "specified",
-			target: testProperty1.Clone(),
-			args:   args{p: PointFieldOnly(testField1.Field())},
-			want:   []*Field{testField2},
+			name:       "specified",
+			target:     testProperty1.Clone(),
+			args:       args{p: PointFieldOnly(testField1.Field())},
+			want:       true,
+			wantFields: []*Field{testField2},
 		},
 		{
-			name:   "item only",
-			target: testProperty1.Clone(),
-			args:   args{p: PointItem(testGroupList1.ID())},
-			want:   []*Field{testField1, testField2},
+			name:       "item only",
+			target:     testProperty1.Clone(),
+			args:       args{p: PointItem(testGroupList1.ID())},
+			want:       false,
+			wantFields: []*Field{testField1, testField2},
 		},
 		{
-			name:   "not found",
-			target: testProperty1.Clone(),
-			args:   args{p: PointFieldOnly("xxxxxx")},
-			want:   []*Field{testField1, testField2},
+			name:       "not found",
+			target:     testProperty1.Clone(),
+			args:       args{p: PointFieldOnly("xxxxxx")},
+			want:       false,
+			wantFields: []*Field{testField1, testField2},
 		},
 		{
-			name:   "empty",
-			target: &Property{},
-			args:   args{p: PointFieldOnly(testField1.Field())},
-			want:   nil,
+			name:       "empty",
+			target:     &Property{},
+			args:       args{p: PointFieldOnly(testField1.Field())},
+			want:       false,
+			wantFields: nil,
 		},
 		{
-			name:   "nil",
-			target: nil,
-			args:   args{p: PointFieldOnly(testField1.Field())},
-			want:   nil,
+			name:       "nil",
+			target:     nil,
+			args:       args{p: PointFieldOnly(testField1.Field())},
+			want:       false,
+			wantFields: nil,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.target.RemoveFields(tt.args.p)
-			assert.Equal(t, tt.want, tt.target.Fields(nil))
+			assert.Equal(t, tt.want, tt.target.RemoveFields(tt.args.p))
+			assert.Equal(t, tt.wantFields, tt.target.Fields(nil))
 		})
 	}
 }

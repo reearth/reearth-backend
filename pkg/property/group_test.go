@@ -307,23 +307,31 @@ func TestGroup_GetOrCreateField(t *testing.T) {
 func TestGroup_RemoveField(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField().Field("a").Value(OptionalValueFrom(v)).Build()
-	f2 := NewField().Field("b").Build()
+	f2 := NewField().Field("b").Value(NewOptionalValue(ValueTypeString, nil)).Build()
 
 	tests := []struct {
-		Name     string
-		Group    *Group
-		Input    id.PropertySchemaFieldID
-		Expected []*Field
+		Name       string
+		Target     *Group
+		Input      id.PropertySchemaFieldID
+		Want       bool
+		WantFields []*Field
 	}{
-
 		{
 			Name: "nil group",
 		},
 		{
-			Name:     "normal case",
-			Input:    "b",
-			Group:    NewGroup().NewID().Fields([]*Field{f, f2}).MustBuild(),
-			Expected: []*Field{f},
+			Name:       "normal case",
+			Input:      "b",
+			Target:     NewGroup().NewID().Fields([]*Field{f, f2}).MustBuild(),
+			Want:       true,
+			WantFields: []*Field{f},
+		},
+		{
+			Name:       "not found",
+			Input:      "c",
+			Target:     NewGroup().NewID().Fields([]*Field{f, f2}).MustBuild(),
+			Want:       false,
+			WantFields: []*Field{f, f2},
 		},
 	}
 
@@ -331,8 +339,8 @@ func TestGroup_RemoveField(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.Group.RemoveField(tc.Input)
-			assert.Equal(tt, tc.Expected, tc.Group.Fields(nil))
+			assert.Equal(tt, tc.Want, tc.Target.RemoveField(tc.Input))
+			assert.Equal(tt, tc.WantFields, tc.Target.Fields(nil))
 		})
 	}
 }
@@ -642,48 +650,54 @@ func TestGroup_RemoveFields(t *testing.T) {
 		p *Pointer
 	}
 	tests := []struct {
-		name   string
-		target *Group
-		args   args
-		want   []*Field
+		name       string
+		target     *Group
+		args       args
+		want       bool
+		wantFields []*Field
 	}{
 		{
-			name:   "nil pointer",
-			target: testGroup1.Clone(),
-			args:   args{p: nil},
-			want:   []*Field{testField1},
+			name:       "nil pointer",
+			target:     testGroup1.Clone(),
+			args:       args{p: nil},
+			want:       false,
+			wantFields: []*Field{testField1},
 		},
 		{
-			name:   "specified",
-			target: testGroup1.Clone(),
-			args:   args{p: PointFieldOnly(testField1.Field())},
-			want:   []*Field{},
+			name:       "specified",
+			target:     testGroup1.Clone(),
+			args:       args{p: PointFieldOnly(testField1.Field())},
+			want:       true,
+			wantFields: []*Field{},
 		},
 		{
-			name:   "not found",
-			target: testGroup1.Clone(),
-			args:   args{p: PointFieldOnly("xxxxxx")},
-			want:   []*Field{testField1},
+			name:       "not found",
+			target:     testGroup1.Clone(),
+			args:       args{p: PointFieldOnly("xxxxxx")},
+			want:       false,
+			wantFields: []*Field{testField1},
 		},
 		{
-			name:   "empty",
-			target: &Group{},
-			args:   args{p: PointFieldOnly(testField1.Field())},
-			want:   nil,
+			name:       "empty",
+			target:     &Group{},
+			args:       args{p: PointFieldOnly(testField1.Field())},
+			want:       false,
+			wantFields: nil,
 		},
 		{
-			name:   "nil",
-			target: nil,
-			args:   args{p: PointFieldOnly(testField1.Field())},
-			want:   nil,
+			name:       "nil",
+			target:     nil,
+			args:       args{p: PointFieldOnly(testField1.Field())},
+			want:       false,
+			wantFields: nil,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.target.RemoveFields(tt.args.p)
+			assert.Equal(t, tt.want, tt.target.RemoveFields(tt.args.p))
 			if tt.target != nil {
-				assert.Equal(t, tt.want, tt.target.fields)
+				assert.Equal(t, tt.wantFields, tt.target.fields)
 			}
 		})
 	}

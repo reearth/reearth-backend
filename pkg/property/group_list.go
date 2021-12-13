@@ -372,24 +372,26 @@ func (g *GroupList) Fields(ptr *Pointer) []*Field {
 	return fields
 }
 
-func (g *GroupList) RemoveFields(ptr *Pointer) {
+func (g *GroupList) RemoveFields(ptr *Pointer) (res bool) {
 	if g == nil {
 		return
 	}
 
 	if i, ok := ptr.Item(); ok && g.ID() != i {
-		g.GroupByPointer(ptr).RemoveFields(ptr)
-		return
+		return g.GroupByPointer(ptr).RemoveFields(ptr)
 	}
 
 	if i, ok := ptr.ItemBySchemaGroup(); ok && g.SchemaGroup() != i {
-		g.GroupByPointer(ptr).RemoveFields(ptr)
-		return
+		return g.GroupByPointer(ptr).RemoveFields(ptr)
 	}
 
 	if fid, ok := ptr.Field(); ok {
 		for _, g := range g.groups {
-			g.RemoveField(fid)
+			if g.RemoveField(fid) {
+				res = true
+			}
 		}
 	}
+
+	return
 }

@@ -19,7 +19,7 @@ type Item interface {
 	MigrateSchema(context.Context, *Schema, dataset.Loader)
 	ValidateSchema(*SchemaGroup) error
 	Fields(*Pointer) []*Field
-	RemoveFields(*Pointer)
+	RemoveFields(*Pointer) bool
 	CloneItem() Item
 }
 
