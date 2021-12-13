@@ -87,21 +87,21 @@ extensions:
               title: Enable
               defaultValue: false
               description: Enable camera limiter
-            - id: show_helper
+            - id: cameraLimitterShowHelper
               type: bool
               title: Show Helper
               defaultValue: false
               description: Display the limiter boundaries.
-            - id: target_area
+            - id: cameraLimitterTargetArea
               type: camera
               title: Target max height  
               description: Defines camera limiter center point and the maximum height that user can view 
-            - id: target_width
+            - id: cameraLimitterTargetWidth
               type: number
               title: Target width
               min: 5
               defaultValue: 1000000
-            - id: target_length
+            - id: cameraLimitterTargetLength
               type: number
               title: Target length
               min: 5
