@@ -174,10 +174,10 @@ func encodePassword(pass string) ([]byte, error) {
 
 func verifyPassword(toVerify string, encoded []byte) (bool, error) {
 	err := bcrypt.CompareHashAndPassword(encoded, []byte(toVerify))
-	if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
-		return false, nil
-	}
 	if err != nil {
+		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+			return false, nil
+		}
 		return false, err
 	}
 	return true, nil
