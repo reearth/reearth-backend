@@ -274,3 +274,17 @@ func (g *Group) RemoveFields(ptr *Pointer) (res bool) {
 	}
 	return
 }
+
+func (p *Group) GroupAndFields() []GroupAndField {
+	if p == nil || len(p.fields) == 0 {
+		return nil
+	}
+	res := []GroupAndField{}
+	for _, f := range p.fields {
+		res = append(res, GroupAndField{
+			Group: p,
+			Field: f,
+		})
+	}
+	return res
+}

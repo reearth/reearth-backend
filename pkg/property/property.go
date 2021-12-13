@@ -546,3 +546,14 @@ func (p *Property) MoveFields(f FieldID, from, to SchemaGroupID) (res bool) {
 
 	return
 }
+
+func (p *Property) GroupAndFields() []GroupAndField {
+	if p == nil || len(p.items) == 0 {
+		return nil
+	}
+	res := []GroupAndField{}
+	for _, i := range p.items {
+		res = append(res, i.GroupAndFields()...)
+	}
+	return res
+}

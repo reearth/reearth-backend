@@ -395,3 +395,20 @@ func (g *GroupList) RemoveFields(ptr *Pointer) (res bool) {
 
 	return
 }
+
+func (p *GroupList) GroupAndFields() []GroupAndField {
+	if p == nil || len(p.groups) == 0 {
+		return nil
+	}
+	res := []GroupAndField{}
+	for _, g := range p.groups {
+		for _, r := range g.GroupAndFields() {
+			res = append(res, GroupAndField{
+				ParentGroup: p,
+				Group:       r.Group,
+				Field:       r.Field,
+			})
+		}
+	}
+	return res
+}

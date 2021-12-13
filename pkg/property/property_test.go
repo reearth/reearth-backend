@@ -543,3 +543,44 @@ func TestProperty_MoveFields(t *testing.T) {
 		})
 	}
 }
+
+func TestProperty_GroupAndFields(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Property
+		want   []GroupAndField
+	}{
+		{
+			name:   "ok",
+			target: testProperty1,
+			want: []GroupAndField{
+				{Group: testGroup1, Field: testField1},
+				{ParentGroup: testGroupList1, Group: testGroup2, Field: testField2},
+			},
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: &Property{},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.GroupAndFields()
+			assert.Equal(t, tt.want, res)
+			for i, r := range res {
+				assert.Same(t, tt.want[i].Field, r.Field)
+				assert.Same(t, tt.want[i].Group, r.Group)
+				if tt.want[i].ParentGroup != nil {
+					assert.Same(t, tt.want[i].ParentGroup, r.ParentGroup)
+				}
+			}
+		})
+	}
+}

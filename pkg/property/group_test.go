@@ -702,3 +702,41 @@ func TestGroup_RemoveFields(t *testing.T) {
 		})
 	}
 }
+
+func TestGroup_GroupAndFields(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Group
+		want   []GroupAndField
+	}{
+		{
+			name:   "ok",
+			target: testGroup1,
+			want: []GroupAndField{
+				{Group: testGroup1, Field: testField1},
+			},
+		},
+		{
+			name:   "empty",
+			target: &Group{},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.GroupAndFields()
+			assert.Equal(t, tt.want, res)
+			for i, r := range res {
+				assert.Same(t, tt.want[i].Field, r.Field)
+				assert.Same(t, tt.want[i].Group, r.Group)
+				assert.Same(t, tt.want[i].ParentGroup, r.ParentGroup)
+			}
+		})
+	}
+}
