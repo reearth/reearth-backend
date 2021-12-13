@@ -9,11 +9,6 @@ type Schema struct {
 	linkable LinkableFields
 }
 
-type SchemaFieldPointer struct {
-	SchemaGroup SchemaGroupID
-	Field       FieldID
-}
-
 type LinkableFields struct {
 	LatLng *SchemaFieldPointer
 	URL    *SchemaFieldPointer
