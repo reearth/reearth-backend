@@ -15,7 +15,7 @@ type Item interface {
 	Datasets() []id.DatasetID
 	IsDatasetLinked(id.DatasetSchemaID, id.DatasetID) bool
 	IsEmpty() bool
-	Prune()
+	Prune() bool
 	MigrateSchema(context.Context, *Schema, dataset.Loader)
 	ValidateSchema(*SchemaGroup) error
 	Fields(*Pointer) []*Field

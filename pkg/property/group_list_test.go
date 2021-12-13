@@ -164,32 +164,45 @@ func TestGroupList_IsEmpty(t *testing.T) {
 func TestGroupList_Prune(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField().Field("a").Value(OptionalValueFrom(v)).Build()
-	f2 := NewField().Field("a").Build()
+	f2 := NewField().Field("b").Value(NewOptionalValue(ValueTypeString, nil)).Build()
 	pid := id.NewPropertyItemID()
-	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f, f2}).MustBuild()}
-	pruned := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 
 	tests := []struct {
-		Name     string
-		Target   *GroupList
-		Expected []*Group
+		name       string
+		target     *GroupList
+		want       bool
+		wantGroups []*Group
 	}{
 		{
-			Name: "nil group list",
+			name: "ok",
+			target: NewGroupList().NewID().Schema("xx").Groups(
+				[]*Group{NewGroup().ID(pid).Fields([]*Field{f, f2}).MustBuild()},
+			).MustBuild(),
+			want:       true,
+			wantGroups: []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()},
 		},
 		{
-			Name:     "pruned list",
-			Target:   NewGroupList().NewID().Schema("xx").Groups(groups).MustBuild(),
-			Expected: pruned,
+			name: "no empty fields",
+			target: NewGroupList().NewID().Schema("xx").Groups(
+				[]*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()},
+			).MustBuild(),
+			want:       false,
+			wantGroups: []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()},
+		},
+		{
+			name:       "nil",
+			target:     nil,
+			want:       false,
+			wantGroups: nil,
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.Name, func(t *testing.T) {
+		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			tt.Target.Prune()
-			assert.Equal(t, tt.Expected, tt.Target.Groups())
+			assert.Equal(t, tt.want, tt.target.Prune())
+			assert.Equal(t, tt.wantGroups, tt.target.Groups())
 		})
 	}
 }

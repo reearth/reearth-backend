@@ -270,15 +270,20 @@ func (p *Property) RemoveField(ptr *Pointer) {
 	}
 }
 
-func (p *Property) Prune() {
+func (p *Property) Prune() (res bool) {
 	if p == nil {
 		return
 	}
-	for _, f := range p.items {
-		if f.IsEmpty() {
-			p.RemoveItem(PointItem(f.ID()))
+	for _, i := range p.items {
+		if i.Prune() {
+			res = true
+		}
+		if i.IsEmpty() {
+			p.RemoveItem(PointItem(i.ID()))
+			res = true
 		}
 	}
+	return
 }
 
 func (p *Property) UpdateValue(ps *Schema, ptr *Pointer, v *Value) (*Field, *GroupList, *Group, error) {

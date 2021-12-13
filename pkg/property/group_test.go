@@ -211,29 +211,40 @@ func TestGroup_IsEmpty(t *testing.T) {
 func TestGroup_Prune(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	f := NewField().Field("a").Value(OptionalValueFrom(v)).Build()
-	f2 := NewField().Field("a").Build()
+	f2 := NewField().Field("b").Value(NewOptionalValue(ValueTypeBool, nil)).Build()
 
 	tests := []struct {
-		Name     string
-		Group    *Group
-		Expected []*Field
+		name       string
+		target     *Group
+		want       bool
+		wantFields []*Field
 	}{
 		{
-			Name: "nil group",
+			name:       "ok",
+			target:     NewGroup().NewID().Fields([]*Field{f, f2}).MustBuild(),
+			want:       true,
+			wantFields: []*Field{f},
 		},
 		{
-			Name:     "normal case",
-			Group:    NewGroup().NewID().Fields([]*Field{f, f2}).MustBuild(),
-			Expected: []*Field{f},
+			name:       "no empty fields",
+			target:     NewGroup().NewID().Fields([]*Field{f}).MustBuild(),
+			want:       false,
+			wantFields: []*Field{f},
+		},
+		{
+			name:       "nil",
+			target:     nil,
+			want:       false,
+			wantFields: nil,
 		},
 	}
 
-	for _, tc := range tests {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			tc.Group.Prune()
-			assert.Equal(tt, tc.Expected, tc.Group.Fields(nil))
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, tt.target.Prune())
+			assert.Equal(t, tt.wantFields, tt.target.Fields(nil))
 		})
 	}
 }

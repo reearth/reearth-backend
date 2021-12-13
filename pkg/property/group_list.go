@@ -82,13 +82,16 @@ func (g *GroupList) IsEmpty() bool {
 	return g != nil && (g.groups == nil || len(g.groups) == 0)
 }
 
-func (g *GroupList) Prune() {
+func (g *GroupList) Prune() (res bool) {
 	if g == nil {
 		return
 	}
 	for _, f := range g.groups {
-		f.Prune()
+		if f.Prune() {
+			res = true
+		}
 	}
+	return
 }
 
 func (g *GroupList) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset.Loader) {

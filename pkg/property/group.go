@@ -92,15 +92,16 @@ func (g *Group) IsEmpty() bool {
 	return true
 }
 
-func (g *Group) Prune() {
+func (g *Group) Prune() (res bool) {
 	if g == nil {
 		return
 	}
 	for _, f := range g.fields {
 		if f.IsEmpty() {
-			g.RemoveField(f.Field())
+			res = g.RemoveField(f.Field())
 		}
 	}
+	return
 }
 
 // TODO: group migration

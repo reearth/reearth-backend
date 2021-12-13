@@ -653,3 +653,57 @@ func TestProperty_Cast(t *testing.T) {
 		})
 	}
 }
+
+func TestProperty_Prune(t *testing.T) {
+	tests := []struct {
+		name      string
+		target    *Property
+		wantRes   bool
+		wantItems []Item
+	}{
+		{
+			name: "ok",
+			target: &Property{
+				items: []Item{
+					&Group{},
+					&GroupList{},
+				},
+			},
+			wantRes:   true,
+			wantItems: []Item{},
+		},
+		{
+			name: "not pruned",
+			target: &Property{
+				items: []Item{
+					&Group{fields: []*Field{testField1.Clone()}},
+				},
+			},
+			wantRes: false,
+			wantItems: []Item{
+				&Group{fields: []*Field{testField1.Clone()}},
+			},
+		},
+		{
+			name:      "empty",
+			target:    &Property{},
+			wantRes:   false,
+			wantItems: nil,
+		},
+		{
+			name:      "nil",
+			target:    nil,
+			wantRes:   false,
+			wantItems: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.wantRes, tt.target.Prune())
+			if tt.target != nil {
+				assert.Equal(t, tt.wantItems, tt.target.items)
+			}
+		})
+	}
+}
