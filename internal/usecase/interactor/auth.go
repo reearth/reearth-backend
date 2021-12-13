@@ -17,6 +17,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/auth"
 	config2 "github.com/reearth/reearth-backend/pkg/config"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/user"
 	"gopkg.in/square/go-jose.v2"
 )
@@ -59,7 +60,7 @@ var dummyName = pkix.Name{
 	PostalCode:         []string{"1"},
 }
 
-func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRequest, config repo.Config, getUserBySubject func(context.Context, string) (*user.User, error)) op.Storage {
+func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRequest, config repo.Config, getUserBySubject func(context.Context, string) (*user.User, error)) (op.Storage, error) {
 
 	client := auth.NewLocalClient(cfg.Debug)
 
@@ -78,7 +79,8 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 	}
 	c, err := config.Load(ctx)
 	if err != nil {
-		panic("Could not load auth config")
+		log.Errorf("Could not load auth config: %s\n", err)
+		return nil, err
 	}
 
 	var keyBytes, certBytes []byte
@@ -88,48 +90,57 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 	} else {
 		keyBytes, certBytes, err = generateCert(name)
 		if err != nil {
-			panic("Could not generate raw cert")
+			log.Errorf("Could not generate raw cert: %s\n", err)
+			return nil, err
 		}
 		c.Auth = &config2.Auth{
 			Key:  keyBytes,
 			Cert: certBytes,
 		}
-		err := config.Save(ctx, c)
-		if err != nil {
-			panic("Could not save raw cert")
+
+		if err := config.Save(ctx, c); err != nil {
+			log.Errorf("Could not save raw cert: %s\n", err)
+			return nil, err
 		}
 	}
 
-	key, sigKey, keySet := initKeys(keyBytes, certBytes)
+	key, sigKey, keySet, err := initKeys(keyBytes, certBytes)
+	if err != nil {
+		log.Errorf("Fail to init keys: %s\n", err)
+		return nil, err
+	}
 
 	return &AuthStorage{
 		appConfig:        cfg,
 		getUserBySubject: getUserBySubject,
 		requests:         request,
 		key:              key,
-		sigKey:           sigKey,
-		keySet:           keySet,
+		sigKey:           *sigKey,
+		keySet:           *keySet,
 		clients: map[string]op.Client{
 			client.GetID(): client,
 		},
-	}
+	}, nil
 }
 
-func initKeys(keyBytes, certBytes []byte) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKeySet) {
+func initKeys(keyBytes, certBytes []byte) (*rsa.PrivateKey, *jose.SigningKey, *jose.JSONWebKeySet, error) {
 
 	block, _ := pem.Decode(keyBytes)
 	if block == nil {
-		panic("failed to create the key")
+		log.Errorf("failed to decode the key bytes")
+		return nil, nil, nil, errors.New("failed to decode the key bytes")
 	}
 
 	key, err := x509.ParsePKCS1PrivateKey(block.Bytes)
 	if err != nil {
-		panic("failed to create the key")
+		log.Errorf("failed to parse the private key bytes: %s\n", err)
+		return nil, nil, nil, err
 	}
 
 	cert, err := x509.ParseCertificate(certBytes)
 	if err != nil {
-		panic("failed to create the cert")
+		log.Errorf("failed to parse the cert bytes: %s\n", err)
+		return nil, nil, nil, err
 	}
 
 	keyID := "RE01"
@@ -138,17 +149,18 @@ func initKeys(keyBytes, certBytes []byte) (*rsa.PrivateKey, jose.SigningKey, jos
 		Key:       jose.JSONWebKey{Key: key, Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
 	}
 
-	return key, sk, jose.JSONWebKeySet{
+	return key, &sk, &jose.JSONWebKeySet{
 		Keys: []jose.JSONWebKey{
 			{Key: key.Public(), Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
 		},
-	}
+	}, nil
 }
 
 func generateCert(name pkix.Name) (keyPem, certPem []byte, err error) {
 	key, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
-		panic(err)
+		log.Errorf("failed to generate key: %s\n", err)
+		return
 	}
 
 	keyPem = pem.EncodeToMemory(&pem.Block{
@@ -167,7 +179,7 @@ func generateCert(name pkix.Name) (keyPem, certPem []byte, err error) {
 
 	certPem, err = x509.CreateCertificate(rand.Reader, cert, cert, key.Public(), key)
 	if err != nil {
-		panic("failed to create the cert")
+		log.Errorf("failed to create the cert: %s\n", err)
 	}
 
 	return
