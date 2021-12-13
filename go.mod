@@ -23,7 +23,6 @@ require (
 	github.com/kennygrant/sanitize v1.2.4
 	github.com/labstack/echo/v4 v4.2.1
 	github.com/labstack/gommon v0.3.0
-	github.com/matthewhartstonge/argon2 v0.1.5
 	github.com/mitchellh/mapstructure v1.4.2
 	github.com/oklog/ulid v1.3.1
 	github.com/paulmach/go.geojson v1.4.0
@@ -41,6 +40,7 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo v0.0.0-20200707171851-ae0d272a2deb
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver v0.7.0
 	go.opentelemetry.io/otel v0.7.0
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 	golang.org/x/text v0.3.7
 	golang.org/x/tools v0.1.5
 	google.golang.org/api v0.51.0
@@ -96,7 +96,6 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
-	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/mod v0.5.0 // indirect
 	golang.org/x/net v0.0.0-20210503060351-7fd8e65b6420 // indirect

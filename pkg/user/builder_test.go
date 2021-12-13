@@ -169,17 +169,6 @@ func TestBuilder_Build(t *testing.T) {
 			Expected: nil,
 			err:      id.ErrInvalidID,
 		},
-		{
-			Name:        "failed invalid password",
-			UserName:    "xxx",
-			Email:       "xx@yy.zz",
-			Lang:        "en",
-			PasswordBin: []byte("xxx"),
-			UID:         uid,
-			TID:         tid,
-			Expected:    nil,
-			err:         ErrEncodingPassword,
-		},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.Name, func(tt *testing.T) {
@@ -242,17 +231,6 @@ func TestBuilder_MustBuild(t *testing.T) {
 			Name:     "failed invalid id",
 			Expected: nil,
 			err:      id.ErrInvalidID,
-		},
-		{
-			Name:        "failed invalid password",
-			UserName:    "xxx",
-			Email:       "xx@yy.zz",
-			Lang:        "en",
-			PasswordBin: []byte("xxx"),
-			UID:         uid,
-			TID:         tid,
-			Expected:    nil,
-			err:         ErrEncodingPassword,
 		},
 	}
 	for _, tc := range testCases {

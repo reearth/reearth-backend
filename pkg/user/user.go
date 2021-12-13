@@ -3,7 +3,8 @@ package user
 import (
 	"errors"
 
-	"github.com/matthewhartstonge/argon2"
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
 )
@@ -167,26 +168,19 @@ func (u *User) MatchPassword(pass string) (bool, error) {
 }
 
 func encodePassword(pass string) ([]byte, error) {
-	argon := argon2.DefaultConfig()
-	encodedPass, err := argon.HashEncoded([]byte(pass))
-	if err != nil {
-		return nil, err
-	}
-	return encodedPass, nil
+	bytes, err := bcrypt.GenerateFromPassword([]byte(pass), 14)
+	return bytes, err
 }
 
 func verifyPassword(toVerify string, encoded []byte) (bool, error) {
-	raw, err := argon2.Decode(encoded)
+	err := bcrypt.CompareHashAndPassword(encoded, []byte(toVerify))
+	if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+		return false, nil
+	}
 	if err != nil {
 		return false, err
 	}
-
-	ok, err := raw.Verify([]byte(toVerify))
-	if err != nil {
-		return false, err
-	}
-
-	return ok, nil
+	return true, nil
 }
 
 func (u *User) PasswordReset() *PasswordReset {

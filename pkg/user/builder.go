@@ -1,7 +1,6 @@
 package user
 
 import (
-	"github.com/matthewhartstonge/argon2"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
 )
@@ -22,10 +21,6 @@ func (b *Builder) Build() (*User, error) {
 	if b.passwordText != "" {
 		if err := b.u.SetPassword(b.passwordText); err != nil {
 			return nil, ErrEncodingPassword
-		}
-	} else if b.u.password != nil {
-		if _, err := argon2.Decode(b.u.password); err != nil {
-			return nil, ErrInvalidPassword
 		}
 	}
 	return b.u, nil
