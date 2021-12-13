@@ -30,6 +30,13 @@ func (s *SchemaGroup) Fields() []*SchemaField {
 	return append([]*SchemaField{}, s.fields...)
 }
 
+func (s *SchemaGroup) FieldBySchemaFieldPointer(ptr SchemaFieldPointer) *SchemaField {
+	if s == nil || ptr.SchemaGroup != s.ID() {
+		return nil
+	}
+	return s.Field(ptr.Field)
+}
+
 // Field returns a field whose id is specified
 func (s *SchemaGroup) Field(fid id.PropertySchemaFieldID) *SchemaField {
 	if s == nil {

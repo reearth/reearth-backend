@@ -111,3 +111,59 @@ func TestSchemaGroup_SetTitle(t *testing.T) {
 	sg.SetTitle(i18n.StringFrom("ttt"))
 	assert.Equal(t, i18n.StringFrom("ttt"), sg.Title())
 }
+
+func TestSchemaGroup_FieldBySchemaFieldPointer(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *SchemaGroup
+		args   SchemaFieldPointer
+		want   *SchemaField
+	}{
+		{
+			name:   "found",
+			target: testSchemaGroup1,
+			args: SchemaFieldPointer{
+				SchemaGroup: testSchemaGroup1.ID(),
+				Field:       testSchemaField1.ID(),
+			},
+			want: testSchemaField1,
+		},
+		{
+			name:   "not found",
+			target: testSchemaGroup1,
+			args: SchemaFieldPointer{
+				SchemaGroup: testSchemaGroup2.ID(),
+				Field:       testSchemaField1.ID(),
+			},
+			want: nil,
+		},
+		{
+			name:   "empty",
+			target: &SchemaGroup{},
+			args: SchemaFieldPointer{
+				SchemaGroup: testSchemaGroup1.ID(),
+				Field:       testSchemaField1.ID(),
+			},
+			want: nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args: SchemaFieldPointer{
+				SchemaGroup: testSchemaGroup1.ID(),
+				Field:       testSchemaField1.ID(),
+			},
+			want: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := tt.target.FieldBySchemaFieldPointer(tt.args)
+			assert.Equal(t, tt.want, res)
+			if tt.want != nil {
+				assert.Same(t, tt.want, res)
+			}
+		})
+	}
+}
