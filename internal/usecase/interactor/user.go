@@ -1,14 +1,20 @@
 package interactor
 
 import (
+	"bytes"
 	"context"
+	_ "embed"
 	"errors"
+	htmlTmpl "html/template"
+	"net/mail"
+	textTmpl "text/template"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/project"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/user"
@@ -30,6 +36,28 @@ type User struct {
 	authenticator     gateway.Authenticator
 	mailer            gateway.Mailer
 	signupSecret      string
+}
+
+var (
+	//go:embed emails/password_reset_html.tmpl
+	passwordResetHTMLTMPLStr string
+	//go:embed emails/password_reset_text.tmpl
+	passwordResetTextTMPLStr string
+
+	passwordResetTextTMPL *textTmpl.Template
+	passwordResetHTMLTMPL *htmlTmpl.Template
+)
+
+func init() {
+	var err error
+	passwordResetTextTMPL, err = textTmpl.New("passwordReset").Parse(passwordResetTextTMPLStr)
+	if err != nil {
+		log.Panicf("password reset email template parse error: %s\n", err)
+	}
+	passwordResetHTMLTMPL, err = htmlTmpl.New("passwordReset").Parse(passwordResetHTMLTMPLStr)
+	if err != nil {
+		log.Panicf("password reset email template parse error: %s\n", err)
+	}
 }
 
 func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) interfaces.User {
@@ -79,43 +107,103 @@ func (i *User) Fetch(ctx context.Context, ids []id.UserID, operator *usecase.Ope
 }
 
 func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.User, _ *user.Team, err error) {
-	if i.signupSecret != "" && inp.Secret != i.signupSecret {
-		return nil, nil, interfaces.ErrSignupInvalidSecret
-	}
+	var team *user.Team
+	var tx repo.Tx
+	var email, name string
+	var auth *user.Auth
 
-	if len(inp.Sub) == 0 {
-		return nil, nil, errors.New("sub is required")
-	}
-
-	tx, err := i.transaction.Begin()
-	if err != nil {
-		return
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
+	if inp.Secret != nil && inp.Sub != nil {
+		// Auth0
+		if i.signupSecret != "" && *inp.Secret != i.signupSecret {
+			return nil, nil, interfaces.ErrSignupInvalidSecret
 		}
-	}()
 
-	// Check if user and team already exists
-	existed, err := i.userRepo.FindByAuth0Sub(ctx, inp.Sub)
-	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return nil, nil, err
-	}
-	if existed != nil {
-		return nil, nil, errors.New("existed user")
-	}
+		if len(*inp.Sub) == 0 {
+			return nil, nil, errors.New("sub is required")
+		}
 
-	if inp.UserID != nil {
-		existed, err := i.userRepo.FindByID(ctx, *inp.UserID)
+		tx, err = i.transaction.Begin()
+		if err != nil {
+			return
+		}
+		defer func() {
+			if err2 := tx.End(ctx); err == nil && err2 != nil {
+				err = err2
+			}
+		}()
+
+		// Check if user already exists
+		existed, err := i.userRepo.FindByAuth0Sub(ctx, *inp.Sub)
 		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil, err
 		}
 		if existed != nil {
 			return nil, nil, errors.New("existed user")
 		}
+
+		if inp.UserID != nil {
+			existed, err := i.userRepo.FindByID(ctx, *inp.UserID)
+			if err != nil && !errors.Is(err, rerror.ErrNotFound) {
+				return nil, nil, err
+			}
+			if existed != nil {
+				return nil, nil, errors.New("existed user")
+			}
+		}
+
+		// Fetch user info
+		ui, err := i.authenticator.FetchUser(*inp.Sub)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		// Check if user and team already exists
+		existed, err = i.userRepo.FindByEmail(ctx, ui.Email)
+		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
+			return nil, nil, err
+		}
+		if existed != nil {
+			return nil, nil, errors.New("existed user")
+		}
+		name = ui.Name
+		email = ui.Email
+		auth = user.AuthFromAuth0Sub(*inp.Sub).Ref()
+
+	} else if inp.Name != nil && inp.Email != nil && inp.Password != nil {
+		if *inp.Name == "" {
+			return nil, nil, interfaces.ErrSignupInvalidName
+		}
+		if _, err := mail.ParseAddress(*inp.Email); err != nil {
+			return nil, nil, interfaces.ErrInvalidUserEmail
+		}
+		if *inp.Password == "" {
+			return nil, nil, interfaces.ErrSignupInvalidPassword
+		}
+
+		tx, err = i.transaction.Begin()
+		if err != nil {
+			return
+		}
+		defer func() {
+			if err2 := tx.End(ctx); err == nil && err2 != nil {
+				err = err2
+			}
+		}()
+
+		// Check if user email already exists
+		existed, err := i.userRepo.FindByEmail(ctx, *inp.Email)
+		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
+			return nil, nil, err
+		}
+		if existed != nil {
+			return nil, nil, errors.New("existed user email")
+		}
+
+		name = *inp.Name
+		email = *inp.Email
 	}
 
+	// Check if team already exists
 	if inp.TeamID != nil {
 		existed, err := i.teamRepo.FindByID(ctx, *inp.TeamID)
 		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
@@ -126,27 +214,12 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		}
 	}
 
-	// Fetch user info
-	ui, err := i.authenticator.FetchUser(inp.Sub)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	// Check if user and team already exists
-	var team *user.Team
-	existed, err = i.userRepo.FindByEmail(ctx, ui.Email)
-	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return nil, nil, err
-	}
-	if existed != nil {
-		return nil, nil, errors.New("existed user")
-	}
-
 	// Initialize user and team
 	u, team, err = user.Init(user.InitParams{
-		Email:    ui.Email,
-		Name:     ui.Name,
-		Auth0Sub: inp.Sub,
+		Email:    name,
+		Name:     email,
+		Sub:      auth,
+		Password: *inp.Password,
 		Lang:     inp.Lang,
 		Theme:    inp.Theme,
 		UserID:   inp.UserID,
@@ -161,8 +234,10 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	if err := i.teamRepo.Save(ctx, team); err != nil {
 		return nil, nil, err
 	}
+	if tx != nil {
+		tx.Commit()
+	}
 
-	tx.Commit()
 	return u, team, nil
 }
 
@@ -171,11 +246,14 @@ func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserB
 	if err != nil && !errors.Is(rerror.ErrNotFound, err) {
 		return nil, err
 	} else if u == nil {
-		return nil, interfaces.ErrInvalidUserCredentials
+		return nil, interfaces.ErrInvalidUserEmail
 	}
-	// TODO: Check user password
-	if inp.Password != "123123123" {
-		return nil, interfaces.ErrInvalidUserCredentials
+	matched, err := u.MatchPassword(inp.Password)
+	if err != nil {
+		return nil, err
+	}
+	if !matched {
+		return nil, interfaces.ErrSignupInvalidPassword
 	}
 	return u, nil
 }
@@ -186,6 +264,91 @@ func (i *User) GetUserBySubject(ctx context.Context, sub string) (u *user.User, 
 		return nil, err
 	}
 	return u, nil
+}
+
+func (i *User) StartPasswordReset(ctx context.Context, email string) error {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	u, err := i.userRepo.FindByEmail(ctx, email)
+	if err != nil {
+		return err
+	}
+
+	pr := user.NewPasswordReset()
+	u.SetPasswordReset(pr)
+
+	if err := i.userRepo.Save(ctx, u); err != nil {
+		return err
+	}
+
+	var TextOut, HTMLOut bytes.Buffer
+	link := "localhost:3000/?pwd-reset-token=" + pr.Token
+	err = passwordResetTextTMPL.Execute(&TextOut, link)
+	if err != nil {
+		return err
+	}
+	err = passwordResetHTMLTMPL.Execute(&HTMLOut, link)
+	if err != nil {
+		return err
+	}
+
+	err = i.mailer.SendMail([]gateway.Contact{
+		{
+			Email: u.Email(),
+			Name:  u.Name(),
+		},
+	}, "Password reset", TextOut.String(), HTMLOut.String())
+	if err != nil {
+		return err
+	}
+
+	tx.Commit()
+	return nil
+}
+
+func (i *User) PasswordReset(ctx context.Context, password, token string) error {
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	u, err := i.userRepo.FindByPasswordResetRequest(ctx, token)
+	if err != nil {
+		return err
+	}
+
+	passwordReset := u.PasswordReset()
+	ok := passwordReset.Validate(token)
+
+	if !ok {
+		return interfaces.ErrUserInvalidPasswordReset
+	}
+
+	u.SetPasswordReset(nil)
+
+	if err := u.SetPassword(password); err != nil {
+		return err
+	}
+
+	if err := i.userRepo.Save(ctx, u); err != nil {
+		return err
+	}
+
+	tx.Commit()
+	return nil
 }
 
 func (i *User) UpdateMe(ctx context.Context, p interfaces.UpdateMeParam, operator *usecase.Operator) (u *user.User, err error) {

@@ -14,6 +14,7 @@ func TestBuilder_ID(t *testing.T) {
 	uid := id.NewUserID()
 	b := New().ID(uid).MustBuild()
 	assert.Equal(t, uid, b.ID())
+	assert.Nil(t, b.passwordReset)
 }
 
 func TestBuilder_Name(t *testing.T) {
@@ -88,6 +89,31 @@ func TestBuilder_LangFrom(t *testing.T) {
 	}
 }
 
+func TestBuilder_PasswordReset(t *testing.T) {
+	testCases := []struct {
+		Name, Token string
+		CreatedAt   time.Time
+		Expected    PasswordReset
+	}{
+		{
+			Name:      "Test1",
+			Token:     "xyz",
+			CreatedAt: time.Unix(0, 0),
+			Expected: PasswordReset{
+				Token:     "xyz",
+				CreatedAt: time.Unix(0, 0),
+			},
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.Name, func(tt *testing.T) {
+			tt.Parallel()
+			// u := New().NewID().PasswordReset(tc.Token, tc.CreatedAt).MustBuild()
+			// assert.Equal(t, tc.Expected, *u.passwordReset)
+		})
+	}
+}
+
 func TestNew(t *testing.T) {
 	b := New()
 	assert.NotNil(t, b)
@@ -97,37 +123,48 @@ func TestNew(t *testing.T) {
 func TestBuilder_Build(t *testing.T) {
 	uid := id.NewUserID()
 	tid := id.NewTeamID()
+	pass, _ := encodePassword("pass")
+
 	testCases := []struct {
 		Name, UserName, Lang, Email string
 		UID                         id.UserID
 		TID                         id.TeamID
 		Auths                       []Auth
+		PasswordBin                 []byte
 		Expected                    *User
 		err                         error
 	}{
 		{
-			Name:     "Success build user",
-			UserName: "xxx",
-			Email:    "xx@yy.zz",
-			Lang:     "en",
-			UID:      uid,
-			TID:      tid,
+			Name:        "Success build user",
+			UserName:    "xxx",
+			Email:       "xx@yy.zz",
+			Lang:        "en",
+			UID:         uid,
+			PasswordBin: pass,
+			TID:         tid,
 			Auths: []Auth{
 				{
 					Provider: "ppp",
 					Sub:      "sss",
 				},
 			},
-			Expected: New().
-				ID(uid).
-				Team(tid).
-				Email("xx@yy.zz").
-				Name("xxx").
-				Auths([]Auth{{Provider: "ppp", Sub: "sss"}}).
-				LangFrom("en").
-				MustBuild(),
+			Expected: &User{
+				id:       uid,
+				name:     "xxx",
+				email:    "xx@yy.zz",
+				password: pass,
+				team:     tid,
+				auths: []Auth{
+					{
+						Provider: "ppp",
+						Sub:      "sss",
+					},
+				},
+				lang: language.MustParse("en"),
+			},
 			err: nil,
-		}, {
+		},
+		{
 			Name:     "failed invalid id",
 			Expected: nil,
 			err:      id.ErrInvalidID,
@@ -136,7 +173,7 @@ func TestBuilder_Build(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res, err := New().ID(tc.UID).Name(tc.UserName).Auths(tc.Auths).LangFrom(tc.Lang).Email(tc.Email).Team(tc.TID).Build()
+			res, err := New().ID(tc.UID).Name(tc.UserName).Auths(tc.Auths).LangFrom(tc.Lang).Email(tc.Email).Password(tc.PasswordBin).Team(tc.TID).Build()
 			if err == nil {
 				assert.Equal(tt, tc.Expected, res)
 			} else {
@@ -149,37 +186,48 @@ func TestBuilder_Build(t *testing.T) {
 func TestBuilder_MustBuild(t *testing.T) {
 	uid := id.NewUserID()
 	tid := id.NewTeamID()
+	pass, _ := encodePassword("pass")
 	testCases := []struct {
 		Name, UserName, Lang, Email string
 		UID                         id.UserID
 		TID                         id.TeamID
+		PasswordBin                 []byte
 		Auths                       []Auth
 		Expected                    *User
 		err                         error
 	}{
+
 		{
-			Name:     "Success build user",
-			UserName: "xxx",
-			Email:    "xx@yy.zz",
-			Lang:     "en",
-			UID:      uid,
-			TID:      tid,
+			Name:        "Success build user",
+			UserName:    "xxx",
+			Email:       "xx@yy.zz",
+			Lang:        "en",
+			UID:         uid,
+			PasswordBin: pass,
+			TID:         tid,
 			Auths: []Auth{
 				{
 					Provider: "ppp",
 					Sub:      "sss",
 				},
 			},
-			Expected: New().
-				ID(uid).
-				Team(tid).
-				Email("xx@yy.zz").
-				Name("xxx").
-				Auths([]Auth{{Provider: "ppp", Sub: "sss"}}).
-				LangFrom("en").
-				MustBuild(),
+			Expected: &User{
+				id:       uid,
+				name:     "xxx",
+				email:    "xx@yy.zz",
+				password: pass,
+				team:     tid,
+				auths: []Auth{
+					{
+						Provider: "ppp",
+						Sub:      "sss",
+					},
+				},
+				lang: language.MustParse("en"),
+			},
 			err: nil,
-		}, {
+		},
+		{
 			Name:     "failed invalid id",
 			Expected: nil,
 			err:      id.ErrInvalidID,
@@ -195,7 +243,15 @@ func TestBuilder_MustBuild(t *testing.T) {
 				}
 			}()
 
-			res = New().ID(tc.UID).Name(tc.UserName).Auths(tc.Auths).LangFrom(tc.Lang).Email(tc.Email).Team(tc.TID).MustBuild()
+			res = New().
+				ID(tc.UID).
+				Name(tc.UserName).
+				Auths(tc.Auths).
+				Password(tc.PasswordBin).
+				LangFrom(tc.Lang).
+				Email(tc.Email).
+				Team(tc.TID).
+				MustBuild()
 		})
 	}
 }

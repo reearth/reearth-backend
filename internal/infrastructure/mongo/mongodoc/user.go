@@ -10,16 +10,23 @@ import (
 	user1 "github.com/reearth/reearth-backend/pkg/user"
 )
 
+type PasswordResetDocument struct {
+	Token     string
+	CreatedAt time.Time
+}
+
 type UserDocument struct {
-	ID           string
-	Name         string
-	Email        string
-	Auth0Sub     string
-	Auth0SubList []string
-	Team         string
-	Lang         string
-	Theme        string
-	Verification *UserVerificationDoc
+	ID            string
+	Name          string
+	Email         string
+	Auth0Sub      string
+	Auth0SubList  []string
+	Team          string
+	Lang          string
+	Theme         string
+	Password      []byte
+	PasswordReset *PasswordResetDocument
+	Verification  *UserVerificationDoc
 }
 
 type UserVerificationDoc struct {
@@ -64,16 +71,27 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 			Verified:   user.Verification().IsVerified(),
 		}
 	}
+	pwdReset := user.PasswordReset()
+
+	var pwdResetDoc *PasswordResetDocument
+	if pwdReset != nil {
+		pwdResetDoc = &PasswordResetDocument{
+			Token:     pwdReset.Token,
+			CreatedAt: pwdReset.CreatedAt,
+		}
+	}
 
 	return &UserDocument{
-		ID:           id,
-		Name:         user.Name(),
-		Email:        user.Email(),
-		Auth0SubList: authsdoc,
-		Team:         user.Team().String(),
-		Lang:         user.Lang().String(),
-		Theme:        string(user.Theme()),
-		Verification: v,
+		ID:            id,
+		Name:          user.Name(),
+		Email:         user.Email(),
+		Auth0SubList:  authsdoc,
+		Team:          user.Team().String(),
+		Lang:          user.Lang().String(),
+		Theme:         string(user.Theme()),
+		Verification:  v,
+		Password:      user.Password(),
+		PasswordReset: pwdResetDoc,
 	}, id
 }
 
@@ -98,7 +116,7 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		v = user.VerificationFrom(d.Verification.Code, d.Verification.Expiration, d.Verification.Verified)
 	}
 
-	user, err := user1.New().
+	u, err := user1.New().
 		ID(uid).
 		Name(d.Name).
 		Email(d.Email).
@@ -106,10 +124,23 @@ func (d *UserDocument) Model() (*user1.User, error) {
 		Team(tid).
 		LangFrom(d.Lang).
 		Verification(v).
+		Password(d.Password).
+		PasswordReset(d.PasswordReset.Model()).
 		Theme(user.Theme(d.Theme)).
 		Build()
+
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
+	return u, nil
+}
+
+func (d *PasswordResetDocument) Model() *user1.PasswordReset {
+	if d == nil {
+		return nil
+	}
+	return &user1.PasswordReset{
+		Token:     d.Token,
+		CreatedAt: d.CreatedAt,
+	}
 }

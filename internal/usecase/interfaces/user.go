@@ -13,18 +13,24 @@ import (
 
 var (
 	ErrUserInvalidPasswordConfirmation = errors.New("invalid password confirmation")
+	ErrUserInvalidPasswordReset        = errors.New("invalid password reset request")
 	ErrUserInvalidLang                 = errors.New("invalid lang")
 	ErrSignupInvalidSecret             = errors.New("invalid secret")
-	ErrInvalidUserCredentials          = errors.New("invalid credentials")
+	ErrSignupInvalidName               = errors.New("invalid name")
+	ErrInvalidUserEmail                = errors.New("invalid email")
+	ErrSignupInvalidPassword           = errors.New("invalid password")
 )
 
 type SignupParam struct {
-	Sub    string
-	Lang   *language.Tag
-	Theme  *user.Theme
-	UserID *id.UserID
-	TeamID *id.TeamID
-	Secret string
+	Sub      *string
+	UserID   *id.UserID
+	Secret   *string
+	Name     *string
+	Email    *string
+	Password *string
+	Lang     *language.Tag
+	Theme    *user.Theme
+	TeamID   *id.TeamID
 }
 
 type GetUserByCredentials struct {
@@ -48,6 +54,8 @@ type User interface {
 	VerifyUser(context.Context, string) (*user.User, error)
 	GetUserByCredentials(context.Context, GetUserByCredentials) (*user.User, error)
 	GetUserBySubject(context.Context, string) (*user.User, error)
+	StartPasswordReset(context.Context, string) error
+	PasswordReset(context.Context, string, string) error
 	UpdateMe(context.Context, UpdateMeParam, *usecase.Operator) (*user.User, error)
 	RemoveMyAuth(context.Context, string, *usecase.Operator) (*user.User, error)
 	SearchUser(context.Context, string, *usecase.Operator) (*user.User, error)

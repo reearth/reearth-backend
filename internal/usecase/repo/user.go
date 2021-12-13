@@ -14,6 +14,7 @@ type User interface {
 	FindByEmail(context.Context, string) (*user.User, error)
 	FindByNameOrEmail(context.Context, string) (*user.User, error)
 	FindByVerification(context.Context, string) (*user.User, error)
+	FindByPasswordResetRequest(context.Context, string) (*user.User, error)
 	Save(context.Context, *user.User) error
 	Remove(context.Context, id.UserID) error
 }

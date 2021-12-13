@@ -6,7 +6,8 @@ import (
 )
 
 type Builder struct {
-	u *User
+	u            *User
+	passwordText string
 }
 
 func New() *Builder {
@@ -16,6 +17,11 @@ func New() *Builder {
 func (b *Builder) Build() (*User, error) {
 	if id.ID(b.u.id).IsNil() {
 		return nil, id.ErrInvalidID
+	}
+	if b.passwordText != "" {
+		if err := b.u.SetPassword(b.passwordText); err != nil {
+			return nil, ErrEncodingPassword
+		}
 	}
 	return b.u, nil
 }
@@ -48,6 +54,20 @@ func (b *Builder) Email(email string) *Builder {
 	return b
 }
 
+func (b *Builder) Password(p []byte) *Builder {
+	if p == nil {
+		b.u.password = nil
+	} else {
+		b.u.password = append(p[:0:0], p...)
+	}
+	return b
+}
+
+func (b *Builder) PasswordPlainText(p string) *Builder {
+	b.passwordText = p
+	return b
+}
+
 func (b *Builder) Team(team id.TeamID) *Builder {
 	b.u.team = team
 	return b
@@ -74,6 +94,11 @@ func (b *Builder) LangFrom(lang string) *Builder {
 
 func (b *Builder) Auths(auths []Auth) *Builder {
 	b.u.auths = append([]Auth{}, auths...)
+	return b
+}
+
+func (b *Builder) PasswordReset(pr *PasswordReset) *Builder {
+	b.u.passwordReset = pr
 	return b
 }
 
