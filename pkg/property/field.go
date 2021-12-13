@@ -112,12 +112,13 @@ func (p *Field) Update(value *Value, field *SchemaField) error {
 	return nil
 }
 
-func (p *Field) Cast(t ValueType) {
-	if p == nil || p.Type() == t {
-		return
+func (p *Field) Cast(t ValueType) bool {
+	if p.IsEmpty() || p.Type() == t {
+		return false
 	}
 	p.v = p.v.Cast(t)
 	p.Unlink()
+	return true
 }
 
 func (p *Field) UpdateUnsafe(value *Value) {
@@ -146,7 +147,7 @@ func (p *Field) UpdateField(field id.PropertySchemaFieldID) {
 }
 
 func (p *Field) IsEmpty() bool {
-	return p != nil && p.Value().IsEmpty() && p.Links().IsEmpty()
+	return p == nil || (p.v.Value() == nil && p.Links().IsEmpty())
 }
 
 func (p *Field) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset.Loader) bool {

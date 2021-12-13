@@ -557,3 +557,13 @@ func (p *Property) GroupAndFields() []GroupAndField {
 	}
 	return res
 }
+
+// Cast changes the type of fields that are matches the pointer
+func (p *Property) Cast(ptr *Pointer, t ValueType) (res bool) {
+	for _, f := range p.Fields(ptr) {
+		if f.Cast(t) {
+			res = true
+		}
+	}
+	return
+}

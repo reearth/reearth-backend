@@ -231,10 +231,11 @@ func TestField_Cast(t *testing.T) {
 		t ValueType
 	}
 	tests := []struct {
-		name   string
-		target *Field
-		args   args
-		want   *Field
+		name      string
+		target    *Field
+		args      args
+		want      bool
+		wantField *Field
 	}{
 		{
 			name: "ok",
@@ -244,7 +245,8 @@ func TestField_Cast(t *testing.T) {
 				links: dgp.Clone(),
 			},
 			args: args{t: ValueTypeNumber},
-			want: &Field{
+			want: true,
+			wantField: &Field{
 				field: FieldID("foobar"),
 				v:     OptionalValueFrom(ValueTypeNumber.ValueFrom(-123)),
 			},
@@ -257,29 +259,32 @@ func TestField_Cast(t *testing.T) {
 				links: dgp.Clone(),
 			},
 			args: args{t: ValueTypeLatLng},
-			want: &Field{
+			want: true,
+			wantField: &Field{
 				field: FieldID("foobar"),
 				v:     NewOptionalValue(ValueTypeLatLng, nil),
 			},
 		},
 		{
-			name:   "empty",
-			target: &Field{},
-			args:   args{t: ValueTypeNumber},
-			want:   &Field{},
+			name:      "empty",
+			target:    &Field{},
+			args:      args{t: ValueTypeNumber},
+			want:      false,
+			wantField: &Field{},
 		},
 		{
-			name:   "nil",
-			target: nil,
-			args:   args{t: ValueTypeNumber},
-			want:   nil,
+			name:      "nil",
+			target:    nil,
+			args:      args{t: ValueTypeNumber},
+			want:      false,
+			wantField: nil,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.target.Cast(tt.args.t)
-			assert.Equal(t, tt.want, tt.target)
+			assert.Equal(t, tt.want, tt.target.Cast(tt.args.t))
+			assert.Equal(t, tt.wantField, tt.target)
 		})
 	}
 }

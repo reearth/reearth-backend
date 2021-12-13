@@ -584,3 +584,72 @@ func TestProperty_GroupAndFields(t *testing.T) {
 		})
 	}
 }
+
+func TestProperty_Cast(t *testing.T) {
+	type args struct {
+		ptr *Pointer
+		t   ValueType
+	}
+	tests := []struct {
+		name   string
+		target *Property
+		args   args
+		want   bool
+	}{
+		{
+			name:   "ok",
+			target: testProperty1.Clone(),
+			args: args{
+				ptr: PointFieldOnly(testField2.Field()),
+				t:   ValueTypeLatLngHeight,
+			},
+			want: true,
+		},
+		{
+			name:   "failed to cast",
+			target: testProperty1.Clone(),
+			args: args{
+				ptr: PointFieldOnly(testField2.Field()),
+				t:   ValueTypeNumber,
+			},
+			want: true,
+		},
+		{
+			name:   "not found",
+			target: testProperty1.Clone(),
+			args: args{
+				ptr: PointFieldOnly("x"),
+				t:   ValueTypeString,
+			},
+			want: false,
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			args: args{
+				ptr: PointFieldOnly(testField1.Field()),
+				t:   ValueTypeString,
+			},
+			want: false,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args: args{
+				ptr: PointFieldOnly(testField1.Field()),
+				t:   ValueTypeString,
+			},
+			want: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Cast(tt.args.ptr, tt.args.t))
+			for _, f := range tt.target.Fields(tt.args.ptr) {
+				assert.Equal(t, tt.args.t, f.Type())
+				assert.Nil(t, f.Links())
+			}
+		})
+	}
+}
