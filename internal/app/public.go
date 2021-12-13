@@ -26,17 +26,40 @@ func publicAPI(
 	})
 
 	r.POST("/signup", func(c echo.Context) error {
-		var inp http1.CreateUserInput
+		var inp http1.SignupInput
 		if err := c.Bind(&inp); err != nil {
 			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
 		}
 
-		output, err := controller.CreateUser(c.Request().Context(), inp)
+		output, err := controller.Signup(c.Request().Context(), inp)
 		if err != nil {
 			return err
 		}
 
 		return c.JSON(http.StatusOK, output)
+	})
+
+	r.POST("/password-reset", func(c echo.Context) error {
+		var inp http1.PasswordResetInput
+		if err := c.Bind(&inp); err != nil {
+			return err
+		}
+
+		if len(inp.Email) > 0 {
+			if err := controller.StartPasswordReset(c.Request().Context(), inp); err != nil {
+				return err
+			}
+			return c.JSON(http.StatusOK, true)
+		}
+
+		if len(inp.Token) > 0 && len(inp.Password) > 0 {
+			if err := controller.PasswordReset(c.Request().Context(), inp); err != nil {
+				return err
+			}
+			return c.JSON(http.StatusOK, true)
+		}
+
+		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Bad reset password request"}
 	})
 
 	r.POST("/signup/verify", func(c echo.Context) error {

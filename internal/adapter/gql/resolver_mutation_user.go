@@ -16,14 +16,14 @@ func (r *mutationResolver) Signup(ctx context.Context, input gqlmodel.SignupInpu
 	if input.Secret != nil {
 		secret = *input.Secret
 	}
-
+	sub := getSub(ctx)
 	u, team, err := r.usecases.User.Signup(ctx, interfaces.SignupParam{
-		Sub:    getSub(ctx),
+		Sub:    &sub,
 		Lang:   input.Lang,
 		Theme:  gqlmodel.ToTheme(input.Theme),
 		UserID: id.UserIDFromRefID(input.UserID),
 		TeamID: id.TeamIDFromRefID(input.TeamID),
-		Secret: secret,
+		Secret: &secret,
 	})
 	if err != nil {
 		return nil, err

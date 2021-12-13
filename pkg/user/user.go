@@ -1,19 +1,30 @@
 package user
 
 import (
+	"errors"
+
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/reearth/reearth-backend/pkg/id"
 	"golang.org/x/text/language"
 )
 
+var (
+	ErrEncodingPassword = errors.New("error encoding password")
+	ErrInvalidPassword  = errors.New("error invalid password")
+)
+
 type User struct {
-	id           id.UserID
-	name         string
-	email        string
-	team         id.TeamID
-	auths        []Auth
-	lang         language.Tag
-	theme        Theme
-	verification *Verification
+	id            id.UserID
+	name          string
+	email         string
+	password      []byte
+	team          id.TeamID
+	auths         []Auth
+	lang          language.Tag
+	theme         Theme
+	verification  *Verification
+	passwordReset *PasswordReset
 }
 
 func (u *User) ID() id.UserID {
@@ -38,6 +49,10 @@ func (u *User) Lang() language.Tag {
 
 func (u *User) Theme() Theme {
 	return u.theme
+}
+
+func (u *User) Password() []byte {
+	return u.password
 }
 
 func (u *User) UpdateName(name string) {
@@ -134,6 +149,46 @@ func (u *User) RemoveAuthByProvider(provider string) bool {
 
 func (u *User) ClearAuths() {
 	u.auths = []Auth{}
+}
+
+func (u *User) SetPassword(pass string) error {
+	p, err := encodePassword(pass)
+	if err != nil {
+		return err
+	}
+	u.password = p
+	return nil
+}
+
+func (u *User) MatchPassword(pass string) (bool, error) {
+	if u == nil || len(u.password) == 0 {
+		return false, nil
+	}
+	return verifyPassword(pass, u.password)
+}
+
+func encodePassword(pass string) ([]byte, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(pass), 14)
+	return bytes, err
+}
+
+func verifyPassword(toVerify string, encoded []byte) (bool, error) {
+	err := bcrypt.CompareHashAndPassword(encoded, []byte(toVerify))
+	if err != nil {
+		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}
+
+func (u *User) PasswordReset() *PasswordReset {
+	return u.passwordReset
+}
+
+func (u *User) SetPasswordReset(pr *PasswordReset) {
+	u.passwordReset = pr.Clone()
 }
 
 func (u *User) SetVerification(v *Verification) {
