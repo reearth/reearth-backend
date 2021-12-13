@@ -1619,10 +1619,6 @@ extensions:
         - id: default
           title: Cluster
           fields:
-            - id: cluster_name
-              type: string
-              title: Name
-              description: Sets the name of the cluster.
             - id: cluster_pixelRange
               type: number
               description: Sets the minimum range between layers to get clustered together.
