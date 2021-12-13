@@ -82,7 +82,7 @@ extensions:
           title: Camera Limiter
           description: Set the camera limiting box.
           fields:
-            - id: enable_camera_limiter
+            - id: cameraLimitterEnabled
               type: bool
               title: Enable
               defaultValue: false
