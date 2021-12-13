@@ -288,3 +288,90 @@ func TestSchemaGroupAndField_IsEmpty(t *testing.T) {
 		})
 	}
 }
+
+func TestSchemaGroupAndField_Pointer(t *testing.T) {
+	tests := []struct {
+		name   string
+		target SchemaGroupAndField
+		want   *Pointer
+	}{
+		{
+			name: "ok",
+			target: SchemaGroupAndField{
+				Group: testSchemaGroup1,
+				Field: testSchemaField1,
+			},
+			want: &Pointer{
+				schemaGroup: testSchemaGroup1.ID().Ref(),
+				item:        nil,
+				field:       testSchemaField1.ID().Ref(),
+			},
+		},
+		{
+			name: "nil group",
+			target: SchemaGroupAndField{
+				Group: nil,
+				Field: testSchemaField1,
+			},
+			want: &Pointer{
+				schemaGroup: nil,
+				item:        nil,
+				field:       testSchemaField1.ID().Ref(),
+			},
+		},
+		{
+			name: "nil field",
+			target: SchemaGroupAndField{
+				Group: testSchemaGroup1,
+				Field: nil,
+			},
+			want: &Pointer{
+				schemaGroup: testSchemaGroup1.ID().Ref(),
+				item:        nil,
+				field:       nil,
+			},
+		},
+		{
+			name:   "empty",
+			target: SchemaGroupAndField{},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Pointer())
+		})
+	}
+}
+
+func TestSchemaGroupAndField_SchemaFieldPointer(t *testing.T) {
+	tests := []struct {
+		name   string
+		target SchemaGroupAndField
+		want   SchemaFieldPointer
+	}{
+		{
+			name: "ok",
+			target: SchemaGroupAndField{
+				Group: testSchemaGroup1,
+				Field: testSchemaField1,
+			},
+			want: SchemaFieldPointer{
+				SchemaGroup: testSchemaGroup1.ID(),
+				Field:       testSchemaField1.ID(),
+			},
+		},
+		{
+			name:   "empty",
+			target: SchemaGroupAndField{},
+			want:   SchemaFieldPointer{},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.SchemaFieldPointer())
+		})
+	}
+}

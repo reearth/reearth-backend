@@ -6,11 +6,6 @@ type SchemaGroupList struct {
 	groups []*SchemaGroup
 }
 
-type SchemaGroupAndField struct {
-	Group *SchemaGroup
-	Field *SchemaField
-}
-
 func NewSchemaGroupList(p []*SchemaGroup) *SchemaGroupList {
 	sgl := &SchemaGroupList{
 		groups: append(p[:0:0], p...),
@@ -122,13 +117,25 @@ func (s *SchemaGroupList) duplicatedGroups() []SchemaGroupID {
 	return duplicated
 }
 
+type SchemaGroupAndField struct {
+	Group *SchemaGroup
+	Field *SchemaField
+}
+
 func (gf SchemaGroupAndField) IsEmpty() bool {
 	return gf.Group == nil && gf.Field == nil
 }
 
 func (gf SchemaGroupAndField) Pointer() *Pointer {
-	if gf.Group == nil || gf.Field == nil {
+	if gf.Group == nil && gf.Field == nil {
 		return nil
 	}
-	return PointFieldBySchemaGroup(gf.Group.ID(), gf.Field.ID())
+	return NewPointer(gf.Group.ID().Ref(), nil, gf.Field.ID().Ref())
+}
+
+func (f SchemaGroupAndField) SchemaFieldPointer() SchemaFieldPointer {
+	return SchemaFieldPointer{
+		SchemaGroup: f.Group.ID(),
+		Field:       f.Field.ID(),
+	}
 }

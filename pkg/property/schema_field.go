@@ -2,11 +2,10 @@ package property
 
 import (
 	"github.com/reearth/reearth-backend/pkg/i18n"
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type SchemaField struct {
-	id           id.PropertySchemaFieldID
+	id           FieldID
 	propertyType ValueType
 	title        i18n.String
 	description  i18n.String
@@ -26,27 +25,45 @@ type SchemaFieldChoice struct {
 	Icon  string
 }
 
-func (p *SchemaField) ID() id.PropertySchemaFieldID {
+func (p *SchemaField) ID() FieldID {
+	if p == nil {
+		return ""
+	}
 	return p.id
 }
 
 func (p *SchemaField) Type() ValueType {
+	if p == nil {
+		return ValueTypeUnknown
+	}
 	return p.propertyType
 }
 
 func (p *SchemaField) Title() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.title.Copy()
 }
 
 func (p *SchemaField) Description() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.description.Copy()
 }
 
 func (p *SchemaField) Prefix() string {
+	if p == nil {
+		return ""
+	}
 	return p.prefix
 }
 
 func (p *SchemaField) Suffix() string {
+	if p == nil {
+		return ""
+	}
 	return p.suffix
 }
 
