@@ -276,16 +276,18 @@ func (g *Group) RemoveFields(ptr *Pointer) (res bool) {
 	return
 }
 
-func (p *Group) GroupAndFields() []GroupAndField {
+func (p *Group) GroupAndFields(ptr *Pointer) []GroupAndField {
 	if p == nil || len(p.fields) == 0 {
 		return nil
 	}
 	res := []GroupAndField{}
 	for _, f := range p.fields {
-		res = append(res, GroupAndField{
-			Group: p,
-			Field: f,
-		})
+		if ptr == nil || ptr.Test(p.SchemaGroup(), p.ID(), f.Field()) {
+			res = append(res, GroupAndField{
+				Group: p,
+				Field: f,
+			})
+		}
 	}
 	return res
 }

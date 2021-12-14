@@ -548,31 +548,49 @@ func TestProperty_GroupAndFields(t *testing.T) {
 	tests := []struct {
 		name   string
 		target *Property
+		args   *Pointer
 		want   []GroupAndField
 	}{
 		{
-			name:   "ok",
+			name:   "all",
 			target: testProperty1,
+			args:   nil,
 			want: []GroupAndField{
 				{Group: testGroup1, Field: testField1},
 				{ParentGroup: testGroupList1, Group: testGroup2, Field: testField2},
 			},
 		},
 		{
+			name:   "specified",
+			target: testProperty1,
+			args:   PointFieldBySchemaGroup(testGroupList1.SchemaGroup(), testField2.Field()),
+			want: []GroupAndField{
+				{ParentGroup: testGroupList1, Group: testGroup2, Field: testField2},
+			},
+		},
+		{
+			name:   "invalid field",
+			target: testProperty1,
+			args:   PointFieldBySchemaGroup(testGroupList1.SchemaGroup(), testField1.Field()),
+			want:   []GroupAndField{},
+		},
+		{
 			name:   "empty",
 			target: &Property{},
+			args:   nil,
 			want:   nil,
 		},
 		{
 			name:   "nil",
 			target: &Property{},
+			args:   nil,
 			want:   nil,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			res := tt.target.GroupAndFields()
+			res := tt.target.GroupAndFields(tt.args)
 			assert.Equal(t, tt.want, res)
 			for i, r := range res {
 				assert.Same(t, tt.want[i].Field, r.Field)

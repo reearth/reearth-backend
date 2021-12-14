@@ -21,7 +21,7 @@ type Item interface {
 	Fields(*Pointer) []*Field
 	RemoveFields(*Pointer) bool
 	CloneItem() Item
-	GroupAndFields() []GroupAndField
+	GroupAndFields(*Pointer) []GroupAndField
 	GuessSchema() *SchemaGroup
 }
 

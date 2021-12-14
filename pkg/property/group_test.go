@@ -718,30 +718,48 @@ func TestGroup_GroupAndFields(t *testing.T) {
 	tests := []struct {
 		name   string
 		target *Group
+		args   *Pointer
 		want   []GroupAndField
 	}{
 		{
-			name:   "ok",
+			name:   "all",
 			target: testGroup1,
+			args:   nil,
 			want: []GroupAndField{
 				{Group: testGroup1, Field: testField1},
 			},
 		},
 		{
+			name:   "specified",
+			target: testGroup1,
+			args:   PointFieldByItem(testGroup1.ID(), testField1.Field()),
+			want: []GroupAndField{
+				{Group: testGroup1, Field: testField1},
+			},
+		},
+		{
+			name:   "specified but not found",
+			target: testGroup1,
+			args:   PointFieldByItem(testGroup1.ID(), testField2.Field()),
+			want:   []GroupAndField{},
+		},
+		{
 			name:   "empty",
 			target: &Group{},
+			args:   nil,
 			want:   nil,
 		},
 		{
 			name:   "nil",
 			target: nil,
+			args:   nil,
 			want:   nil,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			res := tt.target.GroupAndFields()
+			res := tt.target.GroupAndFields(tt.args)
 			assert.Equal(t, tt.want, res)
 			for i, r := range res {
 				assert.Same(t, tt.want[i].Field, r.Field)

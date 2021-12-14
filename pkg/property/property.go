@@ -552,13 +552,15 @@ func (p *Property) MoveFields(f FieldID, from, to SchemaGroupID) (res bool) {
 	return
 }
 
-func (p *Property) GroupAndFields() []GroupAndField {
+func (p *Property) GroupAndFields(ptr *Pointer) []GroupAndField {
 	if p == nil || len(p.items) == 0 {
 		return nil
 	}
 	res := []GroupAndField{}
 	for _, i := range p.items {
-		res = append(res, i.GroupAndFields()...)
+		if ptr == nil || ptr.TestItem(i.SchemaGroup(), i.ID()) {
+			res = append(res, i.GroupAndFields(ptr)...)
+		}
 	}
 	return res
 }

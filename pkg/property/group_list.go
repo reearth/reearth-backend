@@ -399,18 +399,20 @@ func (g *GroupList) RemoveFields(ptr *Pointer) (res bool) {
 	return
 }
 
-func (p *GroupList) GroupAndFields() []GroupAndField {
+func (p *GroupList) GroupAndFields(ptr *Pointer) []GroupAndField {
 	if p == nil || len(p.groups) == 0 {
 		return nil
 	}
 	res := []GroupAndField{}
 	for _, g := range p.groups {
-		for _, r := range g.GroupAndFields() {
-			res = append(res, GroupAndField{
-				ParentGroup: p,
-				Group:       r.Group,
-				Field:       r.Field,
-			})
+		if ptr == nil || ptr.TestItem(g.SchemaGroup(), g.ID()) {
+			for _, r := range g.GroupAndFields(ptr) {
+				res = append(res, GroupAndField{
+					ParentGroup: p,
+					Group:       r.Group,
+					Field:       r.Field,
+				})
+			}
 		}
 	}
 	return res
