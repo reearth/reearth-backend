@@ -95,17 +95,19 @@ extensions:
             - id: cameraLimitterTargetArea
               type: camera
               title: Target max height  
-              description: Defines camera limiter center point and the maximum height that user can view 
+              description: The base position of the camera movement range. This position is the center point of the limit box in the horizontal and depth directions, and is the maximum height of the movable range. The camera will not be able to zoom out beyond the height specified here.
             - id: cameraLimitterTargetWidth
               type: number
               title: Target width
               min: 5
               defaultValue: 1000000
+              suffix: m
             - id: cameraLimitterTargetLength
               type: number
               title: Target length
               min: 5
               defaultValue: 1000000
+              suffix: m
         - id: tiles
           title: Tiles
           description: You may change the look of the Earth by obtaining map tile data and setting it here.
