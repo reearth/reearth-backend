@@ -199,3 +199,230 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 		})
 	}
 }
+
+func TestSchemaDiff_Migrate(t *testing.T) {
+	tests := []struct {
+		name         string
+		target       SchemaDiff
+		args         *Property
+		want         bool
+		wantProperty *Property
+	}{
+		{
+			name: "deleted and type changed",
+			target: SchemaDiff{
+				Deleted: []SchemaDiffDeleted{
+					{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
+				},
+				TypeChanged: []SchemaDiffTypeChanged{
+					{SchemaFieldPointer: SchemaFieldPointer{SchemaGroup: testGroupList1.SchemaGroup(), Field: testField2.Field()}, NewType: ValueTypeString},
+				},
+			},
+			args: testProperty1.Clone(),
+			want: true,
+			wantProperty: &Property{
+				id:     testProperty1.ID(),
+				scene:  testProperty1.Scene(),
+				schema: testProperty1.Schema(),
+				items: []Item{
+					&Group{
+						itemBase: itemBase{
+							ID:          testGroup1.ID(),
+							SchemaGroup: testGroup1.SchemaGroup(),
+						},
+						fields: []*Field{
+							// deleted
+						},
+					},
+					&GroupList{
+						itemBase: itemBase{
+							ID:          testGroupList1.ID(),
+							SchemaGroup: testGroupList1.SchemaGroup(),
+						},
+						groups: []*Group{
+							{
+								itemBase: itemBase{
+									ID:          testGroup2.ID(),
+									SchemaGroup: testGroup2.SchemaGroup(),
+								},
+								fields: []*Field{
+									{field: testField2.Field(), v: NewOptionalValue(ValueTypeString, nil)}, // type changed
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		// {
+		// 	name: "moved",
+		// 	target: SchemaDiff{
+		// 		Moved: []SchemaDiffMoved{
+		// 			{
+		// 				From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
+		// 				To:   SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()},
+		// 			},
+		// 		},
+		// 	},
+		// 	args: testProperty1.Clone(),
+		// 	want: true,
+		// 	wantProperty: &Property{
+		// 		id:     testProperty1.ID(),
+		// 		scene:  testProperty1.Scene(),
+		// 		schema: testProperty1.Schema(),
+		// 		items: []Item{
+		// 			&Group{
+		// 				itemBase: itemBase{
+		// 					ID:          testGroup1.ID(),
+		// 					SchemaGroup: testGroup1.SchemaGroup(),
+		// 				},
+		// 				fields: []*Field{
+		// 					// deleted
+		// 				},
+		// 			},
+		// 			&Group{
+		// 				itemBase: itemBase{
+		// 					ID:          "", // TODO
+		// 					SchemaGroup: "x",
+		// 				},
+		// 				fields: []*Field{testField1},
+		// 			},
+		// 			testGroup2,
+		// 		},
+		// 	},
+		// },
+		// {
+		// 	name: "moved and type changed",
+		// 	target: SchemaDiff{
+		// 		Moved: []SchemaDiffMoved{
+		// 			{
+		// 				From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
+		// 				To:   SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()},
+		// 			},
+		// 		},
+		// 		TypeChanged: []SchemaDiffTypeChanged{
+		// 			{SchemaFieldPointer: SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()}, NewType: ValueTypeNumber},
+		// 		},
+		// 	},
+		// 	args: testProperty1.Clone(),
+		// 	want: true,
+		// 	wantProperty: &Property{
+		// 		id:     testProperty1.ID(),
+		// 		scene:  testProperty1.Scene(),
+		// 		schema: testProperty1.Schema(),
+		// 		items: []Item{
+		// 			&Group{
+		// 				itemBase: itemBase{
+		// 					ID:          testGroup1.ID(),
+		// 					SchemaGroup: testGroup1.SchemaGroup(),
+		// 				},
+		// 				fields: []*Field{
+		// 					// deleted
+		// 				},
+		// 			},
+		// 			&Group{
+		// 				itemBase: itemBase{
+		// 					ID:          "", // TODO
+		// 					SchemaGroup: "x",
+		// 				},
+		// 				fields: []*Field{
+		// 					{field: testField1.Field(), v: NewOptionalValue(ValueTypeNumber, nil)},
+		// 				},
+		// 			},
+		// 			testGroup2,
+		// 		},
+		// 	},
+		// },
+		{
+			name: "group -> list",
+			target: SchemaDiff{
+				Moved: []SchemaDiffMoved{
+					{
+						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
+						To:   SchemaFieldPointer{SchemaGroup: testGroup2.SchemaGroup(), Field: testField1.Field()},
+					},
+				},
+			},
+			args: testProperty1.Clone(),
+			want: true,
+			wantProperty: &Property{
+				id:     testProperty1.ID(),
+				scene:  testProperty1.Scene(),
+				schema: testProperty1.Schema(),
+				items: []Item{
+					&Group{
+						itemBase: itemBase{
+							ID:          testGroup1.ID(),
+							SchemaGroup: testGroup1.SchemaGroup(),
+						},
+						fields: []*Field{
+							// deleted
+						},
+					},
+					testGroupList1,
+				},
+			},
+		},
+		{
+			name: "list -> group",
+			target: SchemaDiff{
+				Moved: []SchemaDiffMoved{
+					{
+						From: SchemaFieldPointer{SchemaGroup: testGroup2.SchemaGroup(), Field: testField2.Field()},
+						To:   SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField2.Field()},
+					},
+				},
+			},
+			args: testProperty1.Clone(),
+			want: true,
+			wantProperty: &Property{
+				id:     testProperty1.ID(),
+				scene:  testProperty1.Scene(),
+				schema: testProperty1.Schema(),
+				items: []Item{
+					testGroup1,
+					&GroupList{
+						itemBase: itemBase{
+							ID:          testGroupList1.ID(),
+							SchemaGroup: testGroupList1.SchemaGroup(),
+						},
+						groups: []*Group{
+							{
+								itemBase: itemBase{
+									ID:          testGroup2.ID(),
+									SchemaGroup: testGroup2.SchemaGroup(),
+								},
+								fields: []*Field{
+									// deleted
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:         "empty",
+			target:       SchemaDiff{},
+			args:         testProperty1,
+			want:         false,
+			wantProperty: testProperty1,
+		},
+		{
+			name: "nil property",
+			target: SchemaDiff{
+				Deleted: []SchemaDiffDeleted{{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()}},
+			},
+			args:         nil,
+			want:         false,
+			wantProperty: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Migrate(tt.args))
+			assert.Equal(t, tt.wantProperty, tt.args)
+		})
+	}
+}

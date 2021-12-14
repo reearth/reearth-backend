@@ -53,3 +53,33 @@ func SchemaDiffFrom(old, new *Schema) (d SchemaDiff) {
 func SchemaDiffFromProperty(old *Property, new *Schema) (d SchemaDiff) {
 	return SchemaDiffFrom(old.GuessSchema(), new)
 }
+
+func (d SchemaDiff) Migrate(p *Property) (res bool) {
+	for _, dd := range d.Deleted {
+		if p.RemoveFields(SchemaFieldPointer(dd).Pointer()) {
+			res = true
+		}
+	}
+
+	for _, dm := range d.Moved {
+		if dm.ToList {
+			// group -> list and list -> list are not supported; just delete
+			if p.RemoveFields(dm.From.Pointer()) {
+				res = true
+			}
+			continue
+		}
+
+		if p.MoveFields(dm.From.Pointer(), dm.To.Pointer()) {
+			res = true
+		}
+	}
+
+	for _, dt := range d.TypeChanged {
+		if p.Cast(dt.Pointer(), dt.NewType) {
+			res = true
+		}
+	}
+
+	return
+}
