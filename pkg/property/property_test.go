@@ -14,7 +14,7 @@ var (
 	testProperty1 = New().NewID().Schema(testSchema1.ID()).Scene(id.NewSceneID()).Items([]Item{testGroup1, testGroupList1}).MustBuild()
 )
 
-func TestPropertyMigrateSchema(t *testing.T) {
+func TestProperty_MigrateSchema(t *testing.T) {
 	sceneID := id.NewSceneID()
 	oldSchema := id.MustPropertySchemaID("hoge~1.0.0/test")
 	newSchema := id.MustPropertySchemaID("hoge~1.0.0/test2")
@@ -119,7 +119,7 @@ func TestPropertyMigrateSchema(t *testing.T) {
 	assert.NotNil(t, newGroup.Field(schemaField5ID))
 }
 
-func TestGetOrCreateItem(t *testing.T) {
+func TestProperty_GetOrCreateItem(t *testing.T) {
 	sceneID := id.NewSceneID()
 	sid := id.MustPropertySchemaID("hoge~1.0.0/test")
 	sf1id := id.PropertySchemaFieldID("a")
@@ -139,13 +139,15 @@ func TestGetOrCreateItem(t *testing.T) {
 	assert.Nil(t, p.ItemBySchema(sg1id))
 	assert.Equal(t, []Item{}, p.Items())
 
-	i, _ := p.GetOrCreateItem(s, PointItemBySchema(sg1id))
+	i, gl := p.GetOrCreateItem(s, PointItemBySchema(sg1id))
+	assert.Nil(t, gl)
 	assert.NotNil(t, i)
 	assert.Equal(t, sg1id, i.SchemaGroup())
 	assert.Equal(t, i, ToGroup(p.ItemBySchema(sg1id)))
 	assert.Equal(t, []Item{i}, p.Items())
 
-	i2, _ := p.GetOrCreateItem(s, PointItemBySchema(sg1id))
+	i2, gl := p.GetOrCreateItem(s, PointItemBySchema(sg1id))
+	assert.Nil(t, gl)
 	assert.NotNil(t, i2)
 	assert.Equal(t, i, i2)
 	assert.Equal(t, i2, ToGroup(p.ItemBySchema(sg1id)))
@@ -154,20 +156,20 @@ func TestGetOrCreateItem(t *testing.T) {
 	// group list
 	assert.Nil(t, p.ItemBySchema(sg2id))
 
-	i3, _ := p.GetOrCreateItem(s, PointItemBySchema(sg2id))
-	assert.NotNil(t, i3)
+	i3, gl := p.GetOrCreateItem(s, PointItemBySchema(sg2id))
+	assert.Nil(t, gl)
 	assert.Equal(t, sg2id, i3.SchemaGroup())
 	assert.Equal(t, i3, ToGroupList(p.ItemBySchema(sg2id)))
 	assert.Equal(t, []Item{i, i3}, p.Items())
 
-	i4, _ := p.GetOrCreateItem(s, PointItemBySchema(sg2id))
-	assert.NotNil(t, i4)
+	i4, gl := p.GetOrCreateItem(s, PointItemBySchema(sg2id))
+	assert.Nil(t, gl)
 	assert.Equal(t, i3, i4)
 	assert.Equal(t, i4, ToGroupList(p.ItemBySchema(sg2id)))
 	assert.Equal(t, []Item{i2, i4}, p.Items())
 }
 
-func TestGetOrCreateField(t *testing.T) {
+func TestProperty_GetOrCreateField(t *testing.T) {
 	sceneID := id.NewSceneID()
 	sid := id.MustPropertySchemaID("hoge~1.0.0/test")
 	sf1id := id.PropertySchemaFieldID("a")
@@ -423,6 +425,7 @@ func TestProperty_MoveFields(t *testing.T) {
 	sg2 := SchemaGroupID("bbb")
 	sg3 := SchemaGroupID("ccc")
 	sg4 := SchemaGroupID("ddd")
+	sg5 := SchemaGroupID("eee")
 
 	f1 := NewField().Field(FieldID("x")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("aaa"))).Build()
 	f2 := NewField().Field(FieldID("y")).Value(OptionalValueFrom(ValueTypeString.ValueFrom("bbb"))).Build()
@@ -447,13 +450,14 @@ func TestProperty_MoveFields(t *testing.T) {
 
 	type args struct {
 		f    FieldID
-		from SchemaGroupID
-		to   SchemaGroupID
+		from *Pointer
+		to   *Pointer
 	}
 	tests := []struct {
 		name       string
 		target     *Property
 		args       args
+		want       bool
 		fromFields []*Field
 		toFields   []*Field
 	}{
@@ -462,20 +466,35 @@ func TestProperty_MoveFields(t *testing.T) {
 			target: p.Clone(),
 			args: args{
 				f:    f1.Field(),
-				from: sg1,
-				to:   sg2,
+				from: PointFieldBySchemaGroup(sg1, f1.Field()),
+				to:   PointFieldBySchemaGroup(sg2, f1.Field()),
 			},
+			want:       true,
 			fromFields: []*Field{},   // deleted
 			toFields:   []*Field{f1}, // added
+		},
+		{
+			name:   "group->new group",
+			target: p.Clone(),
+			args: args{
+				f:    f1.Field(),
+				from: PointFieldBySchemaGroup(sg1, f1.Field()),
+				to:   PointFieldBySchemaGroup(sg5, f1.Field()),
+			},
+			want:       true,
+			fromFields: []*Field{}, // deleted
+			toFields:   []*Field{}, // not added
+			// toFields:   []*Field{f1}, // added
 		},
 		{
 			name:   "group->group failed",
 			target: p.Clone(),
 			args: args{
 				f:    f2.Field(),
-				from: sg1,
-				to:   sg2,
+				from: PointFieldBySchemaGroup(sg1, f2.Field()),
+				to:   PointFieldBySchemaGroup(sg2, f2.Field()),
 			},
+			want:       false,
 			fromFields: []*Field{f1}, // not deleted
 			toFields:   []*Field{},   // not added
 		},
@@ -484,31 +503,34 @@ func TestProperty_MoveFields(t *testing.T) {
 			target: p.Clone(),
 			args: args{
 				f:    f2.Field(),
-				from: sg3,
-				to:   sg4,
+				from: PointFieldBySchemaGroup(sg3, f2.Field()),
+				to:   PointFieldBySchemaGroup(sg4, f2.Field()),
 			},
+			want:       true,
 			fromFields: []*Field{}, // deleted
 			toFields:   []*Field{}, // not added
 		},
 		{
 			name:   "group->group list",
-			target: testProperty1.Clone(),
+			target: p.Clone(),
 			args: args{
 				f:    f1.Field(),
-				from: sg1,
-				to:   sg4,
+				from: PointFieldBySchemaGroup(sg1, f1.Field()),
+				to:   PointFieldBySchemaGroup(sg4, f1.Field()),
 			},
+			want:       true,
 			fromFields: []*Field{}, // deleted
 			toFields:   []*Field{}, // not added
 		},
 		{
 			name:   "group list->group",
-			target: testProperty1.Clone(),
+			target: p.Clone(),
 			args: args{
 				f:    f2.Field(),
-				from: sg3,
-				to:   sg2,
+				from: PointFieldBySchemaGroup(sg3, f2.Field()),
+				to:   PointFieldBySchemaGroup(sg2, f2.Field()),
 			},
+			want:       true,
 			fromFields: []*Field{}, // deleted
 			toFields:   []*Field{}, // not added
 		},
@@ -517,19 +539,20 @@ func TestProperty_MoveFields(t *testing.T) {
 			target: &Property{},
 			args: args{
 				f:    f1.Field(),
-				from: sg1,
-				to:   sg2,
+				from: PointFieldBySchemaGroup(sg1, f1.Field()),
+				to:   PointFieldBySchemaGroup(sg2, f1.Field()),
 			},
+			want:       false,
 			fromFields: nil,
 			toFields:   nil,
 		},
 		{
 			name: "nil",
 			args: args{
-				f:    f1.Field(),
-				from: sg1,
-				to:   sg2,
+				from: PointFieldBySchemaGroup(sg1, f1.Field()),
+				to:   PointFieldBySchemaGroup(sg2, f1.Field()),
 			},
+			want:       false,
 			fromFields: nil,
 			toFields:   nil,
 		},
@@ -537,9 +560,9 @@ func TestProperty_MoveFields(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.target.MoveFields(tt.args.f, tt.args.from, tt.args.to)
-			assert.Equal(t, tt.fromFields, tt.target.Fields(PointItemBySchema(tt.args.from)))
-			assert.Equal(t, tt.toFields, tt.target.Fields(PointItemBySchema(tt.args.to)))
+			assert.Equal(t, tt.want, tt.target.MoveFields(tt.args.from, tt.args.to))
+			assert.Equal(t, tt.fromFields, tt.target.Fields(PointItemBySchema(*tt.args.from.schemaGroup)), "from item")
+			assert.Equal(t, tt.toFields, tt.target.Fields(PointItemBySchema(*tt.args.to.schemaGroup)), "to item")
 		})
 	}
 }
@@ -792,6 +815,161 @@ func TestProperty_GuessSchema(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.target.GuessSchema())
+		})
+	}
+}
+
+func TestProperty_Field(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Property
+		args   *Pointer
+		want   *Field
+		want1  *GroupList
+		want2  *Group
+	}{
+		{
+			name:   "field by schema group",
+			target: testProperty1,
+			args:   PointFieldBySchemaGroup(testGroup1.SchemaGroup(), testField1.Field()),
+			want:   testField1,
+			want1:  nil,
+			want2:  testGroup1,
+		},
+		{
+			name:   "field by item",
+			target: testProperty1,
+			args:   PointFieldByItem(testGroup1.ID(), testField1.Field()),
+			want:   testField1,
+			want1:  nil,
+			want2:  testGroup1,
+		},
+		{
+			name:   "field only",
+			target: testProperty1,
+			args:   PointFieldOnly(testField1.Field()),
+			want:   testField1,
+			want1:  nil,
+			want2:  testGroup1,
+		},
+		{
+			name:   "field in list",
+			target: testProperty1,
+			args:   PointFieldOnly(testField2.Field()),
+			want:   nil,
+			want1:  nil,
+			want2:  nil,
+		},
+		{
+			name:   "not found",
+			target: testProperty1,
+			args:   PointFieldOnly("_"),
+			want:   nil,
+			want1:  nil,
+			want2:  nil,
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			args:   PointFieldOnly("_"),
+			want:   nil,
+			want1:  nil,
+			want2:  nil,
+		},
+		{
+			name:   "nil pointer",
+			target: testProperty1,
+			args:   nil,
+			want:   nil,
+			want1:  nil,
+			want2:  nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   PointFieldOnly("_"),
+			want:   nil,
+			want1:  nil,
+			want2:  nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1, got2 := tt.target.Field(tt.args)
+			assert.Equal(t, tt.want, got)
+			assert.Equal(t, tt.want1, got1)
+			assert.Equal(t, tt.want2, got2)
+		})
+	}
+}
+
+func TestProperty_Item(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Property
+		args   *Pointer
+		want   Item
+	}{
+		{
+			name:   "group",
+			target: testProperty1,
+			args:   PointItem(testGroup1.ID()),
+			want:   testGroup1,
+		},
+		{
+			name:   "group list",
+			target: testProperty1,
+			args:   PointItem(testGroupList1.ID()),
+			want:   testGroupList1,
+		},
+		{
+			name:   "group by schema group",
+			target: testProperty1,
+			args:   PointItemBySchema(testGroup1.SchemaGroup()),
+			want:   testGroup1,
+		},
+		{
+			name:   "group list by schema group",
+			target: testProperty1,
+			args:   PointItemBySchema(testGroupList1.SchemaGroup()),
+			want:   testGroupList1,
+		},
+		{
+			name:   "not found",
+			target: testProperty1,
+			args:   PointItemBySchema("_"),
+			want:   nil,
+		},
+		{
+			name:   "field only",
+			target: testProperty1,
+			args:   PointFieldOnly(testField1.Field()),
+			want:   nil,
+		},
+		{
+			name:   "nil pointer",
+			target: testProperty1,
+			args:   nil,
+			want:   nil,
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			args:   PointFieldOnly(testField1.Field()),
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   PointFieldOnly(testField1.Field()),
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Item(tt.args))
 		})
 	}
 }

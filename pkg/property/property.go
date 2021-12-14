@@ -42,15 +42,9 @@ func (p *Property) Field(ptr *Pointer) (*Field, *GroupList, *Group) {
 		return nil, nil, nil
 	}
 
-	if iid, fid, ok := ptr.FieldByItem(); ok {
-		if i, gl := p.Item(iid); i != nil {
-			g := ToGroup(i)
-			return g.Field(fid), gl, g
-		}
-	} else if sgid, fid, ok := ptr.FieldBySchemaGroup(); ok {
-		if i := p.ItemBySchema(sgid); i != nil {
-			g := ToGroup(i)
-			return g.Field(fid), nil, g
+	if g, gl := p.GroupAndList(ptr); g != nil {
+		if fields := g.Fields(ptr); len(fields) > 0 {
+			return fields[0], gl, g
 		}
 	}
 
@@ -64,20 +58,35 @@ func (p *Property) Items() []Item {
 	return append([]Item{}, p.items...)
 }
 
-func (p *Property) Item(id ItemID) (Item, *GroupList) {
-	if p == nil {
+func (p *Property) Item(ptr *Pointer) Item {
+	if p == nil || ptr == nil || ptr.FieldOnlyRef() != nil {
+		return nil
+	}
+
+	for _, i := range p.items {
+		if ptr.TestItem(i.SchemaGroup(), i.ID()) {
+			return i
+		}
+	}
+
+	return nil
+}
+
+func (p *Property) GroupAndList(ptr *Pointer) (*Group, *GroupList) {
+	if p == nil || ptr == nil {
 		return nil, nil
 	}
-	for _, f := range p.items {
-		if f.ID() == id {
-			return f, nil
-		}
-		if gl := ToGroupList(f); gl != nil {
-			if i := gl.Group(id); i != nil {
-				return i, gl
+
+	for _, i := range p.items {
+		if ptr.TestItem(i.SchemaGroup(), i.ID()) {
+			if gl := ToGroupList(i); gl != nil {
+				return gl.GroupByPointer(ptr), gl
+			} else if g := ToGroup(i); g != nil {
+				return g, nil
 			}
 		}
 	}
+
 	return nil, nil
 }
 
@@ -114,18 +123,6 @@ func (p *Property) GroupListBySchema(id SchemaGroupID) *GroupList {
 		return g
 	}
 	return nil
-}
-
-func (p *Property) ItemByPointer(ptr *Pointer) (Item, *GroupList) {
-	if p == nil || ptr == nil {
-		return nil, nil
-	}
-	if pid, ok := ptr.Item(); ok {
-		return p.Item(pid)
-	} else if sgid, ok := ptr.ItemBySchemaGroup(); ok {
-		return p.ItemBySchema(sgid), nil
-	}
-	return nil, nil
 }
 
 func (p *Property) ListItem(ptr *Pointer) (*Group, *GroupList) {
@@ -264,8 +261,7 @@ func (p *Property) RemoveField(ptr *Pointer) {
 		return
 	}
 
-	item, _ := p.ItemByPointer(ptr)
-	if group := ToGroup(item); group != nil {
+	if group := ToGroup(p.Item(ptr)); group != nil {
 		group.RemoveField(fid)
 	}
 }
@@ -339,8 +335,11 @@ func (p *Property) GetOrCreateItem(ps *Schema, ptr *Pointer) (Item, *GroupList) 
 		return nil, nil
 	}
 
-	if item, pgl := p.ItemByPointer(ptr); item != nil {
-		return item, pgl
+	if g, gl := p.GroupAndList(ptr); g != nil || gl != nil {
+		if g == nil {
+			return gl, nil
+		}
+		return g, gl
 	}
 
 	psgid, ok := ptr.ItemBySchemaGroup()
@@ -355,11 +354,7 @@ func (p *Property) GetOrCreateItem(ps *Schema, ptr *Pointer) (Item, *GroupList) 
 
 	ni := InitItemFrom(psg)
 	if ni != nil {
-		if p.items == nil {
-			p.items = []Item{ni}
-		} else {
-			p.items = append(p.items, ni)
-		}
+		p.items = append(p.items, ni)
 	}
 
 	return ni, nil // root item
@@ -523,28 +518,28 @@ func (p *Property) ValidateSchema(ps *Schema) error {
 }
 
 // MoveFields moves fields between items. Only fields in Groups can be moved to another Group, fields in GroupLists will simply be deleted.
-func (p *Property) MoveFields(f FieldID, from, to SchemaGroupID) (res bool) {
+func (p *Property) MoveFields(from, to *Pointer) (res bool) {
 	if p == nil {
 		return
 	}
 
-	fromItem := p.ItemBySchema(from)
-	if fromItem == nil {
-		return
-	}
-
-	fields := p.Fields(PointFieldBySchemaGroup(from, f))
+	fields := p.GroupAndFields(from)
 	if len(fields) == 0 {
 		return
 	}
 
-	toGroup := p.GroupBySchema(to)
+	toGroup := ToGroup(p.Item(to))
+	if toGroup != nil {
+		// create toGroup
+	}
+
 	for _, f := range fields {
-		if fromItem.RemoveFields(PointFieldOnly(f.Field())) {
+		if f.Group.RemoveField(f.Field.Field()) {
 			res = true
 		}
-		if toGroup != nil {
-			toGroup.AddFields(f)
+		if f.ParentGroup == nil && toGroup != nil {
+			// NOTE: currently changing the field ID is not supported
+			toGroup.AddFields(f.Field)
 			res = true
 		}
 	}
