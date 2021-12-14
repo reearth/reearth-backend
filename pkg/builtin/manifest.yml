@@ -1649,8 +1649,6 @@ extensions:
               choices:
                 - key: pin
                   label: Pin
-                - key: label
-                  label: Label
             - id: cluster_textColor
               type: string
               title: Text color
