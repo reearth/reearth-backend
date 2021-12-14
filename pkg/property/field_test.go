@@ -157,7 +157,7 @@ func TestField_IsEmpty(t *testing.T) {
 		{
 			name:   "nil",
 			target: nil,
-			want:   false,
+			want:   true,
 		},
 	}
 

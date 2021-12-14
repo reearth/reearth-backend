@@ -113,7 +113,7 @@ func (p *Field) Update(value *Value, field *SchemaField) error {
 }
 
 func (p *Field) Cast(t ValueType) bool {
-	if p.IsEmpty() || p.Type() == t {
+	if p == nil || p.Type() == ValueTypeUnknown || p.Type() == t {
 		return false
 	}
 	p.v = p.v.Cast(t)
