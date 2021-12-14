@@ -86,7 +86,7 @@ extensions:
               type: bool
               title: Enable
               defaultValue: false
-              description: Enable camera limiter
+              description: Enable camera limiter.
             - id: cameraLimitterShowHelper
               type: bool
               title: Show Helper
@@ -99,12 +99,14 @@ extensions:
             - id: cameraLimitterTargetWidth
               type: number
               title: Target width
+              description: Specifies the width (longitude direction) of the box that represents the limiter boundaries.
               min: 5
               defaultValue: 1000000
               suffix: m
             - id: cameraLimitterTargetLength
               type: number
               title: Target length
+              description: Specifies the depth (latitude direction) of the box that represents the limiter boundaries.
               min: 5
               defaultValue: 1000000
               suffix: m
