@@ -415,3 +415,26 @@ func (p *GroupList) GroupAndFields() []GroupAndField {
 	}
 	return res
 }
+
+func (g *GroupList) GuessSchema() *SchemaGroup {
+	if g == nil {
+		return nil
+	}
+
+	fieldm := map[FieldID]struct{}{}
+	fields := []*SchemaField{}
+
+	for _, g := range g.groups {
+		if gsg := g.GuessSchema(); gsg != nil {
+			for _, f := range gsg.Fields() {
+				if _, ok := fieldm[f.ID()]; ok {
+					continue
+				}
+				fields = append(fields, f)
+				fieldm[f.ID()] = struct{}{}
+			}
+		}
+	}
+
+	return NewSchemaGroup().ID(g.SchemaGroup()).IsList(true).Fields(fields).Build()
+}

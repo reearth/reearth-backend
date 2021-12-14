@@ -22,6 +22,7 @@ type Item interface {
 	RemoveFields(*Pointer) bool
 	CloneItem() Item
 	GroupAndFields() []GroupAndField
+	GuessSchema() *SchemaGroup
 }
 
 type itemBase struct {

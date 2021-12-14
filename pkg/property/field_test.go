@@ -288,3 +288,33 @@ func TestField_Cast(t *testing.T) {
 		})
 	}
 }
+
+func TestField_GuessSchema(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Field
+		want   *SchemaField
+	}{
+		{
+			name:   "ok",
+			target: &Field{field: "a", v: NewOptionalValue(ValueTypeLatLng, nil)},
+			want:   &SchemaField{id: "a", propertyType: ValueTypeLatLng},
+		},
+		{
+			name:   "empty",
+			target: &Field{},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.GuessSchema())
+		})
+	}
+}

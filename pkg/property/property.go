@@ -572,3 +572,21 @@ func (p *Property) Cast(ptr *Pointer, t ValueType) (res bool) {
 	}
 	return
 }
+
+func (p *Property) GuessSchema() *Schema {
+	if p == nil {
+		return nil
+	}
+
+	groups := make([]*SchemaGroup, 0, len(p.items))
+	for _, i := range p.items {
+		if g := i.GuessSchema(); g != nil {
+			groups = append(groups, g)
+		}
+	}
+
+	if s, err := NewSchema().ID(p.Schema()).GroupList(NewSchemaGroupList(groups)).Build(); err == nil {
+		return s
+	}
+	return nil
+}

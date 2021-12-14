@@ -1010,3 +1010,62 @@ func TestGroupList_GroupAndFields(t *testing.T) {
 		})
 	}
 }
+
+func TestGroupList_GuessSchema(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *GroupList
+		want   *SchemaGroup
+	}{
+		{
+			name: "ok",
+			target: &GroupList{
+				itemBase: itemBase{
+					SchemaGroup: "aa",
+				},
+				groups: []*Group{
+					{
+						itemBase: itemBase{
+							SchemaGroup: "aa",
+						},
+						fields: []*Field{
+							{field: "a", v: NewOptionalValue(ValueTypeLatLng, nil)},
+						},
+					},
+					{
+						itemBase: itemBase{
+							SchemaGroup: "aa",
+						},
+						fields: []*Field{
+							{field: "b", v: NewOptionalValue(ValueTypeString, nil)},
+						},
+					},
+				},
+			},
+			want: &SchemaGroup{
+				id:   "aa",
+				list: true,
+				fields: []*SchemaField{
+					{id: "a", propertyType: ValueTypeLatLng},
+					{id: "b", propertyType: ValueTypeString},
+				},
+			},
+		},
+		{
+			name:   "empty",
+			target: &GroupList{},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.GuessSchema())
+		})
+	}
+}

@@ -707,3 +707,73 @@ func TestProperty_Prune(t *testing.T) {
 		})
 	}
 }
+
+func TestProperty_GuessSchema(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Property
+		want   *Schema
+	}{
+		{
+			name: "ok",
+			target: &Property{
+				schema: MustSchemaID("x~1.1.1/a"),
+				items: []Item{
+					&Group{
+						itemBase: itemBase{SchemaGroup: "aa"},
+						fields: []*Field{
+							{field: "a", v: NewOptionalValue(ValueTypeString, nil)},
+						},
+					},
+					&GroupList{
+						itemBase: itemBase{SchemaGroup: "bb"},
+						groups: []*Group{
+							{
+								itemBase: itemBase{SchemaGroup: "aa"},
+								fields: []*Field{
+									{field: "b", v: NewOptionalValue(ValueTypeLatLng, nil)},
+								},
+							},
+						},
+					},
+				},
+			},
+			want: &Schema{
+				id: MustSchemaID("x~1.1.1/a"),
+				groups: &SchemaGroupList{
+					groups: []*SchemaGroup{
+						{
+							id: "aa",
+							fields: []*SchemaField{
+								{id: "a", propertyType: ValueTypeString},
+							},
+						},
+						{
+							id:   "bb",
+							list: true,
+							fields: []*SchemaField{
+								{id: "b", propertyType: ValueTypeLatLng},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name:   "empty",
+			target: &Property{},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.GuessSchema())
+		})
+	}
+}

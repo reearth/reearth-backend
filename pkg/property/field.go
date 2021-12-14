@@ -181,3 +181,13 @@ func (p *Field) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 
 	return !invalid
 }
+
+func (f *Field) GuessSchema() *SchemaField {
+	if f == nil {
+		return nil
+	}
+	if f, err := NewSchemaField().ID(f.Field()).Type(f.Type()).Build(); err == nil {
+		return f
+	}
+	return nil
+}

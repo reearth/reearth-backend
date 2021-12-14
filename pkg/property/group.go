@@ -289,3 +289,18 @@ func (p *Group) GroupAndFields() []GroupAndField {
 	}
 	return res
 }
+
+func (g *Group) GuessSchema() *SchemaGroup {
+	if g == nil {
+		return nil
+	}
+
+	fields := make([]*SchemaField, 0, len(g.fields))
+	for _, f := range g.fields {
+		if sf := f.GuessSchema(); sf != nil {
+			fields = append(fields, sf)
+		}
+	}
+
+	return NewSchemaGroup().ID(g.SchemaGroup()).Fields(fields).Build()
+}

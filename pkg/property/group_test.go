@@ -751,3 +751,47 @@ func TestGroup_GroupAndFields(t *testing.T) {
 		})
 	}
 }
+
+func TestGroup_GuessSchema(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *Group
+		want   *SchemaGroup
+	}{
+		{
+			name: "ok",
+			target: &Group{
+				itemBase: itemBase{
+					SchemaGroup: "aa",
+				},
+				fields: []*Field{
+					{field: "a", v: NewOptionalValue(ValueTypeLatLng, nil)},
+					{field: "b", v: NewOptionalValue(ValueTypeNumber, nil)},
+				},
+			},
+			want: &SchemaGroup{
+				id: "aa",
+				fields: []*SchemaField{
+					{id: "a", propertyType: ValueTypeLatLng},
+					{id: "b", propertyType: ValueTypeNumber},
+				},
+			},
+		},
+		{
+			name:   "empty",
+			target: &Group{},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.GuessSchema())
+		})
+	}
+}
