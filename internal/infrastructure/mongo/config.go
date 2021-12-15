@@ -43,7 +43,7 @@ func (r *configRepo) Load(ctx context.Context) (*config.Config, error) {
 	numOfTries := 2
 
 	for i := 1; i < numOfTries; i++ {
-		cfg, err := r.Load(ctx)
+		cfg, err := r.loadFromDB(ctx)
 		if err == nil {
 			return cfg, nil
 		}
