@@ -203,7 +203,7 @@ func (i *Tag) AttachItemToGroup(ctx context.Context, inp interfaces.AttachItemTo
 
 	// make sure item exist
 	ti, err := i.tagRepo.FindItemByID(ctx, inp.ItemID, scenes)
-	if err == nil {
+	if err != nil {
 		return nil, err
 	}
 	if ti.Parent() != nil {
