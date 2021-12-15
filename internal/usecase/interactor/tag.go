@@ -69,7 +69,7 @@ func (i *Tag) CreateItem(ctx context.Context, inp interfaces.CreateTagItemParam,
 		return nil, nil, err
 	}
 
-	if parent == nil {
+	if parent != nil {
 		parent.Tags().Add(item.ID())
 	}
 
