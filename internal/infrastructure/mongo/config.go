@@ -42,7 +42,7 @@ func NewConfig(client *mongodoc.Client) repo.Config {
 func (r *configRepo) Load(ctx context.Context) (*config.Config, error) {
 	numOfTries := 2
 
-	for i := 1; i < numOfTries; i++ {
+	for i := 1; i <= numOfTries; i++ {
 		cfg, err := r.loadFromDB(ctx)
 		if err == nil {
 			return cfg, nil
@@ -77,7 +77,7 @@ func (r *configRepo) loadFromDB(ctx context.Context) (*config.Config, error) {
 		}
 		return nil, rerror.ErrInternalBy(err)
 	}
-	if cfg.lock != r.lockID {
+	if cfg.lock != nil && cfg.lock != r.lockID {
 		return nil, ErrLoadingLockedConfig
 	}
 	return &config.Config{
