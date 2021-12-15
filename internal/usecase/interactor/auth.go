@@ -82,6 +82,11 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 		log.Errorf("Could not load auth config: %s\n", err)
 		return nil, err
 	}
+	defer func() {
+		if err := config.Release(ctx); err == nil {
+			log.Errorf("Could not release config lock: %s\n", err)
+		}
+	}()
 
 	var keyBytes, certBytes []byte
 	if c.Auth != nil {
