@@ -17,14 +17,21 @@ func NewConfig() repo.Config {
 	return &Config{}
 }
 
-func (r *Config) Load(ctx context.Context) (*config.Config, error) {
+func (r *Config) Load(_ context.Context) (*config.Config, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	return r.data, nil
 }
 
-func (r *Config) Save(ctx context.Context, c *config.Config) error {
+func (r *Config) Release(_ context.Context) error {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	return nil
+}
+
+func (r *Config) Save(_ context.Context, c *config.Config) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
