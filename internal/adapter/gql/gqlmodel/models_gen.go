@@ -1062,10 +1062,12 @@ type SyncDatasetPayload struct {
 }
 
 type TagGroup struct {
-	ID      id.ID    `json:"id"`
-	SceneID id.ID    `json:"sceneId"`
-	Label   string   `json:"label"`
-	Tags    []*id.ID `json:"tags"`
+	ID      id.ID      `json:"id"`
+	SceneID id.ID      `json:"sceneId"`
+	Label   string     `json:"label"`
+	TagIds  []*id.ID   `json:"tagIds"`
+	Tags    []*TagItem `json:"tags"`
+	Scene   *Scene     `json:"scene"`
 }
 
 func (TagGroup) IsTag()  {}

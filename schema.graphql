@@ -318,7 +318,6 @@ enum PluginExtensionType {
   INFOBOX
 }
 
-
 type PluginExtension {
   extensionId: PluginExtensionID!
   pluginId: PluginID!
@@ -808,7 +807,9 @@ type TagGroup implements Tag {
   id: ID!
   sceneId: ID!
   label: String!
-  tags: [ID!]
+  tagIds: [ID!]
+  tags: [TagItem!]! @goField(forceResolver: true)
+  scene: Scene @goField(forceResolver: true)
 }
 
 union Tags = TagItem | TagGroup
@@ -1453,15 +1454,15 @@ type UpdateTagPayload {
   tag: Tag!
 }
 
-type AttachTagToLayerPayload{
+type AttachTagToLayerPayload {
   layer: Layer!
 }
 
-type DetachTagFromLayerPayload{
+type DetachTagFromLayerPayload {
   layer: Layer!
 }
 
-type RemoveTagPayload{
+type RemoveTagPayload {
   tagId: ID!
 }
 
@@ -1475,7 +1476,7 @@ type UpdateClusterPayload {
   cluster: Cluster!
 }
 
-type RemoveClusterPayload{
+type RemoveClusterPayload {
   scene: Scene!
   clusterId: ID!
 }
@@ -1611,7 +1612,9 @@ type Mutation {
   createScene(input: CreateSceneInput!): CreateScenePayload
   addWidget(input: AddWidgetInput!): AddWidgetPayload
   updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
-  updateWidgetAlignSystem(input: UpdateWidgetAlignSystemInput!): UpdateWidgetAlignSystemPayload
+  updateWidgetAlignSystem(
+    input: UpdateWidgetAlignSystemInput!
+  ): UpdateWidgetAlignSystemPayload
   removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
   installPlugin(input: InstallPluginInput!): InstallPluginPayload
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
@@ -1634,7 +1637,9 @@ type Mutation {
     input: RemoveDatasetSchemaInput!
   ): RemoveDatasetSchemaPayload
   importDataset(input: ImportDatasetInput!): ImportDatasetPayload
-  importDatasetFromGoogleSheet(input: ImportDatasetFromGoogleSheetInput!): ImportDatasetPayload
+  importDatasetFromGoogleSheet(
+    input: ImportDatasetFromGoogleSheetInput!
+  ): ImportDatasetPayload
   addDatasetSchema(input: AddDatasetSchemaInput!): AddDatasetSchemaPayload
 
   # Property
@@ -1668,8 +1673,12 @@ type Mutation {
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
-  attachTagItemToGroup(input: AttachTagItemToGroupInput!): AttachTagItemToGroupPayload
-  detachTagItemFromGroup(input: DetachTagItemFromGroupInput!): DetachTagItemFromGroupPayload
+  attachTagItemToGroup(
+    input: AttachTagItemToGroupInput!
+  ): AttachTagItemToGroupPayload
+  detachTagItemFromGroup(
+    input: DetachTagItemFromGroupInput!
+  ): DetachTagItemFromGroupPayload
   updateTag(input: UpdateTagInput!): UpdateTagPayload
   removeTag(input: RemoveTagInput!): RemoveTagPayload
 }

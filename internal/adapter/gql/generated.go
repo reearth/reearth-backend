@@ -73,6 +73,7 @@ type ResolverRoot interface {
 	Scene() SceneResolver
 	ScenePlugin() ScenePluginResolver
 	SceneWidget() SceneWidgetResolver
+	TagGroup() TagGroupResolver
 	TagItem() TagItemResolver
 	Team() TeamResolver
 	TeamMember() TeamMemberResolver
@@ -896,7 +897,9 @@ type ComplexityRoot struct {
 	TagGroup struct {
 		ID      func(childComplexity int) int
 		Label   func(childComplexity int) int
+		Scene   func(childComplexity int) int
 		SceneID func(childComplexity int) int
+		TagIds  func(childComplexity int) int
 		Tags    func(childComplexity int) int
 	}
 
@@ -1304,6 +1307,10 @@ type SceneWidgetResolver interface {
 	Plugin(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Plugin, error)
 	Extension(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.PluginExtension, error)
 	Property(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Property, error)
+}
+type TagGroupResolver interface {
+	Tags(ctx context.Context, obj *gqlmodel.TagGroup) ([]*gqlmodel.TagItem, error)
+	Scene(ctx context.Context, obj *gqlmodel.TagGroup) (*gqlmodel.Scene, error)
 }
 type TagItemResolver interface {
 	LinkedDatasetSchema(ctx context.Context, obj *gqlmodel.TagItem) (*gqlmodel.DatasetSchema, error)
@@ -5549,12 +5556,26 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.TagGroup.Label(childComplexity), true
 
+	case "TagGroup.scene":
+		if e.complexity.TagGroup.Scene == nil {
+			break
+		}
+
+		return e.complexity.TagGroup.Scene(childComplexity), true
+
 	case "TagGroup.sceneId":
 		if e.complexity.TagGroup.SceneID == nil {
 			break
 		}
 
 		return e.complexity.TagGroup.SceneID(childComplexity), true
+
+	case "TagGroup.tagIds":
+		if e.complexity.TagGroup.TagIds == nil {
+			break
+		}
+
+		return e.complexity.TagGroup.TagIds(childComplexity), true
 
 	case "TagGroup.tags":
 		if e.complexity.TagGroup.Tags == nil {
@@ -6461,7 +6482,6 @@ enum PluginExtensionType {
   INFOBOX
 }
 
-
 type PluginExtension {
   extensionId: PluginExtensionID!
   pluginId: PluginID!
@@ -6951,7 +6971,9 @@ type TagGroup implements Tag {
   id: ID!
   sceneId: ID!
   label: String!
-  tags: [ID!]
+  tagIds: [ID!]
+  tags: [TagItem!]! @goField(forceResolver: true)
+  scene: Scene @goField(forceResolver: true)
 }
 
 union Tags = TagItem | TagGroup
@@ -7596,15 +7618,15 @@ type UpdateTagPayload {
   tag: Tag!
 }
 
-type AttachTagToLayerPayload{
+type AttachTagToLayerPayload {
   layer: Layer!
 }
 
-type DetachTagFromLayerPayload{
+type DetachTagFromLayerPayload {
   layer: Layer!
 }
 
-type RemoveTagPayload{
+type RemoveTagPayload {
   tagId: ID!
 }
 
@@ -7618,7 +7640,7 @@ type UpdateClusterPayload {
   cluster: Cluster!
 }
 
-type RemoveClusterPayload{
+type RemoveClusterPayload {
   scene: Scene!
   clusterId: ID!
 }
@@ -7754,7 +7776,9 @@ type Mutation {
   createScene(input: CreateSceneInput!): CreateScenePayload
   addWidget(input: AddWidgetInput!): AddWidgetPayload
   updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
-  updateWidgetAlignSystem(input: UpdateWidgetAlignSystemInput!): UpdateWidgetAlignSystemPayload
+  updateWidgetAlignSystem(
+    input: UpdateWidgetAlignSystemInput!
+  ): UpdateWidgetAlignSystemPayload
   removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
   installPlugin(input: InstallPluginInput!): InstallPluginPayload
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
@@ -7777,7 +7801,9 @@ type Mutation {
     input: RemoveDatasetSchemaInput!
   ): RemoveDatasetSchemaPayload
   importDataset(input: ImportDatasetInput!): ImportDatasetPayload
-  importDatasetFromGoogleSheet(input: ImportDatasetFromGoogleSheetInput!): ImportDatasetPayload
+  importDatasetFromGoogleSheet(
+    input: ImportDatasetFromGoogleSheetInput!
+  ): ImportDatasetPayload
   addDatasetSchema(input: AddDatasetSchemaInput!): AddDatasetSchemaPayload
 
   # Property
@@ -7811,8 +7837,12 @@ type Mutation {
   # Tag
   createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
   createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
-  attachTagItemToGroup(input: AttachTagItemToGroupInput!): AttachTagItemToGroupPayload
-  detachTagItemFromGroup(input: DetachTagItemFromGroupInput!): DetachTagItemFromGroupPayload
+  attachTagItemToGroup(
+    input: AttachTagItemToGroupInput!
+  ): AttachTagItemToGroupPayload
+  detachTagItemFromGroup(
+    input: DetachTagItemFromGroupInput!
+  ): DetachTagItemFromGroupPayload
   updateTag(input: UpdateTagInput!): UpdateTagPayload
   removeTag(input: RemoveTagInput!): RemoveTagPayload
 }
@@ -28340,7 +28370,7 @@ func (ec *executionContext) _TagGroup_label(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _TagGroup_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagGroup) (ret graphql.Marshaler) {
+func (ec *executionContext) _TagGroup_tagIds(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -28358,7 +28388,7 @@ func (ec *executionContext) _TagGroup_tags(ctx context.Context, field graphql.Co
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Tags, nil
+		return obj.TagIds, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -28370,6 +28400,73 @@ func (ec *executionContext) _TagGroup_tags(ctx context.Context, field graphql.Co
 	res := resTmp.([]*id.ID)
 	fc.Result = res
 	return ec.marshalOID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _TagGroup_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagGroup) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "TagGroup",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.TagGroup().Tags(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.TagItem)
+	fc.Result = res
+	return ec.marshalNTagItem2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItemᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _TagGroup_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagGroup) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "TagGroup",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.TagGroup().Scene(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.Scene)
+	fc.Result = res
+	return ec.marshalOScene2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScene(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _TagItem_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagItem) (ret graphql.Marshaler) {
@@ -39997,20 +40094,45 @@ func (ec *executionContext) _TagGroup(ctx context.Context, sel ast.SelectionSet,
 		case "id":
 			out.Values[i] = ec._TagGroup_id(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "sceneId":
 			out.Values[i] = ec._TagGroup_sceneId(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "label":
 			out.Values[i] = ec._TagGroup_label(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
+		case "tagIds":
+			out.Values[i] = ec._TagGroup_tagIds(ctx, field, obj)
 		case "tags":
-			out.Values[i] = ec._TagGroup_tags(ctx, field, obj)
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._TagGroup_tags(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			})
+		case "scene":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._TagGroup_scene(ctx, field, obj)
+				return res
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -43703,6 +43825,50 @@ func (ec *executionContext) marshalNTagGroup2ᚖgithubᚗcomᚋreearthᚋreearth
 		return graphql.Null
 	}
 	return ec._TagGroup(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNTagItem2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItemᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.TagItem) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNTagItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItem(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
 }
 
 func (ec *executionContext) marshalNTagItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItem(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.TagItem) graphql.Marshaler {

@@ -34,7 +34,7 @@ func ToTagGroup(tg *tag.Group) *TagGroup {
 		ID:      tg.ID().ID(),
 		SceneID: tg.Scene().ID(),
 		Label:   tg.Label(),
-		Tags:    ids,
+		TagIds:  ids,
 	}
 }
 
