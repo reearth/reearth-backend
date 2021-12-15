@@ -126,7 +126,7 @@ func (d *TagDocument) Model() (*tag.Item, *tag.Group, error) {
 }
 
 func (d *TagDocument) ModelItem() (*tag.Item, error) {
-	if d.Item != nil {
+	if d.Item == nil {
 		return nil, nil
 	}
 
@@ -151,7 +151,7 @@ func (d *TagDocument) ModelItem() (*tag.Item, error) {
 }
 
 func (d *TagDocument) ModelGroup() (*tag.Group, error) {
-	if d.Group != nil {
+	if d.Group == nil {
 		return nil, nil
 	}
 

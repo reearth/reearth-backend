@@ -93,26 +93,12 @@ func (r *tagRepo) FindGroupByIDs(ctx context.Context, ids []id.TagID, f []id.Sce
 	return filterTagGroups(ids, res), nil
 }
 
-func (r *tagRepo) FindByScene(ctx context.Context, id id.SceneID) ([]*tag.Tag, error) {
+func (r *tagRepo) FindRootsByScene(ctx context.Context, id id.SceneID) ([]*tag.Tag, error) {
 	filter := bson.M{
 		"scene":       id.String(),
 		"item.parent": nil,
 	}
 	return r.find(ctx, nil, filter)
-}
-
-func (r *tagRepo) FindGroupByScene(ctx context.Context, id id.SceneID) ([]*tag.Group, error) {
-	filter := bson.D{
-		{Key: "scene", Value: id.String()},
-	}
-	return r.findGroups(ctx, nil, filter)
-}
-
-func (r *tagRepo) FindItemByScene(ctx context.Context, id id.SceneID) ([]*tag.Item, error) {
-	filter := bson.D{
-		{Key: "scene", Value: id.String()},
-	}
-	return r.findItems(ctx, nil, filter)
 }
 
 func (r *tagRepo) FindGroupByItem(ctx context.Context, tagID id.TagID, f []id.SceneID) (*tag.Group, error) {
