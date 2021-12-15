@@ -43,3 +43,17 @@ func LoaderFromMap(data map[id.PropertyID]*Property) Loader {
 		return res, nil
 	}
 }
+
+func SchemaLoaderFromMap(data map[id.PropertySchemaID]*Schema) SchemaLoader {
+	return func(ctx context.Context, ids ...id.PropertySchemaID) (SchemaList, error) {
+		res := make([]*Schema, 0, len(ids))
+		for _, i := range ids {
+			if d, ok := data[i]; ok {
+				res = append(res, d)
+			} else {
+				res = append(res, nil)
+			}
+		}
+		return res, nil
+	}
+}
