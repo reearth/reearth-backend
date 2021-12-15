@@ -6,53 +6,64 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-// Plugin _
 type Plugin struct {
-	id             id.PluginID
+	id             ID
 	name           i18n.String
 	author         string
 	description    i18n.String
 	repositoryURL  string
-	extensions     map[id.PluginExtensionID]*Extension
-	extensionOrder []id.PluginExtensionID
+	extensions     map[ExtensionID]*Extension
+	extensionOrder []ExtensionID
 	schema         *id.PropertySchemaID
 }
 
-// ID _
-func (p *Plugin) ID() id.PluginID {
+func (p *Plugin) ID() ID {
+	if p == nil {
+		return ID{}
+	}
 	return p.id
 }
 
-// Version _
 func (p *Plugin) Version() semver.Version {
+	if p == nil {
+		return semver.Version{}
+	}
 	return p.id.Version()
 }
 
-// Name _
 func (p *Plugin) Name() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.name.Copy()
 }
 
-// Author _
 func (p *Plugin) Author() string {
+	if p == nil {
+		return ""
+	}
 	return p.author
 }
 
-// Description _
 func (p *Plugin) Description() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.description.Copy()
 }
 
-// RepositoryURL _
 func (p *Plugin) RepositoryURL() string {
+	if p == nil {
+		return ""
+	}
 	return p.repositoryURL
 }
 
-// Extensions _
 func (p *Plugin) Extensions() []*Extension {
-	if p.extensionOrder == nil {
-		return []*Extension{}
+	if p == nil {
+		return nil
 	}
+
 	list := make([]*Extension, 0, len(p.extensions))
 	for _, id := range p.extensionOrder {
 		list = append(list, p.extensions[id])
@@ -60,7 +71,7 @@ func (p *Plugin) Extensions() []*Extension {
 	return list
 }
 
-func (p *Plugin) Extension(id id.PluginExtensionID) *Extension {
+func (p *Plugin) Extension(id ExtensionID) *Extension {
 	if p == nil {
 		return nil
 	}
@@ -72,9 +83,12 @@ func (p *Plugin) Extension(id id.PluginExtensionID) *Extension {
 	return nil
 }
 
-// Schema _
 func (p *Plugin) Schema() *id.PropertySchemaID {
-	return p.schema
+	if p == nil {
+		return nil
+	}
+
+	return p.schema.CopyRef()
 }
 
 func (p *Plugin) PropertySchemas() []id.PropertySchemaID {
@@ -96,7 +110,6 @@ func (p *Plugin) Rename(name i18n.String) {
 	p.name = name.Copy()
 }
 
-// SetDescription _
 func (p *Plugin) SetDescription(des i18n.String) {
 	p.description = des.Copy()
 }
