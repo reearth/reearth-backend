@@ -379,6 +379,29 @@ func (p *Property) GetOrCreateGroup(ps *Schema, ptr *Pointer) (*Group, *GroupLis
 	return ToGroup(item), gl
 }
 
+func (p *Property) GetOrCreateRootGroup(ptr *Pointer) (*Group, bool) {
+	if p == nil || ptr == nil {
+		return nil, false
+	}
+
+	if g := ToGroup(p.Item(ptr)); g != nil {
+		return g, false
+	}
+
+	sg, ok := ptr.ItemBySchemaGroup()
+	if !ok || p.GroupListBySchema(sg) != nil {
+		return nil, false
+	}
+
+	ng, err := NewGroup().NewID().Schema(sg).Build()
+	if err != nil {
+		return nil, false
+	}
+
+	p.items = append(p.items, ng)
+	return ng, true
+}
+
 func (p *Property) GetOrCreateGroupList(ps *Schema, ptr *Pointer) *GroupList {
 	if p == nil || ps == nil || ptr == nil || !ps.ID().Equal(p.Schema()) {
 		return nil

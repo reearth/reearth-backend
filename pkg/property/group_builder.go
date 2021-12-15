@@ -46,7 +46,7 @@ func (b *GroupBuilder) ID(id id.PropertyItemID) *GroupBuilder {
 }
 
 func (b *GroupBuilder) NewID() *GroupBuilder {
-	b.p.itemBase.ID = id.NewPropertyItemID()
+	b.p.itemBase.ID = NewItemID()
 	return b
 }
 

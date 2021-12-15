@@ -973,3 +973,103 @@ func TestProperty_Item(t *testing.T) {
 		})
 	}
 }
+
+func TestProperty_GetOrCreateRootGroup(t *testing.T) {
+	itemID := NewItemID()
+	NewItemID = func() ItemID {
+		return itemID
+	}
+
+	tests := []struct {
+		name   string
+		target *Property
+		args   *Pointer
+		want1  *Group
+		want2  bool
+	}{
+		{
+			name: "get",
+			target: &Property{
+				items: []Item{
+					&Group{itemBase: itemBase{SchemaGroup: "x"}},
+				},
+			},
+			args:  PointItemBySchema("x"),
+			want1: &Group{itemBase: itemBase{SchemaGroup: "x"}},
+			want2: false,
+		},
+		{
+			name: "create",
+			target: &Property{
+				items: []Item{
+					&Group{itemBase: itemBase{ID: itemID, SchemaGroup: "x"}},
+				},
+			},
+			args:  PointItemBySchema("y"),
+			want1: &Group{itemBase: itemBase{ID: itemID, SchemaGroup: "y"}},
+			want2: true,
+		},
+		{
+			name: "item pointer",
+			target: &Property{
+				items: []Item{
+					&Group{itemBase: itemBase{ID: itemID, SchemaGroup: "x"}},
+				},
+			},
+			args:  PointItem(itemID),
+			want1: &Group{itemBase: itemBase{ID: itemID, SchemaGroup: "x"}},
+			want2: false,
+		},
+		{
+			name: "item pointer but not found",
+			target: &Property{
+				items: []Item{
+					&Group{itemBase: itemBase{SchemaGroup: "x"}},
+				},
+			},
+			args:  PointItem(itemID),
+			want1: nil,
+			want2: false,
+		},
+		{
+			name: "invalid pointer",
+			target: &Property{
+				items: []Item{
+					&Group{itemBase: itemBase{SchemaGroup: "x"}},
+				},
+			},
+			args:  PointFieldOnly("x"),
+			want1: nil,
+			want2: false,
+		},
+		{
+			name: "list already exists",
+			target: &Property{
+				items: []Item{
+					&GroupList{itemBase: itemBase{SchemaGroup: "x"}},
+				},
+			},
+			args:  PointItemBySchema("x"),
+			want1: nil,
+			want2: false,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   PointItemBySchema("x"),
+			want1:  nil,
+			want2:  false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res1, res2 := tt.target.GetOrCreateRootGroup(tt.args)
+			assert.Equal(t, tt.want1, res1)
+			assert.Equal(t, tt.want2, res2)
+			if tt.target != nil && tt.want1 != nil {
+				assert.Contains(t, tt.target.items, tt.want1)
+			}
+		})
+	}
+}
