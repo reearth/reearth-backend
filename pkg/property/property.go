@@ -551,10 +551,7 @@ func (p *Property) MoveFields(from, to *Pointer) (res bool) {
 		return
 	}
 
-	toGroup := ToGroup(p.Item(to))
-	if toGroup != nil {
-		// create toGroup
-	}
+	toGroup, res := p.GetOrCreateRootGroup(to)
 
 	for _, f := range fields {
 		if f.Group.RemoveField(f.Field.Field()) {

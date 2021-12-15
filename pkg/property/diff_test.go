@@ -201,6 +201,9 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 }
 
 func TestSchemaDiff_Migrate(t *testing.T) {
+	itemID := NewItemID()
+	NewItemID = func() ItemID { return itemID }
+
 	tests := []struct {
 		name         string
 		target       SchemaDiff
@@ -254,85 +257,85 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 				},
 			},
 		},
-		// {
-		// 	name: "moved",
-		// 	target: SchemaDiff{
-		// 		Moved: []SchemaDiffMoved{
-		// 			{
-		// 				From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
-		// 				To:   SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()},
-		// 			},
-		// 		},
-		// 	},
-		// 	args: testProperty1.Clone(),
-		// 	want: true,
-		// 	wantProperty: &Property{
-		// 		id:     testProperty1.ID(),
-		// 		scene:  testProperty1.Scene(),
-		// 		schema: testProperty1.Schema(),
-		// 		items: []Item{
-		// 			&Group{
-		// 				itemBase: itemBase{
-		// 					ID:          testGroup1.ID(),
-		// 					SchemaGroup: testGroup1.SchemaGroup(),
-		// 				},
-		// 				fields: []*Field{
-		// 					// deleted
-		// 				},
-		// 			},
-		// 			&Group{
-		// 				itemBase: itemBase{
-		// 					ID:          "", // TODO
-		// 					SchemaGroup: "x",
-		// 				},
-		// 				fields: []*Field{testField1},
-		// 			},
-		// 			testGroup2,
-		// 		},
-		// 	},
-		// },
-		// {
-		// 	name: "moved and type changed",
-		// 	target: SchemaDiff{
-		// 		Moved: []SchemaDiffMoved{
-		// 			{
-		// 				From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
-		// 				To:   SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()},
-		// 			},
-		// 		},
-		// 		TypeChanged: []SchemaDiffTypeChanged{
-		// 			{SchemaFieldPointer: SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()}, NewType: ValueTypeNumber},
-		// 		},
-		// 	},
-		// 	args: testProperty1.Clone(),
-		// 	want: true,
-		// 	wantProperty: &Property{
-		// 		id:     testProperty1.ID(),
-		// 		scene:  testProperty1.Scene(),
-		// 		schema: testProperty1.Schema(),
-		// 		items: []Item{
-		// 			&Group{
-		// 				itemBase: itemBase{
-		// 					ID:          testGroup1.ID(),
-		// 					SchemaGroup: testGroup1.SchemaGroup(),
-		// 				},
-		// 				fields: []*Field{
-		// 					// deleted
-		// 				},
-		// 			},
-		// 			&Group{
-		// 				itemBase: itemBase{
-		// 					ID:          "", // TODO
-		// 					SchemaGroup: "x",
-		// 				},
-		// 				fields: []*Field{
-		// 					{field: testField1.Field(), v: NewOptionalValue(ValueTypeNumber, nil)},
-		// 				},
-		// 			},
-		// 			testGroup2,
-		// 		},
-		// 	},
-		// },
+		{
+			name: "moved",
+			target: SchemaDiff{
+				Moved: []SchemaDiffMoved{
+					{
+						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
+						To:   SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()},
+					},
+				},
+			},
+			args: testProperty1.Clone(),
+			want: true,
+			wantProperty: &Property{
+				id:     testProperty1.ID(),
+				scene:  testProperty1.Scene(),
+				schema: testProperty1.Schema(),
+				items: []Item{
+					&Group{
+						itemBase: itemBase{
+							ID:          testGroup1.ID(),
+							SchemaGroup: testGroup1.SchemaGroup(),
+						},
+						fields: []*Field{
+							// deleted
+						},
+					},
+					testGroupList1,
+					&Group{
+						itemBase: itemBase{
+							ID:          itemID,
+							SchemaGroup: "x",
+						},
+						fields: []*Field{testField1},
+					},
+				},
+			},
+		},
+		{
+			name: "moved and type changed",
+			target: SchemaDiff{
+				Moved: []SchemaDiffMoved{
+					{
+						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
+						To:   SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()},
+					},
+				},
+				TypeChanged: []SchemaDiffTypeChanged{
+					{SchemaFieldPointer: SchemaFieldPointer{SchemaGroup: "x", Field: testField1.Field()}, NewType: ValueTypeNumber},
+				},
+			},
+			args: testProperty1.Clone(),
+			want: true,
+			wantProperty: &Property{
+				id:     testProperty1.ID(),
+				scene:  testProperty1.Scene(),
+				schema: testProperty1.Schema(),
+				items: []Item{
+					&Group{
+						itemBase: itemBase{
+							ID:          testGroup1.ID(),
+							SchemaGroup: testGroup1.SchemaGroup(),
+						},
+						fields: []*Field{
+							// deleted
+						},
+					},
+					testGroupList1,
+					&Group{
+						itemBase: itemBase{
+							ID:          itemID,
+							SchemaGroup: "x",
+						},
+						fields: []*Field{
+							{field: testField1.Field(), v: NewOptionalValue(ValueTypeNumber, nil)},
+						},
+					},
+				},
+			},
+		},
 		{
 			name: "group -> list",
 			target: SchemaDiff{

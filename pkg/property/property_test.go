@@ -482,9 +482,8 @@ func TestProperty_MoveFields(t *testing.T) {
 				to:   PointFieldBySchemaGroup(sg5, f1.Field()),
 			},
 			want:       true,
-			fromFields: []*Field{}, // deleted
-			toFields:   []*Field{}, // not added
-			// toFields:   []*Field{f1}, // added
+			fromFields: []*Field{},   // deleted
+			toFields:   []*Field{f1}, // added
 		},
 		{
 			name:   "group->group failed",
