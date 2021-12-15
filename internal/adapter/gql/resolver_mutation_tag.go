@@ -12,9 +12,10 @@ func (r *mutationResolver) CreateTagItem(ctx context.Context, input gqlmodel.Cre
 	exit := trace(ctx)
 	defer exit()
 
-	tag, err := r.usecases.Tag.CreateItem(ctx, interfaces.CreateTagItemParam{
+	tag, parent, err := r.usecases.Tag.CreateItem(ctx, interfaces.CreateTagItemParam{
 		Label:                 input.Label,
 		SceneID:               id.SceneID(input.SceneID),
+		Parent:                id.TagIDFromRefID(input.Parent),
 		LinkedDatasetSchemaID: id.DatasetSchemaIDFromRefID(input.LinkedDatasetSchemaID),
 		LinkedDatasetID:       id.DatasetIDFromRefID(input.LinkedDatasetID),
 		LinkedDatasetField:    id.DatasetSchemaFieldIDFromRefID(input.LinkedDatasetField),
@@ -22,8 +23,10 @@ func (r *mutationResolver) CreateTagItem(ctx context.Context, input gqlmodel.Cre
 	if err != nil {
 		return nil, err
 	}
+
 	return &gqlmodel.CreateTagItemPayload{
-		Tag: gqlmodel.ToTagItem(tag),
+		Tag:    gqlmodel.ToTagItem(tag),
+		Parent: gqlmodel.ToTagGroup(parent),
 	}, nil
 }
 

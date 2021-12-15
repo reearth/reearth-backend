@@ -13,6 +13,7 @@ func ToTagItem(ti *tag.Item) *TagItem {
 		ID:                    ti.ID().ID(),
 		SceneID:               ti.Scene().ID(),
 		Label:                 ti.Label(),
+		ParentID:              ti.Parent().IDRef(),
 		LinkedDatasetID:       ti.LinkedDatasetID().IDRef(),
 		LinkedDatasetSchemaID: ti.LinkedDatasetSchemaID().IDRef(),
 		LinkedDatasetFieldID:  ti.LinkedDatasetFieldID().IDRef(),

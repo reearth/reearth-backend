@@ -795,12 +795,14 @@ type TagItem implements Tag {
   id: ID!
   sceneId: ID!
   label: String!
+  parentId: ID
   linkedDatasetID: ID
   linkedDatasetSchemaID: ID
   linkedDatasetFieldID: ID
   linkedDatasetSchema: DatasetSchema @goField(forceResolver: true)
   linkedDataset: Dataset @goField(forceResolver: true)
   linkedDatasetField: DatasetField @goField(forceResolver: true)
+  parent: TagGroup @goField(forceResolver: true)
 }
 
 type TagGroup implements Tag {
@@ -1177,6 +1179,7 @@ input AddDatasetSchemaInput {
 input CreateTagItemInput {
   sceneId: ID!
   label: String!
+  parent: ID
   linkedDatasetSchemaID: ID
   linkedDatasetID: ID
   linkedDatasetField: ID
@@ -1436,6 +1439,7 @@ type AddDatasetSchemaPayload {
 
 type CreateTagItemPayload {
   tag: TagItem!
+  parent: TagGroup
 }
 
 type CreateTagGroupPayload {

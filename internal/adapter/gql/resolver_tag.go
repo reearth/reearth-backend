@@ -44,6 +44,16 @@ func (t tagItemResolver) LinkedDatasetField(ctx context.Context, obj *gqlmodel.T
 	return ds.Field(*obj.LinkedDatasetFieldID), err
 }
 
+func (t tagItemResolver) Parent(ctx context.Context, obj *gqlmodel.TagItem) (*gqlmodel.TagGroup, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	if obj.ParentID == nil {
+		return nil, nil
+	}
+	return DataLoadersFromContext(ctx).TagGroup.Load(id.TagID(*obj.ParentID))
+}
+
 type tagGroupResolver struct{ *Resolver }
 
 func (r *Resolver) TagGroup() TagGroupResolver {

@@ -262,13 +262,15 @@ type CreateTagGroupPayload struct {
 type CreateTagItemInput struct {
 	SceneID               id.ID  `json:"sceneId"`
 	Label                 string `json:"label"`
+	Parent                *id.ID `json:"parent"`
 	LinkedDatasetSchemaID *id.ID `json:"linkedDatasetSchemaID"`
 	LinkedDatasetID       *id.ID `json:"linkedDatasetID"`
 	LinkedDatasetField    *id.ID `json:"linkedDatasetField"`
 }
 
 type CreateTagItemPayload struct {
-	Tag *TagItem `json:"tag"`
+	Tag    *TagItem  `json:"tag"`
+	Parent *TagGroup `json:"parent"`
 }
 
 type CreateTeamInput struct {
@@ -1077,12 +1079,14 @@ type TagItem struct {
 	ID                    id.ID          `json:"id"`
 	SceneID               id.ID          `json:"sceneId"`
 	Label                 string         `json:"label"`
+	ParentID              *id.ID         `json:"parentId"`
 	LinkedDatasetID       *id.ID         `json:"linkedDatasetID"`
 	LinkedDatasetSchemaID *id.ID         `json:"linkedDatasetSchemaID"`
 	LinkedDatasetFieldID  *id.ID         `json:"linkedDatasetFieldID"`
 	LinkedDatasetSchema   *DatasetSchema `json:"linkedDatasetSchema"`
 	LinkedDataset         *Dataset       `json:"linkedDataset"`
 	LinkedDatasetField    *DatasetField  `json:"linkedDatasetField"`
+	Parent                *TagGroup      `json:"parent"`
 }
 
 func (TagItem) IsTag()  {}

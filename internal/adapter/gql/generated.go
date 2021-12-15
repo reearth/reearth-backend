@@ -192,7 +192,8 @@ type ComplexityRoot struct {
 	}
 
 	CreateTagItemPayload struct {
-		Tag func(childComplexity int) int
+		Parent func(childComplexity int) int
+		Tag    func(childComplexity int) int
 	}
 
 	CreateTeamPayload struct {
@@ -912,6 +913,8 @@ type ComplexityRoot struct {
 		LinkedDatasetID       func(childComplexity int) int
 		LinkedDatasetSchema   func(childComplexity int) int
 		LinkedDatasetSchemaID func(childComplexity int) int
+		Parent                func(childComplexity int) int
+		ParentID              func(childComplexity int) int
 		SceneID               func(childComplexity int) int
 	}
 
@@ -1316,6 +1319,7 @@ type TagItemResolver interface {
 	LinkedDatasetSchema(ctx context.Context, obj *gqlmodel.TagItem) (*gqlmodel.DatasetSchema, error)
 	LinkedDataset(ctx context.Context, obj *gqlmodel.TagItem) (*gqlmodel.Dataset, error)
 	LinkedDatasetField(ctx context.Context, obj *gqlmodel.TagItem) (*gqlmodel.DatasetField, error)
+	Parent(ctx context.Context, obj *gqlmodel.TagItem) (*gqlmodel.TagGroup, error)
 }
 type TeamResolver interface {
 	Assets(ctx context.Context, obj *gqlmodel.Team, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error)
@@ -1672,6 +1676,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.CreateTagGroupPayload.Tag(childComplexity), true
+
+	case "CreateTagItemPayload.parent":
+		if e.complexity.CreateTagItemPayload.Parent == nil {
+			break
+		}
+
+		return e.complexity.CreateTagItemPayload.Parent(childComplexity), true
 
 	case "CreateTagItemPayload.tag":
 		if e.complexity.CreateTagItemPayload.Tag == nil {
@@ -5640,6 +5651,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.TagItem.LinkedDatasetSchemaID(childComplexity), true
 
+	case "TagItem.parent":
+		if e.complexity.TagItem.Parent == nil {
+			break
+		}
+
+		return e.complexity.TagItem.Parent(childComplexity), true
+
+	case "TagItem.parentId":
+		if e.complexity.TagItem.ParentID == nil {
+			break
+		}
+
+		return e.complexity.TagItem.ParentID(childComplexity), true
+
 	case "TagItem.sceneId":
 		if e.complexity.TagItem.SceneID == nil {
 			break
@@ -6959,12 +6984,14 @@ type TagItem implements Tag {
   id: ID!
   sceneId: ID!
   label: String!
+  parentId: ID
   linkedDatasetID: ID
   linkedDatasetSchemaID: ID
   linkedDatasetFieldID: ID
   linkedDatasetSchema: DatasetSchema @goField(forceResolver: true)
   linkedDataset: Dataset @goField(forceResolver: true)
   linkedDatasetField: DatasetField @goField(forceResolver: true)
+  parent: TagGroup @goField(forceResolver: true)
 }
 
 type TagGroup implements Tag {
@@ -7341,6 +7368,7 @@ input AddDatasetSchemaInput {
 input CreateTagItemInput {
   sceneId: ID!
   label: String!
+  parent: ID
   linkedDatasetSchemaID: ID
   linkedDatasetID: ID
   linkedDatasetField: ID
@@ -7600,6 +7628,7 @@ type AddDatasetSchemaPayload {
 
 type CreateTagItemPayload {
   tag: TagItem!
+  parent: TagGroup
 }
 
 type CreateTagGroupPayload {
@@ -11264,6 +11293,38 @@ func (ec *executionContext) _CreateTagItemPayload_tag(ctx context.Context, field
 	res := resTmp.(*gqlmodel.TagItem)
 	fc.Result = res
 	return ec.marshalNTagItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagItem(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _CreateTagItemPayload_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateTagItemPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "CreateTagItemPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Parent, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.TagGroup)
+	fc.Result = res
+	return ec.marshalOTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _CreateTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.CreateTeamPayload) (ret graphql.Marshaler) {
@@ -28574,6 +28635,38 @@ func (ec *executionContext) _TagItem_label(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _TagItem_parentId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagItem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "TagItem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ParentID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*id.ID)
+	fc.Result = res
+	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _TagItem_linkedDatasetID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -28764,6 +28857,38 @@ func (ec *executionContext) _TagItem_linkedDatasetField(ctx context.Context, fie
 	res := resTmp.(*gqlmodel.DatasetField)
 	fc.Result = res
 	return ec.marshalODatasetField2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐDatasetField(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _TagItem_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.TagItem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "TagItem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.TagItem().Parent(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.TagGroup)
+	fc.Result = res
+	return ec.marshalOTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Team_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Team) (ret graphql.Marshaler) {
@@ -32810,6 +32935,14 @@ func (ec *executionContext) unmarshalInputCreateTagItemInput(ctx context.Context
 			if err != nil {
 				return it, err
 			}
+		case "parent":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("parent"))
+			it.Parent, err = ec.unmarshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "linkedDatasetSchemaID":
 			var err error
 
@@ -35639,6 +35772,8 @@ func (ec *executionContext) _CreateTagItemPayload(ctx context.Context, sel ast.S
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "parent":
+			out.Values[i] = ec._CreateTagItemPayload_parent(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -40170,6 +40305,8 @@ func (ec *executionContext) _TagItem(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
+		case "parentId":
+			out.Values[i] = ec._TagItem_parentId(ctx, field, obj)
 		case "linkedDatasetID":
 			out.Values[i] = ec._TagItem_linkedDatasetID(ctx, field, obj)
 		case "linkedDatasetSchemaID":
@@ -40207,6 +40344,17 @@ func (ec *executionContext) _TagItem(ctx context.Context, sel ast.SelectionSet, 
 					}
 				}()
 				res = ec._TagItem_linkedDatasetField(ctx, field, obj)
+				return res
+			})
+		case "parent":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._TagItem_parent(ctx, field, obj)
 				return res
 			})
 		default:
@@ -45412,6 +45560,13 @@ func (ec *executionContext) marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearth
 		return graphql.Null
 	}
 	return ec._SyncDatasetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.TagGroup) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._TagGroup(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Team) graphql.Marshaler {

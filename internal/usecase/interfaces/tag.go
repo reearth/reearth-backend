@@ -16,6 +16,7 @@ var (
 type CreateTagItemParam struct {
 	Label                 string
 	SceneID               id.SceneID
+	Parent                *id.TagID
 	LinkedDatasetSchemaID *id.DatasetSchemaID
 	LinkedDatasetID       *id.DatasetID
 	LinkedDatasetField    *id.DatasetSchemaFieldID
@@ -50,7 +51,7 @@ type Tag interface {
 	FetchGroupsByScene(context.Context, id.SceneID, *usecase.Operator) ([]*tag.Group, error)
 	FetchItemsByLayer(context.Context, id.LayerID, *usecase.Operator) ([]*tag.Item, error)
 	FetchItemsByScene(context.Context, id.SceneID, *usecase.Operator) ([]*tag.Item, error)
-	CreateItem(context.Context, CreateTagItemParam, *usecase.Operator) (*tag.Item, error)
+	CreateItem(context.Context, CreateTagItemParam, *usecase.Operator) (*tag.Item, *tag.Group, error)
 	CreateGroup(context.Context, CreateTagGroupParam, *usecase.Operator) (*tag.Group, error)
 	AttachItemToGroup(context.Context, AttachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
 	DetachItemFromGroup(context.Context, DetachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
