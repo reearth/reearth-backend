@@ -7,6 +7,9 @@ import (
 )
 
 func TestSchemaDiffFrom(t *testing.T) {
+	ps1 := MustSchemaID("x~1.0.0/a")
+	ps2 := MustSchemaID("x~1.0.0/b")
+
 	type args struct {
 		old *Schema
 		new *Schema
@@ -20,6 +23,7 @@ func TestSchemaDiffFrom(t *testing.T) {
 			name: "diff",
 			args: args{
 				old: &Schema{
+					id: ps1,
 					groups: &SchemaGroupList{groups: []*SchemaGroup{
 						{id: "a", fields: []*SchemaField{
 							{id: "aa", propertyType: ValueTypeString}, // deleted
@@ -30,6 +34,7 @@ func TestSchemaDiffFrom(t *testing.T) {
 					}},
 				},
 				new: &Schema{
+					id: ps2,
 					groups: &SchemaGroupList{groups: []*SchemaGroup{
 						{id: "a", fields: []*SchemaField{
 							{id: "ab", propertyType: ValueTypeNumber}, // type changed
@@ -43,6 +48,8 @@ func TestSchemaDiffFrom(t *testing.T) {
 				},
 			},
 			want: SchemaDiff{
+				From: ps1,
+				To:   ps2,
 				Deleted: []SchemaDiffDeleted{
 					{SchemaGroup: "a", Field: "aa"},
 				},
@@ -60,6 +67,7 @@ func TestSchemaDiffFrom(t *testing.T) {
 			name: "no diff",
 			args: args{
 				old: &Schema{
+					id: ps1,
 					groups: &SchemaGroupList{groups: []*SchemaGroup{
 						{id: "a", fields: []*SchemaField{
 							{id: "aa", propertyType: ValueTypeNumber},
@@ -67,6 +75,7 @@ func TestSchemaDiffFrom(t *testing.T) {
 					}},
 				},
 				new: &Schema{
+					id: ps2,
 					groups: &SchemaGroupList{groups: []*SchemaGroup{
 						{id: "a", fields: []*SchemaField{
 							{id: "aa", propertyType: ValueTypeNumber},
@@ -77,7 +86,10 @@ func TestSchemaDiffFrom(t *testing.T) {
 					}},
 				},
 			},
-			want: SchemaDiff{},
+			want: SchemaDiff{
+				From: ps1,
+				To:   ps2,
+			},
 		},
 		{
 			name: "same schemas",
@@ -85,7 +97,10 @@ func TestSchemaDiffFrom(t *testing.T) {
 				old: testSchema1,
 				new: testSchema1,
 			},
-			want: SchemaDiff{},
+			want: SchemaDiff{
+				From: testSchema1.ID(),
+				To:   testSchema1.ID(),
+			},
 		},
 		{
 			name: "nil",
@@ -101,7 +116,9 @@ func TestSchemaDiffFrom(t *testing.T) {
 				old: nil,
 				new: testSchema1,
 			},
-			want: SchemaDiff{},
+			want: SchemaDiff{
+				To: testSchema1.ID(),
+			},
 		},
 		{
 			name: "new nil",
@@ -109,7 +126,9 @@ func TestSchemaDiffFrom(t *testing.T) {
 				old: testSchema1,
 				new: nil,
 			},
-			want: SchemaDiff{},
+			want: SchemaDiff{
+				From: testSchema1.ID(),
+			},
 		},
 	}
 
@@ -121,6 +140,8 @@ func TestSchemaDiffFrom(t *testing.T) {
 }
 
 func TestSchemaDiffFromProperty(t *testing.T) {
+	ps := MustSchemaID("x~1.0.0/a")
+
 	type args struct {
 		old *Property
 		new *Schema
@@ -135,6 +156,7 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 			args: args{
 				old: testProperty1,
 				new: &Schema{
+					id: ps,
 					groups: &SchemaGroupList{groups: []*SchemaGroup{
 						{id: testSchemaGroup1.ID(), fields: []*SchemaField{
 							{id: testSchemaField1.ID(), propertyType: ValueTypeNumber}, // type changed
@@ -146,6 +168,8 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 				},
 			},
 			want: SchemaDiff{
+				From:    testProperty1.Schema(),
+				To:      ps,
 				Deleted: nil,
 				Moved: []SchemaDiffMoved{
 					{
@@ -165,7 +189,10 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 				old: testProperty1,
 				new: testSchema1,
 			},
-			want: SchemaDiff{},
+			want: SchemaDiff{
+				From: testProperty1.Schema(),
+				To:   testSchema1.ID(),
+			},
 		},
 		{
 			name: "nil",
@@ -181,7 +208,9 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 				old: nil,
 				new: testSchema1,
 			},
-			want: SchemaDiff{},
+			want: SchemaDiff{
+				To: testSchema1.ID(),
+			},
 		},
 		{
 			name: "new nil",
@@ -189,7 +218,9 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 				old: testProperty1,
 				new: nil,
 			},
-			want: SchemaDiff{},
+			want: SchemaDiff{
+				From: testProperty1.Schema(),
+			},
 		},
 	}
 
@@ -206,14 +237,14 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 
 	tests := []struct {
 		name         string
-		target       SchemaDiff
+		target       *SchemaDiff
 		args         *Property
 		want         bool
 		wantProperty *Property
 	}{
 		{
 			name: "deleted and type changed",
-			target: SchemaDiff{
+			target: &SchemaDiff{
 				Deleted: []SchemaDiffDeleted{
 					{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
 				},
@@ -259,7 +290,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		},
 		{
 			name: "moved",
-			target: SchemaDiff{
+			target: &SchemaDiff{
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
@@ -296,7 +327,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		},
 		{
 			name: "moved and type changed",
-			target: SchemaDiff{
+			target: &SchemaDiff{
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
@@ -338,7 +369,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		},
 		{
 			name: "group -> list",
-			target: SchemaDiff{
+			target: &SchemaDiff{
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
@@ -368,7 +399,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		},
 		{
 			name: "list -> group",
-			target: SchemaDiff{
+			target: &SchemaDiff{
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup2.SchemaGroup(), Field: testField2.Field()},
@@ -406,16 +437,23 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		},
 		{
 			name:         "empty",
-			target:       SchemaDiff{},
+			target:       &SchemaDiff{},
 			args:         testProperty1,
 			want:         false,
 			wantProperty: testProperty1,
 		},
 		{
 			name: "nil property",
-			target: SchemaDiff{
+			target: &SchemaDiff{
 				Deleted: []SchemaDiffDeleted{{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()}},
 			},
+			args:         nil,
+			want:         false,
+			wantProperty: nil,
+		},
+		{
+			name:         "nil",
+			target:       nil,
 			args:         nil,
 			want:         false,
 			wantProperty: nil,
@@ -426,6 +464,38 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.target.Migrate(tt.args))
 			assert.Equal(t, tt.wantProperty, tt.args)
+		})
+	}
+}
+
+func TestSchemaDiff_IsEmpty(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *SchemaDiff
+		want   bool
+	}{
+		{
+			name: "present",
+			target: &SchemaDiff{
+				Deleted: []SchemaDiffDeleted{{SchemaGroup: "", Field: ""}},
+			},
+			want: false,
+		},
+		{
+			name:   "empty",
+			target: nil,
+			want:   true,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.IsEmpty())
 		})
 	}
 }

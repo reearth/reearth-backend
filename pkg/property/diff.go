@@ -1,6 +1,8 @@
 package property
 
 type SchemaDiff struct {
+	From        SchemaID
+	To          SchemaID
 	Deleted     []SchemaDiffDeleted
 	Moved       []SchemaDiffMoved
 	TypeChanged []SchemaDiffTypeChanged
@@ -20,6 +22,9 @@ type SchemaDiffTypeChanged struct {
 }
 
 func SchemaDiffFrom(old, new *Schema) (d SchemaDiff) {
+	d.From = old.ID()
+	d.To = new.ID()
+
 	if old == nil || new == nil || old == new {
 		return
 	}
@@ -54,7 +59,11 @@ func SchemaDiffFromProperty(old *Property, new *Schema) (d SchemaDiff) {
 	return SchemaDiffFrom(old.GuessSchema(), new)
 }
 
-func (d SchemaDiff) Migrate(p *Property) (res bool) {
+func (d *SchemaDiff) Migrate(p *Property) (res bool) {
+	if d.IsEmpty() {
+		return
+	}
+
 	for _, dd := range d.Deleted {
 		if p.RemoveFields(SchemaFieldPointer(dd).Pointer()) {
 			res = true
@@ -82,4 +91,8 @@ func (d SchemaDiff) Migrate(p *Property) (res bool) {
 	}
 
 	return
+}
+
+func (d *SchemaDiff) IsEmpty() bool {
+	return d == nil || len(d.Deleted) == 0 && len(d.Moved) == 0 && len(d.TypeChanged) == 0
 }
