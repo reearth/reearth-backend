@@ -21,20 +21,6 @@ type sceneJSON struct {
 	Clusters          []*clusterJSON          `json:"clusters"`
 }
 
-type widgetJSON struct {
-	ID          string       `json:"id"`
-	PluginID    string       `json:"pluginId"`
-	ExtensionID string       `json:"extensionId"`
-	Property    propertyJSON `json:"property"`
-	Extended    bool         `json:"extended"`
-}
-
-type clusterJSON struct {
-	ID       string       `json:"id"`
-	Name     string       `json:"string"`
-	Property propertyJSON `json:"property"`
-}
-
 func (b *Builder) scene(ctx context.Context, s *scene.Scene, publishedAt time.Time, l []*layerJSON, p []*property.Property) *sceneJSON {
 	return &sceneJSON{
 		SchemaVersion:     version,
