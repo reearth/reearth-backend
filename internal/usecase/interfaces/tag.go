@@ -6,6 +6,7 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/layer"
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
@@ -52,5 +53,5 @@ type Tag interface {
 	AttachItemToGroup(context.Context, AttachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
 	DetachItemFromGroup(context.Context, DetachItemToGroupParam, *usecase.Operator) (*tag.Group, error)
 	UpdateTag(context.Context, UpdateTagParam, *usecase.Operator) (*tag.Tag, error)
-	Remove(context.Context, id.TagID, *usecase.Operator) (*id.TagID, error)
+	Remove(context.Context, id.TagID, *usecase.Operator) (*id.TagID, layer.List, error)
 }

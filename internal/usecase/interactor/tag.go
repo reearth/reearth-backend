@@ -8,6 +8,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/layer"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
@@ -281,10 +282,10 @@ func (i *Tag) UpdateTag(ctx context.Context, inp interfaces.UpdateTagParam, oper
 	return &tg, nil
 }
 
-func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Operator) (*id.TagID, error) {
+func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Operator) (*id.TagID, layer.List, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	defer func() {
 		if err2 := tx.End(ctx); err == nil && err2 != nil {
@@ -294,36 +295,36 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 
 	scenes, err := i.OnlyWritableScenes(ctx, operator)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	t, err := i.tagRepo.FindByID(ctx, tagID, scenes)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	if group := tag.ToTagGroup(t); group != nil {
 		if len(group.Tags().Tags()) != 0 {
-			return nil, interfaces.ErrNonemptyTagGroupCannotDelete
+			return nil, nil, interfaces.ErrNonemptyTagGroupCannotDelete
 		}
 	}
 
 	if item := tag.ToTagItem(t); item != nil {
 		g, err := i.tagRepo.FindGroupByItem(ctx, item.ID(), scenes)
 		if err != nil && !errors.Is(rerror.ErrNotFound, err) {
-			return nil, err
+			return nil, nil, err
 		}
 		if g != nil {
 			g.Tags().Remove(item.ID())
 			if err := i.tagRepo.Save(ctx, g); err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 		}
 	}
 
 	ls, err := i.layerRepo.FindByTag(ctx, tagID, scenes)
 	if err != nil && !errors.Is(rerror.ErrNotFound, err) {
-		return nil, err
+		return nil, nil, err
 	}
 
 	if len(ls) != 0 {
@@ -331,13 +332,13 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 			_ = l.Tags().Delete(tagID)
 		}
 		if err := i.layerRepo.SaveAll(ctx, ls); err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 	}
 
 	if err := i.tagRepo.Remove(ctx, tagID); err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	return &tagID, nil
+	return &tagID, ls, nil
 }

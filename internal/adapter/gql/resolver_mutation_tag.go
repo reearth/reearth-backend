@@ -100,11 +100,22 @@ func (r *mutationResolver) RemoveTag(ctx context.Context, input gqlmodel.RemoveT
 	exit := trace(ctx)
 	defer exit()
 
-	tagID, err := r.usecases.Tag.Remove(ctx, id.TagID(input.TagID), getOperator(ctx))
+	tagID, layers, err := r.usecases.Tag.Remove(ctx, id.TagID(input.TagID), getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
+
+	updatedLayers := make([]gqlmodel.Layer, 0, len(layers))
+	for _, l := range layers {
+		if l == nil {
+			updatedLayers = append(updatedLayers, nil)
+		} else {
+			updatedLayers = append(updatedLayers, gqlmodel.ToLayer(*l, nil))
+		}
+	}
+
 	return &gqlmodel.RemoveTagPayload{
-		TagID: tagID.ID(),
+		TagID:         tagID.ID(),
+		UpdatedLayers: updatedLayers,
 	}, nil
 }

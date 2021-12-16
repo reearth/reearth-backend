@@ -838,7 +838,8 @@ type ComplexityRoot struct {
 	}
 
 	RemoveTagPayload struct {
-		TagID func(childComplexity int) int
+		TagID         func(childComplexity int) int
+		UpdatedLayers func(childComplexity int) int
 	}
 
 	RemoveWidgetPayload struct {
@@ -5278,6 +5279,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.RemoveTagPayload.TagID(childComplexity), true
 
+	case "RemoveTagPayload.updatedLayers":
+		if e.complexity.RemoveTagPayload.UpdatedLayers == nil {
+			break
+		}
+
+		return e.complexity.RemoveTagPayload.UpdatedLayers(childComplexity), true
+
 	case "RemoveWidgetPayload.scene":
 		if e.complexity.RemoveWidgetPayload.Scene == nil {
 			break
@@ -7721,6 +7729,7 @@ type DetachTagFromLayerPayload {
 
 type RemoveTagPayload {
   tagId: ID!
+  updatedLayers: [Layer!]!
 }
 
 type AddClusterPayload {
@@ -26975,6 +26984,41 @@ func (ec *executionContext) _RemoveTagPayload_tagId(ctx context.Context, field g
 	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _RemoveTagPayload_updatedLayers(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveTagPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "RemoveTagPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UpdatedLayers, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]gqlmodel.Layer)
+	fc.Result = res
+	return ec.marshalNLayer2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerᚄ(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _RemoveWidgetPayload_scene(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.RemoveWidgetPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -40015,6 +40059,11 @@ func (ec *executionContext) _RemoveTagPayload(ctx context.Context, sel ast.Selec
 			out.Values[i] = graphql.MarshalString("RemoveTagPayload")
 		case "tagId":
 			out.Values[i] = ec._RemoveTagPayload_tagId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "updatedLayers":
+			out.Values[i] = ec._RemoveTagPayload_updatedLayers(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

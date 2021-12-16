@@ -982,7 +982,8 @@ type RemoveTagInput struct {
 }
 
 type RemoveTagPayload struct {
-	TagID id.ID `json:"tagId"`
+	TagID         id.ID   `json:"tagId"`
+	UpdatedLayers []Layer `json:"updatedLayers"`
 }
 
 type RemoveWidgetInput struct {
