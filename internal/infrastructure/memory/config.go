@@ -25,9 +25,6 @@ func (r *Config) Load(_ context.Context) (*config.Config, error) {
 }
 
 func (r *Config) Release(_ context.Context) error {
-	r.lock.Lock()
-	defer r.lock.Unlock()
-
 	return nil
 }
 

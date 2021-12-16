@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"math/rand"
+	"sync"
 	"time"
 
 	"github.com/google/uuid"
@@ -17,11 +18,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var upsert = false
+var upsert = true
 
 type configRepo struct {
 	client *mongodoc.ClientCollection
 	lockID *uuid.UUID
+	lock   sync.Mutex
 }
 
 type ConfigDoc struct {
@@ -31,8 +33,8 @@ type ConfigDoc struct {
 }
 
 var (
-	ErrLoadingLockedConfig   = errors.New("loading locked config")
-	ErrSavingNotLockedConfig = errors.New("trying to save not locked config")
+	ErrLoadingLockedConfig = errors.New("loading locked config")
+	ErrConfigNotLocked     = errors.New("trying to save not locked config")
 )
 
 func NewConfig(client *mongodoc.Client) repo.Config {
@@ -40,6 +42,8 @@ func NewConfig(client *mongodoc.Client) repo.Config {
 }
 
 func (r *configRepo) Load(ctx context.Context) (*config.Config, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
 	numOfTries := 2
 
 	for i := 1; i <= numOfTries; i++ {
@@ -65,11 +69,10 @@ func (r *configRepo) loadFromDB(ctx context.Context) (*config.Config, error) {
 	}
 
 	if err := r.client.Collection().FindOneAndUpdate(ctx,
-		bson.M{},
-		/*bson.M{"$or": bson.A{
+		bson.M{"$or": bson.A{
 			bson.M{"lock": bson.M{"$exists": false}},
 			bson.M{"lock": bson.M{"$eq": r.lockID}},
-		}},*/
+		}},
 		bson.M{"$set": bson.M{"lock": r.lockID}},
 	).Decode(cfg); err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
@@ -87,27 +90,32 @@ func (r *configRepo) loadFromDB(ctx context.Context) (*config.Config, error) {
 }
 
 func (r *configRepo) Release(ctx context.Context) error {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+	if r.lockID == nil {
+		return ErrConfigNotLocked
+	}
 	if _, err := r.client.Collection().UpdateOne(ctx,
-		bson.M{},
+		bson.M{"lock": bson.M{"$eq": r.lockID}},
 		bson.M{"$unset": bson.M{"lock": nil}},
 	); err != nil {
 		return err
 	}
+	r.lockID = nil
 	return nil
 }
 
 func (r *configRepo) Save(ctx context.Context, cfg *config.Config) error {
+	r.lock.Lock()
+	defer r.lock.Unlock()
 	if cfg == nil {
 		return nil
 	}
 	if r.lockID == nil {
-		return ErrSavingNotLockedConfig
+		return ErrConfigNotLocked
 	}
 	if _, err := r.client.Collection().UpdateOne(ctx,
-		bson.M{"$and": bson.A{
-			bson.M{"lock": bson.M{"$exists": true}},
-			bson.M{"lock": bson.M{"$eq": r.lockID}},
-		}},
+		bson.M{"lock": bson.M{"$eq": r.lockID}},
 		bson.M{"$set": cfg}, &options.UpdateOptions{
 			Upsert: &upsert,
 		}); err != nil {

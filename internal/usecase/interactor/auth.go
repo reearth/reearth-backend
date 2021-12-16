@@ -80,7 +80,7 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 	}
 	c, err := config.Load(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("Could not load auth config: %s\n", err)
+		return nil, fmt.Errorf("Could not load auth config: %w\n", err)
 	}
 	defer func() {
 		if err := config.Release(ctx); err == nil {
@@ -95,7 +95,7 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 	} else {
 		keyBytes, certBytes, err = generateCert(name)
 		if err != nil {
-			return nil, fmt.Errorf("Could not generate raw cert: %s\n", err)
+			return nil, fmt.Errorf("Could not generate raw cert: %w\n", err)
 		}
 		c.Auth = &config2.Auth{
 			Key:  keyBytes,
@@ -103,13 +103,13 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 		}
 
 		if err := config.Save(ctx, c); err != nil {
-			return nil, fmt.Errorf("Could not save raw cert: %s\n", err)
+			return nil, fmt.Errorf("Could not save raw cert: %w\n", err)
 		}
 	}
 
 	key, sigKey, keySet, err := initKeys(keyBytes, certBytes)
 	if err != nil {
-		return nil, fmt.Errorf("Fail to init keys: %s\n", err)
+		return nil, fmt.Errorf("Fail to init keys: %w\n", err)
 	}
 
 	return &AuthStorage{
@@ -134,12 +134,12 @@ func initKeys(keyBytes, certBytes []byte) (*rsa.PrivateKey, *jose.SigningKey, *j
 
 	key, err := x509.ParsePKCS1PrivateKey(block.Bytes)
 	if err != nil {
-		return nil, nil, nil, fmt.Errorf("failed to parse the private key bytes: %s\n", err)
+		return nil, nil, nil, fmt.Errorf("failed to parse the private key bytes: %w\n", err)
 	}
 
 	cert, err := x509.ParseCertificate(certBytes)
 	if err != nil {
-		return nil, nil, nil, fmt.Errorf("failed to parse the cert bytes: %s\n", err)
+		return nil, nil, nil, fmt.Errorf("failed to parse the cert bytes: %w\n", err)
 	}
 
 	keyID := "RE01"
@@ -158,7 +158,7 @@ func initKeys(keyBytes, certBytes []byte) (*rsa.PrivateKey, *jose.SigningKey, *j
 func generateCert(name pkix.Name) (keyPem, certPem []byte, err error) {
 	key, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
-		err = fmt.Errorf("failed to generate key: %s\n", err)
+		err = fmt.Errorf("failed to generate key: %w\n", err)
 		return
 	}
 
@@ -178,7 +178,7 @@ func generateCert(name pkix.Name) (keyPem, certPem []byte, err error) {
 
 	certPem, err = x509.CreateCertificate(rand.Reader, cert, cert, key.Public(), key)
 	if err != nil {
-		err = fmt.Errorf("failed to create the cert: %s\n", err)
+		err = fmt.Errorf("failed to create the cert: %w\n", err)
 	}
 
 	return
