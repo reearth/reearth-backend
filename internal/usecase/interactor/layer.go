@@ -10,6 +10,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/shp"
+	"github.com/reearth/reearth-backend/pkg/tag"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
@@ -29,6 +30,7 @@ type Layer struct {
 	commonScene
 	commonSceneLock
 	layerRepo          repo.Layer
+	tagRepo            repo.Tag
 	pluginRepo         repo.Plugin
 	propertyRepo       repo.Property
 	propertySchemaRepo repo.PropertySchema
@@ -1023,21 +1025,36 @@ func (i *Layer) AttachTag(ctx context.Context, layerID id.LayerID, tagID id.TagI
 		return nil, err
 	}
 
-	layer, err := i.layerRepo.FindByID(ctx, layerID, scenes)
+	// ensure the tag exists
+	t, err := i.tagRepo.FindByID(ctx, tagID, scenes)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := layer.AttachTag(tagID); err != nil {
-		return nil, err
-	}
-	err = i.layerRepo.Save(ctx, layer)
+	l, err := i.layerRepo.FindByID(ctx, layerID, scenes)
 	if err != nil {
 		return nil, err
+	}
+
+	updated := false
+	if tg := tag.ToTagGroup(t); tg != nil {
+		updated = l.Tags().Add(layer.NewTagGroup(tagID, nil))
+	} else if ti := tag.ToTagItem(t); ti != nil {
+		if p := ti.Parent(); p != nil {
+			updated = l.Tags().FindGroup(*ti.Parent()).Add(layer.NewTagItem(ti.ID()))
+		} else {
+			updated = l.Tags().Add(layer.NewTagItem(ti.ID()))
+		}
+	}
+
+	if updated {
+		if err := i.layerRepo.Save(ctx, l); err != nil {
+			return nil, err
+		}
 	}
 
 	tx.Commit()
-	return layer, nil
+	return l, nil
 }
 
 func (i *Layer) DetachTag(ctx context.Context, layerID id.LayerID, tagID id.TagID, operator *usecase.Operator) (layer.Layer, error) {
@@ -1061,12 +1078,10 @@ func (i *Layer) DetachTag(ctx context.Context, layerID id.LayerID, tagID id.TagI
 		return nil, err
 	}
 
-	if err := layer.DetachTag(tagID); err != nil {
-		return nil, err
-	}
-	err = i.layerRepo.Save(ctx, layer)
-	if err != nil {
-		return nil, err
+	if layer.Tags().Delete(tagID) {
+		if err := i.layerRepo.Save(ctx, layer); err != nil {
+			return nil, err
+		}
 	}
 
 	tx.Commit()

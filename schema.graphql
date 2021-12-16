@@ -659,11 +659,8 @@ interface Layer {
   plugin: Plugin
   extension: PluginExtension
   scenePlugin: ScenePlugin
-  tagIds: [ID!]!
-  tags: [Tag!]! @goField(forceResolver: true)
+  tags: [LayerTag!]!
 }
-
-union Layers = LayerItem | LayerGroup
 
 enum LayerEncodingFormat {
   KML
@@ -685,6 +682,7 @@ type LayerItem implements Layer {
   # parentId will not be always set
   parentId: ID
   linkedDatasetId: ID
+  tags: [LayerTag!]!
   parent: LayerGroup @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
   plugin: Plugin @goField(forceResolver: true)
@@ -693,8 +691,6 @@ type LayerItem implements Layer {
   merged: MergedLayer @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tagIds: [ID!]!
-  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 type LayerGroup implements Layer {
@@ -711,6 +707,7 @@ type LayerGroup implements Layer {
   linkedDatasetSchemaId: ID
   root: Boolean!
   layerIds: [ID!]!
+  tags: [LayerTag!]!
   parent: LayerGroup @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
   plugin: Plugin @goField(forceResolver: true)
@@ -719,8 +716,6 @@ type LayerGroup implements Layer {
   layers: [Layer]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tagIds: [ID!]!
-  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 type Infobox {
@@ -753,6 +748,22 @@ type InfoboxField {
   merged: MergedInfoboxField @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
+}
+
+interface LayerTag {
+  tagId: ID!
+  tag: Tag
+}
+
+type LayerTagItem implements LayerTag {
+  tagId: ID!
+  tag: Tag @goField(forceResolver: true)
+}
+
+type LayerTagGroup implements LayerTag {
+  tagId: ID!
+  children: [LayerTagItem!]!
+  tag: Tag @goField(forceResolver: true)
 }
 
 type MergedLayer {
@@ -813,8 +824,6 @@ type TagGroup implements Tag {
   tags: [TagItem!]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
 }
-
-union Tags = TagItem | TagGroup
 
 type Cluster {
   id: ID!

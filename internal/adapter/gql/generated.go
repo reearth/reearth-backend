@@ -50,6 +50,8 @@ type ResolverRoot interface {
 	InfoboxField() InfoboxFieldResolver
 	LayerGroup() LayerGroupResolver
 	LayerItem() LayerItemResolver
+	LayerTagGroup() LayerTagGroupResolver
+	LayerTagItem() LayerTagItemResolver
 	MergedInfobox() MergedInfoboxResolver
 	MergedInfoboxField() MergedInfoboxFieldResolver
 	MergedLayer() MergedLayerResolver
@@ -366,7 +368,6 @@ type ComplexityRoot struct {
 		Scene                 func(childComplexity int) int
 		SceneID               func(childComplexity int) int
 		ScenePlugin           func(childComplexity int) int
-		TagIds                func(childComplexity int) int
 		Tags                  func(childComplexity int) int
 	}
 
@@ -389,8 +390,18 @@ type ComplexityRoot struct {
 		Scene           func(childComplexity int) int
 		SceneID         func(childComplexity int) int
 		ScenePlugin     func(childComplexity int) int
-		TagIds          func(childComplexity int) int
 		Tags            func(childComplexity int) int
+	}
+
+	LayerTagGroup struct {
+		Children func(childComplexity int) int
+		Tag      func(childComplexity int) int
+		TagID    func(childComplexity int) int
+	}
+
+	LayerTagItem struct {
+		Tag   func(childComplexity int) int
+		TagID func(childComplexity int) int
 	}
 
 	MergedInfobox struct {
@@ -1099,8 +1110,6 @@ type LayerGroupResolver interface {
 	Layers(ctx context.Context, obj *gqlmodel.LayerGroup) ([]gqlmodel.Layer, error)
 	Scene(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.Scene, error)
 	ScenePlugin(ctx context.Context, obj *gqlmodel.LayerGroup) (*gqlmodel.ScenePlugin, error)
-
-	Tags(ctx context.Context, obj *gqlmodel.LayerGroup) ([]gqlmodel.Tag, error)
 }
 type LayerItemResolver interface {
 	Parent(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.LayerGroup, error)
@@ -1111,8 +1120,12 @@ type LayerItemResolver interface {
 	Merged(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.MergedLayer, error)
 	Scene(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.Scene, error)
 	ScenePlugin(ctx context.Context, obj *gqlmodel.LayerItem) (*gqlmodel.ScenePlugin, error)
-
-	Tags(ctx context.Context, obj *gqlmodel.LayerItem) ([]gqlmodel.Tag, error)
+}
+type LayerTagGroupResolver interface {
+	Tag(ctx context.Context, obj *gqlmodel.LayerTagGroup) (gqlmodel.Tag, error)
+}
+type LayerTagItemResolver interface {
+	Tag(ctx context.Context, obj *gqlmodel.LayerTagItem) (gqlmodel.Tag, error)
 }
 type MergedInfoboxResolver interface {
 	Scene(ctx context.Context, obj *gqlmodel.MergedInfobox) (*gqlmodel.Scene, error)
@@ -2438,13 +2451,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.LayerGroup.ScenePlugin(childComplexity), true
 
-	case "LayerGroup.tagIds":
-		if e.complexity.LayerGroup.TagIds == nil {
-			break
-		}
-
-		return e.complexity.LayerGroup.TagIds(childComplexity), true
-
 	case "LayerGroup.tags":
 		if e.complexity.LayerGroup.Tags == nil {
 			break
@@ -2578,19 +2584,47 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.LayerItem.ScenePlugin(childComplexity), true
 
-	case "LayerItem.tagIds":
-		if e.complexity.LayerItem.TagIds == nil {
-			break
-		}
-
-		return e.complexity.LayerItem.TagIds(childComplexity), true
-
 	case "LayerItem.tags":
 		if e.complexity.LayerItem.Tags == nil {
 			break
 		}
 
 		return e.complexity.LayerItem.Tags(childComplexity), true
+
+	case "LayerTagGroup.children":
+		if e.complexity.LayerTagGroup.Children == nil {
+			break
+		}
+
+		return e.complexity.LayerTagGroup.Children(childComplexity), true
+
+	case "LayerTagGroup.tag":
+		if e.complexity.LayerTagGroup.Tag == nil {
+			break
+		}
+
+		return e.complexity.LayerTagGroup.Tag(childComplexity), true
+
+	case "LayerTagGroup.tagId":
+		if e.complexity.LayerTagGroup.TagID == nil {
+			break
+		}
+
+		return e.complexity.LayerTagGroup.TagID(childComplexity), true
+
+	case "LayerTagItem.tag":
+		if e.complexity.LayerTagItem.Tag == nil {
+			break
+		}
+
+		return e.complexity.LayerTagItem.Tag(childComplexity), true
+
+	case "LayerTagItem.tagId":
+		if e.complexity.LayerTagItem.TagID == nil {
+			break
+		}
+
+		return e.complexity.LayerTagItem.TagID(childComplexity), true
 
 	case "MergedInfobox.fields":
 		if e.complexity.MergedInfobox.Fields == nil {
@@ -6848,11 +6882,8 @@ interface Layer {
   plugin: Plugin
   extension: PluginExtension
   scenePlugin: ScenePlugin
-  tagIds: [ID!]!
-  tags: [Tag!]! @goField(forceResolver: true)
+  tags: [LayerTag!]!
 }
-
-union Layers = LayerItem | LayerGroup
 
 enum LayerEncodingFormat {
   KML
@@ -6874,6 +6905,7 @@ type LayerItem implements Layer {
   # parentId will not be always set
   parentId: ID
   linkedDatasetId: ID
+  tags: [LayerTag!]!
   parent: LayerGroup @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
   plugin: Plugin @goField(forceResolver: true)
@@ -6882,8 +6914,6 @@ type LayerItem implements Layer {
   merged: MergedLayer @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tagIds: [ID!]!
-  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 type LayerGroup implements Layer {
@@ -6900,6 +6930,7 @@ type LayerGroup implements Layer {
   linkedDatasetSchemaId: ID
   root: Boolean!
   layerIds: [ID!]!
+  tags: [LayerTag!]!
   parent: LayerGroup @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
   plugin: Plugin @goField(forceResolver: true)
@@ -6908,8 +6939,6 @@ type LayerGroup implements Layer {
   layers: [Layer]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
-  tagIds: [ID!]!
-  tags: [Tag!]! @goField(forceResolver: true)
 }
 
 type Infobox {
@@ -6942,6 +6971,22 @@ type InfoboxField {
   merged: MergedInfoboxField @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
+}
+
+interface LayerTag {
+  tagId: ID!
+  tag: Tag
+}
+
+type LayerTagItem implements LayerTag {
+  tagId: ID!
+  tag: Tag @goField(forceResolver: true)
+}
+
+type LayerTagGroup implements LayerTag {
+  tagId: ID!
+  children: [LayerTagItem!]!
+  tag: Tag @goField(forceResolver: true)
 }
 
 type MergedLayer {
@@ -7002,8 +7047,6 @@ type TagGroup implements Tag {
   tags: [TagItem!]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
 }
-
-union Tags = TagItem | TagGroup
 
 type Cluster {
   id: ID!
@@ -14662,6 +14705,41 @@ func (ec *executionContext) _LayerGroup_layerIds(ctx context.Context, field grap
 	return ec.marshalNID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _LayerGroup_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "LayerGroup",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tags, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]gqlmodel.LayerTag)
+	fc.Result = res
+	return ec.marshalNLayerTag2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTagᚄ(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _LayerGroup_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -14919,76 +14997,6 @@ func (ec *executionContext) _LayerGroup_scenePlugin(ctx context.Context, field g
 	res := resTmp.(*gqlmodel.ScenePlugin)
 	fc.Result = res
 	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _LayerGroup_tagIds(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "LayerGroup",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.TagIds, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*id.ID)
-	fc.Result = res
-	return ec.marshalNID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _LayerGroup_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerGroup) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "LayerGroup",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.LayerGroup().Tags(rctx, obj)
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]gqlmodel.Tag)
-	fc.Result = res
-	return ec.marshalNTag2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _LayerItem_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
@@ -15323,6 +15331,41 @@ func (ec *executionContext) _LayerItem_linkedDatasetId(ctx context.Context, fiel
 	return ec.marshalOID2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _LayerItem_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "LayerItem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tags, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]gqlmodel.LayerTag)
+	fc.Result = res
+	return ec.marshalNLayerTag2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTagᚄ(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _LayerItem_parent(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -15579,7 +15622,7 @@ func (ec *executionContext) _LayerItem_scenePlugin(ctx context.Context, field gr
 	return ec.marshalOScenePlugin2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐScenePlugin(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_tagIds(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerTagGroup_tagId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerTagGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15587,7 +15630,7 @@ func (ec *executionContext) _LayerItem_tagIds(ctx context.Context, field graphql
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "LayerItem",
+		Object:     "LayerTagGroup",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -15597,7 +15640,7 @@ func (ec *executionContext) _LayerItem_tagIds(ctx context.Context, field graphql
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.TagIds, nil
+		return obj.TagID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15609,12 +15652,12 @@ func (ec *executionContext) _LayerItem_tagIds(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*id.ID)
+	res := resTmp.(id.ID)
 	fc.Result = res
-	return ec.marshalNID2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐIDᚄ(ctx, field.Selections, res)
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _LayerItem_tags(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerItem) (ret graphql.Marshaler) {
+func (ec *executionContext) _LayerTagGroup_children(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerTagGroup) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -15622,7 +15665,42 @@ func (ec *executionContext) _LayerItem_tags(ctx context.Context, field graphql.C
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "LayerItem",
+		Object:     "LayerTagGroup",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Children, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.LayerTagItem)
+	fc.Result = res
+	return ec.marshalNLayerTagItem2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTagItemᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _LayerTagGroup_tag(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerTagGroup) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "LayerTagGroup",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   true,
@@ -15632,7 +15710,39 @@ func (ec *executionContext) _LayerItem_tags(ctx context.Context, field graphql.C
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.LayerItem().Tags(rctx, obj)
+		return ec.resolvers.LayerTagGroup().Tag(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.Tag)
+	fc.Result = res
+	return ec.marshalOTag2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTag(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _LayerTagItem_tagId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerTagItem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "LayerTagItem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.TagID, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -15644,9 +15754,41 @@ func (ec *executionContext) _LayerItem_tags(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]gqlmodel.Tag)
+	res := resTmp.(id.ID)
 	fc.Result = res
-	return ec.marshalNTag2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagᚄ(ctx, field.Selections, res)
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋpkgᚋidᚐID(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _LayerTagItem_tag(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.LayerTagItem) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "LayerTagItem",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.LayerTagItem().Tag(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.Tag)
+	fc.Result = res
+	return ec.marshalOTag2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTag(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfobox) (ret graphql.Marshaler) {
@@ -34928,24 +35070,24 @@ func (ec *executionContext) _Layer(ctx context.Context, sel ast.SelectionSet, ob
 	}
 }
 
-func (ec *executionContext) _Layers(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.Layers) graphql.Marshaler {
+func (ec *executionContext) _LayerTag(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.LayerTag) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
-	case gqlmodel.LayerItem:
-		return ec._LayerItem(ctx, sel, &obj)
-	case *gqlmodel.LayerItem:
+	case gqlmodel.LayerTagItem:
+		return ec._LayerTagItem(ctx, sel, &obj)
+	case *gqlmodel.LayerTagItem:
 		if obj == nil {
 			return graphql.Null
 		}
-		return ec._LayerItem(ctx, sel, obj)
-	case gqlmodel.LayerGroup:
-		return ec._LayerGroup(ctx, sel, &obj)
-	case *gqlmodel.LayerGroup:
+		return ec._LayerTagItem(ctx, sel, obj)
+	case gqlmodel.LayerTagGroup:
+		return ec._LayerTagGroup(ctx, sel, &obj)
+	case *gqlmodel.LayerTagGroup:
 		if obj == nil {
 			return graphql.Null
 		}
-		return ec._LayerGroup(ctx, sel, obj)
+		return ec._LayerTagGroup(ctx, sel, obj)
 	default:
 		panic(fmt.Errorf("unexpected type %T", obj))
 	}
@@ -35047,29 +35189,6 @@ func (ec *executionContext) _PropertyItem(ctx context.Context, sel ast.Selection
 }
 
 func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.Tag) graphql.Marshaler {
-	switch obj := (obj).(type) {
-	case nil:
-		return graphql.Null
-	case gqlmodel.TagItem:
-		return ec._TagItem(ctx, sel, &obj)
-	case *gqlmodel.TagItem:
-		if obj == nil {
-			return graphql.Null
-		}
-		return ec._TagItem(ctx, sel, obj)
-	case gqlmodel.TagGroup:
-		return ec._TagGroup(ctx, sel, &obj)
-	case *gqlmodel.TagGroup:
-		if obj == nil {
-			return graphql.Null
-		}
-		return ec._TagGroup(ctx, sel, obj)
-	default:
-		panic(fmt.Errorf("unexpected type %T", obj))
-	}
-}
-
-func (ec *executionContext) _Tags(ctx context.Context, sel ast.SelectionSet, obj gqlmodel.Tags) graphql.Marshaler {
 	switch obj := (obj).(type) {
 	case nil:
 		return graphql.Null
@@ -36809,7 +36928,7 @@ func (ec *executionContext) _LatLngHeight(ctx context.Context, sel ast.Selection
 	return out
 }
 
-var layerGroupImplementors = []string{"LayerGroup", "Layers", "Layer"}
+var layerGroupImplementors = []string{"LayerGroup", "Layer"}
 
 func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LayerGroup) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, layerGroupImplementors)
@@ -36859,6 +36978,11 @@ func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSe
 			}
 		case "layerIds":
 			out.Values[i] = ec._LayerGroup_layerIds(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "tags":
+			out.Values[i] = ec._LayerGroup_tags(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
@@ -36953,25 +37077,6 @@ func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSe
 				res = ec._LayerGroup_scenePlugin(ctx, field, obj)
 				return res
 			})
-		case "tagIds":
-			out.Values[i] = ec._LayerGroup_tagIds(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "tags":
-			field := field
-			out.Concurrently(i, func() (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._LayerGroup_tags(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -36983,7 +37088,7 @@ func (ec *executionContext) _LayerGroup(ctx context.Context, sel ast.SelectionSe
 	return out
 }
 
-var layerItemImplementors = []string{"LayerItem", "Layers", "Layer"}
+var layerItemImplementors = []string{"LayerItem", "Layer"}
 
 func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LayerItem) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, layerItemImplementors)
@@ -37026,6 +37131,11 @@ func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet
 			out.Values[i] = ec._LayerItem_parentId(ctx, field, obj)
 		case "linkedDatasetId":
 			out.Values[i] = ec._LayerItem_linkedDatasetId(ctx, field, obj)
+		case "tags":
+			out.Values[i] = ec._LayerItem_tags(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "parent":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
@@ -37114,12 +37224,39 @@ func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet
 				res = ec._LayerItem_scenePlugin(ctx, field, obj)
 				return res
 			})
-		case "tagIds":
-			out.Values[i] = ec._LayerItem_tagIds(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var layerTagGroupImplementors = []string{"LayerTagGroup", "LayerTag"}
+
+func (ec *executionContext) _LayerTagGroup(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LayerTagGroup) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, layerTagGroupImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("LayerTagGroup")
+		case "tagId":
+			out.Values[i] = ec._LayerTagGroup_tagId(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "tags":
+		case "children":
+			out.Values[i] = ec._LayerTagGroup_children(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "tag":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {
 				defer func() {
@@ -37127,10 +37264,45 @@ func (ec *executionContext) _LayerItem(ctx context.Context, sel ast.SelectionSet
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._LayerItem_tags(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
+				res = ec._LayerTagGroup_tag(ctx, field, obj)
+				return res
+			})
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var layerTagItemImplementors = []string{"LayerTagItem", "LayerTag"}
+
+func (ec *executionContext) _LayerTagItem(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.LayerTagItem) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, layerTagItemImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("LayerTagItem")
+		case "tagId":
+			out.Values[i] = ec._LayerTagItem_tagId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "tag":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._LayerTagItem_tag(ctx, field, obj)
 				return res
 			})
 		default:
@@ -40215,7 +40387,7 @@ func (ec *executionContext) _SyncDatasetPayload(ctx context.Context, sel ast.Sel
 	return out
 }
 
-var tagGroupImplementors = []string{"TagGroup", "Tag", "Tags"}
+var tagGroupImplementors = []string{"TagGroup", "Tag"}
 
 func (ec *executionContext) _TagGroup(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.TagGroup) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, tagGroupImplementors)
@@ -40279,7 +40451,7 @@ func (ec *executionContext) _TagGroup(ctx context.Context, sel ast.SelectionSet,
 	return out
 }
 
-var tagItemImplementors = []string{"TagItem", "Tag", "Tags"}
+var tagItemImplementors = []string{"TagItem", "Tag"}
 
 func (ec *executionContext) _TagItem(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.TagItem) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, tagItemImplementors)
@@ -42530,6 +42702,114 @@ func (ec *executionContext) marshalNLayerItem2ᚖgithubᚗcomᚋreearthᚋreeart
 		return graphql.Null
 	}
 	return ec._LayerItem(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNLayerTag2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTag(ctx context.Context, sel ast.SelectionSet, v gqlmodel.LayerTag) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._LayerTag(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNLayerTag2ᚕgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTagᚄ(ctx context.Context, sel ast.SelectionSet, v []gqlmodel.LayerTag) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNLayerTag2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTag(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
+}
+
+func (ec *executionContext) marshalNLayerTagItem2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTagItemᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.LayerTagItem) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNLayerTagItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTagItem(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
+}
+
+func (ec *executionContext) marshalNLayerTagItem2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayerTagItem(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.LayerTagItem) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._LayerTagItem(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNLinkDatasetToPropertyValueInput2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLinkDatasetToPropertyValueInput(ctx context.Context, v interface{}) (gqlmodel.LinkDatasetToPropertyValueInput, error) {
@@ -45560,6 +45840,13 @@ func (ec *executionContext) marshalOSyncDatasetPayload2ᚖgithubᚗcomᚋreearth
 		return graphql.Null
 	}
 	return ec._SyncDatasetPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOTag2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTag(ctx context.Context, sel ast.SelectionSet, v gqlmodel.Tag) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Tag(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOTagGroup2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTagGroup(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.TagGroup) graphql.Marshaler {

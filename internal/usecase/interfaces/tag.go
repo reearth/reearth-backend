@@ -47,8 +47,6 @@ type Tag interface {
 	FetchByScene(context.Context, id.SceneID, *usecase.Operator) ([]*tag.Tag, error)
 	FetchItem(context.Context, []id.TagID, *usecase.Operator) ([]*tag.Item, error)
 	FetchGroup(context.Context, []id.TagID, *usecase.Operator) ([]*tag.Group, error)
-	FetchGroupsByLayer(context.Context, id.LayerID, *usecase.Operator) ([]*tag.Group, error)
-	FetchItemsByLayer(context.Context, id.LayerID, *usecase.Operator) ([]*tag.Item, error)
 	CreateItem(context.Context, CreateTagItemParam, *usecase.Operator) (*tag.Item, *tag.Group, error)
 	CreateGroup(context.Context, CreateTagGroupParam, *usecase.Operator) (*tag.Group, error)
 	AttachItemToGroup(context.Context, AttachItemToGroupParam, *usecase.Operator) (*tag.Group, error)

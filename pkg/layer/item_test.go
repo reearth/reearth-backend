@@ -1,11 +1,7 @@
 package layer
 
 import (
-	"testing"
-
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/tag"
-	"github.com/stretchr/testify/assert"
 )
 
 var _ Layer = &Item{}
@@ -20,20 +16,8 @@ var item = Item{
 		extension: id.PluginExtensionID("foo").Ref(),
 		property:  nil,
 		infobox:   nil,
-		tags:      tag.NewListFromTags(tags2),
+		tags:      nil,
 		scene:     id.SceneID{},
 	},
 	linkedDataset: nil,
-}
-
-func TestItem_Tags(t *testing.T) {
-	tt := id.NewTagID()
-	err := item.AttachTag(tt)
-	assert.NoError(t, err)
-	tl := tags2
-	tl = append(tl, tt)
-	assert.Equal(t, tl, item.Tags().Tags())
-	err = item.DetachTag(tt)
-	assert.NoError(t, err)
-	assert.Equal(t, tags2, item.Tags().Tags())
 }

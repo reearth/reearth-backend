@@ -19,8 +19,8 @@ type Layer interface {
 	IsLayer()
 }
 
-type Layers interface {
-	IsLayers()
+type LayerTag interface {
+	IsLayerTag()
 }
 
 type Node interface {
@@ -33,10 +33,6 @@ type PropertyItem interface {
 
 type Tag interface {
 	IsTag()
-}
-
-type Tags interface {
-	IsTags()
 }
 
 type AddClusterInput struct {
@@ -492,6 +488,7 @@ type LayerGroup struct {
 	LinkedDatasetSchemaID *id.ID                `json:"linkedDatasetSchemaId"`
 	Root                  bool                  `json:"root"`
 	LayerIds              []*id.ID              `json:"layerIds"`
+	Tags                  []LayerTag            `json:"tags"`
 	Parent                *LayerGroup           `json:"parent"`
 	Property              *Property             `json:"property"`
 	Plugin                *Plugin               `json:"plugin"`
@@ -500,12 +497,9 @@ type LayerGroup struct {
 	Layers                []Layer               `json:"layers"`
 	Scene                 *Scene                `json:"scene"`
 	ScenePlugin           *ScenePlugin          `json:"scenePlugin"`
-	TagIds                []*id.ID              `json:"tagIds"`
-	Tags                  []Tag                 `json:"tags"`
 }
 
-func (LayerGroup) IsLayers() {}
-func (LayerGroup) IsLayer()  {}
+func (LayerGroup) IsLayer() {}
 
 type LayerItem struct {
 	ID              id.ID                 `json:"id"`
@@ -518,6 +512,7 @@ type LayerItem struct {
 	Infobox         *Infobox              `json:"infobox"`
 	ParentID        *id.ID                `json:"parentId"`
 	LinkedDatasetID *id.ID                `json:"linkedDatasetId"`
+	Tags            []LayerTag            `json:"tags"`
 	Parent          *LayerGroup           `json:"parent"`
 	Property        *Property             `json:"property"`
 	Plugin          *Plugin               `json:"plugin"`
@@ -526,12 +521,24 @@ type LayerItem struct {
 	Merged          *MergedLayer          `json:"merged"`
 	Scene           *Scene                `json:"scene"`
 	ScenePlugin     *ScenePlugin          `json:"scenePlugin"`
-	TagIds          []*id.ID              `json:"tagIds"`
-	Tags            []Tag                 `json:"tags"`
 }
 
-func (LayerItem) IsLayers() {}
-func (LayerItem) IsLayer()  {}
+func (LayerItem) IsLayer() {}
+
+type LayerTagGroup struct {
+	TagID    id.ID           `json:"tagId"`
+	Children []*LayerTagItem `json:"children"`
+	Tag      Tag             `json:"tag"`
+}
+
+func (LayerTagGroup) IsLayerTag() {}
+
+type LayerTagItem struct {
+	TagID id.ID `json:"tagId"`
+	Tag   Tag   `json:"tag"`
+}
+
+func (LayerTagItem) IsLayerTag() {}
 
 type LinkDatasetToPropertyValueInput struct {
 	PropertyID            id.ID                     `json:"propertyId"`
@@ -1072,8 +1079,7 @@ type TagGroup struct {
 	Scene   *Scene     `json:"scene"`
 }
 
-func (TagGroup) IsTag()  {}
-func (TagGroup) IsTags() {}
+func (TagGroup) IsTag() {}
 
 type TagItem struct {
 	ID                    id.ID          `json:"id"`
@@ -1089,8 +1095,7 @@ type TagItem struct {
 	Parent                *TagGroup      `json:"parent"`
 }
 
-func (TagItem) IsTag()  {}
-func (TagItem) IsTags() {}
+func (TagItem) IsTag() {}
 
 type Team struct {
 	ID       id.ID              `json:"id"`

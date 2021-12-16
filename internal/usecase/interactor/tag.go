@@ -158,33 +158,6 @@ func (i *Tag) FetchGroup(ctx context.Context, ids []id.TagID, operator *usecase.
 	return i.tagRepo.FindGroupByIDs(ctx, ids, scenes)
 }
 
-func (i *Tag) FetchGroupsByLayer(ctx context.Context, lid id.LayerID, operator *usecase.Operator) ([]*tag.Group, error) {
-	scenes, err := i.OnlyReadableScenes(ctx, operator)
-	if err != nil {
-		return nil, err
-	}
-
-	layer, err := i.layerRepo.FindByID(ctx, lid, scenes)
-	if err != nil {
-		return nil, err
-	}
-
-	return i.tagRepo.FindGroupByIDs(ctx, layer.Tags().Tags(), scenes)
-}
-
-func (i *Tag) FetchItemsByLayer(ctx context.Context, lid id.LayerID, operator *usecase.Operator) ([]*tag.Item, error) {
-	scenes, err := i.OnlyReadableScenes(ctx, operator)
-	if err != nil {
-		return nil, err
-	}
-
-	layer, err := i.layerRepo.FindByID(ctx, lid, scenes)
-	if err != nil {
-		return nil, err
-	}
-	return i.tagRepo.FindItemByIDs(ctx, layer.Tags().Tags(), scenes)
-}
-
 func (i *Tag) AttachItemToGroup(ctx context.Context, inp interfaces.AttachItemToGroupParam, operator *usecase.Operator) (*tag.Group, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
@@ -355,9 +328,7 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 
 	if len(ls) != 0 {
 		for _, l := range ls.Deref() {
-			if err := l.DetachTag(tagID); err != nil {
-				return nil, err
-			}
+			_ = l.Tags().Delete(tagID)
 		}
 		if err := i.layerRepo.SaveAll(ctx, ls); err != nil {
 			return nil, err
@@ -367,5 +338,6 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 	if err := i.tagRepo.Remove(ctx, tagID); err != nil {
 		return nil, err
 	}
+
 	return &tagID, nil
 }

@@ -3,8 +3,6 @@ package layer
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/tag"
-
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
@@ -23,7 +21,7 @@ var group = Group{
 		extension: id.PluginExtensionID("foo").Ref(),
 		property:  nil,
 		infobox:   nil,
-		tags:      tag.NewListFromTags(tags),
+		tags:      nil,
 		scene:     id.SceneID{},
 	},
 	layers: &IDList{
@@ -138,16 +136,4 @@ func TestGroup_Unlink(t *testing.T) {
 func TestGroup_MoveLayerFrom(t *testing.T) {
 	group.MoveLayerFrom(l1, 1, &group)
 	assert.Equal(t, l1, group.Layers().Layers()[1])
-}
-
-func TestGroup_Tags(t *testing.T) {
-	tt := id.NewTagID()
-	err := group.AttachTag(tt)
-	assert.NoError(t, err)
-	tl := tags
-	tl = append(tl, tt)
-	assert.Equal(t, tl, group.Tags().Tags())
-	err = group.DetachTag(tt)
-	assert.NoError(t, err)
-	assert.Equal(t, tags, group.Tags().Tags())
 }

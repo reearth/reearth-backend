@@ -68,39 +68,6 @@ func (c *TagLoader) FetchItem(ctx context.Context, ids []id.TagID) ([]*gqlmodel.
 	return tagItems, nil
 }
 
-func (c *TagLoader) FetchGroupByLayer(ctx context.Context, lid id.LayerID) ([]*gqlmodel.TagGroup, error) {
-	res, err := c.usecase.FetchGroupsByLayer(ctx, lid, getOperator(ctx))
-	if err != nil {
-		return nil, err
-	}
-	tagGroups := make([]*gqlmodel.TagGroup, 0, len(res))
-	for _, t := range res {
-		tg := gqlmodel.ToTagGroup(t)
-		if tg != nil {
-			tagGroups = append(tagGroups, tg)
-		}
-	}
-
-	return tagGroups, nil
-}
-
-func (c *TagLoader) FetchItemByLayer(ctx context.Context, lid id.LayerID) ([]*gqlmodel.TagItem, error) {
-	res, err := c.usecase.FetchItemsByLayer(ctx, lid, getOperator(ctx))
-	if err != nil {
-		return nil, err
-	}
-
-	tagItems := make([]*gqlmodel.TagItem, 0, len(res))
-	for _, t := range res {
-		ti := gqlmodel.ToTagItem(t)
-		if ti != nil {
-			tagItems = append(tagItems, ti)
-		}
-	}
-
-	return tagItems, nil
-}
-
 // data loaders
 
 type TagDataLoader interface {
