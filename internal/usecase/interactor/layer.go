@@ -57,7 +57,7 @@ func NewLayer(r *repo.Container) interfaces.Layer {
 	}
 }
 
-func (i *Layer) Fetch(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*layer.Layer, error) {
+func (i *Layer) Fetch(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) (layer.List, error) {
 	scenes, err := i.OnlyReadableScenes(ctx, operator)
 	if err != nil {
 		return nil, err
@@ -151,6 +151,14 @@ func (i *Layer) FetchParentAndMerged(ctx context.Context, org id.LayerID, operat
 	}
 
 	return layer.Merge(orgl, parent), nil
+}
+
+func (i *Layer) FetchByTag(ctx context.Context, tag id.TagID, operator *usecase.Operator) (layer.List, error) {
+	scenes, err := i.OnlyReadableScenes(ctx, operator)
+	if err != nil {
+		return nil, err
+	}
+	return i.layerRepo.FindByTag(ctx, tag, scenes)
 }
 
 func (i *Layer) AddItem(ctx context.Context, inp interfaces.AddLayerItemInput, operator *usecase.Operator) (_ *layer.Item, _ *layer.Group, err error) {

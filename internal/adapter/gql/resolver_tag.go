@@ -54,6 +54,13 @@ func (t tagItemResolver) Parent(ctx context.Context, obj *gqlmodel.TagItem) (*gq
 	return DataLoadersFromContext(ctx).TagGroup.Load(id.TagID(*obj.ParentID))
 }
 
+func (tg tagItemResolver) Layers(ctx context.Context, obj *gqlmodel.TagItem) ([]gqlmodel.Layer, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return tg.loaders.Layer.FetchByTag(ctx, id.TagID(obj.ID))
+}
+
 type tagGroupResolver struct{ *Resolver }
 
 func (r *Resolver) TagGroup() TagGroupResolver {
@@ -83,4 +90,11 @@ func (tg tagGroupResolver) Scene(ctx context.Context, obj *gqlmodel.TagGroup) (*
 	defer exit()
 
 	return DataLoadersFromContext(ctx).Scene.Load(id.SceneID(obj.SceneID))
+}
+
+func (tg tagGroupResolver) Layers(ctx context.Context, obj *gqlmodel.TagGroup) ([]gqlmodel.Layer, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return tg.loaders.Layer.FetchByTag(ctx, id.TagID(obj.ID))
 }

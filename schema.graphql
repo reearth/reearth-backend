@@ -800,6 +800,7 @@ interface Tag {
   id: ID!
   sceneId: ID!
   label: String!
+  layers: [Layer!]! @goField(forceResolver: true)
 }
 
 type TagItem implements Tag {
@@ -814,6 +815,7 @@ type TagItem implements Tag {
   linkedDataset: Dataset @goField(forceResolver: true)
   linkedDatasetField: DatasetField @goField(forceResolver: true)
   parent: TagGroup @goField(forceResolver: true)
+  layers: [Layer!]! @goField(forceResolver: true)
 }
 
 type TagGroup implements Tag {
@@ -823,6 +825,7 @@ type TagGroup implements Tag {
   tagIds: [ID!]
   tags: [TagItem!]! @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
+  layers: [Layer!]! @goField(forceResolver: true)
 }
 
 type Cluster {

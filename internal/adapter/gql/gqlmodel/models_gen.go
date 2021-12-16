@@ -1077,6 +1077,7 @@ type TagGroup struct {
 	TagIds  []*id.ID   `json:"tagIds"`
 	Tags    []*TagItem `json:"tags"`
 	Scene   *Scene     `json:"scene"`
+	Layers  []Layer    `json:"layers"`
 }
 
 func (TagGroup) IsTag() {}
@@ -1093,6 +1094,7 @@ type TagItem struct {
 	LinkedDataset         *Dataset       `json:"linkedDataset"`
 	LinkedDatasetField    *DatasetField  `json:"linkedDatasetField"`
 	Parent                *TagGroup      `json:"parent"`
+	Layers                []Layer        `json:"layers"`
 }
 
 func (TagItem) IsTag() {}
