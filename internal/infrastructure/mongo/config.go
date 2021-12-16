@@ -24,7 +24,7 @@ type configRepo struct {
 	lockID *uuid.UUID
 }
 
-type Config struct {
+type ConfigDoc struct {
 	Migration int64
 	Auth      *config.Auth
 	lock      *uuid.UUID
@@ -50,7 +50,7 @@ func (r *configRepo) Load(ctx context.Context) (*config.Config, error) {
 		if !errors.Is(err, ErrLoadingLockedConfig) {
 			return nil, err
 		}
-		time.Sleep(time.Duration(rand.Intn(1000)) * time.Millisecond)
+		time.Sleep(time.Duration(rand.Intn(1000)+1000) * time.Millisecond)
 	}
 
 	log.Errorf("failed to load config after %d tries.\n", numOfTries)
@@ -58,7 +58,7 @@ func (r *configRepo) Load(ctx context.Context) (*config.Config, error) {
 }
 
 func (r *configRepo) loadFromDB(ctx context.Context) (*config.Config, error) {
-	cfg := &Config{}
+	cfg := &ConfigDoc{}
 	if r.lockID == nil {
 		lockID := uuid.New()
 		r.lockID = &lockID
