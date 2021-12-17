@@ -172,9 +172,9 @@ func (r *layerRepo) FindByTag(ctx context.Context, tagID id.TagID, f []id.SceneI
 	ids := []id.TagID{tagID}
 	tags := id.TagIDToKeys(ids)
 	filter := r.sceneFilter(bson.M{
-		"$or": bson.M{
-			"tags.id":      bson.M{"$in": tags},
-			"tags.tags.id": bson.M{"$in": tags},
+		"$or": []bson.M{
+			{"tags.id": bson.M{"$in": tags}},
+			{"tags.tags.id": bson.M{"$in": tags}},
 		},
 	}, f)
 

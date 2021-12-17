@@ -46,6 +46,7 @@ func NewLayer(r *repo.Container) interfaces.Layer {
 		commonScene:        commonScene{sceneRepo: r.Scene},
 		commonSceneLock:    commonSceneLock{sceneLockRepo: r.SceneLock},
 		layerRepo:          r.Layer,
+		tagRepo:            r.Tag,
 		pluginRepo:         r.Plugin,
 		propertyRepo:       r.Property,
 		datasetRepo:        r.Dataset,
