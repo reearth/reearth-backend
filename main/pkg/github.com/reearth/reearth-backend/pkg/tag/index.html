@@ -14,7 +14,7 @@
 
 
 
-<script>var goVersion = "go1.17.4";</script>
+<script>var goVersion = "go1.17.5";</script>
 <script src="../../../../../../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
@@ -192,10 +192,16 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Item.LinkedDatasetSchemaID">func (i *Item) LinkedDatasetSchemaID() *id.DatasetSchemaID</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Parent">func (i *Item) Parent() *id.TagID</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#Item.Rename">func (t *Item) Rename(s string)</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Item.Scene">func (t *Item) Scene() id.SceneID</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.SetParent">func (i *Item) SetParent(p *id.TagID)</a></dd>
 				
 			
 				
@@ -225,6 +231,9 @@
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.NewID">func (b *ItemBuilder) NewID() *ItemBuilder</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Parent">func (b *ItemBuilder) Parent(p *id.TagID) *ItemBuilder</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Scene">func (b *ItemBuilder) Scene(sid id.SceneID) *ItemBuilder</a></dd>
@@ -519,7 +528,7 @@
 		
 			
 			
-			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=65:218#L1">Item</a>
+			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=65:251#L1">Item</a>
 				<a class="permalink" href="index.html#Item">&#xb6;</a>
 				
 				
@@ -588,7 +597,7 @@
 				
 			
 				
-				<h3 id="Item.LinkedDatasetFieldID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=220:282#L2">LinkedDatasetFieldID</a>
+				<h3 id="Item.LinkedDatasetFieldID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=319:381#L7">LinkedDatasetFieldID</a>
 					<a class="permalink" href="index.html#Item.LinkedDatasetFieldID">&#xb6;</a>
 					
 					
@@ -600,7 +609,7 @@
 				
 			
 				
-				<h3 id="Item.LinkedDatasetID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=329:375#L6">LinkedDatasetID</a>
+				<h3 id="Item.LinkedDatasetID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=428:474#L11">LinkedDatasetID</a>
 					<a class="permalink" href="index.html#Item.LinkedDatasetID">&#xb6;</a>
 					
 					
@@ -612,12 +621,24 @@
 				
 			
 				
-				<h3 id="Item.LinkedDatasetSchemaID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=417:475#L10">LinkedDatasetSchemaID</a>
+				<h3 id="Item.LinkedDatasetSchemaID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=516:574#L15">LinkedDatasetSchemaID</a>
 					<a class="permalink" href="index.html#Item.LinkedDatasetSchemaID">&#xb6;</a>
 					
 					
 				</h3>
 				<pre>func (i *<a href="index.html#Item">Item</a>) LinkedDatasetSchemaID() *<a href="../id/index.html">id</a>.<a href="../id/index.html#DatasetSchemaID">DatasetSchemaID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.Parent">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=253:286#L3">Parent</a>
+					<a class="permalink" href="index.html#Item.Parent">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Item">Item</a>) Parent() *<a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a></pre>
 				
 				
 				
@@ -642,6 +663,18 @@
 					
 				</h3>
 				<pre>func (t *<a href="index.html#Item">Item</a>) Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Item.SetParent">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item.go?s=622:659#L19">SetParent</a>
+					<a class="permalink" href="index.html#Item.SetParent">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (i *<a href="index.html#Item">Item</a>) SetParent(p *<a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>)</pre>
 				
 				
 				
@@ -720,7 +753,7 @@
 				
 			
 				
-				<h3 id="ItemBuilder.LinkedDatasetFieldID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=843:929#L44">LinkedDatasetFieldID</a>
+				<h3 id="ItemBuilder.LinkedDatasetFieldID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=939:1025#L49">LinkedDatasetFieldID</a>
 					<a class="permalink" href="index.html#ItemBuilder.LinkedDatasetFieldID">&#xb6;</a>
 					
 					
@@ -732,7 +765,7 @@
 				
 			
 				
-				<h3 id="ItemBuilder.LinkedDatasetID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=978:1047#L49">LinkedDatasetID</a>
+				<h3 id="ItemBuilder.LinkedDatasetID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=1074:1143#L54">LinkedDatasetID</a>
 					<a class="permalink" href="index.html#ItemBuilder.LinkedDatasetID">&#xb6;</a>
 					
 					
@@ -744,7 +777,7 @@
 				
 			
 				
-				<h3 id="ItemBuilder.LinkedDatasetSchemaID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=1090:1172#L54">LinkedDatasetSchemaID</a>
+				<h3 id="ItemBuilder.LinkedDatasetSchemaID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=1186:1268#L59">LinkedDatasetSchemaID</a>
 					<a class="permalink" href="index.html#ItemBuilder.LinkedDatasetSchemaID">&#xb6;</a>
 					
 					
@@ -762,6 +795,18 @@
 					
 				</h3>
 				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) NewID() *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ItemBuilder.Parent">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/tag/item_builder.go?s=843:897#L44">Parent</a>
+					<a class="permalink" href="index.html#ItemBuilder.Parent">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Parent(p *<a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
 				
 				
 				
@@ -913,7 +958,7 @@
 
 
 <div id="footer">
-Build version go1.17.4.<br>
+Build version go1.17.5.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,

@@ -14,7 +14,7 @@
 
 
 
-<script>var goVersion = "go1.17.4";</script>
+<script>var goVersion = "go1.17.5";</script>
 <script src="../../../../../../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
@@ -160,7 +160,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Scene">func (b *Builder) Scene(s id.SceneID) *Builder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Tags">func (b *Builder) Tags(tags *tag.List) *Builder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Builder.Tags">func (b *Builder) Tags(tags *TagList) *Builder</a></dd>
 				
 			
 				
@@ -178,12 +178,6 @@
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#ToLayerGroupRef">func ToLayerGroupRef(l *Layer) *Group</a></dd>
 				
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Group.AttachTag">func (l *Group) AttachTag(t id.TagID) error</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Group.DetachTag">func (l *Group) DetachTag(t id.TagID) error</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Group.Extension">func (l *Group) Extension() *id.PluginExtensionID</a></dd>
@@ -252,7 +246,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Group.SetVisible">func (l *Group) SetVisible(visible bool)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Group.Tags">func (l *Group) Tags() *tag.List</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Group.Tags">func (l *Group) Tags() *TagList</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Group.Unlink">func (l *Group) Unlink()</a></dd>
@@ -314,7 +308,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Scene">func (b *GroupBuilder) Scene(s id.SceneID) *GroupBuilder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Tags">func (b *GroupBuilder) Tags(tags *tag.List) *GroupBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#GroupBuilder.Tags">func (b *GroupBuilder) Tags(tags *TagList) *GroupBuilder</a></dd>
 				
 			
 				
@@ -556,12 +550,6 @@
 				
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Item.AttachTag">func (l *Item) AttachTag(t id.TagID) error</a></dd>
-				
-					
-					<dd>&nbsp; &nbsp; <a href="index.html#Item.DetachTag">func (l *Item) DetachTag(t id.TagID) error</a></dd>
-				
-					
 					<dd>&nbsp; &nbsp; <a href="index.html#Item.Extension">func (l *Item) Extension() *id.PluginExtensionID</a></dd>
 				
 					
@@ -619,7 +607,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#Item.SetVisible">func (l *Item) SetVisible(visible bool)</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#Item.Tags">func (l *Item) Tags() *tag.List</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#Item.Tags">func (l *Item) Tags() *TagList</a></dd>
 				
 					
 					<dd>&nbsp; &nbsp; <a href="index.html#Item.Unlink">func (l *Item) Unlink()</a></dd>
@@ -675,7 +663,7 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Scene">func (b *ItemBuilder) Scene(s id.SceneID) *ItemBuilder</a></dd>
 				
 					
-					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Tags">func (b *ItemBuilder) Tags(tags *tag.List) *ItemBuilder</a></dd>
+					<dd>&nbsp; &nbsp; <a href="index.html#ItemBuilder.Tags">func (b *ItemBuilder) Tags(tags *TagList) *ItemBuilder</a></dd>
 				
 			
 				
@@ -816,6 +804,106 @@
 				
 				
 			
+				
+				<dd><a href="index.html#Tag">type Tag</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TagGroup">type TagGroup</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewTagGroup">func NewTagGroup(t TagID, children []*TagItem) *TagGroup</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroupFrom">func TagGroupFrom(t Tag) *TagGroup</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroup.Add">func (t *TagGroup) Add(ti *TagItem) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroup.Children">func (t *TagGroup) Children() []*TagItem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroup.Clone">func (t *TagGroup) Clone() Tag</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroup.CloneGroup">func (t *TagGroup) CloneGroup() *TagGroup</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroup.Delete">func (t *TagGroup) Delete(ti TagID) (res bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroup.Find">func (t *TagGroup) Find(ti TagID) *TagItem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagGroup.ID">func (t *TagGroup) ID() TagID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#TagID">type TagID</a></dd>
+				
+				
+			
+				
+				<dd><a href="index.html#TagItem">type TagItem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewTagItem">func NewTagItem(t TagID) *TagItem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagItemFrom">func TagItemFrom(t Tag) *TagItem</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagItem.Clone">func (t *TagItem) Clone() Tag</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagItem.CloneItem">func (t *TagItem) CloneItem() *TagItem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagItem.ID">func (t *TagItem) ID() TagID</a></dd>
+				
+			
+				
+				<dd><a href="index.html#TagList">type TagList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#NewTagList">func NewTagList(tags []Tag) *TagList</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.Add">func (t *TagList) Add(ti Tag) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.Clone">func (t *TagList) Clone() *TagList</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.Delete">func (t *TagList) Delete(ti TagID) (res bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.Find">func (t *TagList) Find(ti TagID) (*TagGroup, *TagItem)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.FindGroup">func (t *TagList) FindGroup(ti TagID) *TagGroup</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.FindItem">func (t *TagList) FindItem(ti TagID) *TagItem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.Has">func (t *TagList) Has(ti TagID) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.IsEmpty">func (t *TagList) IsEmpty() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.RootItems">func (t *TagList) RootItems() []*TagItem</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="index.html#TagList.Tags">func (t *TagList) Tags() []Tag</a></dd>
+				
+			
 			
 			</dl>
 			</div><!-- #manual-nav -->
@@ -855,6 +943,8 @@
 			
 				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/merged.go">merged.go</a>
 			
+				<a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go">tag.go</a>
+			
 			</span>
 			</p>
 		
@@ -882,6 +972,9 @@
 )</pre>
 			
 				
+				<pre>var <span id="NewTagID">NewTagID</span> = <a href="../id/index.html">id</a>.<a href="../id/index.html#NewTagID">NewTagID</a></pre>
+			
+				
 				<pre>var <span id="WalkerSkipChildren">WalkerSkipChildren</span> = <a href="/reearth/reearth-backend/main/pkg/errors/">errors</a>.<a href="http://localhost:8080/pkg/errors/#New">New</a>(&#34;LAYER_WALKER_SKIP_CHILDREN&#34;)</pre>
 			
 		
@@ -889,7 +982,7 @@
 		
 			
 			
-			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=118:157#L1">Builder</a>
+			<h2 id="Builder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=72:111#L1">Builder</a>
 				<a class="permalink" href="index.html#Builder">&#xb6;</a>
 				
 				
@@ -910,7 +1003,7 @@
 
 			
 				
-				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=159:178#L2">New</a>
+				<h3 id="New">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=113:132#L1">New</a>
 					<a class="permalink" href="index.html#New">&#xb6;</a>
 					
 					
@@ -923,7 +1016,7 @@
 
 			
 				
-				<h3 id="Builder.Extension">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1017:1086#L51">Extension</a>
+				<h3 id="Builder.Extension">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=971:1040#L50">Extension</a>
 					<a class="permalink" href="index.html#Builder.Extension">&#xb6;</a>
 					
 					
@@ -935,7 +1028,7 @@
 				
 			
 				
-				<h3 id="Builder.Group">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=233:272#L6">Group</a>
+				<h3 id="Builder.Group">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=187:226#L5">Group</a>
 					<a class="permalink" href="index.html#Builder.Group">&#xb6;</a>
 					
 					
@@ -947,7 +1040,7 @@
 				
 			
 				
-				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=384:428#L14">ID</a>
+				<h3 id="Builder.ID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=338:382#L13">ID</a>
 					<a class="permalink" href="index.html#Builder.ID">&#xb6;</a>
 					
 					
@@ -959,7 +1052,7 @@
 				
 			
 				
-				<h3 id="Builder.Infobox">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1242:1294#L61">Infobox</a>
+				<h3 id="Builder.Infobox">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1196:1248#L60">Infobox</a>
 					<a class="permalink" href="index.html#Builder.Infobox">&#xb6;</a>
 					
 					
@@ -971,7 +1064,7 @@
 				
 			
 				
-				<h3 id="Builder.IsVisible">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=699:749#L34">IsVisible</a>
+				<h3 id="Builder.IsVisible">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=653:703#L33">IsVisible</a>
 					<a class="permalink" href="index.html#Builder.IsVisible">&#xb6;</a>
 					
 					
@@ -983,7 +1076,7 @@
 				
 			
 				
-				<h3 id="Builder.IsVisibleRef">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=791:845#L39">IsVisibleRef</a>
+				<h3 id="Builder.IsVisibleRef">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=745:799#L38">IsVisibleRef</a>
 					<a class="permalink" href="index.html#Builder.IsVisibleRef">&#xb6;</a>
 					
 					
@@ -995,7 +1088,7 @@
 				
 			
 				
-				<h3 id="Builder.Item">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=310:347#L10">Item</a>
+				<h3 id="Builder.Item">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=264:301#L9">Item</a>
 					<a class="permalink" href="index.html#Builder.Item">&#xb6;</a>
 					
 					
@@ -1007,7 +1100,7 @@
 				
 			
 				
-				<h3 id="Builder.Name">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=619:663#L29">Name</a>
+				<h3 id="Builder.Name">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=573:617#L28">Name</a>
 					<a class="permalink" href="index.html#Builder.Name">&#xb6;</a>
 					
 					
@@ -1019,7 +1112,7 @@
 				
 			
 				
-				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=460:494#L19">NewID</a>
+				<h3 id="Builder.NewID">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=414:448#L18">NewID</a>
 					<a class="permalink" href="index.html#Builder.NewID">&#xb6;</a>
 					
 					
@@ -1031,7 +1124,7 @@
 				
 			
 				
-				<h3 id="Builder.Plugin">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=913:967#L46">Plugin</a>
+				<h3 id="Builder.Plugin">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=867:921#L45">Plugin</a>
 					<a class="permalink" href="index.html#Builder.Plugin">&#xb6;</a>
 					
 					
@@ -1043,7 +1136,7 @@
 				
 			
 				
-				<h3 id="Builder.Property">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1142:1195#L56">Property</a>
+				<h3 id="Builder.Property">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1096:1149#L55">Property</a>
 					<a class="permalink" href="index.html#Builder.Property">&#xb6;</a>
 					
 					
@@ -1055,7 +1148,7 @@
 				
 			
 				
-				<h3 id="Builder.Scene">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=539:585#L24">Scene</a>
+				<h3 id="Builder.Scene">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=493:539#L23">Scene</a>
 					<a class="permalink" href="index.html#Builder.Scene">&#xb6;</a>
 					
 					
@@ -1067,12 +1160,12 @@
 				
 			
 				
-				<h3 id="Builder.Tags">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1336:1383#L66">Tags</a>
+				<h3 id="Builder.Tags">func (*Builder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/builder.go?s=1290:1336#L65">Tags</a>
 					<a class="permalink" href="index.html#Builder.Tags">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#Builder">Builder</a>) Tags(tags *<a href="../tag/index.html">tag</a>.<a href="../tag/index.html#List">List</a>) *<a href="index.html#Builder">Builder</a></pre>
+				<pre>func (b *<a href="index.html#Builder">Builder</a>) Tags(tags *<a href="index.html#TagList">TagList</a>) *<a href="index.html#Builder">Builder</a></pre>
 				
 				
 				
@@ -1081,7 +1174,7 @@
 		
 			
 			
-			<h2 id="Group">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=169:297#L1">Group</a>
+			<h2 id="Group">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=123:251#L1">Group</a>
 				<a class="permalink" href="index.html#Group">&#xb6;</a>
 				
 				
@@ -1102,7 +1195,7 @@
 
 			
 				
-				<h3 id="GroupFromLayer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=118:153#L1">GroupFromLayer</a>
+				<h3 id="GroupFromLayer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=72:107#L1">GroupFromLayer</a>
 					<a class="permalink" href="index.html#GroupFromLayer">&#xb6;</a>
 					
 					
@@ -1113,7 +1206,7 @@
 				
 			
 				
-				<h3 id="GroupFromLayerRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=218:257#L6">GroupFromLayerRef</a>
+				<h3 id="GroupFromLayerRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=172:211#L5">GroupFromLayerRef</a>
 					<a class="permalink" href="index.html#GroupFromLayerRef">&#xb6;</a>
 					
 					
@@ -1124,7 +1217,7 @@
 				
 			
 				
-				<h3 id="ToLayerGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=759:792#L29">ToLayerGroup</a>
+				<h3 id="ToLayerGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=654:687#L26">ToLayerGroup</a>
 					<a class="permalink" href="index.html#ToLayerGroup">&#xb6;</a>
 					
 					
@@ -1135,7 +1228,7 @@
 				
 			
 				
-				<h3 id="ToLayerGroupRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=856:893#L36">ToLayerGroupRef</a>
+				<h3 id="ToLayerGroupRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=751:788#L33">ToLayerGroupRef</a>
 					<a class="permalink" href="index.html#ToLayerGroupRef">&#xb6;</a>
 					
 					
@@ -1148,31 +1241,7 @@
 
 			
 				
-				<h3 id="Group.AttachTag">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=3006:3049#L179">AttachTag</a>
-					<a class="permalink" href="index.html#Group.AttachTag">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l *<a href="index.html#Group">Group</a>) AttachTag(t <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="Group.DetachTag">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=3151:3194#L187">DetachTag</a>
-					<a class="permalink" href="index.html#Group.DetachTag">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l *<a href="index.html#Group">Group</a>) DetachTag(t <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="Group.Extension">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=626:675#L28">Extension</a>
+				<h3 id="Group.Extension">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=580:629#L27">Extension</a>
 					<a class="permalink" href="index.html#Group.Extension">&#xb6;</a>
 					
 					
@@ -1184,7 +1253,7 @@
 				
 			
 				
-				<h3 id="Group.HasInfobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2246:2283#L130">HasInfobox</a>
+				<h3 id="Group.HasInfobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2140:2177#L127">HasInfobox</a>
 					<a class="permalink" href="index.html#Group.HasInfobox">&#xb6;</a>
 					
 					
@@ -1196,7 +1265,7 @@
 				
 			
 				
-				<h3 id="Group.ID">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=299:330#L6">ID</a>
+				<h3 id="Group.ID">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=253:284#L5">ID</a>
 					<a class="permalink" href="index.html#Group.ID">&#xb6;</a>
 					
 					
@@ -1208,7 +1277,7 @@
 				
 			
 				
-				<h3 id="Group.IDRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=361:396#L10">IDRef</a>
+				<h3 id="Group.IDRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=315:350#L9">IDRef</a>
 					<a class="permalink" href="index.html#Group.IDRef">&#xb6;</a>
 					
 					
@@ -1220,7 +1289,7 @@
 				
 			
 				
-				<h3 id="Group.Infobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=925:959#L46">Infobox</a>
+				<h3 id="Group.Infobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=879:913#L45">Infobox</a>
 					<a class="permalink" href="index.html#Group.Infobox">&#xb6;</a>
 					
 					
@@ -1232,7 +1301,7 @@
 				
 			
 				
-				<h3 id="Group.IsLinked">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1549:1580#L88">IsLinked</a>
+				<h3 id="Group.IsLinked">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1503:1534#L87">IsLinked</a>
 					<a class="permalink" href="index.html#Group.IsLinked">&#xb6;</a>
 					
 					
@@ -1244,7 +1313,7 @@
 				
 			
 				
-				<h3 id="Group.IsRoot">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2609:2638#L154">IsRoot</a>
+				<h3 id="Group.IsRoot">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2563:2592#L153">IsRoot</a>
 					<a class="permalink" href="index.html#Group.IsRoot">&#xb6;</a>
 					
 					
@@ -1256,7 +1325,7 @@
 				
 			
 				
-				<h3 id="Group.IsVisible">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1026:1058#L53">IsVisible</a>
+				<h3 id="Group.IsVisible">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=980:1012#L52">IsVisible</a>
 					<a class="permalink" href="index.html#Group.IsVisible">&#xb6;</a>
 					
 					
@@ -1268,7 +1337,7 @@
 				
 			
 				
-				<h3 id="Group.LayerRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2503:2536#L146">LayerRef</a>
+				<h3 id="Group.LayerRef">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2457:2490#L145">LayerRef</a>
 					<a class="permalink" href="index.html#Group.LayerRef">&#xb6;</a>
 					
 					
@@ -1280,7 +1349,7 @@
 				
 			
 				
-				<h3 id="Group.Layers">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2027:2059#L118">Layers</a>
+				<h3 id="Group.Layers">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1981:2013#L117">Layers</a>
 					<a class="permalink" href="index.html#Group.Layers">&#xb6;</a>
 					
 					
@@ -1292,7 +1361,7 @@
 				
 			
 				
-				<h3 id="Group.Link">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1824:1867#L103">Link</a>
+				<h3 id="Group.Link">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1778:1821#L102">Link</a>
 					<a class="permalink" href="index.html#Group.Link">&#xb6;</a>
 					
 					
@@ -1304,7 +1373,7 @@
 				
 			
 				
-				<h3 id="Group.LinkedDatasetSchema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1656:1713#L95">LinkedDatasetSchema</a>
+				<h3 id="Group.LinkedDatasetSchema">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1610:1667#L94">LinkedDatasetSchema</a>
 					<a class="permalink" href="index.html#Group.LinkedDatasetSchema">&#xb6;</a>
 					
 					
@@ -1316,7 +1385,7 @@
 				
 			
 				
-				<h3 id="Group.MoveLayerFrom">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2166:2244#L128">MoveLayerFrom</a>
+				<h3 id="Group.MoveLayerFrom">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2120:2198#L127">MoveLayerFrom</a>
 					<a class="permalink" href="index.html#Group.MoveLayerFrom">&#xb6;</a>
 					
 					
@@ -1328,7 +1397,7 @@
 				
 			
 				
-				<h3 id="Group.Name">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=461:490#L17">Name</a>
+				<h3 id="Group.Name">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=415:444#L16">Name</a>
 					<a class="permalink" href="index.html#Group.Name">&#xb6;</a>
 					
 					
@@ -1340,7 +1409,7 @@
 				
 			
 				
-				<h3 id="Group.Plugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=523:560#L21">Plugin</a>
+				<h3 id="Group.Plugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=477:514#L20">Plugin</a>
 					<a class="permalink" href="index.html#Group.Plugin">&#xb6;</a>
 					
 					
@@ -1352,7 +1421,7 @@
 				
 			
 				
-				<h3 id="Group.Properties">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2692:2736#L161">Properties</a>
+				<h3 id="Group.Properties">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2646:2690#L160">Properties</a>
 					<a class="permalink" href="index.html#Group.Properties">&#xb6;</a>
 					
 					
@@ -1364,7 +1433,7 @@
 				
 			
 				
-				<h3 id="Group.Property">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=816:857#L39">Property</a>
+				<h3 id="Group.Property">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=770:811#L38">Property</a>
 					<a class="permalink" href="index.html#Group.Property">&#xb6;</a>
 					
 					
@@ -1376,7 +1445,7 @@
 				
 			
 				
-				<h3 id="Group.Rename">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1129:1164#L60">Rename</a>
+				<h3 id="Group.Rename">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1083:1118#L59">Rename</a>
 					<a class="permalink" href="index.html#Group.Rename">&#xb6;</a>
 					
 					
@@ -1388,7 +1457,7 @@
 				
 			
 				
-				<h3 id="Group.Scene">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2440:2478#L144">Scene</a>
+				<h3 id="Group.Scene">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2334:2372#L141">Scene</a>
 					<a class="permalink" href="index.html#Group.Scene">&#xb6;</a>
 					
 					
@@ -1400,7 +1469,7 @@
 				
 			
 				
-				<h3 id="Group.SetInfobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1223:1267#L67">SetInfobox</a>
+				<h3 id="Group.SetInfobox">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1177:1221#L66">SetInfobox</a>
 					<a class="permalink" href="index.html#Group.SetInfobox">&#xb6;</a>
 					
 					
@@ -1412,7 +1481,7 @@
 				
 			
 				
-				<h3 id="Group.SetPlugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1439:1485#L81">SetPlugin</a>
+				<h3 id="Group.SetPlugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1393:1439#L80">SetPlugin</a>
 					<a class="permalink" href="index.html#Group.SetPlugin">&#xb6;</a>
 					
 					
@@ -1424,7 +1493,7 @@
 				
 			
 				
-				<h3 id="Group.SetVisible">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1333:1373#L74">SetVisible</a>
+				<h3 id="Group.SetVisible">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1287:1327#L73">SetVisible</a>
 					<a class="permalink" href="index.html#Group.SetVisible">&#xb6;</a>
 					
 					
@@ -1436,19 +1505,19 @@
 				
 			
 				
-				<h3 id="Group.Tags">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2943:2975#L175">Tags</a>
+				<h3 id="Group.Tags">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2897:2928#L174">Tags</a>
 					<a class="permalink" href="index.html#Group.Tags">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (l *<a href="index.html#Group">Group</a>) Tags() *<a href="../tag/index.html">tag</a>.<a href="../tag/index.html#List">List</a></pre>
+				<pre>func (l *<a href="index.html#Group">Group</a>) Tags() *<a href="index.html#TagList">TagList</a></pre>
 				
 				
 				
 				
 			
 				
-				<h3 id="Group.Unlink">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1941:1965#L111">Unlink</a>
+				<h3 id="Group.Unlink">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=1895:1919#L110">Unlink</a>
 					<a class="permalink" href="index.html#Group.Unlink">&#xb6;</a>
 					
 					
@@ -1460,7 +1529,7 @@
 				
 			
 				
-				<h3 id="Group.UsesPlugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=744:777#L35">UsesPlugin</a>
+				<h3 id="Group.UsesPlugin">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=698:731#L34">UsesPlugin</a>
 					<a class="permalink" href="index.html#Group.UsesPlugin">&#xb6;</a>
 					
 					
@@ -1472,7 +1541,7 @@
 				
 			
 				
-				<h3 id="Group.ValidateProperties">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2806:2863#L168">ValidateProperties</a>
+				<h3 id="Group.ValidateProperties">func (*Group) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group.go?s=2760:2817#L167">ValidateProperties</a>
 					<a class="permalink" href="index.html#Group.ValidateProperties">&#xb6;</a>
 					
 					
@@ -1486,7 +1555,7 @@
 		
 			
 			
-			<h2 id="GroupBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=356:394#L17">GroupBuilder</a>
+			<h2 id="GroupBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=310:348#L16">GroupBuilder</a>
 				<a class="permalink" href="index.html#GroupBuilder">&#xb6;</a>
 				
 				
@@ -1507,7 +1576,7 @@
 
 			
 				
-				<h3 id="NewGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=396:425#L21">NewGroup</a>
+				<h3 id="NewGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=350:379#L20">NewGroup</a>
 					<a class="permalink" href="index.html#NewGroup">&#xb6;</a>
 					
 					
@@ -1520,7 +1589,7 @@
 
 			
 				
-				<h3 id="GroupBuilder.Build">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=501:547#L25">Build</a>
+				<h3 id="GroupBuilder.Build">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=455:501#L24">Build</a>
 					<a class="permalink" href="index.html#GroupBuilder.Build">&#xb6;</a>
 					
 					
@@ -1532,7 +1601,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Extension">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1485:1564#L80">Extension</a>
+				<h3 id="GroupBuilder.Extension">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1439:1518#L79">Extension</a>
 					<a class="permalink" href="index.html#GroupBuilder.Extension">&#xb6;</a>
 					
 					
@@ -1544,7 +1613,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.ID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=847:901#L45">ID</a>
+				<h3 id="GroupBuilder.ID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=801:855#L44">ID</a>
 					<a class="permalink" href="index.html#GroupBuilder.ID">&#xb6;</a>
 					
 					
@@ -1556,7 +1625,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Infobox">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1826:1888#L95">Infobox</a>
+				<h3 id="GroupBuilder.Infobox">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1780:1842#L94">Infobox</a>
 					<a class="permalink" href="index.html#GroupBuilder.Infobox">&#xb6;</a>
 					
 					
@@ -1568,7 +1637,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.IsVisible">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1275:1335#L70">IsVisible</a>
+				<h3 id="GroupBuilder.IsVisible">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1229:1289#L69">IsVisible</a>
 					<a class="permalink" href="index.html#GroupBuilder.IsVisible">&#xb6;</a>
 					
 					
@@ -1580,7 +1649,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Layers">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1738:1793#L90">Layers</a>
+				<h3 id="GroupBuilder.Layers">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1692:1747#L89">Layers</a>
 					<a class="permalink" href="index.html#GroupBuilder.Layers">&#xb6;</a>
 					
 					
@@ -1592,7 +1661,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.LinkedDatasetSchema">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1927:2024#L100">LinkedDatasetSchema</a>
+				<h3 id="GroupBuilder.LinkedDatasetSchema">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1881:1978#L99">LinkedDatasetSchema</a>
 					<a class="permalink" href="index.html#GroupBuilder.LinkedDatasetSchema">&#xb6;</a>
 					
 					
@@ -1604,7 +1673,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.MustBuild">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=631:672#L32">MustBuild</a>
+				<h3 id="GroupBuilder.MustBuild">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=585:626#L31">MustBuild</a>
 					<a class="permalink" href="index.html#GroupBuilder.MustBuild">&#xb6;</a>
 					
 					
@@ -1616,7 +1685,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Name">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1188:1242#L65">Name</a>
+				<h3 id="GroupBuilder.Name">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1142:1196#L64">Name</a>
 					<a class="permalink" href="index.html#GroupBuilder.Name">&#xb6;</a>
 					
 					
@@ -1628,7 +1697,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.NewID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=930:974#L50">NewID</a>
+				<h3 id="GroupBuilder.NewID">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=884:928#L49">NewID</a>
 					<a class="permalink" href="index.html#GroupBuilder.NewID">&#xb6;</a>
 					
 					
@@ -1640,7 +1709,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Plugin">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1374:1438#L75">Plugin</a>
+				<h3 id="GroupBuilder.Plugin">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1328:1392#L74">Plugin</a>
 					<a class="permalink" href="index.html#GroupBuilder.Plugin">&#xb6;</a>
 					
 					
@@ -1652,7 +1721,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Property">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1617:1687#L85">Property</a>
+				<h3 id="GroupBuilder.Property">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1571:1641#L84">Property</a>
 					<a class="permalink" href="index.html#GroupBuilder.Property">&#xb6;</a>
 					
 					
@@ -1664,7 +1733,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Root">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1103:1155#L60">Root</a>
+				<h3 id="GroupBuilder.Root">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1057:1109#L59">Root</a>
 					<a class="permalink" href="index.html#GroupBuilder.Root">&#xb6;</a>
 					
 					
@@ -1676,7 +1745,7 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Scene">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=1016:1072#L55">Scene</a>
+				<h3 id="GroupBuilder.Scene">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=970:1026#L54">Scene</a>
 					<a class="permalink" href="index.html#GroupBuilder.Scene">&#xb6;</a>
 					
 					
@@ -1688,12 +1757,12 @@
 				
 			
 				
-				<h3 id="GroupBuilder.Tags">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=2097:2154#L105">Tags</a>
+				<h3 id="GroupBuilder.Tags">func (*GroupBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/group_builder.go?s=2051:2107#L104">Tags</a>
 					<a class="permalink" href="index.html#GroupBuilder.Tags">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Tags(tags *<a href="../tag/index.html">tag</a>.<a href="../tag/index.html#List">List</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
+				<pre>func (b *<a href="index.html#GroupBuilder">GroupBuilder</a>) Tags(tags *<a href="index.html#TagList">TagList</a>) *<a href="index.html#GroupBuilder">GroupBuilder</a></pre>
 				
 				
 				
@@ -2696,7 +2765,7 @@ InfoboxFieldBuilder _
 		
 			
 			
-			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=169:229#L1">Item</a>
+			<h2 id="Item">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=123:183#L1">Item</a>
 				<a class="permalink" href="index.html#Item">&#xb6;</a>
 				
 				
@@ -2717,7 +2786,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="ItemFromLayer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=118:151#L1">ItemFromLayer</a>
+				<h3 id="ItemFromLayer">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=72:105#L1">ItemFromLayer</a>
 					<a class="permalink" href="index.html#ItemFromLayer">&#xb6;</a>
 					
 					
@@ -2728,7 +2797,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemFromLayerRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=215:252#L6">ItemFromLayerRef</a>
+				<h3 id="ItemFromLayerRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=169:206#L5">ItemFromLayerRef</a>
 					<a class="permalink" href="index.html#ItemFromLayerRef">&#xb6;</a>
 					
 					
@@ -2739,7 +2808,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ToLayerItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=999:1030#L47">ToLayerItem</a>
+				<h3 id="ToLayerItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=894:925#L44">ToLayerItem</a>
 					<a class="permalink" href="index.html#ToLayerItem">&#xb6;</a>
 					
 					
@@ -2750,7 +2819,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ToLayerItemRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=1093:1128#L54">ToLayerItemRef</a>
+				<h3 id="ToLayerItemRef">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=988:1023#L51">ToLayerItemRef</a>
 					<a class="permalink" href="index.html#ToLayerItemRef">&#xb6;</a>
 					
 					
@@ -2763,31 +2832,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="Item.AttachTag">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2373:2415#L148">AttachTag</a>
-					<a class="permalink" href="index.html#Item.AttachTag">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l *<a href="index.html#Item">Item</a>) AttachTag(t <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="Item.DetachTag">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2517:2559#L156">DetachTag</a>
-					<a class="permalink" href="index.html#Item.DetachTag">&#xb6;</a>
-					
-					
-				</h3>
-				<pre>func (l *<a href="index.html#Item">Item</a>) DetachTag(t <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a></pre>
-				
-				
-				
-				
-			
-				
-				<h3 id="Item.Extension">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=686:734#L36">Extension</a>
+				<h3 id="Item.Extension">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=640:688#L35">Extension</a>
 					<a class="permalink" href="index.html#Item.Extension">&#xb6;</a>
 					
 					
@@ -2799,7 +2844,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.HasInfobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2246:2283#L130">HasInfobox</a>
+				<h3 id="Item.HasInfobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2140:2177#L127">HasInfobox</a>
 					<a class="permalink" href="index.html#Item.HasInfobox">&#xb6;</a>
 					
 					
@@ -2811,7 +2856,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.ID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=231:261#L4">ID</a>
+				<h3 id="Item.ID">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=185:215#L3">ID</a>
 					<a class="permalink" href="index.html#Item.ID">&#xb6;</a>
 					
 					
@@ -2823,7 +2868,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.IDRef">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=292:326#L8">IDRef</a>
+				<h3 id="Item.IDRef">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=246:280#L7">IDRef</a>
 					<a class="permalink" href="index.html#Item.IDRef">&#xb6;</a>
 					
 					
@@ -2835,7 +2880,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Infobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1015:1048#L57">Infobox</a>
+				<h3 id="Item.Infobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=969:1002#L56">Infobox</a>
 					<a class="permalink" href="index.html#Item.Infobox">&#xb6;</a>
 					
 					
@@ -2847,7 +2892,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.IsLinked">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1531:1561#L92">IsLinked</a>
+				<h3 id="Item.IsLinked">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1485:1515#L91">IsLinked</a>
 					<a class="permalink" href="index.html#Item.IsLinked">&#xb6;</a>
 					
 					
@@ -2859,7 +2904,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.IsVisible">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=482:513#L22">IsVisible</a>
+				<h3 id="Item.IsVisible">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=436:467#L21">IsVisible</a>
 					<a class="permalink" href="index.html#Item.IsVisible">&#xb6;</a>
 					
 					
@@ -2871,7 +2916,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.LayerRef">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1957:1989#L122">LayerRef</a>
+				<h3 id="Item.LayerRef">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1911:1943#L121">LayerRef</a>
 					<a class="permalink" href="index.html#Item.LayerRef">&#xb6;</a>
 					
 					
@@ -2883,7 +2928,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Link">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1774:1810#L107">Link</a>
+				<h3 id="Item.Link">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1728:1764#L106">Link</a>
 					<a class="permalink" href="index.html#Item.Link">&#xb6;</a>
 					
 					
@@ -2895,7 +2940,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.LinkedDataset">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1631:1675#L99">LinkedDataset</a>
+				<h3 id="Item.LinkedDataset">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1585:1629#L98">LinkedDataset</a>
 					<a class="permalink" href="index.html#Item.LinkedDataset">&#xb6;</a>
 					
 					
@@ -2907,7 +2952,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Name">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=391:419#L15">Name</a>
+				<h3 id="Item.Name">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=345:373#L14">Name</a>
 					<a class="permalink" href="index.html#Item.Name">&#xb6;</a>
 					
 					
@@ -2919,7 +2964,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Plugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=584:620#L29">Plugin</a>
+				<h3 id="Item.Plugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=538:574#L28">Plugin</a>
 					<a class="permalink" href="index.html#Item.Plugin">&#xb6;</a>
 					
 					
@@ -2931,7 +2976,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Properties">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2062:2105#L130">Properties</a>
+				<h3 id="Item.Properties">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2016:2059#L129">Properties</a>
 					<a class="permalink" href="index.html#Item.Properties">&#xb6;</a>
 					
 					
@@ -2943,7 +2988,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Property">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=907:947#L50">Property</a>
+				<h3 id="Item.Property">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=861:901#L49">Property</a>
 					<a class="permalink" href="index.html#Item.Property">&#xb6;</a>
 					
 					
@@ -2955,7 +3000,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Rename">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1115:1149#L64">Rename</a>
+				<h3 id="Item.Rename">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1069:1103#L63">Rename</a>
 					<a class="permalink" href="index.html#Item.Rename">&#xb6;</a>
 					
 					
@@ -2967,7 +3012,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Scene">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2440:2478#L144">Scene</a>
+				<h3 id="Item.Scene">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=2334:2372#L141">Scene</a>
 					<a class="permalink" href="index.html#Item.Scene">&#xb6;</a>
 					
 					
@@ -2979,7 +3024,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.SetInfobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1313:1356#L78">SetInfobox</a>
+				<h3 id="Item.SetInfobox">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1267:1310#L77">SetInfobox</a>
 					<a class="permalink" href="index.html#Item.SetInfobox">&#xb6;</a>
 					
 					
@@ -2991,7 +3036,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.SetPlugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1422:1467#L85">SetPlugin</a>
+				<h3 id="Item.SetPlugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1376:1421#L84">SetPlugin</a>
 					<a class="permalink" href="index.html#Item.SetPlugin">&#xb6;</a>
 					
 					
@@ -3003,7 +3048,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.SetVisible">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1208:1247#L71">SetVisible</a>
+				<h3 id="Item.SetVisible">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1162:1201#L70">SetVisible</a>
 					<a class="permalink" href="index.html#Item.SetVisible">&#xb6;</a>
 					
 					
@@ -3015,19 +3060,19 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.Tags">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2311:2342#L144">Tags</a>
+				<h3 id="Item.Tags">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2265:2295#L143">Tags</a>
 					<a class="permalink" href="index.html#Item.Tags">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (l *<a href="index.html#Item">Item</a>) Tags() *<a href="../tag/index.html">tag</a>.<a href="../tag/index.html#List">List</a></pre>
+				<pre>func (l *<a href="index.html#Item">Item</a>) Tags() *<a href="index.html#TagList">TagList</a></pre>
 				
 				
 				
 				
 			
 				
-				<h3 id="Item.Unlink">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1878:1901#L115">Unlink</a>
+				<h3 id="Item.Unlink">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=1832:1855#L114">Unlink</a>
 					<a class="permalink" href="index.html#Item.Unlink">&#xb6;</a>
 					
 					
@@ -3039,7 +3084,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.UsesPlugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=803:835#L43">UsesPlugin</a>
+				<h3 id="Item.UsesPlugin">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=757:789#L42">UsesPlugin</a>
 					<a class="permalink" href="index.html#Item.UsesPlugin">&#xb6;</a>
 					
 					
@@ -3051,7 +3096,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="Item.ValidateProperties">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2175:2231#L137">ValidateProperties</a>
+				<h3 id="Item.ValidateProperties">func (*Item) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item.go?s=2129:2185#L136">ValidateProperties</a>
 					<a class="permalink" href="index.html#Item.ValidateProperties">&#xb6;</a>
 					
 					
@@ -3065,7 +3110,7 @@ InfoboxFieldBuilder _
 		
 			
 			
-			<h2 id="ItemBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=350:386#L17">ItemBuilder</a>
+			<h2 id="ItemBuilder">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=304:340#L16">ItemBuilder</a>
 				<a class="permalink" href="index.html#ItemBuilder">&#xb6;</a>
 				
 				
@@ -3086,7 +3131,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="NewItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=388:415#L21">NewItem</a>
+				<h3 id="NewItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=342:369#L20">NewItem</a>
 					<a class="permalink" href="index.html#NewItem">&#xb6;</a>
 					
 					
@@ -3099,7 +3144,7 @@ InfoboxFieldBuilder _
 
 			
 				
-				<h3 id="ItemBuilder.Build">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=489:533#L25">Build</a>
+				<h3 id="ItemBuilder.Build">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=443:487#L24">Build</a>
 					<a class="permalink" href="index.html#ItemBuilder.Build">&#xb6;</a>
 					
 					
@@ -3111,7 +3156,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.Extension">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1368:1445#L75">Extension</a>
+				<h3 id="ItemBuilder.Extension">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1322:1399#L74">Extension</a>
 					<a class="permalink" href="index.html#ItemBuilder.Extension">&#xb6;</a>
 					
 					
@@ -3123,7 +3168,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.ID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=827:879#L45">ID</a>
+				<h3 id="ItemBuilder.ID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=781:833#L44">ID</a>
 					<a class="permalink" href="index.html#ItemBuilder.ID">&#xb6;</a>
 					
 					
@@ -3135,7 +3180,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.Infobox">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1603:1663#L85">Infobox</a>
+				<h3 id="ItemBuilder.Infobox">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1557:1617#L84">Infobox</a>
 					<a class="permalink" href="index.html#ItemBuilder.Infobox">&#xb6;</a>
 					
 					
@@ -3147,7 +3192,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.IsVisible">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1162:1220#L65">IsVisible</a>
+				<h3 id="ItemBuilder.IsVisible">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1116:1174#L64">IsVisible</a>
 					<a class="permalink" href="index.html#ItemBuilder.IsVisible">&#xb6;</a>
 					
 					
@@ -3159,7 +3204,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.LinkedDataset">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1702:1779#L90">LinkedDataset</a>
+				<h3 id="ItemBuilder.LinkedDataset">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1656:1733#L89">LinkedDataset</a>
 					<a class="permalink" href="index.html#ItemBuilder.LinkedDataset">&#xb6;</a>
 					
 					
@@ -3171,7 +3216,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.MustBuild">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=617:656#L32">MustBuild</a>
+				<h3 id="ItemBuilder.MustBuild">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=571:610#L31">MustBuild</a>
 					<a class="permalink" href="index.html#ItemBuilder.MustBuild">&#xb6;</a>
 					
 					
@@ -3183,7 +3228,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.Name">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1077:1129#L60">Name</a>
+				<h3 id="ItemBuilder.Name">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1031:1083#L59">Name</a>
 					<a class="permalink" href="index.html#ItemBuilder.Name">&#xb6;</a>
 					
 					
@@ -3195,7 +3240,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.NewID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=908:950#L50">NewID</a>
+				<h3 id="ItemBuilder.NewID">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=862:904#L49">NewID</a>
 					<a class="permalink" href="index.html#ItemBuilder.NewID">&#xb6;</a>
 					
 					
@@ -3207,7 +3252,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.Plugin">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1259:1321#L70">Plugin</a>
+				<h3 id="ItemBuilder.Plugin">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1213:1275#L69">Plugin</a>
 					<a class="permalink" href="index.html#ItemBuilder.Plugin">&#xb6;</a>
 					
 					
@@ -3219,7 +3264,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.Property">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1498:1559#L80">Property</a>
+				<h3 id="ItemBuilder.Property">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1452:1513#L79">Property</a>
 					<a class="permalink" href="index.html#ItemBuilder.Property">&#xb6;</a>
 					
 					
@@ -3231,7 +3276,7 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.Scene">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=992:1046#L55">Scene</a>
+				<h3 id="ItemBuilder.Scene">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=946:1000#L54">Scene</a>
 					<a class="permalink" href="index.html#ItemBuilder.Scene">&#xb6;</a>
 					
 					
@@ -3243,12 +3288,12 @@ InfoboxFieldBuilder _
 				
 			
 				
-				<h3 id="ItemBuilder.Tags">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1840:1895#L95">Tags</a>
+				<h3 id="ItemBuilder.Tags">func (*ItemBuilder) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/item_builder.go?s=1794:1848#L94">Tags</a>
 					<a class="permalink" href="index.html#ItemBuilder.Tags">&#xb6;</a>
 					
 					
 				</h3>
-				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Tags(tags *<a href="../tag/index.html">tag</a>.<a href="../tag/index.html#List">List</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
+				<pre>func (b *<a href="index.html#ItemBuilder">ItemBuilder</a>) Tags(tags *<a href="index.html#TagList">TagList</a>) *<a href="index.html#ItemBuilder">ItemBuilder</a></pre>
 				
 				
 				
@@ -3315,7 +3360,7 @@ InfoboxFieldBuilder _
 		
 			
 			
-			<h2 id="Layer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=293:757#L7">Layer</a>
+			<h2 id="Layer">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/layer.go?s=247:652#L6">Layer</a>
 				<a class="permalink" href="index.html#Layer">&#xb6;</a>
 				
 				
@@ -3332,15 +3377,13 @@ InfoboxFieldBuilder _
     HasInfobox() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>
     Infobox() *<a href="index.html#Infobox">Infobox</a>
     Scene() <a href="../id/index.html">id</a>.<a href="../id/index.html#SceneID">SceneID</a>
-    Tags() *<a href="../tag/index.html">tag</a>.<a href="../tag/index.html#List">List</a>
+    Tags() *<a href="index.html#TagList">TagList</a>
     Rename(<a href="/reearth/reearth-backend/main/pkg/builtin/#string">string</a>)
     SetVisible(<a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)
     SetInfobox(*<a href="index.html#Infobox">Infobox</a>)
     SetPlugin(*<a href="../id/index.html">id</a>.<a href="../id/index.html#PluginID">PluginID</a>)
     Properties() []<a href="../id/index.html">id</a>.<a href="../id/index.html#PropertyID">PropertyID</a>
     ValidateProperties(<a href="../property/index.html">property</a>.<a href="../property/index.html#Map">Map</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>
-    AttachTag(t <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>
-    DetachTag(t <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#error">error</a>
 }</pre>
 
 			
@@ -3878,6 +3921,423 @@ MergedInfoboxField represents a field of MergedInfobox
 
 			
 		
+			
+			
+			<h2 id="Tag">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=155:202#L3">Tag</a>
+				<a class="permalink" href="index.html#Tag">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type Tag interface {
+    ID() <a href="index.html#TagID">TagID</a>
+    Clone() <a href="index.html#Tag">Tag</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TagGroup">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=239:300#L12">TagGroup</a>
+				<a class="permalink" href="index.html#TagGroup">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TagGroup struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewTagGroup">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=714:770#L49">NewTagGroup</a>
+					<a class="permalink" href="index.html#NewTagGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewTagGroup(t <a href="index.html#TagID">TagID</a>, children []*<a href="index.html#TagItem">TagItem</a>) *<a href="index.html#TagGroup">TagGroup</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="TagGroupFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=894:928#L59">TagGroupFrom</a>
+					<a class="permalink" href="index.html#TagGroupFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagGroupFrom(t <a href="index.html#Tag">Tag</a>) *<a href="index.html#TagGroup">TagGroup</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="TagGroup.Add">func (*TagGroup) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=1345:1385#L90">Add</a>
+					<a class="permalink" href="index.html#TagGroup.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagGroup">TagGroup</a>) Add(ti *<a href="index.html#TagItem">TagItem</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagGroup.Children">func (*TagGroup) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=1052:1092#L71">Children</a>
+					<a class="permalink" href="index.html#TagGroup.Children">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagGroup">TagGroup</a>) Children() []*<a href="index.html#TagItem">TagItem</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagGroup.Clone">func (*TagGroup) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=1769:1799#L113">Clone</a>
+					<a class="permalink" href="index.html#TagGroup.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagGroup">TagGroup</a>) Clone() <a href="index.html#Tag">Tag</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagGroup.CloneGroup">func (*TagGroup) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=1828:1869#L117">CloneGroup</a>
+					<a class="permalink" href="index.html#TagGroup.CloneGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagGroup">TagGroup</a>) CloneGroup() *<a href="index.html#TagGroup">TagGroup</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagGroup.Delete">func (*TagGroup) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=1513:1559#L98">Delete</a>
+					<a class="permalink" href="index.html#TagGroup.Delete">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagGroup">TagGroup</a>) Delete(ti <a href="index.html#TagID">TagID</a>) (res <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagGroup.Find">func (*TagGroup) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=1177:1219#L78">Find</a>
+					<a class="permalink" href="index.html#TagGroup.Find">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagGroup">TagGroup</a>) Find(ti <a href="index.html#TagID">TagID</a>) *<a href="index.html#TagItem">TagItem</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagGroup.ID">func (*TagGroup) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=969:998#L64">ID</a>
+					<a class="permalink" href="index.html#TagGroup.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagGroup">TagGroup</a>) ID() <a href="index.html#TagID">TagID</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TagID">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=67:88#L1">TagID</a>
+				<a class="permalink" href="index.html#TagID">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TagID = <a href="../id/index.html">id</a>.<a href="../id/index.html#TagID">TagID</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="TagItem">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=204:237#L8">TagItem</a>
+				<a class="permalink" href="index.html#TagItem">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TagItem struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewTagItem">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=302:335#L17">NewTagItem</a>
+					<a class="permalink" href="index.html#NewTagItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewTagItem(t <a href="index.html#TagID">TagID</a>) *<a href="index.html#TagItem">TagItem</a></pre>
+				
+				
+				
+			
+				
+				<h3 id="TagItemFrom">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=485:517#L33">TagItemFrom</a>
+					<a class="permalink" href="index.html#TagItemFrom">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func TagItemFrom(t <a href="index.html#Tag">Tag</a>) *<a href="index.html#TagItem">TagItem</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="TagItem.Clone">func (*TagItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=557:586#L38">Clone</a>
+					<a class="permalink" href="index.html#TagItem.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagItem">TagItem</a>) Clone() <a href="index.html#Tag">Tag</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagItem.CloneItem">func (*TagItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=614:652#L42">CloneItem</a>
+					<a class="permalink" href="index.html#TagItem.CloneItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagItem">TagItem</a>) CloneItem() *<a href="index.html#TagItem">TagItem</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagItem.ID">func (*TagItem) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=403:431#L26">ID</a>
+					<a class="permalink" href="index.html#TagItem.ID">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagItem">TagItem</a>) ID() <a href="index.html#TagID">TagID</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TagList">type <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=118:153#L1">TagList</a>
+				<a class="permalink" href="index.html#TagList">&#xb6;</a>
+				
+				
+			</h2>
+			
+			<pre>type TagList struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewTagList">func <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=1944:1980#L124">NewTagList</a>
+					<a class="permalink" href="index.html#NewTagList">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func NewTagList(tags []<a href="index.html#Tag">Tag</a>) *<a href="index.html#TagList">TagList</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="TagList.Add">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=2145:2179#L135">Add</a>
+					<a class="permalink" href="index.html#TagList.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) Add(ti <a href="index.html#Tag">Tag</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.Clone">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=3500:3534#L211">Clone</a>
+					<a class="permalink" href="index.html#TagList.Clone">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) Clone() *<a href="index.html#TagList">TagList</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.Delete">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=2344:2389#L143">Delete</a>
+					<a class="permalink" href="index.html#TagList.Delete">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) Delete(ti <a href="index.html#TagID">TagID</a>) (res <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.Find">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=2725:2779#L165">Find</a>
+					<a class="permalink" href="index.html#TagList.Find">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) Find(ti <a href="index.html#TagID">TagID</a>) (*<a href="index.html#TagGroup">TagGroup</a>, *<a href="index.html#TagItem">TagItem</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.FindGroup">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=3077:3124#L186">FindGroup</a>
+					<a class="permalink" href="index.html#TagList.FindGroup">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) FindGroup(ti <a href="index.html#TagID">TagID</a>) *<a href="index.html#TagGroup">TagGroup</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.FindItem">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=2996:3041#L181">FindItem</a>
+					<a class="permalink" href="index.html#TagList.FindItem">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) FindItem(ti <a href="index.html#TagID">TagID</a>) *<a href="index.html#TagItem">TagItem</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.Has">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=2634:2670#L160">Has</a>
+					<a class="permalink" href="index.html#TagList.Has">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) Has(ti <a href="index.html#TagID">TagID</a>) <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.IsEmpty">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=3425:3457#L207">IsEmpty</a>
+					<a class="permalink" href="index.html#TagList.IsEmpty">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) IsEmpty() <a href="/reearth/reearth-backend/main/pkg/builtin/#bool">bool</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.RootItems">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=3191:3231#L194">RootItems</a>
+					<a class="permalink" href="index.html#TagList.RootItems">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) RootItems() []*<a href="index.html#TagItem">TagItem</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="TagList.Tags">func (*TagList) <a href="https://github.com/reearth/reearth-backend/blob/main/pkg/layer/tag.go?s=2038:2068#L128">Tags</a>
+					<a class="permalink" href="index.html#TagList.Tags">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (t *<a href="index.html#TagList">TagList</a>) Tags() []<a href="index.html#Tag">Tag</a></pre>
+				
+				
+				
+				
+			
+		
 	
 
 	
@@ -3954,7 +4414,7 @@ MergedInfoboxField represents a field of MergedInfobox
 
 
 <div id="footer">
-Build version go1.17.4.<br>
+Build version go1.17.5.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
