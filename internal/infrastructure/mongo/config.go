@@ -15,10 +15,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
-var upsert = true
 
 type configRepo struct {
 	client *mongodoc.ClientCollection
@@ -63,26 +60,25 @@ func (r *configRepo) Load(ctx context.Context) (*config.Config, error) {
 
 func (r *configRepo) loadFromDB(ctx context.Context) (*config.Config, error) {
 	cfg := &ConfigDoc{}
-	if r.lockID == nil {
+	newLock := r.lockID == nil
+	filter := bson.M{"lock": bson.M{"$eq": r.lockID}}
+	if newLock {
 		lockID := uuid.New()
 		r.lockID = &lockID
+		filter = bson.M{"lock": bson.M{"$exists": false}}
 	}
 
 	if err := r.client.Collection().FindOneAndUpdate(ctx,
-		bson.M{"$or": bson.A{
-			bson.M{"lock": bson.M{"$exists": false}},
-			bson.M{"lock": bson.M{"$eq": r.lockID}},
-		}},
+		filter,
 		bson.M{"$set": bson.M{"lock": r.lockID}},
 	).Decode(cfg); err != nil {
+		r.lockID = nil
 		if errors.Is(err, mongo.ErrNoDocuments) {
-			return &config.Config{}, nil
+			return nil, ErrLoadingLockedConfig
 		}
 		return nil, rerror.ErrInternalBy(err)
 	}
-	if cfg.lock != nil && cfg.lock != r.lockID {
-		return nil, ErrLoadingLockedConfig
-	}
+
 	return &config.Config{
 		Migration: cfg.Migration,
 		Auth:      cfg.Auth,
@@ -114,11 +110,11 @@ func (r *configRepo) Save(ctx context.Context, cfg *config.Config) error {
 	if r.lockID == nil {
 		return ErrConfigNotLocked
 	}
-	if _, err := r.client.Collection().UpdateOne(ctx,
+	if _, err := r.client.Collection().UpdateOne(
+		ctx,
 		bson.M{"lock": bson.M{"$eq": r.lockID}},
-		bson.M{"$set": cfg}, &options.UpdateOptions{
-			Upsert: &upsert,
-		}); err != nil {
+		bson.M{"$set": cfg},
+	); err != nil {
 		return rerror.ErrInternalBy(err)
 	}
 	return nil
