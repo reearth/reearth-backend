@@ -26,7 +26,6 @@ type configRepo struct {
 type ConfigDoc struct {
 	Migration int64
 	Auth      *config.Auth
-	lock      *uuid.UUID
 }
 
 var (
