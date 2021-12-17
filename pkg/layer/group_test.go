@@ -11,7 +11,6 @@ var _ Layer = &Group{}
 
 var l1 = id.MustLayerID(id.New().String())
 var l2 = id.MustLayerID(id.New().String())
-var tags = []id.TagID{id.NewTagID()}
 var group = Group{
 	layerBase: layerBase{
 		id:        id.MustLayerID(id.New().String()),
