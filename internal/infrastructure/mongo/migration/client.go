@@ -7,15 +7,9 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
-	"github.com/reearth/reearth-backend/pkg/config"
 	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/rerror"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
-var upsert = true
 
 type DBClient = *mongodoc.Client
 
@@ -67,33 +61,4 @@ func migrationKeys() []int64 {
 		keys = append(keys, k)
 	}
 	return keys
-}
-
-func (c *Client) loadConfig(ctx context.Context) (*config.Config, error) {
-	cfg := &config.Config{}
-
-	if err := c.Client.Collection("config").FindOne(ctx, bson.D{}).Decode(cfg); err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) || errors.Is(err, mongo.ErrNilDocument) {
-			return cfg, nil
-		}
-		return nil, err
-	}
-
-	return cfg, nil
-}
-
-func (c *Client) saveConfig(ctx context.Context, cfg *config.Config) error {
-	if cfg == nil {
-		return nil
-	}
-
-	if _, err := c.Client.Collection("config").UpdateOne(ctx, bson.D{}, bson.M{
-		"$set": cfg,
-	}, &options.UpdateOptions{
-		Upsert: &upsert,
-	}); err != nil {
-		return rerror.ErrInternalBy(err)
-	}
-
-	return nil
 }
