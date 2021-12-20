@@ -35,6 +35,25 @@ extensions:
           ion:
             title: Cesium Icon APIアクセストークン
             description: 自身のCesium IonアカウントからAPIキーを発行し、ここに設定します。Cesium Ionのアセット（タイルデータ、3Dデータなど）の使用が可能になるため、設定を推奨します。
+      cameraLimiter:
+        title: カメラ範囲制限
+        description: カメラの移動できる範囲を制限することができます。
+        fields:
+          cameraLimitterEnabled:
+            title: 有効
+            description: カメラの範囲制限を有効にします。
+          cameraLimitterShowHelper:
+            title: 範囲を表示
+            description: カメラの移動範囲を表すボックスを表示します。
+          cameraLimitterTargetArea:
+            title: 基準位置
+            description: 移動範囲の基準となる位置です。この位置が制限範囲を表すボックスの横方向と奥行き方向の中心点となり、かつ移動可能範囲における最大の高さとなります。ここで指定した高さ以上にカメラをズームアウトすることができなくなります。
+          cameraLimitterTargetWidth:
+            title: 軽度の範囲
+            description: 制限範囲を表すボックスの幅（経度の方向）を指定します。
+          cameraLimitterTargetLength:
+            title: 緯度の範囲
+            description: 制限範囲を表すボックスの奥行き（緯度の方向）を指定します。
       tiles:
         title: タイル
         description: 手持ちのタイルデータを使用し、地球上に表示することができます。
@@ -763,32 +782,23 @@ extensions:
     description: レイヤーを自動的にまとめて表示することが可能なクラスタを設定します。
     propertySchema:
       default:
-        title: デフォルト
+        title: クラスタ
         fields:
-          cluster_name:
-            title: クラスタ名
-            description: クラスタの名前を指定します。
-          cluster_pixelRange:
+          clusterPixelRange:
             title: 最小範囲
             description: 画面上の何ピクセル分の範囲にあるレイヤーをクラスタにまとめるかを最小値で指定します。
-          cluster_minSize:
+          clusterMinSize:
             title: 最小サイズ
-            description: クラスタが表示される最小のレイヤー数
-          cluster_maxSize:
-            title: 最大サイズ
-            description: クラスタに属することが可能な最大レイヤー数
-          cluster_shapeType:
-            title: 表示方法
-            description: 画面上で表示されるクラスタの表示方法を指定します。
-            choices:
-              pin: ピン
-              label: ラベル
-          cluster_textColor:
-            title: 文字色
-            description: 画面上で表示されるクラスタの文字色を指定します。
-          cluster_backgroundColor:
-            title: 背景色
-            description: 画面上で表示されるクラスタの背景色を指定します。
-          cluster_image:
+            description: クラスタが表示されるのに必要な最小のレイヤー数
+          clusterImage:
             title: 画像
             description: 画面上で表示されるクラスタの画像を指定します。
+          clusterImageWidth:
+            title: 画像幅
+            description: 画像の幅をピクセルで指定します。
+          clusterImageHeight:
+            title: 画像高さ
+            description: 画像の高さをピクセルで指定します。
+          clusterLabelTypography:
+            title: ラベル
+            description: ラベルのスタイルを指定します。
