@@ -31,7 +31,7 @@ func InitRepos(ctx context.Context, c *repo.Container, mc *mongo.Client, databas
 	c.SceneLock = NewSceneLock(client)
 	c.Transaction = NewTransaction(client)
 
-	if err := (migration.Client{Client: client}).Migrate(ctx); err != nil {
+	if err := (migration.Client{Client: client}).Migrate(ctx, c.Config); err != nil {
 		return err
 	}
 

@@ -15,6 +15,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type configRepo struct {
@@ -37,9 +38,26 @@ func NewConfig(client *mongodoc.Client) repo.Config {
 	return &configRepo{client: client.WithCollection("config")}
 }
 
+// Load r
+// Trys to lock the config doc in the db and load it
+// if the doc is already locked by another repo it will fail
+// Release func should be called after loading the config
 func (r *configRepo) Load(ctx context.Context) (*config.Config, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
+
+	// Ensure that the document exists in the db
+	// `exists` is just a fake value because mongo does not allow empty $set
+	_, err := r.client.Collection().UpdateOne(
+		ctx,
+		bson.D{},
+		bson.M{"$set": bson.M{"exists": true}},
+		options.Update().SetUpsert(true),
+	)
+	if err != nil {
+		return nil, err
+	}
+
 	numOfTries := 2
 
 	for i := 1; i <= numOfTries; i++ {
@@ -84,13 +102,16 @@ func (r *configRepo) loadFromDB(ctx context.Context) (*config.Config, error) {
 	}, nil
 }
 
+// Release r
+// Releases the locked config in the db
 func (r *configRepo) Release(ctx context.Context) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 	if r.lockID == nil {
 		return ErrConfigNotLocked
 	}
-	if _, err := r.client.Collection().UpdateOne(ctx,
+	if _, err := r.client.Collection().UpdateOne(
+		ctx,
 		bson.M{"lock": bson.M{"$eq": r.lockID}},
 		bson.M{"$unset": bson.M{"lock": nil}},
 	); err != nil {
@@ -100,6 +121,8 @@ func (r *configRepo) Release(ctx context.Context) error {
 	return nil
 }
 
+// Save r
+// Saves locked config object to db
 func (r *configRepo) Save(ctx context.Context, cfg *config.Config) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
