@@ -2,7 +2,6 @@ package mongo
 
 import (
 	"context"
-	"time"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/migration"
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
@@ -51,9 +50,6 @@ func InitRepos(ctx context.Context, c *repo.Container, mc *mongo.Client, databas
 	if err := (migration.Client{Client: client}).Migrate(ctx); err != nil {
 		return err
 	}
-
-	// test
-	time.Sleep(time.Second * 3)
 
 	return nil
 }
