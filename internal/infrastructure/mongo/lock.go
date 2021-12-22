@@ -63,7 +63,7 @@ func (r *Lock) Lock(ctx context.Context, name string) (err error) {
 				continue
 			}
 
-			log.Infof("lock: failed to lock: id=%s, name=%s, host=%s, err=%s", name, lockID, r.hostid, err)
+			log.Infof("lock: failed to lock: name=%s, id=%s, host=%s, err=%s", name, lockID, r.hostid, err)
 			return repo.ErrFailedToLock
 		} else {
 			break
