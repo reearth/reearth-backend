@@ -38,14 +38,14 @@ func NewLock(c *mongo.Collection) (repo.Lock, error) {
 	}, nil
 }
 
-func (r *Lock) Lock(ctx context.Context, name string) (err error) {
+func (r *Lock) Lock(ctx context.Context, name string) error {
 	if r.getLockID(name) != "" {
 		return repo.ErrAlreadyLocked
 	}
 
 	lockID, err := uuidString()
 	if err != nil {
-		return
+		return err
 	}
 
 	log.Infof("lock: trying to lock: id=%s, name=%s, host=%s", name, lockID, r.hostid)
