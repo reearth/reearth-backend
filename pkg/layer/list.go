@@ -8,6 +8,17 @@ import (
 
 type List []*Layer
 
+func (ll List) IDs() *IDList {
+	if len(ll) == 0 {
+		return nil
+	}
+	ids := make([]ID, 0, len(ll))
+	for _, l := range ll.Deref() {
+		ids = append(ids, l.ID())
+	}
+	return NewIDList(ids)
+}
+
 func (ll List) Last() *Layer {
 	if len(ll) == 0 {
 		return nil

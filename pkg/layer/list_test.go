@@ -7,6 +7,38 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestList_IDs(t *testing.T) {
+	sid := id.NewSceneID()
+	l1 := NewID()
+	l2 := NewID()
+
+	tests := []struct {
+		name   string
+		target List
+		want   *IDList
+	}{
+		{
+			name: "ok",
+			target: List{
+				New().ID(l1).Scene(sid).Item().MustBuild().LayerRef(),
+				New().ID(l2).Scene(sid).Group().MustBuild().LayerRef(),
+			},
+			want: NewIDList([]ID{l1, l2}),
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.IDs())
+		})
+	}
+}
+
 func TestList_Remove(t *testing.T) {
 	sid := id.NewSceneID()
 	l1 := NewItem().NewID().Scene(sid).MustBuild()
