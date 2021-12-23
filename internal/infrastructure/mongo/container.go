@@ -21,7 +21,7 @@ func InitRepos(ctx context.Context, c *repo.Container, mc *mongo.Client, databas
 
 	client := mongodoc.NewClient(databaseName, mc)
 	c.Asset = NewAsset(client)
-	c.Config = NewConfig(client)
+	c.Config = NewConfig(client, lock)
 	c.DatasetSchema = NewDatasetSchema(client)
 	c.Dataset = NewDataset(client)
 	c.Layer = NewLayer(client)
@@ -38,16 +38,7 @@ func InitRepos(ctx context.Context, c *repo.Container, mc *mongo.Client, databas
 	c.Lock = lock
 
 	// migration
-	const lockName = "migration"
-	if err := lock.Lock(ctx, lockName); err != nil {
-		return err
-	}
-	defer func() {
-		if err := lock.Unlock(ctx, lockName); err != nil {
-			panic(err)
-		}
-	}()
-	if err := (migration.Client{Client: client}).Migrate(ctx); err != nil {
+	if err := (migration.Client{Client: client, Config: c.Config}).Migrate(ctx); err != nil {
 		return err
 	}
 
