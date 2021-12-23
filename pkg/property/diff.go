@@ -97,6 +97,6 @@ func (d *SchemaDiff) IsEmpty() bool {
 	return d == nil || len(d.Deleted) == 0 && len(d.Moved) == 0 && len(d.TypeChanged) == 0
 }
 
-func (d *SchemaDiff) IsPropertySchemaChanged() bool {
+func (d *SchemaDiff) IsIDChanged() bool {
 	return d != nil && !d.From.Equal(d.To)
 }

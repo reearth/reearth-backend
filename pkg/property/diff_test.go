@@ -484,7 +484,7 @@ func TestSchemaDiff_IsEmpty(t *testing.T) {
 		},
 		{
 			name:   "empty",
-			target: nil,
+			target: &SchemaDiff{},
 			want:   true,
 		},
 		{
@@ -501,7 +501,7 @@ func TestSchemaDiff_IsEmpty(t *testing.T) {
 	}
 }
 
-func TestSchemaDiff_IsPropertySchemaChanged(t *testing.T) {
+func TestSchemaDiff_IsIDChanged(t *testing.T) {
 	tests := []struct {
 		name   string
 		target *SchemaDiff
@@ -551,7 +551,7 @@ func TestSchemaDiff_IsPropertySchemaChanged(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equal(t, tt.want, tt.target.IsPropertySchemaChanged())
+			assert.Equal(t, tt.want, tt.target.IsIDChanged())
 		})
 	}
 }
