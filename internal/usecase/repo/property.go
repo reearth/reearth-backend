@@ -12,6 +12,7 @@ type Property interface {
 	FindByIDs(context.Context, []id.PropertyID, []id.SceneID) (property.List, error)
 	FindLinkedAll(context.Context, id.SceneID) (property.List, error)
 	FindByDataset(context.Context, id.DatasetSchemaID, id.DatasetID) (property.List, error)
+	FindBySchema(context.Context, []id.PropertySchemaID, id.SceneID) (property.List, error)
 	Save(context.Context, *property.Property) error
 	SaveAll(context.Context, property.List) error
 	Remove(context.Context, id.PropertyID) error

@@ -2,6 +2,7 @@ package memory
 
 import (
 	"context"
+	"sort"
 	"sync"
 
 	"github.com/reearth/reearth-backend/pkg/id"
@@ -77,6 +78,29 @@ func (r *Property) FindLinkedAll(ctx context.Context, s id.SceneID) (property.Li
 			result = append(result, &p2)
 		}
 	}
+	return result, nil
+}
+
+func (r *Property) FindBySchema(_ context.Context, schemas []id.PropertySchemaID, s id.SceneID) (property.List, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	result := property.List{}
+	for _, p := range r.data {
+		if p.Scene() != s {
+			continue
+		}
+		for _, s := range schemas {
+			if p.Schema().Equal(s) {
+				p2 := p
+				result = append(result, &p2)
+				break
+			}
+		}
+	}
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].ID().ID().Compare(result[j].ID().ID()) < 0
+	})
 	return result, nil
 }
 

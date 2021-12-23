@@ -30,12 +30,12 @@ func (r *propertyRepo) init() {
 }
 
 func (r *propertyRepo) FindByID(ctx context.Context, id2 id.PropertyID, f []id.SceneID) (*property.Property, error) {
-	filter := r.sceneFilter(bson.D{{Key: "id", Value: id.ID(id2).String()}}, f)
+	filter := r.sceneFilterD(bson.D{{Key: "id", Value: id.ID(id2).String()}}, f)
 	return r.findOne(ctx, filter)
 }
 
 func (r *propertyRepo) FindByIDs(ctx context.Context, ids []id.PropertyID, f []id.SceneID) (property.List, error) {
-	filter := r.sceneFilter(bson.D{{Key: "id", Value: bson.D{{
+	filter := r.sceneFilterD(bson.D{{Key: "id", Value: bson.D{{
 		Key: "$in", Value: id.PropertyIDToKeys(ids),
 	}}}}, f)
 	dst := make(property.List, 0, len(ids))
@@ -78,6 +78,14 @@ func (r *propertyRepo) FindByDataset(ctx context.Context, sid id.DatasetSchemaID
 	return r.find(ctx, nil, filter)
 }
 
+func (r *propertyRepo) FindBySchema(ctx context.Context, psids []id.PropertySchemaID, sid id.SceneID) (property.List, error) {
+	filter := bson.M{
+		"schema": bson.M{"$in": id.PropertySchemaIDToKeys(psids)},
+		"scene":  sid.String(),
+	}
+	return r.find(ctx, nil, filter)
+}
+
 func (r *propertyRepo) Save(ctx context.Context, property *property.Property) error {
 	doc, id := mongodoc.NewProperty(property)
 	return r.client.SaveOne(ctx, id, doc)
@@ -113,7 +121,7 @@ func (r *propertyRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) er
 	return nil
 }
 
-func (r *propertyRepo) find(ctx context.Context, dst property.List, filter bson.D) (property.List, error) {
+func (r *propertyRepo) find(ctx context.Context, dst property.List, filter interface{}) (property.List, error) {
 	c := mongodoc.PropertyConsumer{
 		Rows: dst,
 	}
@@ -123,7 +131,7 @@ func (r *propertyRepo) find(ctx context.Context, dst property.List, filter bson.
 	return c.Rows, nil
 }
 
-func (r *propertyRepo) findOne(ctx context.Context, filter bson.D) (*property.Property, error) {
+func (r *propertyRepo) findOne(ctx context.Context, filter interface{}) (*property.Property, error) {
 	dst := make(property.List, 0, 1)
 	c := mongodoc.PropertyConsumer{
 		Rows: dst,
@@ -134,7 +142,7 @@ func (r *propertyRepo) findOne(ctx context.Context, filter bson.D) (*property.Pr
 	return c.Rows[0], nil
 }
 
-// func (r *propertyRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) (property.List, *usecase.PageInfo, error) {
+// func (r *propertyRepo) paginate(ctx context.Context, filter interface{}, pagination *usecase.Pagination) (property.List, *usecase.PageInfo, error) {
 // 	var c propertyConsumer
 // 	pageInfo, err2 := r.client.Paginate(ctx, filter, pagination, &c)
 // 	if err2 != nil {
@@ -158,7 +166,15 @@ func filterProperties(ids []id.PropertyID, rows property.List) property.List {
 	return res
 }
 
-func (*propertyRepo) sceneFilter(filter bson.D, scenes []id.SceneID) bson.D {
+func (*propertyRepo) sceneFilter(filter bson.M, scenes []id.SceneID) bson.M {
+	if scenes == nil {
+		return filter
+	}
+	filter["scene"] = bson.M{"$in": id.SceneIDToKeys(scenes)}
+	return filter
+}
+
+func (*propertyRepo) sceneFilterD(filter bson.D, scenes []id.SceneID) bson.D {
 	if scenes == nil {
 		return filter
 	}
