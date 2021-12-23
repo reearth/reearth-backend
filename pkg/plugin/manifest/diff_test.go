@@ -165,3 +165,85 @@ func TestDiff_IsEmpty(t *testing.T) {
 		})
 	}
 }
+
+func TestDiff_DeletedPropertySchemas(t *testing.T) {
+	ps1 := id.MustPropertySchemaID("a~1.0.0/a")
+	ps2 := id.MustPropertySchemaID("a~1.0.0/b")
+	tests := []struct {
+		name   string
+		target Diff
+		want   []id.PropertySchemaID
+	}{
+		{
+			name: "ok",
+			target: Diff{
+				PropertySchemaDiff: property.SchemaDiff{
+					From: ps1,
+				},
+				PropertySchemaDeleted: true,
+				DeletedExtensions: []DiffExtensionDeleted{
+					{PropertySchemaID: ps2},
+					{PropertySchemaID: ps2},
+				},
+			},
+			want: []id.PropertySchemaID{
+				ps1,
+				ps2,
+			},
+		},
+		{
+			name:   "empty",
+			target: Diff{},
+			want:   []id.PropertySchemaID{},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.DeletedPropertySchemas())
+		})
+	}
+}
+
+func TestDiff_PropertySchmaDiffs(t *testing.T) {
+	ps1 := id.MustPropertySchemaID("a~1.0.0/a")
+	ps2 := id.MustPropertySchemaID("a~1.0.0/b")
+	tests := []struct {
+		name   string
+		target Diff
+		want   []property.SchemaDiff
+	}{
+		{
+			name: "ok",
+			target: Diff{
+				PropertySchemaDiff: property.SchemaDiff{
+					From: ps1,
+				},
+				UpdatedExtensions: []DiffExtensionUpdated{
+					{PropertySchemaDiff: property.SchemaDiff{
+						From: ps2,
+					}},
+				},
+			},
+			want: []property.SchemaDiff{
+				{
+					From: ps1,
+				},
+				{
+					From: ps2,
+				},
+			},
+		},
+		{
+			name:   "empty",
+			target: Diff{},
+			want:   []property.SchemaDiff{},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.PropertySchmaDiffs())
+		})
+	}
+}

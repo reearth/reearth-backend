@@ -68,3 +68,37 @@ func DiffFrom(old, new Manifest) (d Diff) {
 func (d *Diff) IsEmpty() bool {
 	return d == nil || len(d.DeletedExtensions) == 0 && len(d.UpdatedExtensions) == 0 && d.PropertySchemaDiff.IsEmpty() && !d.PropertySchemaDeleted
 }
+
+func (d Diff) DeletedPropertySchemas() []id.PropertySchemaID {
+	s := make([]id.PropertySchemaID, 0, len(d.DeletedExtensions)+1)
+	if d.PropertySchemaDeleted {
+		s = append(s, d.PropertySchemaDiff.From)
+	}
+	for _, e := range d.DeletedExtensions {
+		skip := false
+		for _, ss := range s {
+			if ss.Equal(e.PropertySchemaID) {
+				skip = true
+				break
+			}
+		}
+		if skip {
+			continue
+		}
+		s = append(s, e.PropertySchemaID)
+	}
+	return s
+}
+
+func (d Diff) PropertySchmaDiffs() []property.SchemaDiff {
+	s := make([]property.SchemaDiff, 0, len(d.UpdatedExtensions)+1)
+	if !d.PropertySchemaDeleted && (!d.PropertySchemaDiff.IsEmpty() || d.PropertySchemaDiff.IsIDChanged()) {
+		s = append(s, d.PropertySchemaDiff)
+	}
+	for _, e := range d.UpdatedExtensions {
+		if !e.PropertySchemaDiff.IsEmpty() || e.PropertySchemaDiff.IsIDChanged() {
+			s = append(s, e.PropertySchemaDiff)
+		}
+	}
+	return s
+}
