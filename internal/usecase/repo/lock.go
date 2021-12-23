@@ -14,5 +14,4 @@ var (
 type Lock interface {
 	Lock(context.Context, string) error
 	Unlock(context.Context, string) error
-	IsLocked(string) bool
 }

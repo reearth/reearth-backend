@@ -19,7 +19,3 @@ func (r *Lock) Lock(_ context.Context, _ string) error {
 func (r *Lock) Unlock(_ context.Context, _ string) error {
 	return nil
 }
-
-func (r *Lock) IsLocked(_ string) bool {
-	return false
-}

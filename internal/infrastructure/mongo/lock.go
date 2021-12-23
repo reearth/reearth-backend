@@ -90,10 +90,6 @@ func (r *Lock) Unlock(ctx context.Context, name string) error {
 	return nil
 }
 
-func (r *Lock) IsLocked(name string) bool {
-	return r != nil && r.getLockID(name) != ""
-}
-
 func uuidString() (string, error) {
 	u, err := uuid.NewUUID()
 	if err != nil {
