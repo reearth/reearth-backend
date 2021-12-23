@@ -3,6 +3,7 @@ package property
 import (
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -496,6 +497,61 @@ func TestSchemaDiff_IsEmpty(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			assert.Equal(t, tt.want, tt.target.IsEmpty())
+		})
+	}
+}
+
+func TestSchemaDiff_IsPropertySchemaChanged(t *testing.T) {
+	tests := []struct {
+		name   string
+		target *SchemaDiff
+		want   bool
+	}{
+		{
+			name: "changed1",
+			target: &SchemaDiff{
+				From: id.MustPropertySchemaID("a~1.0.0/a"),
+				To:   id.MustPropertySchemaID("a~1.0.1/a"),
+			},
+			want: true,
+		},
+		{
+			name: "changed2",
+			target: &SchemaDiff{
+				From: id.MustPropertySchemaID("a~1.0.0/a"),
+			},
+			want: true,
+		},
+		{
+			name: "changed3",
+			target: &SchemaDiff{
+				To: id.MustPropertySchemaID("a~1.0.0/a"),
+			},
+			want: true,
+		},
+		{
+			name: "unchanged1",
+			target: &SchemaDiff{
+				From: id.MustPropertySchemaID("a~1.0.0/a"),
+				To:   id.MustPropertySchemaID("a~1.0.0/a"),
+			},
+			want: false,
+		},
+		{
+			name:   "empty",
+			target: &SchemaDiff{},
+			want:   false,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.IsPropertySchemaChanged())
 		})
 	}
 }
