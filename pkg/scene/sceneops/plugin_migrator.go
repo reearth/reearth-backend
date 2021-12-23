@@ -101,7 +101,7 @@ func (s *PluginMigrator) MigratePlugins(ctx context.Context, sc *scene.Scene, ol
 	}
 
 	// シーンのプラグイン
-	sc.PluginSystem().Upgrade(oldPluginID, newPluginID)
+	sc.PluginSystem().Upgrade(oldPluginID, newPluginID, nil, false)
 	for _, sp := range sc.PluginSystem().Plugins() {
 		if sp.Plugin().Equal(newPluginID) && sp.Property() != nil {
 			propertyIDs = append(propertyIDs, *sp.Property())

@@ -307,32 +307,63 @@ func TestPluginSystem_Remove(t *testing.T) {
 func TestPluginSystem_Upgrade(t *testing.T) {
 	pid := id.MustPluginID("xxx~1.1.1")
 	nid := id.MustPluginID("zzz~1.1.1")
-	pr := id.NewPropertyID().Ref()
-	testCases := []struct {
-		Name         string
-		PID, NewID   id.PluginID
-		PS, Expected *PluginSystem
+	pr1 := id.NewPropertyID().Ref()
+	pr2 := id.NewPropertyID().Ref()
+
+	type args struct {
+		pid            id.PluginID
+		newpid         id.PluginID
+		pr             *id.PropertyID
+		deleteProperty bool
+	}
+	tests := []struct {
+		name   string
+		args   args
+		target *PluginSystem
+		want   *PluginSystem
 	}{
 		{
-			Name:     "upgrade official plugin",
-			PID:      id.OfficialPluginID,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr)}),
-			Expected: NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr)}),
+			name: "upgrade official plugin",
+			args: args{
+				pid: id.OfficialPluginID,
+			},
+			target: NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr1)}),
+			want:   NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr1)}),
 		},
 		{
-			Name:     "upgrade a plugin",
-			PID:      pid,
-			NewID:    nid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
-			Expected: NewPluginSystem([]*Plugin{NewPlugin(nid, pr)}),
+			name: "upgrade a plugin",
+			args: args{
+				pid:    pid,
+				newpid: nid,
+			},
+			target: NewPluginSystem([]*Plugin{NewPlugin(pid, pr1)}),
+			want:   NewPluginSystem([]*Plugin{NewPlugin(nid, pr1)}),
+		},
+		{
+			name: "upgrade a property",
+			args: args{
+				pid: pid,
+				pr:  pr2,
+			},
+			target: NewPluginSystem([]*Plugin{NewPlugin(pid, pr1)}),
+			want:   NewPluginSystem([]*Plugin{NewPlugin(pid, pr2)}),
+		},
+		{
+			name: "delete a property",
+			args: args{
+				pid:            pid,
+				deleteProperty: true,
+			},
+			target: NewPluginSystem([]*Plugin{NewPlugin(pid, pr1)}),
+			want:   NewPluginSystem([]*Plugin{NewPlugin(pid, nil)}),
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
+	for _, tt := range tests {
+		tc := tt
+		t.Run(tc.name, func(tt *testing.T) {
 			tt.Parallel()
-			tc.PS.Upgrade(tc.PID, tc.NewID)
-			assert.Equal(tt, tc.Expected, tc.PS)
+			tc.target.Upgrade(tc.args.pid, tc.args.newpid, tc.args.pr, tc.args.deleteProperty)
+			assert.Equal(tt, tc.want, tc.target)
 		})
 	}
 }
