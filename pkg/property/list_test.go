@@ -14,6 +14,78 @@ var (
 	p2 = New().NewID().Scene(id.NewSceneID()).Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Items([]Item{InitItemFrom(sg)}).MustBuild()
 )
 
+func TestList_IDs(t *testing.T) {
+	p1 := NewID()
+	p2 := NewID()
+
+	tests := []struct {
+		name   string
+		target List
+		want   []ID
+	}{
+		{
+			name:   "ok",
+			target: List{&Property{id: p1}, &Property{id: p2}, &Property{id: p1}},
+			want:   []ID{p1, p2},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.IDs())
+		})
+	}
+}
+
+func TestList_Schemas(t *testing.T) {
+	ps1 := MustSchemaID("x~1.0.0/a")
+	ps2 := MustSchemaID("x~1.0.0/b")
+
+	tests := []struct {
+		name   string
+		target List
+		want   []SchemaID
+	}{
+		{
+			name:   "ok",
+			target: List{&Property{schema: ps1}, &Property{schema: ps2}, &Property{schema: ps1}},
+			want:   []SchemaID{ps1, ps2},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Schemas())
+		})
+	}
+}
+
+func TestList_Map(t *testing.T) {
+	p1 := NewID()
+	p2 := NewID()
+
+	tests := []struct {
+		name   string
+		target List
+		want   Map
+	}{
+		{
+			name:   "ok",
+			target: List{&Property{id: p1}, &Property{id: p2}, &Property{id: p1}},
+			want: Map{
+				p1: &Property{id: p1},
+				p2: &Property{id: p2},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Map())
+		})
+	}
+}
+
 func TestMap_Add(t *testing.T) {
 	testCases := []struct {
 		Name        string
