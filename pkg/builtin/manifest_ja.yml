@@ -510,6 +510,9 @@ extensions:
               kml: KML
               geojson: GeoJSON / TopoJSON
               czml: CZML
+          clampToGround:
+            title: 地表に固定
+            description: 外部データを地表に合わせて固定します。
   textblock:
     name: テキスト
     description: Text block
