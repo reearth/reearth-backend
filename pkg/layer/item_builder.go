@@ -100,3 +100,8 @@ func (b *ItemBuilder) LinkedDataset(linkedDataset *id.DatasetID) *ItemBuilder {
 	b.l.linkedDataset = linkedDataset.CopyRef()
 	return b
 }
+
+func (b *ItemBuilder) Tags(tags *TagList) *ItemBuilder {
+	b.l.tags = tags
+	return b
+}

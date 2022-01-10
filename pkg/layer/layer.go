@@ -8,6 +8,11 @@ import (
 	"github.com/reearth/reearth-backend/pkg/property"
 )
 
+var (
+	ErrDuplicatedTag = errors.New("duplicated tag")
+	ErrTagNotFound   = errors.New("tag not found")
+)
+
 type Layer interface {
 	ID() id.LayerID
 	Name() string
@@ -19,6 +24,7 @@ type Layer interface {
 	HasInfobox() bool
 	Infobox() *Infobox
 	Scene() id.SceneID
+	Tags() *TagList
 	Rename(string)
 	SetVisible(bool)
 	SetInfobox(*Infobox)
@@ -72,6 +78,7 @@ type layerBase struct {
 	property  *id.PropertyID
 	infobox   *Infobox
 	scene     id.SceneID
+	tags      *TagList
 }
 
 func (l *layerBase) ID() id.LayerID {

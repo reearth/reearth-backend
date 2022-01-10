@@ -13,7 +13,7 @@ func TestInitItemFrom(t *testing.T) {
 	sgl := NewSchemaGroup().ID("aa").IsList(true).Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Fields([]*SchemaField{sf}).MustBuild()
 	iid := id.NewPropertyItemID()
 	propertySchemaID := id.MustPropertySchemaID("xx~1.0.0/aa")
-	propertySchemaField1ID := id.PropertySchemaFieldID("aa")
+	propertySchemaField1ID := id.PropertySchemaGroupID("aa")
 	testCases := []struct {
 		Name     string
 		SG       *SchemaGroup
@@ -53,14 +53,13 @@ func TestToGroup(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	propertySchemaID := id.MustPropertySchemaID("xxx~1.1.1/aa")
 	propertySchemaField1ID := id.PropertySchemaFieldID("a")
-	propertySchemaGroup1ID := id.PropertySchemaFieldID("A")
+	propertySchemaGroup1ID := id.PropertySchemaGroupID("A")
 	il := []Item{
 		NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
 			Fields([]*Field{
 				NewFieldUnsafe().
 					FieldUnsafe(propertySchemaField1ID).
-					TypeUnsafe(ValueTypeString).
-					ValueUnsafe(ValueTypeString.ValueFromUnsafe("xxx")).
+					ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
 					Build(),
 			}).MustBuild(),
 	}
@@ -74,7 +73,7 @@ func TestToGroup(t *testing.T) {
 func TestToGroupList(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	propertySchemaID := id.MustPropertySchemaID("xxx~1.1.1/aa")
-	propertySchemaGroup1ID := id.PropertySchemaFieldID("A")
+	propertySchemaGroup1ID := id.PropertySchemaGroupID("A")
 	il := []Item{
 		NewGroupList().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).MustBuild(),
 	}

@@ -14,7 +14,7 @@ import (
 func TestToValue(t *testing.T) {
 	v := property.ValueTypeBool
 	var vv *property.Value = nil
-	assert.Equal(t, toValue(false, "bool"), v.ValueFromUnsafe(false))
+	assert.Equal(t, toValue(false, "bool"), v.ValueFrom(false))
 	assert.Equal(t, toValue("xx", "xxx"), vv)
 }
 
@@ -245,6 +245,21 @@ func TestExtension(t *testing.T) {
 			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
 		},
 		{
+			name: "cluster",
+			ext: Extension{
+				Description: &d,
+				ID:          "cesium",
+				Name:        "Cesium",
+				Schema:      nil,
+				Type:        "cluster",
+				Visualizer:  &cesium,
+			},
+			sys:        true,
+			pid:        id.OfficialPluginID,
+			expectedPE: plugin.NewExtension().ID("cesium").Name(i18n.StringFrom("Cesium")).Visualizer("cesium").Type(plugin.ExtensionTypeCluster).System(true).Description(i18n.StringFrom("ddd")).MustBuild(),
+			expectedPS: property.NewSchema().ID(id.MustPropertySchemaID("reearth/cesium")).MustBuild(),
+		},
+		{
 			name: "empty visualizer",
 			ext: Extension{
 				Description: &d,
@@ -340,7 +355,7 @@ func TestPointer(t *testing.T) {
 				FieldID:       "xxx",
 				SchemaGroupID: "aaa",
 			},
-			expected: property.NewPointer(id.PropertySchemaFieldIDFrom(&sg), nil, id.PropertySchemaFieldIDFrom(&f)),
+			expected: property.NewPointer(id.PropertySchemaGroupIDFrom(&sg), nil, id.PropertySchemaFieldIDFrom(&f)),
 		},
 	}
 	for _, tc := range testCases {
@@ -412,8 +427,8 @@ func TestLinkable(t *testing.T) {
 				},
 			},
 			expected: property.LinkableFields{
-				LatLng: property.NewPointer(id.PropertySchemaFieldIDFrom(&d), nil, id.PropertySchemaFieldIDFrom(&l)),
-				URL:    property.NewPointer(id.PropertySchemaFieldIDFrom(&d), nil, id.PropertySchemaFieldIDFrom(&u)),
+				LatLng: property.NewPointer(id.PropertySchemaGroupIDFrom(&d), nil, id.PropertySchemaFieldIDFrom(&l)),
+				URL:    property.NewPointer(id.PropertySchemaGroupIDFrom(&d), nil, id.PropertySchemaFieldIDFrom(&u)),
 			},
 		},
 	}

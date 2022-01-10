@@ -52,6 +52,7 @@ scalar FileSize
 scalar PluginID
 scalar PluginExtensionID
 scalar PropertySchemaID
+scalar PropertySchemaGroupID
 scalar PropertySchemaFieldID
 scalar DatasetSchemaFieldID
 scalar TranslatedString
@@ -317,7 +318,6 @@ enum PluginExtensionType {
   INFOBOX
 }
 
-
 type PluginExtension {
   extensionId: PluginExtensionID!
   pluginId: PluginID!
@@ -363,6 +363,9 @@ type Scene implements Node {
     after: Cursor
     before: Cursor
   ): DatasetSchemaConnection! @goField(forceResolver: true)
+  tagIds: [ID!]!
+  tags: [Tag!]! @goField(forceResolver: true)
+  clusters: [Cluster!]!
 }
 
 enum SceneLockMode {
@@ -432,7 +435,7 @@ type PropertyLinkableFields {
 }
 
 type PropertySchemaGroup {
-  schemaGroupId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   schemaId: PropertySchemaID!
   fields: [PropertySchemaField!]!
   isList: Boolean!
@@ -504,7 +507,7 @@ union PropertyItem = PropertyGroup | PropertyGroupList
 type PropertyGroup {
   id: ID!
   schemaId: PropertySchemaID!
-  schemaGroupId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   fields: [PropertyField!]!
   schema: PropertySchema @goField(forceResolver: true)
   schemaGroup: PropertySchemaGroup @goField(forceResolver: true)
@@ -513,14 +516,14 @@ type PropertyGroup {
 type PropertyGroupList {
   id: ID!
   schemaId: PropertySchemaID!
-  schemaGroupId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   groups: [PropertyGroup!]!
   schema: PropertySchema @goField(forceResolver: true)
   schemaGroup: PropertySchemaGroup @goField(forceResolver: true)
 }
 
 type PropertyField {
-  id: PropertySchemaFieldID!
+  id: String!
   parentId: ID!
   schemaId: PropertySchemaID!
   fieldId: PropertySchemaFieldID!
@@ -561,7 +564,7 @@ type MergedPropertyGroup {
   parentPropertyId: ID
   originalId: ID
   parentId: ID
-  schemaGroupId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   # note: schemaId will not always be set
   schemaId: PropertySchemaID
   linkedDatasetId: ID
@@ -656,9 +659,8 @@ interface Layer {
   plugin: Plugin
   extension: PluginExtension
   scenePlugin: ScenePlugin
+  tags: [LayerTag!]!
 }
-
-union Layers = LayerItem | LayerGroup
 
 enum LayerEncodingFormat {
   KML
@@ -680,6 +682,7 @@ type LayerItem implements Layer {
   # parentId will not be always set
   parentId: ID
   linkedDatasetId: ID
+  tags: [LayerTag!]!
   parent: LayerGroup @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
   plugin: Plugin @goField(forceResolver: true)
@@ -704,6 +707,7 @@ type LayerGroup implements Layer {
   linkedDatasetSchemaId: ID
   root: Boolean!
   layerIds: [ID!]!
+  tags: [LayerTag!]!
   parent: LayerGroup @goField(forceResolver: true)
   property: Property @goField(forceResolver: true)
   plugin: Plugin @goField(forceResolver: true)
@@ -746,6 +750,22 @@ type InfoboxField {
   scenePlugin: ScenePlugin @goField(forceResolver: true)
 }
 
+interface LayerTag {
+  tagId: ID!
+  tag: Tag
+}
+
+type LayerTagItem implements LayerTag {
+  tagId: ID!
+  tag: Tag @goField(forceResolver: true)
+}
+
+type LayerTagGroup implements LayerTag {
+  tagId: ID!
+  children: [LayerTagItem!]!
+  tag: Tag @goField(forceResolver: true)
+}
+
 type MergedLayer {
   originalId: ID!
   parentId: ID
@@ -774,6 +794,45 @@ type MergedInfoboxField {
   extension: PluginExtension @goField(forceResolver: true)
   scene: Scene @goField(forceResolver: true)
   scenePlugin: ScenePlugin @goField(forceResolver: true)
+}
+
+interface Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+  layers: [Layer!]! @goField(forceResolver: true)
+}
+
+type TagItem implements Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+  parentId: ID
+  linkedDatasetID: ID
+  linkedDatasetSchemaID: ID
+  linkedDatasetFieldID: ID
+  linkedDatasetSchema: DatasetSchema @goField(forceResolver: true)
+  linkedDataset: Dataset @goField(forceResolver: true)
+  linkedDatasetField: DatasetField @goField(forceResolver: true)
+  parent: TagGroup @goField(forceResolver: true)
+  layers: [Layer!]! @goField(forceResolver: true)
+}
+
+type TagGroup implements Tag {
+  id: ID!
+  sceneId: ID!
+  label: String!
+  tagIds: [ID!]
+  tags: [TagItem!]! @goField(forceResolver: true)
+  scene: Scene @goField(forceResolver: true)
+  layers: [Layer!]! @goField(forceResolver: true)
+}
+
+type Cluster {
+  id: ID!
+  name: String!
+  propertyId: ID!
+  property: Property @goField(forceResolver: true)
 }
 
 # InputType
@@ -945,7 +1004,7 @@ input SyncDatasetInput {
 
 input UpdatePropertyValueInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
+  schemaGroupId: PropertySchemaGroupID
   itemId: ID
   fieldId: PropertySchemaFieldID!
   value: Any
@@ -954,14 +1013,14 @@ input UpdatePropertyValueInput {
 
 input RemovePropertyFieldInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
+  schemaGroupId: PropertySchemaGroupID
   itemId: ID
   fieldId: PropertySchemaFieldID!
 }
 
 input UploadFileToPropertyInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
+  schemaGroupId: PropertySchemaGroupID
   itemId: ID
   fieldId: PropertySchemaFieldID!
   file: Upload!
@@ -969,7 +1028,7 @@ input UploadFileToPropertyInput {
 
 input LinkDatasetToPropertyValueInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
+  schemaGroupId: PropertySchemaGroupID
   itemId: ID
   fieldId: PropertySchemaFieldID!
   datasetSchemaIds: [ID!]!
@@ -979,14 +1038,14 @@ input LinkDatasetToPropertyValueInput {
 
 input UnlinkPropertyValueInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID
+  schemaGroupId: PropertySchemaGroupID
   itemId: ID
   fieldId: PropertySchemaFieldID!
 }
 
 input AddPropertyItemInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   index: Int
   nameFieldValue: Any
   nameFieldType: ValueType
@@ -994,20 +1053,20 @@ input AddPropertyItemInput {
 
 input MovePropertyItemInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   itemId: ID!
   index: Int!
 }
 
 input RemovePropertyItemInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   itemId: ID!
 }
 
 input UpdatePropertyItemInput {
   propertyId: ID!
-  schemaItemId: PropertySchemaFieldID!
+  schemaGroupId: PropertySchemaGroupID!
   operations: [UpdatePropertyItemOperationInput!]!
 }
 
@@ -1117,17 +1176,79 @@ input ImportDatasetInput {
 }
 
 input ImportDatasetFromGoogleSheetInput {
-    accessToken: String!
-    fileId: String!
-    sheetName: String!
-    sceneId: ID!
-    datasetSchemaId: ID
+  accessToken: String!
+  fileId: String!
+  sheetName: String!
+  sceneId: ID!
+  datasetSchemaId: ID
 }
 
 input AddDatasetSchemaInput {
   sceneId: ID!
   name: String!
   representativefield: ID
+}
+
+input CreateTagItemInput {
+  sceneId: ID!
+  label: String!
+  parent: ID
+  linkedDatasetSchemaID: ID
+  linkedDatasetID: ID
+  linkedDatasetField: ID
+}
+
+input CreateTagGroupInput {
+  sceneId: ID!
+  label: String!
+  tags: [ID!]
+}
+
+input UpdateTagInput {
+  tagId: ID!
+  sceneId: ID!
+  label: String
+}
+
+input AttachTagItemToGroupInput {
+  itemID: ID!
+  groupID: ID!
+}
+
+input DetachTagItemFromGroupInput {
+  itemID: ID!
+  groupID: ID!
+}
+
+input AttachTagToLayerInput {
+  tagID: ID!
+  layerID: ID!
+}
+
+input DetachTagFromLayerInput {
+  tagID: ID!
+  layerID: ID!
+}
+
+input RemoveTagInput {
+  tagID: ID!
+}
+
+input AddClusterInput {
+  sceneId: ID!
+  name: String!
+}
+
+input UpdateClusterInput {
+  clusterId: ID!
+  sceneId: ID!
+  name: String
+  propertyId: ID
+}
+
+input RemoveClusterInput {
+  clusterId: ID!
+  sceneId: ID!
 }
 
 # Payload
@@ -1328,6 +1449,55 @@ type AddDatasetSchemaPayload {
   datasetSchema: DatasetSchema
 }
 
+type CreateTagItemPayload {
+  tag: TagItem!
+  parent: TagGroup
+}
+
+type CreateTagGroupPayload {
+  tag: TagGroup!
+}
+
+type AttachTagItemToGroupPayload {
+  tag: TagGroup!
+}
+
+type DetachTagItemFromGroupPayload {
+  tag: TagGroup!
+}
+
+type UpdateTagPayload {
+  tag: Tag!
+}
+
+type AttachTagToLayerPayload {
+  layer: Layer!
+}
+
+type DetachTagFromLayerPayload {
+  layer: Layer!
+}
+
+type RemoveTagPayload {
+  tagId: ID!
+  updatedLayers: [Layer!]!
+}
+
+type AddClusterPayload {
+  scene: Scene!
+  cluster: Cluster!
+}
+
+type UpdateClusterPayload {
+  scene: Scene!
+  cluster: Cluster!
+}
+
+type RemoveClusterPayload {
+  scene: Scene!
+  clusterId: ID!
+}
+
 # Connection
 
 type AssetConnection {
@@ -1459,12 +1629,17 @@ type Mutation {
   createScene(input: CreateSceneInput!): CreateScenePayload
   addWidget(input: AddWidgetInput!): AddWidgetPayload
   updateWidget(input: UpdateWidgetInput!): UpdateWidgetPayload
-  updateWidgetAlignSystem(input: UpdateWidgetAlignSystemInput!): UpdateWidgetAlignSystemPayload
+  updateWidgetAlignSystem(
+    input: UpdateWidgetAlignSystemInput!
+  ): UpdateWidgetAlignSystemPayload
   removeWidget(input: RemoveWidgetInput!): RemoveWidgetPayload
   installPlugin(input: InstallPluginInput!): InstallPluginPayload
   uninstallPlugin(input: UninstallPluginInput!): UninstallPluginPayload
   uploadPlugin(input: UploadPluginInput!): UploadPluginPayload
   upgradePlugin(input: UpgradePluginInput!): UpgradePluginPayload
+  addCluster(input: AddClusterInput!): AddClusterPayload
+  updateCluster(input: UpdateClusterInput!): UpdateClusterPayload
+  removeCluster(input: RemoveClusterInput!): RemoveClusterPayload
 
   # Dataset
   updateDatasetSchema(
@@ -1479,7 +1654,9 @@ type Mutation {
     input: RemoveDatasetSchemaInput!
   ): RemoveDatasetSchemaPayload
   importDataset(input: ImportDatasetInput!): ImportDatasetPayload
-  importDatasetFromGoogleSheet(input: ImportDatasetFromGoogleSheetInput!): ImportDatasetPayload
+  importDatasetFromGoogleSheet(
+    input: ImportDatasetFromGoogleSheetInput!
+  ): ImportDatasetPayload
   addDatasetSchema(input: AddDatasetSchemaInput!): AddDatasetSchemaPayload
 
   # Property
@@ -1507,6 +1684,20 @@ type Mutation {
   moveInfoboxField(input: MoveInfoboxFieldInput!): MoveInfoboxFieldPayload
   removeInfoboxField(input: RemoveInfoboxFieldInput!): RemoveInfoboxFieldPayload
   importLayer(input: ImportLayerInput!): ImportLayerPayload
+  attachTagToLayer(input: AttachTagToLayerInput!): AttachTagToLayerPayload
+  detachTagFromLayer(input: DetachTagFromLayerInput!): DetachTagFromLayerPayload
+
+  # Tag
+  createTagItem(input: CreateTagItemInput!): CreateTagItemPayload
+  createTagGroup(input: CreateTagGroupInput!): CreateTagGroupPayload
+  attachTagItemToGroup(
+    input: AttachTagItemToGroupInput!
+  ): AttachTagItemToGroupPayload
+  detachTagItemFromGroup(
+    input: DetachTagItemFromGroupInput!
+  ): DetachTagItemFromGroupPayload
+  updateTag(input: UpdateTagInput!): UpdateTagPayload
+  removeTag(input: RemoveTagInput!): RemoveTagPayload
 }
 
 schema {

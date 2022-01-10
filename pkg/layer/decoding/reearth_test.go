@@ -134,12 +134,12 @@ func TestReearthDecoder_Decode(t *testing.T) {
 			Items: []*property.InitializerItem{
 				{
 					ID:         prop.Items()[0].ID().Ref(),
-					SchemaItem: id.PropertySchemaFieldID("default"),
+					SchemaItem: id.PropertySchemaGroupID("default"),
 					Fields: []*property.InitializerField{
 						{
 							Field: id.PropertySchemaFieldID("latlng"),
 							Type:  property.ValueTypeLatLng,
-							Value: property.ValueTypeLatLng.MustBeValue(property.LatLng{Lat: 1, Lng: 2}),
+							Value: property.ValueTypeLatLng.ValueFrom(property.LatLng{Lat: 1, Lng: 2}),
 						},
 					},
 				},
@@ -180,7 +180,7 @@ func TestReearthDecoder_Decode(t *testing.T) {
 			Items: []*property.InitializerItem{
 				{
 					ID:         prop.Items()[0].ID().Ref(),
-					SchemaItem: id.PropertySchemaFieldID("hoge"),
+					SchemaItem: id.PropertySchemaGroupID("hoge"),
 					Groups: []*property.InitializerGroup{
 						{
 							ID: property.ToGroupList(prop.Items()[0]).GroupAt(0).IDRef(),
@@ -188,7 +188,7 @@ func TestReearthDecoder_Decode(t *testing.T) {
 								{
 									Field: id.PropertySchemaFieldID("foobar"),
 									Type:  property.ValueTypeString,
-									Value: property.ValueTypeString.MustBeValue("bar"),
+									Value: property.ValueTypeString.ValueFrom("bar"),
 								},
 							},
 						},
@@ -198,7 +198,7 @@ func TestReearthDecoder_Decode(t *testing.T) {
 								{
 									Field: id.PropertySchemaFieldID("foobar"),
 									Type:  property.ValueTypeString,
-									Value: property.ValueTypeString.MustBeValue("foo"),
+									Value: property.ValueTypeString.ValueFrom("foo"),
 								},
 							},
 						},

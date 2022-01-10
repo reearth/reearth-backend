@@ -92,7 +92,7 @@ func (p *Initializer) MustBeProperty(scene id.SceneID) *Property {
 
 type InitializerItem struct {
 	ID         *id.PropertyItemID       `json:"id"`
-	SchemaItem id.PropertySchemaFieldID `json:"schemaItem"`
+	SchemaItem id.PropertySchemaGroupID `json:"schemaItem"`
 	Groups     []*InitializerGroup      `json:"groups"`
 	Fields     []*InitializerField      `json:"fields"`
 }
@@ -206,7 +206,7 @@ func (p *InitializerGroup) Clone() *InitializerGroup {
 	}
 }
 
-func (p *InitializerGroup) PropertyGroup(parent id.PropertySchemaID, parentItem id.PropertySchemaFieldID) (*Group, error) {
+func (p *InitializerGroup) PropertyGroup(parent id.PropertySchemaID, parentItem id.PropertySchemaGroupID) (*Group, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -276,7 +276,7 @@ func (p *InitializerField) PropertyField() *Field {
 		plinks = NewLinks(links)
 	}
 
-	return NewFieldUnsafe().LinksUnsafe(plinks).FieldUnsafe(p.Field).TypeUnsafe(p.Type).ValueUnsafe(p.Value.Clone()).Build()
+	return NewFieldUnsafe().LinksUnsafe(plinks).FieldUnsafe(p.Field).ValueUnsafe(NewOptionalValue(p.Type, p.Value.Clone())).Build()
 }
 
 type InitializerLink struct {

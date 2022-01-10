@@ -14,6 +14,15 @@ extensions:
           terrain:
             title: 地形
             description: 有効にすると、標高データが読み込みこまれ、立体的な地形を表現することができます。
+          terrainType:
+            title: 地形の種類
+            description: 地形の種類を指定します。
+          terrainExaggeration:
+            title: 地形の強調
+            description: 地形の強調を設定します。デフォルトは1.0（誇張しない）です。2.0は、地形を2倍に拡大します。0.0の値は地形を完全に平らにします。
+          terrainExaggerationRelativeHeight:
+            title: 地形の強調の基準
+            description: 地形が誇張される高さです。デフォルトは0.0です。この高さより上にある地形は上方に、この高さより下にある地形は下方にスケールされます。
           depthTestAgainstTerrain:
             title: 地形の下を非表示
             description: 地形の下にあるオブジェクトを非表示にします。標高データの読み込み状況によってオブジェクトが表示されたり隠れたりすることがあります。
@@ -26,6 +35,25 @@ extensions:
           ion:
             title: Cesium Icon APIアクセストークン
             description: 自身のCesium IonアカウントからAPIキーを発行し、ここに設定します。Cesium Ionのアセット（タイルデータ、3Dデータなど）の使用が可能になるため、設定を推奨します。
+      cameraLimiter:
+        title: カメラ範囲制限
+        description: カメラの移動できる範囲を制限することができます。
+        fields:
+          cameraLimitterEnabled:
+            title: 有効
+            description: カメラの範囲制限を有効にします。
+          cameraLimitterShowHelper:
+            title: 範囲を表示
+            description: カメラの移動範囲を表すボックスを表示します。
+          cameraLimitterTargetArea:
+            title: 基準位置
+            description: 移動範囲の基準となる位置です。この位置が制限範囲を表すボックスの横方向と奥行き方向の中心点となり、かつ移動可能範囲における最大の高さとなります。ここで指定した高さ以上にカメラをズームアウトすることができなくなります。
+          cameraLimitterTargetWidth:
+            title: 軽度の範囲
+            description: 制限範囲を表すボックスの幅（経度の方向）を指定します。
+          cameraLimitterTargetLength:
+            title: 緯度の範囲
+            description: 制限範囲を表すボックスの奥行き（緯度の方向）を指定します。
       tiles:
         title: タイル
         description: 手持ちのタイルデータを使用し、地球上に表示することができます。
@@ -749,3 +777,28 @@ extensions:
             title: カメラ画角
           layerCamera:
             title: カメラ
+  cluster:
+    name: クラスタ
+    description: レイヤーを自動的にまとめて表示することが可能なクラスタを設定します。
+    propertySchema:
+      default:
+        title: クラスタ
+        fields:
+          clusterPixelRange:
+            title: 最小範囲
+            description: 画面上の何ピクセル分の範囲にあるレイヤーをクラスタにまとめるかを最小値で指定します。
+          clusterMinSize:
+            title: 最小サイズ
+            description: クラスタが表示されるのに必要な最小のレイヤー数
+          clusterImage:
+            title: 画像
+            description: 画面上で表示されるクラスタの画像を指定します。
+          clusterImageWidth:
+            title: 画像幅
+            description: 画像の幅をピクセルで指定します。
+          clusterImageHeight:
+            title: 画像高さ
+            description: 画像の高さをピクセルで指定します。
+          clusterLabelTypography:
+            title: ラベル
+            description: ラベルのスタイルを指定します。

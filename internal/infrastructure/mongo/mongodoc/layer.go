@@ -3,10 +3,9 @@ package mongodoc
 import (
 	"errors"
 
-	"go.mongodb.org/mongo-driver/bson"
-
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/layer"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type LayerInfoboxFieldDocument struct {
@@ -20,6 +19,14 @@ type LayerInfoboxDocument struct {
 	Property string
 	Fields   []LayerInfoboxFieldDocument
 }
+
+type LayerTagDocument struct {
+	ID    string
+	Group bool
+	Tags  []LayerTagDocument
+}
+
+type LayerTagListDocument []LayerTagDocument
 
 type LayerItemDocument struct {
 	LinkedDataset *string
@@ -42,6 +49,7 @@ type LayerDocument struct {
 	Infobox   *LayerInfoboxDocument
 	Item      *LayerItemDocument
 	Group     *LayerGroupDocument
+	Tags      LayerTagListDocument
 }
 
 type LayerConsumer struct {
@@ -124,6 +132,7 @@ func NewLayer(l layer.Layer) (*LayerDocument, string) {
 		Plugin:    l.Plugin().StringRef(),
 		Extension: l.Extension().StringRef(),
 		Property:  l.Property().StringRef(),
+		Tags:      NewLayerTagList(l.Tags()),
 	}, id
 }
 
@@ -182,6 +191,7 @@ func (d *LayerDocument) ModelItem() (*layer.Item, error) {
 		Property(id.PropertyIDFromRef(d.Property)).
 		Infobox(ib).
 		Scene(sid).
+		Tags(d.Tags.Model()).
 		// item
 		LinkedDataset(id.DatasetIDFromRef(d.Item.LinkedDataset)).
 		Build()
@@ -219,6 +229,7 @@ func (d *LayerDocument) ModelGroup() (*layer.Group, error) {
 		Property(id.PropertyIDFromRef(d.Property)).
 		Infobox(ib).
 		Scene(sid).
+		Tags(d.Tags.Model()).
 		// group
 		Root(d.Group != nil && d.Group.Root).
 		Layers(layer.NewIDList(ids)).
@@ -260,4 +271,84 @@ func ToModelInfobox(ib *LayerInfoboxDocument) (*layer.Infobox, error) {
 		fields = append(fields, ibf)
 	}
 	return layer.NewInfobox(fields, pid), nil
+}
+
+func NewLayerTagList(list *layer.TagList) LayerTagListDocument {
+	if list.IsEmpty() {
+		return nil
+	}
+
+	tags := list.Tags()
+	if len(tags) == 0 {
+		return nil
+	}
+	res := make([]LayerTagDocument, 0, len(tags))
+	for _, t := range tags {
+		if t == nil {
+			return nil
+		}
+		if td := NewLayerTag(t); td != nil {
+			res = append(res, *td)
+		}
+	}
+	return res
+}
+
+func (d *LayerTagListDocument) Model() *layer.TagList {
+	if d == nil {
+		return nil
+	}
+
+	tags := make([]layer.Tag, 0, len(*d))
+	for _, t := range *d {
+		if ti := t.Model(); ti != nil {
+			tags = append(tags, ti)
+		}
+	}
+	return layer.NewTagList(tags)
+}
+
+func NewLayerTag(t layer.Tag) *LayerTagDocument {
+	var group bool
+	var tags []LayerTagDocument
+
+	if tg := layer.TagGroupFrom(t); tg != nil {
+		group = true
+		children := tg.Children()
+		tags = make([]LayerTagDocument, 0, len(children))
+		for _, c := range children {
+			if ct := NewLayerTag(c); ct != nil {
+				tags = append(tags, *ct)
+			}
+		}
+	} else if ti := layer.TagItemFrom(t); ti == nil {
+		return nil
+	}
+	return &LayerTagDocument{
+		ID:    t.ID().String(),
+		Group: group,
+		Tags:  tags,
+	}
+}
+
+func (d *LayerTagDocument) Model() layer.Tag {
+	if d == nil {
+		return nil
+	}
+
+	tid := id.TagIDFromRef(&d.ID)
+	if tid == nil {
+		return nil
+	}
+
+	if d.Group {
+		tags := make([]*layer.TagItem, 0, len(d.Tags))
+		for _, t := range d.Tags {
+			if ti := layer.TagItemFrom(t.Model()); ti != nil {
+				tags = append(tags, ti)
+			}
+		}
+		return layer.NewTagGroup(*tid, tags)
+	}
+	return layer.NewTagItem(*tid)
 }

@@ -110,3 +110,8 @@ func (b *GroupBuilder) LinkedDatasetSchema(linkedDatasetSchema *id.DatasetSchema
 	b.l.linkedDatasetSchema = linkedDatasetSchema.CopyRef()
 	return b
 }
+
+func (b *GroupBuilder) Tags(tags *TagList) *GroupBuilder {
+	b.l.tags = tags
+	return b
+}

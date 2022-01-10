@@ -3,225 +3,267 @@ package property
 import (
 	"testing"
 
+	"github.com/reearth/reearth-backend/pkg/dataset"
+	"github.com/reearth/reearth-backend/pkg/value"
 	"github.com/stretchr/testify/assert"
 )
 
-func getStrRef(i string) *string {
-	return &i
-}
-func getBoolRef(i bool) *bool {
-	return &i
-}
-
-func TestLatLng_Clone(t *testing.T) {
-	testCases := []struct {
-		Name         string
-		LL, Expected *LatLng
+func TestValue_IsEmpty(t *testing.T) {
+	tests := []struct {
+		name  string
+		value *Value
+		want  bool
 	}{
 		{
-			Name: "nil latlng",
+			name: "empty",
+			want: true,
 		},
 		{
-			Name: "cloned",
-			LL: &LatLng{
-				Lat: 10,
-				Lng: 11,
-			},
-			Expected: &LatLng{
-				Lat: 10,
-				Lng: 11,
-			},
+			name: "nil",
+			want: true,
+		},
+		{
+			name:  "non-empty",
+			value: ValueTypeString.ValueFrom("foo"),
+			want:  false,
 		},
 	}
-	for _, tc := range testCases {
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.LL.Clone()
-			assert.Equal(tt, tc.Expected, res)
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, tt.value.IsEmpty())
 		})
 	}
 }
 
-func TestLatLngHeight_Clone(t *testing.T) {
-	testCases := []struct {
-		Name         string
-		LL, Expected *LatLngHeight
+func TestValue_Clone(t *testing.T) {
+	tests := []struct {
+		name  string
+		value *Value
+		want  *Value
 	}{
 		{
-			Name: "nil LatLngHeight",
+			name:  "ok",
+			value: ValueTypeString.ValueFrom("foo"),
+			want: &Value{
+				v: *value.TypeString.ValueFrom("foo", types),
+			},
 		},
 		{
-			Name: "cloned",
-			LL: &LatLngHeight{
-				Lat:    10,
-				Lng:    11,
-				Height: 12,
-			},
-			Expected: &LatLngHeight{
-				Lat:    10,
-				Lng:    11,
-				Height: 12,
-			},
+			name:  "nil",
+			value: nil,
+			want:  nil,
+		},
+		{
+			name:  "empty",
+			value: &Value{},
+			want:  nil,
 		},
 	}
-	for _, tc := range testCases {
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.LL.Clone()
-			assert.Equal(tt, tc.Expected, res)
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, tt.value.Clone())
 		})
 	}
 }
 
-func TestCamera_Clone(t *testing.T) {
-	testCases := []struct {
-		Name             string
-		Camera, Expected *Camera
+func TestValue_Value(t *testing.T) {
+	tests := []struct {
+		name  string
+		value *Value
+		want  interface{}
 	}{
 		{
-			Name: "nil Camera",
+			name:  "ok",
+			value: ValueTypeString.ValueFrom("foo"),
+			want:  "foo",
 		},
 		{
-			Name: "cloned",
-			Camera: &Camera{
-				Lat:      1,
-				Lng:      1,
-				Altitude: 2,
-				Heading:  4,
-				Pitch:    5,
-				Roll:     6,
-				FOV:      7,
-			},
-			Expected: &Camera{
-				Lat:      1,
-				Lng:      1,
-				Altitude: 2,
-				Heading:  4,
-				Pitch:    5,
-				Roll:     6,
-				FOV:      7,
-			},
+			name:  "empty",
+			value: &Value{},
+		},
+		{
+			name: "nil",
 		},
 	}
-	for _, tc := range testCases {
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.Camera.Clone()
-			assert.Equal(tt, tc.Expected, res)
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if tt.want == nil {
+				assert.Nil(t, tt.value.Value())
+			} else {
+				assert.Equal(t, tt.want, tt.value.Value())
+			}
 		})
 	}
 }
 
-func TestTypography_Clone(t *testing.T) {
-
-	i := 10
-
-	testCases := []struct {
-		Name                 string
-		Typography, Expected *Typography
+func TestValue_Type(t *testing.T) {
+	tests := []struct {
+		name  string
+		value *Value
+		want  ValueType
 	}{
 		{
-			Name: "nil typography",
+			name:  "ok",
+			value: ValueTypeString.ValueFrom("foo"),
+			want:  ValueTypeString,
 		},
 		{
-			Name: "cloned",
-			Typography: &Typography{
-				FontFamily: getStrRef("x"),
-				FontWeight: getStrRef("b"),
-				FontSize:   &i,
-				Color:      getStrRef("red"),
-				TextAlign:  TextAlignFromRef(getStrRef(TextAlignCenter.String())),
-				Bold:       getBoolRef(true),
-				Italic:     getBoolRef(false),
-				Underline:  getBoolRef(true),
-			},
-			Expected: &Typography{
-				FontFamily: getStrRef("x"),
-				FontWeight: getStrRef("b"),
-				FontSize:   &i,
-				Color:      getStrRef("red"),
-				TextAlign:  TextAlignFromRef(getStrRef("center")),
-				Bold:       getBoolRef(true),
-				Italic:     getBoolRef(false),
-				Underline:  getBoolRef(true),
-			},
+			name:  "empty",
+			value: &Value{},
+			want:  ValueTypeUnknown,
+		},
+		{
+			name: "nil",
+			want: ValueTypeUnknown,
 		},
 	}
-	for _, tc := range testCases {
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.Typography.Clone()
-			assert.Equal(tt, tc.Expected, res)
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, tt.value.Type())
 		})
 	}
 }
 
-func TestTextAlignFrom(t *testing.T) {
+func TestValue_Interface(t *testing.T) {
+	tests := []struct {
+		name  string
+		value *Value
+		want  interface{}
+	}{
+		{
+			name:  "string",
+			value: ValueTypeString.ValueFrom("foo"),
+			want:  "foo",
+		},
+		{
+			name:  "empty",
+			value: &Value{},
+			want:  nil,
+		},
+		{
+			name:  "nil",
+			value: nil,
+			want:  nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.value.Interface())
+		})
+	}
+}
+
+func TestValue_Cast(t *testing.T) {
+	type args struct {
+		t ValueType
+	}
+	tests := []struct {
+		name   string
+		target *Value
+		args   args
+		want   *Value
+	}{
+		{
+			name:   "diff type",
+			target: ValueTypeNumber.ValueFrom(1.1),
+			args:   args{t: ValueTypeString},
+			want:   ValueTypeString.ValueFrom("1.1"),
+		},
+		{
+			name:   "same type",
+			target: ValueTypeNumber.ValueFrom(1.1),
+			args:   args{t: ValueTypeNumber},
+			want:   ValueTypeNumber.ValueFrom(1.1),
+		},
+		{
+			name:   "failed to cast",
+			target: ValueTypeLatLng.ValueFrom(LatLng{Lat: 1, Lng: 2}),
+			args:   args{t: ValueTypeString},
+			want:   nil,
+		},
+		{
+			name:   "invalid type",
+			target: ValueTypeNumber.ValueFrom(1.1),
+			args:   args{t: ValueTypeUnknown},
+			want:   nil,
+		},
+		{
+			name:   "empty",
+			target: &Value{},
+			args:   args{t: ValueTypeString},
+			want:   nil,
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{t: ValueTypeString},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Cast(tt.args.t))
+		})
+	}
+}
+
+func TestValueFromDataset(t *testing.T) {
 	testCases := []struct {
 		Name     string
+		Input    *dataset.Value
 		Expected struct {
-			TA   TextAlign
-			Bool bool
+			V  *Value
+			Ok bool
 		}
 	}{
 		{
-			Name: "left",
+			Name: "latlng",
+			Input: dataset.ValueTypeLatLng.ValueFrom(dataset.LatLng{
+				Lat: 10,
+				Lng: 12,
+			}),
 			Expected: struct {
-				TA   TextAlign
-				Bool bool
+				V  *Value
+				Ok bool
 			}{
-				TA:   TextAlignLeft,
-				Bool: true,
+				V: ValueTypeLatLng.ValueFrom(LatLng{
+					Lat: 10,
+					Lng: 12,
+				}),
+				Ok: true,
 			},
 		},
 		{
-			Name: "right",
+			Name: "LatLngHeight",
+			Input: dataset.ValueTypeLatLngHeight.ValueFrom(dataset.LatLngHeight{
+				Lat:    10,
+				Lng:    12,
+				Height: 14,
+			}),
 			Expected: struct {
-				TA   TextAlign
-				Bool bool
+				V  *Value
+				Ok bool
 			}{
-				TA:   TextAlignRight,
-				Bool: true,
-			},
-		},
-		{
-			Name: "center",
-			Expected: struct {
-				TA   TextAlign
-				Bool bool
-			}{
-				TA:   TextAlignCenter,
-				Bool: true,
-			},
-		},
-		{
-			Name: "justify",
-			Expected: struct {
-				TA   TextAlign
-				Bool bool
-			}{
-				TA:   TextAlignJustify,
-				Bool: true,
-			},
-		},
-		{
-			Name: "justify_all",
-			Expected: struct {
-				TA   TextAlign
-				Bool bool
-			}{
-				TA:   TextAlignJustifyAll,
-				Bool: true,
-			},
-		},
-		{
-			Name: "undefined",
-			Expected: struct {
-				TA   TextAlign
-				Bool bool
-			}{
-				TA:   TextAlign(""),
-				Bool: false,
+				V: ValueTypeLatLngHeight.ValueFrom(LatLngHeight{
+					Lat:    10,
+					Lng:    12,
+					Height: 14,
+				}),
+				Ok: true,
 			},
 		},
 	}
@@ -230,125 +272,55 @@ func TestTextAlignFrom(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res, ok := TextAlignFrom(tc.Name)
-			assert.Equal(tt, tc.Expected.TA, res)
-			assert.Equal(tt, tc.Expected.Bool, ok)
+			assert.Equal(tt, tc.Expected.V, valueFromDataset(tc.Input))
 		})
 	}
 }
 
-func TestTextAlignFromRef(t *testing.T) {
-	ja := TextAlignJustifyAll
-	j := TextAlignJustify
-	c := TextAlignCenter
-	l := TextAlignLeft
-	r := TextAlignRight
-	testCases := []struct {
-		Name     string
-		Input    *string
-		Expected *TextAlign
+func TestValueFromStringOrNumber(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want *Value
 	}{
 		{
-			Name:     "left",
-			Input:    getStrRef("left"),
-			Expected: &l,
+			name: "string",
+			args: args{"aax"},
+			want: ValueTypeString.ValueFrom("aax"),
 		},
 		{
-			Name:     "right",
-			Input:    getStrRef("right"),
-			Expected: &r,
+			name: "number positive int",
+			args: args{"1023"},
+			want: ValueTypeNumber.ValueFrom(1023),
 		},
 		{
-			Name:     "center",
-			Input:    getStrRef("center"),
-			Expected: &c,
+			name: "number negative int",
+			args: args{"-1"},
+			want: ValueTypeNumber.ValueFrom(-1),
 		},
 		{
-			Name:     "justify",
-			Input:    getStrRef("justify"),
-			Expected: &j,
+			name: "number float",
+			args: args{"1.14"},
+			want: ValueTypeNumber.ValueFrom(1.14),
 		},
 		{
-			Name:     "justify_all",
-			Input:    getStrRef("justify_all"),
-			Expected: &ja,
+			name: "bool true",
+			args: args{"true"},
+			want: ValueTypeBool.ValueFrom(true),
 		},
 		{
-			Name:  "undefined",
-			Input: getStrRef("undefined"),
-		},
-		{
-			Name: "nil input",
+			name: "bool false",
+			args: args{"false"},
+			want: ValueTypeBool.ValueFrom(false),
 		},
 	}
 
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := TextAlignFromRef(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, ValueFromStringOrNumber(tt.args.s))
 		})
 	}
-}
-
-func TestTextAlign_StringRef(t *testing.T) {
-	var ta *TextAlign
-	assert.Nil(t, ta.StringRef())
-}
-
-func TestValue(t *testing.T) {
-	ll := LatLng{
-		Lat: 1,
-		Lng: 2,
-	}
-	assert.True(t, ValueTypeLatLng.ValidateValue(ll.Value()))
-
-	llh := LatLngHeight{
-		Lat:    1,
-		Lng:    2,
-		Height: 3,
-	}
-	assert.True(t, ValueTypeLatLngHeight.ValidateValue(llh.Value()))
-
-	ca := Camera{
-		Lat:      1,
-		Lng:      2,
-		Altitude: 3,
-		Heading:  4,
-		Pitch:    5,
-		Roll:     6,
-		FOV:      7,
-	}
-	assert.True(t, ValueTypeCamera.ValidateValue(ca.Value()))
-
-	ty := Typography{
-		FontFamily: getStrRef("x"),
-		FontWeight: getStrRef("b"),
-		FontSize:   nil,
-		Color:      getStrRef("red"),
-		TextAlign:  TextAlignFromRef(getStrRef(TextAlignCenter.String())),
-		Bold:       getBoolRef(true),
-		Italic:     getBoolRef(false),
-		Underline:  getBoolRef(true),
-	}
-	assert.True(t, ValueTypeTypography.ValidateValue(ty.Value()))
-
-	co := Coordinates{
-		llh,
-	}
-	assert.True(t, ValueTypeCoordinates.ValidateValue(co.Value()))
-
-	po := Polygon{
-		co,
-	}
-	assert.True(t, ValueTypePolygon.ValidateValue(po.Value()))
-
-	rc := Rect{
-		West:  10,
-		South: 3,
-		East:  5,
-		North: 2,
-	}
-	assert.True(t, ValueTypeRect.ValidateValue(rc.Value()))
 }

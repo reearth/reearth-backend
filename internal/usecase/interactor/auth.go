@@ -311,6 +311,11 @@ func (s *AuthStorage) ValidateJWTProfileScopes(_ context.Context, _ string, scop
 	return scope, nil
 }
 
+func (s *AuthStorage) RevokeToken(ctx context.Context, token string, userID string, clientID string) *oidc.Error {
+	// TODO implement me
+	panic("implement me")
+}
+
 func (s *AuthStorage) CompleteAuthRequest(ctx context.Context, requestId, sub string) error {
 	request, err := s.AuthRequestByID(ctx, requestId)
 	if err != nil {

@@ -13,7 +13,7 @@ func TestInitializer_Clone(t *testing.T) {
 		Schema: id.MustPropertySchemaID("reearth/marker"),
 		Items: []*InitializerItem{{
 			ID:         id.NewPropertyItemID().Ref(),
-			SchemaItem: id.PropertySchemaFieldID("hoge"),
+			SchemaItem: id.PropertySchemaGroupID("hoge"),
 		}},
 	}
 
@@ -32,7 +32,7 @@ func TestInitializer_Property(t *testing.T) {
 		Schema: id.MustPropertySchemaID("reearth/marker"),
 		Items: []*InitializerItem{{
 			ID:         id.NewPropertyItemID().Ref(),
-			SchemaItem: id.PropertySchemaFieldID("hoge"),
+			SchemaItem: id.PropertySchemaGroupID("hoge"),
 		}},
 	}
 
@@ -69,7 +69,7 @@ func TestInitializer_PropertyIncludingEmpty(t *testing.T) {
 		Schema: psid2,
 		Items: []*InitializerItem{{
 			ID:         id.NewPropertyItemID().Ref(),
-			SchemaItem: id.PropertySchemaFieldID("hoge"),
+			SchemaItem: id.PropertySchemaGroupID("hoge"),
 		}},
 	}
 
@@ -88,13 +88,13 @@ func TestInitializer_PropertyIncludingEmpty(t *testing.T) {
 func TestInitializerItem_Clone(t *testing.T) {
 	item := &InitializerItem{
 		ID:         id.NewPropertyItemID().Ref(),
-		SchemaItem: id.PropertySchemaFieldID("hoge"),
+		SchemaItem: id.PropertySchemaGroupID("hoge"),
 		Groups: []*InitializerGroup{{
 			ID: id.NewPropertyItemID().Ref(),
 			Fields: []*InitializerField{{
 				Field: id.PropertySchemaFieldID("name"),
 				Type:  ValueTypeString,
-				Value: ValueTypeString.ValueFromUnsafe("aaa"),
+				Value: ValueTypeString.ValueFrom("aaa"),
 				Links: []*InitializerLink{{
 					Dataset: id.NewDatasetID().Ref(),
 					Schema:  id.NewDatasetSchemaID(),
@@ -118,7 +118,7 @@ func TestInitializerItem_PropertyItem(t *testing.T) {
 	parent := id.MustPropertySchemaID("reearth/marker")
 	item := &InitializerItem{
 		ID:         id.NewPropertyItemID().Ref(),
-		SchemaItem: id.PropertySchemaFieldID("hoge"),
+		SchemaItem: id.PropertySchemaGroupID("hoge"),
 	}
 
 	expected := NewItem().ID(*item.ID).Schema(parent, item.SchemaItem).Group().MustBuild()
@@ -137,16 +137,16 @@ func TestInitializerItem_PropertyGroup(t *testing.T) {
 	parent := id.MustPropertySchemaID("reearth/marker")
 	item := &InitializerItem{
 		ID:         id.NewPropertyItemID().Ref(),
-		SchemaItem: id.PropertySchemaFieldID("hoge"),
+		SchemaItem: id.PropertySchemaGroupID("hoge"),
 		Fields: []*InitializerField{{
 			Field: id.PropertySchemaFieldID("name"),
 			Type:  ValueTypeString,
-			Value: ValueTypeString.ValueFromUnsafe("aaa"),
+			Value: ValueTypeString.ValueFrom("aaa"),
 		}},
 	}
 
 	expected := NewItem().ID(*item.ID).Schema(parent, item.SchemaItem).Group().Fields([]*Field{
-		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).TypeUnsafe(item.Fields[0].Type).ValueUnsafe(item.Fields[0].Value).Build(),
+		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).ValueUnsafe(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
 	}).MustBuild()
 
 	assert.Equal(t, expected, item.PropertyGroup(parent))
@@ -160,7 +160,7 @@ func TestInitializerItem_PropertyGroupList(t *testing.T) {
 	parent := id.MustPropertySchemaID("reearth/marker")
 	item := &InitializerItem{
 		ID:         id.NewPropertyItemID().Ref(),
-		SchemaItem: id.PropertySchemaFieldID("hoge"),
+		SchemaItem: id.PropertySchemaGroupID("hoge"),
 		Groups: []*InitializerGroup{{
 			ID: id.NewPropertyItemID().Ref(),
 		}},
@@ -183,7 +183,7 @@ func TestInitializerGroup_Clone(t *testing.T) {
 		Fields: []*InitializerField{{
 			Field: id.PropertySchemaFieldID("name"),
 			Type:  ValueTypeString,
-			Value: ValueTypeString.ValueFromUnsafe("aaa"),
+			Value: ValueTypeString.ValueFrom("aaa"),
 			Links: []*InitializerLink{{
 				Dataset: id.NewDatasetID().Ref(),
 				Schema:  id.NewDatasetSchemaID(),
@@ -202,18 +202,18 @@ func TestInitializerGroup_Clone(t *testing.T) {
 
 func TestInitializerGroup_PropertyGroup(t *testing.T) {
 	parent := id.MustPropertySchemaID("reearth/marker")
-	parentItem := id.PropertySchemaFieldID("hoge")
+	parentItem := id.PropertySchemaGroupID("hoge")
 	item := &InitializerGroup{
 		ID: id.NewPropertyItemID().Ref(),
 		Fields: []*InitializerField{{
 			Field: id.PropertySchemaFieldID("name"),
 			Type:  ValueTypeString,
-			Value: ValueTypeString.ValueFromUnsafe("aaa"),
+			Value: ValueTypeString.ValueFrom("aaa"),
 		}},
 	}
 
 	expected := NewItem().ID(*item.ID).Schema(parent, parentItem).Group().Fields([]*Field{
-		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).TypeUnsafe(item.Fields[0].Type).ValueUnsafe(item.Fields[0].Value).Build(),
+		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).ValueUnsafe(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
 	}).MustBuild()
 
 	p, err := item.PropertyGroup(parent, parentItem)
@@ -231,7 +231,7 @@ func TestInitializerField_Clone(t *testing.T) {
 	field := &InitializerField{
 		Field: id.PropertySchemaFieldID("name"),
 		Type:  ValueTypeString,
-		Value: ValueTypeString.ValueFromUnsafe("aaa"),
+		Value: ValueTypeString.ValueFrom("aaa"),
 		Links: []*InitializerLink{{
 			Dataset: id.NewDatasetID().Ref(),
 			Schema:  id.NewDatasetSchemaID(),
@@ -249,7 +249,7 @@ func TestInitializerField_PropertyField(t *testing.T) {
 	field := &InitializerField{
 		Field: id.PropertySchemaFieldID("name"),
 		Type:  ValueTypeString,
-		Value: ValueTypeString.ValueFromUnsafe("aaa"),
+		Value: ValueTypeString.ValueFrom("aaa"),
 		Links: []*InitializerLink{{
 			Dataset: id.NewDatasetID().Ref(),
 			Schema:  id.NewDatasetSchemaID(),
@@ -259,8 +259,7 @@ func TestInitializerField_PropertyField(t *testing.T) {
 
 	expected := NewFieldUnsafe().
 		FieldUnsafe(field.Field).
-		TypeUnsafe(field.Type).
-		ValueUnsafe(field.Value).
+		ValueUnsafe(NewOptionalValue(field.Type, field.Value)).
 		LinksUnsafe(NewLinks([]*Link{NewLink(*field.Links[0].Dataset.CopyRef(), field.Links[0].Schema, field.Links[0].Field)})).
 		Build()
 
