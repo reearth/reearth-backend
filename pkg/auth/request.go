@@ -59,6 +59,11 @@ func (a *Request) GetClientID() string {
 	return a.clientID
 }
 
+func (a *Request) GetResponseMode() oidc.ResponseMode {
+	// TODO implement me
+	panic("implement me")
+}
+
 func (a *Request) GetCode() string {
 	return a.code
 }

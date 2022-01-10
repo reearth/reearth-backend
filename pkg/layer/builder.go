@@ -71,3 +71,8 @@ func (b *Builder) Infobox(infobox *Infobox) *Builder {
 	b.base.infobox = infobox
 	return b
 }
+
+func (b *Builder) Tags(tags *TagList) *Builder {
+	b.base.tags = tags
+	return b
+}

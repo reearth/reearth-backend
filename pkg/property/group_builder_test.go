@@ -12,18 +12,18 @@ func TestGroupBuilder_Build(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
-	f := NewField(sf).Value(v).MustBuild()
+	v := ValueTypeString.ValueFrom("vvv")
+	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
 	testCases := []struct {
 		Name        string
 		Id          id.PropertyItemID
 		Schema      id.PropertySchemaID
-		SchemaGroup id.PropertySchemaFieldID
+		SchemaGroup id.PropertySchemaGroupID
 		Fields      []*Field
 		Expected    struct {
 			Id          id.PropertyItemID
 			Schema      id.PropertySchemaID
-			SchemaGroup id.PropertySchemaFieldID
+			SchemaGroup id.PropertySchemaGroupID
 			Fields      []*Field
 		}
 		Err error
@@ -41,7 +41,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 			Expected: struct {
 				Id          id.PropertyItemID
 				Schema      id.PropertySchemaID
-				SchemaGroup id.PropertySchemaFieldID
+				SchemaGroup id.PropertySchemaGroupID
 				Fields      []*Field
 			}{
 				Id:          iid,
@@ -74,19 +74,19 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 	iid := id.NewPropertyItemID()
 	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
-	v := ValueTypeString.ValueFromUnsafe("vvv")
-	f := NewField(sf).Value(v).MustBuild()
+	v := ValueTypeString.ValueFrom("vvv")
+	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
 	testCases := []struct {
 		Name        string
 		Fail        bool
 		Id          id.PropertyItemID
 		Schema      id.PropertySchemaID
-		SchemaGroup id.PropertySchemaFieldID
+		SchemaGroup id.PropertySchemaGroupID
 		Fields      []*Field
 		Expected    struct {
 			Id          id.PropertyItemID
 			Schema      id.PropertySchemaID
-			SchemaGroup id.PropertySchemaFieldID
+			SchemaGroup id.PropertySchemaGroupID
 			Fields      []*Field
 		}
 	}{
@@ -103,7 +103,7 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 			Expected: struct {
 				Id          id.PropertyItemID
 				Schema      id.PropertySchemaID
-				SchemaGroup id.PropertySchemaFieldID
+				SchemaGroup id.PropertySchemaGroupID
 				Fields      []*Field
 			}{
 				Id:          iid,

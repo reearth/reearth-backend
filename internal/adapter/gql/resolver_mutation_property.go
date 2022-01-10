@@ -14,14 +14,17 @@ func (r *mutationResolver) UpdatePropertyValue(ctx context.Context, input gqlmod
 	exit := trace(ctx)
 	defer exit()
 
-	v, ok := gqlmodel.FromPropertyValueAndType(input.Value, input.Type)
-	if !ok {
-		return nil, errors.New("invalid value")
+	var v *property.Value
+	if input.Value != nil {
+		v = gqlmodel.FromPropertyValueAndType(input.Value, input.Type)
+		if v == nil {
+			return nil, errors.New("invalid value")
+		}
 	}
 
 	pp, pgl, pg, pf, err := r.usecases.Property.UpdateValue(ctx, interfaces.UpdatePropertyValueParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(input.SchemaItemID, input.ItemID, &input.FieldID),
+		Pointer:    gqlmodel.FromPointer(input.SchemaGroupID, input.ItemID, &input.FieldID),
 		Value:      v,
 	}, getOperator(ctx))
 	if err != nil {
@@ -40,7 +43,7 @@ func (r *mutationResolver) RemovePropertyField(ctx context.Context, input gqlmod
 
 	p, err := r.usecases.Property.RemoveField(ctx, interfaces.RemovePropertyFieldParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(input.SchemaItemID, input.ItemID, &input.FieldID),
+		Pointer:    gqlmodel.FromPointer(input.SchemaGroupID, input.ItemID, &input.FieldID),
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
@@ -57,7 +60,7 @@ func (r *mutationResolver) UploadFileToProperty(ctx context.Context, input gqlmo
 
 	p, pgl, pg, pf, err := r.usecases.Property.UploadFile(ctx, interfaces.UploadFileParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(input.SchemaItemID, input.ItemID, &input.FieldID),
+		Pointer:    gqlmodel.FromPointer(input.SchemaGroupID, input.ItemID, &input.FieldID),
 		File:       gqlmodel.FromFile(&input.File),
 	}, getOperator(ctx))
 	if err != nil {
@@ -76,7 +79,7 @@ func (r *mutationResolver) LinkDatasetToPropertyValue(ctx context.Context, input
 
 	p, pgl, pg, pf, err := r.usecases.Property.LinkValue(ctx, interfaces.LinkPropertyValueParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(input.SchemaItemID, input.ItemID, &input.FieldID),
+		Pointer:    gqlmodel.FromPointer(input.SchemaGroupID, input.ItemID, &input.FieldID),
 		Links: gqlmodel.FromPropertyFieldLink(
 			input.DatasetSchemaIds,
 			input.DatasetIds,
@@ -99,7 +102,7 @@ func (r *mutationResolver) UnlinkPropertyValue(ctx context.Context, input gqlmod
 
 	p, pgl, pg, pf, err := r.usecases.Property.UnlinkValue(ctx, interfaces.UnlinkPropertyValueParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(input.SchemaItemID, input.ItemID, &input.FieldID),
+		Pointer:    gqlmodel.FromPointer(input.SchemaGroupID, input.ItemID, &input.FieldID),
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
@@ -117,12 +120,15 @@ func (r *mutationResolver) AddPropertyItem(ctx context.Context, input gqlmodel.A
 
 	var v *property.Value
 	if input.NameFieldType != nil {
-		v, _ = gqlmodel.FromPropertyValueAndType(input.NameFieldValue, *input.NameFieldType)
+		v = gqlmodel.FromPropertyValueAndType(input.NameFieldValue, *input.NameFieldType)
+		if v == nil {
+			return nil, errors.New("invalid name field value")
+		}
 	}
 
 	p, pgl, pi, err := r.usecases.Property.AddItem(ctx, interfaces.AddPropertyItemParam{
 		PropertyID:     id.PropertyID(input.PropertyID),
-		Pointer:        gqlmodel.FromPointer(&input.SchemaItemID, nil, nil),
+		Pointer:        gqlmodel.FromPointer(&input.SchemaGroupID, nil, nil),
 		Index:          input.Index,
 		NameFieldValue: v,
 	}, getOperator(ctx))
@@ -143,7 +149,7 @@ func (r *mutationResolver) MovePropertyItem(ctx context.Context, input gqlmodel.
 
 	p, pgl, pi, err := r.usecases.Property.MoveItem(ctx, interfaces.MovePropertyItemParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(&input.SchemaItemID, &input.ItemID, nil),
+		Pointer:    gqlmodel.FromPointer(&input.SchemaGroupID, &input.ItemID, nil),
 		Index:      input.Index,
 	}, getOperator(ctx))
 	if err != nil {
@@ -162,7 +168,7 @@ func (r *mutationResolver) RemovePropertyItem(ctx context.Context, input gqlmode
 
 	p, err := r.usecases.Property.RemoveItem(ctx, interfaces.RemovePropertyItemParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(&input.SchemaItemID, &input.ItemID, nil),
+		Pointer:    gqlmodel.FromPointer(&input.SchemaGroupID, &input.ItemID, nil),
 	}, getOperator(ctx))
 	if err != nil {
 		return nil, err
@@ -181,7 +187,10 @@ func (r *mutationResolver) UpdatePropertyItems(ctx context.Context, input gqlmod
 	for _, o := range input.Operations {
 		var v *property.Value
 		if o.NameFieldType != nil {
-			v, _ = gqlmodel.FromPropertyValueAndType(o.NameFieldValue, *o.NameFieldType)
+			v = gqlmodel.FromPropertyValueAndType(o.NameFieldValue, *o.NameFieldType)
+			if v == nil {
+				return nil, errors.New("invalid name field value")
+			}
 		}
 
 		op = append(op, interfaces.UpdatePropertyItemsOperationParam{
@@ -194,7 +203,7 @@ func (r *mutationResolver) UpdatePropertyItems(ctx context.Context, input gqlmod
 
 	p, err2 := r.usecases.Property.UpdateItems(ctx, interfaces.UpdatePropertyItemsParam{
 		PropertyID: id.PropertyID(input.PropertyID),
-		Pointer:    gqlmodel.FromPointer(&input.SchemaItemID, nil, nil),
+		Pointer:    gqlmodel.FromPointer(&input.SchemaGroupID, nil, nil),
 		Operations: op,
 	}, getOperator(ctx))
 	if err2 != nil {

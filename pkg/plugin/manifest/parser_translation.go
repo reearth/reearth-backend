@@ -52,12 +52,18 @@ func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Mani
 
 		if t.Name != nil {
 			name := m.Plugin.Name()
+			if name == nil {
+				name = map[string]string{}
+			}
 			name[lang] = *t.Name
 			m.Plugin.Rename(name)
 		}
 
 		if t.Description != nil {
 			des := m.Plugin.Description()
+			if des == nil {
+				des = map[string]string{}
+			}
 			des[lang] = *t.Description
 			m.Plugin.SetDescription(des)
 		}
@@ -70,12 +76,18 @@ func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Mani
 
 			if te.Name != nil {
 				name := ext.Name()
+				if name == nil {
+					name = map[string]string{}
+				}
 				name[lang] = *te.Name
 				ext.Rename(name)
 			}
 
 			if te.Description != nil {
 				des := ext.Description()
+				if des == nil {
+					des = map[string]string{}
+				}
 				des[lang] = *te.Description
 				ext.SetDescription(des)
 			}
@@ -92,13 +104,16 @@ func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Mani
 			}
 
 			for key, tsg := range te.PropertySchema {
-				psg := ps.Group(id.PropertySchemaFieldID(key))
+				psg := ps.Group(id.PropertySchemaGroupID(key))
 				if psg == nil {
 					continue
 				}
 
 				if tsg.Title != nil {
 					t := psg.Title()
+					if t == nil {
+						t = map[string]string{}
+					}
 					t[lang] = *tsg.Title
 					psg.SetTitle(t)
 				}
@@ -118,12 +133,18 @@ func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Mani
 
 					if tsf.Title != nil {
 						t := psf.Title()
+						if t == nil {
+							t = map[string]string{}
+						}
 						t[lang] = *tsf.Title
 						psf.SetTitle(t)
 					}
 
 					if tsf.Description != nil {
 						t := psf.Description()
+						if t == nil {
+							t = map[string]string{}
+						}
 						t[lang] = *tsf.Description
 						psf.SetDescription(t)
 					}

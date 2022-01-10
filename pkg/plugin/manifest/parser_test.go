@@ -32,16 +32,16 @@ var normalExpected = &Manifest{
 	}).MustBuild(),
 	ExtensionSchema: []*property.Schema{
 		property.NewSchema().ID(id.MustPropertySchemaID("aaa~1.1.1/hoge")).Groups([]*property.SchemaGroup{
-			property.NewSchemaGroup().ID(id.PropertySchemaFieldID("default")).
+			property.NewSchemaGroup().ID(id.PropertySchemaGroupID("default")).
 				Schema(id.MustPropertySchemaID("aaa~1.1.1/hoge")).
 				RepresentativeField(id.PropertySchemaFieldID("a").Ref()).
 				Fields([]*property.SchemaField{
 					property.NewSchemaField().ID(id.PropertySchemaFieldID("a")).
 						Type(property.ValueTypeBool).
-						DefaultValue(property.ValueTypeBool.MustBeValue(true)).
+						DefaultValue(property.ValueTypeBool.ValueFrom(true)).
 						IsAvailableIf(&property.Condition{
 							Field: id.PropertySchemaFieldID("b"),
-							Value: property.ValueTypeNumber.MustBeValue(1),
+							Value: property.ValueTypeNumber.ValueFrom(1),
 						}).
 						MustBuild(),
 					property.NewSchemaField().ID(id.PropertySchemaFieldID("b")).

@@ -20,6 +20,7 @@ var group = Group{
 		extension: id.PluginExtensionID("foo").Ref(),
 		property:  nil,
 		infobox:   nil,
+		tags:      nil,
 		scene:     id.SceneID{},
 	},
 	layers: &IDList{

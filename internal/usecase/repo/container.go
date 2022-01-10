@@ -12,8 +12,10 @@ type Container struct {
 	PropertySchema PropertySchema
 	Property       Property
 	Scene          Scene
+	Tag            Tag
 	Team           Team
 	User           User
 	SceneLock      SceneLock
 	Transaction    Transaction
+	Lock           Lock
 }

@@ -9,29 +9,38 @@ import (
 )
 
 type Config struct {
-	lock sync.Mutex
-	data *config.Config
+	lock   sync.Mutex
+	locked bool
+	data   *config.Config
 }
 
 func NewConfig() repo.Config {
 	return &Config{}
 }
 
-func (r *Config) Load(_ context.Context) (*config.Config, error) {
+func (r *Config) LockAndLoad(ctx context.Context) (*config.Config, error) {
 	r.lock.Lock()
-	defer r.lock.Unlock()
-
+	r.locked = true
 	return r.data, nil
 }
 
-func (r *Config) Release(_ context.Context) error {
+func (r *Config) Save(ctx context.Context, c *config.Config) error {
+	if c != nil {
+		r.data = c
+	}
 	return nil
 }
 
-func (r *Config) Save(_ context.Context, c *config.Config) error {
-	r.lock.Lock()
-	defer r.lock.Unlock()
+func (r *Config) SaveAndUnlock(ctx context.Context, c *config.Config) error {
+	_ = r.Save(ctx, c)
+	return r.Unlock(ctx)
+}
 
-	r.data = c
+func (r *Config) Unlock(_ context.Context) error {
+	if !r.locked {
+		return nil
+	}
+	r.lock.Unlock()
+	r.locked = false
 	return nil
 }

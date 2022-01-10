@@ -2,7 +2,6 @@ package migration
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
@@ -17,39 +16,52 @@ type MigrationFunc = func(context.Context, DBClient) error
 
 type Client struct {
 	Client *mongodoc.Client
+	Config repo.Config
 }
 
-func (c Client) Migrate(ctx context.Context, cfgR repo.Config) error {
-	cfg, err := cfgR.Load(ctx)
+func (c Client) Migrate(ctx context.Context) (err error) {
+	config, err := c.Config.LockAndLoad(ctx)
 	if err != nil {
-		return fmt.Errorf("Could not load auth config: %w\n", err)
+		return fmt.Errorf("Failed to load config: %w", rerror.UnwrapErrInternal(err))
 	}
 	defer func() {
-		if err := cfgR.Release(ctx); err == nil {
-			log.Errorf("Could not release config lock: %s\n", err)
-		}
+		err = c.Config.Unlock(ctx)
 	}()
 
-	nextMigrations := cfg.NextMigrations(migrationKeys())
+	nextMigrations := config.NextMigrations(migrationKeys())
 	if len(nextMigrations) == 0 {
 		return nil
 	}
 
+	var tx repo.Tx
+	defer func() {
+		if tx != nil {
+			err = tx.End(ctx)
+		}
+	}()
+
 	for _, m := range nextMigrations {
+		tx, err = c.Client.BeginTransaction()
+		if err != nil {
+			return err
+		}
+
 		log.Infof("DB migration: %d\n", m)
-
 		if err := migrations[m](ctx, c.Client); err != nil {
-			var ie *rerror.ErrInternal
-			if ok := errors.As(err, &ie); ok {
-				err = ie.Unwrap()
-			}
-			return fmt.Errorf("Failed to exec migration %d: %w", m, err)
+			return fmt.Errorf("Failed to exec migration %d: %w", m, rerror.UnwrapErrInternal(err))
 		}
 
-		cfg.Migration = m
-		if err := cfgR.Save(ctx, cfg); err != nil {
-			return fmt.Errorf("Failed to save config: %w\n", err)
+		config.Migration = m
+		if err := c.Config.Save(ctx, config); err != nil {
+			return err
 		}
+
+		tx.Commit()
+		if err := tx.End(ctx); err != nil {
+			tx = nil
+			return err
+		}
+		tx = nil
 	}
 
 	return nil

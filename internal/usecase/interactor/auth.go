@@ -78,12 +78,12 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 			PostalCode:         cfg.DN.PostalCode,
 		}
 	}
-	c, err := config.Load(ctx)
+	c, err := config.LockAndLoad(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("Could not load auth config: %w\n", err)
 	}
 	defer func() {
-		if err := config.Release(ctx); err == nil {
+		if err := config.Unlock(ctx); err == nil {
 			log.Errorf("Could not release config lock: %s\n", err)
 		}
 	}()
@@ -364,6 +364,11 @@ func (s *AuthStorage) SetIntrospectionFromToken(ctx context.Context, introspect 
 
 func (s *AuthStorage) ValidateJWTProfileScopes(_ context.Context, _ string, scope []string) ([]string, error) {
 	return scope, nil
+}
+
+func (s *AuthStorage) RevokeToken(ctx context.Context, token string, userID string, clientID string) *oidc.Error {
+	// TODO implement me
+	panic("implement me")
 }
 
 func (s *AuthStorage) CompleteAuthRequest(ctx context.Context, requestId, sub string) error {

@@ -20,6 +20,10 @@ func (r *Resolver) SceneWidget() SceneWidgetResolver {
 	return &sceneWidgetResolver{r}
 }
 
+func (r *Resolver) Cluster() ClusterResolver {
+	return &clusterResolver{r}
+}
+
 type sceneResolver struct{ *Resolver }
 
 func (r *sceneResolver) Project(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Project, error) {
@@ -79,6 +83,22 @@ func (r *sceneResolver) LockMode(ctx context.Context, obj *gqlmodel.Scene) (gqlm
 	return *sl, nil
 }
 
+func (r *sceneResolver) Tags(ctx context.Context, obj *gqlmodel.Scene) ([]gqlmodel.Tag, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	tags, err := r.usecases.Tag.FetchByScene(ctx, id.SceneID(obj.ID), getOperator(ctx))
+	if err != nil {
+		return nil, err
+	}
+
+	res := make([]gqlmodel.Tag, 0, len(tags))
+	for _, t := range tags {
+		res = append(res, gqlmodel.ToTag(*t))
+	}
+	return res, nil
+}
+
 type scenePluginResolver struct{ *Resolver }
 
 func (r *scenePluginResolver) Plugin(ctx context.Context, obj *gqlmodel.ScenePlugin) (*gqlmodel.Plugin, error) {
@@ -123,6 +143,15 @@ func (r *sceneWidgetResolver) Extension(ctx context.Context, obj *gqlmodel.Scene
 }
 
 func (r *sceneWidgetResolver) Property(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Property, error) {
+	exit := trace(ctx)
+	defer exit()
+
+	return DataLoadersFromContext(ctx).Property.Load(id.PropertyID(obj.PropertyID))
+}
+
+type clusterResolver struct{ *Resolver }
+
+func (r *clusterResolver) Property(ctx context.Context, obj *gqlmodel.Cluster) (*gqlmodel.Property, error) {
 	exit := trace(ctx)
 	defer exit()
 
