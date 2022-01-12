@@ -2,14 +2,12 @@ package layer
 
 import "github.com/reearth/reearth-backend/pkg/id"
 
-// IDList _
 type IDList struct {
 	layers []id.LayerID
 	// for checking duplication
 	layerIDs map[id.LayerID]struct{}
 }
 
-// NewIDList _
 func NewIDList(layers []id.LayerID) *IDList {
 	ll := IDList{}
 	if len(layers) == 0 {
@@ -24,7 +22,6 @@ func NewIDList(layers []id.LayerID) *IDList {
 	return &ll
 }
 
-// Layers _
 func (l *IDList) Layers() []id.LayerID {
 	if l == nil {
 		return nil
@@ -33,7 +30,6 @@ func (l *IDList) Layers() []id.LayerID {
 	return result
 }
 
-// HasLayer _
 func (l *IDList) HasLayer(id id.LayerID) bool {
 	if l == nil || len(l.layerIDs) == 0 {
 		return false
@@ -42,7 +38,6 @@ func (l *IDList) HasLayer(id id.LayerID) bool {
 	return ok
 }
 
-// LayerAt _
 func (l *IDList) LayerAt(index int) id.LayerID {
 	if l == nil || index < 0 || len(l.layers) <= index {
 		return id.LayerID{}
@@ -57,7 +52,6 @@ func (l *IDList) AtRef(index int) *id.LayerID {
 	return &l.layers[index]
 }
 
-// FindLayerIndex _
 func (l *IDList) FindLayerIndex(id id.LayerID) int {
 	if l == nil {
 		return -1
@@ -70,7 +64,6 @@ func (l *IDList) FindLayerIndex(id id.LayerID) int {
 	return -1
 }
 
-// LayerCount _
 func (l *IDList) LayerCount() int {
 	if l == nil {
 		return 0
@@ -78,7 +71,6 @@ func (l *IDList) LayerCount() int {
 	return len(l.layers)
 }
 
-// AddLayer _
 func (l *IDList) AddLayer(lid id.LayerID, index int) {
 	if l == nil || l.HasLayer(lid) {
 		return
@@ -97,7 +89,6 @@ func (l *IDList) AddLayer(lid id.LayerID, index int) {
 	}
 }
 
-// AppendLayers _
 func (l *IDList) AppendLayers(lid ...id.LayerID) *IDList {
 	if l == nil {
 		return NewIDList(lid)
@@ -119,7 +110,6 @@ func (l *IDList) Clone() (l2 *IDList) {
 	return NewIDList(l.layers)
 }
 
-// AddOrMoveLayer _
 func (l *IDList) AddOrMoveLayer(lid id.LayerID, index int) {
 	if l == nil {
 		return
@@ -138,7 +128,6 @@ func (l *IDList) AddOrMoveLayer(lid id.LayerID, index int) {
 	l.layerIDs[lid] = struct{}{}
 }
 
-// MoveLayer _
 func (l *IDList) MoveLayer(id id.LayerID, toIndex int) {
 	if l == nil {
 		return
@@ -152,7 +141,6 @@ func (l *IDList) MoveLayer(id id.LayerID, toIndex int) {
 	}
 }
 
-// MoveLayerAt _
 func (l *IDList) MoveLayerAt(fromIndex int, toIndex int) {
 	if l == nil || len(l.layers) == 0 {
 		return
@@ -177,21 +165,23 @@ func (l *IDList) MoveLayerAt(fromIndex int, toIndex int) {
 	l.layers = append(newSlice, l.layers[toIndex:]...)
 }
 
-// RemoveLayer _
-func (l *IDList) RemoveLayer(id id.LayerID) {
+func (l *IDList) RemoveLayer(ids ...id.LayerID) {
 	if l == nil {
 		return
 	}
 
-	for index, layer := range l.layers {
-		if layer == id {
-			l.RemoveLayerAt(index)
-			return
+	for i := 0; i < len(l.layers); i++ {
+		layer := l.layers[i]
+		for _, id := range ids {
+			if layer == id {
+				l.RemoveLayerAt(i)
+				i--
+				break
+			}
 		}
 	}
 }
 
-// RemoveLayerAt _
 func (l *IDList) RemoveLayerAt(index int) {
 	if l == nil || len(l.layers) == 0 {
 		return
@@ -213,7 +203,6 @@ func (l *IDList) RemoveLayerAt(index int) {
 	delete(l.layerIDs, layer)
 }
 
-// Empty _
 func (l *IDList) Empty() {
 	if l == nil {
 		return
