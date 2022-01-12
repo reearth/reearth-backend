@@ -108,6 +108,25 @@ func (r *layerRepo) FindGroupBySceneAndLinkedDatasetSchema(ctx context.Context, 
 	return r.findGroups(ctx, nil, filter)
 }
 
+func (r *layerRepo) FindParentsByIDs(ctx context.Context, ids []id.LayerID, scenes []id.SceneID) (layer.GroupList, error) {
+	f := bson.M{
+		"group.layers": bson.M{"$in": id.LayerIDToKeys(ids)},
+	}
+	filter := r.sceneFilter(f, scenes)
+	return r.findGroups(ctx, nil, filter)
+}
+
+func (r *layerRepo) FindByPluginAndExtension(ctx context.Context, pid id.PluginID, eid *id.PluginExtensionID, scenes []id.SceneID) (layer.List, error) {
+	f := bson.M{
+		"plugin": pid.String(),
+	}
+	if eid != nil {
+		f["extension"] = eid.String()
+	}
+	filter := r.sceneFilter(f, scenes)
+	return r.find(ctx, nil, filter)
+}
+
 func (r *layerRepo) FindByProperty(ctx context.Context, id id.PropertyID, f []id.SceneID) (layer.Layer, error) {
 	filter := r.sceneFilterD(bson.D{
 		{Key: "$or", Value: []bson.D{
