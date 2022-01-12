@@ -8,8 +8,8 @@ type Config struct {
 }
 
 type Auth struct {
-	Cert []byte
-	Key  []byte
+	Cert string
+	Key  string
 }
 
 func (c *Config) NextMigrations(migrations []int64) []int64 {

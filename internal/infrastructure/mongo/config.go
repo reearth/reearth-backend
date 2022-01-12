@@ -20,8 +20,8 @@ type configRepo struct {
 	lock   repo.Lock
 }
 
-func NewConfig(client *mongodoc.Client) repo.Config {
-	return &configRepo{client: client.WithCollection("config")}
+func NewConfig(client *mongodoc.Client, lock repo.Lock) repo.Config {
+	return &configRepo{client: client.WithCollection("config"), lock: lock}
 }
 
 func (r *configRepo) LockAndLoad(ctx context.Context) (cfg *config.Config, err error) {

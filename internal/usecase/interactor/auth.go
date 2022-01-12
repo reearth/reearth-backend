@@ -6,6 +6,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"crypto/x509/pkix"
+	"encoding/base64"
 	"encoding/pem"
 	"errors"
 	"fmt"
@@ -83,23 +84,27 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 		return nil, fmt.Errorf("Could not load auth config: %w\n", err)
 	}
 	defer func() {
-		if err := config.Unlock(ctx); err == nil {
-			log.Errorf("Could not release config lock: %s\n", err)
+		if err := config.Unlock(ctx); err != nil {
+			log.Errorf("auth: Could not release config lock: %s\n", err)
 		}
 	}()
 
 	var keyBytes, certBytes []byte
 	if c.Auth != nil {
-		keyBytes = c.Auth.Key
-		certBytes = c.Auth.Cert
+		if keyBytes, err = base64.StdEncoding.DecodeString(c.Auth.Key); err != nil {
+			return nil, err
+		}
+		if certBytes, err = base64.StdEncoding.DecodeString(c.Auth.Cert); err != nil {
+			return nil, err
+		}
 	} else {
 		keyBytes, certBytes, err = generateCert(name)
 		if err != nil {
 			return nil, fmt.Errorf("Could not generate raw cert: %w\n", err)
 		}
 		c.Auth = &config2.Auth{
-			Key:  keyBytes,
-			Cert: certBytes,
+			Key:  base64.StdEncoding.EncodeToString(keyBytes),
+			Cert: base64.StdEncoding.EncodeToString(certBytes),
 		}
 
 		if err := config.Save(ctx, c); err != nil {
