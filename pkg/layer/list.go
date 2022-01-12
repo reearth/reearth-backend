@@ -19,6 +19,17 @@ func (ll List) IDs() *IDList {
 	return NewIDList(ids)
 }
 
+func (ll List) Properties() []PropertyID {
+	if len(ll) == 0 {
+		return nil
+	}
+	ids := make([]PropertyID, 0, len(ll))
+	for _, l := range ll.Deref() {
+		ids = append(ids, l.Properties()...)
+	}
+	return ids
+}
+
 func (ll List) Last() *Layer {
 	if len(ll) == 0 {
 		return nil

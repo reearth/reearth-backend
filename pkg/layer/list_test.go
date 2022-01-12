@@ -39,6 +39,41 @@ func TestList_IDs(t *testing.T) {
 	}
 }
 
+func TestList_Properties(t *testing.T) {
+	sid := id.NewSceneID()
+	p1 := id.NewPropertyID()
+	p2 := id.NewPropertyID()
+	p3 := id.NewPropertyID()
+
+	tests := []struct {
+		name   string
+		target List
+		want   []PropertyID
+	}{
+		{
+			name: "ok",
+			target: List{
+				New().NewID().Scene(sid).Property(&p1).Item().MustBuild().LayerRef(),
+				New().NewID().Scene(sid).Infobox(NewInfobox([]*InfoboxField{
+					{property: p3},
+				}, p2)).Group().MustBuild().LayerRef(),
+			},
+			want: []PropertyID{p1, p2, p3},
+		},
+		{
+			name:   "nil",
+			target: nil,
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, tt.target.Properties())
+		})
+	}
+}
+
 func TestList_Remove(t *testing.T) {
 	sid := id.NewSceneID()
 	l1 := NewItem().NewID().Scene(sid).MustBuild()
