@@ -607,3 +607,11 @@ func (p *Property) GuessSchema() *Schema {
 	}
 	return nil
 }
+
+func (p *Property) updateSchema(s SchemaID) bool {
+	if p == nil || s.IsNil() || p.schema.Equal(s) {
+		return false
+	}
+	p.schema = s.Clone()
+	return true
+}

@@ -235,6 +235,7 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 func TestSchemaDiff_Migrate(t *testing.T) {
 	itemID := NewItemID()
 	NewItemID = func() ItemID { return itemID }
+	newSchemaID := MustSchemaID("x~1.0.0/ax")
 
 	tests := []struct {
 		name         string
@@ -246,6 +247,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		{
 			name: "deleted and type changed",
 			target: &SchemaDiff{
+				To: newSchemaID,
 				Deleted: []SchemaDiffDeleted{
 					{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
 				},
@@ -258,7 +260,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 			wantProperty: &Property{
 				id:     testProperty1.ID(),
 				scene:  testProperty1.Scene(),
-				schema: testProperty1.Schema(),
+				schema: newSchemaID,
 				items: []Item{
 					&Group{
 						itemBase: itemBase{
@@ -292,6 +294,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		{
 			name: "moved",
 			target: &SchemaDiff{
+				To: newSchemaID,
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
@@ -304,7 +307,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 			wantProperty: &Property{
 				id:     testProperty1.ID(),
 				scene:  testProperty1.Scene(),
-				schema: testProperty1.Schema(),
+				schema: newSchemaID,
 				items: []Item{
 					&Group{
 						itemBase: itemBase{
@@ -329,6 +332,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		{
 			name: "moved and type changed",
 			target: &SchemaDiff{
+				To: newSchemaID,
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
@@ -344,7 +348,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 			wantProperty: &Property{
 				id:     testProperty1.ID(),
 				scene:  testProperty1.Scene(),
-				schema: testProperty1.Schema(),
+				schema: newSchemaID,
 				items: []Item{
 					&Group{
 						itemBase: itemBase{
@@ -371,6 +375,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		{
 			name: "group -> list",
 			target: &SchemaDiff{
+				To: newSchemaID,
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()},
@@ -383,7 +388,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 			wantProperty: &Property{
 				id:     testProperty1.ID(),
 				scene:  testProperty1.Scene(),
-				schema: testProperty1.Schema(),
+				schema: newSchemaID,
 				items: []Item{
 					&Group{
 						itemBase: itemBase{
@@ -401,6 +406,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		{
 			name: "list -> group",
 			target: &SchemaDiff{
+				To: newSchemaID,
 				Moved: []SchemaDiffMoved{
 					{
 						From: SchemaFieldPointer{SchemaGroup: testGroup2.SchemaGroup(), Field: testField2.Field()},
@@ -413,7 +419,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 			wantProperty: &Property{
 				id:     testProperty1.ID(),
 				scene:  testProperty1.Scene(),
-				schema: testProperty1.Schema(),
+				schema: newSchemaID,
 				items: []Item{
 					testGroup1,
 					&GroupList{
@@ -446,6 +452,7 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 		{
 			name: "nil property",
 			target: &SchemaDiff{
+				To:      newSchemaID,
 				Deleted: []SchemaDiffDeleted{{SchemaGroup: testGroup1.SchemaGroup(), Field: testField1.Field()}},
 			},
 			args:         nil,

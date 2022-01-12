@@ -330,6 +330,19 @@ func TestPluginIDFromRef(t *testing.T) {
 	}
 }
 
+func TestPluginID_Clone(t *testing.T) {
+	p := PluginID{
+		name:    "aaa",
+		version: "1.0.0",
+		sys:     false,
+		scene:   NewSceneID().Ref(),
+	}
+	c := p.Clone()
+
+	assert.Equal(t, p, c)
+	assert.NotSame(t, p, c)
+}
+
 func TestPluginID_Name(t *testing.T) {
 	plugin := MustPluginID("MyPlugin~1.0.0")
 

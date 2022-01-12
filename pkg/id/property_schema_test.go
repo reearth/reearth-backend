@@ -215,6 +215,22 @@ func TestPropertySchemaIDFromRef(t *testing.T) {
 	}
 }
 
+func TestPropertySchemaID_Clone(t *testing.T) {
+	p := PropertySchemaID{
+		id: "xxx",
+		plugin: PluginID{
+			name:    "aaa",
+			version: "1.0.0",
+			sys:     false,
+			scene:   NewSceneID().Ref(),
+		},
+	}
+	c := p.Clone()
+
+	assert.Equal(t, p, c)
+	assert.NotSame(t, p, c)
+}
+
 func TestPropertySchemaID_ID(t *testing.T) {
 	propertySchemaID := MustPropertySchemaID("Test~2.0.0/test")
 	assert.Equal(t, propertySchemaID.ID(), "test")

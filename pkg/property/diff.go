@@ -64,6 +64,8 @@ func (d *SchemaDiff) Migrate(p *Property) (res bool) {
 		return
 	}
 
+	res = p.updateSchema(d.To)
+
 	for _, dd := range d.Deleted {
 		if p.RemoveFields(SchemaFieldPointer(dd).Pointer()) {
 			res = true

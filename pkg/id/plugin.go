@@ -105,6 +105,16 @@ func PluginIDFromRef(id *string) *PluginID {
 	return &did
 }
 
+// Clone duplicates the PluginID
+func (d PluginID) Clone() PluginID {
+	return PluginID{
+		name:    d.name,
+		version: d.version,
+		sys:     d.sys,
+		scene:   d.scene.CopyRef(),
+	}
+}
+
 // IsNil checks if ID is empty or not.
 func (d PluginID) IsNil() bool {
 	return d.name == "" && d.version == "" && d.scene == nil && d.sys == false

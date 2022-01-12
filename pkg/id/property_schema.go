@@ -63,6 +63,14 @@ func PropertySchemaIDFromRef(id *string) *PropertySchemaID {
 	return &did
 }
 
+// Clone duplicates the PropertySchemaID
+func (d PropertySchemaID) Clone() PropertySchemaID {
+	return PropertySchemaID{
+		plugin: d.plugin.Clone(),
+		id:     d.id,
+	}
+}
+
 // ID returns a fragment of just ID.
 func (d PropertySchemaID) ID() string {
 	return d.id
