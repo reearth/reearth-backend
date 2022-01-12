@@ -14,7 +14,6 @@ func New() *Builder {
 	return &Builder{scene: &Scene{}}
 }
 
-// Build _
 func (b *Builder) Build() (*Scene, error) {
 	if b.scene.id.ID().IsNil() {
 		return nil, id.ErrInvalidID
@@ -31,8 +30,8 @@ func (b *Builder) Build() (*Scene, error) {
 	if b.scene.widgetAlignSystem == nil {
 		b.scene.widgetAlignSystem = NewWidgetAlignSystem()
 	}
-	if b.scene.pluginSystem == nil {
-		b.scene.pluginSystem = NewPluginSystem(nil)
+	if b.scene.plugins == nil {
+		b.scene.plugins = NewPlugins(nil)
 	}
 	if b.scene.updatedAt.IsZero() {
 		b.scene.updatedAt = b.scene.CreatedAt()
@@ -73,14 +72,13 @@ func (b *Builder) UpdatedAt(updatedAt time.Time) *Builder {
 	return b
 }
 
-func (b *Builder) WidgetSystem(widgetSystem *WidgetSystem) *Builder {
-	widgetSystem2 := *widgetSystem
-	b.scene.widgetSystem = &widgetSystem2
+func (b *Builder) WidgetSystem(w *WidgetSystem) *Builder {
+	b.scene.widgetSystem = w
 	return b
 }
 
-func (b *Builder) WidgetAlignSystem(widgetAlignSystem *WidgetAlignSystem) *Builder {
-	b.scene.widgetAlignSystem = widgetAlignSystem
+func (b *Builder) WidgetAlignSystem(w *WidgetAlignSystem) *Builder {
+	b.scene.widgetAlignSystem = w
 	return b
 }
 
@@ -89,9 +87,8 @@ func (b *Builder) RootLayer(rootLayer id.LayerID) *Builder {
 	return b
 }
 
-func (b *Builder) PluginSystem(pluginSystem *PluginSystem) *Builder {
-	pluginSystem2 := *pluginSystem
-	b.scene.pluginSystem = &pluginSystem2
+func (b *Builder) Plugins(p *Plugins) *Builder {
+	b.scene.plugins = p
 	return b
 }
 

@@ -55,7 +55,7 @@ func ToScene(scene *scene.Scene) *Scene {
 		clusters = append(clusters, ToCluster(c))
 	}
 
-	scenePlugins := scene.PluginSystem().Plugins()
+	scenePlugins := scene.Plugins().Plugins()
 	plugins := make([]*ScenePlugin, 0, len(scenePlugins))
 	for _, sp := range scenePlugins {
 		plugins = append(plugins, ToScenePlugin(sp))

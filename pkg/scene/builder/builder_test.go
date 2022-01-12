@@ -396,7 +396,7 @@ func TestSceneBuilder(t *testing.T) {
 		WidgetSystem(scene.NewWidgetSystem([]*scene.Widget{
 			sceneWidget1, sceneWidget2,
 		})).
-		PluginSystem(scene.NewPluginSystem([]*scene.Plugin{scenePlugin1})).
+		Plugins(scene.NewPlugins([]*scene.Plugin{scenePlugin1})).
 		RootLayer(rootLayer.ID()).
 		MustBuild()
 

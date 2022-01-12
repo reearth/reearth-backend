@@ -13,17 +13,17 @@ func TestNewPluginSystem(t *testing.T) {
 	testCases := []struct {
 		Name     string
 		Input    []*Plugin
-		Expected *PluginSystem
+		Expected *Plugins
 	}{
 		{
 			Name:     "nil plugin list",
 			Input:    nil,
-			Expected: &PluginSystem{plugins: []*Plugin{}},
+			Expected: &Plugins{},
 		},
 		{
 			Name:     "plugin list with nil",
 			Input:    []*Plugin{nil},
-			Expected: &PluginSystem{plugins: []*Plugin{}},
+			Expected: &Plugins{plugins: []*Plugin{}},
 		},
 		{
 			Name: "plugin list with matched values",
@@ -33,7 +33,7 @@ func TestNewPluginSystem(t *testing.T) {
 					property: pr,
 				},
 			},
-			Expected: &PluginSystem{plugins: []*Plugin{
+			Expected: &Plugins{plugins: []*Plugin{
 				NewPlugin(pid, pr),
 			}},
 		},
@@ -49,7 +49,7 @@ func TestNewPluginSystem(t *testing.T) {
 					property: pr,
 				},
 			},
-			Expected: &PluginSystem{plugins: []*Plugin{
+			Expected: &Plugins{plugins: []*Plugin{
 				NewPlugin(pid, pr),
 			}},
 		},
@@ -58,7 +58,7 @@ func TestNewPluginSystem(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := NewPluginSystem(tc.Input)
+			res := NewPlugins(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}
@@ -70,25 +70,25 @@ func TestPluginSystem_Property(t *testing.T) {
 	testCases := []struct {
 		Name     string
 		Input    id.PluginID
-		PS       *PluginSystem
+		PS       *Plugins
 		Expected *id.PropertyID
 	}{
 		{
 			Name:     "property is found",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 			Expected: pr,
 		},
 		{
 			Name:     "property is nil",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, nil)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, nil)}),
 			Expected: nil,
 		},
 		{
 			Name:     "property is not found",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
 			Expected: nil,
 		},
 	}
@@ -108,19 +108,19 @@ func TestPluginSystem_Plugin(t *testing.T) {
 	testCases := []struct {
 		Name     string
 		Input    id.PluginID
-		PS       *PluginSystem
+		PS       *Plugins
 		Expected *Plugin
 	}{
 		{
 			Name:     "plugin is found",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 			Expected: NewPlugin(pid, pr),
 		},
 		{
 			Name:     "plugin is not found",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
 			Expected: nil,
 		},
 	}
@@ -139,7 +139,7 @@ func TestPluginSystem_Properties(t *testing.T) {
 	pr2 := id.NewPropertyID().Ref()
 	testCases := []struct {
 		Name     string
-		PS       *PluginSystem
+		PS       *Plugins
 		Expected []id.PropertyID
 	}{
 		{
@@ -149,7 +149,7 @@ func TestPluginSystem_Properties(t *testing.T) {
 		},
 		{
 			Name: "get properties",
-			PS: NewPluginSystem([]*Plugin{
+			PS: NewPlugins([]*Plugin{
 				NewPlugin(id.MustPluginID("zzz~1.1.1"), pr),
 				NewPlugin(id.MustPluginID("xxx~1.1.1"), pr2),
 			}),
@@ -172,19 +172,19 @@ func TestPluginSystem_Has(t *testing.T) {
 	testCases := []struct {
 		Name     string
 		Input    id.PluginID
-		PS       *PluginSystem
+		PS       *Plugins
 		Expected bool
 	}{
 		{
 			Name:     "property is found",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 			Expected: true,
 		},
 		{
 			Name:     "property is not found",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
 			Expected: false,
 		},
 	}
@@ -203,28 +203,29 @@ func TestPluginSystem_HasPlugin(t *testing.T) {
 	pr := id.NewPropertyID().Ref()
 	testCases := []struct {
 		Name     string
-		Input    id.PluginID
-		PS       *PluginSystem
+		Input    string
+		PS       *Plugins
 		Expected bool
 	}{
 		{
 			Name:     "property is found",
-			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			Input:    "xxx",
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 			Expected: true,
 		},
 		{
 			Name:     "property is not found",
-			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
+			Input:    "xxx",
+			PS:       NewPlugins([]*Plugin{NewPlugin(id.MustPluginID("zzz~1.1.1"), pr)}),
 			Expected: false,
 		},
 	}
+
 	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.Name, func(tt *testing.T) {
 			tt.Parallel()
-			res := tc.PS.HasPlugin(tc.Input)
+			res := tc.PS.HasNamed(tc.Input)
 			assert.Equal(tt, tc.Expected, res)
 		})
 	}
@@ -236,31 +237,31 @@ func TestPluginSystem_Add(t *testing.T) {
 	testCases := []struct {
 		Name         string
 		Input        *Plugin
-		PS, Expected *PluginSystem
+		PS, Expected *Plugins
 	}{
 		{
 			Name:     "add nil plugin",
 			Input:    nil,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
-			Expected: NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
+			Expected: NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 		},
 		{
 			Name:     "add existing plugin",
 			Input:    NewPlugin(pid, pr),
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
-			Expected: NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
+			Expected: NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 		},
 		{
 			Name:     "add official plugin",
 			Input:    NewPlugin(id.OfficialPluginID, pr),
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
-			Expected: NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
+			Expected: NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 		},
 		{
 			Name:     "add new plugin",
 			Input:    NewPlugin(pid, pr),
-			PS:       NewPluginSystem([]*Plugin{}),
-			Expected: NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
+			PS:       NewPlugins([]*Plugin{}),
+			Expected: NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 		},
 	}
 	for _, tc := range testCases {
@@ -279,19 +280,19 @@ func TestPluginSystem_Remove(t *testing.T) {
 	testCases := []struct {
 		Name         string
 		Input        id.PluginID
-		PS, Expected *PluginSystem
+		PS, Expected *Plugins
 	}{
 		{
 			Name:     "remove official plugin",
 			Input:    id.OfficialPluginID,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr)}),
-			Expected: NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr)}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(id.OfficialPluginID, pr)}),
+			Expected: NewPlugins([]*Plugin{NewPlugin(id.OfficialPluginID, pr)}),
 		},
 		{
 			Name:     "remove a plugin",
 			Input:    pid,
-			PS:       NewPluginSystem([]*Plugin{NewPlugin(pid, pr)}),
-			Expected: NewPluginSystem([]*Plugin{}),
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
+			Expected: &Plugins{plugins: []*Plugin{}},
 		},
 	}
 	for _, tc := range testCases {
@@ -319,16 +320,16 @@ func TestPluginSystem_Upgrade(t *testing.T) {
 	tests := []struct {
 		name   string
 		args   args
-		target *PluginSystem
-		want   *PluginSystem
+		target *Plugins
+		want   *Plugins
 	}{
 		{
 			name: "upgrade official plugin",
 			args: args{
 				pid: id.OfficialPluginID,
 			},
-			target: NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr1)}),
-			want:   NewPluginSystem([]*Plugin{NewPlugin(id.OfficialPluginID, pr1)}),
+			target: NewPlugins([]*Plugin{NewPlugin(id.OfficialPluginID, pr1)}),
+			want:   NewPlugins([]*Plugin{NewPlugin(id.OfficialPluginID, pr1)}),
 		},
 		{
 			name: "upgrade a plugin",
@@ -336,8 +337,8 @@ func TestPluginSystem_Upgrade(t *testing.T) {
 				pid:    pid,
 				newpid: nid,
 			},
-			target: NewPluginSystem([]*Plugin{NewPlugin(pid, pr1)}),
-			want:   NewPluginSystem([]*Plugin{NewPlugin(nid, pr1)}),
+			target: NewPlugins([]*Plugin{NewPlugin(pid, pr1)}),
+			want:   NewPlugins([]*Plugin{NewPlugin(nid, pr1)}),
 		},
 		{
 			name: "upgrade a property",
@@ -345,8 +346,8 @@ func TestPluginSystem_Upgrade(t *testing.T) {
 				pid: pid,
 				pr:  pr2,
 			},
-			target: NewPluginSystem([]*Plugin{NewPlugin(pid, pr1)}),
-			want:   NewPluginSystem([]*Plugin{NewPlugin(pid, pr2)}),
+			target: NewPlugins([]*Plugin{NewPlugin(pid, pr1)}),
+			want:   NewPlugins([]*Plugin{NewPlugin(pid, pr2)}),
 		},
 		{
 			name: "delete a property",
@@ -354,8 +355,8 @@ func TestPluginSystem_Upgrade(t *testing.T) {
 				pid:            pid,
 				deleteProperty: true,
 			},
-			target: NewPluginSystem([]*Plugin{NewPlugin(pid, pr1)}),
-			want:   NewPluginSystem([]*Plugin{NewPlugin(pid, nil)}),
+			target: NewPlugins([]*Plugin{NewPlugin(pid, pr1)}),
+			want:   NewPlugins([]*Plugin{NewPlugin(pid, nil)}),
 		},
 	}
 	for _, tt := range tests {

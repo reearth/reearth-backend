@@ -99,7 +99,7 @@ func (i *Scene) Create(ctx context.Context, pid id.ProjectID, operator *usecase.
 		return nil, err
 	}
 
-	ps := scene.NewPluginSystem([]*scene.Plugin{
+	ps := scene.NewPlugins([]*scene.Plugin{
 		scene.NewPlugin(id.OfficialPluginID, nil),
 	})
 
@@ -119,7 +119,7 @@ func (i *Scene) Create(ctx context.Context, pid id.ProjectID, operator *usecase.
 		Team(prj.Team()).
 		Property(p.ID()).
 		RootLayer(rootLayer.ID()).
-		PluginSystem(ps).
+		Plugins(ps).
 		Build()
 
 	if err != nil {
@@ -458,7 +458,7 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 		return nil, pid, nil, err2
 	}
 
-	if s.PluginSystem().HasPlugin(pid) {
+	if s.Plugins().HasNamed(pid.Name()) {
 		return nil, pid, nil, interfaces.ErrPluginAlreadyInstalled
 	}
 
@@ -486,7 +486,7 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 		propertyID = &prid
 	}
 
-	s.PluginSystem().Add(scene.NewPlugin(pid, propertyID))
+	s.Plugins().Add(scene.NewPlugin(pid, propertyID))
 
 	if p != nil {
 		if err := i.propertyRepo.Save(ctx, p); err != nil {
@@ -539,7 +539,7 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 		return nil, err
 	}
 
-	ps := scene.PluginSystem()
+	ps := scene.Plugins()
 	if !ps.Has(pid) {
 		return nil, interfaces.ErrPluginNotInstalled
 	}

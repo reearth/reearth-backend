@@ -34,11 +34,11 @@ func TestBuilder_Property(t *testing.T) {
 }
 
 func TestBuilder_PluginSystem(t *testing.T) {
-	ps := NewPluginSystem([]*Plugin{
+	ps := NewPlugins([]*Plugin{
 		NewPlugin(id.OfficialPluginID, id.NewPropertyID().Ref()),
 	})
-	b := New().NewID().RootLayer(id.NewLayerID()).Team(id.NewTeamID()).PluginSystem(ps).MustBuild()
-	assert.Equal(t, ps, b.PluginSystem())
+	b := New().NewID().RootLayer(id.NewLayerID()).Team(id.NewTeamID()).Plugins(ps).MustBuild()
+	assert.Equal(t, ps, b.Plugins())
 }
 
 func TestBuilder_Project(t *testing.T) {
@@ -72,7 +72,7 @@ func TestBuilder_Build(t *testing.T) {
 		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", ppid, true, false),
 	})
 	was := NewWidgetAlignSystem()
-	ps := NewPluginSystem([]*Plugin{
+	ps := NewPlugins([]*Plugin{
 		NewPlugin(id.OfficialPluginID, ppid.Ref()),
 	})
 	testCases := []struct {
@@ -83,7 +83,7 @@ func TestBuilder_Build(t *testing.T) {
 		RootLayer         id.LayerID
 		WidgetSystem      *WidgetSystem
 		WidgetAlignSystem *WidgetAlignSystem
-		PluginSystem      *PluginSystem
+		PluginSystem      *Plugins
 		UpdatedAt         time.Time
 		Property          id.PropertyID
 		Expected          struct {
@@ -93,7 +93,7 @@ func TestBuilder_Build(t *testing.T) {
 			RootLayer         id.LayerID
 			WidgetSystem      *WidgetSystem
 			WidgetAlignSystem *WidgetAlignSystem
-			PluginSystem      *PluginSystem
+			PluginSystem      *Plugins
 			UpdatedAt         time.Time
 			Property          id.PropertyID
 		}
@@ -156,7 +156,7 @@ func TestBuilder_Build(t *testing.T) {
 				RootLayer         id.LayerID
 				WidgetSystem      *WidgetSystem
 				WidgetAlignSystem *WidgetAlignSystem
-				PluginSystem      *PluginSystem
+				PluginSystem      *Plugins
 				UpdatedAt         time.Time
 				Property          id.PropertyID
 			}{
@@ -182,7 +182,7 @@ func TestBuilder_Build(t *testing.T) {
 				WidgetSystem(tc.WidgetSystem).
 				WidgetAlignSystem(tc.WidgetAlignSystem).
 				Project(tc.Project).
-				PluginSystem(tc.PluginSystem).
+				Plugins(tc.PluginSystem).
 				Property(tc.Property).
 				RootLayer(tc.RootLayer).
 				Team(tc.Team).
@@ -194,7 +194,7 @@ func TestBuilder_Build(t *testing.T) {
 				assert.Equal(tt, tc.Expected.Team, res.Team())
 				assert.Equal(tt, tc.Expected.RootLayer, res.RootLayer())
 				assert.Equal(tt, tc.Expected.Property, res.Property())
-				assert.Equal(tt, tc.Expected.PluginSystem, res.PluginSystem())
+				assert.Equal(tt, tc.Expected.PluginSystem, res.Plugins())
 				assert.Equal(tt, tc.Expected.WidgetSystem, res.WidgetSystem())
 				assert.Equal(tt, tc.Expected.Project, res.Project())
 			} else {
@@ -215,7 +215,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 		MustNewWidget(id.WidgetID(nid), id.OfficialPluginID, "xxx", ppid, true, false),
 	})
 	was := NewWidgetAlignSystem()
-	ps := NewPluginSystem([]*Plugin{
+	ps := NewPlugins([]*Plugin{
 		NewPlugin(id.OfficialPluginID, ppid.Ref()),
 	})
 	testCases := []struct {
@@ -226,7 +226,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 		RootLayer         id.LayerID
 		WidgetSystem      *WidgetSystem
 		WidgetAlignSystem *WidgetAlignSystem
-		PluginSystem      *PluginSystem
+		PluginSystem      *Plugins
 		UpdatedAt         time.Time
 		Property          id.PropertyID
 		Expected          struct {
@@ -236,7 +236,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 			RootLayer         id.LayerID
 			WidgetSystem      *WidgetSystem
 			WidgetAlignSystem *WidgetAlignSystem
-			PluginSystem      *PluginSystem
+			PluginSystem      *Plugins
 			UpdatedAt         time.Time
 			Property          id.PropertyID
 		}
@@ -299,7 +299,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				RootLayer         id.LayerID
 				WidgetSystem      *WidgetSystem
 				WidgetAlignSystem *WidgetAlignSystem
-				PluginSystem      *PluginSystem
+				PluginSystem      *Plugins
 				UpdatedAt         time.Time
 				Property          id.PropertyID
 			}{
@@ -328,7 +328,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 					assert.Equal(tt, tc.Expected.Team, res.Team())
 					assert.Equal(tt, tc.Expected.RootLayer, res.RootLayer())
 					assert.Equal(tt, tc.Expected.Property, res.Property())
-					assert.Equal(tt, tc.Expected.PluginSystem, res.PluginSystem())
+					assert.Equal(tt, tc.Expected.PluginSystem, res.Plugins())
 					assert.Equal(tt, tc.Expected.WidgetSystem, res.WidgetSystem())
 					assert.Equal(tt, tc.Expected.WidgetAlignSystem, res.WidgetAlignSystem())
 					assert.Equal(tt, tc.Expected.Project, res.Project())
@@ -340,7 +340,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				WidgetSystem(tc.WidgetSystem).
 				WidgetAlignSystem(tc.WidgetAlignSystem).
 				Project(tc.Project).
-				PluginSystem(tc.PluginSystem).
+				Plugins(tc.PluginSystem).
 				Property(tc.Property).
 				RootLayer(tc.RootLayer).
 				Team(tc.Team).

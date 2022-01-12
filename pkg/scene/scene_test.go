@@ -91,7 +91,7 @@ func TestSceneNil(t *testing.T) {
 	assert.True(t, s.Team().IsNil())
 	assert.True(t, s.RootLayer().IsNil())
 	assert.True(t, s.CreatedAt().IsZero())
-	assert.Nil(t, s.PluginSystem())
+	assert.Nil(t, s.Plugins())
 	assert.True(t, s.Property().IsNil())
 }
 

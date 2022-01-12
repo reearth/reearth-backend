@@ -4,14 +4,15 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type PluginSystem struct {
+type Plugins struct {
 	plugins []*Plugin
 }
 
-func NewPluginSystem(p []*Plugin) *PluginSystem {
-	if p == nil {
-		return &PluginSystem{plugins: []*Plugin{}}
+func NewPlugins(p []*Plugin) *Plugins {
+	if len(p) == 0 {
+		return &Plugins{}
 	}
+
 	p2 := make([]*Plugin, 0, len(p))
 	for _, p1 := range p {
 		if p1 == nil {
@@ -29,14 +30,15 @@ func NewPluginSystem(p []*Plugin) *PluginSystem {
 			p2 = append(p2, &p3)
 		}
 	}
-	return &PluginSystem{plugins: p2}
+
+	return &Plugins{plugins: p2}
 }
 
-func (p *PluginSystem) Plugins() []*Plugin {
+func (p *Plugins) Plugins() []*Plugin {
 	return append([]*Plugin{}, p.plugins...)
 }
 
-func (p *PluginSystem) Property(id id.PluginID) *id.PropertyID {
+func (p *Plugins) Property(id id.PluginID) *id.PropertyID {
 	for _, p := range p.plugins {
 		if p.plugin.Equal(id) {
 			return p.property.CopyRef()
@@ -45,7 +47,7 @@ func (p *PluginSystem) Property(id id.PluginID) *id.PropertyID {
 	return nil
 }
 
-func (p *PluginSystem) Has(id id.PluginID) bool {
+func (p *Plugins) Has(id id.PluginID) bool {
 	for _, p2 := range p.plugins {
 		if p2.plugin.Equal(id) {
 			return true
@@ -54,8 +56,7 @@ func (p *PluginSystem) Has(id id.PluginID) bool {
 	return false
 }
 
-func (p *PluginSystem) HasPlugin(id id.PluginID) bool {
-	name := id.Name()
+func (p *Plugins) HasNamed(name string) bool {
 	for _, p2 := range p.plugins {
 		if p2.plugin.Name() == name {
 			return true
@@ -64,15 +65,14 @@ func (p *PluginSystem) HasPlugin(id id.PluginID) bool {
 	return false
 }
 
-func (p *PluginSystem) Add(sp *Plugin) {
-	if sp == nil || p.Has(sp.plugin) || sp.plugin.Equal(id.OfficialPluginID) {
+func (p *Plugins) Add(sp *Plugin) {
+	if sp == nil || p.HasNamed(sp.plugin.Name()) || sp.plugin.Equal(id.OfficialPluginID) {
 		return
 	}
-	sp2 := *sp
-	p.plugins = append(p.plugins, &sp2)
+	p.plugins = append(p.plugins, sp)
 }
 
-func (p *PluginSystem) Remove(pid id.PluginID) {
+func (p *Plugins) Remove(pid id.PluginID) {
 	if pid.Equal(id.OfficialPluginID) {
 		return
 	}
@@ -84,7 +84,11 @@ func (p *PluginSystem) Remove(pid id.PluginID) {
 	}
 }
 
-func (p *PluginSystem) Upgrade(pid, newpid id.PluginID, pr *id.PropertyID, deleteProperty bool) {
+func (p *Plugins) Upgrade(pid, newpid id.PluginID, pr *id.PropertyID, deleteProperty bool) {
+	if p == nil || p.HasNamed(newpid.Name()) {
+		return
+	}
+
 	for i, pp := range p.plugins {
 		if pp.plugin.Equal(id.OfficialPluginID) {
 			continue
@@ -100,14 +104,13 @@ func (p *PluginSystem) Upgrade(pid, newpid id.PluginID, pr *id.PropertyID, delet
 			if deleteProperty {
 				newp = nil
 			}
-			p.plugins[i] = &Plugin{plugin: newpid, property: newp}
+			p.plugins[i] = NewPlugin(newpid, newp)
 			return
 		}
 	}
 }
 
-// Properties _
-func (p *PluginSystem) Properties() []id.PropertyID {
+func (p *Plugins) Properties() []id.PropertyID {
 	if p == nil {
 		return nil
 	}
@@ -120,9 +123,18 @@ func (p *PluginSystem) Properties() []id.PropertyID {
 	return res
 }
 
-func (p *PluginSystem) Plugin(pluginID id.PluginID) *Plugin {
+func (p *Plugins) Plugin(i id.PluginID) *Plugin {
 	for _, pp := range p.plugins {
-		if pp.plugin == pluginID {
+		if pp.plugin == i {
+			return pp
+		}
+	}
+	return nil
+}
+
+func (p *Plugins) PluginByName(n string) *Plugin {
+	for _, pp := range p.plugins {
+		if pp.plugin.Name() == n {
 			return pp
 		}
 	}

@@ -10,25 +10,39 @@ type Plugin struct {
 }
 
 func NewPlugin(plugin id.PluginID, property *id.PropertyID) *Plugin {
-	if property != nil {
-		property2 := *property
-		property = &property2
-	}
 	return &Plugin{
 		plugin:   plugin,
-		property: property,
+		property: property.CopyRef(),
 	}
 }
 
-func (s Plugin) Plugin() id.PluginID {
+func (s *Plugin) Plugin() id.PluginID {
+	if s == nil {
+		return id.PluginID{}
+	}
 	return s.plugin
 }
 
-func (s Plugin) Property() *id.PropertyID {
-	property := s.property
-	if property != nil {
-		property2 := *property
-		property = &property2
+func (s *Plugin) PluginRef() *id.PluginID {
+	if s == nil {
+		return nil
 	}
-	return property
+	return s.plugin.Ref()
+}
+
+func (s *Plugin) Property() *id.PropertyID {
+	if s == nil {
+		return nil
+	}
+	return s.property.CopyRef()
+}
+
+func (s *Plugin) Clone() *Plugin {
+	if s == nil {
+		return nil
+	}
+	return &Plugin{
+		plugin:   s.plugin,
+		property: s.property.CopyRef(),
+	}
 }

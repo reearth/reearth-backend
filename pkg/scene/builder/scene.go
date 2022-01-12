@@ -42,7 +42,7 @@ func (b *Builder) scene(ctx context.Context, s *scene.Scene, publishedAt time.Ti
 }
 
 func (b *Builder) plugins(ctx context.Context, s *scene.Scene, p []*property.Property) map[string]propertyJSON {
-	scenePlugins := s.PluginSystem().Plugins()
+	scenePlugins := s.Plugins().Plugins()
 	res := map[string]propertyJSON{}
 	for _, sp := range scenePlugins {
 		if sp == nil {
