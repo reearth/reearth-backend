@@ -189,10 +189,12 @@ func (r *layerRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) error
 
 func (r *layerRepo) FindByTag(ctx context.Context, tagID id.TagID, f []id.SceneID) (layer.List, error) {
 	ids := []id.TagID{tagID}
-	filter := r.sceneFilterD(bson.D{
-		{Key: "tags", Value: bson.D{
-			{Key: "$in", Value: id.TagIDToKeys(ids)},
-		}},
+	tags := id.TagIDToKeys(ids)
+	filter := r.sceneFilter(bson.M{
+		"$or": []bson.M{
+			{"tags.id": bson.M{"$in": tags}},
+			{"tags.tags.id": bson.M{"$in": tags}},
+		},
 	}, f)
 
 	return r.find(ctx, nil, filter)

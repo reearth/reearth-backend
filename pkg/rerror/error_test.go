@@ -1,10 +1,10 @@
 package rerror
 
 import (
-	"errors"
 	"fmt"
 	"testing"
 
+	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,7 +12,7 @@ func TestErrInternal(t *testing.T) {
 	werr := errors.New("wrapped")
 	err := ErrInternalBy(werr)
 	assert.EqualError(t, err, "internal")
-	assert.IsType(t, err, &ErrInternal{})
+	assert.IsType(t, err, &Error{})
 	assert.Same(t, werr, errors.Unwrap(err))
 }
 
@@ -43,6 +43,12 @@ func TestError(t *testing.T) {
 
 	err6 := &Error{Label: errors.New("d"), Err: &Error{Label: errors.New("e"), Err: &Error{Label: errors.New("f"), Err: errors.New("g")}}, Separate: true}
 	assert.EqualError(t, err6, "d: e.f: g")
+}
+
+func TestUnwrapErrInternal(t *testing.T) {
+	err := errors.New("err")
+	assert.Same(t, err, UnwrapErrInternal(ErrInternalBy(err)))
+	assert.Nil(t, UnwrapErrInternal(err))
 }
 
 func TestFrom(t *testing.T) {
@@ -124,6 +130,11 @@ func TestAs(t *testing.T) {
 	assert.Nil(t, As(err, errors.New("wrapped")))
 
 	assert.Nil(t, As(nil, errors.New("label")))
+	assert.Nil(t, As(errors.New("foo"), errors.New("bar")))
+	assert.Nil(t, As(&Error{
+		Label: errors.New("bar"),
+		Err:   errors.New("foo"),
+	}, errors.New("bar")))
 }
 
 func TestWith(t *testing.T) {

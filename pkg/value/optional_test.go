@@ -112,7 +112,7 @@ func TestOptionalFrom(t *testing.T) {
 	}
 }
 
-func TestOptionalValue_Type(t *testing.T) {
+func TestOptional_Type(t *testing.T) {
 	tests := []struct {
 		name  string
 		value *Optional
@@ -144,7 +144,7 @@ func TestOptionalValue_Type(t *testing.T) {
 	}
 }
 
-func TestOptionalValue_Value(t *testing.T) {
+func TestOptional_Value(t *testing.T) {
 	tests := []struct {
 		name  string
 		value *Optional
@@ -180,7 +180,7 @@ func TestOptionalValue_Value(t *testing.T) {
 	}
 }
 
-func TestOptionalValue_TypeAndValue(t *testing.T) {
+func TestOptional_TypeAndValue(t *testing.T) {
 	tests := []struct {
 		name  string
 		value *Optional
@@ -221,7 +221,7 @@ func TestOptionalValue_TypeAndValue(t *testing.T) {
 	}
 }
 
-func TestOptionalValue_SetValue(t *testing.T) {
+func TestOptional_SetValue(t *testing.T) {
 	type args struct {
 		v *Value
 	}
@@ -299,7 +299,7 @@ func TestOptionalValue_SetValue(t *testing.T) {
 	}
 }
 
-func TestOptionalValue_Clone(t *testing.T) {
+func TestOptional_Clone(t *testing.T) {
 	tests := []struct {
 		name   string
 		target *Optional

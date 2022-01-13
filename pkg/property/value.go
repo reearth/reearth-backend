@@ -48,6 +48,13 @@ func (vt ValueType) ValueFrom(i interface{}) *Value {
 	return &Value{v: *v}
 }
 
+func (vt ValueType) MustBeValue(i interface{}) *Value {
+	if v := vt.ValueFrom(i); v != nil {
+		return v
+	}
+	panic("invalid value")
+}
+
 type Value struct {
 	v value.Value
 }

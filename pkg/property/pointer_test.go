@@ -77,7 +77,7 @@ func TestPointer(t *testing.T) {
 }
 
 func TestPointer_Test(t *testing.T) {
-	iid := NewItemID()
+	itemID := NewItemID()
 
 	type args struct {
 		sg   SchemaGroupID
@@ -94,40 +94,40 @@ func TestPointer_Test(t *testing.T) {
 			name:   "schema group only",
 			target: &Pointer{schemaGroup: SchemaGroupID("xx").Ref()},
 			args: []args{
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("a"), want: true},
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("b"), want: true},
-				{sg: SchemaGroupID("yy"), i: iid, f: FieldID("a"), want: false},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("a"), want: true},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("b"), want: true},
+				{sg: SchemaGroupID("yy"), i: itemID, f: FieldID("a"), want: false},
 			},
 		},
 		{
 			name:   "item only",
-			target: &Pointer{item: iid.Ref()},
+			target: &Pointer{item: itemID.Ref()},
 			args: []args{
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("a"), want: true},
-				{sg: SchemaGroupID("yy"), i: iid, f: FieldID("a"), want: true},
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("b"), want: true},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("a"), want: true},
+				{sg: SchemaGroupID("yy"), i: itemID, f: FieldID("a"), want: true},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("b"), want: true},
 				{sg: SchemaGroupID("xx"), i: NewItemID(), f: FieldID("a"), want: false},
 			},
 		},
 		{
 			name:   "schema group and item",
-			target: &Pointer{schemaGroup: SchemaGroupID("xx").Ref(), item: iid.Ref()},
+			target: &Pointer{schemaGroup: SchemaGroupID("xx").Ref(), item: itemID.Ref()},
 			args: []args{
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("a"), want: true},
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("b"), want: true},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("a"), want: true},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("b"), want: true},
 				{sg: SchemaGroupID("xx"), i: NewItemID(), f: FieldID("a"), want: false},
-				{sg: SchemaGroupID("yy"), i: iid, f: FieldID("a"), want: false},
+				{sg: SchemaGroupID("yy"), i: itemID, f: FieldID("a"), want: false},
 				{sg: SchemaGroupID("yy"), i: NewItemID(), f: FieldID("a"), want: false},
 			},
 		},
 		{
 			name:   "all",
-			target: &Pointer{schemaGroup: SchemaGroupID("xx").Ref(), item: iid.Ref(), field: FieldID("a").Ref()},
+			target: &Pointer{schemaGroup: SchemaGroupID("xx").Ref(), item: itemID.Ref(), field: FieldID("a").Ref()},
 			args: []args{
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("a"), want: true},
-				{sg: SchemaGroupID("yy"), i: iid, f: FieldID("a"), want: false},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("a"), want: true},
+				{sg: SchemaGroupID("yy"), i: itemID, f: FieldID("a"), want: false},
 				{sg: SchemaGroupID("xx"), i: NewItemID(), f: FieldID("a"), want: false},
-				{sg: SchemaGroupID("xx"), i: iid, f: FieldID("b"), want: false},
+				{sg: SchemaGroupID("xx"), i: itemID, f: FieldID("b"), want: false},
 			},
 		},
 		{
@@ -151,6 +151,7 @@ func TestPointer_Test(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			for i, a := range tt.args {
 				assert.Equal(t, a.want, tt.target.Test(a.sg, a.i, a.f), "test %d", i)

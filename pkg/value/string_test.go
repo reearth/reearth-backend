@@ -1,6 +1,7 @@
 package value
 
 import (
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -9,6 +10,7 @@ import (
 func Test_propertyString_I2V(t *testing.T) {
 	s := "foobar"
 	n := 1.12
+	u, _ := url.Parse("https://reearth.io")
 
 	tests := []struct {
 		name  string
@@ -26,6 +28,12 @@ func Test_propertyString_I2V(t *testing.T) {
 			name:  "number",
 			args:  []interface{}{n, &n},
 			want1: "1.12",
+			want2: true,
+		},
+		{
+			name:  "url",
+			args:  []interface{}{u},
+			want1: "https://reearth.io",
 			want2: true,
 		},
 		{

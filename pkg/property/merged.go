@@ -104,13 +104,6 @@ func Merge(o *Property, p *Property, linked *id.DatasetID) *Merged {
 		return nil
 	}
 
-	// copy id
-	var linked2 *id.DatasetID
-	if linked != nil {
-		linked3 := *linked
-		linked2 = &linked3
-	}
-
 	var schema id.PropertySchemaID
 	if p != nil {
 		schema = p.Schema()
@@ -122,8 +115,8 @@ func Merge(o *Property, p *Property, linked *id.DatasetID) *Merged {
 		Original:      o.ID().Ref(),
 		Parent:        p.ID().Ref(),
 		Schema:        schema,
-		Groups:        mergeItems(o.Items(), p.Items(), linked2),
-		LinkedDataset: linked2,
+		Groups:        mergeItems(o.Items(), p.Items(), linked.CopyRef()),
+		LinkedDataset: linked.CopyRef(),
 	}
 }
 
