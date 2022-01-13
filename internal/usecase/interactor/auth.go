@@ -6,7 +6,9 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"crypto/x509/pkix"
+	"encoding/pem"
 	"errors"
+	"fmt"
 	"math/big"
 	"time"
 
@@ -14,7 +16,9 @@ import (
 	"github.com/caos/oidc/pkg/op"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/auth"
+	config2 "github.com/reearth/reearth-backend/pkg/config"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/user"
 	"gopkg.in/square/go-jose.v2"
 )
@@ -57,7 +61,7 @@ var dummyName = pkix.Name{
 	PostalCode:         []string{"1"},
 }
 
-func NewAuthStorage(cfg *StorageConfig, request repo.AuthRequest, getUserBySubject func(context.Context, string) (*user.User, error)) op.Storage {
+func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRequest, config repo.Config, getUserBySubject func(context.Context, string) (*user.User, error)) (op.Storage, error) {
 
 	client := auth.NewLocalClient(cfg.Debug)
 
@@ -74,28 +78,94 @@ func NewAuthStorage(cfg *StorageConfig, request repo.AuthRequest, getUserBySubje
 			PostalCode:         cfg.DN.PostalCode,
 		}
 	}
+	c, err := config.LockAndLoad(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("Could not load auth config: %w\n", err)
+	}
+	defer func() {
+		if err := config.Unlock(ctx); err != nil {
+			log.Errorf("auth: Could not release config lock: %s\n", err)
+		}
+	}()
 
-	key, sigKey, keySet := initKeys(name)
+	var keyBytes, certBytes []byte
+	if c.Auth != nil {
+		keyBytes = []byte(c.Auth.Key)
+		certBytes = []byte(c.Auth.Cert)
+	} else {
+		keyBytes, certBytes, err = generateCert(name)
+		if err != nil {
+			return nil, fmt.Errorf("Could not generate raw cert: %w\n", err)
+		}
+		c.Auth = &config2.Auth{
+			Key:  string(keyBytes),
+			Cert: string(certBytes),
+		}
+
+		if err := config.Save(ctx, c); err != nil {
+			return nil, fmt.Errorf("Could not save raw cert: %w\n", err)
+		}
+	}
+
+	key, sigKey, keySet, err := initKeys(keyBytes, certBytes)
+	if err != nil {
+		return nil, fmt.Errorf("Fail to init keys: %w\n", err)
+	}
 
 	return &AuthStorage{
 		appConfig:        cfg,
 		getUserBySubject: getUserBySubject,
 		requests:         request,
 		key:              key,
-		sigKey:           sigKey,
-		keySet:           keySet,
+		sigKey:           *sigKey,
+		keySet:           *keySet,
 		clients: map[string]op.Client{
 			client.GetID(): client,
 		},
-	}
+	}, nil
 }
 
-func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKeySet) {
+func initKeys(keyBytes, certBytes []byte) (*rsa.PrivateKey, *jose.SigningKey, *jose.JSONWebKeySet, error) {
 
+	block, _ := pem.Decode(keyBytes)
+	if block == nil {
+		return nil, nil, nil, fmt.Errorf("failed to decode the key bytes")
+	}
+
+	key, err := x509.ParsePKCS1PrivateKey(block.Bytes)
+	if err != nil {
+		return nil, nil, nil, fmt.Errorf("failed to parse the private key bytes: %w\n", err)
+	}
+
+	cert, err := x509.ParseCertificate(certBytes)
+	if err != nil {
+		return nil, nil, nil, fmt.Errorf("failed to parse the cert bytes: %w\n", err)
+	}
+
+	keyID := "RE01"
+	sk := jose.SigningKey{
+		Algorithm: jose.RS256,
+		Key:       jose.JSONWebKey{Key: key, Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
+	}
+
+	return key, &sk, &jose.JSONWebKeySet{
+		Keys: []jose.JSONWebKey{
+			{Key: key.Public(), Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
+		},
+	}, nil
+}
+
+func generateCert(name pkix.Name) (keyPem, certPem []byte, err error) {
 	key, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
-		panic(err)
+		err = fmt.Errorf("failed to generate key: %w\n", err)
+		return
 	}
+
+	keyPem = pem.EncodeToMemory(&pem.Block{
+		Type:  "RSA PRIVATE KEY",
+		Bytes: x509.MarshalPKCS1PrivateKey(key),
+	})
 
 	cert := &x509.Certificate{
 		SerialNumber: big.NewInt(1),
@@ -106,27 +176,12 @@ func initKeys(name pkix.Name) (*rsa.PrivateKey, jose.SigningKey, jose.JSONWebKey
 		KeyUsage:     x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
 	}
 
-	caBytes, err := x509.CreateCertificate(rand.Reader, cert, cert, key.Public(), key)
+	certPem, err = x509.CreateCertificate(rand.Reader, cert, cert, key.Public(), key)
 	if err != nil {
-		panic("failed to create the cert")
+		err = fmt.Errorf("failed to create the cert: %w\n", err)
 	}
 
-	cert, err = x509.ParseCertificate(caBytes)
-	if err != nil {
-		panic("failed to create the cert")
-	}
-
-	keyID := "RE01"
-	sk := jose.SigningKey{
-		Algorithm: jose.RS256,
-		Key:       jose.JSONWebKey{Key: key, Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
-	}
-
-	return key, sk, jose.JSONWebKeySet{
-		Keys: []jose.JSONWebKey{
-			{Key: key.Public(), Use: "sig", Algorithm: string(jose.RS256), KeyID: keyID, Certificates: []*x509.Certificate{cert}},
-		},
-	}
+	return
 }
 
 func (s *AuthStorage) Health(_ context.Context) error {
@@ -311,7 +366,7 @@ func (s *AuthStorage) ValidateJWTProfileScopes(_ context.Context, _ string, scop
 	return scope, nil
 }
 
-func (s *AuthStorage) RevokeToken(ctx context.Context, token string, userID string, clientID string) *oidc.Error {
+func (s *AuthStorage) RevokeToken(_ context.Context, _ string, _ string, _ string) *oidc.Error {
 	// TODO implement me
 	panic("implement me")
 }

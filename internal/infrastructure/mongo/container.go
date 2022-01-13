@@ -21,9 +21,8 @@ func InitRepos(ctx context.Context, c *repo.Container, mc *mongo.Client, databas
 
 	client := mongodoc.NewClient(databaseName, mc)
 	c.Asset = NewAsset(client)
-	c.Config = NewConfig(client)
 	c.AuthRequest = NewAuthRequest(client)
-	c.Config = NewConfig(client)
+	c.Config = NewConfig(client, lock)
 	c.DatasetSchema = NewDatasetSchema(client)
 	c.Dataset = NewDataset(client)
 	c.Layer = NewLayer(client)

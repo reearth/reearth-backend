@@ -52,15 +52,21 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 		}
 	}
 
-	storage := interactor.NewAuthStorage(
+	storage, err := interactor.NewAuthStorage(
+		ctx,
 		&interactor.StorageConfig{
 			Domain: domain.String(),
 			Debug:  cfg.Debug,
 			DN:     dn,
 		},
 		cfg.Repos.AuthRequest,
+		cfg.Repos.Config,
 		userUsecase.GetUserBySubject,
 	)
+	if err != nil {
+		e.Logger.Fatal(err)
+	}
+
 	handler, err := op.NewOpenIDProvider(
 		ctx,
 		config,
