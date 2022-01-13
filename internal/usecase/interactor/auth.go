@@ -6,7 +6,6 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"crypto/x509/pkix"
-	"encoding/base64"
 	"encoding/pem"
 	"errors"
 	"fmt"
@@ -91,20 +90,16 @@ func NewAuthStorage(ctx context.Context, cfg *StorageConfig, request repo.AuthRe
 
 	var keyBytes, certBytes []byte
 	if c.Auth != nil {
-		if keyBytes, err = base64.StdEncoding.DecodeString(c.Auth.Key); err != nil {
-			return nil, err
-		}
-		if certBytes, err = base64.StdEncoding.DecodeString(c.Auth.Cert); err != nil {
-			return nil, err
-		}
+		keyBytes = []byte(c.Auth.Key)
+		certBytes = []byte(c.Auth.Cert)
 	} else {
 		keyBytes, certBytes, err = generateCert(name)
 		if err != nil {
 			return nil, fmt.Errorf("Could not generate raw cert: %w\n", err)
 		}
 		c.Auth = &config2.Auth{
-			Key:  base64.StdEncoding.EncodeToString(keyBytes),
-			Cert: base64.StdEncoding.EncodeToString(certBytes),
+			Key:  string(keyBytes),
+			Cert: string(certBytes),
 		}
 
 		if err := config.Save(ctx, c); err != nil {
@@ -371,7 +366,7 @@ func (s *AuthStorage) ValidateJWTProfileScopes(_ context.Context, _ string, scop
 	return scope, nil
 }
 
-func (s *AuthStorage) RevokeToken(ctx context.Context, token string, userID string, clientID string) *oidc.Error {
+func (s *AuthStorage) RevokeToken(_ context.Context, _ string, _ string, _ string) *oidc.Error {
 	// TODO implement me
 	panic("implement me")
 }
