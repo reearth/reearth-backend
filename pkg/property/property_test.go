@@ -975,9 +975,6 @@ func TestProperty_Item(t *testing.T) {
 
 func TestProperty_GetOrCreateRootGroup(t *testing.T) {
 	itemID := NewItemID()
-	NewItemID = func() ItemID {
-		return itemID
-	}
 
 	tests := []struct {
 		name   string
@@ -1062,7 +1059,10 @@ func TestProperty_GetOrCreateRootGroup(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			defer mockNewItemID(itemID)()
 			res1, res2 := tt.target.GetOrCreateRootGroup(tt.args)
 			assert.Equal(t, tt.want1, res1)
 			assert.Equal(t, tt.want2, res2)

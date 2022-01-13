@@ -134,7 +134,9 @@ func TestSchemaDiffFrom(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert.Equal(t, tt.want, SchemaDiffFrom(tt.args.old, tt.args.new))
 		})
 	}
@@ -234,7 +236,7 @@ func TestSchemaDiffFromProperty(t *testing.T) {
 
 func TestSchemaDiff_Migrate(t *testing.T) {
 	itemID := NewItemID()
-	NewItemID = func() ItemID { return itemID }
+
 	newSchemaID := MustSchemaID("x~1.0.0/ax")
 
 	tests := []struct {
@@ -469,7 +471,10 @@ func TestSchemaDiff_Migrate(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			defer mockNewItemID(itemID)()
 			assert.Equal(t, tt.want, tt.target.Migrate(tt.args))
 			assert.Equal(t, tt.wantProperty, tt.args)
 		})
