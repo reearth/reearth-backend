@@ -1,12 +1,8 @@
 package user
 
-import (
-	"github.com/reearth/reearth-backend/pkg/id"
-)
-
 type TeamBuilder struct {
 	t        *Team
-	members  map[id.UserID]Role
+	members  map[ID]Role
 	personal bool
 }
 
@@ -16,7 +12,7 @@ func NewTeam() *TeamBuilder {
 
 func (b *TeamBuilder) Build() (*Team, error) {
 	if b.t.id.IsNil() {
-		return nil, id.ErrInvalidID
+		return nil, ErrInvalidID
 	}
 	if b.members == nil {
 		b.t.members = *NewMembers()
@@ -35,13 +31,13 @@ func (b *TeamBuilder) MustBuild() *Team {
 	return r
 }
 
-func (b *TeamBuilder) ID(id id.TeamID) *TeamBuilder {
+func (b *TeamBuilder) ID(id TeamID) *TeamBuilder {
 	b.t.id = id
 	return b
 }
 
 func (b *TeamBuilder) NewID() *TeamBuilder {
-	b.t.id = id.NewTeamID()
+	b.t.id = NewTeamID()
 	return b
 }
 
@@ -50,7 +46,7 @@ func (b *TeamBuilder) Name(name string) *TeamBuilder {
 	return b
 }
 
-func (b *TeamBuilder) Members(members map[id.UserID]Role) *TeamBuilder {
+func (b *TeamBuilder) Members(members map[ID]Role) *TeamBuilder {
 	b.members = members
 	return b
 }

@@ -8,7 +8,7 @@ import (
 	"io"
 
 	"github.com/goccy/go-yaml"
-	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
 )
 
@@ -69,7 +69,7 @@ func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Mani
 		}
 
 		for key, te := range t.Extensions {
-			ext := m.Plugin.Extension(id.PluginExtensionID(key))
+			ext := m.Plugin.Extension(plugin.ExtensionID(key))
 			if ext == nil {
 				continue
 			}
@@ -104,7 +104,7 @@ func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Mani
 			}
 
 			for key, tsg := range te.PropertySchema {
-				psg := ps.Group(id.PropertySchemaGroupID(key))
+				psg := ps.Group(property.SchemaGroupID(key))
 				if psg == nil {
 					continue
 				}
@@ -126,7 +126,7 @@ func MergeManifestTranslation(m *Manifest, tl map[string]*TranslationRoot) *Mani
 				// }
 
 				for key, tsf := range tsg.Fields {
-					psf := psg.Field(id.PropertySchemaFieldID(key))
+					psf := psg.Field(property.FieldID(key))
 					if psf == nil {
 						continue
 					}

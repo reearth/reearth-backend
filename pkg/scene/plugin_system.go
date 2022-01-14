@@ -1,9 +1,5 @@
 package scene
 
-import (
-	"github.com/reearth/reearth-backend/pkg/id"
-)
-
 type PluginSystem struct {
 	plugins []*Plugin
 }
@@ -36,7 +32,7 @@ func (p *PluginSystem) Plugins() []*Plugin {
 	return append([]*Plugin{}, p.plugins...)
 }
 
-func (p *PluginSystem) Property(id id.PluginID) *id.PropertyID {
+func (p *PluginSystem) Property(id PluginID) *PropertyID {
 	for _, p := range p.plugins {
 		if p.plugin.Equal(id) {
 			return p.property.CopyRef()
@@ -45,7 +41,7 @@ func (p *PluginSystem) Property(id id.PluginID) *id.PropertyID {
 	return nil
 }
 
-func (p *PluginSystem) Has(id id.PluginID) bool {
+func (p *PluginSystem) Has(id PluginID) bool {
 	for _, p2 := range p.plugins {
 		if p2.plugin.Equal(id) {
 			return true
@@ -54,7 +50,7 @@ func (p *PluginSystem) Has(id id.PluginID) bool {
 	return false
 }
 
-func (p *PluginSystem) HasPlugin(id id.PluginID) bool {
+func (p *PluginSystem) HasPlugin(id PluginID) bool {
 	name := id.Name()
 	for _, p2 := range p.plugins {
 		if p2.plugin.Name() == name {
@@ -65,15 +61,15 @@ func (p *PluginSystem) HasPlugin(id id.PluginID) bool {
 }
 
 func (p *PluginSystem) Add(sp *Plugin) {
-	if sp == nil || p.Has(sp.plugin) || sp.plugin.Equal(id.OfficialPluginID) {
+	if sp == nil || p.Has(sp.plugin) || sp.plugin.Equal(OfficialPluginID) {
 		return
 	}
 	sp2 := *sp
 	p.plugins = append(p.plugins, &sp2)
 }
 
-func (p *PluginSystem) Remove(pid id.PluginID) {
-	if pid.Equal(id.OfficialPluginID) {
+func (p *PluginSystem) Remove(pid PluginID) {
+	if pid.Equal(OfficialPluginID) {
 		return
 	}
 	for i, p2 := range p.plugins {
@@ -84,9 +80,9 @@ func (p *PluginSystem) Remove(pid id.PluginID) {
 	}
 }
 
-func (p *PluginSystem) Upgrade(pid, newID id.PluginID) {
+func (p *PluginSystem) Upgrade(pid, newID PluginID) {
 	for i, p2 := range p.plugins {
-		if p2.plugin.Equal(id.OfficialPluginID) {
+		if p2.plugin.Equal(OfficialPluginID) {
 			continue
 		}
 		if p2.plugin.Equal(pid) {
@@ -96,11 +92,11 @@ func (p *PluginSystem) Upgrade(pid, newID id.PluginID) {
 	}
 }
 
-func (p *PluginSystem) Properties() []id.PropertyID {
+func (p *PluginSystem) Properties() []PropertyID {
 	if p == nil {
 		return nil
 	}
-	res := make([]id.PropertyID, 0, len(p.plugins))
+	res := make([]PropertyID, 0, len(p.plugins))
 	for _, pp := range p.plugins {
 		if pp.property != nil {
 			res = append(res, *pp.property)
@@ -109,7 +105,7 @@ func (p *PluginSystem) Properties() []id.PropertyID {
 	return res
 }
 
-func (p *PluginSystem) Plugin(pluginID id.PluginID) *Plugin {
+func (p *PluginSystem) Plugin(pluginID PluginID) *Plugin {
 	for _, pp := range p.plugins {
 		if pp.plugin == pluginID {
 			return pp

@@ -2,8 +2,6 @@ package asset
 
 import (
 	"time"
-
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type Builder struct {
@@ -16,7 +14,7 @@ func New() *Builder {
 
 func (b *Builder) Build() (*Asset, error) {
 	if b.a.id.IsNil() {
-		return nil, id.ErrInvalidID
+		return nil, ErrInvalidID
 	}
 	if b.a.team.IsNil() {
 		return nil, ErrEmptyTeamID
@@ -41,17 +39,17 @@ func (b *Builder) MustBuild() *Asset {
 	return r
 }
 
-func (b *Builder) ID(id id.AssetID) *Builder {
+func (b *Builder) ID(id ID) *Builder {
 	b.a.id = id
 	return b
 }
 
 func (b *Builder) NewID() *Builder {
-	b.a.id = id.NewAssetID()
+	b.a.id = NewID()
 	return b
 }
 
-func (b *Builder) Team(team id.TeamID) *Builder {
+func (b *Builder) Team(team TeamID) *Builder {
 	b.a.team = team
 	return b
 }
