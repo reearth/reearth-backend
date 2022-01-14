@@ -1,6 +1,6 @@
 package manifest
 
-//go:generate go run github.com/idubinskiy/schematyper -o schema_gen.go --package manifest ../../../plugin_manifest_schema.json
+//go:generate go run github.com/idubinskiy/schematyper -o schema_gen.go --package manifest ../../../schemas/plugin_manifest.json
 
 import (
 	"errors"
