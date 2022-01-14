@@ -14,7 +14,6 @@ func New() *Builder {
 	return &Builder{scene: &Scene{}}
 }
 
-// Build _
 func (b *Builder) Build() (*Scene, error) {
 	if b.scene.id.ID().IsNil() {
 		return nil, id.ErrInvalidID
@@ -54,7 +53,7 @@ func (b *Builder) ID(id id.SceneID) *Builder {
 }
 
 func (b *Builder) NewID() *Builder {
-	b.scene.id = id.SceneID(id.New())
+	b.scene.id = id.NewSceneID()
 	return b
 }
 

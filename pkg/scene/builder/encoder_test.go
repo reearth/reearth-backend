@@ -88,11 +88,11 @@ func TestEncoder_Encode(t *testing.T) {
 }
 
 func TestEncoder_Layers(t *testing.T) {
-	lid := id.MustLayerID(id.New().String())
-	sid := id.MustSceneID(id.New().String())
-	pid := id.MustPropertyID(id.New().String())
+	lid := id.NewLayerID()
+	sid := id.NewSceneID()
+	pid := id.NewPropertyID()
 	ex := id.PluginExtensionID("marker")
-	iid := id.MustPropertyItemID(id.New().String())
+	iid := id.NewPropertyItemID()
 	v1 := property.LatLng{
 		Lat: 4.4,
 		Lng: 53.4,

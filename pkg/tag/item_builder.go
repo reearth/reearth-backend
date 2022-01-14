@@ -19,10 +19,10 @@ func ItemFrom(t Tag) *Item {
 }
 
 func (b *ItemBuilder) Build() (*Item, error) {
-	if id.ID(b.i.id).IsNil() {
+	if b.i.id.IsNil() {
 		return nil, id.ErrInvalidID
 	}
-	if id.ID(b.i.sceneId).IsNil() {
+	if b.i.sceneId.IsNil() {
 		return nil, ErrInvalidSceneID
 	}
 	if b.i.label == "" {

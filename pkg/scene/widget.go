@@ -14,7 +14,7 @@ type Widget struct {
 }
 
 func NewWidget(wid id.WidgetID, plugin id.PluginID, extension id.PluginExtensionID, property id.PropertyID, enabled, extended bool) (*Widget, error) {
-	if !plugin.Validate() || string(extension) == "" || id.ID(property).IsNil() {
+	if !plugin.Validate() || string(extension) == "" || property.IsNil() {
 		return nil, id.ErrInvalidID
 	}
 

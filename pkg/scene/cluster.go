@@ -9,7 +9,7 @@ type Cluster struct {
 }
 
 func NewCluster(cid id.ClusterID, name string, pid id.PropertyID) (*Cluster, error) {
-	if id.ID(cid).IsNil() {
+	if cid.IsNil() {
 		return nil, id.ErrInvalidID
 	}
 	return &Cluster{

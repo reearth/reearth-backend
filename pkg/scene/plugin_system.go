@@ -4,12 +4,10 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-// PluginSystem _
 type PluginSystem struct {
 	plugins []*Plugin
 }
 
-// NewPluginSystem _
 func NewPluginSystem(p []*Plugin) *PluginSystem {
 	if p == nil {
 		return &PluginSystem{plugins: []*Plugin{}}
@@ -34,12 +32,10 @@ func NewPluginSystem(p []*Plugin) *PluginSystem {
 	return &PluginSystem{plugins: p2}
 }
 
-// Plugins _
 func (p *PluginSystem) Plugins() []*Plugin {
 	return append([]*Plugin{}, p.plugins...)
 }
 
-// Property _
 func (p *PluginSystem) Property(id id.PluginID) *id.PropertyID {
 	for _, p := range p.plugins {
 		if p.plugin.Equal(id) {
@@ -49,7 +45,6 @@ func (p *PluginSystem) Property(id id.PluginID) *id.PropertyID {
 	return nil
 }
 
-// Has _
 func (p *PluginSystem) Has(id id.PluginID) bool {
 	for _, p2 := range p.plugins {
 		if p2.plugin.Equal(id) {
@@ -59,7 +54,6 @@ func (p *PluginSystem) Has(id id.PluginID) bool {
 	return false
 }
 
-// HasPlugin _
 func (p *PluginSystem) HasPlugin(id id.PluginID) bool {
 	name := id.Name()
 	for _, p2 := range p.plugins {
@@ -70,7 +64,6 @@ func (p *PluginSystem) HasPlugin(id id.PluginID) bool {
 	return false
 }
 
-// Add _
 func (p *PluginSystem) Add(sp *Plugin) {
 	if sp == nil || p.Has(sp.plugin) || sp.plugin.Equal(id.OfficialPluginID) {
 		return
@@ -79,7 +72,6 @@ func (p *PluginSystem) Add(sp *Plugin) {
 	p.plugins = append(p.plugins, &sp2)
 }
 
-// Remove _
 func (p *PluginSystem) Remove(pid id.PluginID) {
 	if pid.Equal(id.OfficialPluginID) {
 		return
@@ -92,7 +84,6 @@ func (p *PluginSystem) Remove(pid id.PluginID) {
 	}
 }
 
-// Upgrade _
 func (p *PluginSystem) Upgrade(pid, newID id.PluginID) {
 	for i, p2 := range p.plugins {
 		if p2.plugin.Equal(id.OfficialPluginID) {
@@ -105,7 +96,6 @@ func (p *PluginSystem) Upgrade(pid, newID id.PluginID) {
 	}
 }
 
-// Properties _
 func (p *PluginSystem) Properties() []id.PropertyID {
 	if p == nil {
 		return nil

@@ -14,7 +14,7 @@ func New() *Builder {
 }
 
 func (b *Builder) Build() (*User, error) {
-	if id.ID(b.u.id).IsNil() {
+	if b.u.id.IsNil() {
 		return nil, id.ErrInvalidID
 	}
 	return b.u, nil
@@ -34,7 +34,7 @@ func (b *Builder) ID(id id.UserID) *Builder {
 }
 
 func (b *Builder) NewID() *Builder {
-	b.u.id = id.UserID(id.New())
+	b.u.id = id.NewUserID()
 	return b
 }
 

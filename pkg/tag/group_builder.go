@@ -21,10 +21,10 @@ func GroupFrom(t Tag) *Group {
 }
 
 func (b *GroupBuilder) Build() (*Group, error) {
-	if id.ID(b.g.id).IsNil() {
+	if b.g.id.IsNil() {
 		return nil, id.ErrInvalidID
 	}
-	if id.ID(b.g.sceneId).IsNil() {
+	if b.g.sceneId.IsNil() {
 		return nil, ErrInvalidSceneID
 	}
 	if b.g.label == "" {

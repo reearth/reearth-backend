@@ -173,7 +173,6 @@ func (d PluginID) Ref() *PluginID {
 	return &d2
 }
 
-// CopyRef _
 func (d *PluginID) CopyRef() *PluginID {
 	if d == nil {
 		return nil
