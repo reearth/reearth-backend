@@ -160,6 +160,7 @@ func ToMergedInfoboxField(ibf *layer.MergedInfoboxField, sceneID id.SceneID) *Me
 		Property:    ToMergedPropertyFromMetadata(ibf.Property),
 	}
 }
+
 func FromLayerEncodingFormat(v LayerEncodingFormat) decoding.LayerEncodingFormat {
 	switch v {
 	case LayerEncodingFormatKml:
