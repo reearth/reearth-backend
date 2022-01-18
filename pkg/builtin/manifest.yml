@@ -298,6 +298,31 @@ extensions:
             - id: title
               type: string
               title: Title
+            - id: infoboxPaddingTop
+              type: number
+              title: Padding-top
+              min: 0
+              max: 40
+              suffix: px
+              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+            - id: infoboxPaddingBottom
+              type: number
+              title: Padding-bottom
+              min: 0
+              max: 40
+              suffix: px
+            - id: infoboxPaddingLeft
+              type: number
+              title: Padding-left
+              min: 0
+              max: 40
+              suffix: px
+            - id: infoboxPaddingRight
+              type: number
+              title: Padding-right
+              min: 0
+              max: 40
+              suffix: px
             - id: size
               type: string
               title: Size Type
