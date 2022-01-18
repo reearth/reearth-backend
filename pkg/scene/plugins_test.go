@@ -9,7 +9,8 @@ import (
 func TestNewPlugins(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		Input    []*Plugin
 		Expected *Plugins
@@ -53,12 +54,13 @@ func TestNewPlugins(t *testing.T) {
 			}},
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := NewPlugins(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -66,7 +68,8 @@ func TestNewPlugins(t *testing.T) {
 func TestPlugins_Property(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		Input    PluginID
 		PS       *Plugins
@@ -91,12 +94,13 @@ func TestPlugins_Property(t *testing.T) {
 			Expected: nil,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.PS.Property(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -104,7 +108,8 @@ func TestPlugins_Property(t *testing.T) {
 func TestPlugins_Plugin(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		Input    PluginID
 		PS       *Plugins
@@ -123,12 +128,13 @@ func TestPlugins_Plugin(t *testing.T) {
 			Expected: nil,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.PS.Plugin(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -136,7 +142,8 @@ func TestPlugins_Plugin(t *testing.T) {
 func TestPlugins_Properties(t *testing.T) {
 	pr := NewPropertyID().Ref()
 	pr2 := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		PS       *Plugins
 		Expected []PropertyID
@@ -155,12 +162,13 @@ func TestPlugins_Properties(t *testing.T) {
 			Expected: []PropertyID{*pr, *pr2},
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.PS.Properties()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -168,7 +176,8 @@ func TestPlugins_Properties(t *testing.T) {
 func TestPlugins_Has(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		Input    PluginID
 		PS       *Plugins
@@ -187,12 +196,13 @@ func TestPlugins_Has(t *testing.T) {
 			Expected: false,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.PS.Has(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -200,7 +210,8 @@ func TestPlugins_Has(t *testing.T) {
 func TestPlugins_HasPlugin(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		Input    PluginID
 		PS       *Plugins
@@ -219,12 +230,13 @@ func TestPlugins_HasPlugin(t *testing.T) {
 			Expected: false,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.PS.HasPlugin(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -232,7 +244,8 @@ func TestPlugins_HasPlugin(t *testing.T) {
 func TestPlugins_Add(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name         string
 		Input        *Plugin
 		PS, Expected *Plugins
@@ -262,12 +275,13 @@ func TestPlugins_Add(t *testing.T) {
 			Expected: NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			tc.PS.Add(tc.Input)
-			assert.Equal(tt, tc.Expected, tc.PS)
+			assert.Equal(t, tc.Expected, tc.PS)
 		})
 	}
 }
@@ -275,7 +289,8 @@ func TestPlugins_Add(t *testing.T) {
 func TestPlugins_Remove(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name         string
 		Input        PluginID
 		PS, Expected *Plugins
@@ -293,12 +308,13 @@ func TestPlugins_Remove(t *testing.T) {
 			Expected: NewPlugins([]*Plugin{}),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			tc.PS.Remove(tc.Input)
-			assert.Equal(tt, tc.Expected, tc.PS)
+			assert.Equal(t, tc.Expected, tc.PS)
 		})
 	}
 }
@@ -307,7 +323,8 @@ func TestPlugins_Upgrade(t *testing.T) {
 	pid := MustPluginID("xxx~1.1.1")
 	nid := MustPluginID("zzz~1.1.1")
 	pr := NewPropertyID().Ref()
-	testCases := []struct {
+
+	tests := []struct {
 		Name         string
 		PID, NewID   PluginID
 		PS, Expected *Plugins
@@ -326,12 +343,13 @@ func TestPlugins_Upgrade(t *testing.T) {
 			Expected: NewPlugins([]*Plugin{NewPlugin(nid, pr)}),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			tc.PS.Upgrade(tc.PID, tc.NewID)
-			assert.Equal(tt, tc.Expected, tc.PS)
+			assert.Equal(t, tc.Expected, tc.PS)
 		})
 	}
 }

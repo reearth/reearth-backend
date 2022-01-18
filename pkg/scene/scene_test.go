@@ -9,7 +9,8 @@ import (
 
 func TestScene_IsTeamIncluded(t *testing.T) {
 	tid := NewTeamID()
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		Teams    []TeamID
 		S        *Scene
@@ -40,12 +41,13 @@ func TestScene_IsTeamIncluded(t *testing.T) {
 			Expected: false,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.S.IsTeamIncluded(tc.Teams)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -110,12 +112,13 @@ func TestScene_Clusters(t *testing.T) {
 			want: NewClusterListFrom([]*Cluster{c1}),
 		},
 	}
+
 	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 
-			assert.Equal(tt, tc.want, tc.scene.Clusters())
+			assert.Equal(t, tc.want, tc.scene.Clusters())
 		})
 	}
 }
