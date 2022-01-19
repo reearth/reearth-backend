@@ -300,26 +300,26 @@ extensions:
               title: Title
             - id: infoboxPaddingTop
               type: number
-              title: Padding-top
+              title: Padding-Top
               min: 0
               max: 40
               suffix: px
               description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
             - id: infoboxPaddingBottom
               type: number
-              title: Padding-bottom
+              title: Padding-Bottom
               min: 0
               max: 40
               suffix: px
             - id: infoboxPaddingLeft
               type: number
-              title: Padding-left
+              title: Padding-Left
               min: 0
               max: 40
               suffix: px
             - id: infoboxPaddingRight
               type: number
-              title: Padding-right
+              title: Padding-Right
               min: 0
               max: 40
               suffix: px
@@ -1188,6 +1188,34 @@ extensions:
             - id: markdown
               type: bool
               title: Use markdown
+            - id: textBlockPaddingTop
+              type: number
+              title: Padding-Top
+              min: 0
+              max: 40
+              suffix: px
+              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+            - id: textBlockPaddingBottom
+              type: number
+              title: Padding-Bottom
+              min: 0
+              max: 40
+              suffix: px
+              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+            - id: textBlockPaddingLeft
+              type: number
+              title: Padding-left
+              min: 0
+              max: 40
+              suffix: px
+              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+            - id: textBlockPaddingRight
+              type: number
+              title: Padding-Right
+              min: 0
+              max: 40
+              suffix: px
+              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
             - id: typography
               type: typography
               title: Font
