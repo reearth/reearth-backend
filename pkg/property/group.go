@@ -50,21 +50,21 @@ func (g *Group) HasLinkedField() bool {
 		return false
 	}
 	for _, f := range g.fields {
-		if f.HasLinkedField() {
+		if f.Links().IsLinked() {
 			return true
 		}
 	}
 	return false
 }
 
-func (g *Group) CollectDatasets() []DatasetID {
+func (g *Group) Datasets() []DatasetID {
 	if g == nil {
 		return nil
 	}
 	res := []DatasetID{}
 
 	for _, f := range g.fields {
-		res = append(res, f.CollectDatasets()...)
+		res = append(res, f.Datasets()...)
 	}
 
 	return res
@@ -76,7 +76,7 @@ func (g *Group) FieldsByLinkedDataset(s DatasetSchemaID, i DatasetID) []*Field {
 	}
 	res := []*Field{}
 	for _, f := range g.fields {
-		if f.Links().IsDatasetLinked(s, i) {
+		if f.Links().HasSchemaAndDataset(s, i) {
 			res = append(res, f)
 		}
 	}

@@ -108,7 +108,7 @@ func TestGroup_IsDatasetLinked(t *testing.T) {
 	}
 }
 
-func TestGroup_CollectDatasets(t *testing.T) {
+func TestGroup_Datasets(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := NewDatasetID()
@@ -137,7 +137,7 @@ func TestGroup_CollectDatasets(t *testing.T) {
 		tt := tt
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			res := tt.Group.CollectDatasets()
+			res := tt.Group.Datasets()
 			assert.Equal(t, tt.Expected, res)
 		})
 	}

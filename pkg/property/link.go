@@ -197,7 +197,7 @@ func (l *Links) DatasetSchemaIDs() []DatasetSchemaID {
 	return schemas
 }
 
-func (l *Links) IsDatasetLinked(s DatasetSchemaID, dsid DatasetID) bool {
+func (l *Links) HasSchemaAndDataset(s DatasetSchemaID, dsid DatasetID) bool {
 	if l == nil {
 		return false
 	}
@@ -253,7 +253,7 @@ func (l *Links) HasDatasetSchema(dsid DatasetSchemaID) bool {
 	return false
 }
 
-func (l *Links) HasDatasetOrSchema(dsid DatasetSchemaID, did DatasetID) bool {
+func (l *Links) HasDatasetSchemaAndDataset(dsid DatasetSchemaID, did DatasetID) bool {
 	if l == nil {
 		return false
 	}

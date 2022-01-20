@@ -12,7 +12,7 @@ type Item interface {
 	SchemaGroup() SchemaGroupID
 	SchemaGroupRef() *SchemaGroupID
 	HasLinkedField() bool
-	CollectDatasets() []DatasetID
+	Datasets() []DatasetID
 	FieldsByLinkedDataset(DatasetSchemaID, DatasetID) []*Field
 	IsDatasetLinked(DatasetSchemaID, DatasetID) bool
 	IsEmpty() bool

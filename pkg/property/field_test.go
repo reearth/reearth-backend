@@ -54,7 +54,7 @@ func TestField_ActualValue(t *testing.T) {
 	}
 }
 
-func TestField_CollectDatasets(t *testing.T) {
+func TestField_Datasets(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
 	dsid := NewDatasetID()
 	dssid := NewDatasetSchemaID()
@@ -82,7 +82,7 @@ func TestField_CollectDatasets(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(t *testing.T) {
 			t.Parallel()
-			res := tc.Field.CollectDatasets()
+			res := tc.Field.Datasets()
 			assert.Equal(t, tc.Expected, res)
 		})
 	}
@@ -108,7 +108,7 @@ func TestField(t *testing.T) {
 	b.Link(ls)
 	assert.True(t, b.IsDatasetLinked(dsid, did))
 	b.Unlink()
-	assert.False(t, b.HasLinkedField())
+	assert.Nil(t, b.Links())
 }
 
 func TestField_Update(t *testing.T) {

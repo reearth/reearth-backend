@@ -80,7 +80,7 @@ func TestGroupList_HasLinkedField(t *testing.T) {
 	}
 }
 
-func TestGroupList_CollectDatasets(t *testing.T) {
+func TestGroupList_Datasets(t *testing.T) {
 	pid := NewItemID()
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
@@ -114,7 +114,7 @@ func TestGroupList_CollectDatasets(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(t *testing.T) {
 			t.Parallel()
-			assert.Equal(t, tc.Expected, tc.GL.CollectDatasets())
+			assert.Equal(t, tc.Expected, tc.GL.Datasets())
 		})
 	}
 }
