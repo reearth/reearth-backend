@@ -11,8 +11,6 @@ type Item interface {
 	IDRef() *ItemID
 	SchemaGroup() SchemaGroupID
 	SchemaGroupRef() *SchemaGroupID
-	Schema() SchemaID
-	SchemaRef() *SchemaID
 	HasLinkedField() bool
 	CollectDatasets() []DatasetID
 	FieldsByLinkedDataset(DatasetSchemaID, DatasetID) []*Field
@@ -26,7 +24,6 @@ type Item interface {
 
 type itemBase struct {
 	ID          ItemID
-	Schema      SchemaID
 	SchemaGroup SchemaGroupID
 }
 
