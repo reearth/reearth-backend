@@ -300,29 +300,32 @@ extensions:
               title: Title
             - id: infoboxPaddingTop
               type: number
-              title: Padding-Top
+              title: Top padding
               min: 0
               max: 40
               suffix: px
-              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+              description: "The space between the top of the infobox and the title. Min: 0  Max: 40"
             - id: infoboxPaddingBottom
               type: number
-              title: Padding-Bottom
+              title: Bottom padding
               min: 0
               max: 40
               suffix: px
+              description: "The space between the bottom of the infobox and the last block. Min: 0  Max: 40"
             - id: infoboxPaddingLeft
               type: number
-              title: Padding-Left
+              title: Left padding
               min: 0
               max: 40
               suffix: px
+              description: "The space between the left side of the infobox and the title and blocks. Min: 0  Max: 40"
             - id: infoboxPaddingRight
               type: number
-              title: Padding-Right
+              title: Right padding
               min: 0
               max: 40
               suffix: px
+              description: "The space between the right side of the infobox and the title and blocks. Min: 0  Max: 40"
             - id: size
               type: string
               title: Size Type
@@ -1190,32 +1193,32 @@ extensions:
               title: Use markdown
             - id: textBlockPaddingTop
               type: number
-              title: Padding-Top
+              title: Top padding
               min: 0
               max: 40
               suffix: px
-              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+              description: "The space between the top edge of the text block and the uppermost text. Min: 0  Max: 40"
             - id: textBlockPaddingBottom
               type: number
-              title: Padding-Bottom
+              title: Bottom padding
               min: 0
               max: 40
               suffix: px
-              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+              description: "The space between the bottom edge of the text block and the last text. Min: 0  Max: 40"
             - id: textBlockPaddingLeft
               type: number
-              title: Padding-left
+              title: Left padding
               min: 0
               max: 40
               suffix: px
-              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+              description: "The space between the left edge of the text block and the text. Min: 0  Max: 40"
             - id: textBlockPaddingRight
               type: number
-              title: Padding-Right
+              title: Right padding
               min: 0
               max: 40
               suffix: px
-              description: Padding size for the whole infobox, and the range is from 0 to 40px. Please follow the order ( top, right, botton, left ) to type in.
+              description: "The space between the right edge of the text block and the text. Min: 0  Max: 40"
             - id: typography
               type: typography
               title: Font
