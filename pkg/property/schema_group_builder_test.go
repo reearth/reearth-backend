@@ -4,28 +4,27 @@ import (
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestSchemaGroupBuilder_Build(t *testing.T) {
-	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
-	gid := id.PropertySchemaGroupID("xx")
+	sid := MustSchemaID("xx~1.0.0/aa")
+	gid := SchemaGroupID("xx")
 	sf := NewSchemaField().ID("ff").Type(ValueTypeString).MustBuild()
 
 	type expected struct {
-		ID            id.PropertySchemaGroupID
-		Sid           id.PropertySchemaID
+		ID            SchemaGroupID
+		Sid           SchemaID
 		Fields        []*SchemaField
 		List          bool
 		IsAvailableIf *Condition
 		Title         i18n.String
 	}
 
-	testCases := []struct {
+	tests := []struct {
 		Name          string
-		ID            id.PropertySchemaGroupID
-		Sid           id.PropertySchemaID
+		ID            SchemaGroupID
+		Sid           SchemaID
 		Fields        []*SchemaField
 		List          bool
 		IsAvailableIf *Condition
@@ -35,7 +34,7 @@ func TestSchemaGroupBuilder_Build(t *testing.T) {
 	}{
 		{
 			Name: "fail: invalid id",
-			Err:  id.ErrInvalidID,
+			Err:  ErrInvalidID,
 		},
 		{
 			Name:   "success",
@@ -85,10 +84,10 @@ func TestSchemaGroupBuilder_Build(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res, err := NewSchemaGroup().
 				ID(tc.ID).
 				Schema(tc.Sid).
@@ -98,14 +97,14 @@ func TestSchemaGroupBuilder_Build(t *testing.T) {
 				IsAvailableIf(tc.IsAvailableIf).
 				Build()
 			if tc.Err == nil {
-				assert.Equal(tt, tc.Expected.IsAvailableIf, res.IsAvailableIf())
-				assert.Equal(tt, tc.Expected.Sid, res.Schema())
-				assert.Equal(tt, tc.Expected.ID, res.ID())
-				assert.Equal(tt, tc.Expected.Title, res.Title())
-				assert.Equal(tt, tc.Expected.List, res.IsList())
-				assert.Equal(tt, tc.Expected.Fields, res.Fields())
+				assert.Equal(t, tc.Expected.IsAvailableIf, res.IsAvailableIf())
+				assert.Equal(t, tc.Expected.Sid, res.Schema())
+				assert.Equal(t, tc.Expected.ID, res.ID())
+				assert.Equal(t, tc.Expected.Title, res.Title())
+				assert.Equal(t, tc.Expected.List, res.IsList())
+				assert.Equal(t, tc.Expected.Fields, res.Fields())
 			} else {
-				assert.Equal(tt, tc.Err, err)
+				assert.Equal(t, tc.Err, err)
 			}
 		})
 	}

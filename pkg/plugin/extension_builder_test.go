@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 	"github.com/stretchr/testify/assert"
 )
@@ -24,7 +23,7 @@ func TestExtensionBuilder_Description(t *testing.T) {
 func TestExtensionBuilder_ID(t *testing.T) {
 	var b = NewExtension()
 	res := b.ID("xxx").MustBuild()
-	assert.Equal(t, id.PluginExtensionID("xxx"), res.ID())
+	assert.Equal(t, ExtensionID("xxx"), res.ID())
 }
 
 func TestExtensionBuilder_Type(t *testing.T) {
@@ -47,8 +46,8 @@ func TestExtensionBuilder_SingleOnly(t *testing.T) {
 
 func TestExtensionBuilder_Schema(t *testing.T) {
 	var b = NewExtension()
-	res := b.ID("xxx").Schema(id.MustPropertySchemaID("hoge~0.1.0/fff")).MustBuild()
-	assert.Equal(t, id.MustPropertySchemaID("hoge~0.1.0/fff"), res.Schema())
+	res := b.ID("xxx").Schema(MustPropertySchemaID("hoge~0.1.0/fff")).MustBuild()
+	assert.Equal(t, MustPropertySchemaID("hoge~0.1.0/fff"), res.Schema())
 }
 
 func TestExtensionBuilder_Visualizer(t *testing.T) {
@@ -67,43 +66,34 @@ func TestExtensionBuilder_WidgetLayout(t *testing.T) {
 }
 
 func TestExtensionBuilder_Build(t *testing.T) {
-	testCases := []struct {
-		name, icon    string
-		id            id.PluginExtensionID
+	type args struct {
+		icon          string
+		id            ExtensionID
 		extensionType ExtensionType
 		system        bool
 		ename         i18n.String
 		description   i18n.String
-		schema        id.PropertySchemaID
+		schema        PropertySchemaID
 		visualizer    visualizer.Visualizer
 		widgetLayout  *WidgetLayout
-		expected      *Extension
-		err           error
+	}
+
+	tests := []struct {
+		name     string
+		args     args
+		expected *Extension
+		err      error
 	}{
 		{
-			name:          "success not system",
-			icon:          "ttt",
-			id:            "xxx",
-			extensionType: "ppp",
-			system:        false,
-			ename:         i18n.StringFrom("nnn"),
-			description:   i18n.StringFrom("ddd"),
-			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
-			visualizer:    "vvv",
-			widgetLayout: NewWidgetLayout(
-				false, false, true, false, &WidgetLocation{
-					Zone:    WidgetZoneOuter,
-					Section: WidgetSectionLeft,
-					Area:    WidgetAreaTop,
-				},
-			).Ref(),
-			expected: &Extension{
+			name: "success not system",
+			args: args{
+				icon:          "ttt",
 				id:            "xxx",
 				extensionType: "ppp",
-				name:          i18n.StringFrom("nnn"),
+				system:        false,
+				ename:         i18n.StringFrom("nnn"),
 				description:   i18n.StringFrom("ddd"),
-				icon:          "ttt",
-				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
+				schema:        MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
 				widgetLayout: NewWidgetLayout(
 					false, false, true, false, &WidgetLocation{
@@ -113,86 +103,113 @@ func TestExtensionBuilder_Build(t *testing.T) {
 					},
 				).Ref(),
 			},
-			err: nil,
-		},
-		{
-			name:          "fail not system type visualizer",
-			extensionType: ExtensionTypeVisualizer,
-			err:           id.ErrInvalidID,
-		},
-		{
-			name:          "fail not system type infobox",
-			extensionType: ExtensionTypeInfobox,
-			err:           id.ErrInvalidID,
-		},
-		{
-			name: "fail nil id",
-			err:  id.ErrInvalidID,
-		},
-	}
-
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
-			e, err := NewExtension().
-				ID(tc.id).
-				Visualizer(tc.visualizer).
-				Schema(tc.schema).
-				System(tc.system).
-				Type(tc.extensionType).
-				Description(tc.description).
-				Name(tc.ename).
-				Icon(tc.icon).
-				WidgetLayout(tc.widgetLayout).
-				Build()
-			if tc.err == nil {
-				assert.Equal(tt, tc.expected, e)
-			} else {
-				assert.Equal(tt, tc.err, err)
-			}
-		})
-	}
-}
-
-func TestExtensionBuilder_MustBuild(t *testing.T) {
-	testCases := []struct {
-		name, icon    string
-		id            id.PluginExtensionID
-		extensionType ExtensionType
-		system        bool
-		ename         i18n.String
-		description   i18n.String
-		schema        id.PropertySchemaID
-		visualizer    visualizer.Visualizer
-		widgetLayout  *WidgetLayout
-		singleOnly    bool
-		expected      *Extension
-	}{
-		{
-			name:          "success not system",
-			icon:          "ttt",
-			id:            "xxx",
-			extensionType: "ppp",
-			system:        false,
-			ename:         i18n.StringFrom("nnn"),
-			description:   i18n.StringFrom("ddd"),
-			schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
-			visualizer:    "vvv",
-			singleOnly:    true,
-			widgetLayout: NewWidgetLayout(
-				false, false, true, false, &WidgetLocation{
-					Zone:    WidgetZoneOuter,
-					Section: WidgetSectionLeft,
-					Area:    WidgetAreaTop,
-				}).Ref(),
 			expected: &Extension{
 				id:            "xxx",
 				extensionType: "ppp",
 				name:          i18n.StringFrom("nnn"),
 				description:   i18n.StringFrom("ddd"),
 				icon:          "ttt",
-				schema:        id.MustPropertySchemaID("foo~1.1.1/hhh"),
+				schema:        MustPropertySchemaID("foo~1.1.1/hhh"),
+				visualizer:    "vvv",
+				widgetLayout: NewWidgetLayout(
+					false, false, true, false, &WidgetLocation{
+						Zone:    WidgetZoneOuter,
+						Section: WidgetSectionLeft,
+						Area:    WidgetAreaTop,
+					},
+				).Ref(),
+			},
+		},
+		{
+			name: "fail not system type visualizer",
+			args: args{
+				extensionType: ExtensionTypeVisualizer,
+			},
+			err: ErrInvalidID,
+		},
+		{
+			name: "fail not system type infobox",
+			args: args{
+				extensionType: ExtensionTypeInfobox,
+			},
+			err: ErrInvalidID,
+		},
+		{
+			name: "fail nil id",
+			err:  ErrInvalidID,
+		},
+	}
+
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			e, err := NewExtension().
+				ID(tc.args.id).
+				Visualizer(tc.args.visualizer).
+				Schema(tc.args.schema).
+				System(tc.args.system).
+				Type(tc.args.extensionType).
+				Description(tc.args.description).
+				Name(tc.args.ename).
+				Icon(tc.args.icon).
+				WidgetLayout(tc.args.widgetLayout).
+				Build()
+			if tc.err == nil {
+				assert.Equal(t, tc.expected, e)
+			} else {
+				assert.Equal(t, tc.err, err)
+			}
+		})
+	}
+}
+
+func TestExtensionBuilder_MustBuild(t *testing.T) {
+	type args struct {
+		icon          string
+		id            ExtensionID
+		extensionType ExtensionType
+		system        bool
+		ename         i18n.String
+		description   i18n.String
+		schema        PropertySchemaID
+		visualizer    visualizer.Visualizer
+		widgetLayout  *WidgetLayout
+		singleOnly    bool
+	}
+
+	tests := []struct {
+		name     string
+		args     args
+		expected *Extension
+		err      error
+	}{
+		{
+			name: "success not system",
+			args: args{
+				icon:          "ttt",
+				id:            "xxx",
+				extensionType: "ppp",
+				system:        false,
+				ename:         i18n.StringFrom("nnn"),
+				description:   i18n.StringFrom("ddd"),
+				schema:        MustPropertySchemaID("foo~1.1.1/hhh"),
+				visualizer:    "vvv",
+				singleOnly:    true,
+				widgetLayout: NewWidgetLayout(
+					false, false, true, false, &WidgetLocation{
+						Zone:    WidgetZoneOuter,
+						Section: WidgetSectionLeft,
+						Area:    WidgetAreaTop,
+					}).Ref(),
+			},
+			expected: &Extension{
+				id:            "xxx",
+				extensionType: "ppp",
+				name:          i18n.StringFrom("nnn"),
+				description:   i18n.StringFrom("ddd"),
+				icon:          "ttt",
+				schema:        MustPropertySchemaID("foo~1.1.1/hhh"),
 				visualizer:    "vvv",
 				singleOnly:    true,
 				widgetLayout: NewWidgetLayout(
@@ -204,40 +221,51 @@ func TestExtensionBuilder_MustBuild(t *testing.T) {
 			},
 		},
 		{
-			name:          "fail not system type visualizer",
-			extensionType: ExtensionTypeVisualizer,
+			name: "fail not system type visualizer",
+			args: args{
+				extensionType: ExtensionTypeVisualizer,
+			},
+			err: ErrInvalidID,
 		},
 		{
-			name:          "fail not system type infobox",
-			extensionType: ExtensionTypeInfobox,
+			name: "fail not system type infobox",
+			args: args{
+				extensionType: ExtensionTypeInfobox,
+			},
+			err: ErrInvalidID,
 		},
 		{
 			name: "fail nil id",
+			err:  ErrInvalidID,
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
-			var e *Extension
-			defer func() {
-				if r := recover(); r == nil {
-					assert.Equal(tt, tc.expected, e)
 
-				}
-			}()
-			e = NewExtension().
-				ID(tc.id).
-				Visualizer(tc.visualizer).
-				Schema(tc.schema).
-				System(tc.system).
-				Type(tc.extensionType).
-				Description(tc.description).
-				Name(tc.ename).
-				Icon(tc.icon).
-				SingleOnly(tc.singleOnly).
-				WidgetLayout(tc.widgetLayout).
-				MustBuild()
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			build := func() *Extension {
+				t.Helper()
+				return NewExtension().
+					ID(tc.args.id).
+					Visualizer(tc.args.visualizer).
+					Schema(tc.args.schema).
+					System(tc.args.system).
+					Type(tc.args.extensionType).
+					Description(tc.args.description).
+					Name(tc.args.ename).
+					Icon(tc.args.icon).
+					SingleOnly(tc.args.singleOnly).
+					WidgetLayout(tc.args.widgetLayout).
+					MustBuild()
+			}
+
+			if tc.err != nil {
+				assert.PanicsWithValue(t, tc.err, func() { _ = build() })
+			} else {
+				assert.Equal(t, tc.expected, build())
+			}
 		})
 	}
 }

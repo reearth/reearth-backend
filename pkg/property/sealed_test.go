@@ -5,29 +5,28 @@ import (
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/dataset"
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 var (
-	sid    = id.NewSceneID()
-	ds     = id.NewDatasetSchemaID()
-	df     = id.NewDatasetSchemaFieldID()
-	d      = id.NewDatasetID()
-	opid   = id.NewPropertyID()
-	ppid   = id.NewPropertyID()
-	psid   = id.MustPropertySchemaID("hoge~0.1.0/fff")
-	psiid1 = id.PropertySchemaGroupID("x")
-	psiid2 = id.PropertySchemaGroupID("y")
-	i1id   = id.NewPropertyItemID()
-	i2id   = id.NewPropertyItemID()
-	i3id   = id.NewPropertyItemID()
-	i4id   = id.NewPropertyItemID()
-	i5id   = id.NewPropertyItemID()
+	sid    = NewSceneID()
+	ds     = NewDatasetSchemaID()
+	df     = NewDatasetFieldID()
+	d      = NewDatasetID()
+	opid   = NewID()
+	ppid   = NewID()
+	psid   = MustSchemaID("hoge~0.1.0/fff")
+	psiid1 = SchemaGroupID("x")
+	psiid2 = SchemaGroupID("y")
+	i1id   = NewItemID()
+	i2id   = NewItemID()
+	i3id   = NewItemID()
+	i4id   = NewItemID()
+	i5id   = NewItemID()
 )
 
 func TestSeal(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		MD       *Merged
 		DSGL     dataset.GraphLoader
@@ -57,12 +56,12 @@ func TestSeal(t *testing.T) {
 								LinkedDataset: &d,
 								Fields: []*MergedField{
 									{
-										ID:    id.PropertySchemaFieldID("a"),
+										ID:    FieldID("a"),
 										Value: ValueTypeString.ValueFrom("a"),
 										Type:  ValueTypeString,
 									},
 									{
-										ID:    id.PropertySchemaFieldID("b"),
+										ID:    FieldID("b"),
 										Value: ValueTypeString.ValueFrom("b"),
 										Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 										Type:  ValueTypeString,
@@ -78,12 +77,12 @@ func TestSeal(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*MergedField{
 							{
-								ID:    id.PropertySchemaFieldID("a"),
+								ID:    FieldID("a"),
 								Value: ValueTypeString.ValueFrom("aaa"),
 								Type:  ValueTypeString,
 							},
 							{
-								ID:    id.PropertySchemaFieldID("b"),
+								ID:    FieldID("b"),
 								Value: ValueTypeString.ValueFrom("aaa"),
 								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 								Type:  ValueTypeString,
@@ -92,7 +91,7 @@ func TestSeal(t *testing.T) {
 					},
 				},
 			},
-			DSGL: dataset.GraphLoaderFromMap(map[id.DatasetID]*dataset.Dataset{
+			DSGL: dataset.GraphLoaderFromMap(map[DatasetID]*dataset.Dataset{
 				d: dataset.New().Scene(sid).ID(d).Schema(ds).Fields([]*dataset.Field{
 					dataset.NewField(df, dataset.ValueTypeString.ValueFrom("bbb"), ""),
 				}).MustBuild(),
@@ -164,22 +163,22 @@ func TestSeal(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res, err := Seal(context.Background(), tc.MD, tc.DSGL)
-			if err == nil {
-				assert.Equal(tt, tc.Expected, res)
-			}
+			assert.Equal(t, tc.Expected, res)
+			assert.Nil(t, err)
 		})
 	}
 }
 
 func TestSealProperty(t *testing.T) {
-	pid := id.NewPropertyID()
-	ps := id.MustPropertySchemaID("xxx~1.1.1/aa")
-	testCases := []struct {
+	pid := NewID()
+	ps := MustSchemaID("xxx~1.1.1/aa")
+
+	tests := []struct {
 		Name     string
 		Input    *Property
 		Expected *Sealed
@@ -189,7 +188,7 @@ func TestSealProperty(t *testing.T) {
 		},
 		{
 			Name:  "seal property",
-			Input: New().ID(pid).Scene(id.NewSceneID()).Schema(ps).MustBuild(),
+			Input: New().ID(pid).Scene(NewSceneID()).Schema(ps).MustBuild(),
 			Expected: &Sealed{
 				Original:      pid.Ref(),
 				Parent:        nil,
@@ -200,19 +199,19 @@ func TestSealProperty(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := SealProperty(context.Background(), tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestSealedItemFrom(t *testing.T) {
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		MG       *MergedGroup
 		DSGL     dataset.GraphLoader
@@ -236,12 +235,12 @@ func TestSealedItemFrom(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*MergedField{
 							{
-								ID:    id.PropertySchemaFieldID("a"),
+								ID:    FieldID("a"),
 								Value: ValueTypeString.ValueFrom("a"),
 								Type:  ValueTypeString,
 							},
 							{
-								ID:    id.PropertySchemaFieldID("b"),
+								ID:    FieldID("b"),
 								Value: ValueTypeString.ValueFrom("b"),
 								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 								Type:  ValueTypeString,
@@ -250,7 +249,7 @@ func TestSealedItemFrom(t *testing.T) {
 					},
 				},
 			},
-			DSGL: dataset.GraphLoaderFromMap(map[id.DatasetID]*dataset.Dataset{
+			DSGL: dataset.GraphLoaderFromMap(map[DatasetID]*dataset.Dataset{
 				d: dataset.New().Scene(sid).ID(d).Schema(ds).Fields([]*dataset.Field{
 					dataset.NewField(df, dataset.ValueTypeString.ValueFrom("bbb"), ""),
 				}).MustBuild(),
@@ -303,12 +302,12 @@ func TestSealedItemFrom(t *testing.T) {
 						LinkedDataset: &d,
 						Fields: []*MergedField{
 							{
-								ID:    id.PropertySchemaFieldID("a"),
+								ID:    FieldID("a"),
 								Value: ValueTypeString.ValueFrom("aaa"),
 								Type:  ValueTypeString,
 							},
 							{
-								ID:    id.PropertySchemaFieldID("b"),
+								ID:    FieldID("b"),
 								Value: ValueTypeString.ValueFrom("aaa"),
 								Links: NewLinks([]*Link{NewLink(d, ds, df)}),
 								Type:  ValueTypeString,
@@ -317,7 +316,7 @@ func TestSealedItemFrom(t *testing.T) {
 					},
 				},
 			},
-			DSGL: dataset.GraphLoaderFromMap(map[id.DatasetID]*dataset.Dataset{
+			DSGL: dataset.GraphLoaderFromMap(map[DatasetID]*dataset.Dataset{
 				d: dataset.New().Scene(sid).ID(d).Schema(ds).Fields([]*dataset.Field{
 					dataset.NewField(df, dataset.ValueTypeString.ValueFrom("bbb"), ""),
 				}).MustBuild(),
@@ -358,21 +357,20 @@ func TestSealedItemFrom(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res, err := sealedItemFrom(context.Background(), tc.MG, tc.DSGL)
-			if err == nil {
-				assert.Equal(tt, tc.Expected, res)
-			}
+			assert.Equal(t, tc.Expected, res)
+			assert.Nil(t, err)
 		})
 	}
 }
 
 func TestSealed_Interface(t *testing.T) {
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		S        *Sealed
 		Expected map[string]interface{}
@@ -461,21 +459,21 @@ func TestSealed_Interface(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.S.Interface()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestSealedItem_Match(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		SI       *SealedItem
-		Input    id.PropertyItemID
+		Input    ItemID
 		Expected bool
 	}{
 		{
@@ -519,19 +517,19 @@ func TestSealedItem_Match(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.SI.Match(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestSealed_ItemBy(t *testing.T) {
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		S        *Sealed
 		Input    *Pointer
@@ -605,7 +603,7 @@ func TestSealed_ItemBy(t *testing.T) {
 					},
 				},
 			},
-			Input: NewPointer(psiid1.Ref(), i1id.Ref(), id.PropertySchemaFieldID("a").Ref()),
+			Input: NewPointer(psiid1.Ref(), i1id.Ref(), FieldID("a").Ref()),
 			Expected: &SealedItem{
 				SchemaGroup:   psiid1,
 				Original:      &i1id,
@@ -703,7 +701,7 @@ func TestSealed_ItemBy(t *testing.T) {
 					},
 				},
 			},
-			Input: NewPointer(nil, i1id.Ref(), id.PropertySchemaFieldID("a").Ref()),
+			Input: NewPointer(nil, i1id.Ref(), FieldID("a").Ref()),
 			Expected: &SealedItem{
 				SchemaGroup:   psiid1,
 				Original:      &i1id,
@@ -801,24 +799,24 @@ func TestSealed_ItemBy(t *testing.T) {
 					},
 				},
 			},
-			Input:    NewPointer(nil, nil, id.PropertySchemaFieldID("a").Ref()),
+			Input:    NewPointer(nil, nil, FieldID("a").Ref()),
 			Expected: nil,
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.S.ItemBy(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestSealed_FieldBy(t *testing.T) {
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		S        *Sealed
 		Input    *Pointer
@@ -892,7 +890,7 @@ func TestSealed_FieldBy(t *testing.T) {
 					},
 				},
 			},
-			Input: NewPointer(psiid1.Ref(), i1id.Ref(), id.PropertySchemaFieldID("a").Ref()),
+			Input: NewPointer(psiid1.Ref(), i1id.Ref(), FieldID("a").Ref()),
 			Expected: &SealedField{
 				ID: "a",
 				Val: NewValueAndDatasetValue(
@@ -967,7 +965,7 @@ func TestSealed_FieldBy(t *testing.T) {
 					},
 				},
 			},
-			Input: NewPointer(nil, i3id.Ref(), id.PropertySchemaFieldID("a").Ref()),
+			Input: NewPointer(nil, i3id.Ref(), FieldID("a").Ref()),
 			Expected: &SealedField{
 				ID: "a",
 				Val: NewValueAndDatasetValue(
@@ -1042,7 +1040,7 @@ func TestSealed_FieldBy(t *testing.T) {
 					},
 				},
 			},
-			Input: NewPointer(nil, nil, id.PropertySchemaFieldID("a").Ref()),
+			Input: NewPointer(nil, nil, FieldID("a").Ref()),
 			Expected: &SealedField{
 				ID: "a",
 				Val: NewValueAndDatasetValue(
@@ -1054,12 +1052,12 @@ func TestSealed_FieldBy(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.S.FieldBy(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }

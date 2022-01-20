@@ -10,6 +10,19 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene"
 )
 
+type SceneDocument struct {
+	ID          string
+	Project     string
+	Team        string
+	RootLayer   string
+	Widgets     []SceneWidgetDocument
+	AlignSystem *WidgetAlignSystemDocument
+	Plugins     []ScenePluginDocument
+	UpdateAt    time.Time
+	Property    string
+	Clusters    []SceneClusterDocument
+}
+
 type SceneWidgetDocument struct {
 	ID        string
 	Plugin    string
@@ -28,19 +41,6 @@ type SceneClusterDocument struct {
 	ID       string
 	Name     string
 	Property string
-}
-
-type SceneDocument struct {
-	ID          string
-	Project     string
-	Team        string
-	RootLayer   string
-	Widgets     []SceneWidgetDocument
-	AlignSystem *WidgetAlignSystemDocument
-	Plugins     []ScenePluginDocument
-	UpdateAt    time.Time
-	Property    string
-	Clusters    []SceneClusterDocument
 }
 
 type SceneConsumer struct {
@@ -90,8 +90,8 @@ func (c *SceneIDConsumer) Consume(raw bson.Raw) error {
 }
 
 func NewScene(scene *scene.Scene) (*SceneDocument, string) {
-	widgets := scene.WidgetSystem().Widgets()
-	plugins := scene.PluginSystem().Plugins()
+	widgets := scene.Widgets().Widgets()
+	plugins := scene.Plugins().Plugins()
 	clusters := scene.Clusters().Clusters()
 
 	widgetsDoc := make([]SceneWidgetDocument, 0, len(widgets))
@@ -223,9 +223,9 @@ func (d *SceneDocument) Model() (*scene.Scene, error) {
 		Team(tid).
 		RootLayer(lid).
 		Clusters(cl).
-		WidgetSystem(scene.NewWidgetSystem(ws)).
+		Widgets(scene.NewWidgets(ws)).
 		WidgetAlignSystem(d.AlignSystem.Model()).
-		PluginSystem(scene.NewPluginSystem(ps)).
+		Plugins(scene.NewPlugins(ps)).
 		UpdatedAt(d.UpdateAt).
 		Property(prid).
 		Build()

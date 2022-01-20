@@ -3,22 +3,22 @@ package user
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/text/language"
 )
 
 func TestUser(t *testing.T) {
-	uid := id.NewUserID()
-	tid := id.NewTeamID()
-	testCases := []struct {
+	uid := NewID()
+	tid := NewTeamID()
+
+	tests := []struct {
 		Name     string
 		User     *User
 		Expected struct {
-			Id    id.UserID
+			Id    ID
 			Name  string
 			Email string
-			Team  id.TeamID
+			Team  TeamID
 			Auths []Auth
 			Lang  language.Tag
 		}
@@ -35,10 +35,10 @@ func TestUser(t *testing.T) {
 					Sub:      "sss",
 				}}).MustBuild(),
 			Expected: struct {
-				Id    id.UserID
+				Id    ID
 				Name  string
 				Email string
-				Team  id.TeamID
+				Team  TeamID
 				Auths []Auth
 				Lang  language.Tag
 			}{
@@ -54,22 +54,23 @@ func TestUser(t *testing.T) {
 			},
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			assert.Equal(tt, tc.Expected.Id, tc.User.ID())
-			assert.Equal(tt, tc.Expected.Name, tc.User.Name())
-			assert.Equal(tt, tc.Expected.Team, tc.User.Team())
-			assert.Equal(tt, tc.Expected.Auths, tc.User.Auths())
-			assert.Equal(tt, tc.Expected.Email, tc.User.Email())
-			assert.Equal(tt, tc.Expected.Lang, tc.User.Lang())
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tc.Expected.Id, tc.User.ID())
+			assert.Equal(t, tc.Expected.Name, tc.User.Name())
+			assert.Equal(t, tc.Expected.Team, tc.User.Team())
+			assert.Equal(t, tc.Expected.Auths, tc.User.Auths())
+			assert.Equal(t, tc.Expected.Email, tc.User.Email())
+			assert.Equal(t, tc.Expected.Lang, tc.User.Lang())
 		})
 	}
 }
 
 func TestUser_AddAuth(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		User     *User
 		A        Auth
@@ -102,18 +103,19 @@ func TestUser_AddAuth(t *testing.T) {
 			Expected: false,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.User.AddAuth(tc.A)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestUser_RemoveAuth(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		User     *User
 		A        Auth
@@ -146,18 +148,19 @@ func TestUser_RemoveAuth(t *testing.T) {
 			Expected: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.User.RemoveAuth(tc.A)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestUser_ContainAuth(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		User     *User
 		A        Auth
@@ -190,18 +193,19 @@ func TestUser_ContainAuth(t *testing.T) {
 			Expected: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.User.ContainAuth(tc.A)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestUser_RemoveAuthByProvider(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		User     *User
 		Provider string
@@ -228,12 +232,13 @@ func TestUser_RemoveAuthByProvider(t *testing.T) {
 			Expected: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.User.RemoveAuthByProvider(tc.Provider)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -265,7 +270,7 @@ func TestUser_UpdateLang(t *testing.T) {
 }
 
 func TestUser_UpdateTeam(t *testing.T) {
-	tid := id.NewTeamID()
+	tid := NewTeamID()
 	u := New().NewID().MustBuild()
 	u.UpdateTeam(tid)
 	assert.Equal(t, tid, u.Team())

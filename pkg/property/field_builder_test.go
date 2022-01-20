@@ -1,10 +1,8 @@
 package property
 
 import (
-	"errors"
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,146 +15,135 @@ func TestFieldBuilder_Value(t *testing.T) {
 
 func TestFieldBuilder_Link(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	l := NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
 	b := NewField(p).Link(ls).MustBuild()
 	assert.Equal(t, ls, b.Links())
 }
 
 func TestFieldBuilder_Build(t *testing.T) {
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
-	testCases := []struct {
+	l := NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
+
+	type args struct {
+		Links *Links
+		Value *Value
+		Field *SchemaField
+		Type  ValueType
+	}
+
+	tests := []struct {
 		Name     string
-		Links    *Links
-		Value    *Value
-		SF       *SchemaField
-		Expected struct {
-			PType ValueType
-			Links *Links
-			Value *Value
-		}
-		Err error
+		Args     args
+		Expected *Field
+		Err      error
 	}{
 		{
 			Name: "fail invalid property id",
-			Expected: struct {
-				PType ValueType
-				Links *Links
-				Value *Value
-			}{},
-			Err: id.ErrInvalidID,
+			Err:  ErrInvalidID,
 		},
 		{
-			Name:  "fail invalid property type",
-			SF:    NewSchemaField().ID("A").Type(ValueTypeBool).MustBuild(),
-			Value: ValueTypeString.ValueFrom("vvv"),
-			Expected: struct {
-				PType ValueType
-				Links *Links
-				Value *Value
-			}{},
-			Err: ErrInvalidPropertyType,
-		},
-		{
-			Name:  "success",
-			SF:    NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
-			Links: NewLinks([]*Link{l}),
-			Value: ValueTypeString.ValueFrom("vvv"),
-			Expected: struct {
-				PType ValueType
-				Links *Links
-				Value *Value
-			}{
-				PType: ValueTypeString,
-				Links: NewLinks([]*Link{l}),
+			Name: "fail invalid property value",
+			Args: args{
+				Field: NewSchemaField().ID("A").Type(ValueTypeBool).MustBuild(),
+				Type:  ValueTypeString,
 				Value: ValueTypeString.ValueFrom("vvv"),
 			},
-			Err: nil,
+			Err: ErrInvalidPropertyValue,
+		},
+		{
+			Name: "success",
+			Args: args{
+				Field: NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
+				Links: NewLinks([]*Link{l}),
+				Type:  ValueTypeString,
+				Value: ValueTypeString.ValueFrom("vvv"),
+			},
+			Expected: &Field{
+				field: "A",
+				links: NewLinks([]*Link{l}),
+				v:     OptionalValueFrom(ValueTypeString.ValueFrom("vvv")),
+			},
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res, err := NewField(tc.SF).Value(OptionalValueFrom(tc.Value)).Link(tc.Links).Build()
-			if err == nil {
-				assert.Equal(tt, tc.Expected.Links, res.Links())
-				assert.Equal(tt, tc.Expected.PType, res.Type())
-				assert.Equal(tt, tc.Expected.Value, res.Value())
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			res, err := NewField(tt.Args.Field).
+				Value(NewOptionalValue(tt.Args.Type, tt.Args.Value)).
+				Link(tt.Args.Links).Build()
+			if tt.Err == nil {
+				assert.Equal(t, tt.Expected, res)
 			} else {
-				assert.True(tt, errors.As(tc.Err, &err))
+				assert.Equal(t, tt.Err, err)
 			}
 		})
 	}
 }
 
 func TestFieldBuilder_MustBuild(t *testing.T) {
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
-	testCases := []struct {
+	l := NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
+
+	type args struct {
+		Links *Links
+		Value *Value
+		Field *SchemaField
+		Type  ValueType
+	}
+
+	tests := []struct {
 		Name     string
-		Fails    bool
-		Links    *Links
-		Value    *Value
-		SF       *SchemaField
-		Expected struct {
-			PType ValueType
-			Links *Links
-			Value *Value
-		}
+		Args     args
+		Expected *Field
+		Err      string
 	}{
 		{
-			Name:  "fail invalid property id",
-			Fails: true,
-			Expected: struct {
-				PType ValueType
-				Links *Links
-				Value *Value
-			}{},
+			Name: "fail invalid property id",
+			Err:  ErrInvalidID.Error(),
 		},
 		{
-			Name:  "fail invalid property type",
-			SF:    NewSchemaField().ID("A").Type(ValueTypeBool).MustBuild(),
-			Value: ValueTypeString.ValueFrom("vvv"),
-			Fails: true,
-			Expected: struct {
-				PType ValueType
-				Links *Links
-				Value *Value
-			}{},
-		},
-		{
-			Name:  "success",
-			SF:    NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
-			Links: NewLinks([]*Link{l}),
-			Value: ValueTypeString.ValueFrom("vvv"),
-			Expected: struct {
-				PType ValueType
-				Links *Links
-				Value *Value
-			}{
-				PType: ValueTypeString,
-				Links: NewLinks([]*Link{l}),
+			Name: "fail invalid property value",
+			Args: args{
+				Field: NewSchemaField().ID("A").Type(ValueTypeBool).MustBuild(),
+				Type:  ValueTypeString,
 				Value: ValueTypeString.ValueFrom("vvv"),
+			},
+			Err: ErrInvalidPropertyValue.Error(),
+		},
+		{
+			Name: "success",
+			Args: args{
+				Field: NewSchemaField().ID("A").Type(ValueTypeString).MustBuild(),
+				Links: NewLinks([]*Link{l}),
+				Type:  ValueTypeString,
+				Value: ValueTypeString.ValueFrom("vvv"),
+			},
+			Expected: &Field{
+				field: "A",
+				links: NewLinks([]*Link{l}),
+				v:     OptionalValueFrom(ValueTypeString.ValueFrom("vvv")),
 			},
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			var res *Field
-			if tc.Fails {
-				defer func() {
-					if r := recover(); r != nil {
-						assert.Nil(tt, res)
-					}
-				}()
-				res = NewField(tc.SF).Value(OptionalValueFrom(tc.Value)).Link(tc.Links).MustBuild()
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			build := func() *Field {
+				t.Helper()
+				return NewField(tt.Args.Field).
+					Value(NewOptionalValue(tt.Args.Type, tt.Args.Value)).
+					Link(tt.Args.Links).
+					MustBuild()
+			}
+
+			if tt.Err != "" {
+				assert.PanicsWithError(t, tt.Err, func() { _ = build() })
 			} else {
-				res = NewField(tc.SF).Value(OptionalValueFrom(tc.Value)).Link(tc.Links).MustBuild()
-				assert.Equal(tt, tc.Expected.Links, res.Links())
-				assert.Equal(tt, tc.Expected.PType, res.Type())
-				assert.Equal(tt, tc.Expected.Value, res.Value())
+				assert.Equal(t, tt.Expected, build())
 			}
 		})
 	}
@@ -168,65 +155,60 @@ func TestNewFieldUnsafe(t *testing.T) {
 }
 
 func TestFieldUnsafeBuilder_Build(t *testing.T) {
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
-	testCases := []struct {
+	l := NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
+
+	type args struct {
+		Links *Links
+		Value *Value
+		Field FieldID
+		Type  ValueType
+	}
+
+	tests := []struct {
 		Name     string
-		Links    *Links
-		Value    *Value
-		Type     ValueType
-		Field    id.PropertySchemaFieldID
-		Expected struct {
-			PType ValueType
-			Field id.PropertySchemaFieldID
-			Links *Links
-			Value *Value
-		}
+		Args     args
+		Expected *Field
 	}{
 		{
-			Name:  "success",
-			Links: NewLinks([]*Link{l}),
-			Value: ValueTypeString.ValueFrom("vvv"),
-			Type:  ValueTypeString,
-			Field: "a",
-			Expected: struct {
-				PType ValueType
-				Field id.PropertySchemaFieldID
-				Links *Links
-				Value *Value
-			}{
-				PType: ValueTypeString,
-				Field: "a",
+			Name: "success",
+			Args: args{
 				Links: NewLinks([]*Link{l}),
 				Value: ValueTypeString.ValueFrom("vvv"),
+				Type:  ValueTypeString,
+				Field: "a",
+			},
+			Expected: &Field{
+				field: "a",
+				links: NewLinks([]*Link{l}),
+				v:     OptionalValueFrom(ValueTypeString.ValueFrom("vvv")),
 			},
 		},
 		{
-			Name:  "nil value",
-			Links: NewLinks([]*Link{l}),
-			Value: nil,
-			Type:  ValueTypeString,
-			Field: "a",
-			Expected: struct {
-				PType ValueType
-				Field id.PropertySchemaFieldID
-				Links *Links
-				Value *Value
-			}{
-				PType: ValueTypeString,
-				Field: "a",
+			Name: "nil value",
+			Args: args{
 				Links: NewLinks([]*Link{l}),
 				Value: nil,
+				Type:  ValueTypeString,
+				Field: "a",
+			},
+			Expected: &Field{
+				field: "a",
+				links: NewLinks([]*Link{l}),
+				v:     NewOptionalValue(ValueTypeString, nil),
 			},
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := NewFieldUnsafe().ValueUnsafe(NewOptionalValue(tc.Type, tc.Value)).LinksUnsafe(tc.Links).FieldUnsafe(tc.Field).Build()
-			assert.Equal(tt, tc.Expected.Links, res.Links())
-			assert.Equal(tt, tc.Expected.PType, res.Type())
-			assert.Equal(tt, tc.Expected.Value, res.Value())
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			res := NewFieldUnsafe().
+				ValueUnsafe(NewOptionalValue(tt.Args.Type, tt.Args.Value)).
+				LinksUnsafe(tt.Args.Links).
+				FieldUnsafe(tt.Args.Field).
+				Build()
+			assert.Equal(t, tt.Expected, res)
 		})
 	}
 }

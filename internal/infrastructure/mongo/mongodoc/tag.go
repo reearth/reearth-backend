@@ -9,6 +9,14 @@ import (
 	"github.com/reearth/reearth-backend/pkg/tag"
 )
 
+type TagDocument struct {
+	ID    string
+	Label string
+	Scene string
+	Item  *TagItemDocument
+	Group *TagGroupDocument
+}
+
 type TagItemDocument struct {
 	Parent                *string
 	LinkedDatasetFieldID  *string
@@ -18,14 +26,6 @@ type TagItemDocument struct {
 
 type TagGroupDocument struct {
 	Tags []string
-}
-
-type TagDocument struct {
-	ID    string
-	Label string
-	Scene string
-	Item  *TagItemDocument
-	Group *TagGroupDocument
 }
 
 type TagConsumer struct {
@@ -68,7 +68,7 @@ func NewTag(t tag.Tag) (*TagDocument, string) {
 		ids := tags.Tags()
 
 		group = &TagGroupDocument{
-			Tags: id.TagIDToKeys(ids),
+			Tags: id.TagIDsToStrings(ids),
 		}
 	}
 
