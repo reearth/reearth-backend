@@ -3,7 +3,6 @@ package tag
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -11,20 +10,21 @@ var _ Tag = &Group{}
 
 func TestGroupBuilder_NewID(t *testing.T) {
 	b := NewGroup().NewID()
-	assert.NotEqual(t, id.TagID{}, b.g.id)
+	assert.NotEqual(t, ID{}, b.g.id)
 }
 
 func TestGroupBuilder_Build(t *testing.T) {
-	tid := id.NewTagID()
-	sid := id.NewSceneID()
-	tags := []id.TagID{
-		id.NewTagID(),
-		id.NewTagID(),
+	tid := NewID()
+	sid := NewSceneID()
+	tags := []ID{
+		NewID(),
+		NewID(),
 	}
-	testCases := []struct {
+
+	tests := []struct {
 		Name, Label string
-		Id          id.TagID
-		Scene       id.SceneID
+		Id          ID
+		Scene       SceneID
 		Tags        *List
 		Expected    struct {
 			Group Group
@@ -34,18 +34,18 @@ func TestGroupBuilder_Build(t *testing.T) {
 		{
 			Name:  "fail: nil tag ID",
 			Label: "xxx",
-			Scene: id.NewSceneID(),
+			Scene: NewSceneID(),
 			Expected: struct {
 				Group Group
 				Error error
 			}{
-				Error: id.ErrInvalidID,
+				Error: ErrInvalidID,
 			},
 		},
 		{
 			Name:  "fail: empty label",
-			Id:    id.NewTagID(),
-			Scene: id.NewSceneID(),
+			Id:    NewID(),
+			Scene: NewSceneID(),
 			Expected: struct {
 				Group Group
 				Error error
@@ -56,7 +56,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 		{
 			Name:  "fail: nil scene ID",
 			Label: "xxx",
-			Id:    id.NewTagID(),
+			Id:    NewID(),
 			Expected: struct {
 				Group Group
 				Error error
@@ -89,10 +89,11 @@ func TestGroupBuilder_Build(t *testing.T) {
 			},
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res, err := NewGroup().
 				ID(tc.Id).
 				Scene(tc.Scene).
@@ -100,12 +101,12 @@ func TestGroupBuilder_Build(t *testing.T) {
 				Tags(tc.Tags).
 				Build()
 			if tc.Expected.Error == nil {
-				assert.Equal(tt, tc.Expected.Group.ID(), res.ID())
-				assert.Equal(tt, tc.Expected.Group.Scene(), res.Scene())
-				assert.Equal(tt, tc.Expected.Group.Label(), res.Label())
-				assert.Equal(tt, tc.Expected.Group.Tags(), res.Tags())
+				assert.Equal(t, tc.Expected.Group.ID(), res.ID())
+				assert.Equal(t, tc.Expected.Group.Scene(), res.Scene())
+				assert.Equal(t, tc.Expected.Group.Label(), res.Label())
+				assert.Equal(t, tc.Expected.Group.Tags(), res.Tags())
 			} else {
-				assert.Equal(tt, tc.Expected.Error, err)
+				assert.Equal(t, tc.Expected.Error, err)
 			}
 		})
 	}

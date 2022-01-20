@@ -3,19 +3,18 @@ package property
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 var (
 	sf = NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
-	sg = NewSchemaGroup().ID("aa").Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Fields([]*SchemaField{sf}).MustBuild()
-	p  = New().NewID().Scene(id.NewSceneID()).Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Items([]Item{InitItemFrom(sg)}).MustBuild()
-	p2 = New().NewID().Scene(id.NewSceneID()).Schema(id.MustPropertySchemaID("xx~1.0.0/aa")).Items([]Item{InitItemFrom(sg)}).MustBuild()
+	sg = NewSchemaGroup().ID("aa").Schema(MustSchemaID("xx~1.0.0/aa")).Fields([]*SchemaField{sf}).MustBuild()
+	p  = New().NewID().Scene(NewSceneID()).Schema(MustSchemaID("xx~1.0.0/aa")).Items([]Item{InitItemFrom(sg)}).MustBuild()
+	p2 = New().NewID().Scene(NewSceneID()).Schema(MustSchemaID("xx~1.0.0/aa")).Items([]Item{InitItemFrom(sg)}).MustBuild()
 )
 
 func TestMap_Add(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name        string
 		Input       *Property
 		M, Expected Map
@@ -31,13 +30,13 @@ func TestMap_Add(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			tc.M.Add(tc.Input)
-			assert.Equal(tt, tc.Expected, tc.M)
-			assert.Equal(tt, tc.Expected.List(), tc.M.List())
+			assert.Equal(t, tc.Expected, tc.M)
+			assert.Equal(t, tc.Expected.List(), tc.M.List())
 		})
 	}
 }
@@ -49,7 +48,7 @@ func TestMapFrom(t *testing.T) {
 }
 
 func TestMap_Clone(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name        string
 		M, Expected Map
 	}{
@@ -64,18 +63,18 @@ func TestMap_Clone(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.M.Clone()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestMap_Merge(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name             string
 		M1, M2, Expected Map
 	}{
@@ -91,12 +90,12 @@ func TestMap_Merge(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.M1.Merge(tc.M2)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }

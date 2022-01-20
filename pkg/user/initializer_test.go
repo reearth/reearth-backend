@@ -1,20 +1,19 @@
 package user
 
 import (
-	"errors"
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestInit(t *testing.T) {
-	uid := id.NewUserID()
-	tid := id.NewTeamID()
-	testCases := []struct {
+	uid := NewID()
+	tid := NewTeamID()
+
+	tests := []struct {
 		Name, Email, Username, Sub string
-		UID                        *id.UserID
-		TID                        *id.TeamID
+		UID                        *ID
+		TID                        *TeamID
 		ExpectedUser               *User
 		ExpectedTeam               *Team
 		Err                        error
@@ -36,7 +35,7 @@ func TestInit(t *testing.T) {
 			ExpectedTeam: NewTeam().
 				ID(tid).
 				Name("nnn").
-				Members(map[id.UserID]Role{uid: RoleOwner}).
+				Members(map[ID]Role{uid: RoleOwner}).
 				Personal(true).
 				MustBuild(),
 			Err: nil,
@@ -58,7 +57,7 @@ func TestInit(t *testing.T) {
 			ExpectedTeam: NewTeam().
 				NewID().
 				Name("nnn").
-				Members(map[id.UserID]Role{uid: RoleOwner}).
+				Members(map[ID]Role{uid: RoleOwner}).
 				Personal(true).
 				MustBuild(),
 			Err: nil,
@@ -80,32 +79,33 @@ func TestInit(t *testing.T) {
 			ExpectedTeam: NewTeam().
 				ID(tid).
 				Name("nnn").
-				Members(map[id.UserID]Role{uid: RoleOwner}).
+				Members(map[ID]Role{uid: RoleOwner}).
 				Personal(true).
 				MustBuild(),
 			Err: nil,
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			u, t, err := Init(InitParams{
-				Email:    tc.Email,
-				Name:     tc.Username,
-				Auth0Sub: tc.Sub,
-				UserID:   tc.UID,
-				TeamID:   tc.TID,
-			})
-			if err == nil {
-				assert.Equal(tt, tc.ExpectedUser.Email(), u.Email())
-				assert.Equal(tt, tc.ExpectedUser.Name(), u.Name())
-				assert.Equal(tt, tc.ExpectedUser.Auths(), u.Auths())
 
-				assert.Equal(tt, tc.ExpectedTeam.Name(), t.Name())
-				assert.Equal(tt, tc.ExpectedTeam.IsPersonal(), t.IsPersonal())
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			user, team, err := Init(InitParams{
+				Email:    tt.Email,
+				Name:     tt.Username,
+				Auth0Sub: tt.Sub,
+				UserID:   tt.UID,
+				TeamID:   tt.TID,
+			})
+			if tt.Err == nil {
+				assert.Equal(t, tt.ExpectedUser.Email(), user.Email())
+				assert.Equal(t, tt.ExpectedUser.Name(), user.Name())
+				assert.Equal(t, tt.ExpectedUser.Auths(), user.Auths())
+
+				assert.Equal(t, tt.ExpectedTeam.Name(), team.Name())
+				assert.Equal(t, tt.ExpectedTeam.IsPersonal(), team.IsPersonal())
 			} else {
-				assert.True(tt, errors.As(tc.Err, &err))
+				assert.Equal(t, tt.Err, err)
 			}
 		})
 	}

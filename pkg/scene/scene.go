@@ -3,28 +3,26 @@ package scene
 import (
 	"errors"
 	"time"
-
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 var ErrSceneIsLocked error = errors.New("scene is locked")
 
 type Scene struct {
-	id                id.SceneID
-	project           id.ProjectID
-	team              id.TeamID
-	rootLayer         id.LayerID
-	widgetSystem      *WidgetSystem
+	id                ID
+	project           ProjectID
+	team              TeamID
+	rootLayer         LayerID
+	widgets           *Widgets
 	widgetAlignSystem *WidgetAlignSystem
-	pluginSystem      *PluginSystem
+	plugins           *Plugins
 	updatedAt         time.Time
-	property          id.PropertyID
+	property          PropertyID
 	clusters          *ClusterList
 }
 
-func (s *Scene) ID() id.SceneID {
+func (s *Scene) ID() ID {
 	if s == nil {
-		return id.SceneID{}
+		return ID{}
 	}
 	return s.id
 }
@@ -33,42 +31,42 @@ func (s *Scene) CreatedAt() time.Time {
 	if s == nil {
 		return time.Time{}
 	}
-	return id.ID(s.id).Timestamp()
+	return createdAt(s.id)
 }
 
-func (s *Scene) Project() id.ProjectID {
+func (s *Scene) Project() ProjectID {
 	if s == nil {
-		return id.ProjectID{}
+		return ProjectID{}
 	}
 	return s.project
 }
 
-func (s *Scene) Team() id.TeamID {
+func (s *Scene) Team() TeamID {
 	if s == nil {
-		return id.TeamID{}
+		return TeamID{}
 	}
 	return s.team
 }
 
-func (s *Scene) Property() id.PropertyID {
+func (s *Scene) Property() PropertyID {
 	if s == nil {
-		return id.PropertyID{}
+		return PropertyID{}
 	}
 	return s.property
 }
 
-func (s *Scene) RootLayer() id.LayerID {
+func (s *Scene) RootLayer() LayerID {
 	if s == nil {
-		return id.LayerID{}
+		return LayerID{}
 	}
 	return s.rootLayer
 }
 
-func (s *Scene) WidgetSystem() *WidgetSystem {
+func (s *Scene) Widgets() *Widgets {
 	if s == nil {
 		return nil
 	}
-	return s.widgetSystem
+	return s.widgets
 }
 
 func (s *Scene) WidgetAlignSystem() *WidgetAlignSystem {
@@ -78,11 +76,11 @@ func (s *Scene) WidgetAlignSystem() *WidgetAlignSystem {
 	return s.widgetAlignSystem
 }
 
-func (s *Scene) PluginSystem() *PluginSystem {
+func (s *Scene) Plugins() *Plugins {
 	if s == nil {
 		return nil
 	}
-	return s.pluginSystem
+	return s.plugins
 }
 
 func (s *Scene) UpdatedAt() time.Time {
@@ -99,7 +97,7 @@ func (s *Scene) SetUpdatedAt(updatedAt time.Time) {
 	s.updatedAt = updatedAt
 }
 
-func (s *Scene) IsTeamIncluded(teams []id.TeamID) bool {
+func (s *Scene) IsTeamIncluded(teams []TeamID) bool {
 	if s == nil || teams == nil {
 		return false
 	}
@@ -111,13 +109,13 @@ func (s *Scene) IsTeamIncluded(teams []id.TeamID) bool {
 	return false
 }
 
-func (s *Scene) Properties() []id.PropertyID {
+func (s *Scene) Properties() []PropertyID {
 	if s == nil {
 		return nil
 	}
-	ids := []id.PropertyID{s.property}
-	ids = append(ids, s.pluginSystem.Properties()...)
-	ids = append(ids, s.widgetSystem.Properties()...)
+	ids := []PropertyID{s.property}
+	ids = append(ids, s.plugins.Properties()...)
+	ids = append(ids, s.widgets.Properties()...)
 	ids = append(ids, s.clusters.Properties()...)
 	return ids
 }

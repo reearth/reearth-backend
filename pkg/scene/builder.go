@@ -2,8 +2,6 @@ package scene
 
 import (
 	"time"
-
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type Builder struct {
@@ -14,25 +12,24 @@ func New() *Builder {
 	return &Builder{scene: &Scene{}}
 }
 
-// Build _
 func (b *Builder) Build() (*Scene, error) {
-	if b.scene.id.ID().IsNil() {
-		return nil, id.ErrInvalidID
+	if b.scene.id.IsNil() {
+		return nil, ErrInvalidID
 	}
 	if b.scene.team.ID().IsNil() {
-		return nil, id.ErrInvalidID
+		return nil, ErrInvalidID
 	}
 	if b.scene.rootLayer.ID().IsNil() {
-		return nil, id.ErrInvalidID
+		return nil, ErrInvalidID
 	}
-	if b.scene.widgetSystem == nil {
-		b.scene.widgetSystem = NewWidgetSystem(nil)
+	if b.scene.widgets == nil {
+		b.scene.widgets = NewWidgets(nil)
 	}
 	if b.scene.widgetAlignSystem == nil {
 		b.scene.widgetAlignSystem = NewWidgetAlignSystem()
 	}
-	if b.scene.pluginSystem == nil {
-		b.scene.pluginSystem = NewPluginSystem(nil)
+	if b.scene.plugins == nil {
+		b.scene.plugins = NewPlugins(nil)
 	}
 	if b.scene.updatedAt.IsZero() {
 		b.scene.updatedAt = b.scene.CreatedAt()
@@ -48,22 +45,22 @@ func (b *Builder) MustBuild() *Scene {
 	return r
 }
 
-func (b *Builder) ID(id id.SceneID) *Builder {
+func (b *Builder) ID(id ID) *Builder {
 	b.scene.id = id
 	return b
 }
 
 func (b *Builder) NewID() *Builder {
-	b.scene.id = id.SceneID(id.New())
+	b.scene.id = NewID()
 	return b
 }
 
-func (b *Builder) Project(prj id.ProjectID) *Builder {
+func (b *Builder) Project(prj ProjectID) *Builder {
 	b.scene.project = prj
 	return b
 }
 
-func (b *Builder) Team(team id.TeamID) *Builder {
+func (b *Builder) Team(team TeamID) *Builder {
 	b.scene.team = team
 	return b
 }
@@ -73,9 +70,8 @@ func (b *Builder) UpdatedAt(updatedAt time.Time) *Builder {
 	return b
 }
 
-func (b *Builder) WidgetSystem(widgetSystem *WidgetSystem) *Builder {
-	widgetSystem2 := *widgetSystem
-	b.scene.widgetSystem = &widgetSystem2
+func (b *Builder) Widgets(widgets *Widgets) *Builder {
+	b.scene.widgets = widgets
 	return b
 }
 
@@ -84,18 +80,17 @@ func (b *Builder) WidgetAlignSystem(widgetAlignSystem *WidgetAlignSystem) *Build
 	return b
 }
 
-func (b *Builder) RootLayer(rootLayer id.LayerID) *Builder {
+func (b *Builder) RootLayer(rootLayer LayerID) *Builder {
 	b.scene.rootLayer = rootLayer
 	return b
 }
 
-func (b *Builder) PluginSystem(pluginSystem *PluginSystem) *Builder {
-	pluginSystem2 := *pluginSystem
-	b.scene.pluginSystem = &pluginSystem2
+func (b *Builder) Plugins(plugins *Plugins) *Builder {
+	b.scene.plugins = plugins
 	return b
 }
 
-func (b *Builder) Property(p id.PropertyID) *Builder {
+func (b *Builder) Property(p PropertyID) *Builder {
 	b.scene.property = p
 	return b
 }

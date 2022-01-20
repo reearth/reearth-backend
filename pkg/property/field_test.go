@@ -4,19 +4,18 @@ import (
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/dataset"
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestField_ActualValue(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	dsid := id.NewDatasetID()
-	dssid := id.NewDatasetSchemaID()
-	dssfid := id.NewDatasetSchemaFieldID()
+	dsid := NewDatasetID()
+	dssid := NewDatasetSchemaID()
+	dssfid := NewDatasetFieldID()
 	l := NewLink(dsid, dssid, dssfid)
 	ls := NewLinks([]*Link{l})
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		Field    *Field
 		DS       *dataset.Dataset
@@ -45,33 +44,33 @@ func TestField_ActualValue(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.Field.ActualValue(tc.DS)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestField_CollectDatasets(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	dsid := id.NewDatasetID()
-	dssid := id.NewDatasetSchemaID()
-	dssfid := id.NewDatasetSchemaFieldID()
+	dsid := NewDatasetID()
+	dssid := NewDatasetSchemaID()
+	dssfid := NewDatasetFieldID()
 	l := NewLink(dsid, dssid, dssfid)
 	ls := NewLinks([]*Link{l})
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		Field    *Field
-		Expected []id.DatasetID
+		Expected []DatasetID
 	}{
 		{
 			Name:     "list of one datasets",
 			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(ls).MustBuild(),
-			Expected: []id.DatasetID{dsid},
+			Expected: []DatasetID{dsid},
 		},
 		{
 			Name:     "nil field",
@@ -79,19 +78,19 @@ func TestField_CollectDatasets(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.Field.CollectDatasets()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestField_Clone(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	l := NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	l := NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
 	b := NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(ls).MustBuild()
 	r := b.Clone()
@@ -99,12 +98,12 @@ func TestField_Clone(t *testing.T) {
 }
 
 func TestField(t *testing.T) {
-	did := id.NewDatasetID()
-	dsid := id.NewDatasetSchemaID()
+	did := NewDatasetID()
+	dsid := NewDatasetSchemaID()
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
 	b := NewField(p).MustBuild()
 	assert.True(t, b.IsEmpty())
-	l := NewLink(did, dsid, id.NewDatasetSchemaFieldID())
+	l := NewLink(did, dsid, NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
 	b.Link(ls)
 	assert.True(t, b.IsDatasetLinked(dsid, did))

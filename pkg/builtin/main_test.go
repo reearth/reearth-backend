@@ -3,13 +3,14 @@ package builtin
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/plugin"
+	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetPropertySchemaByVisualizer(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		name        string
 		visualizer  visualizer.Visualizer
 		expectedNil bool
@@ -25,15 +26,16 @@ func TestGetPropertySchemaByVisualizer(t *testing.T) {
 			expectedNil: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			res := GetPropertySchemaByVisualizer(tc.visualizer)
 			if tc.expectedNil {
-				assert.Nil(tt, res)
+				assert.Nil(t, res)
 			} else {
-				assert.NotNil(tt, res)
+				assert.NotNil(t, res)
 			}
 		})
 	}
@@ -43,40 +45,41 @@ func TestPlugin(t *testing.T) {
 	assert.NotNil(t, Plugin())
 }
 func TestGetPlugin(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		name        string
-		pluginID    id.PluginID
+		pluginID    plugin.ID
 		expectedNil bool
 	}{
 		{
 			name:        "Official Plugin",
-			pluginID:    id.OfficialPluginID,
+			pluginID:    plugin.OfficialPluginID,
 			expectedNil: false,
 		},
 		{
 			name:        "foo plugin",
-			pluginID:    id.MustPluginID("foo~1.1.1"),
+			pluginID:    plugin.MustID("foo~1.1.1"),
 			expectedNil: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			res := GetPlugin(tc.pluginID)
 			if tc.expectedNil {
-				assert.Nil(tt, res)
+				assert.Nil(t, res)
 			} else {
-				assert.NotNil(tt, res)
+				assert.NotNil(t, res)
 			}
 		})
 	}
 }
 
 func TestGetPropertySchema(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		name        string
-		psId        id.PropertySchemaID
+		psId        property.SchemaID
 		expectedNil bool
 	}{
 		{
@@ -86,19 +89,20 @@ func TestGetPropertySchema(t *testing.T) {
 		},
 		{
 			name:        "unknown propertySchemaId",
-			psId:        id.MustPropertySchemaID("xxx~1.1.1/aa"),
+			psId:        property.MustSchemaID("xxx~1.1.1/aa"),
 			expectedNil: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			res := GetPropertySchema(tc.psId)
 			if tc.expectedNil {
-				assert.Nil(tt, res)
+				assert.Nil(t, res)
 			} else {
-				assert.NotNil(tt, res)
+				assert.NotNil(t, res)
 			}
 		})
 	}

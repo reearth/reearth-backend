@@ -3,15 +3,15 @@ package builder
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/layer"
 	"github.com/reearth/reearth-backend/pkg/layer/merging"
 	"github.com/reearth/reearth-backend/pkg/property"
+	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestEncoder_Result(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		E        *encoder
 		Expected []*layerJSON
@@ -47,18 +47,19 @@ func TestEncoder_Result(t *testing.T) {
 			},
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.E.Result()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestEncoder_Encode(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		E        *encoder
 		SL       merging.SealedLayer
@@ -77,29 +78,30 @@ func TestEncoder_Encode(t *testing.T) {
 			Expected: nil,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.E.Encode(tc.SL)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestEncoder_Layers(t *testing.T) {
-	lid := id.MustLayerID(id.New().String())
-	sid := id.MustSceneID(id.New().String())
-	pid := id.MustPropertyID(id.New().String())
-	ex := id.PluginExtensionID("marker")
-	iid := id.MustPropertyItemID(id.New().String())
+	lid := layer.NewID()
+	sid := scene.NewID()
+	pid := property.NewID()
+	ex := layer.PluginExtensionID("marker")
+	iid := property.NewItemID()
 	v1 := property.LatLng{
 		Lat: 4.4,
 		Lng: 53.4,
 	}
 
 	f1 := property.SealedField{
-		ID: id.PropertySchemaFieldID("location"),
+		ID: property.FieldID("location"),
 		Val: property.NewValueAndDatasetValue(
 			property.ValueTypeLatLng,
 			nil,
@@ -111,7 +113,7 @@ func TestEncoder_Layers(t *testing.T) {
 	item1 := property.SealedItem{
 		Original:      &iid,
 		Parent:        nil,
-		SchemaGroup:   id.PropertySchemaGroupID("default"),
+		SchemaGroup:   property.SchemaGroupID("default"),
 		LinkedDataset: nil,
 		Fields:        fl1,
 		Groups:        nil,
@@ -132,13 +134,14 @@ func TestEncoder_Layers(t *testing.T) {
 				Scene:       sid,
 				Property:    nil,
 				Infobox:     nil,
-				PluginID:    &id.OfficialPluginID,
+				PluginID:    &layer.OfficialPluginID,
 				ExtensionID: &ex,
 			},
 			Property: &sp,
 			Infobox:  nil,
 		}}
-	testCases := []struct {
+
+	tests := []struct {
 		Name     string
 		E        *encoder
 		SL       *merging.SealedLayerItem
@@ -156,7 +159,7 @@ func TestEncoder_Layers(t *testing.T) {
 			SL:   sealed,
 			Expected: &layerJSON{
 				ID:          lid.String(),
-				PluginID:    id.OfficialPluginID.StringRef(),
+				PluginID:    layer.OfficialPluginID.StringRef(),
 				ExtensionID: ex.StringRef(),
 				Name:        "test",
 				Property:    map[string]interface{}{"default": map[string]interface{}{"location": property.LatLng{Lat: 4.4, Lng: 53.4}}},
@@ -164,20 +167,21 @@ func TestEncoder_Layers(t *testing.T) {
 			},
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.E.layer(tc.SL)
 			if res == nil {
-				assert.Equal(tt, tc.Expected, res)
+				assert.Equal(t, tc.Expected, res)
 			} else {
-				assert.Equal(tt, tc.Expected.Property, res.Property)
-				assert.Equal(tt, tc.Expected.Infobox, res.Infobox)
-				assert.Equal(tt, *tc.Expected.ExtensionID, *res.ExtensionID)
-				assert.Equal(tt, tc.Expected.ID, res.ID)
-				assert.Equal(tt, tc.Expected.Name, res.Name)
-				assert.Equal(tt, *tc.Expected.PluginID, *res.PluginID)
+				assert.Equal(t, tc.Expected.Property, res.Property)
+				assert.Equal(t, tc.Expected.Infobox, res.Infobox)
+				assert.Equal(t, *tc.Expected.ExtensionID, *res.ExtensionID)
+				assert.Equal(t, tc.Expected.ID, res.ID)
+				assert.Equal(t, tc.Expected.Name, res.Name)
+				assert.Equal(t, *tc.Expected.PluginID, *res.PluginID)
 			}
 		})
 	}

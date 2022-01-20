@@ -3,19 +3,19 @@ package scene
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestCluster_ID(t *testing.T) {
-	cid := id.NewClusterID()
+	cid := NewClusterID()
 	clusterA := &Cluster{
 		id: cid,
 	}
+
 	tests := []struct {
 		name    string
 		cluster *Cluster
-		want    id.ClusterID
+		want    ClusterID
 	}{
 		{
 			name:    "should return cluster id",
@@ -25,22 +25,25 @@ func TestCluster_ID(t *testing.T) {
 		{
 			name:    "should return empty if cluster is nil",
 			cluster: nil,
-			want:    id.ClusterID{},
+			want:    ClusterID{},
 		},
 	}
+
 	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			got := tc.cluster.ID()
-			assert.Equal(tt, tc.want, got)
+			assert.Equal(t, tc.want, got)
 		})
 	}
 }
+
 func TestCluster_Name(t *testing.T) {
 	clusterA := &Cluster{
 		name: "clusterA",
 	}
+
 	tests := []struct {
 		name    string
 		cluster *Cluster
@@ -57,24 +60,26 @@ func TestCluster_Name(t *testing.T) {
 			want:    "",
 		},
 	}
+
 	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			got := tc.cluster.Name()
-			assert.Equal(tt, tc.want, got)
+			assert.Equal(t, tc.want, got)
 		})
 	}
 }
 func TestCluster_Property(t *testing.T) {
-	propertyId := id.NewPropertyID()
+	propertyId := NewPropertyID()
 	clusterA := &Cluster{
 		property: propertyId,
 	}
+
 	tests := []struct {
 		name    string
 		cluster *Cluster
-		want    id.PropertyID
+		want    PropertyID
 	}{
 		{
 			name:    "should return cluster property",
@@ -84,27 +89,29 @@ func TestCluster_Property(t *testing.T) {
 		{
 			name:    "should return empty cluster property",
 			cluster: nil,
-			want:    id.PropertyID{},
+			want:    PropertyID{},
 		},
 	}
+
 	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			got := tc.cluster.Property()
-			assert.Equal(tt, tc.want, got)
+			assert.Equal(t, tc.want, got)
 		})
 	}
 }
 
 func TestNew(t *testing.T) {
-	propertyId := id.NewPropertyID()
-	clusterId := id.NewClusterID()
+	propertyId := NewPropertyID()
+	clusterId := NewClusterID()
 	type args struct {
-		cid  id.ClusterID
+		cid  ClusterID
 		name string
-		pid  id.PropertyID
+		pid  PropertyID
 	}
+
 	tests := []struct {
 		name    string
 		args    args
@@ -128,7 +135,7 @@ func TestNew(t *testing.T) {
 		{
 			name: "should return invalid id error",
 			args: args{
-				cid:  id.ClusterID{},
+				cid:  ClusterID{},
 				name: "xxx",
 				pid:  propertyId,
 			},
@@ -136,24 +143,26 @@ func TestNew(t *testing.T) {
 			wantErr: true,
 		},
 	}
+
 	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			got, err := NewCluster(tc.args.cid, tc.args.name, tc.args.pid)
-			assert.Equal(tt, tc.wantErr, err != nil)
-			assert.Equal(tt, tc.want, got)
+			assert.Equal(t, tc.wantErr, err != nil)
+			assert.Equal(t, tc.want, got)
 		})
 	}
 }
 
 func TestCluster_Rename(t *testing.T) {
-	propertyId := id.NewPropertyID()
-	clusterId := id.NewClusterID()
+	propertyId := NewPropertyID()
+	clusterId := NewClusterID()
 
 	type args struct {
 		name string
 	}
+
 	tests := []struct {
 		name    string
 		cluster *Cluster
@@ -184,24 +193,26 @@ func TestCluster_Rename(t *testing.T) {
 			want: nil,
 		},
 	}
+
 	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			tc.cluster.Rename(tc.args.name)
-			assert.Equal(tt, tc.want, tc.cluster)
+			assert.Equal(t, tc.want, tc.cluster)
 		})
 	}
 }
 
 func TestCluster_UpdateProperty(t *testing.T) {
-	propertyId := id.NewPropertyID()
-	propertyId2 := id.NewPropertyID()
-	clusterId := id.NewClusterID()
+	propertyId := NewPropertyID()
+	propertyId2 := NewPropertyID()
+	clusterId := NewClusterID()
 
 	type args struct {
-		property id.PropertyID
+		property PropertyID
 	}
+
 	tests := []struct {
 		name    string
 		cluster *Cluster
@@ -235,10 +246,10 @@ func TestCluster_UpdateProperty(t *testing.T) {
 
 	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			tc.cluster.UpdateProperty(tc.args.property)
-			assert.Equal(tt, tc.want, tc.cluster)
+			assert.Equal(t, tc.want, tc.cluster)
 		})
 	}
 }

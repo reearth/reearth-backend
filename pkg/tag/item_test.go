@@ -3,7 +3,6 @@ package tag
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -11,22 +10,23 @@ var _ Tag = &Item{}
 
 func TestItemBuilder_NewID(t *testing.T) {
 	b := NewItem().NewID()
-	assert.NotEqual(t, id.TagID{}, b.i.id)
+	assert.NotEqual(t, ID{}, b.i.id)
 }
 
 func TestItemBuilder_Build(t *testing.T) {
-	tid := id.NewTagID()
-	sid := id.NewSceneID()
-	dfid := id.NewDatasetSchemaFieldID()
-	did := id.NewDatasetID()
-	dsid := id.NewDatasetSchemaID()
-	testCases := []struct {
+	tid := NewID()
+	sid := NewSceneID()
+	dfid := NewDatasetFieldID()
+	did := NewDatasetID()
+	dsid := NewDatasetSchemaID()
+
+	tests := []struct {
 		Name, Label           string
-		Id                    id.TagID
-		Scene                 id.SceneID
-		LinkedDatasetFieldID  *id.DatasetSchemaFieldID
-		LinkedDatasetID       *id.DatasetID
-		LinkedDatasetSchemaID *id.DatasetSchemaID
+		Id                    ID
+		Scene                 SceneID
+		LinkedDatasetFieldID  *DatasetFieldID
+		LinkedDatasetID       *DatasetID
+		LinkedDatasetSchemaID *DatasetSchemaID
 		Expected              struct {
 			Item  Item
 			Error error
@@ -35,18 +35,18 @@ func TestItemBuilder_Build(t *testing.T) {
 		{
 			Name:  "fail: nil tag ID",
 			Label: "xxx",
-			Scene: id.NewSceneID(),
+			Scene: NewSceneID(),
 			Expected: struct {
 				Item  Item
 				Error error
 			}{
-				Error: id.ErrInvalidID,
+				Error: ErrInvalidID,
 			},
 		},
 		{
 			Name:  "fail: empty label",
-			Id:    id.NewTagID(),
-			Scene: id.NewSceneID(),
+			Id:    NewID(),
+			Scene: NewSceneID(),
 			Expected: struct {
 				Item  Item
 				Error error
@@ -57,7 +57,7 @@ func TestItemBuilder_Build(t *testing.T) {
 		{
 			Name:  "fail: nil scene ID",
 			Label: "xxx",
-			Id:    id.NewTagID(),
+			Id:    NewID(),
 			Expected: struct {
 				Item  Item
 				Error error
@@ -90,10 +90,11 @@ func TestItemBuilder_Build(t *testing.T) {
 			},
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res, err := NewItem().
 				ID(tc.Id).
 				Scene(tc.Scene).
@@ -103,14 +104,14 @@ func TestItemBuilder_Build(t *testing.T) {
 				LinkedDatasetFieldID(tc.LinkedDatasetFieldID).
 				Build()
 			if tc.Expected.Error == nil {
-				assert.Equal(tt, tc.Expected.Item.ID(), res.ID())
-				assert.Equal(tt, tc.Expected.Item.Scene(), res.Scene())
-				assert.Equal(tt, tc.Expected.Item.Label(), res.Label())
-				assert.Equal(tt, tc.Expected.Item.LinkedDatasetFieldID(), res.LinkedDatasetFieldID())
-				assert.Equal(tt, tc.Expected.Item.LinkedDatasetSchemaID(), res.LinkedDatasetSchemaID())
-				assert.Equal(tt, tc.Expected.Item.LinkedDatasetID(), res.LinkedDatasetID())
+				assert.Equal(t, tc.Expected.Item.ID(), res.ID())
+				assert.Equal(t, tc.Expected.Item.Scene(), res.Scene())
+				assert.Equal(t, tc.Expected.Item.Label(), res.Label())
+				assert.Equal(t, tc.Expected.Item.LinkedDatasetFieldID(), res.LinkedDatasetFieldID())
+				assert.Equal(t, tc.Expected.Item.LinkedDatasetSchemaID(), res.LinkedDatasetSchemaID())
+				assert.Equal(t, tc.Expected.Item.LinkedDatasetID(), res.LinkedDatasetID())
 			} else {
-				assert.Equal(tt, tc.Expected.Error, err)
+				assert.Equal(t, tc.Expected.Error, err)
 			}
 		})
 	}
