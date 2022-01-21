@@ -34,7 +34,7 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 	return assets, nil
 }
 
-func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, sortType *gqlmodel.AssetSortType, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
+func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *string, sortType *gqlmodel.AssetSortType, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
 
 	findOptions := options.Find()
@@ -47,20 +47,21 @@ func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, sortType *gq
 			sortKey = "name"
 		case gqlmodel.AssetSortTypeSize:
 			sortKey = "size"
+		default:
+			sortKey = "id"
 		}
 	}
 
-	if first != nil {
-		findOptions.Sort = bson.D{
-			{Key: sortKey, Value: 1},
-		}
-	} else if last != nil {
-		findOptions.Sort = bson.D{
-			{Key: sortKey, Value: -1},
-		}
+	sortDir := 1
+	if last != nil {
+		sortDir = -1
 	}
 
-	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), findOptions, p, getOperator(ctx))
+	findOptions.Sort = bson.D{
+		{Key: sortKey, Value: sortDir},
+	}
+
+	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, findOptions, p, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}

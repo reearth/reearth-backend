@@ -67,7 +67,7 @@ func (r *Asset) Remove(ctx context.Context, id id.AssetID) error {
 	return nil
 }
 
-func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, keyword *string, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 

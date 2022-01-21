@@ -2,8 +2,10 @@ package mongo
 
 import (
 	"context"
+	"fmt"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
@@ -53,9 +55,17 @@ func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
 	return r.client.RemoveOne(ctx, id.String())
 }
 
-func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, keyword *string, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+	filters := []bson.D{
+		{{Key: "team", Value: id.String()}},
+	}
+	if keyword != nil {
+		filters = append(filters, bson.D{{Key: "name", Value: bson.D{
+			{Key: "$regex", Value: primitive.Regex{Pattern: fmt.Sprintf(".*%s.*", *keyword), Options: "i"}},
+		}}})
+	}
 	filter := bson.D{
-		{Key: "team", Value: id.String()},
+		{Key: "$and", Value: filters},
 	}
 	return r.paginate(ctx, filter, findOptions, pagination)
 }

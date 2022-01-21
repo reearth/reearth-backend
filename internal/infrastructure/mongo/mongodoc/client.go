@@ -178,37 +178,41 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, f
 		return nil, fmt.Errorf("failed to count documents: %v", err.Error())
 	}
 
+	if findOptions == nil {
+		findOptions = options.Find()
+	}
+
+	paginate := false
 	var limit int64
+	var cur *usecase.Cursor
+	var op string
 
-	if first := p.First; first != nil {
+	if first, after := p.First, p.After; first != nil && after != nil {
+		paginate = true
 		limit = int64(*first)
-		if after := p.After; after != nil {
-			filter = appendE(filter, bson.E{Key: key, Value: bson.D{
-				{Key: "$gt", Value: *after},
-			}})
-		}
-	} else if last := p.Last; last != nil {
+		op = "$gt"
+		cur = after
+	}
+	if last, before := p.Last, p.Before; last != nil && before != nil {
+		paginate = true
 		limit = int64(*last)
-		if before := p.Before; before != nil {
-			filter = appendE(filter, bson.E{Key: key, Value: bson.D{
-				{Key: "$lt", Value: *before},
-			}})
-		}
+		op = "$lt"
+		cur = before
+	}
+	if !paginate {
+		return nil, fmt.Errorf("missing pagination paramiters: %v", p)
 	}
 
-	var findOptions2 *options.FindOptions
-	if findOptions != nil {
-		findOptions2 = findOptions
-	} else {
-		findOptions2 = options.Find()
-	}
+	filter = appendE(filter, bson.E{Key: key, Value: bson.D{
+		{Key: op, Value: *cur},
+	}})
 
 	// 更に読める要素があるのか確かめるために一つ多めに読み出す
 	// Read one more element so that we can see whether there's a further one
 	limit++
-	findOptions2.Limit = &limit
+	findOptions.Limit = &limit
 
-	cursor, err := coll.Find(ctx, filter, findOptions2)
+	cursor, err := coll.Find(ctx, filter, findOptions)
 	if err != nil {
 		return nil, fmt.Errorf("failed to find: %v", err.Error())
 	}

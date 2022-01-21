@@ -1568,6 +1568,7 @@ type Query {
   scene(projectId: ID!): Scene
   assets(
     teamId: ID!
+    keyword: String
     sort: AssetSortType
     first: Int
     last: Int
