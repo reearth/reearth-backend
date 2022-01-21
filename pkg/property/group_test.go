@@ -30,8 +30,8 @@ func TestGroup_HasLinkedField(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	l := NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
-	f2 := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).Links(ls).MustBuild()
+	f2 := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
 
 	tests := []struct {
 		Name     string
@@ -71,8 +71,8 @@ func TestGroup_IsDatasetLinked(t *testing.T) {
 	dssid := NewDatasetSchemaID()
 	l := NewLink(dsid, dssid, NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
-	f2 := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).Links(ls).MustBuild()
+	f2 := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
 
 	tests := []struct {
 		Name          string
@@ -114,7 +114,7 @@ func TestGroup_Datasets(t *testing.T) {
 	dsid := NewDatasetID()
 	l := NewLink(dsid, NewDatasetSchemaID(), NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).Links(ls).MustBuild()
 
 	tests := []struct {
 		Name     string
@@ -150,7 +150,7 @@ func TestGroup_FieldsByLinkedDataset(t *testing.T) {
 	dssid := NewDatasetSchemaID()
 	l := NewLink(dsid, dssid, NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(ls).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).Links(ls).MustBuild()
 
 	tests := []struct {
 		Name          string
@@ -184,8 +184,8 @@ func TestGroup_FieldsByLinkedDataset(t *testing.T) {
 func TestGroup_IsEmpty(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	f2 := NewField(sf).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f2 := FieldFrom(sf).MustBuild()
 
 	tests := []struct {
 		Name     string
@@ -218,8 +218,8 @@ func TestGroup_IsEmpty(t *testing.T) {
 func TestGroup_Prune(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	f2 := NewField(sf).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f2 := FieldFrom(sf).MustBuild()
 
 	tests := []struct {
 		Name     string
@@ -249,7 +249,7 @@ func TestGroup_Prune(t *testing.T) {
 
 func TestGroup_GetOrCreateField(t *testing.T) {
 	sf := NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
-	f := NewField(sf).MustBuild()
+	f := FieldFrom(sf).MustBuild()
 	sg := NewSchemaGroup().ID("aa").Fields([]*SchemaField{sf}).MustBuild()
 
 	tests := []struct {
@@ -283,7 +283,7 @@ func TestGroup_GetOrCreateField(t *testing.T) {
 				Field *Field
 				Bool  bool
 			}{
-				Field: NewField(sf).MustBuild(),
+				Field: FieldFrom(sf).MustBuild(),
 				Bool:  true,
 			},
 		},
@@ -296,7 +296,7 @@ func TestGroup_GetOrCreateField(t *testing.T) {
 				Field *Field
 				Bool  bool
 			}{
-				Field: NewField(sf).MustBuild(),
+				Field: FieldFrom(sf).MustBuild(),
 				Bool:  false,
 			},
 		},
@@ -317,8 +317,8 @@ func TestGroup_RemoveField(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	sf2 := NewSchemaField().ID("b").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	f2 := NewField(sf2).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f2 := FieldFrom(sf2).MustBuild()
 
 	tests := []struct {
 		Name     string
@@ -351,8 +351,8 @@ func TestGroup_FieldIDs(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	sf2 := NewSchemaField().ID("b").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	f2 := NewField(sf2).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f2 := FieldFrom(sf2).MustBuild()
 
 	tests := []struct {
 		Name     string
@@ -383,8 +383,8 @@ func TestGroup_Field(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	sf2 := NewSchemaField().ID("b").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	f2 := NewField(sf2).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f2 := FieldFrom(sf2).MustBuild()
 
 	tests := []struct {
 		Name     string

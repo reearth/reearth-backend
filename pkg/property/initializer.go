@@ -274,7 +274,10 @@ func (p *InitializerField) PropertyField() *Field {
 		plinks = NewLinks(links)
 	}
 
-	return NewFieldUnsafe().LinksUnsafe(plinks).FieldUnsafe(p.Field).ValueUnsafe(NewOptionalValue(p.Type, p.Value.Clone())).Build()
+	return NewField(p.Field).
+		Value(NewOptionalValue(p.Type, p.Value.Clone())).
+		Links(plinks).
+		Build()
 }
 
 type InitializerLink struct {

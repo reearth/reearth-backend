@@ -22,18 +22,26 @@ func TestField_ActualValue(t *testing.T) {
 		Expected *Value
 	}{
 		{
-			Name:     "nil links",
-			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).MustBuild(),
+			Name: "nil links",
+			Field: FieldFrom(p).
+				Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).
+				MustBuild(),
 			Expected: ValueTypeString.ValueFrom("vvv"),
 		},
 		{
-			Name:     "nil last link",
-			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(&Links{}).MustBuild(),
+			Name: "nil last link",
+			Field: FieldFrom(p).
+				Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).
+				Links(&Links{}).
+				MustBuild(),
 			Expected: nil,
 		},
 		{
-			Name:  "dataset value",
-			Field: NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(ls).MustBuild(),
+			Name: "dataset value",
+			Field: FieldFrom(p).
+				Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).
+				Links(ls).
+				MustBuild(),
 			DS: dataset.New().
 				ID(dsid).Schema(dssid).
 				Fields([]*dataset.Field{
@@ -68,8 +76,11 @@ func TestField_Datasets(t *testing.T) {
 		Expected []DatasetID
 	}{
 		{
-			Name:     "list of one datasets",
-			Field:    NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(ls).MustBuild(),
+			Name: "list of one datasets",
+			Field: FieldFrom(p).
+				Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).
+				Links(ls).
+				MustBuild(),
 			Expected: []DatasetID{dsid},
 		},
 		{
@@ -92,7 +103,10 @@ func TestField_Clone(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
 	l := NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
-	b := NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).Link(ls).MustBuild()
+	b := FieldFrom(p).
+		Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).
+		Links(ls).
+		MustBuild()
 	r := b.Clone()
 	assert.Equal(t, b, r)
 }
@@ -101,7 +115,7 @@ func TestField(t *testing.T) {
 	did := NewDatasetID()
 	dsid := NewDatasetSchemaID()
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	b := NewField(p).MustBuild()
+	b := FieldFrom(p).MustBuild()
 	assert.True(t, b.IsEmpty())
 	l := NewLink(did, dsid, NewDatasetFieldID())
 	ls := NewLinks([]*Link{l})
@@ -113,7 +127,9 @@ func TestField(t *testing.T) {
 
 func TestField_Update(t *testing.T) {
 	p := NewSchemaField().ID("A").Type(ValueTypeString).MustBuild()
-	b := NewField(p).Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).MustBuild()
+	b := FieldFrom(p).
+		Value(OptionalValueFrom(ValueTypeString.ValueFrom("vvv"))).
+		MustBuild()
 	v := ValueTypeString.ValueFrom("xxx")
 	b.UpdateUnsafe(v)
 	assert.Equal(t, v, b.Value())

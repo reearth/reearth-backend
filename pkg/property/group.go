@@ -153,7 +153,7 @@ func (g *Group) GetOrCreateField(ps *Schema, fid FieldID) (*Field, bool) {
 	}
 
 	// if the field does not exist, create it here
-	field, _ = NewField(psf).Build()
+	field = FieldFrom(psf).Type(psf.Type()).Build()
 	if field == nil {
 		return nil, false
 	}

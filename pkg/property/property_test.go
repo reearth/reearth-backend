@@ -51,41 +51,43 @@ func TestPropertyMigrateSchema(t *testing.T) {
 
 	fields := []*Field{
 		// should remain
-		NewFieldUnsafe().FieldUnsafe(schemaField1ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("foobar"))).
-			Build(),
+		NewField(schemaField1ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("foobar"))).
+			MustBuild(),
 		// should be removed because of max
-		NewFieldUnsafe().FieldUnsafe(schemaField2ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeNumber.ValueFrom(101))).
-			Build(),
+		NewField(schemaField2ID).
+			Value(OptionalValueFrom(ValueTypeNumber.ValueFrom(101))).
+			MustBuild(),
 		// should remain
-		NewFieldUnsafe().FieldUnsafe(schemaField3ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeNumber.ValueFrom(1))).
-			Build(),
+		NewField(schemaField3ID).
+			Value(OptionalValueFrom(ValueTypeNumber.ValueFrom(1))).
+			MustBuild(),
 		// should be removed because of choices
-		NewFieldUnsafe().FieldUnsafe(schemaField4ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("z"))).
-			Build(),
+		NewField(schemaField4ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("z"))).
+			MustBuild(),
 		// should remain
-		NewFieldUnsafe().FieldUnsafe(schemaField5ID).
-			LinksUnsafe(NewLinks([]*Link{
+		NewField(schemaField5ID).
+			Type(ValueTypeString).
+			Links(NewLinks([]*Link{
 				NewLink(datasetID, datasetSchemaID, datasetFieldID),
 			})).
-			Build(),
+			MustBuild(),
 		// should be removed because of linked dataset field value type
-		NewFieldUnsafe().FieldUnsafe(schemaField6ID).
-			LinksUnsafe(NewLinks([]*Link{
+		NewField(schemaField6ID).
+			Type(ValueTypeString).
+			Links(NewLinks([]*Link{
 				NewLink(datasetID, datasetSchemaID, datasetFieldID),
 			})).
-			Build(),
+			MustBuild(),
 		// should be removed because of type
-		NewFieldUnsafe().FieldUnsafe(schemaField7ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
-			Build(),
+		NewField(schemaField7ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
+			MustBuild(),
 		// should be removed because of not existing field
-		NewFieldUnsafe().FieldUnsafe(schemaField8ID).
-			ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
-			Build(),
+		NewField(schemaField8ID).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("hogehoge"))).
+			MustBuild(),
 	}
 	items := []Item{
 		NewGroup().NewID().SchemaGroup(schemaGroupID).Fields(fields).MustBuild(),

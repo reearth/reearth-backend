@@ -143,7 +143,9 @@ func TestInitializerItem_PropertyGroup(t *testing.T) {
 	}
 
 	expected := NewItem().ID(*item.ID).SchemaGroup(item.SchemaItem).Group().Fields([]*Field{
-		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).ValueUnsafe(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
+		NewField(item.Fields[0].Field).
+			Value(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).
+			MustBuild(),
 	}).MustBuild()
 
 	assert.Equal(t, expected, item.PropertyGroup())
@@ -208,7 +210,9 @@ func TestInitializerGroup_PropertyGroup(t *testing.T) {
 	}
 
 	expected := NewItem().ID(*item.ID).SchemaGroup(parentItem).Group().Fields([]*Field{
-		NewFieldUnsafe().FieldUnsafe(item.Fields[0].Field).ValueUnsafe(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).Build(),
+		NewField(item.Fields[0].Field).
+			Value(NewOptionalValue(item.Fields[0].Type, item.Fields[0].Value)).
+			MustBuild(),
 	}).MustBuild()
 
 	p, err := item.PropertyGroup(parentItem)
@@ -252,11 +256,10 @@ func TestInitializerField_PropertyField(t *testing.T) {
 		}},
 	}
 
-	expected := NewFieldUnsafe().
-		FieldUnsafe(field.Field).
-		ValueUnsafe(NewOptionalValue(field.Type, field.Value)).
-		LinksUnsafe(NewLinks([]*Link{NewLink(*field.Links[0].Dataset.CopyRef(), field.Links[0].Schema, field.Links[0].Field)})).
-		Build()
+	expected := NewField(field.Field).
+		Value(NewOptionalValue(field.Type, field.Value)).
+		Links(NewLinks([]*Link{NewLink(*field.Links[0].Dataset.CopyRef(), field.Links[0].Schema, field.Links[0].Field)})).
+		MustBuild()
 
 	assert.Equal(t, expected, field.PropertyField())
 }

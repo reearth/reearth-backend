@@ -74,14 +74,12 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("xxx"))).
-						Build(),
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField2ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeNumber.ValueFrom(1))).
-						Build(),
+					property.NewField(propertySchemaField1ID).
+						Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("xxx"))).
+						MustBuild(),
+					property.NewField(propertySchemaField2ID).
+						Value(property.OptionalValueFrom(property.ValueTypeNumber.ValueFrom(1))).
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
@@ -101,14 +99,12 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("yyy"))).
-						Build(),
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField2ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeNumber.ValueFrom(1))).
-						Build(),
+					property.NewField(propertySchemaField1ID).
+						Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("yyy"))).
+						MustBuild(),
+					property.NewField(propertySchemaField2ID).
+						Value(property.OptionalValueFrom(property.ValueTypeNumber.ValueFrom(1))).
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
@@ -126,14 +122,12 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("xxx"))).
-						Build(),
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField3ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("test"))).
-						Build(),
+					property.NewField(propertySchemaField1ID).
+						Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("xxx"))).
+						MustBuild(),
+					property.NewField(propertySchemaField3ID).
+						Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("test"))).
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
@@ -159,18 +153,22 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
+					property.NewField(propertySchemaField1ID).
+						Value(property.NewOptionalValue(property.ValueTypeString, nil)).
+						Links(property.NewLinks([]*property.Link{
 							property.NewLink(ds2id, dss2id, ds2f1),
 							property.NewLink(ds3id, dss3id, ds3f1),
 						})).
-						Build(),
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
-	layer3ibf1 := layer.NewInfoboxField().NewID().Plugin(pluginID).Extension(pluginExtension1ID).Property(scenePropertyID).MustBuild()
+	layer3ibf1 := layer.NewInfoboxField().
+		NewID().
+		Plugin(pluginID).
+		Extension(pluginExtension1ID).
+		Property(scenePropertyID).
+		MustBuild()
 	layer3ib := layer.NewInfobox([]*layer.InfoboxField{
 		layer3ibf1,
 	}, scenePropertyID)
@@ -191,10 +189,9 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField2ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeNumber.ValueFrom(1))).
-						Build(),
+					property.NewField(propertySchemaField2ID).
+						Value(property.OptionalValueFrom(property.ValueTypeNumber.ValueFrom(1))).
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
@@ -218,17 +215,15 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
+					property.NewField(propertySchemaField1ID).
+						Value(property.NewOptionalValue(property.ValueTypeString, nil)).
+						Links(property.NewLinks([]*property.Link{
 							property.NewLinkFieldOnly(dss3id, ds3f1),
 						})).
-						Build(),
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField3ID).
-						ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("xxx"))).
-						Build(),
+						MustBuild(),
+					property.NewField(propertySchemaField3ID).
+						Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("xxx"))).
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
@@ -255,13 +250,12 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
+					property.NewField(propertySchemaField1ID).
+						Value(property.NewOptionalValue(property.ValueTypeString, nil)).
+						Links(property.NewLinks([]*property.Link{
 							property.NewLinkFieldOnly(dss1id, ds1f2),
 						})).
-						Build(),
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
@@ -280,24 +274,22 @@ func TestSceneBuilder(t *testing.T) {
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*property.Field{
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
+					property.NewField(propertySchemaField1ID).
+						Value(property.NewOptionalValue(property.ValueTypeString, nil)).
+						Links(property.NewLinks([]*property.Link{
 							property.NewLinkFieldOnly(dss1id, ds1f1),
 							property.NewLinkFieldOnly(dss2id, ds2f1),
 							property.NewLinkFieldOnly(dss3id, ds3f1),
 						})).
-						Build(),
-					property.NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField2ID).
-						ValueUnsafe(property.NewOptionalValue(property.ValueTypeString, nil)).
-						LinksUnsafe(property.NewLinks([]*property.Link{
+						MustBuild(),
+					property.NewField(propertySchemaField2ID).
+						Value(property.NewOptionalValue(property.ValueTypeString, nil)).
+						Links(property.NewLinks([]*property.Link{
 							property.NewLinkFieldOnly(dss1id, ds1f1),
 							property.NewLinkFieldOnly(dss2id, ds2f1),
 							property.NewLinkFieldOnly(dss3id, ds3f1),
 						})).
-						Build(),
+						MustBuild(),
 				}).MustBuild(),
 		}).
 		MustBuild()
@@ -318,17 +310,15 @@ func TestSceneBuilder(t *testing.T) {
 			property.NewGroupList().NewID().SchemaGroup(propertySchemaGroup2ID).Groups([]*property.Group{
 				property.NewGroup().ID(propertyItemID1).SchemaGroup(propertySchemaGroup2ID).
 					Fields([]*property.Field{
-						property.NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("XYZ"))).
-							Build(),
+						property.NewField(propertySchemaField1ID).
+							Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("XYZ"))).
+							MustBuild(),
 					}).MustBuild(),
 				property.NewGroup().ID(propertyItemID2).SchemaGroup(propertySchemaGroup2ID).
 					Fields([]*property.Field{
-						property.NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("ZYX"))).
-							Build(),
+						property.NewField(propertySchemaField1ID).
+							Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("ZYX"))).
+							MustBuild(),
 					}).MustBuild(),
 			}).MustBuild(),
 		}).
@@ -358,10 +348,9 @@ func TestSceneBuilder(t *testing.T) {
 		Schema(propertySchemaID).
 		Items([]property.Item{
 			property.NewGroup().NewID().SchemaGroup(propertySchemaGroup1ID).Fields([]*property.Field{
-				property.NewFieldUnsafe().
-					FieldUnsafe(propertySchemaField1ID).
-					ValueUnsafe(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("hogehoge"))).
-					Build(),
+				property.NewField(propertySchemaField1ID).
+					Value(property.OptionalValueFrom(property.ValueTypeString.ValueFrom("hogehoge"))).
+					MustBuild(),
 			}).MustBuild(),
 		}).
 		MustBuild()

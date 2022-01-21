@@ -52,25 +52,22 @@ func TestBuilder_Items(t *testing.T) {
 			Input: []Item{
 				NewGroup().ID(iid).SchemaGroup(propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-							Build(),
+						NewField(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+							MustBuild(),
 					}).MustBuild(),
 				NewGroup().ID(iid).SchemaGroup(propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-							Build(),
+						NewField(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+							MustBuild(),
 					}).MustBuild(),
 			},
 			Expected: []Item{NewGroup().ID(iid).SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*Field{
-					NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-						Build(),
+					NewField(propertySchemaField1ID).
+						Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+						MustBuild(),
 				}).MustBuild()},
 		},
 	}

@@ -29,17 +29,35 @@ func TestMerge(t *testing.T) {
 	i8id := NewItemID()
 
 	fields1 := []*Field{
-		NewFieldUnsafe().FieldUnsafe(FieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("a"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(FieldID("b")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("b"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(FieldID("e")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(NewLinks([]*Link{NewLink(d2, ds, df)})).Build(),
-		NewFieldUnsafe().FieldUnsafe(FieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeNumber, nil)).Build(),
+		NewField(FieldID("a")).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("a"))).
+			MustBuild(),
+		NewField(FieldID("b")).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("b"))).
+			MustBuild(),
+		NewField(FieldID("e")).
+			Value(NewOptionalValue(ValueTypeString, nil)).
+			Links(NewLinks([]*Link{NewLink(d2, ds, df)})).
+			MustBuild(),
+		NewField(FieldID("f")).
+			Value(NewOptionalValue(ValueTypeNumber, nil)).
+			MustBuild(),
 	}
 
 	fields2 := []*Field{
-		NewFieldUnsafe().FieldUnsafe(FieldID("a")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("1"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(FieldID("c")).ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("2"))).Build(),
-		NewFieldUnsafe().FieldUnsafe(FieldID("d")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).LinksUnsafe(NewLinks([]*Link{NewLinkFieldOnly(ds, df)})).Build(),
-		NewFieldUnsafe().FieldUnsafe(FieldID("f")).ValueUnsafe(NewOptionalValue(ValueTypeString, nil)).Build(),
+		NewField(FieldID("a")).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("1"))).
+			MustBuild(),
+		NewField(FieldID("c")).
+			Value(OptionalValueFrom(ValueTypeString.ValueFrom("2"))).
+			MustBuild(),
+		NewField(FieldID("d")).
+			Value(NewOptionalValue(ValueTypeString, nil)).
+			Links(NewLinks([]*Link{NewLinkFieldOnly(ds, df)})).
+			MustBuild(),
+		NewField(FieldID("f")).
+			Value(NewOptionalValue(ValueTypeString, nil)).
+			MustBuild(),
 	}
 
 	groups1 := []*Group{

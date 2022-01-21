@@ -55,10 +55,9 @@ func TestToGroup(t *testing.T) {
 	il := []Item{
 		NewGroup().ID(iid).SchemaGroup(propertySchemaGroup1ID).
 			Fields([]*Field{
-				NewFieldUnsafe().
-					FieldUnsafe(propertySchemaField1ID).
-					ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-					Build(),
+				NewField(propertySchemaField1ID).
+					Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+					MustBuild(),
 			}).MustBuild(),
 	}
 	p := New().NewID().Scene(NewSceneID()).Items(il).Schema(propertySchemaID).MustBuild()

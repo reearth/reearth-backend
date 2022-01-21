@@ -10,7 +10,7 @@ func TestGroupBuilder_Build(t *testing.T) {
 	iid := NewItemID()
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
 
 	type args struct {
 		ID          ItemID
@@ -67,7 +67,7 @@ func TestGroupBuilder_MustBuild(t *testing.T) {
 	iid := NewItemID()
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
 
 	type args struct {
 		ID          ItemID

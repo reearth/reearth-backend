@@ -46,7 +46,10 @@ func TestGroupList_HasLinkedField(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := NewDatasetID()
 	dssid := NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).MustBuild()
+	f := FieldFrom(sf).
+		Value(OptionalValueFrom(v)).
+		Links(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).
+		MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 	groups2 := []*Group{NewGroup().ID(pid).MustBuild()}
 
@@ -86,7 +89,10 @@ func TestGroupList_Datasets(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := NewDatasetID()
 	dssid := NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).MustBuild()
+	f := FieldFrom(sf).
+		Value(OptionalValueFrom(v)).
+		Links(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).
+		MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 	groups2 := []*Group{NewGroup().ID(pid).MustBuild()}
 
@@ -125,7 +131,10 @@ func TestGroupList_FieldsByLinkedDataset(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := NewDatasetID()
 	dssid := NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).MustBuild()
+	f := FieldFrom(sf).
+		Value(OptionalValueFrom(v)).
+		Links(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).
+		MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 	groups2 := []*Group{NewGroup().ID(pid).MustBuild()}
 
@@ -164,7 +173,10 @@ func TestGroupList_IsEmpty(t *testing.T) {
 	v := ValueTypeString.ValueFrom("vvv")
 	dsid := NewDatasetID()
 	dssid := NewDatasetSchemaID()
-	f := NewField(sf).Value(OptionalValueFrom(v)).Link(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).MustBuild()
+	f := FieldFrom(sf).
+		Value(OptionalValueFrom(v)).
+		Links(&Links{links: []*Link{NewLink(dsid, dssid, NewDatasetFieldID())}}).
+		MustBuild()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
 
 	tests := []struct {
@@ -199,8 +211,8 @@ func TestGroupList_IsEmpty(t *testing.T) {
 func TestGroupList_Prune(t *testing.T) {
 	sf := NewSchemaField().ID("a").Type(ValueTypeString).MustBuild()
 	v := ValueTypeString.ValueFrom("vvv")
-	f := NewField(sf).Value(OptionalValueFrom(v)).MustBuild()
-	f2 := NewField(sf).MustBuild()
+	f := FieldFrom(sf).Value(OptionalValueFrom(v)).MustBuild()
+	f2 := FieldFrom(sf).MustBuild()
 	pid := NewItemID()
 	groups := []*Group{NewGroup().ID(pid).Fields([]*Field{f, f2}).MustBuild()}
 	pruned := []*Group{NewGroup().ID(pid).Fields([]*Field{f}).MustBuild()}
@@ -679,27 +691,20 @@ func TestGroupList_GetOrCreateField(t *testing.T) {
 	g := NewGroup().ID(NewItemID()).SchemaGroup(sg.ID()).MustBuild()
 
 	tests := []struct {
-		Name     string
-		GL       *GroupList
-		Schema   *Schema
-		Ptr      *Pointer
-		Expected struct {
-			Ok    bool
-			Field *Field
-		}
+		Name       string
+		GL         *GroupList
+		Schema     *Schema
+		Ptr        *Pointer
+		Expected   *Field
+		ExpectedOK bool
 	}{
 		{
-			Name:   "success",
-			GL:     NewGroupList().NewID().SchemaGroup("aa").Groups([]*Group{g}).MustBuild(),
-			Schema: NewSchema().ID(MustSchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{sg}).MustBuild(),
-			Ptr:    NewPointer(nil, g.IDRef(), sf.ID().Ref()),
-			Expected: struct {
-				Ok    bool
-				Field *Field
-			}{
-				Ok:    true,
-				Field: NewField(sf).MustBuild(),
-			},
+			Name:       "success",
+			GL:         NewGroupList().NewID().SchemaGroup("aa").Groups([]*Group{g}).MustBuild(),
+			Schema:     NewSchema().ID(MustSchemaID("xx~1.0.0/aa")).Groups([]*SchemaGroup{sg}).MustBuild(),
+			Ptr:        NewPointer(nil, g.IDRef(), sf.ID().Ref()),
+			Expected:   FieldFrom(sf).MustBuild(),
+			ExpectedOK: true,
 		},
 		{
 			Name:   "can't get a group",
@@ -726,8 +731,8 @@ func TestGroupList_GetOrCreateField(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			res, ok := tt.GL.GetOrCreateField(tt.Schema, tt.Ptr)
-			assert.Equal(t, tt.Expected.Field, res)
-			assert.Equal(t, tt.Expected.Ok, ok)
+			assert.Equal(t, tt.Expected, res)
+			assert.Equal(t, tt.ExpectedOK, ok)
 		})
 	}
 }
