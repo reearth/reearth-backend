@@ -113,6 +113,14 @@ func (p *Field) UpdateUnsafe(value *Value) {
 	p.v.SetValue(value)
 }
 
+func (p *Field) Cast(t ValueType) {
+	if p == nil || p.Type() == t {
+		return
+	}
+	p.v = p.v.Cast(t)
+	p.Unlink()
+}
+
 func (p *Field) Link(links *Links) {
 	if p == nil {
 		return

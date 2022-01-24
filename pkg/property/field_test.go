@@ -134,3 +134,65 @@ func TestField_Update(t *testing.T) {
 	b.UpdateUnsafe(v)
 	assert.Equal(t, v, b.Value())
 }
+
+func TestField_Cast(t *testing.T) {
+	dgp := NewLinks([]*Link{
+		NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID()),
+	})
+
+	type args struct {
+		t ValueType
+	}
+	tests := []struct {
+		name   string
+		target *Field
+		args   args
+		want   *Field
+	}{
+		{
+			name: "ok",
+			target: &Field{
+				field: FieldID("foobar"),
+				v:     OptionalValueFrom(ValueTypeString.ValueFrom("-123")),
+				links: dgp.Clone(),
+			},
+			args: args{t: ValueTypeNumber},
+			want: &Field{
+				field: FieldID("foobar"),
+				v:     OptionalValueFrom(ValueTypeNumber.ValueFrom(-123)),
+			},
+		},
+		{
+			name: "failed",
+			target: &Field{
+				field: FieldID("foobar"),
+				v:     OptionalValueFrom(ValueTypeString.ValueFrom("foo")),
+				links: dgp.Clone(),
+			},
+			args: args{t: ValueTypeLatLng},
+			want: &Field{
+				field: FieldID("foobar"),
+				v:     NewOptionalValue(ValueTypeLatLng, nil),
+			},
+		},
+		{
+			name:   "empty",
+			target: &Field{},
+			args:   args{t: ValueTypeNumber},
+			want:   &Field{},
+		},
+		{
+			name:   "nil",
+			target: nil,
+			args:   args{t: ValueTypeNumber},
+			want:   nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.target.Cast(tt.args.t)
+			assert.Equal(t, tt.want, tt.target)
+		})
+	}
+}
