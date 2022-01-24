@@ -6,6 +6,10 @@ func (l SchemaList) Map() SchemaMap {
 	return SchemaMapFrom(l)
 }
 
+func (l SchemaList) Loader() SchemaLoader {
+	return SchemaLoaderFromMap(l.Map())
+}
+
 type SchemaMap map[SchemaID]*Schema
 
 func SchemaMapFrom(l []*Schema) SchemaMap {
@@ -60,4 +64,8 @@ func (m SchemaMap) Merge(m2 SchemaMap) SchemaMap {
 	m3.Add(m2.List()...)
 
 	return m3
+}
+
+func (m SchemaMap) Loader() SchemaLoader {
+	return SchemaLoaderFromMap(m)
 }
