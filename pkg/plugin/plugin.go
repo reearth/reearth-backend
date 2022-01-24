@@ -17,30 +17,52 @@ type Plugin struct {
 }
 
 func (p *Plugin) ID() ID {
+	if p == nil {
+		return ID{}
+	}
 	return p.id
 }
 
 func (p *Plugin) Version() semver.Version {
+	if p == nil {
+		return semver.Version{}
+	}
 	return p.id.Version()
 }
 
 func (p *Plugin) Name() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.name.Copy()
 }
 
 func (p *Plugin) Author() string {
+	if p == nil {
+		return ""
+	}
 	return p.author
 }
 
 func (p *Plugin) Description() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.description.Copy()
 }
 
 func (p *Plugin) RepositoryURL() string {
+	if p == nil {
+		return ""
+	}
 	return p.repositoryURL
 }
 
 func (p *Plugin) Extensions() []*Extension {
+	if p == nil || len(p.extensions) == 0 {
+		return nil
+	}
+
 	if p.extensionOrder == nil {
 		return []*Extension{}
 	}
@@ -64,6 +86,9 @@ func (p *Plugin) Extension(id ExtensionID) *Extension {
 }
 
 func (p *Plugin) Schema() *PropertySchemaID {
+	if p == nil {
+		return nil
+	}
 	return p.schema
 }
 
@@ -80,10 +105,6 @@ func (p *Plugin) PropertySchemas() []PropertySchemaID {
 		ps = append(ps, p.extensions[e].Schema())
 	}
 	return ps
-}
-
-func (p *Plugin) Rename(name i18n.String) {
-	p.name = name.Copy()
 }
 
 func (p *Plugin) Clone() *Plugin {
@@ -116,6 +137,16 @@ func (p *Plugin) Clone() *Plugin {
 	}
 }
 
+func (p *Plugin) Rename(name i18n.String) {
+	if p == nil {
+		return
+	}
+	p.name = name.Copy()
+}
+
 func (p *Plugin) SetDescription(des i18n.String) {
+	if p == nil {
+		return
+	}
 	p.description = des.Copy()
 }
