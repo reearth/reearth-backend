@@ -242,7 +242,7 @@ func TestGroupList_Prune(t *testing.T) {
 	}
 }
 
-func TestGroupList_GetGroup(t *testing.T) {
+func TestGroupList_Group(t *testing.T) {
 	pid := NewItemID()
 	g := NewGroup().ID(pid).MustBuild()
 
@@ -273,7 +273,7 @@ func TestGroupList_GetGroup(t *testing.T) {
 		tc := tc
 		t.Run(tc.Name, func(t *testing.T) {
 			t.Parallel()
-			assert.Equal(t, tc.Expected, tc.GL.GetGroup(tc.Input))
+			assert.Equal(t, tc.Expected, tc.GL.Group(tc.Input))
 		})
 	}
 }
