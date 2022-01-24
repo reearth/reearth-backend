@@ -184,16 +184,16 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, f
 
 	paginate := false
 	var limit int64
-	var cur *usecase.Cursor
+	var cur *usecase.Cursor = nil
 	var op string
 
-	if first, after := p.First, p.After; first != nil && after != nil {
+	if first, after := p.First, p.After; first != nil {
 		paginate = true
 		limit = int64(*first)
 		op = "$gt"
 		cur = after
 	}
-	if last, before := p.Last, p.Before; last != nil && before != nil {
+	if last, before := p.Last, p.Before; last != nil {
 		paginate = true
 		limit = int64(*last)
 		op = "$lt"
@@ -203,9 +203,11 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, f
 		return nil, fmt.Errorf("missing pagination paramiters: %v", p)
 	}
 
-	filter = appendE(filter, bson.E{Key: key, Value: bson.D{
-		{Key: op, Value: *cur},
-	}})
+	if cur != nil {
+		filter = appendE(filter, bson.E{Key: key, Value: bson.D{
+			{Key: op, Value: *cur},
+		}})
+	}
 
 	// 更に読める要素があるのか確かめるために一つ多めに読み出す
 	// Read one more element so that we can see whether there's a further one
