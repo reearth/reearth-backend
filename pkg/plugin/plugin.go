@@ -86,6 +86,36 @@ func (p *Plugin) Rename(name i18n.String) {
 	p.name = name.Copy()
 }
 
+func (p *Plugin) Clone() *Plugin {
+	if p == nil {
+		return nil
+	}
+
+	var extensions map[ExtensionID]*Extension
+	if p.extensions != nil {
+		extensions = make(map[ExtensionID]*Extension, len(p.extensions))
+		for _, e := range p.extensions {
+			extensions[e.ID()] = e.Clone()
+		}
+	}
+
+	var extensionOrder []ExtensionID
+	if p.extensionOrder != nil {
+		extensionOrder = append([]ExtensionID{}, p.extensionOrder...)
+	}
+
+	return &Plugin{
+		id:             p.id.Clone(),
+		name:           p.name.Copy(),
+		author:         p.author,
+		description:    p.description.Copy(),
+		repositoryURL:  p.repositoryURL,
+		extensions:     extensions,
+		extensionOrder: extensionOrder,
+		schema:         p.schema.CopyRef(),
+	}
+}
+
 func (p *Plugin) SetDescription(des i18n.String) {
 	p.description = des.Copy()
 }

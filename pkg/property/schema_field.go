@@ -50,15 +50,14 @@ func (p *SchemaField) Suffix() string {
 }
 
 func (p *SchemaField) DefaultValue() *Value {
-	if p == nil || p.defaultValue == nil {
+	if p == nil {
 		return nil
 	}
-	v := *p.defaultValue
-	return &v
+	return p.defaultValue.Clone()
 }
 
 func (p *SchemaField) UI() *SchemaFieldUI {
-	if p == nil || p.ui == SchemaFieldUI("") {
+	if p == nil || p.ui == "" {
 		return nil
 	}
 	ui := p.ui
