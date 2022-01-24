@@ -2,6 +2,15 @@ package property
 
 type SchemaList []*Schema
 
+func (l SchemaList) Find(psid SchemaID) *Schema {
+	for _, s := range l {
+		if s.ID().Equal(psid) {
+			return s
+		}
+	}
+	return nil
+}
+
 func (l SchemaList) Map() SchemaMap {
 	return SchemaMapFrom(l)
 }
