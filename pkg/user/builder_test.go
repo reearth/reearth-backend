@@ -143,11 +143,11 @@ func TestBuilder_Build(t *testing.T) {
 		{
 			Name: "Success build user",
 			Args: args{
-				Name:  "xxx",
-				Email: "xx@yy.zz",
-				Lang:  "en",
-				ID:    uid,
-				Team:  tid,
+				Name:        "xxx",
+				Email:       "xx@yy.zz",
+				Lang:        "en",
+				ID:          uid,
+				Team:        tid,
 				PasswordBin: pass,
 				Auths: []Auth{
 					{
@@ -157,18 +157,18 @@ func TestBuilder_Build(t *testing.T) {
 				},
 			},
 			Expected: &User{
-				id:    uid,
-				team:  tid,
-				email: "xx@yy.zz",
-				name:  "xxx",
+				id:       uid,
+				team:     tid,
+				email:    "xx@yy.zz",
+				name:     "xxx",
 				password: pass,
-				auths: []Auth{{Provider: "ppp", Sub: "sss"}},
-				lang:  en,
+				auths:    []Auth{{Provider: "ppp", Sub: "sss"}},
+				lang:     en,
 			},
 		}, {
-			Name: "failed invalid id",
+			Name:     "failed invalid id",
 			Expected: nil,
-			Err:  ErrInvalidID,
+			Err:      ErrInvalidID,
 		},
 	}
 
@@ -178,6 +178,7 @@ func TestBuilder_Build(t *testing.T) {
 			t.Parallel()
 			res, err := New().
 				ID(tt.Args.ID).
+				Password(pass).
 				Name(tt.Args.Name).
 				Auths(tt.Args.Auths).
 				LangFrom(tt.Args.Lang).
@@ -216,11 +217,11 @@ func TestBuilder_MustBuild(t *testing.T) {
 		{
 			Name: "Success build user",
 			Args: args{
-				Name:  "xxx",
-				Email: "xx@yy.zz",
-				Lang:  "en",
-				ID:    uid,
-				Team:  tid,
+				Name:        "xxx",
+				Email:       "xx@yy.zz",
+				Lang:        "en",
+				ID:          uid,
+				Team:        tid,
 				PasswordBin: pass,
 				Auths: []Auth{
 					{
@@ -230,13 +231,13 @@ func TestBuilder_MustBuild(t *testing.T) {
 				},
 			},
 			Expected: &User{
-				id:    uid,
-				team:  tid,
-				email: "xx@yy.zz",
-				name:  "xxx",
+				id:       uid,
+				team:     tid,
+				email:    "xx@yy.zz",
+				name:     "xxx",
 				password: pass,
-				auths: []Auth{{Provider: "ppp", Sub: "sss"}},
-				lang:  en,
+				auths:    []Auth{{Provider: "ppp", Sub: "sss"}},
+				lang:     en,
 			},
 		}, {
 			Name: "failed invalid id",
@@ -253,6 +254,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				t.Helper()
 				return New().
 					ID(tt.Args.ID).
+					Password(pass).
 					Name(tt.Args.Name).
 					Auths(tt.Args.Auths).
 					LangFrom(tt.Args.Lang).

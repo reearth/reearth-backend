@@ -103,11 +103,11 @@ func TestInit(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			user, team, err := Init(InitParams{
-				Email:    tt.Email,
-				Name:     tt.Username,
-				Sub: 	  &tt.Sub,
-				UserID:   tt.UID,
-				TeamID:   tt.TID,
+				Email:  tt.Email,
+				Name:   tt.Username,
+				Sub:    &tt.Sub,
+				UserID: tt.UID,
+				TeamID: tt.TID,
 			})
 			if tt.Err == nil {
 				assert.Equal(t, tt.ExpectedUser.Email(), user.Email())
