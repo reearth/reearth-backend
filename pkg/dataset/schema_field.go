@@ -1,23 +1,21 @@
 package dataset
 
-import "github.com/reearth/reearth-backend/pkg/id"
-
 type SchemaField struct {
-	id       id.DatasetSchemaFieldID
+	id       FieldID
 	name     string
 	dataType ValueType
 	source   string
-	ref      *id.DatasetSchemaID
+	ref      *SchemaID
 }
 
-func (d *SchemaField) ID() (i id.DatasetSchemaFieldID) {
+func (d *SchemaField) ID() (i FieldID) {
 	if d == nil {
 		return
 	}
 	return d.id
 }
 
-func (d *SchemaField) IDRef() *id.DatasetSchemaFieldID {
+func (d *SchemaField) IDRef() *FieldID {
 	if d == nil {
 		return nil
 	}
@@ -31,7 +29,7 @@ func (d *SchemaField) Name() (n string) {
 	return d.name
 }
 
-func (d *SchemaField) Ref() *id.DatasetSchemaID {
+func (d *SchemaField) Ref() *SchemaID {
 	if d == nil {
 		return nil
 	}
@@ -50,4 +48,17 @@ func (d *SchemaField) Source() (s string) {
 		return
 	}
 	return d.source
+}
+
+func (d *SchemaField) Clone() *SchemaField {
+	if d == nil {
+		return nil
+	}
+	return &SchemaField{
+		id:       d.id,
+		name:     d.name,
+		dataType: d.dataType,
+		source:   d.source,
+		ref:      d.ref.CopyRef(),
+	}
 }

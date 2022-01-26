@@ -3,53 +3,66 @@ package plugin
 import (
 	"github.com/blang/semver"
 	"github.com/reearth/reearth-backend/pkg/i18n"
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-// Plugin _
 type Plugin struct {
-	id             id.PluginID
+	id             ID
 	name           i18n.String
 	author         string
 	description    i18n.String
 	repositoryURL  string
-	extensions     map[id.PluginExtensionID]*Extension
-	extensionOrder []id.PluginExtensionID
-	schema         *id.PropertySchemaID
+	extensions     map[ExtensionID]*Extension
+	extensionOrder []ExtensionID
+	schema         *PropertySchemaID
 }
 
-// ID _
-func (p *Plugin) ID() id.PluginID {
+func (p *Plugin) ID() ID {
+	if p == nil {
+		return ID{}
+	}
 	return p.id
 }
 
-// Version _
 func (p *Plugin) Version() semver.Version {
+	if p == nil {
+		return semver.Version{}
+	}
 	return p.id.Version()
 }
 
-// Name _
 func (p *Plugin) Name() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.name.Copy()
 }
 
-// Author _
 func (p *Plugin) Author() string {
+	if p == nil {
+		return ""
+	}
 	return p.author
 }
 
-// Description _
 func (p *Plugin) Description() i18n.String {
+	if p == nil {
+		return nil
+	}
 	return p.description.Copy()
 }
 
-// RepositoryURL _
 func (p *Plugin) RepositoryURL() string {
+	if p == nil {
+		return ""
+	}
 	return p.repositoryURL
 }
 
-// Extensions _
 func (p *Plugin) Extensions() []*Extension {
+	if p == nil || len(p.extensions) == 0 {
+		return nil
+	}
+
 	if p.extensionOrder == nil {
 		return []*Extension{}
 	}
@@ -60,7 +73,7 @@ func (p *Plugin) Extensions() []*Extension {
 	return list
 }
 
-func (p *Plugin) Extension(id id.PluginExtensionID) *Extension {
+func (p *Plugin) Extension(id ExtensionID) *Extension {
 	if p == nil {
 		return nil
 	}
@@ -72,17 +85,19 @@ func (p *Plugin) Extension(id id.PluginExtensionID) *Extension {
 	return nil
 }
 
-// Schema _
-func (p *Plugin) Schema() *id.PropertySchemaID {
+func (p *Plugin) Schema() *PropertySchemaID {
+	if p == nil {
+		return nil
+	}
 	return p.schema
 }
 
-func (p *Plugin) PropertySchemas() []id.PropertySchemaID {
+func (p *Plugin) PropertySchemas() []PropertySchemaID {
 	if p == nil {
 		return nil
 	}
 
-	ps := make([]id.PropertySchemaID, 0, len(p.extensions)+1)
+	ps := make([]PropertySchemaID, 0, len(p.extensions)+1)
 	if p.schema != nil {
 		ps = append(ps, *p.schema)
 	}
@@ -92,11 +107,46 @@ func (p *Plugin) PropertySchemas() []id.PropertySchemaID {
 	return ps
 }
 
+func (p *Plugin) Clone() *Plugin {
+	if p == nil {
+		return nil
+	}
+
+	var extensions map[ExtensionID]*Extension
+	if p.extensions != nil {
+		extensions = make(map[ExtensionID]*Extension, len(p.extensions))
+		for _, e := range p.extensions {
+			extensions[e.ID()] = e.Clone()
+		}
+	}
+
+	var extensionOrder []ExtensionID
+	if p.extensionOrder != nil {
+		extensionOrder = append([]ExtensionID{}, p.extensionOrder...)
+	}
+
+	return &Plugin{
+		id:             p.id.Clone(),
+		name:           p.name.Copy(),
+		author:         p.author,
+		description:    p.description.Copy(),
+		repositoryURL:  p.repositoryURL,
+		extensions:     extensions,
+		extensionOrder: extensionOrder,
+		schema:         p.schema.CopyRef(),
+	}
+}
+
 func (p *Plugin) Rename(name i18n.String) {
+	if p == nil {
+		return
+	}
 	p.name = name.Copy()
 }
 
-// SetDescription _
 func (p *Plugin) SetDescription(des i18n.String) {
+	if p == nil {
+		return
+	}
 	p.description = des.Copy()
 }

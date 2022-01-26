@@ -1,10 +1,8 @@
 package property
 
 import (
-	"errors"
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -14,34 +12,33 @@ func TestBuilder_New(t *testing.T) {
 }
 
 func TestBuilder_ID(t *testing.T) {
-	pid := id.NewPropertyID()
-	p := New().ID(pid).Scene(id.NewSceneID()).Schema(id.MustPropertySchemaID("xxx~1.1.1/aa")).MustBuild()
+	pid := NewID()
+	p := New().ID(pid).Scene(NewSceneID()).Schema(MustSchemaID("xxx~1.1.1/aa")).MustBuild()
 	assert.Equal(t, pid, p.ID())
 }
 
 func TestBuilder_NewID(t *testing.T) {
-	p := New().NewID().Scene(id.NewSceneID()).Schema(id.MustPropertySchemaID("xxx~1.1.1/aa")).MustBuild()
+	p := New().NewID().Scene(NewSceneID()).Schema(MustSchemaID("xxx~1.1.1/aa")).MustBuild()
 	assert.False(t, p.ID().IsNil())
 }
 
 func TestBuilder_Schema(t *testing.T) {
-	p := New().NewID().Scene(id.NewSceneID()).Schema(id.MustPropertySchemaID("xxx~1.1.1/aa")).MustBuild()
-	assert.Equal(t, id.MustPropertySchemaID("xxx~1.1.1/aa"), p.Schema())
+	p := New().NewID().Scene(NewSceneID()).Schema(MustSchemaID("xxx~1.1.1/aa")).MustBuild()
+	assert.Equal(t, MustSchemaID("xxx~1.1.1/aa"), p.Schema())
 }
 
 func TestBuilder_Scene(t *testing.T) {
-	sid := id.NewSceneID()
-	p := New().NewID().Scene(sid).Schema(id.MustPropertySchemaID("xxx~1.1.1/aa")).MustBuild()
+	sid := NewSceneID()
+	p := New().NewID().Scene(sid).Schema(MustSchemaID("xxx~1.1.1/aa")).MustBuild()
 	assert.Equal(t, sid, p.Scene())
 }
 
 func TestBuilder_Items(t *testing.T) {
-	iid := id.NewPropertyItemID()
-	propertySchemaID := id.MustPropertySchemaID("xxx~1.1.1/aa")
-	propertySchemaField1ID := id.PropertySchemaFieldID("a")
-	propertySchemaGroup1ID := id.PropertySchemaGroupID("A")
+	iid := NewItemID()
+	propertySchemaField1ID := FieldID("a")
+	propertySchemaGroup1ID := SchemaGroupID("A")
 
-	testCases := []struct {
+	tests := []struct {
 		Name            string
 		Input, Expected []Item
 	}{
@@ -53,147 +50,144 @@ func TestBuilder_Items(t *testing.T) {
 		{
 			Name: "has duplicated item",
 			Input: []Item{
-				NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
+				NewGroup().ID(iid).SchemaGroup(propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-							Build(),
+						NewField(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+							MustBuild(),
 					}).MustBuild(),
-				NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
+				NewGroup().ID(iid).SchemaGroup(propertySchemaGroup1ID).
 					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-							Build(),
+						NewField(propertySchemaField1ID).
+							Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+							MustBuild(),
 					}).MustBuild(),
 			},
-			Expected: []Item{NewGroup().ID(iid).Schema(propertySchemaID, propertySchemaGroup1ID).
+			Expected: []Item{NewGroup().ID(iid).SchemaGroup(propertySchemaGroup1ID).
 				Fields([]*Field{
-					NewFieldUnsafe().
-						FieldUnsafe(propertySchemaField1ID).
-						ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-						Build(),
+					NewField(propertySchemaField1ID).
+						Value(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
+						MustBuild(),
 				}).MustBuild()},
 		},
 	}
 
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			res := New().NewID().
-				Scene(id.NewSceneID()).
-				Schema(id.MustPropertySchemaID("xxx~1.1.1/aa")).
-				Items(tc.Input).
+				Scene(NewSceneID()).
+				Schema(MustSchemaID("xxx~1.1.1/aa")).
+				Items(tt.Input).
 				MustBuild()
-			assert.Equal(tt, tc.Expected, res.Items())
+			assert.Equal(t, tt.Expected, res.Items())
 		})
 	}
 }
 
 func TestBuilder_Build(t *testing.T) {
-	pid := id.NewPropertyID()
-	sid := id.NewSceneID()
-	scid := id.MustPropertySchemaID("xxx~1.1.1/aa")
-	iid := id.NewPropertyItemID()
-	propertySchemaField1ID := id.PropertySchemaFieldID("a")
-	propertySchemaGroup1ID := id.PropertySchemaGroupID("A")
+	pid := NewID()
+	sid := NewSceneID()
+	scid := MustSchemaID("xxx~1.1.1/aa")
+	iid := NewItemID()
+	propertySchemaField1ID := FieldID("a")
+	propertySchemaGroup1ID := SchemaGroupID("A")
 
-	testCases := []struct {
+	type args struct {
+		ID     ID
+		Scene  SceneID
+		Schema SchemaID
+		Items  []Item
+	}
+
+	tests := []struct {
 		Name     string
-		Id       id.PropertyID
-		Scene    id.SceneID
-		Schema   id.PropertySchemaID
-		Items    []Item
+		Args     args
 		Err      error
-		Expected struct {
-			Id     id.PropertyID
-			Scene  id.SceneID
-			Schema id.PropertySchemaID
-			Items  []Item
-		}
+		Expected *Property
 	}{
 		{
-			Name:   "success",
-			Id:     pid,
-			Scene:  sid,
-			Schema: scid,
-			Items: []Item{
-				NewGroup().ID(iid).Schema(scid, propertySchemaGroup1ID).
-					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-							Build(),
-					}).MustBuild()},
-			Expected: struct {
-				Id     id.PropertyID
-				Scene  id.SceneID
-				Schema id.PropertySchemaID
-				Items  []Item
-			}{
-				Id:     pid,
+			Name: "success",
+			Args: args{
+				ID:     pid,
 				Scene:  sid,
 				Schema: scid,
 				Items: []Item{
-					NewGroup().ID(iid).Schema(scid, propertySchemaGroup1ID).
-						Fields([]*Field{
-							NewFieldUnsafe().
-								FieldUnsafe(propertySchemaField1ID).
-								ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-								Build(),
-						}).MustBuild()},
+					&Group{
+						itemBase: itemBase{
+							ID:          iid,
+							SchemaGroup: propertySchemaGroup1ID,
+						},
+						fields: []*Field{
+							{
+								field: propertySchemaField1ID,
+								v:     OptionalValueFrom(ValueTypeString.ValueFrom("xxx")),
+							},
+						},
+					},
+				},
+			},
+			Expected: &Property{
+				id:     pid,
+				scene:  sid,
+				schema: scid,
+				items: []Item{
+					&Group{
+						itemBase: itemBase{
+							ID:          iid,
+							SchemaGroup: propertySchemaGroup1ID,
+						},
+						fields: []*Field{
+							{
+								field: propertySchemaField1ID,
+								v:     OptionalValueFrom(ValueTypeString.ValueFrom("xxx")),
+							},
+						},
+					},
+				},
 			},
 		},
 		{
-			Name:  "fail invalid id",
-			Id:    id.PropertyID{},
-			Items: nil,
-			Err:   id.ErrInvalidID,
+			Name: "fail invalid id",
+			Args: args{
+				ID: ID{},
+			},
+			Err: ErrInvalidID,
 		},
 		{
-			Name:  "fail invalid scene",
-			Id:    pid,
-			Items: nil,
-			Err:   ErrInvalidSceneID,
+			Name: "fail invalid scene",
+			Args: args{
+				ID: pid,
+			},
+			Err: ErrInvalidSceneID,
 		},
 		{
-			Name:  "fail invalid schema",
-			Id:    pid,
-			Scene: sid,
-			Items: nil,
-			Err:   ErrInvalidPropertySchemaID,
-		},
-		{
-			Name:   "fail invalid item",
-			Id:     pid,
-			Scene:  sid,
-			Schema: scid,
-			Items: []Item{
-				NewGroup().ID(iid).Schema(id.MustPropertySchemaID("zzz~1.1.1/aa"), propertySchemaGroup1ID).
-					Fields([]*Field{
-						NewFieldUnsafe().
-							FieldUnsafe(propertySchemaField1ID).
-							ValueUnsafe(OptionalValueFrom(ValueTypeString.ValueFrom("xxx"))).
-							Build(),
-					}).MustBuild()},
-			Err: ErrInvalidItem,
+			Name: "fail invalid schema",
+			Args: args{
+				ID:    pid,
+				Scene: sid,
+			},
+			Err: ErrInvalidPropertySchemaID,
 		},
 	}
 
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res, err := New().ID(tc.Id).Items(tc.Items).Scene(tc.Scene).Schema(tc.Schema).Build()
-			if err == nil {
-				assert.Equal(tt, tc.Expected.Id, res.ID())
-				assert.Equal(tt, tc.Expected.Schema, res.Schema())
-				assert.Equal(tt, tc.Expected.Items, res.Items())
-				assert.Equal(tt, tc.Expected.Scene, res.Scene())
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			res, err := New().
+				ID(tt.Args.ID).
+				Items(tt.Args.Items).
+				Scene(tt.Args.Scene).
+				Schema(tt.Args.Schema).
+				Build()
+			if tt.Err == nil {
+				assert.Nil(t, err)
+				assert.Equal(t, tt.Expected, res)
 			} else {
-				assert.True(tt, errors.As(tc.Err, &err))
+				assert.Nil(t, res)
+				assert.Equal(t, tt.Err, err)
 			}
 		})
 	}

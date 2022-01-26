@@ -1,39 +1,45 @@
 package asset
 
 import (
-	"errors"
 	"testing"
 	"time"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestBuilder_Build(t *testing.T) {
-	aid := id.NewAssetID()
-	tid := id.NewTeamID()
+	aid := NewID()
+	tid := NewTeamID()
 	d := time.Date(1900, 1, 1, 00, 00, 0, 1, time.UTC)
-	testCases := []struct {
-		Name, AssetName string
-		Id              id.AssetID
-		CreatedAt       time.Time
-		Team            id.TeamID
-		Size            int64
-		Url             string
-		ContentType     string
-		ExpectedAssert  *Asset
-		Err             error
+
+	type args struct {
+		id          ID
+		name        string
+		createdAt   time.Time
+		team        TeamID
+		size        int64
+		url         string
+		contentType string
+	}
+
+	tests := []struct {
+		name     string
+		args     args
+		expected *Asset
+		err      error
 	}{
 		{
-			Name:        "Valid asset",
-			CreatedAt:   d,
-			Id:          aid,
-			Team:        tid,
-			AssetName:   "xxx",
-			Size:        10,
-			Url:         "tt://xxx.zz",
-			ContentType: "bbb",
-			ExpectedAssert: &Asset{
+			name: "Valid asset",
+			args: args{
+				createdAt:   d,
+				id:          aid,
+				team:        tid,
+				name:        "xxx",
+				size:        10,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			expected: &Asset{
 				id:          aid,
 				createdAt:   d,
 				team:        tid,
@@ -42,100 +48,114 @@ func TestBuilder_Build(t *testing.T) {
 				url:         "tt://xxx.zz",
 				contentType: "bbb",
 			},
-			Err: nil,
 		},
 		{
-			Name:           "failed empty size",
-			Id:             id.NewAssetID(),
-			CreatedAt:      d,
-			Team:           id.NewTeamID(),
-			Size:           0,
-			Url:            "tt://xxx.zz",
-			ContentType:    "bbb",
-			ExpectedAssert: nil,
-			Err:            ErrEmptySize,
+			name: "failed empty size",
+			args: args{
+				id:          NewID(),
+				createdAt:   d,
+				team:        NewTeamID(),
+				size:        0,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			err: ErrEmptySize,
 		},
 		{
-			Name:           "failed empty url",
-			Id:             id.NewAssetID(),
-			CreatedAt:      d,
-			Team:           id.NewTeamID(),
-			Size:           10,
-			Url:            "",
-			ContentType:    "bbb",
-			ExpectedAssert: nil,
-			Err:            ErrEmptyURL,
+			name: "failed empty url",
+			args: args{
+				id:          NewID(),
+				createdAt:   d,
+				team:        NewTeamID(),
+				size:        10,
+				url:         "",
+				contentType: "bbb",
+			},
+			err: ErrEmptyURL,
 		},
 		{
-			Name:           "failed empty team",
-			Id:             id.NewAssetID(),
-			CreatedAt:      d,
-			Team:           id.TeamID{},
-			Size:           10,
-			Url:            "tt://xxx.zz",
-			ContentType:    "bbb",
-			ExpectedAssert: nil,
-			Err:            ErrEmptyTeamID,
+			name: "failed empty team",
+			args: args{
+				id:          NewID(),
+				createdAt:   d,
+				team:        TeamID{},
+				size:        10,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			err: ErrEmptyTeamID,
 		},
 		{
-			Name:           "failed invalid Id",
-			Id:             id.AssetID{},
-			CreatedAt:      d,
-			Team:           id.NewTeamID(),
-			Size:           10,
-			Url:            "tt://xxx.zz",
-			ContentType:    "bbb",
-			ExpectedAssert: nil,
-			Err:            ErrEmptyTeamID,
+			name: "failed invalid Id",
+			args: args{
+				id:          ID{},
+				createdAt:   d,
+				team:        NewTeamID(),
+				size:        10,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			err: ErrInvalidID,
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			a, err := New().
-				ID(tc.Id).
-				CreatedAt(tc.CreatedAt).
-				Name(tc.AssetName).
-				Size(tc.Size).
-				Team(tc.Team).
-				ContentType(tc.ContentType).
-				URL(tc.Url).
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			res, err := New().
+				ID(tt.args.id).
+				CreatedAt(tt.args.createdAt).
+				Name(tt.args.name).
+				Size(tt.args.size).
+				Team(tt.args.team).
+				ContentType(tt.args.contentType).
+				URL(tt.args.url).
 				Build()
-			if err == nil {
-				assert.Equal(tt, tc.ExpectedAssert, a)
+			if tt.err == nil {
+				assert.Equal(t, tt.expected, res)
+				assert.Nil(t, err)
 			} else {
-				assert.True(tt, errors.As(tc.Err, &err))
+				assert.Nil(t, res)
+				assert.Equal(t, tt.err, err)
 			}
 		})
 	}
 }
 
 func TestBuilder_MustBuild(t *testing.T) {
-	aid := id.NewAssetID()
-	tid := id.NewTeamID()
+	aid := NewID()
+	tid := NewTeamID()
 	d := time.Date(1900, 1, 1, 00, 00, 0, 1, time.UTC)
-	testCases := []struct {
-		name, assetName string
-		createdAt       time.Time
-		id              id.AssetID
-		team            id.TeamID
-		size            int64
-		url             string
-		contentType     string
-		expectedAssert  *Asset
-		panic           bool
+
+	type args struct {
+		id          ID
+		name        string
+		createdAt   time.Time
+		team        TeamID
+		size        int64
+		url         string
+		contentType string
+	}
+
+	tests := []struct {
+		name     string
+		args     args
+		expected *Asset
+		err      error
 	}{
 		{
-			name:        "Valid asset",
-			createdAt:   d,
-			id:          aid,
-			team:        tid,
-			assetName:   "xxx",
-			size:        10,
-			url:         "tt://xxx.zz",
-			contentType: "bbb",
-			expectedAssert: &Asset{
+			name: "Valid asset",
+			args: args{
+				createdAt:   d,
+				id:          aid,
+				team:        tid,
+				name:        "xxx",
+				size:        10,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			expected: &Asset{
 				id:          aid,
 				createdAt:   d,
 				team:        tid,
@@ -144,93 +164,85 @@ func TestBuilder_MustBuild(t *testing.T) {
 				url:         "tt://xxx.zz",
 				contentType: "bbb",
 			},
-			panic: false,
 		},
 		{
-			name:           "failed empty size",
-			createdAt:      d,
-			id:             id.NewAssetID(),
-			team:           id.NewTeamID(),
-			size:           0,
-			url:            "tt://xxx.zz",
-			contentType:    "bbb",
-			expectedAssert: nil,
-			panic:          true,
+			name: "failed empty size",
+			args: args{
+				createdAt:   d,
+				id:          NewID(),
+				team:        NewTeamID(),
+				size:        0,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			err: ErrEmptySize,
 		},
 		{
-			name:           "failed empty url",
-			createdAt:      d,
-			id:             id.NewAssetID(),
-			team:           id.NewTeamID(),
-			size:           10,
-			url:            "",
-			contentType:    "bbb",
-			expectedAssert: nil,
-			panic:          true,
+			name: "failed empty url",
+			args: args{
+				createdAt:   d,
+				id:          NewID(),
+				team:        NewTeamID(),
+				size:        10,
+				url:         "",
+				contentType: "bbb",
+			},
+			err: ErrEmptyURL,
 		},
 		{
-			name:           "failed empty team",
-			createdAt:      d,
-			id:             id.NewAssetID(),
-			team:           id.TeamID{},
-			size:           10,
-			url:            "tt://xxx.zz",
-			contentType:    "bbb",
-			expectedAssert: nil,
-			panic:          true,
+			name: "failed empty team",
+			args: args{
+				createdAt:   d,
+				id:          NewID(),
+				team:        TeamID{},
+				size:        10,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			err: ErrEmptyTeamID,
 		},
 		{
-			name:           "failed invalid Id",
-			createdAt:      d,
-			id:             id.AssetID{},
-			team:           id.NewTeamID(),
-			size:           10,
-			url:            "tt://xxx.zz",
-			contentType:    "bbb",
-			expectedAssert: nil,
-			panic:          true,
+			name: "failed invalid Id",
+			args: args{
+				createdAt:   d,
+				id:          ID{},
+				team:        NewTeamID(),
+				size:        10,
+				url:         "tt://xxx.zz",
+				contentType: "bbb",
+			},
+			err: ErrInvalidID,
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
-			var a *Asset
-			if tc.panic {
-				defer func() {
-					if r := recover(); r != nil {
-						assert.Nil(tt, a)
-					}
-				}()
 
-				a = New().
-					ID(tc.id).
-					CreatedAt(tc.createdAt).
-					Name(tc.assetName).
-					Size(tc.size).
-					Team(tc.team).
-					ContentType(tc.contentType).
-					URL(tc.url).
-					MustBuild()
-			} else {
-				a = New().
-					ID(tc.id).
-					CreatedAt(tc.createdAt).
-					Name(tc.assetName).
-					Size(tc.size).
-					Team(tc.team).
-					ContentType(tc.contentType).
-					URL(tc.url).
-					MustBuild()
-				assert.Equal(tt, tc.expectedAssert, a)
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 
+			build := func() *Asset {
+				t.Helper()
+				return New().
+					ID(tt.args.id).
+					CreatedAt(tt.args.createdAt).
+					Name(tt.args.name).
+					Size(tt.args.size).
+					Team(tt.args.team).
+					ContentType(tt.args.contentType).
+					URL(tt.args.url).
+					MustBuild()
 			}
 
+			if tt.err != nil {
+				assert.PanicsWithValue(t, tt.err, func() { _ = build() })
+			} else {
+				assert.Equal(t, tt.expected, build())
+			}
 		})
 	}
 }
 
 func TestNewID(t *testing.T) {
-	a := New().NewID().URL("tt://xxx.bb").Team(id.NewTeamID()).Size(10).MustBuild()
+	a := New().NewID().URL("tt://xxx.bb").Team(NewTeamID()).Size(10).MustBuild()
 	assert.False(t, a.id.IsNil())
 }

@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	"github.com/reearth/reearth-backend/pkg/dataset"
-	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 // Group represents a group of property
@@ -18,47 +17,32 @@ type Group struct {
 // Group implements Item interface
 var _ Item = &Group{}
 
-func (g *Group) ID() id.PropertyItemID {
+func (g *Group) ID() ItemID {
 	if g == nil {
-		return id.PropertyItemID{}
+		return ItemID{}
 	}
 	return g.itemBase.ID
 }
 
-func (g *Group) IDRef() *id.PropertyItemID {
+func (g *Group) IDRef() *ItemID {
 	if g == nil {
 		return nil
 	}
 	return g.itemBase.ID.Ref()
 }
 
-func (g *Group) SchemaGroup() id.PropertySchemaGroupID {
+func (g *Group) SchemaGroup() SchemaGroupID {
 	if g == nil {
-		return id.PropertySchemaGroupID("")
+		return SchemaGroupID("")
 	}
 	return g.itemBase.SchemaGroup
 }
 
-func (g *Group) SchemaGroupRef() *id.PropertySchemaGroupID {
+func (g *Group) SchemaGroupRef() *SchemaGroupID {
 	if g == nil {
 		return nil
 	}
 	return g.itemBase.SchemaGroup.Ref()
-}
-
-func (g *Group) Schema() id.PropertySchemaID {
-	if g == nil {
-		return id.PropertySchemaID{}
-	}
-	return g.itemBase.Schema
-}
-
-// SchemaRef _
-func (g *Group) SchemaRef() *id.PropertySchemaID {
-	if g == nil {
-		return nil
-	}
-	return g.itemBase.Schema.Ref()
 }
 
 func (g *Group) HasLinkedField() bool {
@@ -66,40 +50,40 @@ func (g *Group) HasLinkedField() bool {
 		return false
 	}
 	for _, f := range g.fields {
-		if f.HasLinkedField() {
+		if f.Links().IsLinked() {
 			return true
 		}
 	}
 	return false
 }
 
-func (g *Group) CollectDatasets() []id.DatasetID {
+func (g *Group) Datasets() []DatasetID {
 	if g == nil {
 		return nil
 	}
-	res := []id.DatasetID{}
+	res := []DatasetID{}
 
 	for _, f := range g.fields {
-		res = append(res, f.CollectDatasets()...)
+		res = append(res, f.Datasets()...)
 	}
 
 	return res
 }
 
-func (g *Group) FieldsByLinkedDataset(s id.DatasetSchemaID, i id.DatasetID) []*Field {
+func (g *Group) FieldsByLinkedDataset(s DatasetSchemaID, i DatasetID) []*Field {
 	if g == nil {
 		return nil
 	}
 	res := []*Field{}
 	for _, f := range g.fields {
-		if f.Links().IsDatasetLinked(s, i) {
+		if f.Links().HasSchemaAndDataset(s, i) {
 			res = append(res, f)
 		}
 	}
 	return res
 }
 
-func (g *Group) IsDatasetLinked(s id.DatasetSchemaID, i id.DatasetID) bool {
+func (g *Group) IsDatasetLinked(s DatasetSchemaID, i DatasetID) bool {
 	if g == nil {
 		return false
 	}
@@ -139,8 +123,6 @@ func (g *Group) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 		return
 	}
 
-	g.itemBase.Schema = newSchema.ID()
-
 	for _, f := range g.fields {
 		if !f.MigrateSchema(ctx, newSchema, dl) {
 			g.RemoveField(f.Field())
@@ -150,8 +132,8 @@ func (g *Group) MigrateSchema(ctx context.Context, newSchema *Schema, dl dataset
 	g.Prune()
 }
 
-func (g *Group) GetOrCreateField(ps *Schema, fid id.PropertySchemaFieldID) (*Field, bool) {
-	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
+func (g *Group) GetOrCreateField(ps *Schema, fid FieldID) (*Field, bool) {
+	if g == nil || ps == nil {
 		return nil, false
 	}
 	psg := ps.Group(g.SchemaGroup())
@@ -171,7 +153,7 @@ func (g *Group) GetOrCreateField(ps *Schema, fid id.PropertySchemaFieldID) (*Fie
 	}
 
 	// if the field does not exist, create it here
-	field, _ = NewField(psf).Build()
+	field = FieldFrom(psf).Type(psf.Type()).Build()
 	if field == nil {
 		return nil, false
 	}
@@ -180,7 +162,7 @@ func (g *Group) GetOrCreateField(ps *Schema, fid id.PropertySchemaFieldID) (*Fie
 	return field, true
 }
 
-func (g *Group) RemoveField(fid id.PropertySchemaFieldID) {
+func (g *Group) RemoveField(fid FieldID) {
 	if g == nil {
 		return
 	}
@@ -192,11 +174,11 @@ func (g *Group) RemoveField(fid id.PropertySchemaFieldID) {
 	}
 }
 
-func (g *Group) FieldIDs() []id.PropertySchemaFieldID {
+func (g *Group) FieldIDs() []FieldID {
 	if g == nil {
 		return nil
 	}
-	fields := make([]id.PropertySchemaFieldID, 0, len(g.fields))
+	fields := make([]FieldID, 0, len(g.fields))
 	for _, f := range g.fields {
 		fields = append(fields, f.Field())
 	}
@@ -212,7 +194,7 @@ func (g *Group) Fields() []*Field {
 }
 
 // Field returns a field whose id is specified
-func (g *Group) Field(fid id.PropertySchemaFieldID) *Field {
+func (g *Group) Field(fid FieldID) *Field {
 	if g == nil {
 		return nil
 	}
@@ -233,18 +215,18 @@ func (g *Group) MigrateDataset(q DatasetMigrationParam) {
 	}
 }
 
-func (g *Group) UpdateNameFieldValue(ps *Schema, value *Value) error {
-	if g == nil || ps == nil || !g.Schema().Equal(ps.ID()) {
+func (g *Group) RepresentativeField(schema *Schema) *Field {
+	if g == nil || schema == nil {
 		return nil
 	}
-	if psg := ps.GroupByPointer(NewPointer(&g.itemBase.SchemaGroup, nil, nil)); psg != nil {
+	if psg := schema.GroupByPointer(NewPointer(&g.itemBase.SchemaGroup, nil, nil)); psg != nil {
 		if representativeField := psg.RepresentativeFieldID(); representativeField != nil {
-			if f, _ := g.GetOrCreateField(ps, *representativeField); f != nil {
-				return f.Update(value, psg.Field(*representativeField))
+			if f, _ := g.GetOrCreateField(schema, *representativeField); f != nil {
+				return f
 			}
 		}
 	}
-	return ErrInvalidPropertyField
+	return nil
 }
 
 func (p *Group) ValidateSchema(ps *SchemaGroup) error {
@@ -253,9 +235,6 @@ func (p *Group) ValidateSchema(ps *SchemaGroup) error {
 	}
 	if ps == nil {
 		return errors.New("invalid schema")
-	}
-	if !p.Schema().Equal(ps.Schema()) {
-		return errors.New("invalid schema id")
 	}
 	if p.SchemaGroup() != ps.ID() {
 		return errors.New("invalid schema group id")

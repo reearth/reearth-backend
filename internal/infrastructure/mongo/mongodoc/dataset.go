@@ -7,19 +7,19 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
-type DatasetFieldDocument struct {
-	Field  string
-	Type   string
-	Value  interface{}
-	Source string
-}
-
 type DatasetDocument struct {
 	ID     string
 	Source string
 	Schema string
 	Fields []*DatasetFieldDocument
 	Scene  string
+}
+
+type DatasetFieldDocument struct {
+	Field  string
+	Type   string
+	Value  interface{}
+	Source string
 }
 
 type DatasetExtendedDocument struct {
@@ -183,5 +183,5 @@ func toModelDatasetValue(v interface{}, t string) *dataset.Value {
 	if v2, ok := v.(bson.D); ok {
 		v = v2.Map()
 	}
-	return dataset.ValueTypeFrom(t).ValueFrom(v)
+	return dataset.ValueType(t).ValueFrom(v)
 }

@@ -1,7 +1,5 @@
 package property
 
-import "github.com/reearth/reearth-backend/pkg/id"
-
 type GroupListBuilder struct {
 	p *GroupList
 }
@@ -16,13 +14,13 @@ func InitGroupListFrom(g *SchemaGroup) *GroupList {
 	if g == nil || !g.IsList() {
 		return nil
 	}
-	g2, _ := NewGroupList().NewID().Schema(g.Schema(), g.ID()).Build()
+	g2, _ := NewGroupList().NewID().SchemaGroup(g.ID()).Build()
 	return g2
 }
 
 func (b *GroupListBuilder) Build() (*GroupList, error) {
-	if id.ID(b.p.itemBase.ID).IsNil() {
-		return nil, id.ErrInvalidID
+	if b.p.itemBase.ID.IsNil() {
+		return nil, ErrInvalidID
 	}
 	return b.p, nil
 }
@@ -40,25 +38,24 @@ func (b *GroupListBuilder) base(base itemBase) *GroupListBuilder {
 	return b
 }
 
-func (b *GroupListBuilder) ID(id id.PropertyItemID) *GroupListBuilder {
+func (b *GroupListBuilder) ID(id ItemID) *GroupListBuilder {
 	b.p.itemBase.ID = id
 	return b
 }
 
 func (b *GroupListBuilder) NewID() *GroupListBuilder {
-	b.p.itemBase.ID = id.NewPropertyItemID()
+	b.p.itemBase.ID = NewItemID()
 	return b
 }
 
-func (b *GroupListBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaGroupID) *GroupListBuilder {
-	b.p.itemBase.Schema = s
+func (b *GroupListBuilder) SchemaGroup(g SchemaGroupID) *GroupListBuilder {
 	b.p.itemBase.SchemaGroup = g
 	return b
 }
 
 func (b *GroupListBuilder) Groups(fields []*Group) *GroupListBuilder {
 	newGroups := []*Group{}
-	ids := map[id.PropertyItemID]struct{}{}
+	ids := map[ItemID]struct{}{}
 	for _, f := range fields {
 		if f == nil {
 			continue

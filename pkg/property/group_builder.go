@@ -1,7 +1,5 @@
 package property
 
-import "github.com/reearth/reearth-backend/pkg/id"
-
 type GroupBuilder struct {
 	p *Group
 }
@@ -16,13 +14,13 @@ func InitGroupFrom(g *SchemaGroup) *Group {
 	if g == nil {
 		return nil
 	}
-	g2, _ := NewGroup().NewID().Schema(g.Schema(), g.ID()).Build()
+	g2, _ := NewGroup().NewID().SchemaGroup(g.ID()).Build()
 	return g2
 }
 
 func (b *GroupBuilder) Build() (*Group, error) {
-	if id.ID(b.p.itemBase.ID).IsNil() {
-		return nil, id.ErrInvalidID
+	if b.p.itemBase.ID.IsNil() {
+		return nil, ErrInvalidID
 	}
 	return b.p, nil
 }
@@ -40,25 +38,24 @@ func (b *GroupBuilder) base(base itemBase) *GroupBuilder {
 	return b
 }
 
-func (b *GroupBuilder) ID(id id.PropertyItemID) *GroupBuilder {
+func (b *GroupBuilder) ID(id ItemID) *GroupBuilder {
 	b.p.itemBase.ID = id
 	return b
 }
 
 func (b *GroupBuilder) NewID() *GroupBuilder {
-	b.p.itemBase.ID = id.NewPropertyItemID()
+	b.p.itemBase.ID = NewItemID()
 	return b
 }
 
-func (b *GroupBuilder) Schema(s id.PropertySchemaID, g id.PropertySchemaGroupID) *GroupBuilder {
-	b.p.itemBase.Schema = s
+func (b *GroupBuilder) SchemaGroup(g SchemaGroupID) *GroupBuilder {
 	b.p.itemBase.SchemaGroup = g
 	return b
 }
 
 func (b *GroupBuilder) Fields(fields []*Field) *GroupBuilder {
 	var newFields []*Field
-	ids := map[id.PropertySchemaFieldID]struct{}{}
+	ids := map[FieldID]struct{}{}
 	for _, f := range fields {
 		if f == nil {
 			continue

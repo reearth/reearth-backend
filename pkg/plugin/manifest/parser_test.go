@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/visualizer"
@@ -16,35 +15,34 @@ import (
 //go:embed testdata/minimum.yml
 var minimum string
 var minimumExpected = &Manifest{
-	Plugin: plugin.New().ID(id.MustPluginID("aaa~1.1.1")).MustBuild(),
+	Plugin: plugin.New().ID(plugin.MustID("aaa~1.1.1")).MustBuild(),
 }
 
 //go:embed testdata/test.yml
 var normal string
 var normalExpected = &Manifest{
-	Plugin: plugin.New().ID(id.MustPluginID("aaa~1.1.1")).Name(i18n.StringFrom("bbb")).Extensions([]*plugin.Extension{
-		plugin.NewExtension().ID(id.PluginExtensionID("hoge")).
+	Plugin: plugin.New().ID(plugin.MustID("aaa~1.1.1")).Name(i18n.StringFrom("bbb")).Extensions([]*plugin.Extension{
+		plugin.NewExtension().ID(plugin.ExtensionID("hoge")).
 			Visualizer(visualizer.VisualizerCesium).
 			Type(plugin.ExtensionTypePrimitive).
 			WidgetLayout(nil).
-			Schema(id.MustPropertySchemaID("aaa~1.1.1/hoge")).
+			Schema(property.MustSchemaID("aaa~1.1.1/hoge")).
 			MustBuild(),
 	}).MustBuild(),
 	ExtensionSchema: []*property.Schema{
-		property.NewSchema().ID(id.MustPropertySchemaID("aaa~1.1.1/hoge")).Groups([]*property.SchemaGroup{
-			property.NewSchemaGroup().ID(id.PropertySchemaGroupID("default")).
-				Schema(id.MustPropertySchemaID("aaa~1.1.1/hoge")).
-				RepresentativeField(id.PropertySchemaFieldID("a").Ref()).
+		property.NewSchema().ID(property.MustSchemaID("aaa~1.1.1/hoge")).Groups([]*property.SchemaGroup{
+			property.NewSchemaGroup().ID(property.SchemaGroupID("default")).
+				RepresentativeField(property.FieldID("a").Ref()).
 				Fields([]*property.SchemaField{
-					property.NewSchemaField().ID(id.PropertySchemaFieldID("a")).
+					property.NewSchemaField().ID(property.FieldID("a")).
 						Type(property.ValueTypeBool).
 						DefaultValue(property.ValueTypeBool.ValueFrom(true)).
 						IsAvailableIf(&property.Condition{
-							Field: id.PropertySchemaFieldID("b"),
+							Field: property.FieldID("b"),
 							Value: property.ValueTypeNumber.ValueFrom(1),
 						}).
 						MustBuild(),
-					property.NewSchemaField().ID(id.PropertySchemaFieldID("b")).
+					property.NewSchemaField().ID(property.FieldID("b")).
 						Type(property.ValueTypeNumber).
 						MustBuild(),
 				}).MustBuild(),
@@ -53,7 +51,7 @@ var normalExpected = &Manifest{
 }
 
 func TestParse(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		name     string
 		input    string
 		expected *Manifest
@@ -90,26 +88,26 @@ func TestParse(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			m, err := Parse(strings.NewReader(tc.input), nil)
 			if tc.err == nil {
-				if !assert.NoError(tt, err) {
+				if !assert.NoError(t, err) {
 					return
 				}
-				assert.Equal(tt, tc.expected, m)
+				assert.Equal(t, tc.expected, m)
 				return
 			}
-			assert.ErrorIs(tt, tc.err, err)
+			assert.ErrorIs(t, tc.err, err)
 		})
 	}
 
 }
 
 func TestParseSystemFromBytes(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		name, input string
 		expected    *Manifest
 		err         error
@@ -134,63 +132,63 @@ func TestParseSystemFromBytes(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 			m, err := ParseSystemFromBytes([]byte(tc.input), nil)
 			if tc.err == nil {
-				if !assert.NoError(tt, err) {
+				if !assert.NoError(t, err) {
 					return
 				}
-				assert.Equal(tt, tc.expected, m)
+				assert.Equal(t, tc.expected, m)
 				return
 			}
-			assert.ErrorIs(tt, tc.err, err)
+			assert.ErrorIs(t, tc.err, err)
 		})
 	}
 }
 
 func TestMustParseSystemFromBytes(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		name, input string
 		expected    *Manifest
-		err         error
+		fails       bool
 	}{
 		{
 			name:     "success create simple manifest",
 			input:    minimum,
 			expected: minimumExpected,
-			err:      nil,
+			fails:    false,
 		},
 		{
 			name:     "success create manifest",
 			input:    normal,
 			expected: normalExpected,
-			err:      nil,
+			fails:    false,
 		},
 		{
 			name:     "fail not valid JSON",
 			input:    "--",
 			expected: nil,
-			err:      ErrFailedToParseManifest,
+			fails:    true,
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
 
-			if tc.err != nil {
-				assert.PanicsWithError(tt, tc.err.Error(), func() {
+			if tc.fails {
+				assert.Panics(t, func() {
 					_ = MustParseSystemFromBytes([]byte(tc.input), nil)
 				})
 				return
 			}
 
 			m := MustParseSystemFromBytes([]byte(tc.input), nil)
-			assert.Equal(tt, m, tc.expected)
+			assert.Equal(t, m, tc.expected)
 		})
 	}
 }

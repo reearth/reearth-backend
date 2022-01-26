@@ -3,19 +3,22 @@ package scene
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestPlugin(t *testing.T) {
-	pid := id.MustPluginID("xxx~1.1.1")
-	pr := id.NewPropertyID().Ref()
+	pid := MustPluginID("xxx~1.1.1")
+	pr := NewPropertyID().Ref()
+
 	res := NewPlugin(pid, pr)
-	p := Plugin{
+	assert.Equal(t, &Plugin{
 		plugin:   pid,
 		property: pr,
-	}
-	assert.Equal(t, &p, res)
-	assert.Equal(t, pid, p.Plugin())
-	assert.Equal(t, pr, p.Property())
+	}, res)
+	assert.Equal(t, pid, res.Plugin())
+	assert.Equal(t, pr, res.Property())
+
+	cl := res.Clone()
+	assert.Equal(t, res, cl)
+	assert.NotSame(t, res, cl)
 }

@@ -5,17 +5,16 @@ import (
 
 	"github.com/reearth/reearth-backend/pkg/dataset"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNewLinks(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	dsid2 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	did2 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
-	dfid2 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	dsid2 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	did2 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
+	dfid2 := NewDatasetFieldID()
 
 	var lin *Links
 	assert.Nil(t, lin)
@@ -27,17 +26,17 @@ func TestNewLinks(t *testing.T) {
 	assert.Equal(t, 0, lin.Len())
 
 	lin = NewLinks([]*Link{})
-	assert.Equal(t, []id.DatasetID{}, lin.DatasetIDs())
-	assert.Equal(t, []id.DatasetSchemaID{}, lin.DatasetSchemaIDs())
-	assert.Equal(t, []id.DatasetSchemaFieldID{}, lin.DatasetSchemaFieldIDs())
+	assert.Equal(t, []DatasetID{}, lin.DatasetIDs())
+	assert.Equal(t, []DatasetSchemaID{}, lin.DatasetSchemaIDs())
+	assert.Equal(t, []DatasetFieldID{}, lin.DatasetSchemaFieldIDs())
 
 	ll := []*Link{
 		NewLink(did1, dsid1, dfid1),
 		NewLink(did2, dsid2, dfid2),
 	}
-	dl := []id.DatasetID{did1, did2}
-	dsl := []id.DatasetSchemaID{dsid1, dsid2}
-	dsfl := []id.DatasetSchemaFieldID{dfid1, dfid2}
+	dl := []DatasetID{did1, did2}
+	dsl := []DatasetSchemaID{dsid1, dsid2}
+	dsfl := []DatasetFieldID{dfid1, dfid2}
 	lin = NewLinks(ll)
 	assert.NotNil(t, lin)
 	assert.Equal(t, ll, lin.Links())
@@ -49,20 +48,20 @@ func TestNewLinks(t *testing.T) {
 	assert.Equal(t, 2, lin.Len())
 }
 
-func TestLinks_IsDatasetLinked(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	dsid2 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	did2 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
+func TestLinks_HasSchemaAndDataset(t *testing.T) {
+	dsid1 := NewDatasetSchemaID()
+	dsid2 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	did2 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
 	ll := []*Link{
 		NewLink(did1, dsid1, dfid1),
 	}
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
-		DSS      id.DatasetSchemaID
-		DS       id.DatasetID
+		DSS      DatasetSchemaID
+		DS       DatasetID
 		Links    *Links
 		Expected bool
 	}{
@@ -85,26 +84,27 @@ func TestLinks_IsDatasetLinked(t *testing.T) {
 			Expected: false,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			res := tc.Links.IsDatasetLinked(tc.DSS, tc.DS)
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
+			res := tc.Links.HasSchemaAndDataset(tc.DSS, tc.DS)
 			res2 := tc.Links.HasDataset(tc.DS)
 			res3 := tc.Links.HasDatasetSchema(tc.DSS)
-			assert.Equal(tt, tc.Expected, res)
-			assert.Equal(tt, tc.Expected, res2)
-			assert.Equal(tt, tc.Expected, res3)
+			assert.Equal(t, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res2)
+			assert.Equal(t, tc.Expected, res3)
 		})
 	}
 }
 
 func TestLinks_Validate(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		DSM      dataset.SchemaMap
 		DM       dataset.Map
@@ -144,29 +144,30 @@ func TestLinks_Validate(t *testing.T) {
 			Expected: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.Links.Validate(tc.DSM, tc.DM)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestLinks_Replace(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	dsid2 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	did2 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
-	dfid2 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	dsid2 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	did2 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
+	dfid2 := NewDatasetFieldID()
 
-	testCases := []struct {
+	tests := []struct {
 		Name            string
-		DSM             map[id.DatasetSchemaID]id.DatasetSchemaID
-		DM              map[id.DatasetID]id.DatasetID
-		FM              map[id.DatasetSchemaFieldID]id.DatasetSchemaFieldID
+		DSM             map[DatasetSchemaID]DatasetSchemaID
+		DM              map[DatasetID]DatasetID
+		FM              map[DatasetFieldID]DatasetFieldID
 		Expected, Links *Links
 	}{
 		{
@@ -174,13 +175,13 @@ func TestLinks_Replace(t *testing.T) {
 		},
 		{
 			Name: "success",
-			DSM: map[id.DatasetSchemaID]id.DatasetSchemaID{
+			DSM: map[DatasetSchemaID]DatasetSchemaID{
 				dsid1: dsid2,
 			},
-			DM: map[id.DatasetID]id.DatasetID{
+			DM: map[DatasetID]DatasetID{
 				did1: did2,
 			},
-			FM: map[id.DatasetSchemaFieldID]id.DatasetSchemaFieldID{
+			FM: map[DatasetFieldID]DatasetFieldID{
 				dfid1: dfid2,
 			},
 			Links:    NewLinks([]*Link{NewLink(did1, dsid1, dfid1)}),
@@ -188,56 +189,57 @@ func TestLinks_Replace(t *testing.T) {
 		},
 		{
 			Name: "dataset = nil",
-			DSM: map[id.DatasetSchemaID]id.DatasetSchemaID{
+			DSM: map[DatasetSchemaID]DatasetSchemaID{
 				dsid1: dsid2,
 			},
-			DM: map[id.DatasetID]id.DatasetID{},
-			FM: map[id.DatasetSchemaFieldID]id.DatasetSchemaFieldID{
+			DM: map[DatasetID]DatasetID{},
+			FM: map[DatasetFieldID]DatasetFieldID{
 				dfid1: dfid2,
 			},
 			Links: NewLinks([]*Link{NewLink(did1, dsid1, dfid1)}),
 		},
 		{
 			Name: "datasetschema = nil",
-			DSM:  map[id.DatasetSchemaID]id.DatasetSchemaID{},
-			DM: map[id.DatasetID]id.DatasetID{
+			DSM:  map[DatasetSchemaID]DatasetSchemaID{},
+			DM: map[DatasetID]DatasetID{
 				did1: did2,
 			},
-			FM: map[id.DatasetSchemaFieldID]id.DatasetSchemaFieldID{
+			FM: map[DatasetFieldID]DatasetFieldID{
 				dfid1: dfid2,
 			},
 			Links: NewLinks([]*Link{NewLink(did1, dsid1, dfid1)}),
 		},
 		{
 			Name: "dataset schema field = nil",
-			DSM: map[id.DatasetSchemaID]id.DatasetSchemaID{
+			DSM: map[DatasetSchemaID]DatasetSchemaID{
 				dsid1: dsid2,
 			},
-			DM: map[id.DatasetID]id.DatasetID{
+			DM: map[DatasetID]DatasetID{
 				did1: did2,
 			},
-			FM:    map[id.DatasetSchemaFieldID]id.DatasetSchemaFieldID{},
+			FM:    map[DatasetFieldID]DatasetFieldID{},
 			Links: NewLinks([]*Link{NewLink(did1, dsid1, dfid1)}),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			tc.Links.Replace(tc.DSM, tc.DM, tc.FM)
-			assert.Equal(tt, tc.Expected.Links(), tc.Links.Links())
+			assert.Equal(t, tc.Expected.Links(), tc.Links.Links())
 		})
 	}
 }
 
 func TestLinks_ApplyDataset(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
 
-	testCases := []struct {
+	tests := []struct {
 		Name            string
-		Input           *id.DatasetID
+		Input           *DatasetID
 		Expected, Links *Links
 	}{
 		{
@@ -260,25 +262,26 @@ func TestLinks_ApplyDataset(t *testing.T) {
 			Expected: NewLinks([]*Link{NewLink(did1, dsid1, dfid1)}),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.Links.ApplyDataset(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestLink_Dataset(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		Link     *Link
-		Expected *id.DatasetID
+		Expected *DatasetID
 	}{
 		{
 			Name: "nil link",
@@ -293,25 +296,26 @@ func TestLink_Dataset(t *testing.T) {
 			Expected: did1.Ref(),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
+		t.Run(tc.Name, func(t *testing.T) {
 			res := tc.Link.Dataset()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 
 }
 
 func TestLink_DatasetSchema(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		Link     *Link
-		Expected *id.DatasetSchemaID
+		Expected *DatasetSchemaID
 	}{
 		{
 			Name: "nil link",
@@ -322,25 +326,26 @@ func TestLink_DatasetSchema(t *testing.T) {
 			Expected: dsid1.Ref(),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
+		t.Run(tc.Name, func(t *testing.T) {
 			res := tc.Link.DatasetSchema()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 
 }
 
 func TestLink_DatasetSchemaField(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		Link     *Link
-		Expected *id.DatasetSchemaFieldID
+		Expected *DatasetFieldID
 	}{
 		{
 			Name: "nil link",
@@ -351,24 +356,25 @@ func TestLink_DatasetSchemaField(t *testing.T) {
 			Expected: dfid1.Ref(),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
+		t.Run(tc.Name, func(t *testing.T) {
 			res := tc.Link.DatasetSchemaField()
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
 
 func TestLink_Value(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
+	dsid1 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
 	dsf := []*dataset.Field{
 		dataset.NewField(dfid1, dataset.ValueTypeString.ValueFrom("aaa"), ""),
 	}
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		Link     *Link
 		Input    *dataset.Dataset
@@ -389,20 +395,22 @@ func TestLink_Value(t *testing.T) {
 			Expected: dataset.ValueTypeString.ValueFrom("aaa"),
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
+		t.Run(tc.Name, func(t *testing.T) {
 			res := tc.Link.Value(tc.Input)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
-func TestLink_Validate(t *testing.T) {
-	dsid1 := id.NewDatasetSchemaID()
-	did1 := id.NewDatasetID()
-	dfid1 := id.NewDatasetSchemaFieldID()
 
-	testCases := []struct {
+func TestLink_Validate(t *testing.T) {
+	dsid1 := NewDatasetSchemaID()
+	did1 := NewDatasetID()
+	dfid1 := NewDatasetFieldID()
+
+	tests := []struct {
 		Name     string
 		DS       *dataset.Dataset
 		DSS      *dataset.Schema
@@ -463,12 +471,13 @@ func TestLink_Validate(t *testing.T) {
 			Expected: true,
 		},
 	}
-	for _, tc := range testCases {
+
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.Link.Validate(tc.DSS, tc.DS)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }
@@ -476,6 +485,6 @@ func TestLink_Validate(t *testing.T) {
 func TestLink_Clone(t *testing.T) {
 	var l *Link
 	assert.Nil(t, l.Clone())
-	l = NewLink(id.NewDatasetID(), id.NewDatasetSchemaID(), id.NewDatasetSchemaFieldID())
+	l = NewLink(NewDatasetID(), NewDatasetSchemaID(), NewDatasetFieldID())
 	assert.Equal(t, l, l.Clone())
 }

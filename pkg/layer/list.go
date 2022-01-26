@@ -1,11 +1,5 @@
 package layer
 
-import (
-	"sort"
-
-	"github.com/reearth/reearth-backend/pkg/id"
-)
-
 type List []*Layer
 
 func (ll List) Last() *Layer {
@@ -13,6 +7,28 @@ func (ll List) Last() *Layer {
 		return nil
 	}
 	return ll[len(ll)-1]
+}
+
+func (ll List) IDs() *IDList {
+	if len(ll) == 0 {
+		return nil
+	}
+	ids := make([]ID, 0, len(ll))
+	for _, l := range ll.Deref() {
+		ids = append(ids, l.ID())
+	}
+	return NewIDList(ids)
+}
+
+func (ll List) Properties() []PropertyID {
+	if len(ll) == 0 {
+		return nil
+	}
+	ids := make([]PropertyID, 0, len(ll))
+	for _, l := range ll.Deref() {
+		ids = append(ids, l.Properties()...)
+	}
+	return ids
 }
 
 func (ll List) Pick(il *IDList) List {
@@ -29,7 +45,7 @@ func (ll List) Pick(il *IDList) List {
 	return layers
 }
 
-func (ll List) Find(lid id.LayerID) *Layer {
+func (ll List) Find(lid ID) *Layer {
 	for _, l := range ll {
 		if l == nil {
 			continue
@@ -41,7 +57,7 @@ func (ll List) Find(lid id.LayerID) *Layer {
 	return nil
 }
 
-func (ll List) FindByDataset(ds id.DatasetID) *Item {
+func (ll List) FindByDataset(ds DatasetID) *Item {
 	for _, l := range ll {
 		if li := ItemFromLayerRef(l); li != nil {
 			dsid := li.LinkedDataset()
@@ -111,7 +127,7 @@ func (ll List) Map() Map {
 	return m
 }
 
-func (ll List) Remove(lids ...id.LayerID) List {
+func (ll List) Remove(lids ...ID) List {
 	if ll == nil {
 		return nil
 	}
@@ -139,7 +155,7 @@ func (ll List) Remove(lids ...id.LayerID) List {
 
 type ItemList []*Item
 
-func (ll ItemList) FindByDataset(ds id.DatasetID) *Item {
+func (ll ItemList) FindByDataset(ds DatasetID) *Item {
 	for _, li := range ll {
 		dsid := li.LinkedDataset()
 		if dsid != nil && *dsid == ds {
@@ -183,7 +199,7 @@ func (ll GroupList) Last() *Group {
 	return ll[len(ll)-1]
 }
 
-type Map map[id.LayerID]*Layer
+type Map map[ID]*Layer
 
 func MapFrom(l Layer) Map {
 	return List{&l}.Map()
@@ -191,7 +207,7 @@ func MapFrom(l Layer) Map {
 
 func (m Map) Add(layers ...*Layer) Map {
 	if m == nil {
-		m = map[id.LayerID]*Layer{}
+		m = map[ID]*Layer{}
 	}
 	for _, l := range layers {
 		if l == nil {
@@ -254,35 +270,33 @@ func (m Map) Pick(il *IDList) List {
 	return layers
 }
 
-func (m Map) Layer(i id.LayerID) Layer {
+func (m Map) Layer(i ID) Layer {
 	if l := m[i]; l != nil {
 		return *l
 	}
 	return nil
 }
 
-func (m Map) Item(i id.LayerID) *Item {
+func (m Map) Item(i ID) *Item {
 	if l := ToLayerItem(m.Layer(i)); l != nil {
 		return l
 	}
 	return nil
 }
 
-func (m Map) Group(i id.LayerID) *Group {
+func (m Map) Group(i ID) *Group {
 	if l := ToLayerGroup(m.Layer(i)); l != nil {
 		return l
 	}
 	return nil
 }
 
-func (m Map) Keys() []id.LayerID {
-	keys := make([]id.LayerID, 0, len(m))
+func (m Map) Keys() []ID {
+	keys := make([]ID, 0, len(m))
 	for k := range m {
 		keys = append(keys, k)
 	}
-	sort.SliceStable(keys, func(i, j int) bool {
-		return id.ID(keys[i]).Compare(id.ID(keys[j])) < 0
-	})
+	sortIDs(keys)
 	return keys
 }
 

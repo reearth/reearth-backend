@@ -1,47 +1,48 @@
 package property
 
-import "github.com/reearth/reearth-backend/pkg/id"
+import "fmt"
 
 type FieldBuilder struct {
-	p   *Field
-	psf *SchemaField
-}
-
-type FieldUnsafeBuilder struct {
 	p *Field
 }
 
-func NewField(p *SchemaField) *FieldBuilder {
-	b := &FieldBuilder{
-		p: &Field{},
+func NewField(field FieldID) *FieldBuilder {
+	return &FieldBuilder{
+		p: &Field{
+			field: field,
+		},
 	}
-	return b.schemaField(p)
 }
 
-func (b *FieldBuilder) Build() (*Field, error) {
-	if b.p.field == id.PropertySchemaFieldID("") {
-		return nil, id.ErrInvalidID
+func FieldFrom(sf *SchemaField) *FieldBuilder {
+	if sf == nil {
+		return NewField("")
 	}
-	if b.psf != nil && !b.psf.Validate(b.p.v) {
-		return nil, ErrInvalidPropertyValue
+	return &FieldBuilder{
+		p: &Field{
+			field: sf.ID(),
+			v:     NewOptionalValue(sf.Type(), nil),
+		},
 	}
-	return b.p, nil
+}
+
+func (b *FieldBuilder) Build() *Field {
+	if b.p.field == "" || b.p.v == nil {
+		return nil
+	}
+	return b.p
 }
 
 func (b *FieldBuilder) MustBuild() *Field {
-	p, err := b.Build()
-	if err != nil {
-		panic(err)
+	f := b.Build()
+	if f == nil {
+		panic(fmt.Sprintf("field ID or type is invalid: id=%s, type=%s", b.p.field, b.p.v.Type()))
 	}
-	return p
+	return f
 }
 
-func (b *FieldBuilder) schemaField(p *SchemaField) *FieldBuilder {
-	if p != nil {
-		b.psf = p
-		b.p.field = p.ID()
-		b.p.v = NewOptionalValue(p.Type(), p.DefaultValue().Clone())
-	}
+func (b *FieldBuilder) Field(field FieldID) *FieldBuilder {
+	b.p.field = field
 	return b
 }
 
@@ -50,32 +51,14 @@ func (b *FieldBuilder) Value(v *OptionalValue) *FieldBuilder {
 	return b
 }
 
-func (b *FieldBuilder) Link(l *Links) *FieldBuilder {
-	b.p.links = l.Clone()
-	return b
-}
-
-func NewFieldUnsafe() *FieldUnsafeBuilder {
-	return &FieldUnsafeBuilder{
-		p: &Field{},
+func (b *FieldBuilder) Type(t ValueType) *FieldBuilder {
+	if b.p.v.Type() != t {
+		b.p.v = NewOptionalValue(t, nil)
 	}
-}
-
-func (b *FieldUnsafeBuilder) Build() *Field {
-	return b.p
-}
-
-func (b *FieldUnsafeBuilder) FieldUnsafe(f id.PropertySchemaFieldID) *FieldUnsafeBuilder {
-	b.p.field = f
 	return b
 }
 
-func (b *FieldUnsafeBuilder) ValueUnsafe(v *OptionalValue) *FieldUnsafeBuilder {
-	b.p.v = v.Clone()
-	return b
-}
-
-func (b *FieldUnsafeBuilder) LinksUnsafe(l *Links) *FieldUnsafeBuilder {
+func (b *FieldBuilder) Links(l *Links) *FieldBuilder {
 	b.p.links = l.Clone()
 	return b
 }

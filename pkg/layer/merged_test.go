@@ -3,24 +3,23 @@ package layer
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMerge(t *testing.T) {
-	scene := id.NewSceneID()
-	dataset1 := id.NewDatasetID()
-	p := id.MustPluginID("xxx~1.1.1")
-	e := id.PluginExtensionID("foo")
+	scene := NewSceneID()
+	dataset1 := NewDatasetID()
+	p := MustPluginID("xxx~1.1.1")
+	e := PluginExtensionID("foo")
 
-	itemProperty := id.NewPropertyID()
-	groupProperty := id.NewPropertyID()
-	ib1pr := id.NewPropertyID()
-	ib2pr := id.NewPropertyID()
-	f1pr := id.NewPropertyID()
-	f2pr := id.NewPropertyID()
-	f3pr := id.NewPropertyID()
+	itemProperty := NewPropertyID()
+	groupProperty := NewPropertyID()
+	ib1pr := NewPropertyID()
+	ib2pr := NewPropertyID()
+	f1pr := NewPropertyID()
+	f2pr := NewPropertyID()
+	f3pr := NewPropertyID()
 
 	f1 := NewInfoboxField().NewID().Plugin(p).Extension(e).Property(f1pr).MustBuild()
 	f2 := NewInfoboxField().NewID().Plugin(p).Extension(e).Property(f2pr).MustBuild()
@@ -81,249 +80,287 @@ func TestMerge(t *testing.T) {
 		Infobox(NewInfobox([]*InfoboxField{f2, f3}, ib2pr)).
 		MustBuild()
 
-	expected1 := &Merged{
-		Original:    itemLayer1.ID(),
-		Parent:      nil,
-		Scene:       scene,
-		PluginID:    &p,
-		ExtensionID: &e,
-		Property: &property.MergedMetadata{
-			Original:      &itemProperty,
-			Parent:        nil,
-			LinkedDataset: nil,
+	tests := []struct {
+		name string
+		o    Layer
+		p    *Group
+		want *Merged
+	}{
+		{
+			name: "nil",
+			o:    nil,
+			p:    nil,
+			want: nil,
+		},
+		{
+			name: "parent only",
+			o:    nil,
+			p:    groupLayer1,
+			want: nil,
+		},
+		{
+			name: "only original without infobox and link",
+			o:    itemLayer1,
+			p:    nil,
+			want: &Merged{
+				Original:    itemLayer1.ID(),
+				Parent:      nil,
+				Scene:       scene,
+				PluginID:    &p,
+				ExtensionID: &e,
+				Property: &property.MergedMetadata{
+					Original:      &itemProperty,
+					Parent:        nil,
+					LinkedDataset: nil,
+				},
+			},
+		},
+		{
+			name: "only original with infobox",
+			o:    itemLayer3,
+			p:    nil,
+			want: &Merged{
+				Original:    itemLayer3.ID(),
+				Parent:      nil,
+				Scene:       scene,
+				PluginID:    &p,
+				ExtensionID: &e,
+				Property: &property.MergedMetadata{
+					Original:      &itemProperty,
+					Parent:        nil,
+					LinkedDataset: &dataset1,
+				},
+				Infobox: &MergedInfobox{
+					Property: &property.MergedMetadata{
+						Original:      &ib1pr,
+						Parent:        nil,
+						LinkedDataset: &dataset1,
+					},
+					Fields: []*MergedInfoboxField{
+						{
+							ID:        f1.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f1pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+						{
+							ID:        f3.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f3pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "original without infobox, parent without infobox",
+			o:    itemLayer2,
+			p:    groupLayer1,
+			want: &Merged{
+				Original:    itemLayer2.ID(),
+				Parent:      groupLayer1.IDRef(),
+				Scene:       scene,
+				PluginID:    &p,
+				ExtensionID: &e,
+				Property: &property.MergedMetadata{
+					Original:      &itemProperty,
+					Parent:        &groupProperty,
+					LinkedDataset: &dataset1,
+				},
+			},
+		},
+		{
+			name: "original with infobox, parent without infobox",
+			o:    itemLayer3,
+			p:    groupLayer1,
+			want: &Merged{
+				Original:    itemLayer3.ID(),
+				Parent:      groupLayer1.IDRef(),
+				Scene:       scene,
+				PluginID:    &p,
+				ExtensionID: &e,
+				Property: &property.MergedMetadata{
+					Original:      &itemProperty,
+					Parent:        &groupProperty,
+					LinkedDataset: &dataset1,
+				},
+				Infobox: &MergedInfobox{
+					Property: &property.MergedMetadata{
+						Original:      &ib1pr,
+						Parent:        nil,
+						LinkedDataset: &dataset1,
+					},
+					Fields: []*MergedInfoboxField{
+						{
+							ID:        f1.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f1pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+						{
+							ID:        f3.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f3pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "original without infobox, parent with infobox",
+			o:    itemLayer2,
+			p:    groupLayer2,
+			want: &Merged{
+				Original:    itemLayer2.ID(),
+				Parent:      groupLayer2.IDRef(),
+				Scene:       scene,
+				PluginID:    &p,
+				ExtensionID: &e,
+				Property: &property.MergedMetadata{
+					Original:      &itemProperty,
+					Parent:        &groupProperty,
+					LinkedDataset: &dataset1,
+				},
+				Infobox: &MergedInfobox{
+					Property: &property.MergedMetadata{
+						Original:      nil,
+						Parent:        &ib2pr,
+						LinkedDataset: &dataset1,
+					},
+					Fields: []*MergedInfoboxField{
+						{
+							ID:        f2.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f2pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+						{
+							ID:        f3.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f3pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "original with infobox, parent with infobox",
+			o:    itemLayer3,
+			p:    groupLayer2,
+			want: &Merged{
+				Original:    itemLayer3.ID(),
+				Parent:      groupLayer2.IDRef(),
+				Scene:       scene,
+				PluginID:    &p,
+				ExtensionID: &e,
+				Property: &property.MergedMetadata{
+					Original:      &itemProperty,
+					Parent:        &groupProperty,
+					LinkedDataset: &dataset1,
+				},
+				Infobox: &MergedInfobox{
+					Property: &property.MergedMetadata{
+						Original:      &ib1pr,
+						Parent:        &ib2pr,
+						LinkedDataset: &dataset1,
+					},
+					Fields: []*MergedInfoboxField{
+						{
+							ID:        f1.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f1pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+						{
+							ID:        f3.ID(),
+							Plugin:    p,
+							Extension: e,
+							Property: &property.MergedMetadata{
+								Original:      &f3pr,
+								Parent:        nil,
+								LinkedDataset: &dataset1,
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "original with infobox but field is empty, parent with infobox",
+			o:    itemLayer4,
+			p:    groupLayer2,
+			want: &Merged{
+				Original:    itemLayer4.ID(),
+				Parent:      groupLayer2.IDRef(),
+				Scene:       scene,
+				PluginID:    &p,
+				ExtensionID: &e,
+				Property: &property.MergedMetadata{
+					Original:      &itemProperty,
+					Parent:        &groupProperty,
+					LinkedDataset: &dataset1,
+				},
+				Infobox: &MergedInfobox{
+					Property: &property.MergedMetadata{
+						Original:      &ib1pr,
+						Parent:        &ib2pr,
+						LinkedDataset: &dataset1,
+					},
+					Fields: []*MergedInfoboxField{},
+				},
+			},
 		},
 	}
 
-	expected2 := &Merged{
-		Original:    itemLayer3.ID(),
-		Parent:      nil,
-		Scene:       scene,
-		PluginID:    &p,
-		ExtensionID: &e,
-		Property: &property.MergedMetadata{
-			Original:      &itemProperty,
-			Parent:        nil,
-			LinkedDataset: &dataset1,
-		},
-		Infobox: &MergedInfobox{
-			Property: &property.MergedMetadata{
-				Original:      &ib1pr,
-				Parent:        nil,
-				LinkedDataset: &dataset1,
-			},
-			Fields: []*MergedInfoboxField{
-				{
-					ID:        f1.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f1pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-				{
-					ID:        f3.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f3pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-			},
-		},
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			actual := Merge(tt.o, tt.p)
+			assert.Equal(t, tt.want, actual)
+		})
 	}
-
-	expected3 := &Merged{
-		Original:    itemLayer2.ID(),
-		Parent:      groupLayer1.IDRef(),
-		Scene:       scene,
-		PluginID:    &p,
-		ExtensionID: &e,
-		Property: &property.MergedMetadata{
-			Original:      &itemProperty,
-			Parent:        &groupProperty,
-			LinkedDataset: &dataset1,
-		},
-	}
-
-	expected4 := &Merged{
-		Original:    itemLayer3.ID(),
-		Parent:      groupLayer1.IDRef(),
-		Scene:       scene,
-		PluginID:    &p,
-		ExtensionID: &e,
-		Property: &property.MergedMetadata{
-			Original:      &itemProperty,
-			Parent:        &groupProperty,
-			LinkedDataset: &dataset1,
-		},
-		Infobox: &MergedInfobox{
-			Property: &property.MergedMetadata{
-				Original:      &ib1pr,
-				Parent:        nil,
-				LinkedDataset: &dataset1,
-			},
-			Fields: []*MergedInfoboxField{
-				{
-					ID:        f1.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f1pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-				{
-					ID:        f3.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f3pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-			},
-		},
-	}
-
-	expected5 := &Merged{
-		Original:    itemLayer2.ID(),
-		Parent:      groupLayer2.IDRef(),
-		Scene:       scene,
-		PluginID:    &p,
-		ExtensionID: &e,
-		Property: &property.MergedMetadata{
-			Original:      &itemProperty,
-			Parent:        &groupProperty,
-			LinkedDataset: &dataset1,
-		},
-		Infobox: &MergedInfobox{
-			Property: &property.MergedMetadata{
-				Original:      nil,
-				Parent:        &ib2pr,
-				LinkedDataset: &dataset1,
-			},
-			Fields: []*MergedInfoboxField{
-				{
-					ID:        f2.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f2pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-				{
-					ID:        f3.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f3pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-			},
-		},
-	}
-
-	expected6 := &Merged{
-		Original:    itemLayer3.ID(),
-		Parent:      groupLayer2.IDRef(),
-		Scene:       scene,
-		PluginID:    &p,
-		ExtensionID: &e,
-		Property: &property.MergedMetadata{
-			Original:      &itemProperty,
-			Parent:        &groupProperty,
-			LinkedDataset: &dataset1,
-		},
-		Infobox: &MergedInfobox{
-			Property: &property.MergedMetadata{
-				Original:      &ib1pr,
-				Parent:        &ib2pr,
-				LinkedDataset: &dataset1,
-			},
-			Fields: []*MergedInfoboxField{
-				{
-					ID:        f1.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f1pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-				{
-					ID:        f3.ID(),
-					Plugin:    p,
-					Extension: e,
-					Property: &property.MergedMetadata{
-						Original:      &f3pr,
-						Parent:        nil,
-						LinkedDataset: &dataset1,
-					},
-				},
-			},
-		},
-	}
-
-	expected7 := &Merged{
-		Original:    itemLayer4.ID(),
-		Parent:      groupLayer2.IDRef(),
-		Scene:       scene,
-		PluginID:    &p,
-		ExtensionID: &e,
-		Property: &property.MergedMetadata{
-			Original:      &itemProperty,
-			Parent:        &groupProperty,
-			LinkedDataset: &dataset1,
-		},
-		Infobox: &MergedInfobox{
-			Property: &property.MergedMetadata{
-				Original:      &ib1pr,
-				Parent:        &ib2pr,
-				LinkedDataset: &dataset1,
-			},
-			Fields: []*MergedInfoboxField{},
-		},
-	}
-
-	actual := Merge(nil, nil)
-	assert.Nil(t, actual)
-	actual = Merge(nil, groupLayer1)
-	assert.Nil(t, actual)
-	actual = Merge(itemLayer1, nil)
-	assert.Equal(t, expected1, actual)
-	actual = Merge(itemLayer3, nil)
-	assert.Equal(t, expected2, actual)
-	actual = Merge(itemLayer2, groupLayer1)
-	assert.Equal(t, expected3, actual)
-	actual = Merge(itemLayer3, groupLayer1)
-	assert.Equal(t, expected4, actual)
-	actual = Merge(itemLayer2, groupLayer2)
-	assert.Equal(t, expected5, actual)
-	actual = Merge(itemLayer3, groupLayer2)
-	assert.Equal(t, expected6, actual)
-	actual = Merge(itemLayer4, groupLayer2)
-	assert.Equal(t, expected7, actual)
 }
 
 func TestMergedProperties(t *testing.T) {
-	itemProperty := id.NewPropertyID()
-	groupProperty := id.NewPropertyID()
-	ib1pr := id.NewPropertyID()
-	ib2pr := id.NewPropertyID()
-	f1pr := id.NewPropertyID()
-	f2pr := id.NewPropertyID()
-	f3pr := id.NewPropertyID()
+	itemProperty := NewPropertyID()
+	groupProperty := NewPropertyID()
+	ib1pr := NewPropertyID()
+	ib2pr := NewPropertyID()
+	f1pr := NewPropertyID()
+	f2pr := NewPropertyID()
+	f3pr := NewPropertyID()
 
 	merged := &Merged{
 		Property: &property.MergedMetadata{
@@ -352,7 +389,7 @@ func TestMergedProperties(t *testing.T) {
 		},
 	}
 
-	assert.Equal(t, []id.PropertyID{
+	assert.Equal(t, []PropertyID{
 		itemProperty, groupProperty, ib1pr, ib2pr, f1pr, f2pr, f3pr,
 	}, merged.Properties())
 }

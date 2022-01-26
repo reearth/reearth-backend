@@ -1,20 +1,19 @@
 package layerops
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/reearth/reearth-backend/pkg/i18n"
-	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/layer"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestInitialize(t *testing.T) {
-	lid := id.MustLayerID(id.New().String())
-	ps := id.MustPropertySchemaID("xxx~1.1.1/aa")
-	eid := id.PluginExtensionID("foo")
-	eid2 := id.PluginExtensionID("foo2")
+	lid := layer.NewID()
+	ps := plugin.MustPropertySchemaID("xxx~1.1.1/aa")
+	eid := plugin.ExtensionID("foo")
+	eid2 := plugin.ExtensionID("foo2")
 	e := plugin.NewExtension().
 		ID("foo").
 		Description(i18n.StringFrom("foo/des")).
@@ -29,17 +28,18 @@ func TestInitialize(t *testing.T) {
 	es := append(make([]*plugin.Extension, 0), e)
 	es = append(es, e2)
 	p := plugin.New().
-		ID(id.MustPluginID("xxx~1.1.1")).
+		ID(layer.MustPluginID("xxx~1.1.1")).
 		Schema(&ps).
 		Extensions(es).
 		MustBuild()
-	s := id.NewSceneID()
-	testCases := []struct {
+	s := layer.NewSceneID()
+
+	tests := []struct {
 		name          string
-		sceneID       *id.SceneID
-		parentLayerID *id.LayerID
+		sceneID       *layer.SceneID
+		parentLayerID *layer.ID
 		plugin        *plugin.Plugin
-		extID         *id.PluginExtensionID
+		extID         *layer.PluginExtensionID
 		err           error
 	}{
 		{
@@ -59,23 +59,24 @@ func TestInitialize(t *testing.T) {
 			err:           ErrExtensionTypeMustBePrimitive,
 		},
 	}
-	for _, tc := range testCases {
-		tc := tc
-		t.Run(tc.name, func(tt *testing.T) {
-			tt.Parallel()
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			layerItem, property, err := LayerItem{
-				SceneID:       *tc.sceneID,
-				ParentLayerID: *tc.parentLayerID,
-				Plugin:        tc.plugin,
-				ExtensionID:   tc.extID,
-				Name:          tc.name,
+				SceneID:       *tt.sceneID,
+				ParentLayerID: *tt.parentLayerID,
+				Plugin:        tt.plugin,
+				ExtensionID:   tt.extID,
+				Name:          tt.name,
 			}.Initialize()
-			if tc.err == nil {
-				assert.NoError(tt, err)
-				assert.NotNil(tt, layerItem)
-				assert.NotNil(tt, property)
+			if tt.err == nil {
+				assert.NoError(t, err)
+				assert.NotNil(t, layerItem)
+				assert.NotNil(t, property)
 			} else {
-				assert.True(t, errors.As(err, &tc.err))
+				assert.Equal(t, tt.err, err)
 			}
 		})
 	}

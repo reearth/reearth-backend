@@ -1,14 +1,25 @@
 package property
 
-import "github.com/reearth/reearth-backend/pkg/id"
-
 type SchemaList []*Schema
+
+func (l SchemaList) Find(psid SchemaID) *Schema {
+	for _, s := range l {
+		if s.ID().Equal(psid) {
+			return s
+		}
+	}
+	return nil
+}
 
 func (l SchemaList) Map() SchemaMap {
 	return SchemaMapFrom(l)
 }
 
-type SchemaMap map[id.PropertySchemaID]*Schema
+func (l SchemaList) Loader() SchemaLoader {
+	return SchemaLoaderFromMap(l.Map())
+}
+
+type SchemaMap map[SchemaID]*Schema
 
 func SchemaMapFrom(l []*Schema) SchemaMap {
 	m := make(SchemaMap, len(l))
@@ -62,4 +73,8 @@ func (m SchemaMap) Merge(m2 SchemaMap) SchemaMap {
 	m3.Add(m2.List()...)
 
 	return m3
+}
+
+func (m SchemaMap) Loader() SchemaLoader {
+	return SchemaLoaderFromMap(m)
 }

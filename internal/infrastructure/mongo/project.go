@@ -25,7 +25,7 @@ func NewProject(client *mongodoc.Client) repo.Project {
 }
 
 func (r *projectRepo) init() {
-	i := r.client.CreateIndex(context.Background(), []string{"alias"})
+	i := r.client.CreateIndex(context.Background(), []string{"alias", "team"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "project", i)
 	}
@@ -34,7 +34,7 @@ func (r *projectRepo) init() {
 func (r *projectRepo) FindByIDs(ctx context.Context, ids []id.ProjectID, f []id.TeamID) ([]*project.Project, error) {
 	filter := r.teamFilter(bson.D{
 		{Key: "id", Value: bson.D{
-			{Key: "$in", Value: id.ProjectIDToKeys(ids)},
+			{Key: "$in", Value: id.ProjectIDsToStrings(ids)},
 		}},
 	}, f)
 	dst := make([]*project.Project, 0, len(ids))
@@ -143,7 +143,7 @@ func (*projectRepo) teamFilter(filter bson.D, teams []id.TeamID) bson.D {
 	}
 	filter = append(filter, bson.E{
 		Key:   "team",
-		Value: bson.D{{Key: "$in", Value: id.TeamIDToKeys(teams)}},
+		Value: bson.D{{Key: "$in", Value: id.TeamIDsToStrings(teams)}},
 	})
 	return filter
 }

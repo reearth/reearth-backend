@@ -3,7 +3,6 @@ package property
 import (
 	"testing"
 
-	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -16,15 +15,15 @@ func TestSchema_Nil(t *testing.T) {
 }
 
 func TestSchema_Field(t *testing.T) {
-	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
+	sid := MustSchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
-	sg := NewSchemaGroup().ID("aaa").Schema(sid).Fields([]*SchemaField{sf}).MustBuild()
+	sg := NewSchemaGroup().ID("aaa").Fields([]*SchemaField{sf}).MustBuild()
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		S        *Schema
 		PTR      *Pointer
-		Input    id.PropertySchemaFieldID
+		Input    FieldID
 		Expected *SchemaField
 	}{
 		{
@@ -40,32 +39,32 @@ func TestSchema_Field(t *testing.T) {
 		{
 			Name:  "not found",
 			S:     NewSchema().ID(sid).Groups([]*SchemaGroup{sg}).MustBuild(),
-			PTR:   NewPointer(nil, nil, id.PropertySchemaFieldID("zz").Ref()),
-			Input: id.PropertySchemaFieldID("zz"),
+			PTR:   NewPointer(nil, nil, FieldID("zz").Ref()),
+			Input: FieldID("zz"),
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			assert.Equal(tt, tc.Expected, tc.S.Field(tc.Input))
-			assert.Equal(tt, tc.Expected, tc.S.FieldByPointer(tc.PTR))
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tc.Expected, tc.S.Field(tc.Input))
+			assert.Equal(t, tc.Expected, tc.S.FieldByPointer(tc.PTR))
 		})
 	}
 }
 
 func TestSchema_Group(t *testing.T) {
-	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
+	sid := MustSchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
-	sg := NewSchemaGroup().ID("aaa").Schema(sid).Fields([]*SchemaField{sf}).MustBuild()
+	sg := NewSchemaGroup().ID("aaa").Fields([]*SchemaField{sf}).MustBuild()
 
-	testCases := []struct {
+	tests := []struct {
 		Name       string
 		S          *Schema
 		PTR        *Pointer
-		Input      id.PropertySchemaGroupID
-		InputField id.PropertySchemaFieldID
+		Input      SchemaGroupID
+		InputField FieldID
 		Expected   *SchemaGroup
 	}{
 		{
@@ -82,28 +81,28 @@ func TestSchema_Group(t *testing.T) {
 		{
 			Name:  "not found",
 			S:     NewSchema().ID(sid).Groups([]*SchemaGroup{sg}).MustBuild(),
-			PTR:   NewPointer(nil, nil, id.PropertySchemaFieldID("zz").Ref()),
-			Input: id.PropertySchemaGroupID("zz"),
+			PTR:   NewPointer(nil, nil, FieldID("zz").Ref()),
+			Input: SchemaGroupID("zz"),
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			assert.Equal(tt, tc.Expected, tc.S.Group(tc.Input))
-			assert.Equal(tt, tc.Expected, tc.S.GroupByPointer(tc.PTR))
-			assert.Equal(tt, tc.Expected, tc.S.GroupByField(tc.InputField))
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tc.Expected, tc.S.Group(tc.Input))
+			assert.Equal(t, tc.Expected, tc.S.GroupByPointer(tc.PTR))
+			assert.Equal(t, tc.Expected, tc.S.GroupByField(tc.InputField))
 		})
 	}
 }
 
 func TestSchema_DetectDuplicatedFields(t *testing.T) {
-	sid := id.MustPropertySchemaID("xx~1.0.0/aa")
+	sid := MustSchemaID("xx~1.0.0/aa")
 	sf := NewSchemaField().ID("aa").Type(ValueTypeString).MustBuild()
-	sg := NewSchemaGroup().ID("aaa").Schema(sid).Fields([]*SchemaField{sf}).MustBuild()
+	sg := NewSchemaGroup().ID("aaa").Fields([]*SchemaField{sf}).MustBuild()
 
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		S        *Schema
 		LF       LinkableFields
@@ -115,13 +114,13 @@ func TestSchema_DetectDuplicatedFields(t *testing.T) {
 		{
 			Name:     "invalid: URL",
 			S:        NewSchema().ID(sid).Groups([]*SchemaGroup{sg}).MustBuild(),
-			LF:       LinkableFields{URL: NewPointer(nil, nil, id.PropertySchemaFieldID("xx").Ref())},
+			LF:       LinkableFields{URL: NewPointer(nil, nil, FieldID("xx").Ref())},
 			Expected: false,
 		},
 		{
 			Name:     "invalid: Lng",
 			S:        NewSchema().ID(sid).Groups([]*SchemaGroup{sg}).MustBuild(),
-			LF:       LinkableFields{LatLng: NewPointer(nil, nil, id.PropertySchemaFieldID("xx").Ref())},
+			LF:       LinkableFields{LatLng: NewPointer(nil, nil, FieldID("xx").Ref())},
 			Expected: false,
 		},
 		{
@@ -132,12 +131,12 @@ func TestSchema_DetectDuplicatedFields(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
 			res := tc.LF.Validate(tc.S)
-			assert.Equal(tt, tc.Expected, res)
+			assert.Equal(t, tc.Expected, res)
 		})
 	}
 }

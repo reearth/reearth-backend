@@ -96,8 +96,71 @@ func TestValue_Clone(t *testing.T) {
 	}
 }
 
+func TestValue_Some(t *testing.T) {
+	tp := &tpmock{}
+	tpm := TypePropertyMap{
+		Type("hoge"): tp,
+	}
+
+	tests := []struct {
+		name  string
+		value *Value
+		want  *Optional
+	}{
+		{
+			name: "ok",
+			value: &Value{
+				t: TypeString,
+				v: "foo",
+			},
+			want: &Optional{
+				t: TypeString,
+				v: &Value{
+					t: TypeString,
+					v: "foo",
+				},
+			},
+		},
+		{
+			name: "custom type property",
+			value: &Value{
+				t: Type("hoge"),
+				v: "fooa",
+				p: tpm,
+			},
+			want: &Optional{
+				t: Type("hoge"),
+				v: &Value{
+					t: Type("hoge"),
+					v: "fooa",
+					p: tpm,
+				},
+			},
+		},
+		{
+			name:  "nil",
+			value: nil,
+			want:  nil,
+		},
+		{
+			name:  "empty",
+			value: &Value{},
+			want:  nil,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, tt.value.Some())
+		})
+	}
+}
+
 func TestValue_Value(t *testing.T) {
 	u, _ := url.Parse("https://reearth.io")
+
 	tests := []struct {
 		name  string
 		value *Value
@@ -257,7 +320,9 @@ func TestValue_Interface(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert.Equal(t, tt.want, tt.value.Interface())
 		})
 	}
@@ -268,6 +333,7 @@ func TestValue_Cast(t *testing.T) {
 		t Type
 		p TypePropertyMap
 	}
+
 	tests := []struct {
 		name   string
 		target *Value
@@ -313,7 +379,9 @@ func TestValue_Cast(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert.Equal(t, tt.want, tt.target.Cast(tt.args.t, tt.args.p))
 		})
 	}

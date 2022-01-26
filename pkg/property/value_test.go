@@ -8,6 +8,33 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestValueType_None(t *testing.T) {
+	tests := []struct {
+		name string
+		tr   ValueType
+		want *OptionalValue
+	}{
+		{
+			name: "default",
+			tr:   ValueTypeString,
+			want: &OptionalValue{ov: *value.NewOptional(value.TypeString, nil)},
+		},
+		{
+			name: "unknown",
+			tr:   ValueTypeUnknown,
+			want: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, tt.tr.None())
+		})
+	}
+}
+
 func TestValue_IsEmpty(t *testing.T) {
 	tests := []struct {
 		name  string
@@ -68,6 +95,42 @@ func TestValue_Clone(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			assert.Equal(t, tt.want, tt.value.Clone())
+		})
+	}
+}
+
+func TestValue_Some(t *testing.T) {
+	tests := []struct {
+		name  string
+		value *Value
+		want  *OptionalValue
+	}{
+		{
+			name: "ok",
+			value: &Value{
+				v: *value.TypeString.ValueFrom("foo", types),
+			},
+			want: &OptionalValue{
+				ov: *value.OptionalFrom(value.TypeString.ValueFrom("foo", types)),
+			},
+		},
+		{
+			name:  "nil",
+			value: nil,
+			want:  nil,
+		},
+		{
+			name:  "empty",
+			value: &Value{},
+			want:  nil,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, tt.value.Some())
 		})
 	}
 }
@@ -160,7 +223,9 @@ func TestValue_Interface(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert.Equal(t, tt.want, tt.value.Interface())
 		})
 	}
@@ -170,6 +235,7 @@ func TestValue_Cast(t *testing.T) {
 	type args struct {
 		t ValueType
 	}
+
 	tests := []struct {
 		name   string
 		target *Value
@@ -215,14 +281,16 @@ func TestValue_Cast(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert.Equal(t, tt.want, tt.target.Cast(tt.args.t))
 		})
 	}
 }
 
 func TestValueFromDataset(t *testing.T) {
-	testCases := []struct {
+	tests := []struct {
 		Name     string
 		Input    *dataset.Value
 		Expected struct {
@@ -268,11 +336,11 @@ func TestValueFromDataset(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for _, tc := range tests {
 		tc := tc
-		t.Run(tc.Name, func(tt *testing.T) {
-			tt.Parallel()
-			assert.Equal(tt, tc.Expected.V, valueFromDataset(tc.Input))
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tc.Expected.V, valueFromDataset(tc.Input))
 		})
 	}
 }
@@ -281,6 +349,7 @@ func TestValueFromStringOrNumber(t *testing.T) {
 	type args struct {
 		s string
 	}
+
 	tests := []struct {
 		name string
 		args args
@@ -319,7 +388,9 @@ func TestValueFromStringOrNumber(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert.Equal(t, tt.want, ValueFromStringOrNumber(tt.args.s))
 		})
 	}
