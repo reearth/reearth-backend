@@ -26,7 +26,7 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 
 	userUsecase := interactor.NewUser(cfg.Repos, cfg.Gateways, cfg.Config.SignupSecret)
 
-	domain, err := url.Parse(cfg.Config.Auth.Domain)
+	domain, err := url.Parse(cfg.Config.AuthSrv.Domain)
 	if err != nil {
 		panic("not valid auth domain")
 	}
@@ -34,21 +34,21 @@ func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *Server
 
 	config := &op.Config{
 		Issuer:                domain.String(),
-		CryptoKey:             sha256.Sum256([]byte(cfg.Config.Auth.Key)),
+		CryptoKey:             sha256.Sum256([]byte(cfg.Config.AuthSrv.Key)),
 		GrantTypeRefreshToken: true,
 	}
 
 	var dn *interactor.AuthDNConfig = nil
-	if cfg.Config.Auth.DN != nil {
+	if cfg.Config.AuthSrv.DN != nil {
 		dn = &interactor.AuthDNConfig{
-			CommonName:         cfg.Config.Auth.DN.CN,
-			Organization:       cfg.Config.Auth.DN.O,
-			OrganizationalUnit: cfg.Config.Auth.DN.OU,
-			Country:            cfg.Config.Auth.DN.C,
-			Locality:           cfg.Config.Auth.DN.L,
-			Province:           cfg.Config.Auth.DN.ST,
-			StreetAddress:      cfg.Config.Auth.DN.Street,
-			PostalCode:         cfg.Config.Auth.DN.PostalCode,
+			CommonName:         cfg.Config.AuthSrv.DN.CN,
+			Organization:       cfg.Config.AuthSrv.DN.O,
+			OrganizationalUnit: cfg.Config.AuthSrv.DN.OU,
+			Country:            cfg.Config.AuthSrv.DN.C,
+			Locality:           cfg.Config.AuthSrv.DN.L,
+			Province:           cfg.Config.AuthSrv.DN.ST,
+			StreetAddress:      cfg.Config.AuthSrv.DN.Street,
+			PostalCode:         cfg.Config.AuthSrv.DN.PostalCode,
 		}
 	}
 

@@ -18,7 +18,8 @@ type Config struct {
 	Dev          bool
 	DB           string `default:"mongodb://localhost"`
 	Auth0        Auth0Config
-	Auth         AuthConfig
+	AuthClient   AuthClientConfig
+	AuthSrv      AuthSrvConfig
 	Mailer       string
 	SMTP         SMTPConfig
 	SendGrid     SendGridConfig
@@ -43,7 +44,12 @@ type Auth0Config struct {
 	WebClientID  string
 }
 
-type AuthConfig struct {
+type AuthClientConfig struct {
+	ISS []string
+	AUD []string
+}
+
+type AuthSrvConfig struct {
 	Domain string `default:"http://localhost:8080"`
 	Key    string
 	DN     *AuthDNConfig
