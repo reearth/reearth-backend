@@ -8,7 +8,6 @@ require (
 	github.com/auth0/go-jwt-middleware/v2 v2.0.0
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/caos/oidc v1.0.0
-	github.com/form3tech-oss/jwt-go v3.2.2+incompatible
 	github.com/goccy/go-yaml v1.9.4
 	github.com/golang/gddo v0.0.0-20210115222349-20d68f94ee1f
 	github.com/google/uuid v1.3.0

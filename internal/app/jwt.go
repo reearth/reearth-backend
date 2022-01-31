@@ -20,23 +20,51 @@ const (
 	contextUser     contextKey = "reearth_user"
 )
 
+type MultiValidator []*validator.Validator
+
+func NewMultiValidator(providers []identityProvider) (MultiValidator, error) {
+	validators := make([]*validator.Validator, 0, len(providers))
+	for _, p := range providers {
+
+		issuerURL, err := url.Parse(p.ISS)
+		if err != nil {
+			log.Fatalf("failed to parse the issuer url: %v", err)
+		}
+
+		provider := jwks.NewCachingProvider(issuerURL, time.Duration(*p.TTL)*time.Minute)
+
+		algorithm := validator.SignatureAlgorithm(*p.ALG)
+
+		v, err := validator.New(
+			provider.KeyFunc,
+			algorithm,
+			p.ISS,
+			p.AUD,
+		)
+		if err != nil {
+			return nil, err
+		}
+		validators = append(validators, v)
+	}
+	return validators, nil
+}
+
+// ValidateToken Trys to validate the token with each validator
+// NOTE: the last validation error only is returned
+func (mv MultiValidator) ValidateToken(ctx context.Context, tokenString string) (res interface{}, err error) {
+	for _, v := range mv {
+		res, err = v.ValidateToken(ctx, tokenString)
+		if err == nil {
+			return
+		}
+	}
+	return
+}
+
 // Validate the access token and inject the user clams into ctx
 func jwtEchoMiddleware(cfg *ServerConfig) echo.MiddlewareFunc {
 
-	issuerURL, err := url.Parse("https://" + cfg.Config.Auth0.Domain)
-	if err != nil {
-		log.Fatalf("failed to parse the issuer url: %v", err)
-	}
-
-	provider := jwks.NewCachingProvider(issuerURL, 60*time.Minute)
-
-	// Set up the validator.
-	jwtValidator, err := validator.New(
-		provider.KeyFunc,
-		validator.RS256,
-		cfg.Config.AuthClient.ISS[0],
-		cfg.Config.AuthClient.AUD,
-	)
+	jwtValidator, err := NewMultiValidator(cfg.Config.Auth)
 	if err != nil {
 		log.Fatalf("failed to set up the validator: %v", err)
 	}
@@ -58,14 +86,6 @@ func parseJwtMiddleware() echo.MiddlewareFunc {
 
 				// attach sub and access token to context
 				ctx = context.WithValue(ctx, contextAuth0Sub, claims.RegisteredClaims.Subject)
-
-				/* this claim is sent from auth0
-				if user, ok := claims["https://reearth.io/user_id"].(string); ok {
-					ctx = context.WithValue(ctx, contextUser, user)
-				}*/
-
-				// this one is not used!
-				// ctx = context.WithValue(ctx, contextAuth0AccessToken, userProfile.Raw)
 			}
 
 			c.SetRequest(req.WithContext(ctx))
