@@ -42,6 +42,7 @@ func TestMergeLayer(t *testing.T) {
 			Property(&itemProperty).
 			LinkedDataset(&dataset1).
 			Infobox(layer.NewInfobox(nil, ib1pr)).
+			IsVisible(false).
 			MustBuild(),
 		layer.NewGroup().
 			ID(l2).
@@ -51,6 +52,7 @@ func TestMergeLayer(t *testing.T) {
 				layer.NewInfoboxField().ID(l1if1).Plugin(p).Extension(e).Property(fpr).MustBuild(),
 			}, ib2pr)).
 			Layers(layer.NewIDList([]layer.ID{l1})).
+			IsVisible(false).
 			MustBuild(),
 	})
 
@@ -82,7 +84,7 @@ func TestMergeLayer(t *testing.T) {
 			Merged: layer.Merged{
 				Original:  l2,
 				Scene:     scene,
-				IsVisible: true,
+				IsVisible: false,
 				Property: &property.MergedMetadata{
 					Original: &groupProperty,
 				},
@@ -116,7 +118,7 @@ func TestMergeLayer(t *testing.T) {
 						Original:  l1,
 						Parent:    &l2,
 						Scene:     scene,
-						IsVisible: true,
+						IsVisible: false,
 						Property: &property.MergedMetadata{
 							Original:      &itemProperty,
 							Parent:        &groupProperty,
