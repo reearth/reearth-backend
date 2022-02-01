@@ -17,35 +17,6 @@ import (
 
 const enableDataLoaders = true
 
-func dataLoaderMiddleware(container gql.Loaders) echo.MiddlewareFunc {
-	return func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(echoCtx echo.Context) error {
-			req := echoCtx.Request()
-			ctx := req.Context()
-
-			ctx = context.WithValue(ctx, gql.DataLoadersKey(), container.DataLoadersWith(ctx, enableDataLoaders))
-			echoCtx.SetRequest(req.WithContext(ctx))
-			return next(echoCtx)
-		}
-	}
-}
-
-func tracerMiddleware(enabled bool) echo.MiddlewareFunc {
-	return func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(echoCtx echo.Context) error {
-			if !enabled {
-				return next(echoCtx)
-			}
-			req := echoCtx.Request()
-			ctx := req.Context()
-			t := &gql.Tracer{}
-			echoCtx.SetRequest(req.WithContext(gql.AttachTracer(ctx, t)))
-			defer t.Print()
-			return next(echoCtx)
-		}
-	}
-}
-
 func graphqlAPI(
 	ec *echo.Echo,
 	r *echo.Group,
@@ -53,8 +24,6 @@ func graphqlAPI(
 	usecases interfaces.Container,
 ) {
 	playgroundEnabled := conf.Debug || conf.Config.Dev
-	controllers := gql.NewLoaders(usecases)
-
 	if playgroundEnabled {
 		r.GET("/graphql", echo.WrapHandler(
 			playground.Handler("reearth-backend", "/api/graphql"),
@@ -62,7 +31,7 @@ func graphqlAPI(
 	}
 
 	schema := gql.NewExecutableSchema(gql.Config{
-		Resolvers: gql.NewResolver(controllers, conf.Debug),
+		Resolvers: gql.NewResolver(conf.Debug),
 	})
 
 	srv := handler.NewDefaultServer(schema)
@@ -87,7 +56,12 @@ func graphqlAPI(
 	)
 
 	r.POST("/graphql", func(c echo.Context) error {
+		req := c.Request()
+		ctx := req.Context()
+		ctx = gql.AttachUsecases(ctx, &usecases, enableDataLoaders)
+		c.SetRequest(req.WithContext(ctx))
+
 		srv.ServeHTTP(c.Response(), c.Request())
 		return nil
-	}, dataLoaderMiddleware(controllers), tracerMiddleware(false))
+	})
 }
