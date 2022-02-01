@@ -186,3 +186,23 @@ func (m *Merged) Properties() []PropertyID {
 	}
 	return result
 }
+
+func (m *Merged) AllTags() (res []MergedTag) {
+	if m == nil {
+		return nil
+	}
+	for _, t := range m.Tags {
+		res = append(res, append([]MergedTag{t}, t.Tags...)...)
+	}
+	return res
+}
+
+func (m *Merged) AllTagIDs() (res []TagID) {
+	if m == nil {
+		return nil
+	}
+	for _, t := range m.AllTags() {
+		res = append(res, t.ID)
+	}
+	return res
+}
