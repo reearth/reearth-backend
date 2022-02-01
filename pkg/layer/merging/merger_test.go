@@ -80,8 +80,9 @@ func TestMergeLayer(t *testing.T) {
 	expected := &MergedLayerGroup{
 		MergedLayerCommon: MergedLayerCommon{
 			Merged: layer.Merged{
-				Original: l2,
-				Scene:    scene,
+				Original:  l2,
+				Scene:     scene,
+				IsVisible: true,
 				Property: &property.MergedMetadata{
 					Original: &groupProperty,
 				},
@@ -112,9 +113,10 @@ func TestMergeLayer(t *testing.T) {
 			&MergedLayerItem{
 				MergedLayerCommon{
 					Merged: layer.Merged{
-						Original: l1,
-						Parent:   &l2,
-						Scene:    scene,
+						Original:  l1,
+						Parent:    &l2,
+						Scene:     scene,
+						IsVisible: true,
 						Property: &property.MergedMetadata{
 							Original:      &itemProperty,
 							Parent:        &groupProperty,
