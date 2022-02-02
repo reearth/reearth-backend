@@ -14,6 +14,7 @@ import (
 
 type propertyRepo struct {
 	client *mongodoc.ClientCollection
+	filter *id.SceneIDSet
 }
 
 func NewProperty(client *mongodoc.Client) repo.Property {
@@ -26,6 +27,13 @@ func (r *propertyRepo) init() {
 	i := r.client.CreateIndex(context.Background(), []string{"scene", "schema"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "property", i)
+	}
+}
+
+func (r *propertyRepo) Filtered(filter []id.SceneID) repo.Property {
+	return &propertyRepo{
+		client: r.client,
+		filter: id.NewSceneIDSet(filter...),
 	}
 }
 

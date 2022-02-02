@@ -8,6 +8,7 @@ import (
 )
 
 type Scene interface {
+	Filtered([]id.TeamID) Scene
 	FindByID(context.Context, id.SceneID, []id.TeamID) (*scene.Scene, error)
 	FindByIDs(context.Context, []id.SceneID, []id.TeamID) ([]*scene.Scene, error)
 	FindByProject(context.Context, id.ProjectID, []id.TeamID) (*scene.Scene, error)

@@ -24,11 +24,9 @@ func NewAsset() repo.Asset {
 }
 
 func (r *Asset) Filtered(filter []id.TeamID) repo.Asset {
-	f := id.NewTeamIDSet()
-	f.Add(filter...)
 	return &Asset{
 		data:   r.data,
-		filter: f,
+		filter: id.NewTeamIDSet(filter...),
 	}
 }
 

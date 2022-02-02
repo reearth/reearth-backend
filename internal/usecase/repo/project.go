@@ -9,6 +9,7 @@ import (
 )
 
 type Project interface {
+	Filtered([]id.TeamID) Project
 	FindByIDs(context.Context, []id.ProjectID, []id.TeamID) ([]*project.Project, error)
 	FindByID(context.Context, id.ProjectID, []id.TeamID) (*project.Project, error)
 	FindByTeam(context.Context, id.TeamID, *usecase.Pagination) ([]*project.Project, *usecase.PageInfo, error)

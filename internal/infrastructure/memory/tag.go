@@ -12,13 +12,21 @@ import (
 )
 
 type Tag struct {
-	lock sync.Mutex
-	data tag.Map
+	lock   sync.Mutex
+	data   tag.Map
+	filter *id.SceneIDSet
 }
 
 func NewTag() repo.Tag {
 	return &Tag{
-		data: map[id.TagID]tag.Tag{},
+		data: tag.Map{},
+	}
+}
+
+func (r *Tag) Filtered(scenes []id.SceneID) repo.Tag {
+	return &Tag{
+		data:   r.data,
+		filter: id.NewSceneIDSet(scenes...),
 	}
 }
 

@@ -15,6 +15,7 @@ import (
 
 type tagRepo struct {
 	client *mongodoc.ClientCollection
+	filter *id.SceneIDSet
 }
 
 func NewTag(client *mongodoc.Client) repo.Tag {
@@ -27,6 +28,13 @@ func (r *tagRepo) init() {
 	i := r.client.CreateIndex(context.Background(), []string{"scene", "group.tags", "item.parent"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "tag", i)
+	}
+}
+
+func (r *tagRepo) Filtered(filter []id.SceneID) repo.Tag {
+	return &tagRepo{
+		client: r.client,
+		filter: id.NewSceneIDSet(filter...),
 	}
 }
 

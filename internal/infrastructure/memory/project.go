@@ -13,13 +13,21 @@ import (
 )
 
 type Project struct {
-	lock sync.Mutex
-	data map[id.ProjectID]*project.Project
+	lock   sync.Mutex
+	data   map[id.ProjectID]*project.Project
+	filter *id.TeamIDSet
 }
 
 func NewProject() repo.Project {
 	return &Project{
 		data: map[id.ProjectID]*project.Project{},
+	}
+}
+
+func (r *Project) Filtered(teams []id.TeamID) repo.Project {
+	return &Project{
+		data:   r.data,
+		filter: id.NewTeamIDSet(teams...),
 	}
 }
 

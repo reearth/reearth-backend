@@ -11,13 +11,21 @@ import (
 )
 
 type Layer struct {
-	lock sync.Mutex
-	data map[id.LayerID]layer.Layer
+	lock   sync.Mutex
+	data   layer.Map
+	filter *id.SceneIDSet
 }
 
 func NewLayer() repo.Layer {
 	return &Layer{
-		data: map[id.LayerID]layer.Layer{},
+		data: layer.Map{},
+	}
+}
+
+func (r *Layer) Filtered(filter []id.SceneID) repo.Layer {
+	return &Layer{
+		data:   r.data,
+		filter: id.NewSceneIDSet(filter...),
 	}
 }
 
@@ -26,8 +34,8 @@ func (r *Layer) FindByID(ctx context.Context, id id.LayerID, f []id.SceneID) (la
 	defer r.lock.Unlock()
 
 	res, ok := r.data[id]
-	if ok && isSceneIncludes(res.Scene(), f) {
-		return res, nil
+	if ok && res != nil && isSceneIncludes((*res).Scene(), f) {
+		return *res, nil
 	}
 	return nil, rerror.ErrNotFound
 }
@@ -38,9 +46,9 @@ func (r *Layer) FindByIDs(ctx context.Context, ids []id.LayerID, f []id.SceneID)
 
 	result := layer.List{}
 	for _, id := range ids {
-		if d, ok := r.data[id]; ok {
-			if isSceneIncludes(d.Scene(), f) {
-				result = append(result, &d)
+		if d, ok := r.data[id]; ok && d != nil {
+			if isSceneIncludes((*d).Scene(), f) {
+				result = append(result, d)
 				continue
 			}
 		}
@@ -56,7 +64,7 @@ func (r *Layer) FindGroupByIDs(ctx context.Context, ids []id.LayerID, f []id.Sce
 	result := layer.GroupList{}
 	for _, id := range ids {
 		if d, ok := r.data[id]; ok {
-			if lg := layer.GroupFromLayer(d); lg != nil {
+			if lg := layer.GroupFromLayerRef(d); lg != nil {
 				if isSceneIncludes(lg.Scene(), f) {
 					result = append(result, lg)
 					continue
@@ -75,7 +83,7 @@ func (r *Layer) FindItemByIDs(ctx context.Context, ids []id.LayerID, f []id.Scen
 	result := layer.ItemList{}
 	for _, id := range ids {
 		if d, ok := r.data[id]; ok {
-			if li := layer.ItemFromLayer(d); li != nil {
+			if li := layer.ItemFromLayerRef(d); li != nil {
 				if isSceneIncludes(li.Scene(), f) {
 					result = append(result, li)
 					continue
@@ -92,10 +100,10 @@ func (r *Layer) FindItemByID(ctx context.Context, id id.LayerID, f []id.SceneID)
 	defer r.lock.Unlock()
 
 	d, ok := r.data[id]
-	if !ok {
-		return &layer.Item{}, nil
+	if !ok || d == nil {
+		return nil, nil
 	}
-	if li := layer.ItemFromLayer(d); li != nil {
+	if li := layer.ItemFromLayer(*d); li != nil {
 		if isSceneIncludes(li.Scene(), f) {
 			return li, nil
 		}
@@ -108,10 +116,10 @@ func (r *Layer) FindGroupByID(ctx context.Context, id id.LayerID, f []id.SceneID
 	defer r.lock.Unlock()
 
 	d, ok := r.data[id]
-	if !ok {
-		return &layer.Group{}, nil
+	if !ok || d == nil {
+		return nil, nil
 	}
-	if lg := layer.GroupFromLayer(d); lg != nil {
+	if lg := layer.ToLayerGroupRef(d); lg != nil {
 		if isSceneIncludes(lg.Scene(), f) {
 			return lg, nil
 		}
@@ -125,10 +133,10 @@ func (r *Layer) FindGroupBySceneAndLinkedDatasetSchema(ctx context.Context, s id
 
 	result := layer.GroupList{}
 	for _, l := range r.data {
-		if l.Scene() != s {
-			continue
-		}
-		if lg, ok := l.(*layer.Group); ok {
+		if lg := layer.ToLayerGroupRef(l); lg != nil {
+			if lg.Scene() != s {
+				continue
+			}
 			if dsid := lg.LinkedDatasetSchema(); dsid != nil && *dsid == ds {
 				result = append(result, lg)
 			}
@@ -142,6 +150,10 @@ func (r *Layer) FindByProperty(ctx context.Context, id id.PropertyID, f []id.Sce
 	defer r.lock.Unlock()
 
 	for _, l := range r.data {
+		if l == nil {
+			continue
+		}
+		l := *l
 		if !isSceneIncludes(l.Scene(), f) {
 			continue
 		}
@@ -165,6 +177,10 @@ func (r *Layer) FindParentByID(ctx context.Context, id id.LayerID, f []id.SceneI
 	defer r.lock.Unlock()
 
 	for _, l := range r.data {
+		if l == nil {
+			continue
+		}
+		l := *l
 		if !isSceneIncludes(l.Scene(), f) {
 			continue
 		}
@@ -187,6 +203,10 @@ func (r *Layer) FindByScene(ctx context.Context, sceneID id.SceneID) (layer.List
 
 	res := layer.List{}
 	for _, l := range r.data {
+		if l == nil {
+			continue
+		}
+		l := *l
 		if l.Scene() == sceneID {
 			res = append(res, &l)
 		}
@@ -200,8 +220,12 @@ func (r *Layer) FindAllByDatasetSchema(ctx context.Context, datasetSchemaID id.D
 
 	res := layer.List{}
 	for _, l := range r.data {
-		if d := layer.ToLayerGroup(l).LinkedDatasetSchema(); d != nil && *d == datasetSchemaID {
-			res = append(res, &l)
+		if l == nil {
+			continue
+		}
+		l := l
+		if d := layer.ToLayerGroupRef(l).LinkedDatasetSchema(); d != nil && *d == datasetSchemaID {
+			res = append(res, l)
 		}
 	}
 	return res, nil
@@ -211,7 +235,7 @@ func (r *Layer) Save(ctx context.Context, l layer.Layer) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	r.data[l.ID()] = l
+	r.data[l.ID()] = &l
 	return nil
 }
 
@@ -220,8 +244,11 @@ func (r *Layer) SaveAll(ctx context.Context, ll layer.List) error {
 	defer r.lock.Unlock()
 
 	for _, l := range ll {
-		layer := *l
-		r.data[layer.ID()] = layer
+		if l == nil {
+			continue
+		}
+		l := *l
+		r.data[l.ID()] = &l
 	}
 	return nil
 }
@@ -248,8 +275,12 @@ func (r *Layer) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	for lid, p := range r.data {
-		if p.Scene() == sceneID {
+	for lid, l := range r.data {
+		if l == nil {
+			continue
+		}
+		l := *l
+		if l.Scene() == sceneID {
 			delete(r.data, lid)
 		}
 	}
@@ -260,9 +291,13 @@ func (r *Layer) FindByTag(ctx context.Context, tagID id.TagID, s []id.SceneID) (
 	r.lock.Lock()
 	defer r.lock.Unlock()
 	var res layer.List
-	for _, layer := range r.data {
-		if layer.Tags().Has(tagID) {
-			res = append(res, &layer)
+	for _, l := range r.data {
+		if l == nil {
+			continue
+		}
+		l := *l
+		if l.Tags().Has(tagID) {
+			res = append(res, &l)
 		}
 	}
 

@@ -19,8 +19,8 @@ func TestLayer_FindByTag(t *testing.T) {
 	lg := layer.New().NewID().Tags(tl).Scene(sid).Group().MustBuild()
 
 	repo := Layer{
-		data: map[id.LayerID]layer.Layer{
-			lg.ID(): lg,
+		data: layer.Map{
+			lg.ID(): lg.LayerRef(),
 		},
 	}
 

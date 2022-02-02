@@ -8,6 +8,7 @@ import (
 )
 
 type Property interface {
+	Filtered([]id.SceneID) Property
 	FindByID(context.Context, id.PropertyID, []id.SceneID) (*property.Property, error)
 	FindByIDs(context.Context, []id.PropertyID, []id.SceneID) (property.List, error)
 	FindLinkedAll(context.Context, id.SceneID) (property.List, error)

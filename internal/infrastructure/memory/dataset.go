@@ -12,13 +12,21 @@ import (
 )
 
 type Dataset struct {
-	lock sync.Mutex
-	data map[id.DatasetID]dataset.Dataset
+	lock   sync.Mutex
+	data   dataset.Map
+	filter *id.SceneIDSet
 }
 
 func NewDataset() repo.Dataset {
 	return &Dataset{
-		data: map[id.DatasetID]dataset.Dataset{},
+		data: dataset.Map{},
+	}
+}
+
+func (r *Dataset) Filtered(scenes []id.SceneID) repo.Dataset {
+	return &Dataset{
+		data:   r.data,
+		filter: id.NewSceneIDSet(scenes...),
 	}
 }
 
@@ -28,7 +36,7 @@ func (r *Dataset) FindByID(ctx context.Context, id id.DatasetID, f []id.SceneID)
 
 	p, ok := r.data[id]
 	if ok && isSceneIncludes(p.Scene(), f) {
-		return &p, nil
+		return p, nil
 	}
 	return nil, rerror.ErrNotFound
 }
@@ -41,7 +49,7 @@ func (r *Dataset) FindByIDs(ctx context.Context, ids []id.DatasetID, f []id.Scen
 	for _, id := range ids {
 		if d, ok := r.data[id]; ok {
 			if isSceneIncludes(d.Scene(), f) {
-				result = append(result, &d)
+				result = append(result, d)
 				continue
 			}
 		}
@@ -58,7 +66,7 @@ func (r *Dataset) FindBySchema(ctx context.Context, id id.DatasetSchemaID, f []i
 	for _, d := range r.data {
 		if d.Schema() == id && isSceneIncludes(d.Scene(), f) {
 			dd := d
-			result = append(result, &dd)
+			result = append(result, dd)
 		}
 	}
 
@@ -87,7 +95,7 @@ func (r *Dataset) FindBySchemaAll(ctx context.Context, id id.DatasetSchemaID) (d
 	for _, d := range r.data {
 		if d.Schema() == id {
 			dd := d
-			result = append(result, &dd)
+			result = append(result, dd)
 		}
 	}
 	return result, nil
@@ -122,7 +130,7 @@ func (r *Dataset) Save(ctx context.Context, d *dataset.Dataset) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	r.data[d.ID()] = *d
+	r.data[d.ID()] = d
 	return nil
 }
 
@@ -131,7 +139,7 @@ func (r *Dataset) SaveAll(ctx context.Context, dl dataset.List) error {
 	defer r.lock.Unlock()
 
 	for _, d := range dl {
-		r.data[d.ID()] = *d
+		r.data[d.ID()] = d
 	}
 	return nil
 }

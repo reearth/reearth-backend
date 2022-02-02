@@ -12,13 +12,21 @@ import (
 )
 
 type DatasetSchema struct {
-	lock sync.Mutex
-	data map[id.DatasetSchemaID]dataset.Schema
+	lock   sync.Mutex
+	data   dataset.SchemaMap
+	filter *id.SceneIDSet
 }
 
 func NewDatasetSchema() repo.DatasetSchema {
 	return &DatasetSchema{
-		data: map[id.DatasetSchemaID]dataset.Schema{},
+		data: dataset.SchemaMap{},
+	}
+}
+
+func (r *DatasetSchema) Filtered(scenes []id.SceneID) repo.DatasetSchema {
+	return &DatasetSchema{
+		data:   r.data,
+		filter: id.NewSceneIDSet(scenes...),
 	}
 }
 
@@ -28,7 +36,7 @@ func (r *DatasetSchema) FindByID(ctx context.Context, id id.DatasetSchemaID, f [
 
 	p, ok := r.data[id]
 	if ok {
-		return &p, nil
+		return p, nil
 	}
 	return nil, rerror.ErrNotFound
 }
@@ -41,7 +49,7 @@ func (r *DatasetSchema) FindByIDs(ctx context.Context, ids []id.DatasetSchemaID,
 	for _, id := range ids {
 		if d, ok := r.data[id]; ok {
 			d2 := d
-			result = append(result, &d2)
+			result = append(result, d2)
 		} else {
 			result = append(result, nil)
 		}
@@ -57,7 +65,7 @@ func (r *DatasetSchema) FindByScene(ctx context.Context, s id.SceneID, p *usecas
 	for _, d := range r.data {
 		if d.Scene() == s {
 			d2 := d
-			result = append(result, &d2)
+			result = append(result, d2)
 		}
 	}
 
@@ -86,7 +94,7 @@ func (r *DatasetSchema) FindBySceneAll(ctx context.Context, s id.SceneID) (datas
 	for _, d := range r.data {
 		if d.Scene() == s {
 			d2 := d
-			result = append(result, &d2)
+			result = append(result, d2)
 		}
 	}
 	return result, nil
@@ -100,7 +108,7 @@ func (r *DatasetSchema) FindAllDynamicByScene(ctx context.Context, s id.SceneID)
 	for _, d := range r.data {
 		if d.Scene() == s && d.Dynamic() {
 			d2 := d
-			result = append(result, &d2)
+			result = append(result, d2)
 		}
 	}
 	return result, nil
@@ -112,7 +120,7 @@ func (r *DatasetSchema) FindDynamicByID(ctx context.Context, id id.DatasetSchema
 
 	p, ok := r.data[id]
 	if ok && p.Dynamic() {
-		return &p, nil
+		return p, nil
 	}
 	return nil, rerror.ErrNotFound
 }
@@ -125,7 +133,7 @@ func (r *DatasetSchema) FindBySceneAndSource(ctx context.Context, s id.SceneID, 
 	for _, d := range r.data {
 		if d.Scene() == s && d.Source() == src {
 			d2 := d
-			result = append(result, &d2)
+			result = append(result, d2)
 		}
 	}
 	return result, nil
@@ -135,7 +143,7 @@ func (r *DatasetSchema) Save(ctx context.Context, d *dataset.Schema) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	r.data[d.ID()] = *d
+	r.data[d.ID()] = d
 	return nil
 }
 
@@ -144,7 +152,7 @@ func (r *DatasetSchema) SaveAll(ctx context.Context, dl dataset.SchemaList) erro
 	defer r.lock.Unlock()
 
 	for _, d := range dl {
-		r.data[d.ID()] = *d
+		r.data[d.ID()] = d
 	}
 	return nil
 }

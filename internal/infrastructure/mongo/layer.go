@@ -15,6 +15,7 @@ import (
 
 type layerRepo struct {
 	client *mongodoc.ClientCollection
+	filter *id.SceneIDSet
 }
 
 func NewLayer(client *mongodoc.Client) repo.Layer {
@@ -27,6 +28,13 @@ func (r *layerRepo) init() {
 	i := r.client.CreateIndex(context.Background(), []string{"plugin", "extension", "scene", "group.layers", "tags.id", "tags.tags.id"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "layer", i)
+	}
+}
+
+func (r *layerRepo) Filtered(filter []id.SceneID) repo.Layer {
+	return &layerRepo{
+		client: r.client,
+		filter: id.NewSceneIDSet(filter...),
 	}
 }
 

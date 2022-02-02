@@ -15,8 +15,8 @@ import (
 )
 
 type assetRepo struct {
-	client  *mongodoc.ClientCollection
-	filters *id.TeamIDSet
+	client *mongodoc.ClientCollection
+	filter *id.TeamIDSet
 }
 
 func NewAsset(client *mongodoc.Client) repo.Asset {
@@ -25,12 +25,17 @@ func NewAsset(client *mongodoc.Client) repo.Asset {
 	return r
 }
 
+func (r *assetRepo) init() {
+	i := r.client.CreateIndex(context.Background(), []string{"team"})
+	if len(i) > 0 {
+		log.Infof("mongo: %s: index created: %s", "asset", i)
+	}
+}
+
 func (r *assetRepo) Filtered(filter []id.TeamID) repo.Asset {
-	filters := id.NewTeamIDSet()
-	filters.Add(filter...)
 	return &assetRepo{
-		client:  r.client,
-		filters: filters,
+		client: r.client,
+		filter: id.NewTeamIDSet(filter...),
 	}
 }
 
@@ -52,7 +57,7 @@ func (r *assetRepo) FindByIDs(ctx context.Context, ids []id.AssetID, teams []id.
 }
 
 func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
-	if r.filters != nil && !r.filters.Has(id) {
+	if r.filter != nil && !r.filter.Has(id) {
 		return nil, nil, nil
 	}
 	filter := bson.M{
@@ -71,13 +76,6 @@ func (r *assetRepo) Save(ctx context.Context, asset *asset.Asset) error {
 
 func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
 	return r.client.RemoveOneOf(ctx, id.String(), r.applyFilter(nil, nil))
-}
-
-func (r *assetRepo) init() {
-	i := r.client.CreateIndex(context.Background(), []string{"team"})
-	if len(i) > 0 {
-		log.Infof("mongo: %s: index created: %s", "asset", i)
-	}
 }
 
 func (r *assetRepo) paginate(ctx context.Context, filter bson.M, pagination *usecase.Pagination, teams []id.TeamID) ([]*asset.Asset, *usecase.PageInfo, error) {
@@ -111,7 +109,7 @@ func (r *assetRepo) findOne(ctx context.Context, filter bson.M, teams []id.TeamI
 }
 
 func (r *assetRepo) ok(a *asset.Asset) error {
-	if r.filters == nil || r.filters.Has(a.Team()) {
+	if r.filter == nil || r.filter.Has(a.Team()) {
 		return nil
 	}
 	return repo.ErrOperationDenied
@@ -121,7 +119,7 @@ func (r *assetRepo) applyFilter(filter bson.M, teams []id.TeamID) bson.M {
 	if filter == nil {
 		filter = bson.M{}
 	}
-	s := r.filters.Clone()
+	s := r.filter.Clone()
 	s.Add(teams...)
 	filter["team"] = bson.M{"$in": id.TeamIDsToStrings(s.All())}
 	return filter

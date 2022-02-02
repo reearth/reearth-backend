@@ -8,6 +8,7 @@ import (
 )
 
 type Tag interface {
+	Filtered([]id.SceneID) Tag
 	FindByID(context.Context, id.TagID, []id.SceneID) (tag.Tag, error)
 	FindByIDs(context.Context, []id.TagID, []id.SceneID) ([]*tag.Tag, error)
 	FindByScene(context.Context, id.SceneID) ([]*tag.Tag, error)

@@ -8,6 +8,7 @@ import (
 )
 
 type Layer interface {
+	Filtered([]id.SceneID) Layer
 	FindByID(context.Context, id.LayerID, []id.SceneID) (layer.Layer, error)
 	FindByIDs(context.Context, []id.LayerID, []id.SceneID) (layer.List, error)
 	FindItemByID(context.Context, id.LayerID, []id.SceneID) (*layer.Item, error)

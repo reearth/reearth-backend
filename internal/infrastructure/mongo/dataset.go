@@ -18,6 +18,7 @@ import (
 
 type datasetRepo struct {
 	client *mongodoc.ClientCollection
+	filter *id.SceneIDSet
 }
 
 func NewDataset(client *mongodoc.Client) repo.Dataset {
@@ -30,6 +31,13 @@ func (r *datasetRepo) init() {
 	i := r.client.CreateIndex(context.Background(), []string{"scene", "schema"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "dataset", i)
+	}
+}
+
+func (r *datasetRepo) Filtered(filter []id.SceneID) repo.Dataset {
+	return &datasetRepo{
+		client: r.client,
+		filter: id.NewSceneIDSet(filter...),
 	}
 }
 

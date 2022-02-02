@@ -12,13 +12,20 @@ import (
 )
 
 type Property struct {
-	lock sync.Mutex
-	data map[id.PropertyID]property.Property
+	lock   sync.Mutex
+	data   property.Map
+	filter *id.SceneIDSet
 }
 
 func NewProperty() repo.Property {
 	return &Property{
-		data: map[id.PropertyID]property.Property{},
+		data: property.Map{},
+	}
+}
+func (r *Property) Filtered(scenes []id.SceneID) repo.Property {
+	return &Property{
+		data:   r.data,
+		filter: id.NewSceneIDSet(scenes...),
 	}
 }
 
@@ -28,7 +35,7 @@ func (r *Property) FindByID(ctx context.Context, id id.PropertyID, f []id.SceneI
 
 	p, ok := r.data[id]
 	if ok && isSceneIncludes(p.Scene(), f) {
-		return &p, nil
+		return p, nil
 	}
 	return nil, rerror.ErrNotFound
 }
@@ -39,9 +46,9 @@ func (r *Property) FindByIDs(ctx context.Context, ids []id.PropertyID, f []id.Sc
 
 	result := property.List{}
 	for _, id := range ids {
-		if d, ok := r.data[id]; ok {
-			if isSceneIncludes(d.Scene(), f) {
-				result = append(result, &d)
+		if p, ok := r.data[id]; ok {
+			if isSceneIncludes(p.Scene(), f) {
+				result = append(result, p)
 				continue
 			}
 		}
@@ -57,7 +64,7 @@ func (r *Property) FindByDataset(ctx context.Context, sid id.DatasetSchemaID, di
 	result := property.List{}
 	for _, p := range r.data {
 		if p.IsDatasetLinked(sid, did) {
-			result = append(result, &p)
+			result = append(result, p)
 		}
 	}
 	return result, nil
@@ -73,8 +80,7 @@ func (r *Property) FindLinkedAll(ctx context.Context, s id.SceneID) (property.Li
 			continue
 		}
 		if p.HasLinkedField() {
-			p2 := p
-			result = append(result, &p2)
+			result = append(result, p)
 		}
 	}
 	return result, nil
@@ -84,7 +90,7 @@ func (r *Property) Save(ctx context.Context, p *property.Property) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	r.data[p.ID()] = *p
+	r.data[p.ID()] = p
 	return nil
 }
 
@@ -93,7 +99,7 @@ func (r *Property) SaveAll(ctx context.Context, pl property.List) error {
 	defer r.lock.Unlock()
 
 	for _, p := range pl {
-		r.data[p.ID()] = *p
+		r.data[p.ID()] = p
 	}
 	return nil
 }

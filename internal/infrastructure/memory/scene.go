@@ -13,13 +13,21 @@ import (
 )
 
 type Scene struct {
-	lock sync.Mutex
-	data map[id.SceneID]scene.Scene
+	lock   sync.Mutex
+	data   map[id.SceneID]*scene.Scene
+	filter *id.TeamIDSet
 }
 
 func NewScene() repo.Scene {
 	return &Scene{
-		data: map[id.SceneID]scene.Scene{},
+		data: map[id.SceneID]*scene.Scene{},
+	}
+}
+
+func (r *Scene) Filtered(teams []id.TeamID) repo.Scene {
+	return &Scene{
+		data:   r.data,
+		filter: id.NewTeamIDSet(teams...),
 	}
 }
 
@@ -29,7 +37,7 @@ func (r *Scene) FindByID(ctx context.Context, id id.SceneID, f []id.TeamID) (*sc
 
 	s, ok := r.data[id]
 	if ok && isTeamIncludes(s.Team(), f) {
-		return &s, nil
+		return s, nil
 	}
 	return nil, rerror.ErrNotFound
 }
@@ -42,7 +50,7 @@ func (r *Scene) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) 
 	for _, id := range ids {
 		if d, ok := r.data[id]; ok {
 			if isTeamIncludes(d.Team(), f) {
-				result = append(result, &d)
+				result = append(result, d)
 				continue
 			}
 		}
@@ -58,7 +66,7 @@ func (r *Scene) FindByProject(ctx context.Context, id id.ProjectID, f []id.TeamI
 
 	for _, d := range r.data {
 		if d.Project() == id && isTeamIncludes(d.Team(), f) {
-			return &d, nil
+			return d, nil
 		}
 	}
 	return nil, rerror.ErrNotFound
@@ -119,7 +127,7 @@ func (r *Scene) Save(ctx context.Context, s *scene.Scene) error {
 	defer r.lock.Unlock()
 
 	s.SetUpdatedAt(time.Now())
-	r.data[s.ID()] = *s
+	r.data[s.ID()] = s
 	return nil
 }
 
