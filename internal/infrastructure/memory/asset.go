@@ -56,7 +56,7 @@ func (r *Asset) FindByIDs(ctx context.Context, ids []id.AssetID, teams []id.Team
 		}
 		result = append(result, nil)
 	}
-	return r.applyFilterAll(result), nil
+	return r.applyFilter(result), nil
 }
 
 func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
@@ -69,7 +69,7 @@ func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecas
 			result = append(result, d)
 		}
 	}
-	result = r.applyFilterAll(result)
+	result = r.applyFilter(result)
 
 	var startCursor, endCursor *usecase.Cursor
 	if len(result) > 0 {
@@ -88,51 +88,45 @@ func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecas
 	), nil
 }
 
-func (r *Asset) Save(ctx context.Context, a *asset.Asset) error {
-	r.lock.Lock()
-	defer r.lock.Unlock()
-
-	if !r.ok(a) {
+func (r *Asset) Save(ctx context.Context, d *asset.Asset) error {
+	if d == nil {
+		return nil
+	}
+	if !r.ok(d) {
 		return repo.ErrOperationDenied
 	}
 
-	r.data[a.ID()] = a
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	r.data[d.ID()] = d
 	return nil
 }
 
 func (r *Asset) Remove(ctx context.Context, id id.AssetID) error {
+	if d, ok := r.data[id]; !ok || !r.ok(d) {
+		return repo.ErrNotFound
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
-
-	if d, ok := r.data[id]; ok {
-		if !r.ok(d) {
-			return repo.ErrOperationDenied
-		}
-	}
 
 	delete(r.data, id)
 	return nil
 }
 
-func (r *Asset) ok(a *asset.Asset) bool {
-	return r.filter == nil || r.filter.Has(a.Team())
+func (r *Asset) ok(d *asset.Asset) bool {
+	return r.filter == nil || d != nil && r.filter.Has(d.Team())
 }
 
-func (r *Asset) applyFilter(a *asset.Asset) *asset.Asset {
-	if r.ok(a) {
-		return a
-	}
-	return nil
-}
-
-func (r *Asset) applyFilterAll(assets []*asset.Asset) []*asset.Asset {
-	if len(assets) == 0 {
+func (r *Asset) applyFilter(list []*asset.Asset) []*asset.Asset {
+	if len(list) == 0 {
 		return nil
 	}
 
-	res := make([]*asset.Asset, 0, len(assets))
-	for _, a := range assets {
-		if a := r.applyFilter(a); a != nil {
+	res := make([]*asset.Asset, 0, len(list))
+	for _, a := range list {
+		if r.ok(a) {
 			res = append(res, a)
 		}
 	}

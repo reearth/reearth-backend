@@ -3,9 +3,13 @@ package repo
 import (
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/rerror"
 )
 
-var ErrOperationDenied = interfaces.ErrOperationDenied
+var (
+	ErrNotFound        = rerror.ErrNotFound
+	ErrOperationDenied = interfaces.ErrOperationDenied
+)
 
 type Container struct {
 	Asset          Asset

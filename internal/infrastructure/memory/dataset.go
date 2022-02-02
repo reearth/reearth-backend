@@ -127,6 +127,13 @@ func (r *Dataset) FindGraph(ctx context.Context, i id.DatasetID, f []id.SceneID,
 }
 
 func (r *Dataset) Save(ctx context.Context, d *dataset.Dataset) error {
+	if d == nil {
+		return nil
+	}
+	if !r.ok(d) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -135,6 +142,12 @@ func (r *Dataset) Save(ctx context.Context, d *dataset.Dataset) error {
 }
 
 func (r *Dataset) SaveAll(ctx context.Context, dl dataset.List) error {
+	for _, d := range dl {
+		if !r.ok(d) {
+			return repo.ErrOperationDenied
+		}
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -145,6 +158,10 @@ func (r *Dataset) SaveAll(ctx context.Context, dl dataset.List) error {
 }
 
 func (r *Dataset) Remove(ctx context.Context, id id.DatasetID) error {
+	if d, ok := r.data[id]; !ok || !r.ok(d) {
+		return repo.ErrNotFound
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -157,12 +174,20 @@ func (r *Dataset) RemoveAll(ctx context.Context, ids []id.DatasetID) error {
 	defer r.lock.Unlock()
 
 	for _, id := range ids {
+		if d, ok := r.data[id]; !ok || !r.ok(d) {
+			continue
+		}
 		delete(r.data, id)
 	}
+
 	return nil
 }
 
 func (r *Dataset) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
+	if r.filter != nil && !r.filter.Has(sceneID) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -172,4 +197,23 @@ func (r *Dataset) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 		}
 	}
 	return nil
+}
+
+func (r *Dataset) ok(d *dataset.Dataset) bool {
+	return r.filter == nil || d != nil && r.filter.Has(d.Scene())
+}
+
+func (r *Dataset) applyFilter(list dataset.List) dataset.List {
+	if len(list) == 0 {
+		return nil
+	}
+
+	res := make(dataset.List, 0, len(list))
+	for _, a := range list {
+		if r.ok(a) {
+			res = append(res, a)
+		}
+	}
+
+	return res
 }

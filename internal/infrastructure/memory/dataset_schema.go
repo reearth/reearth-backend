@@ -140,6 +140,13 @@ func (r *DatasetSchema) FindBySceneAndSource(ctx context.Context, s id.SceneID, 
 }
 
 func (r *DatasetSchema) Save(ctx context.Context, d *dataset.Schema) error {
+	if d == nil {
+		return nil
+	}
+	if !r.ok(d) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -148,6 +155,12 @@ func (r *DatasetSchema) Save(ctx context.Context, d *dataset.Schema) error {
 }
 
 func (r *DatasetSchema) SaveAll(ctx context.Context, dl dataset.SchemaList) error {
+	for _, d := range dl {
+		if !r.ok(d) {
+			return repo.ErrOperationDenied
+		}
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -158,6 +171,10 @@ func (r *DatasetSchema) SaveAll(ctx context.Context, dl dataset.SchemaList) erro
 }
 
 func (r *DatasetSchema) Remove(ctx context.Context, id id.DatasetSchemaID) error {
+	if d, ok := r.data[id]; !ok || !r.ok(d) {
+		return repo.ErrNotFound
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -170,12 +187,19 @@ func (r *DatasetSchema) RemoveAll(ctx context.Context, ids []id.DatasetSchemaID)
 	defer r.lock.Unlock()
 
 	for _, id := range ids {
+		if d, ok := r.data[id]; !ok || !r.ok(d) {
+			continue
+		}
 		delete(r.data, id)
 	}
 	return nil
 }
 
 func (r *DatasetSchema) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
+	if r.filter != nil && !r.filter.Has(sceneID) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -185,4 +209,23 @@ func (r *DatasetSchema) RemoveByScene(ctx context.Context, sceneID id.SceneID) e
 		}
 	}
 	return nil
+}
+
+func (r *DatasetSchema) ok(d *dataset.Schema) bool {
+	return r.filter == nil || d != nil && r.filter.Has(d.Scene())
+}
+
+func (r *DatasetSchema) applyFilter(list dataset.SchemaList) dataset.SchemaList {
+	if len(list) == 0 {
+		return nil
+	}
+
+	res := make(dataset.SchemaList, 0, len(list))
+	for _, a := range list {
+		if r.ok(a) {
+			res = append(res, a)
+		}
+	}
+
+	return res
 }

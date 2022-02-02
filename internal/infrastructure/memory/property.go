@@ -86,25 +86,42 @@ func (r *Property) FindLinkedAll(ctx context.Context, s id.SceneID) (property.Li
 	return result, nil
 }
 
-func (r *Property) Save(ctx context.Context, p *property.Property) error {
+func (r *Property) Save(ctx context.Context, d *property.Property) error {
+	if d == nil {
+		return nil
+	}
+	if !r.ok(d) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	r.data[p.ID()] = p
+	r.data[d.ID()] = d
 	return nil
 }
 
-func (r *Property) SaveAll(ctx context.Context, pl property.List) error {
+func (r *Property) SaveAll(ctx context.Context, list property.List) error {
+	for _, d := range list {
+		if !r.ok(d) {
+			return repo.ErrOperationDenied
+		}
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	for _, p := range pl {
-		r.data[p.ID()] = p
+	for _, d := range list {
+		r.data[d.ID()] = d
 	}
 	return nil
 }
 
 func (r *Property) Remove(ctx context.Context, id id.PropertyID) error {
+	if d, ok := r.data[id]; !ok || !r.ok(d) {
+		return repo.ErrNotFound
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -117,12 +134,19 @@ func (r *Property) RemoveAll(ctx context.Context, ids []id.PropertyID) error {
 	defer r.lock.Unlock()
 
 	for _, id := range ids {
+		if d, ok := r.data[id]; !ok || !r.ok(d) {
+			continue
+		}
 		delete(r.data, id)
 	}
 	return nil
 }
 
 func (r *Property) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
+	if r.filter != nil && !r.filter.Has(sceneID) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -132,4 +156,23 @@ func (r *Property) RemoveByScene(ctx context.Context, sceneID id.SceneID) error 
 		}
 	}
 	return nil
+}
+
+func (r *Property) ok(d *property.Property) bool {
+	return r.filter == nil || d != nil && r.filter.Has((d).Scene())
+}
+
+func (r *Property) applyFilter(list property.List) property.List {
+	if len(list) == 0 {
+		return nil
+	}
+
+	res := make(property.List, 0, len(list))
+	for _, e := range list {
+		if r.ok(e) {
+			res = append(res, e)
+		}
+	}
+
+	return res
 }

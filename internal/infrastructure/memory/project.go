@@ -114,23 +114,49 @@ func (r *Project) CountByTeam(ctx context.Context, team id.TeamID) (c int, err e
 	return
 }
 
-func (r *Project) Save(ctx context.Context, p *project.Project) error {
+func (r *Project) Save(ctx context.Context, d *project.Project) error {
+	if d == nil {
+		return nil
+	}
+	if !r.ok(d) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	p.SetUpdatedAt(time.Now())
-	r.data[p.ID()] = p
+	d.SetUpdatedAt(time.Now())
+	r.data[d.ID()] = d
 	return nil
 }
 
-func (r *Project) Remove(ctx context.Context, projectID id.ProjectID) error {
+func (r *Project) Remove(ctx context.Context, id id.ProjectID) error {
+	if p, ok := r.data[id]; !ok || !r.ok(p) {
+		return repo.ErrNotFound
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	for sid := range r.data {
-		if sid == projectID {
-			delete(r.data, sid)
+	delete(r.data, id)
+	return nil
+}
+
+func (r *Project) ok(d *project.Project) bool {
+	return r.filter == nil || d != nil && r.filter.Has((d).Team())
+}
+
+func (r *Project) applyFilter(list []*project.Project) []*project.Project {
+	if len(list) == 0 {
+		return nil
+	}
+
+	res := make([]*project.Project, 0, len(list))
+	for _, e := range list {
+		if r.ok(e) {
+			res = append(res, e)
 		}
 	}
-	return nil
+
+	return res
 }

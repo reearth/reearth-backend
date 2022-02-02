@@ -231,7 +231,32 @@ func (r *Layer) FindAllByDatasetSchema(ctx context.Context, datasetSchemaID id.D
 	return res, nil
 }
 
+func (r *Layer) FindByTag(ctx context.Context, tagID id.TagID, s []id.SceneID) (layer.List, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	var res layer.List
+	for _, l := range r.data {
+		if l == nil {
+			continue
+		}
+		l := *l
+		if l.Tags().Has(tagID) {
+			res = append(res, &l)
+		}
+	}
+
+	return res, nil
+}
+
 func (r *Layer) Save(ctx context.Context, l layer.Layer) error {
+	if l == nil {
+		return nil
+	}
+	if !r.ok(&l) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -240,6 +265,12 @@ func (r *Layer) Save(ctx context.Context, l layer.Layer) error {
 }
 
 func (r *Layer) SaveAll(ctx context.Context, ll layer.List) error {
+	for _, l := range ll {
+		if !r.ok(l) {
+			return repo.ErrOperationDenied
+		}
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -250,10 +281,15 @@ func (r *Layer) SaveAll(ctx context.Context, ll layer.List) error {
 		l := *l
 		r.data[l.ID()] = &l
 	}
+
 	return nil
 }
 
 func (r *Layer) Remove(ctx context.Context, id id.LayerID) error {
+	if d, ok := r.data[id]; !ok || !r.ok(d) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -266,12 +302,19 @@ func (r *Layer) RemoveAll(ctx context.Context, ids []id.LayerID) error {
 	defer r.lock.Unlock()
 
 	for _, id := range ids {
+		if d, ok := r.data[id]; !ok || !r.ok(d) {
+			continue
+		}
 		delete(r.data, id)
 	}
 	return nil
 }
 
 func (r *Layer) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
+	if r.filter != nil && !r.filter.Has(sceneID) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -287,19 +330,24 @@ func (r *Layer) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 	return nil
 }
 
-func (r *Layer) FindByTag(ctx context.Context, tagID id.TagID, s []id.SceneID) (layer.List, error) {
-	r.lock.Lock()
-	defer r.lock.Unlock()
-	var res layer.List
-	for _, l := range r.data {
-		if l == nil {
-			continue
-		}
-		l := *l
-		if l.Tags().Has(tagID) {
-			res = append(res, &l)
+func (r *Layer) ok(d *layer.Layer) bool {
+	if d == nil || r.filter == nil {
+		return false
+	}
+	return r.filter.Has((*d).Scene())
+}
+
+func (r *Layer) applyFilter(list layer.List) layer.List {
+	if len(list) == 0 {
+		return nil
+	}
+
+	res := make(layer.List, 0, len(list))
+	for _, e := range list {
+		if r.ok(e) {
+			res = append(res, e)
 		}
 	}
 
-	return res, nil
+	return res
 }

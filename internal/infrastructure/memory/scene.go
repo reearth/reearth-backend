@@ -122,23 +122,49 @@ func (r *Scene) HasScenesTeam(ctx context.Context, id []id.SceneID, teams []id.T
 	return res, nil
 }
 
-func (r *Scene) Save(ctx context.Context, s *scene.Scene) error {
+func (r *Scene) Save(ctx context.Context, d *scene.Scene) error {
+	if d == nil {
+		return nil
+	}
+	if !r.ok(d) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	s.SetUpdatedAt(time.Now())
-	r.data[s.ID()] = s
+	d.SetUpdatedAt(time.Now())
+	r.data[d.ID()] = d
 	return nil
 }
 
-func (r *Scene) Remove(ctx context.Context, sceneID id.SceneID) error {
+func (r *Scene) Remove(ctx context.Context, id id.SceneID) error {
+	if s, ok := r.data[id]; !ok || !r.ok(s) {
+		return repo.ErrNotFound
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	for sid := range r.data {
-		if sid == sceneID {
-			delete(r.data, sid)
+	delete(r.data, id)
+	return nil
+}
+
+func (r *Scene) ok(d *scene.Scene) bool {
+	return r.filter == nil || d != nil && r.filter.Has(d.Team())
+}
+
+func (r *Scene) applyFilter(list []*scene.Scene) []*scene.Scene {
+	if len(list) == 0 {
+		return nil
+	}
+
+	res := make([]*scene.Scene, 0, len(list))
+	for _, e := range list {
+		if r.ok(e) {
+			res = append(res, e)
 		}
 	}
-	return nil
+
+	return res
 }
