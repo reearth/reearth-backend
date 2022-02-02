@@ -14,23 +14,30 @@ import (
 
 func TestCreateInfobox(t *testing.T) {
 	ctx := context.Background()
-
 	db := memory.InitRepos(nil)
-	scene, _ := scene.New().NewID().Team(id.NewTeamID()).Project(id.NewProjectID()).RootLayer(id.NewLayerID()).Build()
-	_ = db.Scene.Save(ctx, scene)
-	il := NewLayer(db)
 
-	l, _ := layer.NewItem().NewID().Scene(scene.ID()).Build()
-	_ = db.Layer.Save(ctx, l)
+	s := scene.New().NewID().Team(id.NewTeamID()).Project(id.NewProjectID()).RootLayer(id.NewLayerID()).MustBuild()
+	assert.NoError(t, db.Scene.Save(ctx, s))
+	l := layer.NewItem().NewID().Scene(s.ID()).MustBuild()
+	assert.NoError(t, db.Layer.Save(ctx, l))
 
-	i, _ := il.CreateInfobox(ctx, l.ID(), &usecase.Operator{
-		WritableTeams: []id.TeamID{scene.Team()},
-	})
+	u := NewLayer(db)
+	i, err := u.CreateInfobox(
+		ctx,
+		l.ID(), &usecase.Operator{
+			WritableTeams: []id.TeamID{s.Team()},
+		},
+	)
+
+	assert.NoError(t, err)
 	assert.NotNil(t, i)
-	l, _ = db.Layer.FindItemByID(ctx, l.ID(), nil)
-	infobox := l.Infobox()
-	assert.NotNil(t, infobox)
-	property, _ := db.Property.FindByID(ctx, infobox.Property(), nil)
-	assert.NotNil(t, property)
-	assert.NotNil(t, property.Schema())
+
+	l2, err := db.Layer.FindItemByID(ctx, l.ID(), nil)
+	assert.NoError(t, err)
+	assert.NotNil(t, l2.Infobox())
+
+	p, err := db.Property.FindByID(ctx, l2.Infobox().Property(), nil)
+	assert.NoError(t, err)
+	assert.NotNil(t, p)
+	assert.NotNil(t, p.Schema())
 }

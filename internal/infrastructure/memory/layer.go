@@ -331,10 +331,7 @@ func (r *Layer) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
 }
 
 func (r *Layer) ok(d *layer.Layer) bool {
-	if d == nil || r.filter == nil {
-		return false
-	}
-	return r.filter.Has((*d).Scene())
+	return r.filter == nil || d != nil && r.filter.Has((*d).Scene())
 }
 
 func (r *Layer) applyFilter(list layer.List) layer.List {
