@@ -10,6 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/labstack/echo/v4"
 	"github.com/ravilushqa/otelgqlgen"
+	"github.com/reearth/reearth-backend/internal/adapter"
 	"github.com/reearth/reearth-backend/internal/adapter/gql"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/vektah/gqlparser/v2/gqlerror"
@@ -24,6 +25,7 @@ func graphqlAPI(
 	usecases interfaces.Container,
 ) {
 	playgroundEnabled := conf.Debug || conf.Config.Dev
+
 	if playgroundEnabled {
 		r.GET("/graphql", echo.WrapHandler(
 			playground.Handler("reearth-backend", "/api/graphql"),
@@ -36,15 +38,19 @@ func graphqlAPI(
 
 	srv := handler.NewDefaultServer(schema)
 	srv.Use(otelgqlgen.Middleware())
+
 	if conf.Config.GraphQL.ComplexityLimit > 0 {
 		srv.Use(extension.FixedComplexityLimit(conf.Config.GraphQL.ComplexityLimit))
 	}
+
 	if playgroundEnabled {
 		srv.Use(extension.Introspection{})
 	}
+
 	srv.Use(extension.AutomaticPersistedQuery{
 		Cache: lru.New(30),
 	})
+
 	srv.SetErrorPresenter(
 		// show more detailed error messgage in debug mode
 		func(ctx context.Context, e error) *gqlerror.Error {
@@ -58,6 +64,8 @@ func graphqlAPI(
 	r.POST("/graphql", func(c echo.Context) error {
 		req := c.Request()
 		ctx := req.Context()
+
+		ctx = adapter.AttachUsecases(ctx, &usecases)
 		ctx = gql.AttachUsecases(ctx, &usecases, enableDataLoaders)
 		c.SetRequest(req.WithContext(ctx))
 
