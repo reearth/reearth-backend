@@ -236,8 +236,10 @@ type ClusterIDSet struct {
 }
 
 // NewClusterIDSet creates a new ClusterIDSet
-func NewClusterIDSet() *ClusterIDSet {
-	return &ClusterIDSet{}
+func NewClusterIDSet(p ...ClusterID) *ClusterIDSet {
+	s := &ClusterIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

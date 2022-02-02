@@ -236,8 +236,10 @@ type TagIDSet struct {
 }
 
 // NewTagIDSet creates a new TagIDSet
-func NewTagIDSet() *TagIDSet {
-	return &TagIDSet{}
+func NewTagIDSet(p ...TagID) *TagIDSet {
+	s := &TagIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

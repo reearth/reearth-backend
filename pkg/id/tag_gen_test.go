@@ -61,7 +61,6 @@ func TestTagIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestTagIDsFrom(t *testing.T) {
 }
 
 func TestTagIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestTagIDsToIDRef(t *testing.T) {
 }
 
 func TestNewTagIDSet(t *testing.T) {
-	TagIdSet := NewTagIDSet()
-	assert.NotNil(t, TagIdSet)
-	assert.Empty(t, TagIdSet.m)
-	assert.Empty(t, TagIdSet.s)
+	set := NewTagIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewTagID()
+	b := NewTagID()
+	set = NewTagIDSet(a, a, b)
+	assert.Equal(t, []TagID{a, b}, set.s)
 }
 
 func TestTagIDSet_Add(t *testing.T) {

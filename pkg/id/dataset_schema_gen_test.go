@@ -61,7 +61,6 @@ func TestDatasetSchemaIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestDatasetSchemaIDsFrom(t *testing.T) {
 }
 
 func TestDatasetSchemaIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestDatasetSchemaIDsToIDRef(t *testing.T) {
 }
 
 func TestNewDatasetSchemaIDSet(t *testing.T) {
-	DatasetSchemaIdSet := NewDatasetSchemaIDSet()
-	assert.NotNil(t, DatasetSchemaIdSet)
-	assert.Empty(t, DatasetSchemaIdSet.m)
-	assert.Empty(t, DatasetSchemaIdSet.s)
+	set := NewDatasetSchemaIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewDatasetSchemaID()
+	b := NewDatasetSchemaID()
+	set = NewDatasetSchemaIDSet(a, a, b)
+	assert.Equal(t, []DatasetSchemaID{a, b}, set.s)
 }
 
 func TestDatasetSchemaIDSet_Add(t *testing.T) {

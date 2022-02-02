@@ -61,7 +61,6 @@ func TestLayerIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestLayerIDsFrom(t *testing.T) {
 }
 
 func TestLayerIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestLayerIDsToIDRef(t *testing.T) {
 }
 
 func TestNewLayerIDSet(t *testing.T) {
-	LayerIdSet := NewLayerIDSet()
-	assert.NotNil(t, LayerIdSet)
-	assert.Empty(t, LayerIdSet.m)
-	assert.Empty(t, LayerIdSet.s)
+	set := NewLayerIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewLayerID()
+	b := NewLayerID()
+	set = NewLayerIDSet(a, a, b)
+	assert.Equal(t, []LayerID{a, b}, set.s)
 }
 
 func TestLayerIDSet_Add(t *testing.T) {

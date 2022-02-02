@@ -61,7 +61,6 @@ func TestSceneIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestSceneIDsFrom(t *testing.T) {
 }
 
 func TestSceneIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestSceneIDsToIDRef(t *testing.T) {
 }
 
 func TestNewSceneIDSet(t *testing.T) {
-	SceneIdSet := NewSceneIDSet()
-	assert.NotNil(t, SceneIdSet)
-	assert.Empty(t, SceneIdSet.m)
-	assert.Empty(t, SceneIdSet.s)
+	set := NewSceneIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewSceneID()
+	b := NewSceneID()
+	set = NewSceneIDSet(a, a, b)
+	assert.Equal(t, []SceneID{a, b}, set.s)
 }
 
 func TestSceneIDSet_Add(t *testing.T) {

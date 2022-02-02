@@ -236,8 +236,10 @@ type ProjectIDSet struct {
 }
 
 // NewProjectIDSet creates a new ProjectIDSet
-func NewProjectIDSet() *ProjectIDSet {
-	return &ProjectIDSet{}
+func NewProjectIDSet(p ...ProjectID) *ProjectIDSet {
+	s := &ProjectIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

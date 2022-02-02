@@ -236,8 +236,10 @@ type PropertyIDSet struct {
 }
 
 // NewPropertyIDSet creates a new PropertyIDSet
-func NewPropertyIDSet() *PropertyIDSet {
-	return &PropertyIDSet{}
+func NewPropertyIDSet(p ...PropertyID) *PropertyIDSet {
+	s := &PropertyIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

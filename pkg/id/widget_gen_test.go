@@ -61,7 +61,6 @@ func TestWidgetIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestWidgetIDsFrom(t *testing.T) {
 }
 
 func TestWidgetIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestWidgetIDsToIDRef(t *testing.T) {
 }
 
 func TestNewWidgetIDSet(t *testing.T) {
-	WidgetIdSet := NewWidgetIDSet()
-	assert.NotNil(t, WidgetIdSet)
-	assert.Empty(t, WidgetIdSet.m)
-	assert.Empty(t, WidgetIdSet.s)
+	set := NewWidgetIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewWidgetID()
+	b := NewWidgetID()
+	set = NewWidgetIDSet(a, a, b)
+	assert.Equal(t, []WidgetID{a, b}, set.s)
 }
 
 func TestWidgetIDSet_Add(t *testing.T) {

@@ -236,8 +236,10 @@ type LayerIDSet struct {
 }
 
 // NewLayerIDSet creates a new LayerIDSet
-func NewLayerIDSet() *LayerIDSet {
-	return &LayerIDSet{}
+func NewLayerIDSet(p ...LayerID) *LayerIDSet {
+	s := &LayerIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

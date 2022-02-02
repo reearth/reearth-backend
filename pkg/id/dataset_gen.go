@@ -236,8 +236,10 @@ type DatasetIDSet struct {
 }
 
 // NewDatasetIDSet creates a new DatasetIDSet
-func NewDatasetIDSet() *DatasetIDSet {
-	return &DatasetIDSet{}
+func NewDatasetIDSet(p ...DatasetID) *DatasetIDSet {
+	s := &DatasetIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

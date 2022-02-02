@@ -236,8 +236,10 @@ type AssetIDSet struct {
 }
 
 // NewAssetIDSet creates a new AssetIDSet
-func NewAssetIDSet() *AssetIDSet {
-	return &AssetIDSet{}
+func NewAssetIDSet(p ...AssetID) *AssetIDSet {
+	s := &AssetIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

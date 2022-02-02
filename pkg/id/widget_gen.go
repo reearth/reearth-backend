@@ -236,8 +236,10 @@ type WidgetIDSet struct {
 }
 
 // NewWidgetIDSet creates a new WidgetIDSet
-func NewWidgetIDSet() *WidgetIDSet {
-	return &WidgetIDSet{}
+func NewWidgetIDSet(p ...WidgetID) *WidgetIDSet {
+	s := &WidgetIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

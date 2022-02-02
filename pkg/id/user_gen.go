@@ -236,8 +236,10 @@ type UserIDSet struct {
 }
 
 // NewUserIDSet creates a new UserIDSet
-func NewUserIDSet() *UserIDSet {
-	return &UserIDSet{}
+func NewUserIDSet(p ...UserID) *UserIDSet {
+	s := &UserIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

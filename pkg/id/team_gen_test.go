@@ -61,7 +61,6 @@ func TestTeamIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestTeamIDsFrom(t *testing.T) {
 }
 
 func TestTeamIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestTeamIDsToIDRef(t *testing.T) {
 }
 
 func TestNewTeamIDSet(t *testing.T) {
-	TeamIdSet := NewTeamIDSet()
-	assert.NotNil(t, TeamIdSet)
-	assert.Empty(t, TeamIdSet.m)
-	assert.Empty(t, TeamIdSet.s)
+	set := NewTeamIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewTeamID()
+	b := NewTeamID()
+	set = NewTeamIDSet(a, a, b)
+	assert.Equal(t, []TeamID{a, b}, set.s)
 }
 
 func TestTeamIDSet_Add(t *testing.T) {

@@ -236,8 +236,10 @@ type DatasetSchemaIDSet struct {
 }
 
 // NewDatasetSchemaIDSet creates a new DatasetSchemaIDSet
-func NewDatasetSchemaIDSet() *DatasetSchemaIDSet {
-	return &DatasetSchemaIDSet{}
+func NewDatasetSchemaIDSet(p ...DatasetSchemaID) *DatasetSchemaIDSet {
+	s := &DatasetSchemaIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

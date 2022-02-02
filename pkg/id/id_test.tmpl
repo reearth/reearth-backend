@@ -566,10 +566,14 @@ func Test{{$name}}IDsToIDRef(t *testing.T) {
 }
 
 func TestNew{{$name}}IDSet(t *testing.T) {
-	{{$name}}IdSet := New{{$name}}IDSet()
-	assert.NotNil(t, {{$name}}IdSet)
-	assert.Empty(t, {{$name}}IdSet.m)
-	assert.Empty(t, {{$name}}IdSet.s)
+	set := New{{$name}}IDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := New{{$name}}ID()
+	b := New{{$name}}ID()
+	set = New{{$name}}IDSet(a, a, b)
+	assert.Equal(t, []{{$name}}ID{a, b}, set.s)
 }
 
 func Test{{$name}}IDSet_Add(t *testing.T) {

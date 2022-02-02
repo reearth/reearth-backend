@@ -61,7 +61,6 @@ func TestPropertyItemIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestPropertyItemIDsFrom(t *testing.T) {
 }
 
 func TestPropertyItemIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestPropertyItemIDsToIDRef(t *testing.T) {
 }
 
 func TestNewPropertyItemIDSet(t *testing.T) {
-	PropertyItemIdSet := NewPropertyItemIDSet()
-	assert.NotNil(t, PropertyItemIdSet)
-	assert.Empty(t, PropertyItemIdSet.m)
-	assert.Empty(t, PropertyItemIdSet.s)
+	set := NewPropertyItemIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewPropertyItemID()
+	b := NewPropertyItemID()
+	set = NewPropertyItemIDSet(a, a, b)
+	assert.Equal(t, []PropertyItemID{a, b}, set.s)
 }
 
 func TestPropertyItemIDSet_Add(t *testing.T) {

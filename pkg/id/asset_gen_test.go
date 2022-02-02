@@ -61,7 +61,6 @@ func TestAssetIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestAssetIDsFrom(t *testing.T) {
 }
 
 func TestAssetIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestAssetIDsToIDRef(t *testing.T) {
 }
 
 func TestNewAssetIDSet(t *testing.T) {
-	AssetIdSet := NewAssetIDSet()
-	assert.NotNil(t, AssetIdSet)
-	assert.Empty(t, AssetIdSet.m)
-	assert.Empty(t, AssetIdSet.s)
+	set := NewAssetIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewAssetID()
+	b := NewAssetID()
+	set = NewAssetIDSet(a, a, b)
+	assert.Equal(t, []AssetID{a, b}, set.s)
 }
 
 func TestAssetIDSet_Add(t *testing.T) {

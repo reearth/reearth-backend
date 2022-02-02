@@ -236,8 +236,10 @@ type TeamIDSet struct {
 }
 
 // NewTeamIDSet creates a new TeamIDSet
-func NewTeamIDSet() *TeamIDSet {
-	return &TeamIDSet{}
+func NewTeamIDSet(p ...TeamID) *TeamIDSet {
+	s := &TeamIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

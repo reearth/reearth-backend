@@ -236,8 +236,10 @@ type SceneIDSet struct {
 }
 
 // NewSceneIDSet creates a new SceneIDSet
-func NewSceneIDSet() *SceneIDSet {
-	return &SceneIDSet{}
+func NewSceneIDSet(p ...SceneID) *SceneIDSet {
+	s := &SceneIDSet{}
+	s.Add(p...)
+	return s
 }
 
 // Add adds a new ID if it does not exists in the set

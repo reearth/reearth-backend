@@ -61,7 +61,6 @@ func TestInfoboxFieldIDFrom(t *testing.T) {
 			},
 		},
 	}
-
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
@@ -401,6 +400,7 @@ func TestInfoboxFieldIDsFrom(t *testing.T) {
 }
 
 func TestInfoboxFieldIDsFromID(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		input    []ID
@@ -564,10 +564,14 @@ func TestInfoboxFieldIDsToIDRef(t *testing.T) {
 }
 
 func TestNewInfoboxFieldIDSet(t *testing.T) {
-	InfoboxFieldIdSet := NewInfoboxFieldIDSet()
-	assert.NotNil(t, InfoboxFieldIdSet)
-	assert.Empty(t, InfoboxFieldIdSet.m)
-	assert.Empty(t, InfoboxFieldIdSet.s)
+	set := NewInfoboxFieldIDSet()
+	assert.NotNil(t, set)
+	assert.Empty(t, set.m)
+	assert.Empty(t, set.s)
+	a := NewInfoboxFieldID()
+	b := NewInfoboxFieldID()
+	set = NewInfoboxFieldIDSet(a, a, b)
+	assert.Equal(t, []InfoboxFieldID{a, b}, set.s)
 }
 
 func TestInfoboxFieldIDSet_Add(t *testing.T) {
