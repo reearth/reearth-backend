@@ -44,7 +44,7 @@ func (r *Resolver) PropertyGroup() PropertyGroupResolver {
 type propertyResolver struct{ *Resolver }
 
 func (r *propertyResolver) Schema(ctx context.Context, obj *gqlmodel.Property) (*gqlmodel.PropertySchema, error) {
-	return dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	return dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
 func (r *propertyResolver) Layer(ctx context.Context, obj *gqlmodel.Property) (gqlmodel.Layer, error) {
@@ -85,15 +85,15 @@ func (r *propertyResolver) Merged(ctx context.Context, obj *gqlmodel.Property) (
 type propertyFieldResolver struct{ *Resolver }
 
 func (r *propertyFieldResolver) Parent(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.Property, error) {
-	return dataLoaders(ctx).Property.Load(id.PropertyID(obj.ParentID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(obj.ParentID))
 }
 
 func (r *propertyFieldResolver) Schema(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.PropertySchema, error) {
-	return dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	return dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
 func (r *propertyFieldResolver) Field(ctx context.Context, obj *gqlmodel.PropertyField) (*gqlmodel.PropertySchemaField, error) {
-	schema, err := dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	schema, err := dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func (r *propertyFieldResolver) Field(ctx context.Context, obj *gqlmodel.Propert
 }
 
 func (r *propertyFieldResolver) ActualValue(ctx context.Context, obj *gqlmodel.PropertyField) (interface{}, error) {
-	datasetLoader := dataLoaders(ctx).Dataset
+	datasetLoader := dataloaders(ctx).Dataset
 	return actualValue(datasetLoader, obj.Value, obj.Links, false)
 }
 
@@ -111,14 +111,14 @@ func (r *propertyFieldLinkResolver) Dataset(ctx context.Context, obj *gqlmodel.P
 	if obj.DatasetID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Dataset.Load(id.DatasetID(*obj.DatasetID))
+	return dataloaders(ctx).Dataset.Load(id.DatasetID(*obj.DatasetID))
 }
 
 func (r *propertyFieldLinkResolver) DatasetField(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetField, error) {
 	if obj.DatasetID == nil {
 		return nil, nil
 	}
-	d, err := dataLoaders(ctx).Dataset.Load(id.DatasetID(*obj.DatasetID))
+	d, err := dataloaders(ctx).Dataset.Load(id.DatasetID(*obj.DatasetID))
 	if err != nil {
 		return nil, err
 	}
@@ -126,11 +126,11 @@ func (r *propertyFieldLinkResolver) DatasetField(ctx context.Context, obj *gqlmo
 }
 
 func (r *propertyFieldLinkResolver) DatasetSchema(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetSchema, error) {
-	return dataLoaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.DatasetSchemaID))
+	return dataloaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.DatasetSchemaID))
 }
 
 func (r *propertyFieldLinkResolver) DatasetSchemaField(ctx context.Context, obj *gqlmodel.PropertyFieldLink) (*gqlmodel.DatasetSchemaField, error) {
-	ds, err := dataLoaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.DatasetSchemaID))
+	ds, err := dataloaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.DatasetSchemaID))
 	return ds.Field(obj.DatasetSchemaFieldID), err
 }
 
@@ -140,38 +140,38 @@ func (r *mergedPropertyResolver) Original(ctx context.Context, obj *gqlmodel.Mer
 	if obj.OriginalID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
 }
 
 func (r *mergedPropertyResolver) Parent(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Property, error) {
 	if obj.ParentID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Property.Load(id.PropertyID(*obj.ParentID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(*obj.ParentID))
 }
 
 func (r *mergedPropertyResolver) Schema(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.PropertySchema, error) {
 	if obj.SchemaID == nil {
 		if propertyID := obj.PropertyID(); propertyID != nil {
-			property, err := dataLoaders(ctx).Property.Load(id.PropertyID(*propertyID))
+			property, err := dataloaders(ctx).Property.Load(id.PropertyID(*propertyID))
 			if err != nil {
 				return nil, err
 			}
 			if property == nil {
 				return nil, nil
 			}
-			return dataLoaders(ctx).PropertySchema.Load(property.SchemaID)
+			return dataloaders(ctx).PropertySchema.Load(property.SchemaID)
 		}
 		return nil, nil
 	}
-	return dataLoaders(ctx).PropertySchema.Load(*obj.SchemaID)
+	return dataloaders(ctx).PropertySchema.Load(*obj.SchemaID)
 }
 
 func (r *mergedPropertyResolver) LinkedDataset(ctx context.Context, obj *gqlmodel.MergedProperty) (*gqlmodel.Dataset, error) {
 	if obj.LinkedDatasetID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
+	return dataloaders(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
 }
 
 func (r *mergedPropertyResolver) Groups(ctx context.Context, obj *gqlmodel.MergedProperty) ([]*gqlmodel.MergedPropertyGroup, error) {
@@ -191,7 +191,7 @@ func (r *mergedPropertyGroupResolver) Original(ctx context.Context, obj *gqlmode
 	if obj.OriginalID == nil || obj.OriginalPropertyID == nil {
 		return nil, nil
 	}
-	p, err := dataLoaders(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
+	p, err := dataloaders(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +205,7 @@ func (r *mergedPropertyGroupResolver) Parent(ctx context.Context, obj *gqlmodel.
 	if obj.ParentID == nil || obj.ParentPropertyID == nil {
 		return nil, nil
 	}
-	p, err := dataLoaders(ctx).Property.Load(id.PropertyID(*obj.ParentID))
+	p, err := dataloaders(ctx).Property.Load(id.PropertyID(*obj.ParentID))
 	if err != nil {
 		return nil, err
 	}
@@ -219,64 +219,64 @@ func (r *mergedPropertyGroupResolver) OriginalProperty(ctx context.Context, obj 
 	if obj.OriginalID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(*obj.OriginalID))
 }
 
 func (r *mergedPropertyGroupResolver) ParentProperty(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Property, error) {
 	if obj.ParentID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Property.Load(id.PropertyID(*obj.ParentID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(*obj.ParentID))
 }
 
 func (r *mergedPropertyGroupResolver) Schema(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.PropertySchema, error) {
 	if obj.SchemaID == nil {
 		if propertyID := obj.PropertyID(); propertyID != nil {
-			property, err := dataLoaders(ctx).Property.Load(id.PropertyID(*propertyID))
+			property, err := dataloaders(ctx).Property.Load(id.PropertyID(*propertyID))
 			if err != nil {
 				return nil, err
 			}
 			if property == nil {
 				return nil, nil
 			}
-			return dataLoaders(ctx).PropertySchema.Load(property.SchemaID)
+			return dataloaders(ctx).PropertySchema.Load(property.SchemaID)
 		}
 		return nil, nil
 	}
-	return dataLoaders(ctx).PropertySchema.Load(*obj.SchemaID)
+	return dataloaders(ctx).PropertySchema.Load(*obj.SchemaID)
 }
 
 func (r *mergedPropertyGroupResolver) LinkedDataset(ctx context.Context, obj *gqlmodel.MergedPropertyGroup) (*gqlmodel.Dataset, error) {
 	if obj.LinkedDatasetID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
+	return dataloaders(ctx).Dataset.Load(id.DatasetID(*obj.LinkedDatasetID))
 }
 
 type mergedPropertyFieldResolver struct{ *Resolver }
 
 func (r *mergedPropertyFieldResolver) Schema(ctx context.Context, obj *gqlmodel.MergedPropertyField) (*gqlmodel.PropertySchema, error) {
-	return dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	return dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
 func (r *mergedPropertyFieldResolver) Field(ctx context.Context, obj *gqlmodel.MergedPropertyField) (*gqlmodel.PropertySchemaField, error) {
-	s, err := dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	s, err := dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 	return s.Field(obj.FieldID), err
 }
 
 func (r *mergedPropertyFieldResolver) ActualValue(ctx context.Context, obj *gqlmodel.MergedPropertyField) (interface{}, error) {
-	datasetLoader := dataLoaders(ctx).Dataset
+	datasetLoader := dataloaders(ctx).Dataset
 	return actualValue(datasetLoader, obj.Value, obj.Links, obj.Overridden)
 }
 
 type propertyGroupListResolver struct{ *Resolver }
 
 func (*propertyGroupListResolver) Schema(ctx context.Context, obj *gqlmodel.PropertyGroupList) (*gqlmodel.PropertySchema, error) {
-	return dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	return dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
 func (*propertyGroupListResolver) SchemaGroup(ctx context.Context, obj *gqlmodel.PropertyGroupList) (*gqlmodel.PropertySchemaGroup, error) {
-	s, err := dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	s, err := dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 	if err != nil {
 		return nil, err
 	}
@@ -286,11 +286,11 @@ func (*propertyGroupListResolver) SchemaGroup(ctx context.Context, obj *gqlmodel
 type propertyGroupResolver struct{ *Resolver }
 
 func (*propertyGroupResolver) Schema(ctx context.Context, obj *gqlmodel.PropertyGroup) (*gqlmodel.PropertySchema, error) {
-	return dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	return dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 }
 
 func (*propertyGroupResolver) SchemaGroup(ctx context.Context, obj *gqlmodel.PropertyGroup) (*gqlmodel.PropertySchemaGroup, error) {
-	s, err := dataLoaders(ctx).PropertySchema.Load(obj.SchemaID)
+	s, err := dataloaders(ctx).PropertySchema.Load(obj.SchemaID)
 	if err != nil {
 		return nil, err
 	}

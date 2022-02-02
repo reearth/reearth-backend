@@ -27,7 +27,7 @@ func (r *queryResolver) Me(ctx context.Context) (*gqlmodel.User, error) {
 }
 
 func (r *queryResolver) Node(ctx context.Context, i id.ID, typeArg gqlmodel.NodeType) (gqlmodel.Node, error) {
-	dataloaders := dataLoaders(ctx)
+	dataloaders := dataloaders(ctx)
 	switch typeArg {
 	case gqlmodel.NodeTypeAsset:
 		result, err := dataloaders.Asset.Load(id.AssetID(i))
@@ -94,7 +94,7 @@ func (r *queryResolver) Node(ctx context.Context, i id.ID, typeArg gqlmodel.Node
 }
 
 func (r *queryResolver) Nodes(ctx context.Context, ids []*id.ID, typeArg gqlmodel.NodeType) ([]gqlmodel.Node, error) {
-	dataloaders := dataLoaders(ctx)
+	dataloaders := dataloaders(ctx)
 	switch typeArg {
 	case gqlmodel.NodeTypeAsset:
 		data, err := dataloaders.Asset.LoadAll(id.AssetIDsFromIDRef(ids))
@@ -202,7 +202,7 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []*id.ID, typeArg gqlmode
 }
 
 func (r *queryResolver) PropertySchema(ctx context.Context, i id.PropertySchemaID) (*gqlmodel.PropertySchema, error) {
-	return dataLoaders(ctx).PropertySchema.Load(i)
+	return dataloaders(ctx).PropertySchema.Load(i)
 }
 
 func (r *queryResolver) PropertySchemas(ctx context.Context, ids []*id.PropertySchemaID) ([]*gqlmodel.PropertySchema, error) {
@@ -213,7 +213,7 @@ func (r *queryResolver) PropertySchemas(ctx context.Context, ids []*id.PropertyS
 		}
 	}
 
-	data, err := dataLoaders(ctx).PropertySchema.LoadAll(ids2)
+	data, err := dataloaders(ctx).PropertySchema.LoadAll(ids2)
 	if len(err) > 0 && err[0] != nil {
 		return nil, err[0]
 	}
@@ -222,7 +222,7 @@ func (r *queryResolver) PropertySchemas(ctx context.Context, ids []*id.PropertyS
 }
 
 func (r *queryResolver) Plugin(ctx context.Context, id id.PluginID) (*gqlmodel.Plugin, error) {
-	return dataLoaders(ctx).Plugin.Load(id)
+	return dataloaders(ctx).Plugin.Load(id)
 }
 
 func (r *queryResolver) Plugins(ctx context.Context, ids []*id.PluginID) ([]*gqlmodel.Plugin, error) {
@@ -233,7 +233,7 @@ func (r *queryResolver) Plugins(ctx context.Context, ids []*id.PluginID) ([]*gql
 		}
 	}
 
-	data, err := dataLoaders(ctx).Plugin.LoadAll(ids2)
+	data, err := dataloaders(ctx).Plugin.LoadAll(ids2)
 	if len(err) > 0 && err[0] != nil {
 		return nil, err[0]
 	}
@@ -242,7 +242,7 @@ func (r *queryResolver) Plugins(ctx context.Context, ids []*id.PluginID) ([]*gql
 }
 
 func (r *queryResolver) Layer(ctx context.Context, layerID id.ID) (gqlmodel.Layer, error) {
-	dataloaders := dataLoaders(ctx)
+	dataloaders := dataloaders(ctx)
 	result, err := dataloaders.Layer.Load(id.LayerID(layerID))
 	if result == nil || *result == nil {
 		return nil, nil

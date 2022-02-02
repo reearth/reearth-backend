@@ -29,5 +29,5 @@ func (r *teamResolver) Projects(ctx context.Context, obj *gqlmodel.Team, include
 type teamMemberResolver struct{ *Resolver }
 
 func (r *teamMemberResolver) User(ctx context.Context, obj *gqlmodel.TeamMember) (*gqlmodel.User, error) {
-	return dataLoaders(ctx).User.Load(id.UserID(obj.UserID))
+	return dataloaders(ctx).User.Load(id.UserID(obj.UserID))
 }

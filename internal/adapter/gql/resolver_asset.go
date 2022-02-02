@@ -14,5 +14,5 @@ func (r *Resolver) Asset() AssetResolver {
 type assetResolver struct{ *Resolver }
 
 func (r *assetResolver) Team(ctx context.Context, obj *gqlmodel.Asset) (*gqlmodel.Team, error) {
-	return dataLoaders(ctx).Team.Load(id.TeamID(obj.TeamID))
+	return dataloaders(ctx).Team.Load(id.TeamID(obj.TeamID))
 }

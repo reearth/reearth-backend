@@ -27,19 +27,19 @@ func (r *Resolver) Cluster() ClusterResolver {
 type sceneResolver struct{ *Resolver }
 
 func (r *sceneResolver) Project(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Project, error) {
-	return dataLoaders(ctx).Project.Load(id.ProjectID(obj.ProjectID))
+	return dataloaders(ctx).Project.Load(id.ProjectID(obj.ProjectID))
 }
 
 func (r *sceneResolver) Team(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Team, error) {
-	return dataLoaders(ctx).Team.Load(id.TeamID(obj.TeamID))
+	return dataloaders(ctx).Team.Load(id.TeamID(obj.TeamID))
 }
 
 func (r *sceneResolver) Property(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.Property, error) {
-	return dataLoaders(ctx).Property.Load(id.PropertyID(obj.PropertyID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(obj.PropertyID))
 }
 
 func (r *sceneResolver) RootLayer(ctx context.Context, obj *gqlmodel.Scene) (*gqlmodel.LayerGroup, error) {
-	layer, err := dataLoaders(ctx).Layer.Load(id.LayerID(obj.RootLayerID))
+	layer, err := dataloaders(ctx).Layer.Load(id.LayerID(obj.RootLayerID))
 	if err != nil {
 		return nil, err
 	}
@@ -81,23 +81,23 @@ func (r *sceneResolver) Tags(ctx context.Context, obj *gqlmodel.Scene) ([]gqlmod
 type scenePluginResolver struct{ *Resolver }
 
 func (r *scenePluginResolver) Plugin(ctx context.Context, obj *gqlmodel.ScenePlugin) (*gqlmodel.Plugin, error) {
-	return dataLoaders(ctx).Plugin.Load(obj.PluginID)
+	return dataloaders(ctx).Plugin.Load(obj.PluginID)
 }
 func (r *scenePluginResolver) Property(ctx context.Context, obj *gqlmodel.ScenePlugin) (*gqlmodel.Property, error) {
 	if obj.PropertyID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).Property.Load(id.PropertyID(*obj.PropertyID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(*obj.PropertyID))
 }
 
 type sceneWidgetResolver struct{ *Resolver }
 
 func (r *sceneWidgetResolver) Plugin(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Plugin, error) {
-	return dataLoaders(ctx).Plugin.Load(obj.PluginID)
+	return dataloaders(ctx).Plugin.Load(obj.PluginID)
 }
 
 func (r *sceneWidgetResolver) Extension(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.PluginExtension, error) {
-	plugin, err := dataLoaders(ctx).Plugin.Load(obj.PluginID)
+	plugin, err := dataloaders(ctx).Plugin.Load(obj.PluginID)
 	if err != nil {
 		return nil, err
 	}
@@ -110,11 +110,11 @@ func (r *sceneWidgetResolver) Extension(ctx context.Context, obj *gqlmodel.Scene
 }
 
 func (r *sceneWidgetResolver) Property(ctx context.Context, obj *gqlmodel.SceneWidget) (*gqlmodel.Property, error) {
-	return dataLoaders(ctx).Property.Load(id.PropertyID(obj.PropertyID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(obj.PropertyID))
 }
 
 type clusterResolver struct{ *Resolver }
 
 func (r *clusterResolver) Property(ctx context.Context, obj *gqlmodel.Cluster) (*gqlmodel.Property, error) {
-	return dataLoaders(ctx).Property.Load(id.PropertyID(obj.PropertyID))
+	return dataloaders(ctx).Property.Load(id.PropertyID(obj.PropertyID))
 }

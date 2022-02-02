@@ -13,7 +13,7 @@ type ContextKey string
 
 const (
 	contextLoaders     ContextKey = "loaders"
-	contextDataLoaders ContextKey = "dataloaders"
+	contextDataloaders ContextKey = "dataloaders"
 )
 
 func AttachUsecases(ctx context.Context, u *interfaces.Container, enableDataLoaders bool) context.Context {
@@ -22,7 +22,7 @@ func AttachUsecases(ctx context.Context, u *interfaces.Container, enableDataLoad
 
 	ctx = adapter.AttachUsecases(ctx, u)
 	ctx = context.WithValue(ctx, contextLoaders, loaders)
-	ctx = context.WithValue(ctx, contextDataLoaders, dataloaders)
+	ctx = context.WithValue(ctx, contextDataloaders, dataloaders)
 
 	return ctx
 }
@@ -51,6 +51,6 @@ func loaders(ctx context.Context) *Loaders {
 	return ctx.Value(contextLoaders).(*Loaders)
 }
 
-func dataLoaders(ctx context.Context) *DataLoaders {
-	return ctx.Value(contextDataLoaders).(*DataLoaders)
+func dataloaders(ctx context.Context) *DataLoaders {
+	return ctx.Value(contextDataloaders).(*DataLoaders)
 }

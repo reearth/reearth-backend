@@ -19,7 +19,7 @@ func (r *Resolver) DatasetSchemaField() DatasetSchemaFieldResolver {
 type datasetSchemaResolver struct{ *Resolver }
 
 func (r *datasetSchemaResolver) Scene(ctx context.Context, obj *gqlmodel.DatasetSchema) (*gqlmodel.Scene, error) {
-	return dataLoaders(ctx).Scene.Load(id.SceneID(obj.SceneID))
+	return dataloaders(ctx).Scene.Load(id.SceneID(obj.SceneID))
 }
 
 func (r *datasetSchemaResolver) RepresentativeField(ctx context.Context, obj *gqlmodel.DatasetSchema) (*gqlmodel.DatasetSchemaField, error) {
@@ -42,12 +42,12 @@ func (r *datasetSchemaResolver) Datasets(ctx context.Context, obj *gqlmodel.Data
 type datasetSchemaFieldResolver struct{ *Resolver }
 
 func (r *datasetSchemaFieldResolver) Schema(ctx context.Context, obj *gqlmodel.DatasetSchemaField) (*gqlmodel.DatasetSchema, error) {
-	return dataLoaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.SchemaID))
+	return dataloaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(obj.SchemaID))
 }
 
 func (r *datasetSchemaFieldResolver) Ref(ctx context.Context, obj *gqlmodel.DatasetSchemaField) (*gqlmodel.DatasetSchema, error) {
 	if obj.RefID == nil {
 		return nil, nil
 	}
-	return dataLoaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(*obj.RefID))
+	return dataloaders(ctx).DatasetSchema.Load(id.DatasetSchemaID(*obj.RefID))
 }
