@@ -28,7 +28,7 @@ type Container struct {
 
 func (c Container) Filtered(scenes []id.SceneID, teams []id.TeamID) Container {
 	return Container{
-		Asset:          c.Asset, // .Filtered(teams),
+		Asset:          c.Asset.Filtered(teams),
 		Config:         c.Config,
 		DatasetSchema:  c.DatasetSchema, // .Filtered(scenes),
 		Dataset:        c.Dataset,       // .Filtered(scenes),
