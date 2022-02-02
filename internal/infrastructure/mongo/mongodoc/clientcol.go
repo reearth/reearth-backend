@@ -41,11 +41,19 @@ func (c *ClientCollection) SaveAll(ctx context.Context, ids []string, updates []
 }
 
 func (c *ClientCollection) RemoveOne(ctx context.Context, id string) error {
-	return c.Client.RemoveOne(ctx, c.CollectionName, id)
+	return c.Client.RemoveOne(ctx, c.CollectionName, id, nil)
+}
+
+func (c *ClientCollection) RemoveOneOf(ctx context.Context, id string, filter interface{}) error {
+	return c.Client.RemoveOne(ctx, c.CollectionName, id, filter)
 }
 
 func (c *ClientCollection) RemoveAll(ctx context.Context, ids []string) error {
-	return c.Client.RemoveAll(ctx, c.CollectionName, ids)
+	return c.Client.RemoveAll(ctx, c.CollectionName, ids, nil)
+}
+
+func (c *ClientCollection) RemoveAllOf(ctx context.Context, ids []string, filter interface{}) error {
+	return c.Client.RemoveAll(ctx, c.CollectionName, ids, filter)
 }
 
 func (c *ClientCollection) CreateIndex(ctx context.Context, keys []string) []string {

@@ -88,24 +88,21 @@ func (c *Client) Count(ctx context.Context, col string, filter interface{}) (int
 	return count, nil
 }
 
-func (c *Client) RemoveAll(ctx context.Context, col string, ids []string) error {
+func (c *Client) RemoveAll(ctx context.Context, col string, ids []string, filter interface{}) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	filter := bson.D{
-		{Key: "id", Value: bson.D{
-			{Key: "$in", Value: ids},
-		}},
-	}
-	_, err := c.Collection(col).DeleteMany(ctx, filter)
+	f := And(bson.M{"id": bson.M{"$in": ids}}, filter)
+	_, err := c.Collection(col).DeleteMany(ctx, f)
 	if err != nil {
 		return rerror.ErrInternalBy(err)
 	}
 	return nil
 }
 
-func (c *Client) RemoveOne(ctx context.Context, col string, id string) error {
-	_, err := c.Collection(col).DeleteOne(ctx, bson.D{{Key: "id", Value: id}})
+func (c *Client) RemoveOne(ctx context.Context, col string, id string, filter interface{}) error {
+	f := And(bson.M{"id": id}, filter)
+	_, err := c.Collection(col).DeleteOne(ctx, f)
 	if err != nil {
 		return rerror.ErrInternalBy(err)
 	}
@@ -365,4 +362,16 @@ func (t *Tx) End(ctx context.Context) error {
 
 	t.session.EndSession(ctx)
 	return nil
+}
+
+func And(a, b interface{}) interface{} {
+	if a == nil {
+		return b
+	}
+	if b == nil {
+		return a
+	}
+	return bson.M{
+		"$and": bson.A{a, b},
+	}
 }
