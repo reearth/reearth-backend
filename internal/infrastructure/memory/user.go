@@ -12,12 +12,12 @@ import (
 
 type User struct {
 	lock sync.Mutex
-	data map[id.UserID]user.User
+	data map[id.UserID]*user.User
 }
 
 func NewUser() repo.User {
 	return &User{
-		data: map[id.UserID]user.User{},
+		data: map[id.UserID]*user.User{},
 	}
 }
 
@@ -28,7 +28,7 @@ func (r *User) FindByIDs(ctx context.Context, ids []id.UserID) ([]*user.User, er
 	result := []*user.User{}
 	for _, id := range ids {
 		if d, ok := r.data[id]; ok {
-			result = append(result, &d)
+			result = append(result, d)
 		} else {
 			result = append(result, nil)
 		}
@@ -42,19 +42,10 @@ func (r *User) FindByID(ctx context.Context, id id.UserID) (*user.User, error) {
 
 	d, ok := r.data[id]
 	if ok {
-		return &d, nil
+		return d, nil
 	}
 	return &user.User{}, rerror.ErrNotFound
 }
-
-func (r *User) Save(ctx context.Context, u *user.User) error {
-	r.lock.Lock()
-	defer r.lock.Unlock()
-
-	r.data[u.ID()] = *u
-	return nil
-}
-
 func (r *User) FindByAuth0Sub(ctx context.Context, auth0sub string) (*user.User, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
@@ -65,7 +56,7 @@ func (r *User) FindByAuth0Sub(ctx context.Context, auth0sub string) (*user.User,
 
 	for _, u := range r.data {
 		if u.ContainAuth(user.AuthFromAuth0Sub(auth0sub)) {
-			return &u, nil
+			return u, nil
 		}
 	}
 
@@ -82,7 +73,7 @@ func (r *User) FindByEmail(ctx context.Context, email string) (*user.User, error
 
 	for _, u := range r.data {
 		if u.Email() == email {
-			return &u, nil
+			return u, nil
 		}
 	}
 
@@ -99,17 +90,29 @@ func (r *User) FindByNameOrEmail(ctx context.Context, nameOrEmail string) (*user
 
 	for _, u := range r.data {
 		if u.Email() == nameOrEmail || u.Name() == nameOrEmail {
-			return &u, nil
+			return u, nil
 		}
 	}
 
 	return nil, rerror.ErrNotFound
 }
 
-func (r *User) Remove(ctx context.Context, user id.UserID) error {
+func (r *User) Save(ctx context.Context, d *user.User) error {
+	if d == nil {
+		return nil
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	delete(r.data, user)
+	r.data[d.ID()] = d
+	return nil
+}
+
+func (r *User) Remove(ctx context.Context, id id.UserID) error {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	delete(r.data, id)
 	return nil
 }

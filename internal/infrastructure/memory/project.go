@@ -131,7 +131,7 @@ func (r *Project) Save(ctx context.Context, d *project.Project) error {
 }
 
 func (r *Project) Remove(ctx context.Context, id id.ProjectID) error {
-	if p, ok := r.data[id]; !ok || !r.ok(p) {
+	if d, ok := r.data[id]; !ok || !r.ok(d) {
 		return repo.ErrNotFound
 	}
 
@@ -143,7 +143,7 @@ func (r *Project) Remove(ctx context.Context, id id.ProjectID) error {
 }
 
 func (r *Project) ok(d *project.Project) bool {
-	return r.filter == nil || d != nil && r.filter.Has((d).Team())
+	return r.filter == nil || d != nil && r.filter.Has(d.Team())
 }
 
 func (r *Project) applyFilter(list []*project.Project) []*project.Project {

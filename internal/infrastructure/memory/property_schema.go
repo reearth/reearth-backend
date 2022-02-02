@@ -63,27 +63,32 @@ func (r *PropertySchema) FindByIDs(ctx context.Context, ids []id.PropertySchemaI
 	return result, nil
 }
 
-func (r *PropertySchema) Save(ctx context.Context, p *property.Schema) error {
+func (r *PropertySchema) Save(ctx context.Context, d *property.Schema) error {
+	if d == nil {
+		return nil
+	}
+	if d.ID().System() {
+		return errors.New("cannnot save system property schema")
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	r.initMap()
-	if p.ID().System() {
-		return errors.New("cannnot save system property schema")
-	}
-	r.data[p.ID().String()] = p
+	r.data[d.ID().String()] = d
 	return nil
 }
 
-func (r *PropertySchema) SaveAll(ctx context.Context, p property.SchemaList) error {
+func (r *PropertySchema) SaveAll(ctx context.Context, list property.SchemaList) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	r.initMap()
-	for _, ps := range p {
-		if err := r.Save(ctx, ps); err != nil {
-			return err
+	for _, d := range list {
+		if d == nil || d.ID().System() {
+			continue
 		}
+		r.data[d.ID().String()] = d
 	}
 	return nil
 }

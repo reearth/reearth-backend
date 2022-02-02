@@ -177,9 +177,15 @@ func (r *Tag) SaveAll(ctx context.Context, list []*tag.Tag) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	for _, tagRef := range list {
-		tag := *tagRef
-		r.data[tag.ID()] = tag
+	for _, d := range list {
+		if d == nil {
+			continue
+		}
+		d := *d
+		if d == nil {
+			continue
+		}
+		r.data[d.ID()] = d
 	}
 	return nil
 }

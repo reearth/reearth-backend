@@ -112,6 +112,9 @@ func (r *Property) SaveAll(ctx context.Context, list property.List) error {
 	defer r.lock.Unlock()
 
 	for _, d := range list {
+		if d == nil {
+			continue
+		}
 		r.data[d.ID()] = d
 	}
 	return nil
@@ -159,7 +162,7 @@ func (r *Property) RemoveByScene(ctx context.Context, sceneID id.SceneID) error 
 }
 
 func (r *Property) ok(d *property.Property) bool {
-	return r.filter == nil || d != nil && r.filter.Has((d).Scene())
+	return r.filter == nil || d != nil && r.filter.Has(d.Scene())
 }
 
 func (r *Property) applyFilter(list property.List) property.List {

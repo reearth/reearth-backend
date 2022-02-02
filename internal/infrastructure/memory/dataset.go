@@ -141,8 +141,8 @@ func (r *Dataset) Save(ctx context.Context, d *dataset.Dataset) error {
 	return nil
 }
 
-func (r *Dataset) SaveAll(ctx context.Context, dl dataset.List) error {
-	for _, d := range dl {
+func (r *Dataset) SaveAll(ctx context.Context, list dataset.List) error {
+	for _, d := range list {
 		if !r.ok(d) {
 			return repo.ErrOperationDenied
 		}
@@ -151,7 +151,10 @@ func (r *Dataset) SaveAll(ctx context.Context, dl dataset.List) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	for _, d := range dl {
+	for _, d := range list {
+		if d == nil {
+			continue
+		}
 		r.data[d.ID()] = d
 	}
 	return nil

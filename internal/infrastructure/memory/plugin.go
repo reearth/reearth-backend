@@ -60,17 +60,16 @@ func (r *Plugin) FindByIDs(ctx context.Context, ids []id.PluginID, sids []id.Sce
 }
 
 func (r *Plugin) Save(ctx context.Context, p *plugin.Plugin) error {
-	r.lock.Lock()
-	defer r.lock.Unlock()
-
+	if p == nil {
+		return nil
+	}
 	if p.ID().System() {
 		return errors.New("cannnot save system plugin")
 	}
-	for _, p := range r.data {
-		if p.ID().Equal(p.ID()) {
-			return nil
-		}
-	}
+
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
 	r.data = append(r.data, p.Clone())
 	return nil
 }
