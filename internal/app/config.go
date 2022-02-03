@@ -20,7 +20,7 @@ type Config struct {
 	DB           string `default:"mongodb://localhost"`
 	Auth0        Auth0Config
 	AuthSrv      AuthSrvConfig
-	Auth         IdentityProviders
+	Auth         AuthConfigs
 	Mailer       string
 	SMTP         SMTPConfig
 	SendGrid     SendGridConfig
@@ -118,20 +118,18 @@ func (c Config) Print() string {
 	return s
 }
 
-type SignatureAlgorithm string
-
-type identityProvider struct {
+type AuthConfig struct {
 	ISS string
 	AUD []string
-	ALG *SignatureAlgorithm
+	ALG *string
 	TTL *int
 }
 
-type IdentityProviders []identityProvider
+type AuthConfigs []AuthConfig
 
-// Decode is a custom decoder for IdentityProviders
-func (ipd *IdentityProviders) Decode(value string) error {
-	var providers []identityProvider
+// Decode is a custom decoder for AuthConfigs
+func (ipd *AuthConfigs) Decode(value string) error {
+	var providers []AuthConfig
 
 	err := json.Unmarshal([]byte(value), &providers)
 	if err != nil {
@@ -144,7 +142,7 @@ func (ipd *IdentityProviders) Decode(value string) error {
 			*providers[i].TTL = 5
 		}
 		if providers[i].ALG == nil {
-			providers[i].ALG = new(SignatureAlgorithm)
+			providers[i].ALG = new(string)
 			*providers[i].ALG = "RS256"
 		}
 	}

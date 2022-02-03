@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 	"time"
 
@@ -22,13 +23,13 @@ const (
 
 type MultiValidator []*validator.Validator
 
-func NewMultiValidator(providers []identityProvider) (MultiValidator, error) {
+func NewMultiValidator(providers []AuthConfig) (MultiValidator, error) {
 	validators := make([]*validator.Validator, 0, len(providers))
 	for _, p := range providers {
 
 		issuerURL, err := url.Parse(p.ISS)
 		if err != nil {
-			log.Fatalf("failed to parse the issuer url: %v", err)
+			return nil, fmt.Errorf("failed to parse the issuer url: %w", err)
 		}
 
 		provider := jwks.NewCachingProvider(issuerURL, time.Duration(*p.TTL)*time.Minute)
