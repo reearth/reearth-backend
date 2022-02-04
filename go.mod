@@ -5,10 +5,9 @@ require (
 	cloud.google.com/go/storage v1.18.2
 	github.com/99designs/gqlgen v0.14.0
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.0.0
-	github.com/auth0/go-jwt-middleware v1.0.1
+	github.com/auth0/go-jwt-middleware/v2 v2.0.0
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/caos/oidc v1.0.0
-	github.com/form3tech-oss/jwt-go v3.2.2+incompatible
 	github.com/goccy/go-yaml v1.9.4
 	github.com/golang/gddo v0.0.0-20210115222349-20d68f94ee1f
 	github.com/google/uuid v1.3.0
@@ -42,7 +41,7 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.27.0
 	go.opentelemetry.io/otel v1.2.0
 	go.opentelemetry.io/otel/sdk v1.2.0
-	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
+	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce
 	golang.org/x/text v0.3.7
 	golang.org/x/tools v0.1.7
 	google.golang.org/api v0.60.0
@@ -79,6 +78,7 @@ require (
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/google/pprof v0.0.0-20211008130755-947d60d73cc0 // indirect
 	github.com/googleapis/gax-go/v2 v2.1.1 // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20200217142428-fce0ec30dd00 // indirect
 	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/gorilla/schema v1.2.0 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
@@ -93,6 +93,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sendgrid/rest v2.6.6+incompatible // indirect
 	github.com/smartystreets/assertions v1.1.1 // indirect
+	github.com/smartystreets/goconvey v1.6.4 // indirect
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/tidwall/pretty v1.0.1 // indirect
 	github.com/urfave/cli/v2 v2.3.0 // indirect
@@ -107,7 +108,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.2.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/mod v0.5.1 // indirect
-	golang.org/x/net v0.0.0-20211101193420-4a448f8816b3 // indirect
+	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
 	golang.org/x/oauth2 v0.0.0-20211028175245-ba495a64dcb5 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect

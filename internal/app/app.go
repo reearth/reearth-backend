@@ -80,9 +80,8 @@ func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 
 	api := e.Group("/api")
 	publicAPI(e, api, cfg.Config, cfg.Repos, cfg.Gateways)
-	jwks := &JwksSyncOnce{}
 	privateApi := api.Group("")
-	authRequired(privateApi, jwks, cfg)
+	authRequired(privateApi, cfg)
 	graphqlAPI(e, privateApi, cfg, usecases)
 	privateAPI(e, privateApi, cfg.Repos)
 
@@ -95,9 +94,9 @@ func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 	return e
 }
 
-func authRequired(g *echo.Group, jwks Jwks, cfg *ServerConfig) {
-	g.Use(jwtEchoMiddleware(jwks, cfg))
-	g.Use(parseJwtMiddleware(cfg))
+func authRequired(g *echo.Group, cfg *ServerConfig) {
+	g.Use(jwtEchoMiddleware(cfg))
+	g.Use(parseJwtMiddleware())
 	g.Use(authMiddleware(cfg))
 }
 
