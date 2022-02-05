@@ -2,7 +2,7 @@ module github.com/reearth/reearth-backend
 
 require (
 	cloud.google.com/go/profiler v0.1.2
-	cloud.google.com/go/storage v1.19.0
+	cloud.google.com/go/storage v1.20.0
 	github.com/99designs/gqlgen v0.16.0
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.0.0
 	github.com/auth0/go-jwt-middleware v1.0.1
@@ -25,7 +25,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/ravilushqa/otelgqlgen v0.4.1
 	github.com/sirupsen/logrus v1.8.1
-	github.com/spf13/afero v1.8.0
+	github.com/spf13/afero v1.8.1
 	github.com/square/mongo-lock v0.0.0-20201208161834-4db518ed7fb2
 	github.com/stretchr/testify v1.7.0
 	github.com/twpayne/go-kml v1.5.2
@@ -33,14 +33,14 @@ require (
 	github.com/uber/jaeger-lib v2.4.1+incompatible
 	github.com/vektah/dataloaden v0.3.0
 	github.com/vektah/gqlparser/v2 v2.3.1
-	go.mongodb.org/mongo-driver v1.8.2
+	go.mongodb.org/mongo-driver v1.8.3
 	go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho v0.28.0
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.28.0
 	go.opentelemetry.io/otel v1.3.0
 	go.opentelemetry.io/otel/sdk v1.3.0
 	golang.org/x/text v0.3.7
 	golang.org/x/tools v0.1.9
-	google.golang.org/api v0.66.0
+	google.golang.org/api v0.67.0
 	gopkg.in/go-playground/colors.v1 v1.2.0
 	gopkg.in/h2non/gock.v1 v1.1.2
 )
@@ -98,11 +98,11 @@ require (
 	golang.org/x/net v0.0.0-20211101193420-4a448f8816b3 // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
+	golang.org/x/sys v0.0.0-20220128215802-99c3d69c2c27 // indirect
 	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20220118154757-00ab72f36ad5 // indirect
+	google.golang.org/genproto v0.0.0-20220201184016-50beb8ab5c44 // indirect
 	google.golang.org/grpc v1.40.1 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6 // indirect
