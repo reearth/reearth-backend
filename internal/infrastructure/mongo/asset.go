@@ -4,10 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo/options"
-
 	"github.com/reearth/reearth-backend/internal/infrastructure/mongo/mongodoc"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
@@ -15,6 +11,8 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type assetRepo struct {
@@ -55,7 +53,7 @@ func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
 	return r.client.RemoveOne(ctx, id.String())
 }
 
-func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, keyword *string, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, keyword *string, sort *string, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	filters := []bson.D{
 		{{Key: "team", Value: id.String()}},
 	}
@@ -67,7 +65,8 @@ func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, keyword *strin
 	filter := bson.D{
 		{Key: "$and", Value: filters},
 	}
-	return r.paginate(ctx, filter, findOptions, pagination)
+
+	return r.paginate(ctx, filter, sort, pagination)
 }
 
 func (r *assetRepo) init() {
@@ -77,9 +76,9 @@ func (r *assetRepo) init() {
 	}
 }
 
-func (r *assetRepo) paginate(ctx context.Context, filter bson.D, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *assetRepo) paginate(ctx context.Context, filter bson.D, sort *string, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	var c mongodoc.AssetConsumer
-	pageInfo, err2 := r.client.Paginate(ctx, filter, findOptions, pagination, &c)
+	pageInfo, err2 := r.client.Paginate(ctx, filter, sort, pagination, &c)
 	if err2 != nil {
 		return nil, nil, rerror.ErrInternalBy(err2)
 	}

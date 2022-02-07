@@ -8,8 +8,6 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type AssetLoader struct {
@@ -34,34 +32,15 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 	return assets, nil
 }
 
-func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *string, sortType *gqlmodel.AssetSortType, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
-	p := usecase.NewPagination(first, last, before, after)
+func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *string, sort *gqlmodel.AssetSortType, pagination *gqlmodel.Pagination) (*gqlmodel.AssetConnection, error) {
+	p := gqlmodel.ToPagination(pagination)
 
-	findOptions := options.Find()
-	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
-
-	sortKey := "id"
-	if sortType != nil {
-		switch *sortType {
-		case gqlmodel.AssetSortTypeName:
-			sortKey = "name"
-		case gqlmodel.AssetSortTypeSize:
-			sortKey = "size"
-		default:
-			sortKey = "id"
-		}
+	s := new(string)
+	if sort != nil {
+		*s = string(*sort)
 	}
 
-	sortDir := 1
-	if last != nil {
-		sortDir = -1
-	}
-
-	findOptions.Sort = bson.D{
-		{Key: sortKey, Value: sortDir},
-	}
-
-	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, findOptions, p, getOperator(ctx))
+	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, s, p, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}

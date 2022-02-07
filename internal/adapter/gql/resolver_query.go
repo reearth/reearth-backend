@@ -14,8 +14,8 @@ func (r *Resolver) Query() QueryResolver {
 
 type queryResolver struct{ *Resolver }
 
-func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, keyword *string, sortType *gqlmodel.AssetSortType, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
-	return loaders(ctx).Asset.FindByTeam(ctx, teamID, first, last, before, after)
+func (r *queryResolver) Assets(ctx context.Context, teamID id.ID, keyword *string, sortType *gqlmodel.AssetSortType, pagination *gqlmodel.Pagination) (*gqlmodel.AssetConnection, error) {
+	return loaders(ctx).Asset.FindByTeam(ctx, teamID, keyword, sortType, pagination)
 }
 
 func (r *queryResolver) Me(ctx context.Context) (*gqlmodel.User, error) {

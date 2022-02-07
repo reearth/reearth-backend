@@ -661,6 +661,13 @@ type PageInfo struct {
 	HasPreviousPage bool            `json:"hasPreviousPage"`
 }
 
+type Pagination struct {
+	First  *int            `json:"first"`
+	Last   *int            `json:"last"`
+	After  *usecase.Cursor `json:"after"`
+	Before *usecase.Cursor `json:"before"`
+}
+
 type Plugin struct {
 	ID                       id.PluginID          `json:"id"`
 	SceneID                  *id.ID               `json:"sceneId"`

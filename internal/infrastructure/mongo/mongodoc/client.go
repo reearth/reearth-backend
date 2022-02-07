@@ -165,11 +165,23 @@ func getCursor(raw bson.Raw, key string) (*usecase.Cursor, error) {
 	return &c, nil
 }
 
-func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, findOptions *options.FindOptions, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, sort *string, p *Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	if p == nil {
 		return nil, nil
 	}
 	coll := c.Collection(col)
+
+	findOptions := options.Find()
+	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
+
+	sortKey := "id"
+	if sort != nil {
+		sortKey = *sort
+	}
+
+	findOptions.Sort = bson.D{
+		{Key: sortKey, Value: p.SortDirection()},
+	}
 
 	key := "id"
 
@@ -178,29 +190,9 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, f
 		return nil, fmt.Errorf("failed to count documents: %v", err.Error())
 	}
 
-	if findOptions == nil {
-		findOptions = options.Find()
-	}
-
-	paginate := false
-	var limit int64
-	var cur *usecase.Cursor = nil
-	var op string
-
-	if first, after := p.First, p.After; first != nil {
-		paginate = true
-		limit = int64(*first)
-		op = "$gt"
-		cur = after
-	}
-	if last, before := p.Last, p.Before; last != nil {
-		paginate = true
-		limit = int64(*last)
-		op = "$lt"
-		cur = before
-	}
-	if !paginate {
-		return nil, fmt.Errorf("missing pagination paramiters: %v", p)
+	limit, op, cur, err := p.Parameters()
+	if err != nil {
+		return nil, fmt.Errorf("faild to parse pagination parameters: %w", err)
 	}
 
 	if cur != nil {

@@ -9,7 +9,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/asset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/rerror"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Asset struct {
@@ -67,7 +66,7 @@ func (r *Asset) Remove(ctx context.Context, id id.AssetID) error {
 	return nil
 }
 
-func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, keyword *string, findOptions *options.FindOptions, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, keyword *string, sort *string, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 

@@ -11,7 +11,6 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/asset"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Asset struct {
@@ -35,12 +34,12 @@ func (i *Asset) Fetch(ctx context.Context, assets []id.AssetID, operator *usecas
 	return i.assetRepo.FindByIDs(ctx, assets, operator.ReadableTeams)
 }
 
-func (i *Asset) FindByTeam(ctx context.Context, tid id.TeamID, keyword *string, findOptions *options.FindOptions, p *usecase.Pagination, operator *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (i *Asset) FindByTeam(ctx context.Context, tid id.TeamID, keyword *string, sort *string, p *usecase.Pagination, operator *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error) {
 	if err := i.CanReadTeam(tid, operator); err != nil {
 		return nil, nil, err
 	}
 
-	return i.assetRepo.FindByTeam(ctx, tid, keyword, findOptions, p)
+	return i.assetRepo.FindByTeam(ctx, tid, keyword, sort, p)
 }
 
 func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, operator *usecase.Operator) (result *asset.Asset, err error) {
