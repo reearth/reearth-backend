@@ -210,7 +210,7 @@ func (i *PropertySchema) schema(pluginID plugin.ID, idstr string) (*property.Sch
 	schema, err := property.NewSchema().
 		ID(psid).
 		Version(int(i.Version)).
-		Groups(items).
+		Groups(property.NewSchemaGroupList(items)).
 		LinkableFields(i.Linkable.linkable()).
 		Build()
 	if err != nil {
@@ -229,15 +229,14 @@ func (p *PropertyLinkableFields) linkable() property.LinkableFields {
 	}
 }
 
-func (p *PropertyPointer) pointer() *property.Pointer {
+func (p *PropertyPointer) pointer() *property.SchemaFieldPointer {
 	if p == nil || p.FieldID == "" && p.SchemaGroupID == "" {
 		return nil
 	}
-	return property.NewPointer(
-		property.SchemaGroupIDFrom(&p.SchemaGroupID),
-		nil,
-		property.FieldIDFrom(&p.FieldID),
-	)
+	return &property.SchemaFieldPointer{
+		SchemaGroup: property.SchemaGroupID(p.SchemaGroupID),
+		Field:       property.FieldID(p.FieldID),
+	}
 }
 
 func (i PropertySchemaGroup) schemaGroup() (*property.SchemaGroup, error) {
