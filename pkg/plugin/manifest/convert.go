@@ -196,21 +196,25 @@ func (i *PropertySchema) schema(pluginID plugin.ID, idstr string) (*property.Sch
 			Build()
 	}
 
-	// items
-	items := make([]*property.SchemaGroup, 0, len(i.Groups))
+	// groups
+	groups := make([]*property.SchemaGroup, 0, len(i.Groups))
 	for _, d := range i.Groups {
 		item, err := d.schemaGroup()
 		if err != nil {
 			return nil, rerror.From(fmt.Sprintf("item (%s)", d.ID), err)
 		}
-		items = append(items, item)
+		groups = append(groups, item)
+	}
+	sgroups := property.NewSchemaGroupList(groups)
+	if sgroups == nil {
+		return nil, fmt.Errorf("invalid group; it is empty or it may contain some duplicated groups or fields")
 	}
 
 	// schema
 	schema, err := property.NewSchema().
 		ID(psid).
 		Version(int(i.Version)).
-		Groups(property.NewSchemaGroupList(items)).
+		Groups(sgroups).
 		LinkableFields(i.Linkable.linkable()).
 		Build()
 	if err != nil {
