@@ -35,6 +35,11 @@ func (b *SchemaGroupBuilder) ID(id SchemaGroupID) *SchemaGroupBuilder {
 }
 
 func (b *SchemaGroupBuilder) Fields(fields []*SchemaField) *SchemaGroupBuilder {
+	if len(fields) == 0 {
+		b.p.fields = nil
+		return b
+	}
+
 	newFields := []*SchemaField{}
 	ids := map[FieldID]struct{}{}
 	for _, f := range fields {
