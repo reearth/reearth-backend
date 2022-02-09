@@ -136,17 +136,3 @@ func (p *Plugin) Clone() *Plugin {
 		schema:         p.schema.CopyRef(),
 	}
 }
-
-func (p *Plugin) Rename(name i18n.String) {
-	if p == nil {
-		return
-	}
-	p.name = name.Copy()
-}
-
-func (p *Plugin) SetDescription(des i18n.String) {
-	if p == nil {
-		return
-	}
-	p.description = des.Copy()
-}
