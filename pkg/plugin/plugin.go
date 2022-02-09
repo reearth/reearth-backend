@@ -34,7 +34,7 @@ func (p *Plugin) Name() i18n.String {
 	if p == nil {
 		return nil
 	}
-	return p.name.Copy()
+	return p.name.Clone()
 }
 
 func (p *Plugin) Author() string {
@@ -48,7 +48,7 @@ func (p *Plugin) Description() i18n.String {
 	if p == nil {
 		return nil
 	}
-	return p.description.Copy()
+	return p.description.Clone()
 }
 
 func (p *Plugin) RepositoryURL() string {
@@ -127,9 +127,9 @@ func (p *Plugin) Clone() *Plugin {
 
 	return &Plugin{
 		id:             p.id.Clone(),
-		name:           p.name.Copy(),
+		name:           p.name.Clone(),
 		author:         p.author,
-		description:    p.description.Copy(),
+		description:    p.description.Clone(),
 		repositoryURL:  p.repositoryURL,
 		extensions:     extensions,
 		extensionOrder: extensionOrder,

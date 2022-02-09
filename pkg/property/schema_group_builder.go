@@ -62,7 +62,7 @@ func (b *SchemaGroupBuilder) IsAvailableIf(cond *Condition) *SchemaGroupBuilder 
 }
 
 func (b *SchemaGroupBuilder) Title(title i18n.String) *SchemaGroupBuilder {
-	b.p.title = title.Copy()
+	b.p.title = title.Clone()
 	return b
 }
 
