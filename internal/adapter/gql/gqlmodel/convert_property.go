@@ -222,10 +222,17 @@ func ToPropertySchema(propertySchema *property.Schema) *PropertySchema {
 }
 
 func ToPropertyLinkableFields(sid id.PropertySchemaID, l property.LinkableFields) *PropertyLinkableFields {
+	var latlng, url *id.PropertySchemaFieldID
+	if l.LatLng != nil {
+		latlng = &l.LatLng.Field
+	}
+	if l.URL != nil {
+		url = &l.URL.Field
+	}
 	return &PropertyLinkableFields{
 		SchemaID: sid,
-		Latlng:   &l.LatLng.Field,
-		URL:      &l.URL.Field,
+		Latlng:   latlng,
+		URL:      url,
 	}
 }
 
