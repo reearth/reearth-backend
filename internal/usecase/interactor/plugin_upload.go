@@ -2,7 +2,6 @@ package interactor
 
 import (
 	"context"
-	"errors"
 	"io"
 	"net/http"
 	"net/url"
@@ -10,6 +9,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/layer"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 	"github.com/reearth/reearth-backend/pkg/plugin/pluginpack"
@@ -22,22 +22,7 @@ import (
 var pluginPackageSizeLimit int64 = 10 * 1024 * 1024 // 10MB
 
 func (i *Plugin) Upload(ctx context.Context, r io.Reader, sid id.SceneID, operator *usecase.Operator) (_ *plugin.Plugin, _ *scene.Scene, err error) {
-	tx, err := i.transaction.Begin()
-	if err != nil {
-		return
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
-		}
-	}()
-
 	if err := i.CanWriteScene(ctx, sid, operator); err != nil {
-		return nil, nil, err
-	}
-
-	s, err := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
-	if err != nil {
 		return nil, nil, err
 	}
 
@@ -50,57 +35,15 @@ func (i *Plugin) Upload(ctx context.Context, r io.Reader, sid id.SceneID, operat
 		}
 	}
 
-	for {
-		f, err := p.Files.Next()
-		if err != nil {
-			return nil, nil, rerror.ErrInternalBy(err)
-		}
-		if f == nil {
-			break
-		}
-		if err := i.file.UploadPluginFile(ctx, p.Manifest.Plugin.ID(), f); err != nil {
-			return nil, nil, rerror.ErrInternalBy(err)
-		}
-	}
-
-	if ps := p.Manifest.PropertySchemas(); len(ps) > 0 {
-		if err := i.propertySchemaRepo.SaveAll(ctx, ps); err != nil {
-			return nil, nil, rerror.ErrInternalBy(err)
-		}
-	}
-	if err := i.pluginRepo.Save(ctx, p.Manifest.Plugin); err != nil {
-		return nil, nil, rerror.ErrInternalBy(err)
-	}
-
-	if err := i.installScenePlugin(ctx, p, s); err != nil {
-		return nil, nil, rerror.ErrInternalBy(err)
-	}
-
-	tx.Commit()
-	return p.Manifest.Plugin, s, nil
+	return i.upload(ctx, p, sid, operator)
 }
 
 func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneID, operator *usecase.Operator) (_ *plugin.Plugin, _ *scene.Scene, err error) {
-	ru, err := repourl.New(u)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	tx, err := i.transaction.Begin()
-	if err != nil {
-		return
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
-		}
-	}()
-
 	if err := i.CanWriteScene(ctx, sid, operator); err != nil {
 		return nil, nil, err
 	}
 
-	s, err := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
+	ru, err := repourl.New(u)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -114,25 +57,48 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 	if err != nil {
 		return nil, nil, interfaces.ErrInvalidPluginPackage
 	}
-
-	defer func() {
-		_ = res.Body.Close()
-	}()
-
 	if res.StatusCode != 200 {
 		return nil, nil, interfaces.ErrInvalidPluginPackage
 	}
 
 	p, err := pluginpack.PackageFromZip(res.Body, &sid, pluginPackageSizeLimit)
 	if err != nil {
+		_ = res.Body.Close()
 		return nil, nil, interfaces.ErrInvalidPluginPackage
 	}
 
+	_ = res.Body.Close()
+	return i.upload(ctx, p, sid, operator)
+}
+
+func (i *Plugin) upload(ctx context.Context, p *pluginpack.Package, sid id.SceneID, operator *usecase.Operator) (_ *plugin.Plugin, _ *scene.Scene, err error) {
+	if err := i.CanWriteScene(ctx, sid, operator); err != nil {
+		return nil, nil, err
+	}
+
+	s, err := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
 	newpid := p.Manifest.Plugin.ID()
 	oldpid := s.Plugins().PluginByName(newpid.Name()).PluginRef()
-	oldp, err := i.pluginRepo.FindByID(ctx, newpid, []id.SceneID{sid})
-	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return nil, nil, err
+	var oldp *plugin.Plugin
+	if oldpid != nil {
+		oldp, err = i.pluginRepo.FindByID(ctx, *oldpid, []id.SceneID{sid})
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 
 	// new (oldpid == nil): upload files, save plugin and properties -> install
@@ -188,6 +154,18 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 		if err := i.file.RemovePlugin(ctx, *oldpid); err != nil {
 			return nil, nil, err
 		}
+
+		if oldpid.Scene() != nil {
+			// remove old scene plugin
+			if err := i.pluginRepo.Remove(ctx, *oldpid); err != nil {
+				return nil, nil, err
+			}
+			if ps := oldp.PropertySchemas(); len(ps) > 0 {
+				if err := i.propertySchemaRepo.RemoveAll(ctx, ps); err != nil {
+					return nil, nil, err
+				}
+			}
+		}
 	}
 
 	tx.Commit()
@@ -204,6 +182,7 @@ func (i *Plugin) installScenePlugin(ctx context.Context, p *pluginpack.Package, 
 			return err
 		}
 	}
+
 	s.Plugins().Add(scene.NewPlugin(p.Manifest.Plugin.ID(), ppid))
 
 	if pp != nil {
@@ -228,10 +207,6 @@ func (i *Plugin) migrateScenePlugin(ctx context.Context, p *pluginpack.Package, 
 	}
 
 	diff := manifest.DiffFrom(oldPManifest, *p.Manifest)
-	if diff.IsEmpty() {
-		return nil
-	}
-
 	updatedProperties := property.List{}
 
 	// update scene
@@ -266,17 +241,39 @@ func (i *Plugin) migrateScenePlugin(ctx context.Context, p *pluginpack.Package, 
 		}
 	}
 
+	// migrate layers
+	layers, err := i.layerRepo.FindByPluginAndExtension(ctx, diff.From, nil, []id.SceneID{s.ID()})
+	if err != nil {
+		return err
+	}
+	updatedLayers := make(layer.List, 0, len(layers))
+	for _, l := range layers.Deref() {
+		l := l
+		l.SetPlugin(diff.To.Ref())
+		updatedLayers = append(updatedLayers, &l)
+	}
+
 	// migrate properties
 	updatedPropertySchemas := diff.PropertySchmaDiffs()
-	for _, e := range updatedPropertySchemas {
-		properties, err := i.propertyRepo.FindBySchema(ctx, []id.PropertySchemaID{e.From}, s.ID())
-		if err != nil {
-			return err
-		}
-		for _, p := range properties {
-			if e.Migrate(p) {
-				updatedProperties = append(updatedProperties, p)
+	pl, err := i.propertyRepo.FindByPlugin(ctx, diff.From, s.ID())
+	if err != nil {
+		return err
+	}
+	for _, p := range pl {
+		for _, e := range updatedPropertySchemas {
+			if p.Schema().Equal(e.From) {
+				_ = e.Migrate(p)
+				break
 			}
+		}
+		p.SetSchema(p.Schema().WithPlugin(diff.To))
+		updatedProperties = append(updatedProperties, p)
+	}
+
+	// save layers
+	if len(updatedLayers) > 0 {
+		if err := i.layerRepo.SaveAll(ctx, updatedLayers); err != nil {
+			return err
 		}
 	}
 
