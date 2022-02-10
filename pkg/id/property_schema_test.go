@@ -250,6 +250,27 @@ func TestPropertySchemaID_Clone(t *testing.T) {
 	assert.NotSame(t, p, c)
 }
 
+func TestPropertySchemaID_WithPlugin(t *testing.T) {
+	c := PropertySchemaID{
+		id: "xxx",
+		plugin: PluginID{
+			name:    "aaa",
+			version: "1.0.0",
+		},
+	}.WithPlugin(PluginID{
+		name:    "aaa",
+		version: "1.1.0",
+	})
+
+	assert.Equal(t, PropertySchemaID{
+		id: "xxx",
+		plugin: PluginID{
+			name:    "aaa",
+			version: "1.1.0",
+		},
+	}, c)
+}
+
 func TestPropertySchemaID_ID(t *testing.T) {
 	propertySchemaID := MustPropertySchemaID("Test~2.0.0/test")
 	assert.Equal(t, propertySchemaID.ID(), "test")

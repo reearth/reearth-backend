@@ -71,6 +71,14 @@ func (d PropertySchemaID) Clone() PropertySchemaID {
 	}
 }
 
+// WithPlugin duplicates the PropertySchemaID but its plugin ID is changed
+func (d PropertySchemaID) WithPlugin(plugin PluginID) PropertySchemaID {
+	return PropertySchemaID{
+		plugin: plugin.Clone(),
+		id:     d.id,
+	}
+}
+
 // ID returns a fragment of just ID.
 func (d PropertySchemaID) ID() string {
 	return d.id
