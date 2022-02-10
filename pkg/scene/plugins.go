@@ -130,3 +130,12 @@ func (p *Plugins) Plugin(pluginID PluginID) *Plugin {
 	}
 	return nil
 }
+
+func (p *Plugins) PluginByName(name string) *Plugin {
+	for _, pp := range p.plugins {
+		if pp.plugin.Name() == name {
+			return pp
+		}
+	}
+	return nil
+}

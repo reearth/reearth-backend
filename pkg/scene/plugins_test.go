@@ -139,6 +139,40 @@ func TestPlugins_Plugin(t *testing.T) {
 	}
 }
 
+func TestPlugins_PluginByName(t *testing.T) {
+	pid := MustPluginID("xxx~1.1.1")
+	pr := NewPropertyID().Ref()
+
+	tests := []struct {
+		Name     string
+		Input    string
+		PS       *Plugins
+		Expected *Plugin
+	}{
+		{
+			Name:     "plugin is found",
+			Input:    "xxx",
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
+			Expected: NewPlugin(pid, pr),
+		},
+		{
+			Name:     "plugin is not found",
+			Input:    "xxz",
+			PS:       NewPlugins([]*Plugin{NewPlugin(pid, pr)}),
+			Expected: nil,
+		},
+	}
+
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
+			res := tc.PS.PluginByName(tc.Input)
+			assert.Equal(t, tc.Expected, res)
+		})
+	}
+}
+
 func TestPlugins_Properties(t *testing.T) {
 	pr := NewPropertyID().Ref()
 	pr2 := NewPropertyID().Ref()
