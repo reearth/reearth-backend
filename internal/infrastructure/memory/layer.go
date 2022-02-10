@@ -166,11 +166,12 @@ func (r *Layer) FindByPluginAndExtension(_ context.Context, pid id.PluginID, eid
 
 	res := layer.List{}
 	for _, l := range r.data {
+		l := l
 		if !isSceneIncludes(l.Scene(), scenes) {
 			continue
 		}
 
-		if l.Plugin().Equal(pid) {
+		if p := l.Plugin(); p != nil && p.Equal(pid) {
 			e := l.Extension()
 			if eid == nil || e != nil && *e == *eid {
 				res = append(res, &l)
@@ -231,6 +232,7 @@ func (r *Layer) FindByScene(ctx context.Context, sceneID id.SceneID) (layer.List
 
 	res := layer.List{}
 	for _, l := range r.data {
+		l := l
 		if l.Scene() == sceneID {
 			res = append(res, &l)
 		}
@@ -304,9 +306,10 @@ func (r *Layer) FindByTag(ctx context.Context, tagID id.TagID, s []id.SceneID) (
 	r.lock.Lock()
 	defer r.lock.Unlock()
 	var res layer.List
-	for _, layer := range r.data {
-		if layer.Tags().Has(tagID) {
-			res = append(res, &layer)
+	for _, l := range r.data {
+		l := l
+		if l.Tags().Has(tagID) {
+			res = append(res, &l)
 		}
 	}
 
