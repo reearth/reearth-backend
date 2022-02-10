@@ -78,6 +78,14 @@ func (r *propertyRepo) FindByDataset(ctx context.Context, sid id.DatasetSchemaID
 	return r.find(ctx, nil, filter)
 }
 
+func (r *propertyRepo) FindBySchema(ctx context.Context, psids []id.PropertySchemaID, sid id.SceneID) (property.List, error) {
+	filter := bson.M{
+		"schema": bson.M{"$in": id.PropertySchemaIDsToStrings(psids)},
+		"scene":  sid.String(),
+	}
+	return r.find(ctx, nil, filter)
+}
+
 func (r *propertyRepo) Save(ctx context.Context, property *property.Property) error {
 	doc, id := mongodoc.NewProperty(property)
 	return r.client.SaveOne(ctx, id, doc)
@@ -113,7 +121,7 @@ func (r *propertyRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) er
 	return nil
 }
 
-func (r *propertyRepo) find(ctx context.Context, dst property.List, filter bson.D) (property.List, error) {
+func (r *propertyRepo) find(ctx context.Context, dst property.List, filter interface{}) (property.List, error) {
 	c := mongodoc.PropertyConsumer{
 		Rows: dst,
 	}

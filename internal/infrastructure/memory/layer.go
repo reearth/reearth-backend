@@ -137,6 +137,50 @@ func (r *Layer) FindGroupBySceneAndLinkedDatasetSchema(ctx context.Context, s id
 	return result, nil
 }
 
+func (r *Layer) FindParentsByIDs(_ context.Context, ids []id.LayerID, scenes []id.SceneID) (layer.GroupList, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	res := layer.GroupList{}
+	for _, l := range r.data {
+		if !isSceneIncludes(l.Scene(), scenes) {
+			continue
+		}
+		gl, ok := l.(*layer.Group)
+		if !ok {
+			continue
+		}
+		for _, cl := range gl.Layers().Layers() {
+			if cl.Contains(ids) {
+				res = append(res, gl)
+			}
+		}
+	}
+
+	return res, nil
+}
+
+func (r *Layer) FindByPluginAndExtension(_ context.Context, pid id.PluginID, eid *id.PluginExtensionID, scenes []id.SceneID) (layer.List, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	res := layer.List{}
+	for _, l := range r.data {
+		if !isSceneIncludes(l.Scene(), scenes) {
+			continue
+		}
+
+		if l.Plugin().Equal(pid) {
+			e := l.Extension()
+			if eid == nil || e != nil && *e == *eid {
+				res = append(res, &l)
+			}
+		}
+	}
+
+	return res, nil
+}
+
 func (r *Layer) FindByProperty(ctx context.Context, id id.PropertyID, f []id.SceneID) (layer.Layer, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()

@@ -17,6 +17,8 @@ type Layer interface {
 	FindGroupByIDs(context.Context, []id.LayerID, []id.SceneID) (layer.GroupList, error)
 	FindGroupBySceneAndLinkedDatasetSchema(context.Context, id.SceneID, id.DatasetSchemaID) (layer.GroupList, error)
 	FindParentByID(context.Context, id.LayerID, []id.SceneID) (*layer.Group, error)
+	FindParentsByIDs(context.Context, []id.LayerID, []id.SceneID) (layer.GroupList, error)
+	FindByPluginAndExtension(context.Context, id.PluginID, *id.PluginExtensionID, []id.SceneID) (layer.List, error)
 	FindByProperty(context.Context, id.PropertyID, []id.SceneID) (layer.Layer, error)
 	FindByScene(context.Context, id.SceneID) (layer.List, error)
 	FindByTag(context.Context, id.TagID, []id.SceneID) (layer.List, error)
