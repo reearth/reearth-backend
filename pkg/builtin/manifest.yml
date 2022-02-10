@@ -350,7 +350,7 @@ extensions:
               type: string
               title: Outline Color
               ui: color
-            - id: mask
+            - id: useMask
               type: bool
               title: Use Mask
             - id: infoboxPaddingTop
