@@ -17,6 +17,7 @@ type Plugin struct {
 	pluginRepo         repo.Plugin
 	propertySchemaRepo repo.PropertySchema
 	propertyRepo       repo.Property
+	layerRepo          repo.Layer
 	file               gateway.File
 	pluginRepository   gateway.PluginRepository
 	transaction        repo.Transaction

@@ -37,8 +37,12 @@ func (i *Plugin) Delete(ctx context.Context, pid id.PluginID, operator *usecase.
 		return interfaces.ErrOperationDenied
 	}
 
-	if s.Plugins().HasPlugin(p.ID()) {
+	if s.Plugins().HasPluginByName(p.ID().Name()) {
 		return interfaces.ErrCannotDeleteUsedPlugin
+	}
+
+	if err := i.deleteLayersByPluginExtension(ctx, nil, p.ID(), nil); err != nil {
+		return err
 	}
 
 	if err := i.pluginRepo.Remove(ctx, p.ID()); err != nil {
