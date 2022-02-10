@@ -16,6 +16,7 @@ type PropertyDocument struct {
 	ID     string
 	Scene  string
 	Schema string
+	Plugin string
 	Items  []*PropertyItemDocument
 }
 
@@ -164,6 +165,7 @@ func NewProperty(property *property.Property) (*PropertyDocument, string) {
 	doc := PropertyDocument{
 		ID:     pid,
 		Schema: property.Schema().String(),
+		Plugin: property.Schema().Plugin().String(),
 		Items:  make([]*PropertyItemDocument, 0, len(items)),
 		Scene:  property.Scene().String(),
 	}

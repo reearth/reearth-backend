@@ -10,6 +10,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type propertyRepo struct {
@@ -82,6 +83,22 @@ func (r *propertyRepo) FindBySchema(ctx context.Context, psids []id.PropertySche
 	filter := bson.M{
 		"schema": bson.M{"$in": id.PropertySchemaIDsToStrings(psids)},
 		"scene":  sid.String(),
+	}
+	return r.find(ctx, nil, filter)
+}
+
+func (r *propertyRepo) FindByPlugin(ctx context.Context, pid id.PluginID, sid id.SceneID) (property.List, error) {
+	filter := bson.M{
+		"$or": []bson.M{
+			{
+				"schema": bson.M{"$regex": primitive.Regex{Pattern: "^" + pid.String() + "/"}},
+				"scene":  sid.String(),
+			},
+			{
+				"plugin": pid.String(),
+				"scene":  sid.String(),
+			},
+		},
 	}
 	return r.find(ctx, nil, filter)
 }
