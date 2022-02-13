@@ -308,7 +308,7 @@ extensions:
               choices:
                 - key: right
                   label: Right
-                - key: mid
+                - key: middle
                   label: Middle
                 - key: left
                   label: Left
@@ -319,8 +319,8 @@ extensions:
               choices:
                 - key: small
                   label: Small
-                - key: mid
-                  label: Middle
+                - key: medium
+                  label: Medium
                 - key: large
                   label: Large
             - id: heightType
@@ -342,17 +342,6 @@ extensions:
                 field: heightType
                 type: string
                 value: manual
-            - id: outlineWidth
-              type: number
-              title: Outline width
-              suffix: px
-            - id: outlineColor
-              type: string
-              title: Outline Color
-              ui: color
-            - id: mask
-              type: bool
-              title: Use Mask
             - id: infoboxPaddingTop
               type: number
               title: Top padding
@@ -385,6 +374,17 @@ extensions:
               type: string
               title: Background Color
               ui: color
+            - id: outlineWidth
+              type: number
+              title: Outline width
+              suffix: px
+            - id: outlineColor
+              type: string
+              title: Outline Color
+              ui: color
+            - id: useMask
+              type: bool
+              title: Use Mask
             - id: typography
               type: typography
               title: Font
