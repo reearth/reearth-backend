@@ -30,7 +30,7 @@ var normalExpected = &Manifest{
 			MustBuild(),
 	}).MustBuild(),
 	ExtensionSchema: []*property.Schema{
-		property.NewSchema().ID(property.MustSchemaID("aaa~1.1.1/hoge")).Groups([]*property.SchemaGroup{
+		property.NewSchema().ID(property.MustSchemaID("aaa~1.1.1/hoge")).Groups(property.NewSchemaGroupList([]*property.SchemaGroup{
 			property.NewSchemaGroup().ID(property.SchemaGroupID("default")).
 				RepresentativeField(property.FieldID("a").Ref()).
 				Fields([]*property.SchemaField{
@@ -46,7 +46,7 @@ var normalExpected = &Manifest{
 						Type(property.ValueTypeNumber).
 						MustBuild(),
 				}).MustBuild(),
-		}).MustBuild(),
+		})).MustBuild(),
 	},
 }
 
@@ -92,7 +92,7 @@ func TestParse(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
-			m, err := Parse(strings.NewReader(tc.input), nil)
+			m, err := Parse(strings.NewReader(tc.input), nil, nil)
 			if tc.err == nil {
 				if !assert.NoError(t, err) {
 					return
@@ -136,7 +136,7 @@ func TestParseSystemFromBytes(t *testing.T) {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
-			m, err := ParseSystemFromBytes([]byte(tc.input), nil)
+			m, err := ParseSystemFromBytes([]byte(tc.input), nil, nil)
 			if tc.err == nil {
 				if !assert.NoError(t, err) {
 					return
@@ -182,12 +182,12 @@ func TestMustParseSystemFromBytes(t *testing.T) {
 
 			if tc.fails {
 				assert.Panics(t, func() {
-					_ = MustParseSystemFromBytes([]byte(tc.input), nil)
+					_ = MustParseSystemFromBytes([]byte(tc.input), nil, nil)
 				})
 				return
 			}
 
-			m := MustParseSystemFromBytes([]byte(tc.input), nil)
+			m := MustParseSystemFromBytes([]byte(tc.input), nil, nil)
 			assert.Equal(t, m, tc.expected)
 		})
 	}
