@@ -24,6 +24,7 @@ type Layer interface {
 	FindByTag(context.Context, id.TagID, []id.SceneID) (layer.List, error)
 	Save(context.Context, layer.Layer) error
 	SaveAll(context.Context, layer.List) error
+	UpdatePlugin(context.Context, id.PluginID, id.PluginID, []id.SceneID) error
 	Remove(context.Context, id.LayerID) error
 	RemoveAll(context.Context, []id.LayerID) error
 	RemoveByScene(context.Context, id.SceneID) error

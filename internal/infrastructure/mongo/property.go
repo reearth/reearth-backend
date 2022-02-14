@@ -10,7 +10,6 @@ import (
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type propertyRepo struct {
@@ -80,25 +79,26 @@ func (r *propertyRepo) FindByDataset(ctx context.Context, sid id.DatasetSchemaID
 }
 
 func (r *propertyRepo) FindBySchema(ctx context.Context, psids []id.PropertySchemaID, sid id.SceneID) (property.List, error) {
-	filter := bson.M{
-		"schema": bson.M{"$in": id.PropertySchemaIDsToStrings(psids)},
-		"scene":  sid.String(),
+	if len(psids) == 0 {
+		return nil, nil
 	}
+
+	filters := make([]bson.M, 0, len(psids))
+	for _, s := range psids {
+		filters = append(filters, bson.M{
+			"schemaplugin": s.Plugin().String(),
+			"schemaname":   s.ID(),
+			"scene":        sid.String(),
+		})
+	}
+	filter := bson.M{"$and": filters}
 	return r.find(ctx, nil, filter)
 }
 
 func (r *propertyRepo) FindByPlugin(ctx context.Context, pid id.PluginID, sid id.SceneID) (property.List, error) {
 	filter := bson.M{
-		"$or": []bson.M{
-			{
-				"schema": bson.M{"$regex": primitive.Regex{Pattern: "^" + pid.String() + "/"}},
-				"scene":  sid.String(),
-			},
-			{
-				"plugin": pid.String(),
-				"scene":  sid.String(),
-			},
-		},
+		"schemaplugin": pid.String(),
+		"scene":        sid.String(),
 	}
 	return r.find(ctx, nil, filter)
 }
@@ -114,6 +114,15 @@ func (r *propertyRepo) SaveAll(ctx context.Context, properties property.List) er
 	}
 	docs, ids := mongodoc.NewProperties(properties)
 	return r.client.SaveAll(ctx, ids, docs)
+}
+
+func (r *propertyRepo) UpdateSchemaPlugin(ctx context.Context, old, new id.PluginID, s id.SceneID) error {
+	return r.client.UpdateMany(ctx, bson.M{
+		"schemaplugin": old,
+		"scene":        s.String(),
+	}, bson.M{
+		"schemaplugin": new,
+	})
 }
 
 func (r *propertyRepo) Remove(ctx context.Context, id id.PropertyID) error {

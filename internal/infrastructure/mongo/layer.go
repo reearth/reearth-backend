@@ -165,6 +165,25 @@ func (r *layerRepo) SaveAll(ctx context.Context, layers layer.List) error {
 	return r.client.SaveAll(ctx, ids, docs)
 }
 
+func (r *layerRepo) UpdatePlugin(ctx context.Context, old, new id.PluginID, scenes []id.SceneID) error {
+	return r.client.UpdateManyMany(
+		ctx,
+		[]mongodoc.Update{
+			{
+				Filter: r.sceneFilter(bson.M{"plugin": old.String()}, scenes),
+				Update: bson.M{"plugin": new.String()},
+			},
+			{
+				Filter: r.sceneFilter(bson.M{"infobox.fields": bson.M{"$type": "array"}}, scenes),
+				Update: bson.M{"infobox.fields.$[if].plugin": new.String()},
+				ArrayFilters: []interface{}{
+					bson.M{"if.plugin": old.String()},
+				},
+			},
+		},
+	)
+}
+
 func (r *layerRepo) Remove(ctx context.Context, id id.LayerID) error {
 	return r.client.RemoveOne(ctx, id.String())
 }

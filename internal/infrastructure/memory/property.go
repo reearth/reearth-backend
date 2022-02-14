@@ -145,6 +145,18 @@ func (r *Property) SaveAll(ctx context.Context, pl property.List) error {
 	return nil
 }
 
+func (r *Property) UpdateSchemaPlugin(ctx context.Context, old id.PluginID, new id.PluginID, s id.SceneID) error {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	for _, p := range r.data {
+		if s := p.Schema(); s.Plugin().Equal(old) {
+			p.SetSchema(id.NewPropertySchemaID(new, s.ID()))
+		}
+	}
+	return nil
+}
+
 func (r *Property) Remove(ctx context.Context, id id.PropertyID) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()

@@ -16,6 +16,7 @@ type Property interface {
 	FindByPlugin(context.Context, id.PluginID, id.SceneID) (property.List, error)
 	Save(context.Context, *property.Property) error
 	SaveAll(context.Context, property.List) error
+	UpdateSchemaPlugin(context.Context, id.PluginID, id.PluginID, id.SceneID) error
 	Remove(context.Context, id.PropertyID) error
 	RemoveAll(context.Context, []id.PropertyID) error
 	RemoveByScene(context.Context, id.SceneID) error

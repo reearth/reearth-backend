@@ -251,7 +251,12 @@ func TestPlugin_Upload_DiffVersion(t *testing.T) {
 	pf := property.NewField("field").Value(property.ValueTypeNumber.ValueFrom(100).Some()).MustBuild()
 	pg := property.NewGroup().NewID().SchemaGroup(oldpsg.ID()).Fields([]*property.Field{pf}).MustBuild()
 	oldp := property.New().NewID().Schema(oldps.ID()).Scene(sid).Items([]property.Item{pg}).MustBuild()
-	pluginLayer := layer.NewItem().NewID().Scene(sid).Plugin(oldpid.Ref()).Extension(eid.Ref()).Property(oldp.IDRef()).MustBuild()
+	oldp2 := property.New().NewID().Schema(oldps.ID()).Scene(sid).MustBuild()
+	oldp3 := property.New().NewID().Schema(oldps.ID()).Scene(sid).MustBuild()
+	ib := layer.NewInfobox([]*layer.InfoboxField{
+		layer.NewInfoboxField().NewID().Plugin(oldp3.Schema().Plugin()).Extension(plugin.ExtensionID(oldp3.Schema().ID())).Property(oldp3.ID()).MustBuild(),
+	}, oldp2.ID())
+	pluginLayer := layer.NewItem().NewID().Scene(sid).Plugin(oldpid.Ref()).Extension(eid.Ref()).Property(oldp.IDRef()).Infobox(ib).MustBuild()
 	rootLayer := layer.NewGroup().NewID().Scene(sid).Layers(layer.NewIDList([]layer.ID{pluginLayer.ID()})).Root(true).MustBuild()
 	scene := scene.New().ID(sid).Team(team).RootLayer(rootLayer.ID()).Plugins(scene.NewPlugins([]*scene.Plugin{
 		scene.NewPlugin(oldpid, nil),
@@ -259,7 +264,7 @@ func TestPlugin_Upload_DiffVersion(t *testing.T) {
 
 	_ = repos.PropertySchema.Save(ctx, oldps)
 	_ = repos.Plugin.Save(ctx, oldpl)
-	_ = repos.Property.Save(ctx, oldp)
+	_ = repos.Property.SaveAll(ctx, property.List{oldp, oldp2, oldp3})
 	_ = repos.Layer.SaveAll(ctx, layer.List{pluginLayer.LayerRef(), rootLayer.LayerRef()})
 	_ = repos.Scene.Save(ctx, scene)
 
@@ -321,10 +326,20 @@ func TestPlugin_Upload_DiffVersion(t *testing.T) {
 	assert.Equal(t, pid, *nl.Plugin())
 	assert.Equal(t, eid, *nl.Extension())
 	assert.Equal(t, oldp.ID(), *nl.Property())
+	assert.Equal(t, oldp2.ID(), nl.Infobox().Property())
+	assert.Equal(t, oldp3.ID(), nl.Infobox().FieldAt(0).Property())
 
 	nlp, err := repos.Property.FindByID(ctx, *nl.Property(), nil)
 	assert.NoError(t, err)
 	assert.Equal(t, *nl.Property(), nlp.ID())
 	assert.Equal(t, nlpsid, nlp.Schema())
 	assert.Equal(t, property.ValueTypeString.ValueFrom("100"), property.ToGroup(nlp.ItemBySchema("default")).Field("field").Value())
+
+	nlp2, err := repos.Property.FindByID(ctx, oldp2.ID(), nil)
+	assert.NoError(t, err)
+	assert.Equal(t, nlpsid, nlp2.Schema())
+
+	nlp3, err := repos.Property.FindByID(ctx, oldp3.ID(), nil)
+	assert.NoError(t, err)
+	assert.Equal(t, nlpsid, nlp3.Schema())
 }

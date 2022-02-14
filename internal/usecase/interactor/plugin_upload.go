@@ -9,7 +9,6 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
-	"github.com/reearth/reearth-backend/pkg/layer"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/plugin/manifest"
 	"github.com/reearth/reearth-backend/pkg/plugin/pluginpack"
@@ -242,42 +241,22 @@ func (i *Plugin) migrateScenePlugin(ctx context.Context, p *pluginpack.Package, 
 	}
 
 	// migrate layers
-	layers, err := i.layerRepo.FindByPluginAndExtension(ctx, diff.From, nil, []id.SceneID{s.ID()})
-	if err != nil {
+	if err := i.layerRepo.UpdatePlugin(ctx, diff.From, diff.To, []id.SceneID{s.ID()}); err != nil {
 		return err
-	}
-	updatedLayers := make(layer.List, 0, len(layers))
-	for _, l := range layers.Deref() {
-		l := l
-		l.SetPlugin(diff.To.Ref())
-		updatedLayers = append(updatedLayers, &l)
 	}
 
 	// migrate properties
 	updatedPropertySchemas := diff.PropertySchmaDiffs()
-	pl, err := i.propertyRepo.FindByPlugin(ctx, diff.From, s.ID())
+	updatedPropertySchemaIDs := updatedPropertySchemas.FromSchemas()
+	pl, err := i.propertyRepo.FindBySchema(ctx, updatedPropertySchemaIDs, s.ID())
 	if err != nil {
 		return err
 	}
 	for _, p := range pl {
-		for _, e := range updatedPropertySchemas {
-			if p.Schema().Equal(e.From) {
-				_ = e.Migrate(p)
-				break
-			}
-		}
-		p.SetSchema(p.Schema().WithPlugin(diff.To))
-		updatedProperties = append(updatedProperties, p)
-	}
-
-	// save layers
-	if len(updatedLayers) > 0 {
-		if err := i.layerRepo.SaveAll(ctx, updatedLayers); err != nil {
-			return err
+		if e := updatedPropertySchemas.FindByFrom(p.Schema()); e != nil && e.Migrate(p) {
+			updatedProperties = append(updatedProperties, p)
 		}
 	}
-
-	// save properties
 	if len(updatedProperties) > 0 {
 		if err := i.propertyRepo.SaveAll(ctx, updatedProperties); err != nil {
 			return err

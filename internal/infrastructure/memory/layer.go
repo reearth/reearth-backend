@@ -272,6 +272,20 @@ func (r *Layer) SaveAll(ctx context.Context, ll layer.List) error {
 	return nil
 }
 
+func (r *Layer) UpdatePlugin(ctx context.Context, old id.PluginID, new id.PluginID, scenes []id.SceneID) error {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	for _, l := range r.data {
+		p := l.Plugin()
+		if p != nil && p.Equal(old) && isSceneIncludes(l.Scene(), scenes) {
+			l.SetPlugin(&new)
+			r.data[l.ID()] = l
+		}
+	}
+	return nil
+}
+
 func (r *Layer) Remove(ctx context.Context, id id.LayerID) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
