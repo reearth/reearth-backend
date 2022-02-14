@@ -159,7 +159,7 @@ extensions:
           showTitle:
             title: タイトル表示
           position:
-            title: ポジション
+            title: 位置
             choices:
               right: 右
               middle: 中央
