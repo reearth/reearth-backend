@@ -179,16 +179,16 @@ extensions:
             title: 高さ
           infoboxPaddingTop:
             title: 余白上
-            description: "上端の余白を設定します。最小0px・最大40ox"
+            description: "上端の余白を設定します。最小0px・最大40px"
           infoboxPaddingBottom:
             title: 余白下
-            description: "下端の余白を設定します。最小0px・最大40ox"
+            description: "下端の余白を設定します。最小0px・最大40px"
           infoboxPaddingLeft:
             title: 余白左
-            description: "左端の余白を設定します。最小0px・最大40ox"
+            description: "左端の余白を設定します。最小0px・最大40px"
           infoboxPaddingRight:
             title: 余白右
-            description: "右端の余白を設定します。最小0px・最大40ox"
+            description: "右端の余白を設定します。最小px・最大40px"
           bgcolor:
             title: 背景色
           outlineWidth:
