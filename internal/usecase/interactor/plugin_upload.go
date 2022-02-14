@@ -263,6 +263,10 @@ func (i *Plugin) migrateScenePlugin(ctx context.Context, p *pluginpack.Package, 
 		}
 	}
 
+	if err := i.propertyRepo.UpdateSchemaPlugin(ctx, diff.From, diff.To, s.ID()); err != nil {
+		return err
+	}
+
 	// delete unused schemas and properties
 	if deleted := diff.DeletedPropertySchemas(); len(deleted) > 0 {
 		if err := i.propertySchemaRepo.RemoveAll(ctx, deleted); err != nil {
