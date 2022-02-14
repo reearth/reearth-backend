@@ -145,7 +145,7 @@ func TestPlugin_Upload_SameVersion(t *testing.T) {
 	files, err := fs.NewFile(mfs, "")
 	assert.NoError(t, err)
 
-	ps := property.NewSchema().ID(property.MustSchemaIDFromExtension(pid, eid)).MustBuild()
+	ps := property.NewSchema().ID(property.NewSchemaID(pid, eid.String())).MustBuild()
 	pl := plugin.New().ID(pid).Extensions([]*plugin.Extension{
 		plugin.NewExtension().ID(eid).Type(plugin.ExtensionTypePrimitive).Schema(ps.ID()).MustBuild(),
 	}).MustBuild()
@@ -230,7 +230,7 @@ func TestPlugin_Upload_DiffVersion(t *testing.T) {
 	oldpid := id.MustPluginID("testplugin~1.0.0").WithScene(sid.Ref())
 	pid := mockPluginID.WithScene(sid.Ref())
 	eid := id.PluginExtensionID("block")
-	nlpsid := id.MustPropertySchemaIDFromExtension(pid, eid)
+	nlpsid := id.NewPropertySchemaID(pid, eid.String())
 
 	repos := memory.InitRepos(nil)
 	mfs := mockFS(map[string]string{
@@ -241,7 +241,7 @@ func TestPlugin_Upload_DiffVersion(t *testing.T) {
 
 	oldpsf := property.NewSchemaField().ID("field").Type(property.ValueTypeNumber).MustBuild()
 	oldpsg := property.NewSchemaGroup().ID("default").Fields([]*property.SchemaField{oldpsf}).MustBuild()
-	oldps := property.NewSchema().ID(property.MustSchemaIDFromExtension(oldpid, eid)).Groups(property.NewSchemaGroupList(
+	oldps := property.NewSchema().ID(property.NewSchemaID(oldpid, eid.String())).Groups(property.NewSchemaGroupList(
 		[]*property.SchemaGroup{oldpsg},
 	)).MustBuild()
 	oldpl := plugin.New().ID(oldpid).Extensions([]*plugin.Extension{

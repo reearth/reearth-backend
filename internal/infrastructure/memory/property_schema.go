@@ -68,7 +68,7 @@ func (r *PropertySchema) Save(ctx context.Context, p *property.Schema) error {
 	defer r.lock.Unlock()
 
 	r.initMap()
-	if p.ID().System() {
+	if p.ID().Plugin().System() {
 		return errors.New("cannnot save system property schema")
 	}
 	r.data[p.ID().String()] = p
@@ -81,7 +81,7 @@ func (r *PropertySchema) SaveAll(ctx context.Context, p property.SchemaList) err
 
 	r.initMap()
 	for _, p := range p {
-		if p.ID().System() {
+		if p.ID().Plugin().System() {
 			return errors.New("cannnot save system property schema")
 		}
 		r.data[p.ID().String()] = p
