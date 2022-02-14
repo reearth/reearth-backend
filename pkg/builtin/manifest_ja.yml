@@ -192,11 +192,11 @@ extensions:
           bgcolor:
             title: 背景色
           outlineWidth:
-            title: アウトライン幅
+            title: 線幅
           outlineColor:
-            title: アウトラインカラー
+            title: 線色
           useMask:
-            title: マスクを使用する
+            title: 背景オーバーレイ
           typography:
             title: フォント
   marker:
