@@ -335,8 +335,8 @@ extensions:
             - id: height
               type: number
               title: Height
-              #              min: 0
-              #              max: 70
+              min: 284
+              max: 2048
               suffix: px
               availableIf:
                 field: heightType
@@ -378,6 +378,7 @@ extensions:
               type: number
               title: Outline width
               suffix: px
+              max: 20
             - id: outlineColor
               type: string
               title: Outline Color
