@@ -152,7 +152,7 @@ extensions:
     description: 閲覧者が地図上のレイヤーをクリックした時に表示されるボックスです。テキストや画像、動画などのコンテンツを表示することができます。
     propertySchema:
       default:
-        title: ディフォルト
+        title: デフォルト
         fields:
           title:
             title: タイトル
