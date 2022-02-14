@@ -30,7 +30,17 @@ const mockPluginManifest = `{
       "id": "block",
 			"type": "block",
 			"schema": {
-				"groups": []
+				"groups": [
+					{
+						"id": "default",
+						"fields": [
+							{
+								"id": "field",
+								"type": "string"
+							}
+						]
+					}
+				]
 			}
 		}
   ]
@@ -229,12 +239,18 @@ func TestPlugin_Upload_DiffVersion(t *testing.T) {
 	files, err := fs.NewFile(mfs, "")
 	assert.NoError(t, err)
 
-	oldps := property.NewSchema().ID(property.MustSchemaIDFromExtension(oldpid, eid)).MustBuild()
+	oldpsf := property.NewSchemaField().ID("field").Type(property.ValueTypeNumber).MustBuild()
+	oldpsg := property.NewSchemaGroup().ID("default").Fields([]*property.SchemaField{oldpsf}).MustBuild()
+	oldps := property.NewSchema().ID(property.MustSchemaIDFromExtension(oldpid, eid)).Groups(property.NewSchemaGroupList(
+		[]*property.SchemaGroup{oldpsg},
+	)).MustBuild()
 	oldpl := plugin.New().ID(oldpid).Extensions([]*plugin.Extension{
 		plugin.NewExtension().ID(eid).Type(plugin.ExtensionTypeBlock).Schema(oldps.ID()).MustBuild(),
 	}).MustBuild()
 
-	oldp := property.New().NewID().Schema(oldps.ID()).Scene(sid).MustBuild()
+	pf := property.NewField("field").Value(property.ValueTypeNumber.ValueFrom(100).Some()).MustBuild()
+	pg := property.NewGroup().NewID().SchemaGroup(oldpsg.ID()).Fields([]*property.Field{pf}).MustBuild()
+	oldp := property.New().NewID().Schema(oldps.ID()).Scene(sid).Items([]property.Item{pg}).MustBuild()
 	pluginLayer := layer.NewItem().NewID().Scene(sid).Plugin(oldpid.Ref()).Extension(eid.Ref()).Property(oldp.IDRef()).MustBuild()
 	rootLayer := layer.NewGroup().NewID().Scene(sid).Layers(layer.NewIDList([]layer.ID{pluginLayer.ID()})).Root(true).MustBuild()
 	scene := scene.New().ID(sid).Team(team).RootLayer(rootLayer.ID()).Plugins(scene.NewPlugins([]*scene.Plugin{
@@ -310,4 +326,5 @@ func TestPlugin_Upload_DiffVersion(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, *nl.Property(), nlp.ID())
 	assert.Equal(t, nlpsid, nlp.Schema())
+	assert.Equal(t, property.ValueTypeString.ValueFrom("100"), property.ToGroup(nlp.ItemBySchema("default")).Field("field").Value())
 }
