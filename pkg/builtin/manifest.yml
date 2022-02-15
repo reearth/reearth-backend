@@ -301,6 +301,7 @@ extensions:
             - id: showTitle
               type: bool
               title: Show Title
+              defaultValue: true
             - id: position
               type: string
               title: Position
