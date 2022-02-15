@@ -182,6 +182,22 @@ func (r *Layer) FindByPluginAndExtension(_ context.Context, pid id.PluginID, eid
 	return res, nil
 }
 
+func (r *Layer) FindByPluginAndExtensionOfBlocks(_ context.Context, pid id.PluginID, eid *id.PluginExtensionID, scenes []id.SceneID) (layer.List, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	res := layer.List{}
+	for _, l := range r.data {
+		l := l
+		if !isSceneIncludes(l.Scene(), scenes) || len(l.Infobox().FieldsByPlugin(pid, eid)) == 0 {
+			continue
+		}
+		res = append(res, &l)
+	}
+
+	return res, nil
+}
+
 func (r *Layer) FindByProperty(ctx context.Context, id id.PropertyID, f []id.SceneID) (layer.Layer, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()

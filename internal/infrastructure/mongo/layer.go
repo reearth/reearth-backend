@@ -127,6 +127,17 @@ func (r *layerRepo) FindByPluginAndExtension(ctx context.Context, pid id.PluginI
 	return r.find(ctx, nil, filter)
 }
 
+func (r *layerRepo) FindByPluginAndExtensionOfBlocks(ctx context.Context, pid id.PluginID, eid *id.PluginExtensionID, scenes []id.SceneID) (layer.List, error) {
+	f := bson.M{
+		"infobox.fields.plugin": pid.String(),
+	}
+	if eid != nil {
+		f["infobox.fields.extension"] = eid.String()
+	}
+	filter := r.sceneFilter(f, scenes)
+	return r.find(ctx, nil, filter)
+}
+
 func (r *layerRepo) FindByProperty(ctx context.Context, id id.PropertyID, f []id.SceneID) (layer.Layer, error) {
 	filter := r.sceneFilterD(bson.D{
 		{Key: "$or", Value: []bson.D{
