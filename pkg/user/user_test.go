@@ -529,3 +529,44 @@ func TestUser_Verification(t *testing.T) {
 		})
 	}
 }
+
+func Test_ValidatePassword(t *testing.T) {
+
+	tests := []struct {
+		name    string
+		pass    string
+		wantErr bool
+	}{
+		{
+			name:    "should pass",
+			pass:    "Abcdafgh1",
+			wantErr: false,
+		},
+		{
+			name:    "shouldn't pass: length<8",
+			pass:    "Aafgh1",
+			wantErr: true,
+		},
+		{
+			name:    "shouldn't pass: don't have numbers",
+			pass:    "Abcdefghi",
+			wantErr: true,
+		},
+		{
+			name:    "shouldn't pass: don't have upper",
+			pass:    "abcdefghi1",
+			wantErr: true,
+		},
+		{
+			name:    "shouldn't pass: don't have lower",
+			pass:    "ABCDEFGHI1",
+			wantErr: true,
+		},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(tt *testing.T) {
+			out := validatePassword(tc.pass)
+			assert.Equal(tt, out != nil, tc.wantErr)
+		})
+	}
+}
