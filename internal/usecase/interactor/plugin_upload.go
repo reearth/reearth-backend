@@ -220,8 +220,7 @@ func (i *Plugin) migrateScenePlugin(ctx context.Context, p *pluginpack.Package, 
 		updatedProperties = append(updatedProperties, p)
 	}
 
-	sp := s.Plugins().Plugin(diff.From)
-	if sp != nil && sp.Property() != nil && diff.PropertySchemaDeleted {
+	if sp := s.Plugins().Plugin(diff.From); sp != nil && sp.Property() != nil && diff.PropertySchemaDeleted {
 		// plugin property should be removed
 		if err := i.propertyRepo.Remove(ctx, *sp.Property()); err != nil {
 			return err
@@ -229,9 +228,6 @@ func (i *Plugin) migrateScenePlugin(ctx context.Context, p *pluginpack.Package, 
 	}
 
 	s.Plugins().Upgrade(diff.From, diff.To, spp, diff.PropertySchemaDeleted)
-	if err := i.sceneRepo.Save(ctx, s); err != nil {
-		return err
-	}
 
 	// delete layers, blocks and widgets
 	for _, e := range diff.DeletedExtensions {
@@ -253,6 +249,10 @@ func (i *Plugin) migrateScenePlugin(ctx context.Context, p *pluginpack.Package, 
 				return err
 			}
 		}
+	}
+
+	if err := i.sceneRepo.Save(ctx, s); err != nil {
+		return err
 	}
 
 	// migrate layers
