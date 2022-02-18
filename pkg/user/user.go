@@ -211,7 +211,7 @@ func validatePassword(pass string) error {
 			hasNum = true
 		case unicode.IsUpper(c):
 			hasUpper = true
-		case unicode.IsLetter(c) || c == ' ':
+		case unicode.IsLower(c) || c == ' ':
 			hasLower = true
 		}
 	}
