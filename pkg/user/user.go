@@ -156,8 +156,7 @@ func (u *User) ClearAuths() {
 }
 
 func (u *User) SetPassword(pass string) error {
-	err := validatePassword(pass)
-	if err != nil {
+	if err := validatePassword(pass); err != nil {
 		return err
 	}
 	p, err := encodePassword(pass)
