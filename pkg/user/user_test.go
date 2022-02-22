@@ -381,9 +381,9 @@ func TestUser_SetPassword(t *testing.T) {
 		{
 			name: "should set the password",
 			args: args{
-				pass: "test",
+				pass: "Testabc1",
 			},
-			want: "test",
+			want: "Testabc1",
 		},
 	}
 	for _, tc := range tests {
