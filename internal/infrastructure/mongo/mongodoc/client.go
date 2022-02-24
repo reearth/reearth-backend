@@ -175,7 +175,7 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
 
 	sortKey := "id"
-	if sort != nil {
+	if sort != nil && len(*sort) > 0 {
 		sortKey = *sort
 	}
 
