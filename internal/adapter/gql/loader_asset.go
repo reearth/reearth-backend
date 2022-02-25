@@ -2,6 +2,7 @@ package gql
 
 import (
 	"context"
+	"strings"
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
@@ -37,7 +38,7 @@ func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *str
 
 	s := new(string)
 	if sort != nil {
-		*s = string(*sort)
+		*s = strings.ToLower(string(*sort))
 	}
 
 	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, s, p, getOperator(ctx))
