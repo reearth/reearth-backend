@@ -192,7 +192,7 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 
 	limit, op, cur, err := p.Parameters()
 	if err != nil {
-		return nil, fmt.Errorf("faild to parse pagination parameters: %w", err)
+		return nil, fmt.Errorf("failed to parse pagination parameters: %w", err)
 	}
 
 	if cur != nil {

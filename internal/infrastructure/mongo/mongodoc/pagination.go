@@ -26,7 +26,7 @@ func NewPaginationFrom(pagination *usecase.Pagination) *Pagination {
 }
 
 func (p *Pagination) SortDirection() int {
-	if p != nil {
+	if p == nil {
 		return 1
 	}
 	if p.Last != nil {
@@ -48,5 +48,5 @@ func (p *Pagination) Parameters() (limit int64, op string, cursor *string, err e
 		cursor = before
 		return
 	}
-	return 0, "", nil, errors.New("neither first nor last are not set")
+	return 0, "", nil, errors.New("neither first nor last are set")
 }
