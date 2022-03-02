@@ -21,7 +21,7 @@ import (
 )
 
 type Scene struct {
-	commonScene
+	common
 	commonSceneLock
 	sceneRepo          repo.Scene
 	sceneLockRepo      repo.SceneLock
@@ -37,7 +37,6 @@ type Scene struct {
 
 func NewScene(r *repo.Container, g *gateway.Container) interfaces.Scene {
 	return &Scene{
-		commonScene:        commonScene{sceneRepo: r.Scene},
 		commonSceneLock:    commonSceneLock{sceneLockRepo: r.SceneLock},
 		sceneRepo:          r.Scene,
 		sceneLockRepo:      r.SceneLock,

@@ -21,3 +21,32 @@ var IDFromRefID = id.UserIDFromRefID
 var TeamIDFromRefID = id.TeamIDFromRefID
 
 var ErrInvalidID = id.ErrInvalidID
+
+type TeamIDList []TeamID
+
+func (l TeamIDList) Filter(ids ...TeamID) TeamIDList {
+	res := make(TeamIDList, 0, len(l))
+	for _, t := range l {
+		for _, t2 := range ids {
+			if t == t2 {
+				res = append(res, t)
+			}
+		}
+	}
+	return res
+}
+
+func (l TeamIDList) Includes(ids ...TeamID) bool {
+	for _, t := range l {
+		for _, t2 := range ids {
+			if t == t2 {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func (k TeamIDList) Len() int {
+	return len(k)
+}

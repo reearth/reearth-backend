@@ -7,11 +7,9 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/log"
-	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/scene"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type sceneRepo struct {
@@ -32,14 +30,14 @@ func (r *sceneRepo) init() {
 }
 
 func (r *sceneRepo) FindByID(ctx context.Context, id id.SceneID, f []id.TeamID) (*scene.Scene, error) {
-	filter := r.teamFilter(bson.D{
+	filter := r.teamFilterD(bson.D{
 		{Key: "id", Value: id.String()},
 	}, f)
 	return r.findOne(ctx, filter)
 }
 
 func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) (scene.List, error) {
-	filter := r.teamFilter(bson.D{
+	filter := r.teamFilterD(bson.D{
 		{Key: "id", Value: bson.D{
 			{Key: "$in", Value: id.SceneIDsToStrings(ids)},
 		}},
@@ -53,72 +51,22 @@ func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.Team
 }
 
 func (r *sceneRepo) FindByProject(ctx context.Context, id id.ProjectID, f []id.TeamID) (*scene.Scene, error) {
-	filter := r.teamFilter(bson.D{
+	filter := r.teamFilterD(bson.D{
 		{Key: "project", Value: id.String()},
 	}, f)
 	return r.findOne(ctx, filter)
 }
 
-func (r *sceneRepo) FindIDsByTeam(ctx context.Context, teams []id.TeamID) ([]id.SceneID, error) {
-	filter := bson.D{
-		{Key: "team", Value: bson.D{
-			{Key: "$in", Value: id.TeamIDsToStrings(teams)},
-		}},
-	}
-	c := mongodoc.SceneIDConsumer{
-		Rows: []id.SceneID{},
-	}
-	if err := r.client.Find(ctx, filter, &c); err != nil {
+func (r *sceneRepo) FindByTeam(ctx context.Context, teams ...id.TeamID) (scene.List, error) {
+	res, err := r.find(ctx, nil, bson.M{
+		"team": bson.M{"$in": id.TeamIDsToStrings(teams)},
+	})
+	if err != nil {
 		if err != mongo.ErrNilDocument && err != mongo.ErrNoDocuments {
 			return nil, err
 		}
 	}
-	return c.Rows, nil
-}
-
-func (r *sceneRepo) HasSceneTeam(ctx context.Context, sceneID id.SceneID, temaIDs []id.TeamID) (bool, error) {
-	filter := bson.D{
-		{Key: "id", Value: sceneID.String()},
-		{Key: "team", Value: bson.D{{Key: "$in", Value: id.TeamIDsToStrings(temaIDs)}}},
-	}
-	res, err2 := r.client.Collection().CountDocuments(ctx, filter)
-	if err2 != nil {
-		return false, rerror.ErrInternalBy(err2)
-	}
-	return res == 1, nil
-}
-
-func (r *sceneRepo) HasScenesTeam(ctx context.Context, sceneIDs []id.SceneID, teamIDs []id.TeamID) ([]bool, error) {
-	cursor, err2 := r.client.Collection().Find(ctx, bson.D{
-		{Key: "id", Value: bson.D{{Key: "$in", Value: id.SceneIDsToStrings(sceneIDs)}}},
-		{Key: "team", Value: bson.D{{Key: "$in", Value: id.TeamIDsToStrings(teamIDs)}}},
-	}, &options.FindOptions{
-		Projection: bson.D{{Key: "id", Value: 1}, {Key: "_id", Value: 0}},
-	})
-
-	if err2 != nil {
-		return nil, rerror.ErrInternalBy(err2)
-	}
-
-	var res []struct{ ID string }
-	err2 = cursor.All(ctx, res)
-	if err2 != nil {
-		return nil, rerror.ErrInternalBy(err2)
-	}
-
-	res2 := make([]bool, 0, len(sceneIDs))
-	for _, sid := range sceneIDs {
-		ok := false
-		for _, r := range res {
-			if r.ID == sid.String() {
-				ok = true
-				break
-			}
-		}
-		res2 = append(res2, ok)
-	}
-
-	return res2, nil
+	return res, nil
 }
 
 func (r *sceneRepo) Save(ctx context.Context, scene *scene.Scene) error {
@@ -130,7 +78,7 @@ func (r *sceneRepo) Remove(ctx context.Context, id id.SceneID) error {
 	return r.client.RemoveOne(ctx, id.String())
 }
 
-func (r *sceneRepo) find(ctx context.Context, dst []*scene.Scene, filter bson.D) ([]*scene.Scene, error) {
+func (r *sceneRepo) find(ctx context.Context, dst []*scene.Scene, filter interface{}) ([]*scene.Scene, error) {
 	c := mongodoc.SceneConsumer{
 		Rows: dst,
 	}
@@ -155,7 +103,7 @@ func filterScenes(ids []id.SceneID, rows scene.List) scene.List {
 	return rows.FilterByID(ids...)
 }
 
-func (*sceneRepo) teamFilter(filter bson.D, teams []id.TeamID) bson.D {
+func (*sceneRepo) teamFilterD(filter bson.D, teams []id.TeamID) bson.D {
 	if teams == nil {
 		return filter
 	}
@@ -163,5 +111,13 @@ func (*sceneRepo) teamFilter(filter bson.D, teams []id.TeamID) bson.D {
 		Key:   "team",
 		Value: bson.D{{Key: "$in", Value: id.TeamIDsToStrings(teams)}},
 	})
+	return filter
+}
+
+func (*sceneRepo) teamFilterM(filter bson.M, teams []id.TeamID) bson.M {
+	if teams == nil {
+		return filter
+	}
+	filter["team"] = bson.D{{Key: "$in", Value: id.TeamIDsToStrings(teams)}}
 	return filter
 }

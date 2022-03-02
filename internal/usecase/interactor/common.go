@@ -57,7 +57,7 @@ func (i common) CanReadTeam(t id.TeamID, op *usecase.Operator) error {
 	if err := i.OnlyOperator(op); err != nil {
 		return err
 	}
-	if !op.IsReadableTeamIncluded(t) {
+	if !op.IsReadableTeam(t) {
 		return interfaces.ErrOperationDenied
 	}
 	return nil
@@ -67,65 +67,44 @@ func (i common) CanWriteTeam(t id.TeamID, op *usecase.Operator) error {
 	if err := i.OnlyOperator(op); err != nil {
 		return err
 	}
-	if !op.IsWritableTeamIncluded(t) {
+	if !op.IsWritableTeam(t) {
 		return interfaces.ErrOperationDenied
 	}
 	return nil
 }
 
-type commonScene struct {
-	common
-	sceneRepo repo.Scene
-}
-
-func (i commonScene) OnlyReadableScenes(ctx context.Context, op *usecase.Operator) ([]id.SceneID, error) {
-	if err := i.OnlyOperator(op); err != nil {
-		return nil, err
-	}
-	scenes, err := i.sceneRepo.FindIDsByTeam(ctx, op.ReadableTeams)
-	if err != nil {
-		return nil, err
-	}
-	return scenes, nil
-}
-
-func (i commonScene) OnlyWritableScenes(ctx context.Context, op *usecase.Operator) ([]id.SceneID, error) {
-	if err := i.OnlyOperator(op); err != nil {
-		return nil, err
-	}
-	scenes, err := i.sceneRepo.FindIDsByTeam(ctx, op.WritableTeams)
-	if err != nil {
-		return nil, err
-	}
-	return scenes, nil
-}
-
-func (i commonScene) CanReadScene(ctx context.Context, s id.SceneID, op *usecase.Operator) error {
+func (i common) CanReadScene(t id.SceneID, op *usecase.Operator) error {
 	if err := i.OnlyOperator(op); err != nil {
 		return err
 	}
-	res, err := i.sceneRepo.HasSceneTeam(ctx, s, op.ReadableTeams)
-	if err != nil {
-		return err
-	}
-	if !res {
+	if !op.IsReadableScene(t) {
 		return interfaces.ErrOperationDenied
 	}
 	return nil
 }
 
-func (i commonScene) CanWriteScene(ctx context.Context, s id.SceneID, op *usecase.Operator) error {
+func (i common) CanWriteScene(t id.SceneID, op *usecase.Operator) error {
 	if err := i.OnlyOperator(op); err != nil {
 		return err
 	}
-	res, err := i.sceneRepo.HasSceneTeam(ctx, s, op.WritableTeams)
-	if err != nil {
-		return err
-	}
-	if !res {
+	if !op.IsWritableScene(t) {
 		return interfaces.ErrOperationDenied
 	}
 	return nil
+}
+
+func (i common) OnlyReadableScenes(op *usecase.Operator) ([]id.SceneID, error) {
+	if err := i.OnlyOperator(op); err != nil {
+		return nil, err
+	}
+	return op.AllReadableScenes(), nil
+}
+
+func (i common) OnlyWritableScenes(op *usecase.Operator) ([]id.SceneID, error) {
+	if err := i.OnlyOperator(op); err != nil {
+		return nil, err
+	}
+	return op.AllWritableScenes(), nil
 }
 
 type commonSceneLock struct {

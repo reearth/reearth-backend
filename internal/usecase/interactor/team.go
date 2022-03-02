@@ -299,7 +299,7 @@ func (i *Team) filterTeams(teams []*user.Team, operator *usecase.Operator, err e
 		return make([]*user.Team, len(teams)), nil
 	}
 	for i, t := range teams {
-		if t == nil || !operator.IsReadableTeamIncluded(t.ID()) {
+		if t == nil || !operator.IsReadableTeam(t.ID()) {
 			teams[i] = nil
 		}
 	}

@@ -18,7 +18,7 @@ import (
 )
 
 type Project struct {
-	commonScene
+	common
 	commonSceneLock
 	assetRepo         repo.Asset
 	projectRepo       repo.Project
@@ -36,7 +36,6 @@ type Project struct {
 
 func NewProject(r *repo.Container, gr *gateway.Container) interfaces.Project {
 	return &Project{
-		commonScene:       commonScene{sceneRepo: r.Scene},
 		commonSceneLock:   commonSceneLock{sceneLockRepo: r.SceneLock},
 		assetRepo:         r.Asset,
 		projectRepo:       r.Project,
@@ -227,7 +226,6 @@ func (i *Project) CheckAlias(ctx context.Context, alias string) (bool, error) {
 }
 
 func (i *Project) Publish(ctx context.Context, params interfaces.PublishProjectParam, operator *usecase.Operator) (_ *project.Project, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -339,8 +337,7 @@ func (i *Project) Publish(ctx context.Context, params interfaces.PublishProjectP
 	prj.UpdatePublishmentStatus(params.Status)
 	prj.SetPublishedAt(time.Now())
 
-	err = i.projectRepo.Save(ctx, prj)
-	if err != nil {
+	if err := i.projectRepo.Save(ctx, prj); err != nil {
 		return nil, err
 	}
 
