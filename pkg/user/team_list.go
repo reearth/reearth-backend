@@ -2,21 +2,6 @@ package user
 
 type TeamList []*Team
 
-func (l TeamList) FilterByUserRole(u ID, r Role) TeamList {
-	if l == nil {
-		return nil
-	}
-
-	res := make(TeamList, 0, len(l))
-	for _, t := range l {
-		tr := t.Members().GetRole(u)
-		if tr.Includes(r) {
-			res = append(res, t)
-		}
-	}
-	return res
-}
-
 func (l TeamList) FilterByID(ids ...TeamID) TeamList {
 	if l == nil {
 		return nil
@@ -33,6 +18,35 @@ func (l TeamList) FilterByID(ids ...TeamID) TeamList {
 		}
 		if t2 != nil {
 			res = append(res, t2)
+		}
+	}
+	return res
+}
+func (l TeamList) FilterByUserRole(u ID, r Role) TeamList {
+	if l == nil || u.IsNil() || r == "" {
+		return nil
+	}
+
+	res := make(TeamList, 0, len(l))
+	for _, t := range l {
+		tr := t.Members().GetRole(u)
+		if tr == r {
+			res = append(res, t)
+		}
+	}
+	return res
+}
+
+func (l TeamList) FilterByUserRoleIncluding(u ID, r Role) TeamList {
+	if l == nil || u.IsNil() || r == "" {
+		return nil
+	}
+
+	res := make(TeamList, 0, len(l))
+	for _, t := range l {
+		tr := t.Members().GetRole(u)
+		if tr.Includes(r) {
+			res = append(res, t)
 		}
 	}
 	return res
