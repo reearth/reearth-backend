@@ -74,12 +74,15 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 		SignupSecret: cfg.Config.SignupSecret,
 	})
 
+	e.Use(UsecaseMiddleware(&usecases))
+
 	api := e.Group("/api")
-	publicAPI(e, api, cfg.Config, cfg.Repos, cfg.Gateways)
-	jwks := &JwksSyncOnce{}
+	publicAPI(e, api)
+
 	privateApi := api.Group("")
+	jwks := &JwksSyncOnce{}
 	authRequired(privateApi, jwks, cfg)
-	graphqlAPI(e, privateApi, cfg, usecases)
+	graphqlAPI(e, privateApi, cfg)
 	privateAPI(e, privateApi, cfg.Repos)
 
 	published := e.Group("/p")

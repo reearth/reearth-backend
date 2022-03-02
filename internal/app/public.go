@@ -5,26 +5,14 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/reearth/reearth-backend/internal/adapter"
 	http1 "github.com/reearth/reearth-backend/internal/adapter/http"
-	"github.com/reearth/reearth-backend/internal/usecase/gateway"
-	"github.com/reearth/reearth-backend/internal/usecase/interactor"
-	"github.com/reearth/reearth-backend/internal/usecase/repo"
 )
 
 func publicAPI(
 	ec *echo.Echo,
 	r *echo.Group,
-	conf *Config,
-	repos *repo.Container,
-	gateways *gateway.Container,
 ) {
-	controller := http1.NewUserController(
-		interactor.NewUser(repos, gateways, conf.SignupSecret),
-	)
-	publishedController := http1.NewPublishedController(
-		interactor.NewPublished(repos.Project, gateways.File, ""),
-	)
-
 	r.GET("/ping", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, "pong")
 	})
@@ -34,6 +22,9 @@ func publicAPI(
 		if err := c.Bind(&inp); err != nil {
 			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
 		}
+
+		uc := adapter.Usecases(c.Request().Context())
+		controller := http1.NewUserController(uc.User)
 
 		output, err := controller.CreateUser(c.Request().Context(), inp)
 		if err != nil {
@@ -49,6 +40,9 @@ func publicAPI(
 			return echo.ErrNotFound
 		}
 
+		uc := adapter.Usecases(c.Request().Context())
+		publishedController := http1.NewPublishedController(uc.Published)
+
 		res, err := publishedController.Metadata(c.Request().Context(), name)
 		if err != nil {
 			return err
@@ -62,6 +56,9 @@ func publicAPI(
 		if name == "" {
 			return echo.ErrNotFound
 		}
+
+		uc := adapter.Usecases(c.Request().Context())
+		publishedController := http1.NewPublishedController(uc.Published)
 
 		r, err := publishedController.Data(c.Request().Context(), name)
 		if err != nil {
