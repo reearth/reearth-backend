@@ -38,13 +38,13 @@ func (r *sceneRepo) FindByID(ctx context.Context, id id.SceneID, f []id.TeamID) 
 	return r.findOne(ctx, filter)
 }
 
-func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) ([]*scene.Scene, error) {
+func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) (scene.List, error) {
 	filter := r.teamFilter(bson.D{
 		{Key: "id", Value: bson.D{
 			{Key: "$in", Value: id.SceneIDsToStrings(ids)},
 		}},
 	}, f)
-	dst := make([]*scene.Scene, 0, len(ids))
+	dst := make(scene.List, 0, len(ids))
 	res, err := r.find(ctx, dst, filter)
 	if err != nil {
 		return nil, err
@@ -151,28 +151,8 @@ func (r *sceneRepo) findOne(ctx context.Context, filter bson.D) (*scene.Scene, e
 	return c.Rows[0], nil
 }
 
-// func (r *sceneRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) ([]*scene.Scene, *usecase.PageInfo, error) {
-// 	var c mongodoc.SceneConsumer
-// 	pageInfo, err2 := r.client.Paginate(ctx, filter, pagination, &c)
-// 	if err2 != nil {
-// 		return nil, nil, rerror.ErrInternalBy(err2)
-// 	}
-// 	return c.Rows, pageInfo, nil
-// }
-
-func filterScenes(ids []id.SceneID, rows []*scene.Scene) []*scene.Scene {
-	res := make([]*scene.Scene, 0, len(ids))
-	for _, id := range ids {
-		var r2 *scene.Scene
-		for _, r := range rows {
-			if r.ID() == id {
-				r2 = r
-				break
-			}
-		}
-		res = append(res, r2)
-	}
-	return res
+func filterScenes(ids []id.SceneID, rows scene.List) scene.List {
+	return rows.FilterByID(ids...)
 }
 
 func (*sceneRepo) teamFilter(filter bson.D, teams []id.TeamID) bson.D {

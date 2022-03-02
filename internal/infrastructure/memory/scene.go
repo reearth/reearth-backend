@@ -34,11 +34,11 @@ func (r *Scene) FindByID(ctx context.Context, id id.SceneID, f []id.TeamID) (*sc
 	return nil, rerror.ErrNotFound
 }
 
-func (r *Scene) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) ([]*scene.Scene, error) {
+func (r *Scene) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) (scene.List, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	result := []*scene.Scene{}
+	result := scene.List{}
 	for _, id := range ids {
 		if d, ok := r.data[id]; ok {
 			if isTeamIncludes(d.Team(), f) {
