@@ -379,7 +379,14 @@ func TestUser_SetPassword(t *testing.T) {
 		want string
 	}{
 		{
-			name: "should set the password",
+			name: "should set non-latin characters password",
+			args: args{
+				pass: "Àêîôûtest1",
+			},
+			want: "Àêîôûtest1",
+		},
+		{
+			name: "should set latin characters password",
 			args: args{
 				pass: "Testabc1",
 			},
