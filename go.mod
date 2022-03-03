@@ -2,8 +2,8 @@ module github.com/reearth/reearth-backend
 
 require (
 	cloud.google.com/go/profiler v0.2.0
-	cloud.google.com/go/storage v1.20.0
-	github.com/99designs/gqlgen v0.16.0
+	cloud.google.com/go/storage v1.21.0
+	github.com/99designs/gqlgen v0.17.1
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.3.0
 	github.com/auth0/go-jwt-middleware v1.0.1
 	github.com/blang/semver v3.5.1+incompatible
@@ -17,13 +17,13 @@ require (
 	github.com/jonas-p/go-shp v0.1.1
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/kennygrant/sanitize v1.2.4
-	github.com/labstack/echo/v4 v4.6.3
+	github.com/labstack/echo/v4 v4.7.0
 	github.com/labstack/gommon v0.3.1
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/oklog/ulid v1.3.1
 	github.com/paulmach/go.geojson v1.4.0
 	github.com/pkg/errors v0.9.1
-	github.com/ravilushqa/otelgqlgen v0.4.1
+	github.com/ravilushqa/otelgqlgen v0.5.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/afero v1.8.1
 	github.com/square/mongo-lock v0.0.0-20201208161834-4db518ed7fb2
@@ -32,15 +32,15 @@ require (
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	github.com/uber/jaeger-lib v2.4.1+incompatible
 	github.com/vektah/dataloaden v0.3.0
-	github.com/vektah/gqlparser/v2 v2.3.1
-	go.mongodb.org/mongo-driver v1.8.3
+	github.com/vektah/gqlparser/v2 v2.4.1
+	go.mongodb.org/mongo-driver v1.8.4
 	go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho v0.29.0
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.29.0
-	go.opentelemetry.io/otel v1.4.0
-	go.opentelemetry.io/otel/sdk v1.4.0
+	go.opentelemetry.io/otel v1.4.1
+	go.opentelemetry.io/otel/sdk v1.4.1
 	golang.org/x/text v0.3.7
 	golang.org/x/tools v0.1.9
-	google.golang.org/api v0.68.0
+	google.golang.org/api v0.70.0
 	gopkg.in/go-playground/colors.v1 v1.2.0
 	gopkg.in/h2non/gock.v1 v1.1.2
 )
