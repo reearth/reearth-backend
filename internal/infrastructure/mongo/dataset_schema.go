@@ -53,9 +53,8 @@ func (r *datasetSchemaRepo) FindByIDs(ctx context.Context, ids []id.DatasetSchem
 }
 
 func (r *datasetSchemaRepo) FindByScene(ctx context.Context, sceneID id.SceneID, pagination *usecase.Pagination) (dataset.SchemaList, *usecase.PageInfo, error) {
-	filter := bson.D{
-		{Key: "scene", Value: sceneID.String()},
-	}
+	filter := bson.M{"scene": sceneID.String()}
+
 	return r.paginate(ctx, filter, pagination)
 }
 
@@ -146,7 +145,7 @@ func (r *datasetSchemaRepo) findOne(ctx context.Context, filter bson.D) (*datase
 	return c.Rows[0], nil
 }
 
-func (r *datasetSchemaRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) ([]*dataset.Schema, *usecase.PageInfo, error) {
+func (r *datasetSchemaRepo) paginate(ctx context.Context, filter bson.M, pagination *usecase.Pagination) ([]*dataset.Schema, *usecase.PageInfo, error) {
 	var c mongodoc.DatasetSchemaConsumer
 	pageInfo, err2 := r.client.Paginate(ctx, filter, nil, pagination, &c)
 	if err2 != nil {

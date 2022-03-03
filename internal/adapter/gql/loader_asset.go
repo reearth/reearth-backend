@@ -2,12 +2,12 @@ package gql
 
 import (
 	"context"
-	"strings"
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/pkg/asset"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
@@ -33,15 +33,10 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 	return assets, nil
 }
 
-func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *string, sort *gqlmodel.AssetSortType, pagination *gqlmodel.Pagination) (*gqlmodel.AssetConnection, error) {
+func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *string, sort *asset.SortType, pagination *gqlmodel.Pagination) (*gqlmodel.AssetConnection, error) {
 	p := gqlmodel.ToPagination(pagination)
 
-	s := new(string)
-	if sort != nil {
-		*s = strings.ToLower(string(*sort))
-	}
-
-	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, s, p, getOperator(ctx))
+	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, (*string)(sort), p, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}

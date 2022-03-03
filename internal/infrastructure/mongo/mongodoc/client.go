@@ -165,7 +165,7 @@ func getCursor(raw bson.Raw, key string) (*usecase.Cursor, error) {
 	return &c, nil
 }
 
-func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, sort *string, p *Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *string, p *Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -179,9 +179,7 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 		sortKey = *sort
 	}
 
-	findOptions.Sort = bson.D{
-		{Key: sortKey, Value: p.SortDirection()},
-	}
+	findOptions.Sort = bson.M{sortKey: p.SortDirection()}
 
 	key := "id"
 
@@ -196,9 +194,15 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 	}
 
 	if cur != nil {
-		filter = appendE(filter, bson.E{Key: key, Value: bson.D{
-			{Key: op, Value: *cur},
-		}})
+		// TODO: Pagination query with sort field
+		paginationFilter := bson.M{key: bson.M{op: *cur}}
+
+		filter = bson.M{
+			"$and": []bson.M{
+				filter,
+				paginationFilter,
+			},
+		}
 	}
 
 	// 更に読める要素があるのか確かめるために一つ多めに読み出す

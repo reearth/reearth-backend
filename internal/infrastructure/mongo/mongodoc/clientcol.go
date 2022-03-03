@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -28,7 +29,7 @@ func (c *ClientCollection) Count(ctx context.Context, filter interface{}) (int64
 	return c.Client.Count(ctx, c.CollectionName, filter)
 }
 
-func (c *ClientCollection) Paginate(ctx context.Context, filter interface{}, sort *string, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *ClientCollection) Paginate(ctx context.Context, filter bson.M, sort *string, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	return c.Client.Paginate(ctx, c.CollectionName, filter, sort, NewPaginationFrom(p), consumer)
 }
 

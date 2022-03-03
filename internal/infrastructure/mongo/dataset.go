@@ -34,15 +34,13 @@ func (r *datasetRepo) init() {
 }
 
 func (r *datasetRepo) FindByID(ctx context.Context, id2 id.DatasetID, f []id.SceneID) (*dataset.Dataset, error) {
-	filter := r.sceneFilter(bson.D{{Key: "id", Value: id.ID(id2).String()}}, f)
+	filter := r.sceneFilter(bson.M{"id": id.ID(id2).String()}, f)
 	return r.findOne(ctx, filter)
 }
 
 func (r *datasetRepo) FindByIDs(ctx context.Context, ids []id.DatasetID, f []id.SceneID) (dataset.List, error) {
-	filter := r.sceneFilter(bson.D{
-		{Key: "id", Value: bson.D{
-			{Key: "$in", Value: id.DatasetIDsToStrings(ids)},
-		}},
+	filter := r.sceneFilter(bson.M{
+		"id": bson.M{"$in": id.DatasetIDsToStrings(ids)},
 	}, f)
 	dst := make([]*dataset.Dataset, 0, len(ids))
 	res, err := r.find(ctx, dst, filter)
@@ -53,16 +51,15 @@ func (r *datasetRepo) FindByIDs(ctx context.Context, ids []id.DatasetID, f []id.
 }
 
 func (r *datasetRepo) FindBySchema(ctx context.Context, schemaID id.DatasetSchemaID, f []id.SceneID, pagination *usecase.Pagination) (dataset.List, *usecase.PageInfo, error) {
-	filter := r.sceneFilter(bson.D{
-		{Key: "schema", Value: id.ID(schemaID).String()},
+	filter := r.sceneFilter(bson.M{
+		"schema": id.ID(schemaID).String(),
 	}, f)
 	return r.paginate(ctx, filter, pagination)
 }
 
 func (r *datasetRepo) FindBySchemaAll(ctx context.Context, schemaID id.DatasetSchemaID) (dataset.List, error) {
-	filter := bson.D{
-		{Key: "schema", Value: id.ID(schemaID).String()},
-	}
+	filter := bson.M{"schema": id.ID(schemaID).String()}
+
 	return r.find(ctx, nil, filter)
 }
 
@@ -87,9 +84,9 @@ func (r *datasetRepo) FindGraph(ctx context.Context, did id.DatasetID, f []id.Sc
 	}
 
 	pipeline := bson.D{
-		{Key: "$match", Value: r.sceneFilter(bson.D{
-			{Key: "id", Value: did.String()},
-			{Key: "fields.id", Value: firstField},
+		{Key: "$match", Value: r.sceneFilter(bson.M{
+			"id":        did.String(),
+			"fields.id": firstField,
 		}, f)},
 		{Key: "$limit", Value: 1},
 		{Key: "$addFields", Value: bson.D{
@@ -116,7 +113,7 @@ func (r *datasetRepo) FindGraph(ctx context.Context, did id.DatasetID, f []id.Sc
 			{Key: "connectToField", Value: "id"},
 			{Key: "depthField", Value: "depth"},
 			{Key: "as", Value: "graph"},
-			{Key: "restrictSearchWithMatch", Value: r.sceneFilter(bson.D{}, f)},
+			{Key: "restrictSearchWithMatch", Value: r.sceneFilter(bson.M{}, f)},
 		}},
 		{Key: "$addFields", Value: bson.D{
 			{Key: "firstGraph", Value: bson.D{
@@ -285,7 +282,7 @@ func (r *datasetRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) err
 	return nil
 }
 
-func (r *datasetRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) (dataset.List, *usecase.PageInfo, error) {
+func (r *datasetRepo) paginate(ctx context.Context, filter bson.M, pagination *usecase.Pagination) (dataset.List, *usecase.PageInfo, error) {
 	var c mongodoc.DatasetConsumer
 	pageInfo, err2 := r.client.Paginate(ctx, filter, nil, pagination, &c)
 	if err2 != nil {
@@ -294,7 +291,7 @@ func (r *datasetRepo) paginate(ctx context.Context, filter bson.D, pagination *u
 	return c.Rows, pageInfo, nil
 }
 
-func (r *datasetRepo) find(ctx context.Context, dst dataset.List, filter bson.D) (dataset.List, error) {
+func (r *datasetRepo) find(ctx context.Context, dst dataset.List, filter bson.M) (dataset.List, error) {
 	c := mongodoc.DatasetConsumer{
 		Rows: dst,
 	}
@@ -304,7 +301,7 @@ func (r *datasetRepo) find(ctx context.Context, dst dataset.List, filter bson.D)
 	return c.Rows, nil
 }
 
-func (r *datasetRepo) findOne(ctx context.Context, filter bson.D) (*dataset.Dataset, error) {
+func (r *datasetRepo) findOne(ctx context.Context, filter bson.M) (*dataset.Dataset, error) {
 	dst := make([]*dataset.Dataset, 0, 1)
 	c := mongodoc.DatasetConsumer{
 		Rows: dst,
@@ -330,13 +327,10 @@ func filterDatasets(ids []id.DatasetID, rows []*dataset.Dataset) []*dataset.Data
 	return res
 }
 
-func (*datasetRepo) sceneFilter(filter bson.D, scenes []id.SceneID) bson.D {
+func (*datasetRepo) sceneFilter(filter bson.M, scenes []id.SceneID) bson.M {
 	if scenes == nil {
 		return filter
 	}
-	filter = append(filter, bson.E{
-		Key:   "scene",
-		Value: bson.D{{Key: "$in", Value: id.SceneIDsToStrings(scenes)}},
-	})
+	filter["scene"] = bson.M{"$in": id.SceneIDsToStrings(scenes)}
 	return filter
 }

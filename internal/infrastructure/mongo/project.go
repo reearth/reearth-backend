@@ -53,9 +53,8 @@ func (r *projectRepo) FindByID(ctx context.Context, id id.ProjectID, f []id.Team
 }
 
 func (r *projectRepo) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*project.Project, *usecase.PageInfo, error) {
-	filter := bson.D{
-		{Key: "team", Value: id.String()},
-	}
+	filter := bson.M{"team": id.String()}
+
 	return r.paginate(ctx, filter, pagination)
 }
 
@@ -113,7 +112,7 @@ func (r *projectRepo) findOne(ctx context.Context, filter bson.D) (*project.Proj
 	return c.Rows[0], nil
 }
 
-func (r *projectRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) ([]*project.Project, *usecase.PageInfo, error) {
+func (r *projectRepo) paginate(ctx context.Context, filter bson.M, pagination *usecase.Pagination) ([]*project.Project, *usecase.PageInfo, error) {
 	var c mongodoc.ProjectConsumer
 	pageInfo, err2 := r.client.Paginate(ctx, filter, nil, pagination, &c)
 	if err2 != nil {
