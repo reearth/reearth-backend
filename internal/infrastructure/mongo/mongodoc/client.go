@@ -207,18 +207,20 @@ func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *
 		return nil, nil
 	}
 	coll := c.Collection(col)
+	const key = "id"
 
 	findOptions := options.Find()
 	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
 
-	sortKey := "id"
-	if sort != nil && len(*sort) > 0 {
+	var sortOptions bson.D
+	var sortKey = ""
+	if sort != nil && len(*sort) > 0 && *sort != "id" {
 		sortKey = *sort
+		sortOptions = append(sortOptions, bson.E{Key: sortKey, Value: p.SortDirection()})
 	}
+	sortOptions = append(sortOptions, bson.E{Key: key, Value: p.SortDirection()})
 
-	findOptions.Sort = bson.M{sortKey: p.SortDirection()}
-
-	key := "id"
+	findOptions.Sort = sortOptions
 
 	count, err := coll.CountDocuments(ctx, filter)
 	if err != nil {
@@ -231,8 +233,29 @@ func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *
 	}
 
 	if cur != nil {
-		// TODO: Pagination query with sort field
-		paginationFilter := bson.M{key: bson.M{op: *cur}}
+
+		var paginationFilter bson.M
+
+		if sortKey == "" {
+			paginationFilter = bson.M{key: bson.M{op: *cur}}
+		} else {
+			var curObj bson.M
+			if err := coll.FindOne(ctx, bson.M{key: *cur}).Decode(&curObj); err != nil {
+				return nil, fmt.Errorf("failed to find cursor")
+			}
+			if curObj[sortKey] == nil {
+				return nil, fmt.Errorf("invalied sort key")
+			}
+			paginationFilter = bson.M{
+				"$or": []bson.M{
+					{sortKey: bson.M{"$gt": curObj[sortKey]}},
+					{
+						sortKey: curObj[sortKey],
+						key:     bson.M{"$gt": *cur},
+					},
+				},
+			}
+		}
 
 		filter = bson.M{
 			"$and": []bson.M{
