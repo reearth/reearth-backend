@@ -70,6 +70,10 @@ func createdAt(i ID) time.Time {
 type IDList []ID
 
 func (l IDList) Filter(ids ...ID) IDList {
+	if l == nil {
+		return nil
+	}
+
 	res := make(IDList, 0, len(l))
 	for _, t := range l {
 		for _, t2 := range ids {

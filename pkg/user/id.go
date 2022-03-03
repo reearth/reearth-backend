@@ -25,6 +25,10 @@ var ErrInvalidID = id.ErrInvalidID
 type TeamIDList []TeamID
 
 func (l TeamIDList) Filter(ids ...TeamID) TeamIDList {
+	if l == nil {
+		return nil
+	}
+
 	res := make(TeamIDList, 0, len(l))
 	for _, t := range l {
 		for _, t2 := range ids {
