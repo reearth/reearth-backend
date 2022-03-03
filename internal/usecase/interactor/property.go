@@ -243,7 +243,7 @@ func (i *Property) UploadFile(ctx context.Context, inp interfaces.UploadFilePara
 	if v == nil {
 		return nil, nil, nil, nil, interfaces.ErrInvalidPropertyValue
 	}
-	if err = field.Update(v, ps.Field(field.Field())); err != nil {
+	if err = field.Update(v, ps.Groups().Field(field.Field())); err != nil {
 		return nil, nil, nil, nil, err
 	}
 
@@ -457,7 +457,6 @@ func (i *Property) MoveItem(ctx context.Context, inp interfaces.MovePropertyItem
 }
 
 func (i *Property) RemoveItem(ctx context.Context, inp interfaces.RemovePropertyItemParam, operator *usecase.Operator) (p *property.Property, err error) {
-
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
