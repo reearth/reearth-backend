@@ -110,16 +110,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	var team *user.Team
 	var email, name string
 	var auth *user.Auth
-
-	tx, err := i.transaction.Begin()
-	if err != nil {
-		return nil, nil, err
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
-		}
-	}()
+	var tx repo.Tx
 
 	if inp.Secret != nil && inp.Sub != nil {
 		// Auth0
@@ -130,6 +121,17 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		if len(*inp.Sub) == 0 {
 			return nil, nil, errors.New("sub is required")
 		}
+
+		tx, err := i.transaction.Begin()
+		if err != nil {
+			return nil, nil, err
+		}
+		defer func() {
+			if err2 := tx.End(ctx); err == nil && err2 != nil {
+				err = err2
+			}
+		}()
+
 		name, email, auth, err = i.auth0Signup(ctx, inp)
 		if err != nil {
 			return
@@ -145,8 +147,20 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		if *inp.Password == "" {
 			return nil, nil, interfaces.ErrSignupInvalidPassword
 		}
+
 		var unverifiedUser *user.User
 		var unverifiedTeam *user.Team
+
+		tx, err := i.transaction.Begin()
+		if err != nil {
+			return nil, nil, err
+		}
+		defer func() {
+			if err2 := tx.End(ctx); err == nil && err2 != nil {
+				err = err2
+			}
+		}()
+
 		name, email, unverifiedUser, unverifiedTeam, err = i.authSystemSignup(ctx, inp)
 		if err != nil {
 			return
