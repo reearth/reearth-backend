@@ -110,6 +110,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	var team *user.Team
 	var email, name string
 	var auth *user.Auth
+
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return nil, nil, err
