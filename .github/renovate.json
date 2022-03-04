@@ -22,7 +22,9 @@
       "groupSlug": "gomod",
       "semanticCommitType": "chore",
       "extends": [
-        "schedule:earlyMondays"
+        {
+          "schedule": "before 3am on the fourth day of the month"
+        }
       ]
     },
     {
@@ -37,7 +39,9 @@
       "groupSlug": "docker",
       "semanticCommitType": "chore",
       "extends": [
-        "schedule:earlyMondays"
+        {
+          "schedule": "before 3am on the fourth day of the month"
+        }
       ]
     },
     {
@@ -51,7 +55,9 @@
       "groupSlug": "github-actions",
       "semanticCommitType": "ci",
       "extends": [
-        "schedule:earlyMondays"
+        {
+          "schedule": "before 3am on the fourth day of the month"
+        }
       ]
     }
   ]
