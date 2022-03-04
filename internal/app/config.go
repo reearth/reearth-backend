@@ -46,7 +46,7 @@ type Auth0Config struct {
 }
 
 type AuthSrvConfig struct {
-	Domain string `default:"https://localhost:8080"`
+	Domain string `default:"http://localhost:8080"`
 	Key    string
 	DN     *AuthDNConfig
 }

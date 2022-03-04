@@ -108,21 +108,45 @@ func (i *User) Fetch(ctx context.Context, ids []id.UserID, operator *usecase.Ope
 
 func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.User, _ *user.Team, err error) {
 	var team *user.Team
-	var tx repo.Tx
 	var email, name string
 	var auth *user.Auth
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return nil, nil, err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
 
 	if inp.Secret != nil && inp.Sub != nil {
 		// Auth0
-		tx, name, email, auth, err = i.auth0Signup(ctx, inp, tx)
+		if i.signupSecret != "" && *inp.Secret != i.signupSecret {
+			return nil, nil, interfaces.ErrSignupInvalidSecret
+		}
+
+		if len(*inp.Sub) == 0 {
+			return nil, nil, errors.New("sub is required")
+		}
+		name, email, auth, err = i.auth0Signup(ctx, inp)
 		if err != nil {
 			return
 		}
 
 	} else if inp.Name != nil && inp.Email != nil && inp.Password != nil {
+		if *inp.Name == "" {
+			return nil, nil, interfaces.ErrSignupInvalidName
+		}
+		if _, err := mail.ParseAddress(*inp.Email); err != nil {
+			return nil, nil, interfaces.ErrInvalidUserEmail
+		}
+		if *inp.Password == "" {
+			return nil, nil, interfaces.ErrSignupInvalidPassword
+		}
 		var unverifiedUser *user.User
 		var unverifiedTeam *user.Team
-		tx, name, email, unverifiedUser, unverifiedTeam, err = i.authSystemSignup(ctx, inp, tx)
+		name, email, unverifiedUser, unverifiedTeam, err = i.authSystemSignup(ctx, inp)
 		if err != nil {
 			return
 		}
@@ -169,107 +193,69 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	return u, team, nil
 }
 
-func (i *User) authSystemSignup(ctx context.Context, inp interfaces.SignupParam, tx repo.Tx) (repo.Tx, string, string, *user.User, *user.Team, error) {
-	if *inp.Name == "" {
-		return nil, "", "", nil, nil, interfaces.ErrSignupInvalidName
-	}
-	if _, err := mail.ParseAddress(*inp.Email); err != nil {
-		return nil, "", "", nil, nil, interfaces.ErrInvalidUserEmail
-	}
-	if *inp.Password == "" {
-		return nil, "", "", nil, nil, interfaces.ErrSignupInvalidPassword
-	}
-
-	tx, err := i.transaction.Begin()
-	if err != nil {
-		return nil, "", "", nil, nil, err
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
-		}
-	}()
-
+func (i *User) authSystemSignup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.User, *user.Team, error) {
 	// Check if user email already exists
 	existed, err := i.userRepo.FindByEmail(ctx, *inp.Email)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return nil, "", "", nil, nil, err
+		return "", "", nil, nil, err
 	}
 
 	if existed != nil {
 		if existed.Verification().IsVerified() {
-			return nil, "", "", nil, nil, errors.New("existed user email")
+			return "", "", nil, nil, errors.New("existed user email")
 		} else {
 			//	if user exists but not verified -> create a new verification
 			if err := i.CreateVerification(ctx, *inp.Email); err != nil {
-				return nil, "", "", nil, nil, err
+				return "", "", nil, nil, err
 			} else {
 				team, err := i.teamRepo.FindByID(ctx, existed.Team())
 				if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-					return nil, "", "", nil, nil, err
+					return "", "", nil, nil, err
 				}
-				return nil, "", "", existed, team, nil
+				return "", "", existed, team, nil
 			}
 		}
 	}
 
-	return tx, *inp.Name, *inp.Email, nil, nil, nil
+	return *inp.Name, *inp.Email, nil, nil, nil
 }
 
-func (i *User) auth0Signup(ctx context.Context, inp interfaces.SignupParam, tx repo.Tx) (repo.Tx, string, string, *user.Auth, error) {
-	if i.signupSecret != "" && *inp.Secret != i.signupSecret {
-		return nil, "", "", nil, interfaces.ErrSignupInvalidSecret
-	}
-
-	if len(*inp.Sub) == 0 {
-		return nil, "", "", nil, errors.New("sub is required")
-	}
-
-	tx, err := i.transaction.Begin()
-	if err != nil {
-		return nil, "", "", nil, err
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
-		}
-	}()
-
+func (i *User) auth0Signup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.Auth, error) {
 	// Check if user already exists
 	existed, err := i.userRepo.FindByAuth0Sub(ctx, *inp.Sub)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return nil, "", "", nil, err
+		return "", "", nil, err
 	}
 	if existed != nil {
-		return nil, "", "", nil, errors.New("existed user")
+		return "", "", nil, errors.New("existed user")
 	}
 
 	if inp.UserID != nil {
 		existed, err := i.userRepo.FindByID(ctx, *inp.UserID)
 		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-			return nil, "", "", nil, err
+			return "", "", nil, err
 		}
 		if existed != nil {
-			return nil, "", "", nil, errors.New("existed user")
+			return "", "", nil, errors.New("existed user")
 		}
 	}
 
 	// Fetch user info
 	ui, err := i.authenticator.FetchUser(*inp.Sub)
 	if err != nil {
-		return nil, "", "", nil, err
+		return "", "", nil, err
 	}
 
 	// Check if user and team already exists
 	existed, err = i.userRepo.FindByEmail(ctx, ui.Email)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return nil, "", "", nil, err
+		return "", "", nil, err
 	}
 	if existed != nil {
-		return nil, "", "", nil, errors.New("existed user")
+		return "", "", nil, errors.New("existed user")
 	}
 
-	return tx, ui.Name, ui.Email, user.AuthFromAuth0Sub(*inp.Sub).Ref(), nil
+	return ui.Name, ui.Email, user.AuthFromAuth0Sub(*inp.Sub).Ref(), nil
 }
 
 func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserByCredentials) (u *user.User, err error) {
