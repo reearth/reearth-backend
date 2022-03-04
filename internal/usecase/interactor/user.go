@@ -122,7 +122,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 			return nil, nil, errors.New("sub is required")
 		}
 
-		tx, err := i.transaction.Begin()
+		tx, err = i.transaction.Begin()
 		if err != nil {
 			return nil, nil, err
 		}
@@ -151,7 +151,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		var unverifiedUser *user.User
 		var unverifiedTeam *user.Team
 
-		tx, err := i.transaction.Begin()
+		tx, err = i.transaction.Begin()
 		if err != nil {
 			return nil, nil, err
 		}
