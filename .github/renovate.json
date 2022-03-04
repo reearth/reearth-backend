@@ -21,10 +21,8 @@
       "groupName": "dependencies",
       "groupSlug": "gomod",
       "semanticCommitType": "chore",
-      "extends": [
-        {
-          "schedule": "before 3am on the fourth day of the month"
-        }
+      "schedule": [
+        "before 3am on the fourth day of the month"
       ]
     },
     {
@@ -38,10 +36,8 @@
       "groupName": "docker dependencies",
       "groupSlug": "docker",
       "semanticCommitType": "chore",
-      "extends": [
-        {
-          "schedule": "before 3am on the fourth day of the month"
-        }
+      "schedule": [
+        "before 3am on the fourth day of the month"
       ]
     },
     {
@@ -54,10 +50,8 @@
       "groupName": "github actions dependencies",
       "groupSlug": "github-actions",
       "semanticCommitType": "ci",
-      "extends": [
-        {
-          "schedule": "before 3am on the fourth day of the month"
-        }
+      "schedule": [
+        "before 3am on the fourth day of the month"
       ]
     }
   ]
