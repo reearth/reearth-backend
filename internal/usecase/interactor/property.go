@@ -202,7 +202,7 @@ func (i *Property) UploadFile(ctx context.Context, inp interfaces.UploadFilePara
 		return nil, nil, nil, nil, err
 	}
 
-	propertyScene, err := i.sceneRepo.FindByID(ctx, p.Scene(), operator.WritableTeams)
+	propertyScene, err := i.sceneRepo.FindByID(ctx, p.Scene(), operator.AllWritableTeams())
 	if err != nil {
 		return nil, nil, nil, nil, err
 	}

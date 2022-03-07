@@ -75,7 +75,7 @@ func (i *Plugin) upload(ctx context.Context, p *pluginpack.Package, sid id.Scene
 		return nil, nil, err
 	}
 
-	s, err := i.sceneRepo.FindByID(ctx, sid, operator.WritableTeams)
+	s, err := i.sceneRepo.FindByID(ctx, sid, operator.AllWritableTeams())
 	if err != nil {
 		return nil, nil, err
 	}
