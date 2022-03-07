@@ -24,6 +24,13 @@ var ErrInvalidID = id.ErrInvalidID
 
 type TeamIDList []TeamID
 
+func (l TeamIDList) Clone() TeamIDList {
+	if l == nil {
+		return nil
+	}
+	return append(TeamIDList{}, l...)
+}
+
 func (l TeamIDList) Filter(ids ...TeamID) TeamIDList {
 	if l == nil {
 		return nil

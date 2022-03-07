@@ -69,6 +69,13 @@ func createdAt(i ID) time.Time {
 
 type IDList []ID
 
+func (l IDList) Clone() IDList {
+	if l == nil {
+		return nil
+	}
+	return append(IDList{}, l...)
+}
+
 func (l IDList) Filter(ids ...ID) IDList {
 	if l == nil {
 		return nil
