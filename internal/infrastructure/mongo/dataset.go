@@ -18,12 +18,20 @@ import (
 
 type datasetRepo struct {
 	client *mongodoc.ClientCollection
+	f      repo.SceneFilter
 }
 
 func NewDataset(client *mongodoc.Client) repo.Dataset {
 	r := &datasetRepo{client: client.WithCollection("dataset")}
 	r.init()
 	return r
+}
+
+func (r *datasetRepo) Filtered(f repo.SceneFilter) repo.Dataset {
+	return &datasetRepo{
+		client: r.client,
+		f:      f.Clone(),
+	}
 }
 
 func (r *datasetRepo) init() {

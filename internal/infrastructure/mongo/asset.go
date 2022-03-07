@@ -16,12 +16,20 @@ import (
 
 type assetRepo struct {
 	client *mongodoc.ClientCollection
+	f      repo.TeamFilter
 }
 
 func NewAsset(client *mongodoc.Client) repo.Asset {
 	r := &assetRepo{client: client.WithCollection("asset")}
 	r.init()
 	return r
+}
+
+func (r *assetRepo) Filtered(f repo.TeamFilter) repo.Asset {
+	return &assetRepo{
+		client: r.client,
+		f:      f.Clone(),
+	}
 }
 
 func (r *assetRepo) FindByID(ctx context.Context, id id.AssetID, teams []id.TeamID) (*asset.Asset, error) {

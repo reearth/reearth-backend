@@ -13,11 +13,20 @@ import (
 type Layer struct {
 	lock sync.Mutex
 	data map[id.LayerID]layer.Layer
+	f    repo.SceneFilter
 }
 
 func NewLayer() repo.Layer {
 	return &Layer{
 		data: map[id.LayerID]layer.Layer{},
+	}
+}
+
+func (r *Layer) Filtered(f repo.SceneFilter) repo.Layer {
+	return &Layer{
+		// note data is shared between the source repo and mutex cannot work well
+		data: r.data,
+		f:    f.Clone(),
 	}
 }
 

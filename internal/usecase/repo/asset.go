@@ -9,6 +9,7 @@ import (
 )
 
 type Asset interface {
+	Filtered(TeamFilter) Asset
 	Save(context.Context, *asset.Asset) error
 	Remove(context.Context, id.AssetID) error
 	FindByTeam(context.Context, id.TeamID, *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error)

@@ -14,11 +14,20 @@ import (
 type Scene struct {
 	lock sync.Mutex
 	data map[id.SceneID]*scene.Scene
+	f    repo.TeamFilter
 }
 
 func NewScene() repo.Scene {
 	return &Scene{
 		data: map[id.SceneID]*scene.Scene{},
+	}
+}
+
+func (r *Scene) Filtered(f repo.TeamFilter) repo.Scene {
+	return &Scene{
+		// note data is shared between the source repo and mutex cannot work well
+		data: r.data,
+		f:    f.Clone(),
 	}
 }
 

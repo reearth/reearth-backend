@@ -14,11 +14,20 @@ import (
 type Asset struct {
 	lock sync.Mutex
 	data map[id.AssetID]*asset.Asset
+	f    repo.TeamFilter
 }
 
 func NewAsset() repo.Asset {
 	return &Asset{
 		data: map[id.AssetID]*asset.Asset{},
+	}
+}
+
+func (r *Asset) Filtered(f repo.TeamFilter) repo.Asset {
+	return &Asset{
+		// note data is shared between the source repo and mutex cannot work well
+		data: r.data,
+		f:    f.Clone(),
 	}
 }
 

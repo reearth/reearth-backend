@@ -14,11 +14,20 @@ import (
 type Tag struct {
 	lock sync.Mutex
 	data tag.Map
+	f    repo.SceneFilter
 }
 
 func NewTag() repo.Tag {
 	return &Tag{
 		data: map[id.TagID]tag.Tag{},
+	}
+}
+
+func (r *Tag) Filtered(f repo.SceneFilter) repo.Tag {
+	return &Tag{
+		// note data is shared between the source repo and mutex cannot work well
+		data: r.data,
+		f:    f.Clone(),
 	}
 }
 

@@ -14,6 +14,7 @@ import (
 
 type sceneRepo struct {
 	client *mongodoc.ClientCollection
+	f      repo.TeamFilter
 }
 
 func NewScene(client *mongodoc.Client) repo.Scene {
@@ -26,6 +27,13 @@ func (r *sceneRepo) init() {
 	i := r.client.CreateIndex(context.Background(), []string{"project"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "scene", i)
+	}
+}
+
+func (r *sceneRepo) Filtered(f repo.TeamFilter) repo.Scene {
+	return &sceneRepo{
+		client: r.client,
+		f:      f.Clone(),
 	}
 }
 

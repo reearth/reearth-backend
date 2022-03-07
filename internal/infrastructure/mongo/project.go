@@ -16,6 +16,7 @@ import (
 
 type projectRepo struct {
 	client *mongodoc.ClientCollection
+	f      repo.TeamFilter
 }
 
 func NewProject(client *mongodoc.Client) repo.Project {
@@ -28,6 +29,13 @@ func (r *projectRepo) init() {
 	i := r.client.CreateIndex(context.Background(), []string{"alias", "team"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "project", i)
+	}
+}
+
+func (r *projectRepo) Filtered(f repo.TeamFilter) repo.Project {
+	return &projectRepo{
+		client: r.client,
+		f:      f.Clone(),
 	}
 }
 

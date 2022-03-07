@@ -14,11 +14,20 @@ import (
 type DatasetSchema struct {
 	lock sync.Mutex
 	data map[id.DatasetSchemaID]dataset.Schema
+	f    repo.SceneFilter
 }
 
 func NewDatasetSchema() repo.DatasetSchema {
 	return &DatasetSchema{
 		data: map[id.DatasetSchemaID]dataset.Schema{},
+	}
+}
+
+func (r *DatasetSchema) Filtered(f repo.SceneFilter) repo.DatasetSchema {
+	return &DatasetSchema{
+		// note data is shared between the source repo and mutex cannot work well
+		data: r.data,
+		f:    f.Clone(),
 	}
 }
 
