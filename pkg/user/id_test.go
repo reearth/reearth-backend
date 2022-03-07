@@ -14,7 +14,7 @@ func TestTeamIDList_Filter(t *testing.T) {
 	assert.Equal(t, TeamIDList{t1}, TeamIDList{t1, t2, t3}.Filter(t1))
 	assert.Equal(t, TeamIDList{t1, t3}, TeamIDList{t1, t2, t3}.Filter(t1, t3))
 	assert.Equal(t, TeamIDList{}, TeamIDList{t1, t2, t3}.Filter(t4))
-	assert.Equal(t, TeamIDList{}, TeamIDList(nil).Filter(t4))
+	assert.Equal(t, TeamIDList(nil), TeamIDList(nil).Filter(t4))
 }
 
 func TestTeamIDList_Includes(t *testing.T) {

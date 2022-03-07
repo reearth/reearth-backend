@@ -14,7 +14,7 @@ func TestIDList_Filter(t *testing.T) {
 	assert.Equal(t, IDList{t1}, IDList{t1, t2, t3}.Filter(t1))
 	assert.Equal(t, IDList{t1, t3}, IDList{t1, t2, t3}.Filter(t1, t3))
 	assert.Equal(t, IDList{}, IDList{t1, t2, t3}.Filter(t4))
-	assert.Equal(t, IDList{}, IDList(nil).Filter(t4))
+	assert.Equal(t, IDList(nil), IDList(nil).Filter(t4))
 }
 
 func TestIDList_Includes(t *testing.T) {
