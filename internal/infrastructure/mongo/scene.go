@@ -30,17 +30,17 @@ func (r *sceneRepo) init() {
 }
 
 func (r *sceneRepo) FindByID(ctx context.Context, id id.SceneID, f []id.TeamID) (*scene.Scene, error) {
-	filter := r.teamFilterD(bson.D{
-		{Key: "id", Value: id.String()},
+	filter := r.teamFilter(bson.M{
+		"id": id.String(),
 	}, f)
 	return r.findOne(ctx, filter)
 }
 
 func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) (scene.List, error) {
-	filter := r.teamFilterD(bson.D{
-		{Key: "id", Value: bson.D{
-			{Key: "$in", Value: id.SceneIDsToStrings(ids)},
-		}},
+	filter := r.teamFilter(bson.M{
+		"id": bson.M{
+			"$in": id.SceneIDsToStrings(ids),
+		},
 	}, f)
 	dst := make(scene.List, 0, len(ids))
 	res, err := r.find(ctx, dst, filter)
@@ -51,8 +51,8 @@ func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.Team
 }
 
 func (r *sceneRepo) FindByProject(ctx context.Context, id id.ProjectID, f []id.TeamID) (*scene.Scene, error) {
-	filter := r.teamFilterD(bson.D{
-		{Key: "project", Value: id.String()},
+	filter := r.teamFilter(bson.M{
+		"project": id.String(),
 	}, f)
 	return r.findOne(ctx, filter)
 }
@@ -88,7 +88,7 @@ func (r *sceneRepo) find(ctx context.Context, dst []*scene.Scene, filter interfa
 	return c.Rows, nil
 }
 
-func (r *sceneRepo) findOne(ctx context.Context, filter bson.D) (*scene.Scene, error) {
+func (r *sceneRepo) findOne(ctx context.Context, filter interface{}) (*scene.Scene, error) {
 	dst := make([]*scene.Scene, 0, 1)
 	c := mongodoc.SceneConsumer{
 		Rows: dst,
@@ -103,18 +103,7 @@ func filterScenes(ids []id.SceneID, rows scene.List) scene.List {
 	return rows.FilterByID(ids...)
 }
 
-func (*sceneRepo) teamFilterD(filter bson.D, teams []id.TeamID) bson.D {
-	if teams == nil {
-		return filter
-	}
-	filter = append(filter, bson.E{
-		Key:   "team",
-		Value: bson.D{{Key: "$in", Value: id.TeamIDsToStrings(teams)}},
-	})
-	return filter
-}
-
-func (*sceneRepo) teamFilterM(filter bson.M, teams []id.TeamID) bson.M {
+func (*sceneRepo) teamFilter(filter bson.M, teams []id.TeamID) bson.M {
 	if teams == nil {
 		return filter
 	}
