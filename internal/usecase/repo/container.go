@@ -3,6 +3,7 @@ package repo
 import (
 	"errors"
 
+	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/user"
 )
@@ -56,6 +57,13 @@ type TeamFilter struct {
 	Writable user.TeamIDList
 }
 
+func TeamFilterFromOperator(o *usecase.Operator) TeamFilter {
+	return TeamFilter{
+		Readable: o.AllReadableTeams(),
+		Writable: o.AllWritableTeams(),
+	}
+}
+
 func (f TeamFilter) Clone() TeamFilter {
 	return TeamFilter{
 		Readable: f.Readable.Clone(),
@@ -74,6 +82,13 @@ func (f TeamFilter) CanWrite(id user.TeamID) bool {
 type SceneFilter struct {
 	Readable scene.IDList
 	Writable scene.IDList
+}
+
+func SceneFilterFromOperator(o *usecase.Operator) SceneFilter {
+	return SceneFilter{
+		Readable: o.AllReadableScenes(),
+		Writable: o.AllWritableScenes(),
+	}
 }
 
 func (f SceneFilter) Clone() SceneFilter {

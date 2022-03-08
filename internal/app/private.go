@@ -56,6 +56,7 @@ func privateAPI(
 			return &echo.HTTPError{Code: http.StatusUnauthorized, Message: ErrOpDenied}
 		}
 		scenes := op.AllReadableScenes()
+		repos := repos.Filtered(repo.TeamFilterFromOperator(op), repo.SceneFilterFromOperator(op))
 
 		param := c.Param("param")
 		params := strings.Split(param, ".")
@@ -92,7 +93,7 @@ func privateAPI(
 				PropertyLoader: repo.PropertyLoaderFrom(repos.Property, scenes),
 			},
 			Sealer: &merging.Sealer{
-				DatasetGraphLoader: repo.DatasetGraphLoaderFrom(repos.Dataset, scenes),
+				DatasetGraphLoader: repo.DatasetGraphLoaderFrom(repos.Dataset),
 			},
 			Encoder: e,
 		}
