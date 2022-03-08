@@ -64,13 +64,12 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 			publishedIndexHTML = string(html)
 		}
 	}
-	usecases := interactor.NewContainer(cfg.Repos, cfg.Gateways, interactor.ContainerConfig{
+
+	e.Use(UsecaseMiddleware(cfg.Repos, cfg.Gateways, interactor.ContainerConfig{
 		SignupSecret:       cfg.Config.SignupSecret,
 		PublishedIndexHTML: publishedIndexHTML,
 		PublishedIndexURL:  cfg.Config.Published.IndexURL,
-	})
-
-	e.Use(UsecaseMiddleware(&usecases))
+	}))
 
 	// apis
 	api := e.Group("/api")
@@ -85,10 +84,9 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	graphqlAPI(e, privateApi, cfg)
 	privateAPI(e, privateApi, cfg.Repos)
 
-	published := e.Group("/p")
-	auth := PublishedAuthMiddleware()
-	published.GET("/:name/data.json", PublishedData(), auth)
-	published.GET("/:name/", PublishedIndex(), auth)
+	published := e.Group("/p", PublishedAuthMiddleware())
+	published.GET("/:name/data.json", PublishedData())
+	published.GET("/:name/", PublishedIndex())
 
 	serveFiles(e, cfg.Gateways.File)
 	web(e, cfg.Config.Web, cfg.Config.Auth0)
