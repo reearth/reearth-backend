@@ -32,17 +32,17 @@ func (r *assetRepo) Filtered(f repo.TeamFilter) repo.Asset {
 	}
 }
 
-func (r *assetRepo) FindByID(ctx context.Context, id id.AssetID, teams []id.TeamID) (*asset.Asset, error) {
-	filter := assetFilter(bson.M{
+func (r *assetRepo) FindByID(ctx context.Context, id id.AssetID) (*asset.Asset, error) {
+	filter := r.readFilter(bson.M{
 		"id": id.String(),
-	}, teams)
+	})
 	return r.findOne(ctx, filter)
 }
 
-func (r *assetRepo) FindByIDs(ctx context.Context, ids []id.AssetID, teams []id.TeamID) ([]*asset.Asset, error) {
-	filter := assetFilter(bson.M{
+func (r *assetRepo) FindByIDs(ctx context.Context, ids []id.AssetID) ([]*asset.Asset, error) {
+	filter := r.readFilter(bson.M{
 		"id": bson.M{"$in": id.AssetIDsToStrings(ids)},
-	}, teams)
+	})
 	dst := make([]*asset.Asset, 0, len(ids))
 	res, err := r.find(ctx, dst, filter)
 	if err != nil {
@@ -51,20 +51,28 @@ func (r *assetRepo) FindByIDs(ctx context.Context, ids []id.AssetID, teams []id.
 	return filterAssets(ids, res), nil
 }
 
+func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+	if !r.f.CanRead(id) {
+		return nil, usecase.EmptyPageInfo(), nil
+	}
+	filter := bson.D{
+		{Key: "team", Value: id.String()},
+	}
+	return r.paginate(ctx, filter, pagination)
+}
+
 func (r *assetRepo) Save(ctx context.Context, asset *asset.Asset) error {
+	if !r.f.CanWrite(asset.Team()) {
+		return repo.ErrOperationDenied
+	}
 	doc, id := mongodoc.NewAsset(asset)
 	return r.client.SaveOne(ctx, id, doc)
 }
 
 func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
-	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
-}
-
-func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
-	filter := bson.D{
-		{Key: "team", Value: id.String()},
-	}
-	return r.paginate(ctx, filter, pagination)
+	return r.client.RemoveOne(ctx, r.writeFilter(bson.M{
+		"id": id.String(),
+	}))
 }
 
 func (r *assetRepo) init() {
@@ -119,7 +127,18 @@ func filterAssets(ids []id.AssetID, rows []*asset.Asset) []*asset.Asset {
 	return res
 }
 
-func assetFilter(filter bson.M, teams []id.TeamID) bson.M {
-	filter["team"] = bson.M{"$in": id.TeamIDsToStrings(teams)}
+func (r *assetRepo) readFilter(filter bson.M) bson.M {
+	if r.f.Readable == nil {
+		return filter
+	}
+	filter["team"] = bson.M{"$in": id.TeamIDsToStrings(r.f.Readable)}
+	return filter
+}
+
+func (r *assetRepo) writeFilter(filter bson.M) bson.M {
+	if r.f.Writable == nil {
+		return filter
+	}
+	filter["team"] = bson.M{"$in": id.TeamIDsToStrings(r.f.Writable)}
 	return filter
 }
