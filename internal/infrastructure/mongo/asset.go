@@ -57,7 +57,7 @@ func (r *assetRepo) Save(ctx context.Context, asset *asset.Asset) error {
 }
 
 func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {

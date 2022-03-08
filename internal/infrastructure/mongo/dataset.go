@@ -272,14 +272,16 @@ func (r *datasetRepo) SaveAll(ctx context.Context, datasetList dataset.List) err
 }
 
 func (r *datasetRepo) Remove(ctx context.Context, id id.DatasetID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *datasetRepo) RemoveAll(ctx context.Context, ids []id.DatasetID) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	return r.client.RemoveAll(ctx, id.DatasetIDsToStrings(ids))
+	return r.client.RemoveAll(ctx, bson.M{
+		"id": bson.M{"$in": id.DatasetIDsToStrings(ids)},
+	})
 }
 
 func (r *datasetRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {

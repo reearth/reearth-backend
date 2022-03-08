@@ -141,14 +141,16 @@ func (r *tagRepo) SaveAll(ctx context.Context, tags []*tag.Tag) error {
 }
 
 func (r *tagRepo) Remove(ctx context.Context, id id.TagID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *tagRepo) RemoveAll(ctx context.Context, ids []id.TagID) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	return r.client.RemoveAll(ctx, id.TagIDsToStrings(ids))
+	return r.client.RemoveAll(ctx, bson.M{
+		"id": bson.M{"$in": id.TagIDsToStrings(ids)},
+	})
 }
 
 func (r *tagRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {

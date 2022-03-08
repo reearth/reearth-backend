@@ -97,7 +97,7 @@ func (r *projectRepo) Save(ctx context.Context, project *project.Project) error 
 }
 
 func (r *projectRepo) Remove(ctx context.Context, id id.ProjectID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *projectRepo) find(ctx context.Context, dst []*project.Project, filter bson.D) ([]*project.Project, error) {

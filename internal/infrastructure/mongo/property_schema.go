@@ -113,14 +113,16 @@ func (r *propertySchemaRepo) SaveAll(ctx context.Context, m property.SchemaList)
 }
 
 func (r *propertySchemaRepo) Remove(ctx context.Context, id id.PropertySchemaID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *propertySchemaRepo) RemoveAll(ctx context.Context, ids []id.PropertySchemaID) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	return r.client.RemoveAll(ctx, id.PropertySchemaIDsToStrings(ids))
+	return r.client.RemoveAll(ctx, bson.M{
+		"id": bson.M{"$in": id.PropertySchemaIDsToStrings(ids)},
+	})
 }
 
 func (r *propertySchemaRepo) find(ctx context.Context, dst property.SchemaList, filter bson.D) (property.SchemaList, error) {

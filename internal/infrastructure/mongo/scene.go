@@ -83,7 +83,7 @@ func (r *sceneRepo) Save(ctx context.Context, scene *scene.Scene) error {
 }
 
 func (r *sceneRepo) Remove(ctx context.Context, id id.SceneID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *sceneRepo) find(ctx context.Context, dst []*scene.Scene, filter interface{}) ([]*scene.Scene, error) {

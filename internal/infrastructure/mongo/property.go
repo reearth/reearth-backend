@@ -134,14 +134,16 @@ func (r *propertyRepo) UpdateSchemaPlugin(ctx context.Context, old, new id.Plugi
 }
 
 func (r *propertyRepo) Remove(ctx context.Context, id id.PropertyID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *propertyRepo) RemoveAll(ctx context.Context, ids []id.PropertyID) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	return r.client.RemoveAll(ctx, id.PropertyIDsToStrings(ids))
+	return r.client.RemoveAll(ctx, bson.M{
+		"id": bson.M{"$in": id.PropertyIDsToStrings(ids)},
+	})
 }
 
 func (r *propertyRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {

@@ -111,15 +111,17 @@ func (r *datasetSchemaRepo) SaveAll(ctx context.Context, datasetSchemas dataset.
 	return r.client.SaveAll(ctx, ids, docs)
 }
 
-func (r *datasetSchemaRepo) Remove(ctx context.Context, datasetSchemaID id.DatasetSchemaID) error {
-	return r.client.RemoveOne(ctx, datasetSchemaID.String())
+func (r *datasetSchemaRepo) Remove(ctx context.Context, id id.DatasetSchemaID) error {
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *datasetSchemaRepo) RemoveAll(ctx context.Context, ids []id.DatasetSchemaID) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	return r.client.RemoveAll(ctx, id.DatasetSchemaIDsToStrings(ids))
+	return r.client.RemoveAll(ctx, bson.M{
+		"id": bson.M{"$in": id.DatasetSchemaIDsToStrings(ids)},
+	})
 }
 
 func (r *datasetSchemaRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {

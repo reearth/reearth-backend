@@ -134,7 +134,7 @@ func (r *pluginRepo) Save(ctx context.Context, plugin *plugin.Plugin) error {
 }
 
 func (r *pluginRepo) Remove(ctx context.Context, id id.PluginID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *pluginRepo) find(ctx context.Context, dst []*plugin.Plugin, filter interface{}) ([]*plugin.Plugin, error) {

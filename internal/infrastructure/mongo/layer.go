@@ -204,14 +204,16 @@ func (r *layerRepo) UpdatePlugin(ctx context.Context, old, new id.PluginID, scen
 }
 
 func (r *layerRepo) Remove(ctx context.Context, id id.LayerID) error {
-	return r.client.RemoveOne(ctx, id.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
 }
 
 func (r *layerRepo) RemoveAll(ctx context.Context, ids []id.LayerID) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	return r.client.RemoveAll(ctx, id.LayerIDsToStrings(ids))
+	return r.client.RemoveAll(ctx, bson.M{
+		"id": bson.M{"$in": id.LayerIDsToStrings(ids)},
+	})
 }
 
 func (r *layerRepo) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
