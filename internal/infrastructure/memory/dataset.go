@@ -107,7 +107,7 @@ func (r *Dataset) FindGraph(ctx context.Context, i id.DatasetID, fields []id.Dat
 	result := make(dataset.List, 0, len(fields))
 	next := i
 	for _, nextField := range fields {
-		if d, _ := r.data[next]; d != nil && r.f.CanRead(d.Scene()) {
+		if d := r.data[next]; d != nil && r.f.CanRead(d.Scene()) {
 			result = append(result, d)
 			if f := d.Field(nextField); f != nil {
 				if f.Type() == dataset.ValueTypeRef {
