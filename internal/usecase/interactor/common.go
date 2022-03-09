@@ -226,7 +226,7 @@ func (d ProjectDeleter) Delete(ctx context.Context, prj *project.Project, force 
 	}
 
 	// Fetch scene
-	s, err := d.Scene.FindByProject(ctx, prj.ID(), operator.AllWritableTeams())
+	s, err := d.Scene.FindByProject(ctx, prj.ID())
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 		return err
 	}

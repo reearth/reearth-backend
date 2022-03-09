@@ -39,35 +39,18 @@ func (r *pluginRepo) Filtered(f repo.SceneFilter) repo.Plugin {
 	}
 }
 
-func (r *pluginRepo) FindByID(ctx context.Context, pid id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
+func (r *pluginRepo) FindByID(ctx context.Context, pid id.PluginID) (*plugin.Plugin, error) {
 	// TODO: separate built-in plugins to another repository
 	if p := builtin.GetPlugin(pid); p != nil {
 		return p, nil
 	}
 
-	pids := pid.String()
-	filter := bson.M{
-		"$or": []bson.M{
-			{
-				"id":    pids,
-				"scene": nil,
-			},
-			{
-				"id":    pids,
-				"scene": "",
-			},
-			{
-				"id": pids,
-				"scene": bson.M{
-					"$in": id.SceneIDsToStrings(sids),
-				},
-			},
-		},
-	}
-	return r.findOne(ctx, filter)
+	return r.findOne(ctx, bson.M{
+		"id": pid.String(),
+	})
 }
 
-func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID, sids []id.SceneID) ([]*plugin.Plugin, error) {
+func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugin.Plugin, error) {
 	// TODO: separate built-in plugins to another repository
 	// exclude built-in
 	b := map[string]*plugin.Plugin{}
@@ -84,24 +67,8 @@ func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID, sids []id
 	var err error
 
 	if len(ids2) > 0 {
-		keys := id.PluginIDsToStrings(ids2)
 		filter := bson.M{
-			"$or": []bson.M{
-				{
-					"id":    bson.M{"$in": keys},
-					"scene": nil,
-				},
-				{
-					"id":    bson.M{"$in": keys},
-					"scene": "",
-				},
-				{
-					"id": bson.M{"$in": keys},
-					"scene": bson.M{
-						"$in": id.SceneIDsToStrings(sids),
-					},
-				},
-			},
+			"id": bson.M{"$in": id.PluginIDsToStrings(ids2)},
 		}
 		dst := make([]*plugin.Plugin, 0, len(ids2))
 		res, err = r.find(ctx, dst, filter)
@@ -137,19 +104,22 @@ func (r *pluginRepo) Save(ctx context.Context, plugin *plugin.Plugin) error {
 	if plugin.ID().System() {
 		return errors.New("cannnot save system plugin")
 	}
+	if s := plugin.ID().Scene(); s != nil && !r.f.CanWrite(*s) {
+		return repo.ErrOperationDenied
+	}
 	doc, id := mongodoc.NewPlugin(plugin)
 	return r.client.SaveOne(ctx, id, doc)
 }
 
 func (r *pluginRepo) Remove(ctx context.Context, id id.PluginID) error {
-	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
+	return r.client.RemoveOne(ctx, r.writeFilter(bson.M{"id": id.String()}))
 }
 
 func (r *pluginRepo) find(ctx context.Context, dst []*plugin.Plugin, filter interface{}) ([]*plugin.Plugin, error) {
 	c := mongodoc.PluginConsumer{
 		Rows: dst,
 	}
-	if err := r.client.Find(ctx, filter, &c); err != nil {
+	if err := r.client.Find(ctx, r.readFilter(filter), &c); err != nil {
 		return nil, err
 	}
 	return c.Rows, nil
@@ -160,20 +130,11 @@ func (r *pluginRepo) findOne(ctx context.Context, filter interface{}) (*plugin.P
 	c := mongodoc.PluginConsumer{
 		Rows: dst,
 	}
-	if err := r.client.FindOne(ctx, filter, &c); err != nil {
+	if err := r.client.FindOne(ctx, r.readFilter(filter), &c); err != nil {
 		return nil, err
 	}
 	return c.Rows[0], nil
 }
-
-// func (r *pluginRepo) paginate(ctx context.Context, filter bson.D, pagination *usecase.Pagination) ([]*plugin.Plugin, *usecase.PageInfo, error) {
-// 	var c mongodoc.PluginConsumer
-// 	pageInfo, err2 := r.client.Paginate(ctx, filter, pagination, &c)
-// 	if err2 != nil {
-// 		return nil, nil, rerror.ErrInternalBy(err2)
-// 	}
-// 	return c.Rows, pageInfo, nil
-// }
 
 func filterPlugins(ids []id.PluginID, rows []*plugin.Plugin) []*plugin.Plugin {
 	res := make([]*plugin.Plugin, 0, len(ids))
@@ -188,4 +149,12 @@ func filterPlugins(ids []id.PluginID, rows []*plugin.Plugin) []*plugin.Plugin {
 		res = append(res, r2)
 	}
 	return res
+}
+
+func (r *pluginRepo) readFilter(filter interface{}) interface{} {
+	return applyOptionalSceneFilter(filter, r.f.Readable)
+}
+
+func (r *pluginRepo) writeFilter(filter interface{}) interface{} {
+	return applyOptionalSceneFilter(filter, r.f.Writable)
 }

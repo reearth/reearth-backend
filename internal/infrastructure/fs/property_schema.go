@@ -44,7 +44,9 @@ func (r *propertySchema) FindByID(ctx context.Context, i id.PropertySchemaID) (*
 			continue
 		}
 		if ps.ID().Equal(i) {
-			return ps, nil
+			if s := ps.Scene(); s == nil || r.f.CanRead(*s) {
+				return ps, nil
+			}
 		}
 	}
 

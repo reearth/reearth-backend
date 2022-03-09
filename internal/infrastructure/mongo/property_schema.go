@@ -100,56 +100,69 @@ func (r *propertySchemaRepo) Save(ctx context.Context, m *property.Schema) error
 	if m.ID().Plugin().System() {
 		return errors.New("cannnot save system property schema")
 	}
+	if s := m.Scene(); s != nil && !r.f.CanWrite(*s) {
+		return repo.ErrOperationDenied
+	}
 
 	doc, id := mongodoc.NewPropertySchema(m)
 	return r.client.SaveOne(ctx, id, doc)
 }
 
 func (r *propertySchemaRepo) SaveAll(ctx context.Context, m property.SchemaList) error {
+	savable := make(property.SchemaList, 0, len(m))
 	for _, ps := range m {
 		if ps.ID().Plugin().System() {
-			return errors.New("cannnot save system property schema")
+			continue
 		}
+		savable = append(savable, ps)
 	}
 
 	if len(m) == 0 {
 		return nil
 	}
 
-	docs, ids := mongodoc.NewPropertySchemas(m)
+	docs, ids := mongodoc.NewPropertySchemas(savable, r.f.Writable)
 	return r.client.SaveAll(ctx, ids, docs)
 }
 
 func (r *propertySchemaRepo) Remove(ctx context.Context, id id.PropertySchemaID) error {
-	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
+	return r.client.RemoveOne(ctx, r.writeFilter(bson.M{"id": id.String()}))
 }
 
 func (r *propertySchemaRepo) RemoveAll(ctx context.Context, ids []id.PropertySchemaID) error {
 	if len(ids) == 0 {
 		return nil
 	}
-	return r.client.RemoveAll(ctx, bson.M{
+	return r.client.RemoveAll(ctx, r.writeFilter(bson.M{
 		"id": bson.M{"$in": id.PropertySchemaIDsToStrings(ids)},
-	})
+	}))
 }
 
-func (r *propertySchemaRepo) find(ctx context.Context, dst property.SchemaList, filter bson.D) (property.SchemaList, error) {
+func (r *propertySchemaRepo) find(ctx context.Context, dst property.SchemaList, filter interface{}) (property.SchemaList, error) {
 	c := mongodoc.PropertySchemaConsumer{
 		Rows: dst,
 	}
-	if err := r.client.Find(ctx, filter, &c); err != nil {
+	if err := r.client.Find(ctx, r.readFilter(filter), &c); err != nil {
 		return nil, err
 	}
 	return c.Rows, nil
 }
 
-func (r *propertySchemaRepo) findOne(ctx context.Context, filter bson.D) (*property.Schema, error) {
+func (r *propertySchemaRepo) findOne(ctx context.Context, filter interface{}) (*property.Schema, error) {
 	dst := make(property.SchemaList, 0, 1)
 	c := mongodoc.PropertySchemaConsumer{
 		Rows: dst,
 	}
-	if err := r.client.FindOne(ctx, filter, &c); err != nil {
+	if err := r.client.FindOne(ctx, r.readFilter(filter), &c); err != nil {
 		return nil, err
 	}
 	return c.Rows[0], nil
+}
+
+func (r *propertySchemaRepo) readFilter(filter interface{}) interface{} {
+	return applyOptionalSceneFilter(filter, r.f.Readable)
+}
+
+func (r *propertySchemaRepo) writeFilter(filter interface{}) interface{} {
+	return applyOptionalSceneFilter(filter, r.f.Writable)
 }

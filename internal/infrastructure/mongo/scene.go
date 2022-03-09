@@ -37,19 +37,18 @@ func (r *sceneRepo) Filtered(f repo.TeamFilter) repo.Scene {
 	}
 }
 
-func (r *sceneRepo) FindByID(ctx context.Context, id id.SceneID, f []id.TeamID) (*scene.Scene, error) {
-	filter := r.teamFilter(bson.M{
+func (r *sceneRepo) FindByID(ctx context.Context, id id.SceneID) (*scene.Scene, error) {
+	return r.findOne(ctx, bson.M{
 		"id": id.String(),
-	}, f)
-	return r.findOne(ctx, filter)
+	})
 }
 
-func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.TeamID) (scene.List, error) {
-	filter := r.teamFilter(bson.M{
+func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID) (scene.List, error) {
+	filter := bson.M{
 		"id": bson.M{
 			"$in": id.SceneIDsToStrings(ids),
 		},
-	}, f)
+	}
 	dst := make(scene.List, 0, len(ids))
 	res, err := r.find(ctx, dst, filter)
 	if err != nil {
@@ -58,10 +57,10 @@ func (r *sceneRepo) FindByIDs(ctx context.Context, ids []id.SceneID, f []id.Team
 	return filterScenes(ids, res), nil
 }
 
-func (r *sceneRepo) FindByProject(ctx context.Context, id id.ProjectID, f []id.TeamID) (*scene.Scene, error) {
-	filter := r.teamFilter(bson.M{
+func (r *sceneRepo) FindByProject(ctx context.Context, id id.ProjectID) (*scene.Scene, error) {
+	filter := bson.M{
 		"project": id.String(),
-	}, f)
+	}
 	return r.findOne(ctx, filter)
 }
 
@@ -78,19 +77,22 @@ func (r *sceneRepo) FindByTeam(ctx context.Context, teams ...id.TeamID) (scene.L
 }
 
 func (r *sceneRepo) Save(ctx context.Context, scene *scene.Scene) error {
+	if !r.f.CanWrite(scene.Team()) {
+		return repo.ErrOperationDenied
+	}
 	doc, id := mongodoc.NewScene(scene)
 	return r.client.SaveOne(ctx, id, doc)
 }
 
 func (r *sceneRepo) Remove(ctx context.Context, id id.SceneID) error {
-	return r.client.RemoveOne(ctx, bson.M{"id": id.String()})
+	return r.client.RemoveOne(ctx, r.writeFilter(bson.M{"id": id.String()}))
 }
 
 func (r *sceneRepo) find(ctx context.Context, dst []*scene.Scene, filter interface{}) ([]*scene.Scene, error) {
 	c := mongodoc.SceneConsumer{
 		Rows: dst,
 	}
-	if err := r.client.Find(ctx, filter, &c); err != nil {
+	if err := r.client.Find(ctx, r.readFilter(filter), &c); err != nil {
 		return nil, err
 	}
 	return c.Rows, nil
@@ -101,7 +103,7 @@ func (r *sceneRepo) findOne(ctx context.Context, filter interface{}) (*scene.Sce
 	c := mongodoc.SceneConsumer{
 		Rows: dst,
 	}
-	if err := r.client.FindOne(ctx, filter, &c); err != nil {
+	if err := r.client.FindOne(ctx, r.readFilter(filter), &c); err != nil {
 		return nil, err
 	}
 	return c.Rows[0], nil
@@ -111,10 +113,10 @@ func filterScenes(ids []id.SceneID, rows scene.List) scene.List {
 	return rows.FilterByID(ids...)
 }
 
-func (*sceneRepo) teamFilter(filter bson.M, teams []id.TeamID) bson.M {
-	if teams == nil {
-		return filter
-	}
-	filter["team"] = bson.D{{Key: "$in", Value: id.TeamIDsToStrings(teams)}}
-	return filter
+func (r *sceneRepo) readFilter(filter interface{}) interface{} {
+	return applyTeamFilter(filter, r.f.Readable)
+}
+
+func (r *sceneRepo) writeFilter(filter interface{}) interface{} {
+	return applyTeamFilter(filter, r.f.Writable)
 }

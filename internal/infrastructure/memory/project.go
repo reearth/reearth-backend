@@ -60,29 +60,26 @@ func (r *Project) FindByTeam(ctx context.Context, id id.TeamID, p *usecase.Pagin
 	), nil
 }
 
-func (r *Project) FindByIDs(ctx context.Context, ids []id.ProjectID, filter []id.TeamID) ([]*project.Project, error) {
+func (r *Project) FindByIDs(ctx context.Context, ids []id.ProjectID) ([]*project.Project, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	result := []*project.Project{}
 	for _, id := range ids {
-		if d, ok := r.data[id]; ok {
-			if isTeamIncludes(d.Team(), filter) {
-				result = append(result, d)
-				continue
-			}
+		if d, ok := r.data[id]; ok && r.f.CanRead(d.Team()) {
+			result = append(result, d)
+			continue
 		}
 		result = append(result, nil)
 	}
 	return result, nil
 }
 
-func (r *Project) FindByID(ctx context.Context, id id.ProjectID, filter []id.TeamID) (*project.Project, error) {
+func (r *Project) FindByID(ctx context.Context, id id.ProjectID) (*project.Project, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	p, ok := r.data[id]
-	if ok && isTeamIncludes(p.Team(), filter) {
+	if p, ok := r.data[id]; ok && r.f.CanRead(p.Team()) {
 		return p, nil
 	}
 	return nil, rerror.ErrNotFound
@@ -96,7 +93,7 @@ func (r *Project) FindByPublicName(ctx context.Context, name string) (*project.P
 		return nil, nil
 	}
 	for _, p := range r.data {
-		if p.MatchWithPublicName(name) {
+		if p.MatchWithPublicName(name) && r.f.CanRead(p.Team()) {
 			return p, nil
 		}
 	}
@@ -108,7 +105,7 @@ func (r *Project) CountByTeam(ctx context.Context, team id.TeamID) (c int, err e
 	defer r.lock.Unlock()
 
 	for _, p := range r.data {
-		if p.Team() == team {
+		if p.Team() == team && r.f.CanRead(p.Team()) {
 			c++
 		}
 	}
@@ -116,6 +113,10 @@ func (r *Project) CountByTeam(ctx context.Context, team id.TeamID) (c int, err e
 }
 
 func (r *Project) Save(ctx context.Context, p *project.Project) error {
+	if !r.f.CanWrite(p.Team()) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -124,14 +125,12 @@ func (r *Project) Save(ctx context.Context, p *project.Project) error {
 	return nil
 }
 
-func (r *Project) Remove(ctx context.Context, projectID id.ProjectID) error {
+func (r *Project) Remove(ctx context.Context, id id.ProjectID) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	for sid := range r.data {
-		if sid == projectID {
-			delete(r.data, sid)
-		}
+	if p, ok := r.data[id]; ok && r.f.CanRead(p.Team()) {
+		delete(r.data, id)
 	}
 	return nil
 }

@@ -32,29 +32,25 @@ func (r *Property) Filtered(f repo.SceneFilter) repo.Property {
 	}
 }
 
-func (r *Property) FindByID(ctx context.Context, id id.PropertyID, f []id.SceneID) (*property.Property, error) {
+func (r *Property) FindByID(ctx context.Context, id id.PropertyID) (*property.Property, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	p, ok := r.data[id]
-	if ok && isSceneIncludes(p.Scene(), f) {
+	if p, ok := r.data[id]; ok && r.f.CanRead(p.Scene()) {
 		return p, nil
 	}
 	return nil, rerror.ErrNotFound
 }
 
-func (r *Property) FindByIDs(ctx context.Context, ids []id.PropertyID, f []id.SceneID) (property.List, error) {
+func (r *Property) FindByIDs(ctx context.Context, ids []id.PropertyID) (property.List, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	result := property.List{}
 	for _, id := range ids {
-		if d, ok := r.data[id]; ok {
-			d := d
-			if isSceneIncludes(d.Scene(), f) {
-				result = append(result, d)
-				continue
-			}
+		if d, ok := r.data[id]; ok && r.f.CanRead(d.Scene()) {
+			result = append(result, d)
+			continue
 		}
 		result = append(result, nil)
 	}
@@ -67,8 +63,7 @@ func (r *Property) FindByDataset(ctx context.Context, sid id.DatasetSchemaID, di
 
 	result := property.List{}
 	for _, p := range r.data {
-		p := p
-		if p.IsDatasetLinked(sid, did) {
+		if p.IsDatasetLinked(sid, did) && r.f.CanRead(p.Scene()) {
 			result = append(result, p)
 		}
 	}
@@ -76,30 +71,33 @@ func (r *Property) FindByDataset(ctx context.Context, sid id.DatasetSchemaID, di
 }
 
 func (r *Property) FindLinkedAll(ctx context.Context, s id.SceneID) (property.List, error) {
+	if !r.f.CanRead(s) {
+		return nil, nil
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	result := property.List{}
 	for _, p := range r.data {
-		p := p
-		if p.Scene() != s {
-			continue
-		}
-		if p.HasLinkedField() {
+		if p.Scene() == s && p.HasLinkedField() {
 			result = append(result, p)
 		}
 	}
 	return result, nil
 }
 
-func (r *Property) FindBySchema(_ context.Context, schemas []id.PropertySchemaID, s id.SceneID) (property.List, error) {
+func (r *Property) FindBySchema(_ context.Context, schemas []id.PropertySchemaID, scene id.SceneID) (property.List, error) {
+	if !r.f.CanRead(scene) {
+		return nil, nil
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	result := property.List{}
 	for _, p := range r.data {
-		p := p
-		if p.Scene() != s {
+		if p.Scene() != scene {
 			continue
 		}
 		for _, s := range schemas {
@@ -115,17 +113,17 @@ func (r *Property) FindBySchema(_ context.Context, schemas []id.PropertySchemaID
 	return result, nil
 }
 
-func (r *Property) FindByPlugin(_ context.Context, plugin id.PluginID, s id.SceneID) (property.List, error) {
+func (r *Property) FindByPlugin(_ context.Context, plugin id.PluginID, scene id.SceneID) (property.List, error) {
+	if !r.f.CanRead(scene) {
+		return nil, nil
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	result := property.List{}
 	for _, p := range r.data {
-		p := p
-		if p.Scene() != s {
-			continue
-		}
-		if p.Schema().Plugin().Equal(plugin) {
+		if p.Scene() == scene && p.Schema().Plugin().Equal(plugin) {
 			result = append(result, p)
 			break
 		}
@@ -137,6 +135,10 @@ func (r *Property) FindByPlugin(_ context.Context, plugin id.PluginID, s id.Scen
 }
 
 func (r *Property) Save(ctx context.Context, p *property.Property) error {
+	if !r.f.CanWrite(p.Scene()) {
+		return repo.ErrOperationDenied
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
@@ -149,17 +151,23 @@ func (r *Property) SaveAll(ctx context.Context, pl property.List) error {
 	defer r.lock.Unlock()
 
 	for _, p := range pl {
-		r.data[p.ID()] = p
+		if r.f.CanWrite(p.Scene()) {
+			r.data[p.ID()] = p
+		}
 	}
 	return nil
 }
 
-func (r *Property) UpdateSchemaPlugin(ctx context.Context, old id.PluginID, new id.PluginID, s id.SceneID) error {
+func (r *Property) UpdateSchemaPlugin(ctx context.Context, old id.PluginID, new id.PluginID, scene id.SceneID) error {
+	if !r.f.CanWrite(scene) {
+		return nil
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
 	for _, p := range r.data {
-		if s := p.Schema(); s.Plugin().Equal(old) {
+		if s := p.Schema(); s.Plugin().Equal(old) && p.Scene() == scene {
 			p.SetSchema(id.NewPropertySchemaID(new, s.ID()))
 		}
 	}
@@ -170,7 +178,9 @@ func (r *Property) Remove(ctx context.Context, id id.PropertyID) error {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
-	delete(r.data, id)
+	if p, ok := r.data[id]; ok && r.f.CanWrite(p.Scene()) {
+		delete(r.data, id)
+	}
 	return nil
 }
 
@@ -179,12 +189,18 @@ func (r *Property) RemoveAll(ctx context.Context, ids []id.PropertyID) error {
 	defer r.lock.Unlock()
 
 	for _, id := range ids {
-		delete(r.data, id)
+		if p, ok := r.data[id]; ok && r.f.CanWrite(p.Scene()) {
+			delete(r.data, id)
+		}
 	}
 	return nil
 }
 
 func (r *Property) RemoveByScene(ctx context.Context, sceneID id.SceneID) error {
+	if !r.f.CanWrite(sceneID) {
+		return nil
+	}
+
 	r.lock.Lock()
 	defer r.lock.Unlock()
 
