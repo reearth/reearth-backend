@@ -16,11 +16,19 @@ import (
 
 type pluginRepo struct {
 	fs afero.Fs
+	f  repo.SceneFilter
 }
 
 func NewPlugin(fs afero.Fs) repo.Plugin {
 	return &pluginRepo{
 		fs: fs,
+	}
+}
+
+func (r *pluginRepo) Filtered(f repo.SceneFilter) repo.Plugin {
+	return &pluginRepo{
+		fs: r.fs,
+		f:  f.Clone(),
 	}
 }
 

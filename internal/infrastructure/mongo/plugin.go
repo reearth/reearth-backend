@@ -16,6 +16,7 @@ import (
 
 type pluginRepo struct {
 	client *mongodoc.ClientCollection
+	f      repo.SceneFilter
 }
 
 func NewPlugin(client *mongodoc.Client) repo.Plugin {
@@ -28,6 +29,13 @@ func (r *pluginRepo) init() {
 	i := r.client.CreateIndex(context.Background(), []string{"scene"})
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "plugin", i)
+	}
+}
+
+func (r *pluginRepo) Filtered(f repo.SceneFilter) repo.Plugin {
+	return &pluginRepo{
+		client: r.client,
+		f:      f.Clone(),
 	}
 }
 

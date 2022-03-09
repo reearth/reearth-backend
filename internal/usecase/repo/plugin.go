@@ -8,6 +8,7 @@ import (
 )
 
 type Plugin interface {
+	Filtered(SceneFilter) Plugin
 	FindByID(context.Context, id.PluginID, []id.SceneID) (*plugin.Plugin, error)
 	FindByIDs(context.Context, []id.PluginID, []id.SceneID) ([]*plugin.Plugin, error)
 	Save(context.Context, *plugin.Plugin) error

@@ -13,11 +13,19 @@ import (
 
 type propertySchema struct {
 	fs afero.Fs
+	f  repo.SceneFilter
 }
 
 func NewPropertySchema(fs afero.Fs) repo.PropertySchema {
 	return &propertySchema{
 		fs: fs,
+	}
+}
+
+func (r *propertySchema) Filtered(f repo.SceneFilter) repo.PropertySchema {
+	return &propertySchema{
+		fs: r.fs,
+		f:  f.Clone(),
 	}
 }
 

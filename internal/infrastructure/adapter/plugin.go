@@ -24,6 +24,17 @@ func NewPlugin(readers []repo.Plugin, writer repo.Plugin) repo.Plugin {
 	}
 }
 
+func (r *pluginRepo) Filtered(f repo.SceneFilter) repo.Plugin {
+	readers := make([]repo.Plugin, 0, len(r.readers))
+	for _, r := range r.readers {
+		readers = append(readers, r.Filtered(f))
+	}
+	return &pluginRepo{
+		readers: readers,
+		writer:  r.writer.Filtered(f),
+	}
+}
+
 func (r *pluginRepo) FindByID(ctx context.Context, id id.PluginID, sids []id.SceneID) (*plugin.Plugin, error) {
 	for _, re := range r.readers {
 		if res, err := re.FindByID(ctx, id, sids); err != nil {

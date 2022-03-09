@@ -15,6 +15,7 @@ import (
 
 type propertySchemaRepo struct {
 	client *mongodoc.ClientCollection
+	f      repo.SceneFilter
 }
 
 func NewPropertySchema(client *mongodoc.Client) repo.PropertySchema {
@@ -27,6 +28,13 @@ func (r *propertySchemaRepo) init() {
 	i := r.client.CreateIndex(context.Background(), nil)
 	if len(i) > 0 {
 		log.Infof("mongo: %s: index created: %s", "propertySchema", i)
+	}
+}
+
+func (r *propertySchemaRepo) Filtered(f repo.SceneFilter) repo.PropertySchema {
+	return &propertySchemaRepo{
+		client: r.client,
+		f:      f.Clone(),
 	}
 }
 
