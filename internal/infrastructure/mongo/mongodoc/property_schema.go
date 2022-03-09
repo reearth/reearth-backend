@@ -9,6 +9,7 @@ import (
 
 type PropertySchemaDocument struct {
 	ID             string
+	Scene          *string `bson:",omitempty"`
 	Version        int
 	Groups         []*PropertySchemaGroupDocument
 	LinkableFields *PropertyLinkableFieldsDocument
@@ -121,6 +122,7 @@ func NewPropertySchema(m *property.Schema) (*PropertySchemaDocument, string) {
 	id := m.ID().String()
 	return &PropertySchemaDocument{
 		ID:             id,
+		Scene:          m.Scene().StringRef(),
 		Version:        m.Version(),
 		Groups:         groups,
 		LinkableFields: ToDocPropertyLinkableFields(m.LinkableFields()),
