@@ -105,17 +105,28 @@ func And(filter interface{}, key string, f interface{}) interface{} {
 	if f == nil {
 		return filter
 	}
-	if getE(filter, key) != nil {
+	if key != "" && getE(filter, key) != nil {
 		return filter
+	}
+	var g interface{}
+	if key == "" {
+		g = f
+	} else {
+		g = bson.M{key: f}
 	}
 	if getE(filter, "$or") != nil {
 		return bson.M{
-			"$and": []interface{}{filter, bson.M{key: f}},
+			"$and": []interface{}{filter, g},
 		}
 	}
 	if and := getE(filter, "$and"); and != nil {
 		return bson.M{
-			"$and": appendI(and, bson.M{key: f}),
+			"$and": appendI(and, g),
+		}
+	}
+	if key == "" {
+		return bson.M{
+			"$and": []interface{}{filter, g},
 		}
 	}
 	return appendE(filter, bson.E{Key: key, Value: f})

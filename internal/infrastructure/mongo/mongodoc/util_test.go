@@ -73,4 +73,19 @@ func TestAnd(t *testing.T) {
 			bson.M{"x": "y"},
 		},
 	}, And(bson.D{{Key: "$and", Value: []bson.M{{"a": "b"}}}}, "x", "y"))
+
+	assert.Equal(t, bson.M{"$and": []interface{}{bson.M{}, "y"}}, And(bson.M{}, "", "y"))
+	assert.Equal(t, bson.M{"$and": []interface{}{bson.D{}, "y"}}, And(bson.D{}, "", "y"))
+	assert.Equal(t, bson.M{
+		"$and": []interface{}{
+			bson.D{{Key: "$or", Value: []bson.M{{"a": "b"}}}},
+			"y",
+		},
+	}, And(bson.D{{Key: "$or", Value: []bson.M{{"a": "b"}}}}, "", "y"))
+	assert.Equal(t, bson.M{
+		"$and": []interface{}{
+			bson.M{"a": "b"},
+			"y",
+		},
+	}, And(bson.D{{Key: "$and", Value: []bson.M{{"a": "b"}}}}, "", "y"))
 }
