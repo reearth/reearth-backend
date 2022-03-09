@@ -53,12 +53,12 @@ func (r *assetRepo) Remove(ctx context.Context, id id.AssetID) error {
 	return r.client.RemoveOne(ctx, id.String())
 }
 
-func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, keyword *string, sort *string, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, uFilter repo.AssetFilter) ([]*asset.Asset, *usecase.PageInfo, error) {
 	filter := bson.M{"team": id.String()}
 
-	if keyword != nil {
+	if uFilter.Keyword != nil {
 		keywordFilter := bson.M{"name": bson.M{
-			"$regex": primitive.Regex{Pattern: fmt.Sprintf(".*%s.*", *keyword), Options: "i"}},
+			"$regex": primitive.Regex{Pattern: fmt.Sprintf(".*%s.*", *uFilter.Keyword), Options: "i"}},
 		}
 		filter = bson.M{"$and": []bson.M{
 			filter,
@@ -66,7 +66,7 @@ func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, keyword *strin
 		}}
 	}
 
-	return r.paginate(ctx, filter, sort, pagination)
+	return r.paginate(ctx, filter, uFilter.Sort, uFilter.Pagination)
 }
 
 func (r *assetRepo) init() {
@@ -76,9 +76,9 @@ func (r *assetRepo) init() {
 	}
 }
 
-func (r *assetRepo) paginate(ctx context.Context, filter bson.M, sort *string, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (r *assetRepo) paginate(ctx context.Context, filter bson.M, sort *asset.SortType, pagination *usecase.Pagination) ([]*asset.Asset, *usecase.PageInfo, error) {
 	var c mongodoc.AssetConsumer
-	pageInfo, err2 := r.client.Paginate(ctx, filter, sort, pagination, &c)
+	pageInfo, err2 := r.client.Paginate(ctx, filter, (*string)(sort), pagination, &c)
 	if err2 != nil {
 		return nil, nil, rerror.ErrInternalBy(err2)
 	}

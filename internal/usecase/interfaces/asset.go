@@ -29,7 +29,7 @@ var (
 
 type Asset interface {
 	Fetch(context.Context, []id.AssetID, *usecase.Operator) ([]*asset.Asset, error)
-	FindByTeam(context.Context, id.TeamID, *string, *string, *usecase.Pagination, *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error)
+	FindByTeam(context.Context, id.TeamID, *string, *asset.SortType, *usecase.Pagination, *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error)
 	Create(context.Context, CreateAssetParam, *usecase.Operator) (*asset.Asset, error)
 	Remove(context.Context, id.AssetID, *usecase.Operator) (id.AssetID, error)
 }

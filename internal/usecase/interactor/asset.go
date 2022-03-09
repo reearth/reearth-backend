@@ -34,12 +34,16 @@ func (i *Asset) Fetch(ctx context.Context, assets []id.AssetID, operator *usecas
 	return i.assetRepo.FindByIDs(ctx, assets, operator.ReadableTeams)
 }
 
-func (i *Asset) FindByTeam(ctx context.Context, tid id.TeamID, keyword *string, sort *string, p *usecase.Pagination, operator *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error) {
+func (i *Asset) FindByTeam(ctx context.Context, tid id.TeamID, keyword *string, sort *asset.SortType, p *usecase.Pagination, operator *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error) {
 	if err := i.CanReadTeam(tid, operator); err != nil {
 		return nil, nil, err
 	}
 
-	return i.assetRepo.FindByTeam(ctx, tid, keyword, sort, p)
+	return i.assetRepo.FindByTeam(ctx, tid, repo.AssetFilter{
+		Sort:       sort,
+		Keyword:    keyword,
+		Pagination: p,
+	})
 }
 
 func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, operator *usecase.Operator) (result *asset.Asset, err error) {

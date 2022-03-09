@@ -36,7 +36,7 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *string, sort *asset.SortType, pagination *gqlmodel.Pagination) (*gqlmodel.AssetConnection, error) {
 	p := gqlmodel.ToPagination(pagination)
 
-	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, (*string)(sort), p, getOperator(ctx))
+	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), keyword, sort, p, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}

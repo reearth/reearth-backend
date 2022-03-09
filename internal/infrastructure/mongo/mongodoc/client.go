@@ -209,16 +209,9 @@ func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *
 	coll := c.Collection(col)
 	const key = "id"
 
-	findOptions := options.Find()
-	findOptions.SetCollation(&options.Collation{Strength: 1, Locale: "en"})
+	findOptions := options.Find().SetCollation(&options.Collation{Strength: 1, Locale: "en"})
 
-	var sortOptions bson.D
-	var sortKey = ""
-	if sort != nil && len(*sort) > 0 && *sort != "id" {
-		sortKey = *sort
-		sortOptions = append(sortOptions, bson.E{Key: sortKey, Value: p.SortDirection()})
-	}
-	sortOptions = append(sortOptions, bson.E{Key: key, Value: p.SortDirection()})
+	sortOptions, sortKey := sortOptionsFrom(sort, p, key)
 
 	findOptions.Sort = sortOptions
 
@@ -227,48 +220,15 @@ func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *
 		return nil, fmt.Errorf("failed to count documents: %v", err.Error())
 	}
 
-	limit, op, cur, err := p.Parameters()
+	filter, limit, err := paginationFilter(ctx, coll, p, sortKey, key, filter)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse pagination parameters: %w", err)
-	}
-
-	if cur != nil {
-
-		var paginationFilter bson.M
-
-		if sortKey == "" {
-			paginationFilter = bson.M{key: bson.M{op: *cur}}
-		} else {
-			var curObj bson.M
-			if err := coll.FindOne(ctx, bson.M{key: *cur}).Decode(&curObj); err != nil {
-				return nil, fmt.Errorf("failed to find cursor")
-			}
-			if curObj[sortKey] == nil {
-				return nil, fmt.Errorf("invalied sort key")
-			}
-			paginationFilter = bson.M{
-				"$or": []bson.M{
-					{sortKey: bson.M{"$gt": curObj[sortKey]}},
-					{
-						sortKey: curObj[sortKey],
-						key:     bson.M{"$gt": *cur},
-					},
-				},
-			}
-		}
-
-		filter = bson.M{
-			"$and": []bson.M{
-				filter,
-				paginationFilter,
-			},
-		}
+		return nil, err
 	}
 
 	// 更に読める要素があるのか確かめるために一つ多めに読み出す
 	// Read one more element so that we can see whether there's a further one
-	limit++
-	findOptions.Limit = &limit
+	*limit++
+	findOptions.Limit = limit
 
 	cursor, err := coll.Find(ctx, filter, findOptions)
 	if err != nil {
@@ -278,7 +238,7 @@ func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *
 		_ = cursor.Close(ctx)
 	}()
 
-	results := make([]bson.Raw, 0, limit)
+	results := make([]bson.Raw, 0, *limit)
 	for cursor.Next(ctx) {
 		raw := make(bson.Raw, len(cursor.Current))
 		copy(raw, cursor.Current)
@@ -289,7 +249,7 @@ func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *
 	}
 
 	hasMore := false
-	if len(results) == int(limit) {
+	if len(results) == int(*limit) {
 		hasMore = true
 		// Remove the extra one reading.
 		results = results[:len(results)-1]
@@ -328,6 +288,57 @@ func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *
 	}
 
 	return usecase.NewPageInfo(int(count), startCursor, endCursor, hasNextPage, hasPreviousPage), nil
+}
+
+func sortOptionsFrom(sort *string, p *Pagination, key string) (bson.D, string) {
+	var sortOptions bson.D
+	var sortKey = ""
+	if sort != nil && len(*sort) > 0 && *sort != "id" {
+		sortKey = *sort
+		sortOptions = append(sortOptions, bson.E{Key: sortKey, Value: p.SortDirection()})
+	}
+	sortOptions = append(sortOptions, bson.E{Key: key, Value: p.SortDirection()})
+	return sortOptions, sortKey
+}
+
+func paginationFilter(ctx context.Context, coll *mongo.Collection, p *Pagination, sortKey, key string, filter bson.M) (bson.M, *int64, error) {
+	limit, op, cur, err := p.Parameters()
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to parse pagination parameters: %w", err)
+	}
+
+	if cur != nil {
+		var paginationFilter bson.M
+
+		if sortKey == "" {
+			paginationFilter = bson.M{key: bson.M{op: *cur}}
+		} else {
+			var curObj bson.M
+			if err := coll.FindOne(ctx, bson.M{key: *cur}).Decode(&curObj); err != nil {
+				return nil, nil, fmt.Errorf("failed to find cursor element")
+			}
+			if curObj[sortKey] == nil {
+				return nil, nil, fmt.Errorf("invalied sort key")
+			}
+			paginationFilter = bson.M{
+				"$or": []bson.M{
+					{sortKey: bson.M{"$gt": curObj[sortKey]}},
+					{
+						sortKey: curObj[sortKey],
+						key:     bson.M{"$gt": *cur},
+					},
+				},
+			}
+		}
+
+		filter = bson.M{
+			"$and": []bson.M{
+				filter,
+				paginationFilter,
+			},
+		}
+	}
+	return filter, &limit, nil
 }
 
 func (c *Client) CreateIndex(ctx context.Context, col string, keys []string) []string {
