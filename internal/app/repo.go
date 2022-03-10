@@ -40,6 +40,9 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 		log.Fatalf("Failed to init mongo: %+v\n", err)
 	}
 
+	// Github
+	repos.PluginRegistry = github.NewPluginRegistry()
+
 	// File
 	datafs := afero.NewBasePathFs(afero.NewOsFs(), "data")
 	var fileRepo gateway.File
@@ -63,9 +66,6 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 
 	// Auth0
 	gateways.Authenticator = auth0.New(conf.Auth0.Domain, conf.Auth0.ClientID, conf.Auth0.ClientSecret)
-
-	// github
-	gateways.PluginRegistry = github.NewPluginRegistry()
 
 	// google
 	gateways.Google = google.NewGoogle()

@@ -1,4 +1,4 @@
-package gateway
+package repo
 
 import (
 	"context"
@@ -10,5 +10,5 @@ import (
 var ErrFailedToFetchDataFromPluginRegistry = errors.New("failed to fetch data from the plugin registry")
 
 type PluginRegistry interface {
-	FetchMetadata(ctx context.Context) ([]*plugin.Metadata, error)
+	Fetch(ctx context.Context) ([]*plugin.Metadata, error)
 }

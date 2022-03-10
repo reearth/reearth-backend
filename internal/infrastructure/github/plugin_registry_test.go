@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/jarcoal/httpmock"
-	"github.com/reearth/reearth-backend/internal/usecase/gateway"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/stretchr/testify/assert"
 )
@@ -30,7 +30,7 @@ func TestPluginRegistry_FetchMetadata(t *testing.T) {
 	)
 
 	d := NewPluginRegistry()
-	res, err := d.FetchMetadata(context.Background())
+	res, err := d.Fetch(context.Background())
 	tm, _ := time.Parse(time.RFC3339, "2021-03-16T04:19:57.592Z")
 
 	assert.Equal(t, res, []*plugin.Metadata{
@@ -47,14 +47,14 @@ func TestPluginRegistry_FetchMetadata(t *testing.T) {
 	// fail: bad request
 	httpmock.RegisterResponder("GET", "https://raw.githubusercontent.com/reearth/plugins/main/plugins.json",
 		httpmock.NewStringResponder(400, `mock bad request`))
-	_, err = d.FetchMetadata(context.Background())
+	_, err = d.Fetch(context.Background())
 
 	assert.EqualError(t, err, "StatusCode=400")
 
 	// fail: unable to marshal
 	httpmock.RegisterResponder("GET", "https://raw.githubusercontent.com/reearth/plugins/main/plugins.json",
 		httpmock.NewStringResponder(200, `{"hoge": "test"}`))
-	_, err = d.FetchMetadata(context.Background())
+	_, err = d.Fetch(context.Background())
 
-	assert.Equal(t, gateway.ErrFailedToFetchDataFromPluginRegistry, err)
+	assert.Equal(t, repo.ErrFailedToFetchDataFromPluginRegistry, err)
 }

@@ -20,6 +20,7 @@ type Container struct {
 	Layer          Layer
 	Lock           Lock
 	Plugin         Plugin
+	PluginRegistry PluginRegistry
 	Project        Project
 	PropertySchema PropertySchema
 	Property       Property
@@ -40,6 +41,7 @@ func (c Container) Filtered(team TeamFilter, scene SceneFilter) Container {
 		Layer:          c.Layer.Filtered(scene),
 		Lock:           c.Lock,
 		Plugin:         c.Plugin.Filtered(scene),
+		PluginRegistry: c.PluginRegistry,
 		Project:        c.Project.Filtered(team),
 		PropertySchema: c.PropertySchema.Filtered(scene),
 		Property:       c.Property.Filtered(scene),
