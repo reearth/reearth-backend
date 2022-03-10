@@ -106,3 +106,7 @@ func (l IDList) Includes(ids ...ID) bool {
 func (l IDList) Len() int {
 	return len(l)
 }
+
+func (k IDList) Strings() []string {
+	return id.SceneIDsToStrings(k)
+}

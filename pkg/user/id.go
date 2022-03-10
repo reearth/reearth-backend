@@ -61,3 +61,7 @@ func (l TeamIDList) Includes(ids ...TeamID) bool {
 func (k TeamIDList) Len() int {
 	return len(k)
 }
+
+func (k TeamIDList) Strings() []string {
+	return id.TeamIDsToStrings(k)
+}
