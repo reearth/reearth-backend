@@ -81,6 +81,9 @@ func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 	api := e.Group("/api")
 	api.GET("/ping", Ping())
 	api.POST("/signup", Signup())
+	api.POST("/signup/verify", StartSignupVerify())
+	api.POST("/signup/verify/:code", SignupVerify())
+	api.POST("/password-reset", PasswordReset())
 	api.GET("/published/:name", PublishedMetadata())
 	api.GET("/published_data/:name", PublishedData())
 
@@ -90,9 +93,9 @@ func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 	privateAPI(e, privateApi, cfg.Repos)
 
 	published := e.Group("/p")
-	auth := PublishedAuthMiddleware()
-	published.GET("/:name/data.json", PublishedData(), auth)
-	published.GET("/:name/", PublishedIndex(), auth)
+	publishedAuth := PublishedAuthMiddleware()
+	published.GET("/:name/data.json", PublishedData(), publishedAuth)
+	published.GET("/:name/", PublishedIndex(), publishedAuth)
 
 	serveFiles(e, cfg.Gateways.File)
 	web(e, cfg.Config.Web, cfg.Config.Auth0)

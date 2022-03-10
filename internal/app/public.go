@@ -28,6 +28,9 @@ func Signup() echo.HandlerFunc {
 			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
 		}
 
+		uc := adapter.Usecases(c.Request().Context())
+		controller := http1.NewUserController(uc.User)
+
 		output, err := controller.Signup(c.Request().Context(), inp)
 		if err != nil {
 			return err
@@ -43,6 +46,9 @@ func PasswordReset() echo.HandlerFunc {
 		if err := c.Bind(&inp); err != nil {
 			return err
 		}
+
+		uc := adapter.Usecases(c.Request().Context())
+		controller := http1.NewUserController(uc.User)
 
 		if len(inp.Email) > 0 {
 			if err := controller.StartPasswordReset(c.Request().Context(), inp); err != nil {
@@ -68,6 +74,10 @@ func StartSignupVerify() echo.HandlerFunc {
 		if err := c.Bind(&inp); err != nil {
 			return &echo.HTTPError{Code: http.StatusBadRequest, Message: fmt.Errorf("failed to parse request body: %w", err)}
 		}
+
+		uc := adapter.Usecases(c.Request().Context())
+		controller := http1.NewUserController(uc.User)
+
 		if err := controller.CreateVerification(c.Request().Context(), inp); err != nil {
 			return err
 		}
@@ -82,6 +92,9 @@ func SignupVerify() echo.HandlerFunc {
 		if len(code) == 0 {
 			return echo.ErrBadRequest
 		}
+
+		uc := adapter.Usecases(c.Request().Context())
+		controller := http1.NewUserController(uc.User)
 
 		output, err := controller.VerifyUser(c.Request().Context(), code)
 		if err != nil {
