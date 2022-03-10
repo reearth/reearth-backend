@@ -606,7 +606,7 @@ func (i *User) CreateVerification(ctx context.Context, email string) error {
 	}
 
 	var TextOut, HTMLOut bytes.Buffer
-	link := "localhost:3000/user-verification-token=" + vr.Code()
+	link := "localhost:3000/?user-verification-token=" + vr.Code()
 	err = passwordResetTextTMPL.Execute(&TextOut, link)
 	if err != nil {
 		return err
