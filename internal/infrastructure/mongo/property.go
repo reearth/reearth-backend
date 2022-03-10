@@ -106,6 +106,9 @@ func (r *propertyRepo) FindByPlugin(ctx context.Context, pid id.PluginID, sid id
 	if !r.f.CanRead(sid) {
 		return nil, rerror.ErrNotFound
 	}
+	if s := pid.Scene(); s != nil && !r.f.CanRead(*s) {
+		return nil, rerror.ErrNotFound
+	}
 	filter := bson.M{
 		"schemaplugin": pid.String(),
 		"scene":        sid.String(),

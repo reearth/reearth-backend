@@ -69,6 +69,9 @@ func (r *datasetSchemaRepo) FindByScene(ctx context.Context, sceneID id.SceneID,
 }
 
 func (r *datasetSchemaRepo) FindBySceneAll(ctx context.Context, sceneID id.SceneID) (dataset.SchemaList, error) {
+	if !r.f.CanRead(sceneID) {
+		return nil, nil
+	}
 	return r.find(ctx, nil, bson.M{
 		"scene": sceneID.String(),
 	})

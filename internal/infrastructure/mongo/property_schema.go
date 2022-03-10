@@ -54,7 +54,7 @@ func (r *propertySchemaRepo) FindByIDs(ctx context.Context, ids []id.PropertySch
 	for _, id := range ids {
 		if p := builtin.GetPropertySchema(id); p != nil {
 			b[id.String()] = p
-		} else {
+		} else if s := id.Plugin().Scene(); s == nil || r.f.CanRead(*s) {
 			ids2 = append(ids2, id)
 		}
 	}

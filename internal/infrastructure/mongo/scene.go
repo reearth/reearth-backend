@@ -8,6 +8,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/scene"
+	"github.com/reearth/reearth-backend/pkg/user"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -65,13 +66,14 @@ func (r *sceneRepo) FindByProject(ctx context.Context, id id.ProjectID) (*scene.
 }
 
 func (r *sceneRepo) FindByTeam(ctx context.Context, teams ...id.TeamID) (scene.List, error) {
+	if r.f.Readable != nil {
+		teams = user.TeamIDList(teams).Filter(r.f.Readable...)
+	}
 	res, err := r.find(ctx, nil, bson.M{
-		"team": bson.M{"$in": id.TeamIDsToStrings(teams)},
+		"team": bson.M{"$in": user.TeamIDList(teams).Strings()},
 	})
-	if err != nil {
-		if err != mongo.ErrNilDocument && err != mongo.ErrNoDocuments {
-			return nil, err
-		}
+	if err != nil && err != mongo.ErrNilDocument && err != mongo.ErrNoDocuments {
+		return nil, err
 	}
 	return res, nil
 }

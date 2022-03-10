@@ -12,6 +12,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/log"
 	"github.com/reearth/reearth-backend/pkg/plugin"
+	"github.com/reearth/reearth-backend/pkg/rerror"
 )
 
 type pluginRepo struct {
@@ -44,7 +45,9 @@ func (r *pluginRepo) FindByID(ctx context.Context, pid id.PluginID) (*plugin.Plu
 	if p := builtin.GetPlugin(pid); p != nil {
 		return p, nil
 	}
-
+	if s := pid.Scene(); s != nil && !r.f.CanRead(*s) {
+		return nil, rerror.ErrNotFound
+	}
 	return r.findOne(ctx, bson.M{
 		"id": pid.String(),
 	})
@@ -58,7 +61,7 @@ func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugi
 	for _, id := range ids {
 		if p := builtin.GetPlugin(id); p != nil {
 			b[id.String()] = p
-		} else {
+		} else if s := id.Scene(); s == nil || r.f.CanRead(*s) {
 			ids2 = append(ids2, id)
 		}
 	}
