@@ -30,7 +30,7 @@ func (c *ClientCollection) Count(ctx context.Context, filter interface{}) (int64
 }
 
 func (c *ClientCollection) Paginate(ctx context.Context, filter bson.M, sort *string, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
-	return c.Client.Paginate(ctx, c.CollectionName, filter, sort, NewPaginationFrom(p), consumer)
+	return c.Client.Paginate(ctx, c.CollectionName, filter, sort, PaginationFrom(p), consumer)
 }
 
 func (c *ClientCollection) SaveOne(ctx context.Context, id string, replacement interface{}) error {

@@ -13,7 +13,7 @@ type Pagination struct {
 	Last   *int
 }
 
-func NewPaginationFrom(pagination *usecase.Pagination) *Pagination {
+func PaginationFrom(pagination *usecase.Pagination) *Pagination {
 	if pagination == nil {
 		return nil
 	}
@@ -26,10 +26,7 @@ func NewPaginationFrom(pagination *usecase.Pagination) *Pagination {
 }
 
 func (p *Pagination) SortDirection() int {
-	if p == nil {
-		return 1
-	}
-	if p.Last != nil {
+	if p != nil && p.Last != nil {
 		return -1
 	}
 	return 1
