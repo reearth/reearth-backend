@@ -63,8 +63,9 @@ func graphqlAPI(
 		req := c.Request()
 		ctx := req.Context()
 
+		repos := adapter.Repos(ctx)
 		usecases := adapter.Usecases(ctx)
-		ctx = gql.AttachUsecases(ctx, usecases, enableDataLoaders)
+		ctx = gql.AttachUsecases(ctx, repos, usecases, enableDataLoaders)
 		c.SetRequest(req.WithContext(ctx))
 
 		srv.ServeHTTP(c.Response(), c.Request())

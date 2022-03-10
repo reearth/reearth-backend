@@ -12,6 +12,8 @@ import (
 
 func UsecaseMiddleware(r *repo.Container, g *gateway.Container, config interactor.ContainerConfig) echo.MiddlewareFunc {
 	return ContextMiddleware(func(ctx context.Context) context.Context {
+		ctx = adapter.AttachRepos(ctx, r)
+
 		var r2 *repo.Container
 		if op := adapter.Operator(ctx); op != nil && r != nil {
 			// apply filters to repos

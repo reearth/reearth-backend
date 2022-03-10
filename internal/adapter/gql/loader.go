@@ -45,10 +45,7 @@ type DataLoaders struct {
 	TagGroup       TagGroupDataLoader
 }
 
-func NewLoaders(usecases *interfaces.Container) *Loaders {
-	if usecases == nil {
-		return nil
-	}
+func NewLoaders(r *repo.Container, u *interfaces.Container) *Loaders {
 	return &Loaders{
 		usecases: *usecases,
 		Asset:    NewAssetLoader(usecases.Asset),

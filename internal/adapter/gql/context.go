@@ -6,6 +6,7 @@ import (
 	"github.com/reearth/reearth-backend/internal/adapter"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/user"
 )
 
@@ -16,8 +17,8 @@ const (
 	contextDataloaders ContextKey = "dataloaders"
 )
 
-func AttachUsecases(ctx context.Context, u *interfaces.Container, enableDataLoaders bool) context.Context {
-	loaders := NewLoaders(u)
+func AttachUsecases(ctx context.Context, r *repo.Container, u *interfaces.Container, enableDataLoaders bool) context.Context {
+	loaders := NewLoaders(r, u)
 	dataloaders := loaders.DataLoadersWith(ctx, enableDataLoaders)
 
 	ctx = adapter.AttachUsecases(ctx, u)

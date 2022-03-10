@@ -5,6 +5,7 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/user"
 )
 
@@ -15,6 +16,7 @@ const (
 	contextOperator ContextKey = "operator"
 	contextSub      ContextKey = "sub"
 	contextUsecases ContextKey = "usecases"
+	contextRepos    ContextKey = "repos"
 )
 
 func AttachUser(ctx context.Context, u *user.User) context.Context {
@@ -30,8 +32,11 @@ func AttachSub(ctx context.Context, sub string) context.Context {
 }
 
 func AttachUsecases(ctx context.Context, u *interfaces.Container) context.Context {
-	ctx = context.WithValue(ctx, contextUsecases, u)
-	return ctx
+	return context.WithValue(ctx, contextUsecases, u)
+}
+
+func AttachRepos(ctx context.Context, r *repo.Container) context.Context {
+	return context.WithValue(ctx, contextRepos, r)
 }
 
 func User(ctx context.Context) *user.User {
@@ -77,6 +82,10 @@ func Sub(ctx context.Context) string {
 		}
 	}
 	return ""
+}
+
+func Repos(ctx context.Context) *repo.Container {
+	return ctx.Value(contextRepos).(*repo.Container)
 }
 
 func Usecases(ctx context.Context) *interfaces.Container {
