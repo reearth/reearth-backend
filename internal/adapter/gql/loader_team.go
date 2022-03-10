@@ -5,20 +5,20 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type TeamLoader struct {
-	usecase interfaces.Team
+	r repo.Team
 }
 
-func NewTeamLoader(usecase interfaces.Team) *TeamLoader {
-	return &TeamLoader{usecase: usecase}
+func NewTeamLoader(r repo.Team) *TeamLoader {
+	return &TeamLoader{r: r}
 }
 
 func (c *TeamLoader) Fetch(ctx context.Context, ids []id.TeamID) ([]*gqlmodel.Team, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -31,7 +31,7 @@ func (c *TeamLoader) Fetch(ctx context.Context, ids []id.TeamID) ([]*gqlmodel.Te
 }
 
 func (c *TeamLoader) FindByUser(ctx context.Context, uid id.UserID) ([]*gqlmodel.Team, error) {
-	res, err := c.usecase.FindByUser(ctx, uid, getOperator(ctx))
+	res, err := c.r.FindByUser(ctx, uid)
 	if err != nil {
 		return nil, err
 	}

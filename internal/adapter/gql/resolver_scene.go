@@ -66,16 +66,7 @@ func (r *sceneResolver) LockMode(ctx context.Context, obj *gqlmodel.Scene) (gqlm
 }
 
 func (r *sceneResolver) Tags(ctx context.Context, obj *gqlmodel.Scene) ([]gqlmodel.Tag, error) {
-	tags, err := usecases(ctx).Tag.FetchByScene(ctx, id.SceneID(obj.ID), getOperator(ctx))
-	if err != nil {
-		return nil, err
-	}
-
-	res := make([]gqlmodel.Tag, 0, len(tags))
-	for _, t := range tags {
-		res = append(res, gqlmodel.ToTag(*t))
-	}
-	return res, nil
+	return loaders(ctx).Tag.FetchByScene(ctx, id.SceneID(obj.ID))
 }
 
 type scenePluginResolver struct{ *Resolver }

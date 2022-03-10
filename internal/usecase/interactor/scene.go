@@ -51,14 +51,6 @@ func NewScene(r *repo.Container, g *gateway.Container) interfaces.Scene {
 	}
 }
 
-func (i *Scene) Fetch(ctx context.Context, ids []id.SceneID, operator *usecase.Operator) ([]*scene.Scene, error) {
-	return i.sceneRepo.FindByIDs(ctx, ids)
-}
-
-func (i *Scene) FindByProject(ctx context.Context, id id.ProjectID, operator *usecase.Operator) (*scene.Scene, error) {
-	return i.sceneRepo.FindByProject(ctx, id)
-}
-
 func (i *Scene) Create(ctx context.Context, pid id.ProjectID, operator *usecase.Operator) (_ *scene.Scene, err error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
@@ -132,13 +124,6 @@ func (i *Scene) Create(ctx context.Context, pid id.ProjectID, operator *usecase.
 
 	tx.Commit()
 	return scene, err
-}
-
-func (s *Scene) FetchLock(ctx context.Context, ids []id.SceneID, operator *usecase.Operator) ([]scene.LockMode, error) {
-	if err := s.OnlyOperator(operator); err != nil {
-		return nil, err
-	}
-	return s.sceneLockRepo.GetAllLock(ctx, ids)
 }
 
 func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, eid id.PluginExtensionID, operator *usecase.Operator) (_ *scene.Scene, widget *scene.Widget, err error) {

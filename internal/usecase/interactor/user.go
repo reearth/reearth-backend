@@ -49,33 +49,6 @@ func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) inter
 	}
 }
 
-func (i *User) Fetch(ctx context.Context, ids []id.UserID, operator *usecase.Operator) ([]*user.User, error) {
-	if err := i.OnlyOperator(operator); err != nil {
-		return nil, err
-	}
-	res, err := i.userRepo.FindByIDs(ctx, ids)
-	if err != nil {
-		return res, err
-	}
-	// filter
-	for k, u := range res {
-		teams, err := i.teamRepo.FindByUser(ctx, u.ID())
-		if err != nil {
-			return res, err
-		}
-		teamIDs := make([]id.TeamID, 0, len(teams))
-		for _, t := range teams {
-			if t != nil {
-				teamIDs = append(teamIDs, t.ID())
-			}
-		}
-		if !operator.IsReadableTeam(teamIDs...) {
-			res[k] = nil
-		}
-	}
-	return res, nil
-}
-
 func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.User, _ *user.Team, err error) {
 	if i.signupSecret != "" && inp.Secret != i.signupSecret {
 		return nil, nil, interfaces.ErrSignupInvalidSecret

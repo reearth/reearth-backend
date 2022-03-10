@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 )
 
 const (
@@ -13,7 +14,6 @@ const (
 )
 
 type Loaders struct {
-	usecases interfaces.Container
 	Asset    *AssetLoader
 	Dataset  *DatasetLoader
 	Layer    *LayerLoader
@@ -47,17 +47,16 @@ type DataLoaders struct {
 
 func NewLoaders(r *repo.Container, u *interfaces.Container) *Loaders {
 	return &Loaders{
-		usecases: *usecases,
-		Asset:    NewAssetLoader(usecases.Asset),
-		Dataset:  NewDatasetLoader(usecases.Dataset),
-		Layer:    NewLayerLoader(usecases.Layer),
-		Plugin:   NewPluginLoader(usecases.Plugin),
-		Project:  NewProjectLoader(usecases.Project),
-		Property: NewPropertyLoader(usecases.Property),
-		Scene:    NewSceneLoader(usecases.Scene),
-		Team:     NewTeamLoader(usecases.Team),
-		User:     NewUserLoader(usecases.User),
-		Tag:      NewTagLoader(usecases.Tag),
+		Asset:    NewAssetLoader(r.Asset),
+		Dataset:  NewDatasetLoader(r.Dataset, r.DatasetSchema, u.Dataset),
+		Layer:    NewLayerLoader(r.Layer, u.Layer),
+		Plugin:   NewPluginLoader(r.Plugin, r.PluginRegistry),
+		Project:  NewProjectLoader(r.Project),
+		Property: NewPropertyLoader(r.Property, r.PropertySchema, u.Property),
+		Scene:    NewSceneLoader(r.Scene),
+		Team:     NewTeamLoader(r.Team),
+		User:     NewUserLoader(r.User),
+		Tag:      NewTagLoader(r.Tag),
 	}
 }
 

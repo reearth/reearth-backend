@@ -6,19 +6,22 @@ import (
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type PropertyLoader struct {
-	usecase interfaces.Property
+	r  repo.Property
+	sr repo.PropertySchema
+	u  interfaces.Property
 }
 
-func NewPropertyLoader(usecase interfaces.Property) *PropertyLoader {
-	return &PropertyLoader{usecase: usecase}
+func NewPropertyLoader(r repo.Property, sr repo.PropertySchema, u interfaces.Property) *PropertyLoader {
+	return &PropertyLoader{r: r, sr: sr, u: u}
 }
 
 func (c *PropertyLoader) Fetch(ctx context.Context, ids []id.PropertyID) ([]*gqlmodel.Property, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,7 +35,7 @@ func (c *PropertyLoader) Fetch(ctx context.Context, ids []id.PropertyID) ([]*gql
 }
 
 func (c *PropertyLoader) FetchSchema(ctx context.Context, ids []id.PropertySchemaID) ([]*gqlmodel.PropertySchema, []error) {
-	res, err := c.usecase.FetchSchema(ctx, ids, getOperator(ctx))
+	res, err := c.sr.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -46,7 +49,7 @@ func (c *PropertyLoader) FetchSchema(ctx context.Context, ids []id.PropertySchem
 }
 
 func (c *PropertyLoader) FetchMerged(ctx context.Context, org, parent, linked *id.ID) (*gqlmodel.MergedProperty, error) {
-	res, err := c.usecase.FetchMerged(ctx, id.PropertyIDFromRefID(org), id.PropertyIDFromRefID(parent), id.DatasetIDFromRefID(linked), getOperator(ctx))
+	res, err := c.u.FetchMerged(ctx, id.PropertyIDFromRefID(org), id.PropertyIDFromRefID(parent), id.DatasetIDFromRefID(linked), getOperator(ctx))
 
 	if err != nil {
 		return nil, err

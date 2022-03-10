@@ -2,24 +2,26 @@ package gql
 
 import (
 	"context"
+	"errors"
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/rerror"
 )
 
 type ProjectLoader struct {
-	usecase interfaces.Project
+	r repo.Project
 }
 
-func NewProjectLoader(usecase interfaces.Project) *ProjectLoader {
-	return &ProjectLoader{usecase: usecase}
+func NewProjectLoader(r repo.Project) *ProjectLoader {
+	return &ProjectLoader{r: r}
 }
 
 func (c *ProjectLoader) Fetch(ctx context.Context, ids []id.ProjectID) ([]*gqlmodel.Project, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -33,7 +35,7 @@ func (c *ProjectLoader) Fetch(ctx context.Context, ids []id.ProjectID) ([]*gqlmo
 }
 
 func (c *ProjectLoader) FindByTeam(ctx context.Context, teamID id.TeamID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.ProjectConnection, error) {
-	res, pi, err := c.usecase.FindByTeam(ctx, teamID, usecase.NewPagination(first, last, before, after), getOperator(ctx))
+	res, pi, err := c.r.FindByTeam(ctx, teamID, usecase.NewPagination(first, last, before, after))
 	if err != nil {
 		return nil, err
 	}
@@ -58,10 +60,11 @@ func (c *ProjectLoader) FindByTeam(ctx context.Context, teamID id.TeamID, first 
 }
 
 func (c *ProjectLoader) CheckAlias(ctx context.Context, alias string) (*gqlmodel.ProjectAliasAvailability, error) {
-	ok, err := c.usecase.CheckAlias(ctx, alias)
-	if err != nil {
+	p, err := c.r.FindByPublicName(ctx, alias)
+	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 		return nil, err
 	}
+	ok := p == nil
 
 	return &gqlmodel.ProjectAliasAvailability{Alias: alias, Available: ok}, nil
 }

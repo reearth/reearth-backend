@@ -5,20 +5,20 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type UserLoader struct {
-	usecase interfaces.User
+	r repo.User
 }
 
-func NewUserLoader(usecase interfaces.User) *UserLoader {
-	return &UserLoader{usecase: usecase}
+func NewUserLoader(r repo.User) *UserLoader {
+	return &UserLoader{r: r}
 }
 
 func (c *UserLoader) Fetch(ctx context.Context, ids []id.UserID) ([]*gqlmodel.User, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,7 +32,7 @@ func (c *UserLoader) Fetch(ctx context.Context, ids []id.UserID) ([]*gqlmodel.Us
 }
 
 func (c *UserLoader) SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error) {
-	res, err := c.usecase.SearchUser(ctx, nameOrEmail, getOperator(ctx))
+	res, err := c.r.FindByNameOrEmail(ctx, nameOrEmail)
 	if err != nil {
 		return nil, err
 	}

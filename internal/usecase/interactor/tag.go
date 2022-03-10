@@ -122,22 +122,6 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 	return group, nil
 }
 
-func (i *Tag) Fetch(ctx context.Context, ids []id.TagID, operator *usecase.Operator) ([]*tag.Tag, error) {
-	return i.tagRepo.FindByIDs(ctx, ids)
-}
-
-func (i *Tag) FetchByScene(ctx context.Context, sid id.SceneID, operator *usecase.Operator) ([]*tag.Tag, error) {
-	return i.tagRepo.FindRootsByScene(ctx, sid)
-}
-
-func (i *Tag) FetchItem(ctx context.Context, ids []id.TagID, operator *usecase.Operator) ([]*tag.Item, error) {
-	return i.tagRepo.FindItemByIDs(ctx, ids)
-}
-
-func (i *Tag) FetchGroup(ctx context.Context, ids []id.TagID, operator *usecase.Operator) ([]*tag.Group, error) {
-	return i.tagRepo.FindGroupByIDs(ctx, ids)
-}
-
 func (i *Tag) AttachItemToGroup(ctx context.Context, inp interfaces.AttachItemToGroupParam, operator *usecase.Operator) (*tag.Group, error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {

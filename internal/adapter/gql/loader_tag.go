@@ -5,20 +5,20 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type TagLoader struct {
-	usecase interfaces.Tag
+	r repo.Tag
 }
 
-func NewTagLoader(usecase interfaces.Tag) *TagLoader {
-	return &TagLoader{usecase: usecase}
+func NewTagLoader(r repo.Tag) *TagLoader {
+	return &TagLoader{r: r}
 }
 
 func (c *TagLoader) Fetch(ctx context.Context, ids []id.TagID) ([]*gqlmodel.Tag, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -35,7 +35,7 @@ func (c *TagLoader) Fetch(ctx context.Context, ids []id.TagID) ([]*gqlmodel.Tag,
 }
 
 func (c *TagLoader) FetchGroup(ctx context.Context, ids []id.TagID) ([]*gqlmodel.TagGroup, []error) {
-	res, err := c.usecase.FetchGroup(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindGroupByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -52,7 +52,7 @@ func (c *TagLoader) FetchGroup(ctx context.Context, ids []id.TagID) ([]*gqlmodel
 }
 
 func (c *TagLoader) FetchItem(ctx context.Context, ids []id.TagID) ([]*gqlmodel.TagItem, []error) {
-	res, err := c.usecase.FetchItem(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindItemByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -66,6 +66,23 @@ func (c *TagLoader) FetchItem(ctx context.Context, ids []id.TagID) ([]*gqlmodel.
 	}
 
 	return tagItems, nil
+}
+
+func (c *TagLoader) FetchByScene(ctx context.Context, s id.SceneID) ([]gqlmodel.Tag, error) {
+	res, err := c.r.FindByScene(ctx, s)
+	if err != nil {
+		return nil, err
+	}
+
+	tags := make([]gqlmodel.Tag, 0, len(res))
+	for _, t := range res {
+		if t != nil {
+			tag := gqlmodel.ToTag(*t)
+			tags = append(tags, tag)
+		}
+	}
+
+	return tags, nil
 }
 
 // data loaders

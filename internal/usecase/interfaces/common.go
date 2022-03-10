@@ -1,6 +1,8 @@
 package interfaces
 
-import "errors"
+import (
+	"errors"
+)
 
 type ListOperation string
 

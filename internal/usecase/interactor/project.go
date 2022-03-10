@@ -52,14 +52,6 @@ func NewProject(r *repo.Container, gr *gateway.Container) interfaces.Project {
 	}
 }
 
-func (i *Project) Fetch(ctx context.Context, ids []id.ProjectID, operator *usecase.Operator) ([]*project.Project, error) {
-	return i.projectRepo.FindByIDs(ctx, ids)
-}
-
-func (i *Project) FindByTeam(ctx context.Context, id id.TeamID, p *usecase.Pagination, operator *usecase.Operator) ([]*project.Project, *usecase.PageInfo, error) {
-	return i.projectRepo.FindByTeam(ctx, id, p)
-}
-
 func (i *Project) Create(ctx context.Context, p interfaces.CreateProjectParam, operator *usecase.Operator) (_ *project.Project, err error) {
 	if err := i.CanWriteTeam(p.TeamID, operator); err != nil {
 		return nil, err

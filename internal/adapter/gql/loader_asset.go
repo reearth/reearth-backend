@@ -6,20 +6,20 @@ import (
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type AssetLoader struct {
-	usecase interfaces.Asset
+	r repo.Asset
 }
 
-func NewAssetLoader(usecase interfaces.Asset) *AssetLoader {
-	return &AssetLoader{usecase: usecase}
+func NewAssetLoader(r repo.Asset) *AssetLoader {
+	return &AssetLoader{r: r}
 }
 
 func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.Asset, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -34,7 +34,7 @@ func (c *AssetLoader) Fetch(ctx context.Context, ids []id.AssetID) ([]*gqlmodel.
 
 func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.AssetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
-	assets, pi, err := c.usecase.FindByTeam(ctx, id.TeamID(teamID), p, getOperator(ctx))
+	assets, pi, err := c.r.FindByTeam(ctx, id.TeamID(teamID), p)
 	if err != nil {
 		return nil, err
 	}

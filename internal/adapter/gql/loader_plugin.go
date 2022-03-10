@@ -5,20 +5,21 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type PluginLoader struct {
-	usecase interfaces.Plugin
+	r  repo.Plugin
+	rr repo.PluginRegistry
 }
 
-func NewPluginLoader(usecase interfaces.Plugin) *PluginLoader {
-	return &PluginLoader{usecase: usecase}
+func NewPluginLoader(r repo.Plugin, rr repo.PluginRegistry) *PluginLoader {
+	return &PluginLoader{r: r, rr: rr}
 }
 
 func (c *PluginLoader) Fetch(ctx context.Context, ids []id.PluginID) ([]*gqlmodel.Plugin, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -32,7 +33,7 @@ func (c *PluginLoader) Fetch(ctx context.Context, ids []id.PluginID) ([]*gqlmode
 }
 
 func (c *PluginLoader) FetchPluginMetadata(ctx context.Context) ([]*gqlmodel.PluginMetadata, error) {
-	res, err := c.usecase.FetchPluginMetadata(ctx, getOperator(ctx))
+	res, err := c.rr.Fetch(ctx)
 	if err != nil {
 		return nil, err
 	}

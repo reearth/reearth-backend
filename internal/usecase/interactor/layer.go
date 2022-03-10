@@ -57,26 +57,6 @@ func NewLayer(r *repo.Container) interfaces.Layer {
 	}
 }
 
-func (i *Layer) Fetch(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) (layer.List, error) {
-	return i.layerRepo.FindByIDs(ctx, ids)
-}
-
-func (i *Layer) FetchGroup(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*layer.Group, error) {
-	return i.layerRepo.FindGroupByIDs(ctx, ids)
-}
-
-func (i *Layer) FetchItem(ctx context.Context, ids []id.LayerID, operator *usecase.Operator) ([]*layer.Item, error) {
-	return i.layerRepo.FindItemByIDs(ctx, ids)
-}
-
-func (i *Layer) FetchParent(ctx context.Context, pid id.LayerID, operator *usecase.Operator) (*layer.Group, error) {
-	return i.layerRepo.FindParentByID(ctx, pid)
-}
-
-func (i *Layer) FetchByProperty(ctx context.Context, pid id.PropertyID, operator *usecase.Operator) (layer.Layer, error) {
-	return i.layerRepo.FindByProperty(ctx, pid)
-}
-
 func (i *Layer) FetchMerged(ctx context.Context, org id.LayerID, parent *id.LayerID, operator *usecase.Operator) (*layer.Merged, error) {
 	ids := []id.LayerID{org}
 	if parent != nil {
@@ -116,10 +96,6 @@ func (i *Layer) FetchParentAndMerged(ctx context.Context, org id.LayerID, operat
 	}
 
 	return layer.Merge(orgl, parent), nil
-}
-
-func (i *Layer) FetchByTag(ctx context.Context, tag id.TagID, operator *usecase.Operator) (layer.List, error) {
-	return i.layerRepo.FindByTag(ctx, tag)
 }
 
 func (i *Layer) AddItem(ctx context.Context, inp interfaces.AddLayerItemInput, operator *usecase.Operator) (_ *layer.Item, _ *layer.Group, err error) {

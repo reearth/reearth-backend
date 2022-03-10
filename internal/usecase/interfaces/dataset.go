@@ -60,12 +60,10 @@ var (
 )
 
 type Dataset interface {
-	Fetch(context.Context, []id.DatasetID, *usecase.Operator) (dataset.List, error)
 	GraphFetch(context.Context, id.DatasetID, int, *usecase.Operator) (dataset.List, error)
-	FetchSchema(context.Context, []id.DatasetSchemaID, *usecase.Operator) (dataset.SchemaList, error)
+	GraphFetchSchema(context.Context, id.DatasetSchemaID, int, *usecase.Operator) (dataset.SchemaList, error)
 	ImportDataset(context.Context, ImportDatasetParam, *usecase.Operator) (*dataset.Schema, error)
 	ImportDatasetFromGoogleSheet(context.Context, ImportDatasetFromGoogleSheetParam, *usecase.Operator) (*dataset.Schema, error)
-	GraphFetchSchema(context.Context, id.DatasetSchemaID, int, *usecase.Operator) (dataset.SchemaList, error)
 	AddDynamicDatasetSchema(context.Context, AddDynamicDatasetSchemaParam) (*dataset.Schema, error)
 	AddDynamicDataset(context.Context, AddDynamicDatasetParam) (*dataset.Schema, *dataset.Dataset, error)
 	FindBySchema(context.Context, id.DatasetSchemaID, *usecase.Pagination, *usecase.Operator) (dataset.List, *usecase.PageInfo, error)

@@ -27,24 +27,6 @@ func NewTeam(r *repo.Container) interfaces.Team {
 	}
 }
 
-func (i *Team) Fetch(ctx context.Context, ids []id.TeamID, operator *usecase.Operator) ([]*user.Team, error) {
-	if err := i.OnlyOperator(operator); err != nil {
-		return nil, err
-	}
-	res, err := i.teamRepo.FindByIDs(ctx, ids)
-	res2, err := i.filterTeams(res, operator, err)
-	return res2, err
-}
-
-func (i *Team) FindByUser(ctx context.Context, id id.UserID, operator *usecase.Operator) ([]*user.Team, error) {
-	if err := i.OnlyOperator(operator); err != nil {
-		return nil, err
-	}
-	res, err := i.teamRepo.FindByUser(ctx, id)
-	res2, err := i.filterTeams(res, operator, err)
-	return res2, err
-}
-
 func (i *Team) Create(ctx context.Context, name string, firstUser id.UserID) (_ *user.Team, err error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {

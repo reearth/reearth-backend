@@ -5,20 +5,20 @@ import (
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqldataloader"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
-	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type SceneLoader struct {
-	usecase interfaces.Scene
+	r repo.Scene
 }
 
-func NewSceneLoader(usecase interfaces.Scene) *SceneLoader {
-	return &SceneLoader{usecase: usecase}
+func NewSceneLoader(r repo.Scene) *SceneLoader {
+	return &SceneLoader{r: r}
 }
 
 func (c *SceneLoader) Fetch(ctx context.Context, ids []id.SceneID) ([]*gqlmodel.Scene, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -31,7 +31,7 @@ func (c *SceneLoader) Fetch(ctx context.Context, ids []id.SceneID) ([]*gqlmodel.
 }
 
 func (c *SceneLoader) FindByProject(ctx context.Context, projectID id.ProjectID) (*gqlmodel.Scene, error) {
-	res, err := c.usecase.FindByProject(ctx, projectID, getOperator(ctx))
+	res, err := c.r.FindByProject(ctx, projectID)
 	if err != nil {
 		return nil, err
 	}
@@ -40,29 +40,11 @@ func (c *SceneLoader) FindByProject(ctx context.Context, projectID id.ProjectID)
 }
 
 func (c *SceneLoader) FetchLock(ctx context.Context, sid id.SceneID) (*gqlmodel.SceneLockMode, error) {
-	res, err := c.usecase.FetchLock(ctx, []id.SceneID{sid}, getOperator(ctx))
-	if err != nil {
-		return nil, err
-	}
-	if len(res) > 0 {
-		return nil, nil
-	}
-	sl := gqlmodel.ToSceneLockMode(res[0])
-	return &sl, nil
+	return nil, nil
 }
 
 func (c *SceneLoader) FetchLockAll(ctx context.Context, sid []id.SceneID) ([]gqlmodel.SceneLockMode, []error) {
-	res, err := c.usecase.FetchLock(ctx, sid, getOperator(ctx))
-	if err != nil {
-		return nil, []error{err}
-	}
-
-	res2 := make([]gqlmodel.SceneLockMode, 0, len(res))
-	for _, r := range res {
-		res2 = append(res2, gqlmodel.ToSceneLockMode(r))
-	}
-
-	return res2, nil
+	return nil, nil
 }
 
 // data loader

@@ -7,19 +7,22 @@ import (
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
+	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 )
 
 type DatasetLoader struct {
-	usecase interfaces.Dataset
+	r  repo.Dataset
+	sr repo.DatasetSchema
+	u  interfaces.Dataset
 }
 
-func NewDatasetLoader(usecase interfaces.Dataset) *DatasetLoader {
-	return &DatasetLoader{usecase: usecase}
+func NewDatasetLoader(r repo.Dataset, sr repo.DatasetSchema, u interfaces.Dataset) *DatasetLoader {
+	return &DatasetLoader{r: r, sr: sr, u: u}
 }
 
 func (c *DatasetLoader) Fetch(ctx context.Context, ids []id.DatasetID) ([]*gqlmodel.Dataset, []error) {
-	res, err := c.usecase.Fetch(ctx, ids, getOperator(ctx))
+	res, err := c.r.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -33,7 +36,7 @@ func (c *DatasetLoader) Fetch(ctx context.Context, ids []id.DatasetID) ([]*gqlmo
 }
 
 func (c *DatasetLoader) FetchSchema(ctx context.Context, ids []id.DatasetSchemaID) ([]*gqlmodel.DatasetSchema, []error) {
-	res, err := c.usecase.FetchSchema(ctx, ids, getOperator(ctx))
+	res, err := c.sr.FindByIDs(ctx, ids)
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -47,7 +50,7 @@ func (c *DatasetLoader) FetchSchema(ctx context.Context, ids []id.DatasetSchemaI
 }
 
 func (c *DatasetLoader) GraphFetch(ctx context.Context, i id.DatasetID, depth int) ([]*gqlmodel.Dataset, []error) {
-	res, err := c.usecase.GraphFetch(ctx, i, depth, getOperator(ctx))
+	res, err := c.u.GraphFetch(ctx, i, depth, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -61,7 +64,7 @@ func (c *DatasetLoader) GraphFetch(ctx context.Context, i id.DatasetID, depth in
 }
 
 func (c *DatasetLoader) GraphFetchSchema(ctx context.Context, i id.ID, depth int) ([]*gqlmodel.DatasetSchema, []error) {
-	res, err := c.usecase.GraphFetchSchema(ctx, id.DatasetSchemaID(i), depth, getOperator(ctx))
+	res, err := c.u.GraphFetchSchema(ctx, id.DatasetSchemaID(i), depth, getOperator(ctx))
 	if err != nil {
 		return nil, []error{err}
 	}
@@ -75,7 +78,7 @@ func (c *DatasetLoader) GraphFetchSchema(ctx context.Context, i id.ID, depth int
 }
 
 func (c *DatasetLoader) FindSchemaByScene(ctx context.Context, i id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error) {
-	res, pi, err := c.usecase.FindSchemaByScene(ctx, id.SceneID(i), usecase.NewPagination(first, last, before, after), getOperator(ctx))
+	res, pi, err := c.sr.FindByScene(ctx, id.SceneID(i), usecase.NewPagination(first, last, before, after))
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +103,7 @@ func (c *DatasetLoader) FindSchemaByScene(ctx context.Context, i id.ID, first *i
 }
 
 func (c *DatasetLoader) FindDynamicSchemasByScene(ctx context.Context, sid id.ID) ([]*gqlmodel.DatasetSchema, error) {
-	res, err := c.usecase.FindDynamicSchemaByScene(ctx, id.SceneID(sid))
+	res, err := c.sr.FindAllDynamicByScene(ctx, id.SceneID(sid))
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +118,7 @@ func (c *DatasetLoader) FindDynamicSchemasByScene(ctx context.Context, sid id.ID
 
 func (c *DatasetLoader) FindBySchema(ctx context.Context, dsid id.ID, first *int, last *int, before *usecase.Cursor, after *usecase.Cursor) (*gqlmodel.DatasetConnection, error) {
 	p := usecase.NewPagination(first, last, before, after)
-	res, pi, err2 := c.usecase.FindBySchema(ctx, id.DatasetSchemaID(dsid), p, getOperator(ctx))
+	res, pi, err2 := c.r.FindBySchema(ctx, id.DatasetSchemaID(dsid), p)
 	if err2 != nil {
 		return nil, err2
 	}

@@ -51,8 +51,6 @@ var (
 )
 
 type Project interface {
-	Fetch(context.Context, []id.ProjectID, *usecase.Operator) ([]*project.Project, error)
-	FindByTeam(context.Context, id.TeamID, *usecase.Pagination, *usecase.Operator) ([]*project.Project, *usecase.PageInfo, error)
 	Create(context.Context, CreateProjectParam, *usecase.Operator) (*project.Project, error)
 	Update(context.Context, UpdateProjectParam, *usecase.Operator) (*project.Project, error)
 	Publish(context.Context, PublishProjectParam, *usecase.Operator) (*project.Project, error)
