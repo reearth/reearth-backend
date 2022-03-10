@@ -111,8 +111,23 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	var email, name string
 	var auth *user.Auth
 	var tx repo.Tx
+	isOidc := inp.Secret != nil && inp.Sub != nil
+	isAuth := inp.Name != nil && inp.Email != nil && inp.Password != nil
+	if !isAuth && !isOidc {
+		return
+	}
 
-	if inp.Secret != nil && inp.Sub != nil {
+	tx, err = i.transaction.Begin()
+	if err != nil {
+		return nil, nil, err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
+
+	if isOidc {
 		// Auth0
 		if i.signupSecret != "" && *inp.Secret != i.signupSecret {
 			return nil, nil, interfaces.ErrSignupInvalidSecret
@@ -121,23 +136,12 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 		if len(*inp.Sub) == 0 {
 			return nil, nil, errors.New("sub is required")
 		}
-
-		tx, err = i.transaction.Begin()
-		if err != nil {
-			return nil, nil, err
-		}
-		defer func() {
-			if err2 := tx.End(ctx); err == nil && err2 != nil {
-				err = err2
-			}
-		}()
-
-		name, email, auth, err = i.auth0Signup(ctx, inp)
+		name, email, auth, err = i.oidcSignup(ctx, inp)
 		if err != nil {
 			return
 		}
 
-	} else if inp.Name != nil && inp.Email != nil && inp.Password != nil {
+	} else if isAuth {
 		if *inp.Name == "" {
 			return nil, nil, interfaces.ErrSignupInvalidName
 		}
@@ -150,18 +154,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 
 		var unverifiedUser *user.User
 		var unverifiedTeam *user.Team
-
-		tx, err = i.transaction.Begin()
-		if err != nil {
-			return nil, nil, err
-		}
-		defer func() {
-			if err2 := tx.End(ctx); err == nil && err2 != nil {
-				err = err2
-			}
-		}()
-
-		name, email, unverifiedUser, unverifiedTeam, err = i.authSystemSignup(ctx, inp)
+		name, email, unverifiedUser, unverifiedTeam, err = i.reearthSignup(ctx, inp)
 		if err != nil {
 			return
 		}
@@ -208,7 +201,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 	return u, team, nil
 }
 
-func (i *User) authSystemSignup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.User, *user.Team, error) {
+func (i *User) reearthSignup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.User, *user.Team, error) {
 	// Check if user email already exists
 	existed, err := i.userRepo.FindByEmail(ctx, *inp.Email)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
@@ -235,7 +228,7 @@ func (i *User) authSystemSignup(ctx context.Context, inp interfaces.SignupParam)
 	return *inp.Name, *inp.Email, nil, nil, nil
 }
 
-func (i *User) auth0Signup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.Auth, error) {
+func (i *User) oidcSignup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.Auth, error) {
 	// Check if user already exists
 	existed, err := i.userRepo.FindByAuth0Sub(ctx, *inp.Sub)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
@@ -604,8 +597,21 @@ func (i *User) CreateVerification(ctx context.Context, email string) error {
 	if err != nil {
 		return err
 	}
-	u.SetVerification(user.NewVerification())
+
+	vr := user.NewVerification()
+	u.SetVerification(vr)
 	err = i.userRepo.Save(ctx, u)
+	if err != nil {
+		return err
+	}
+
+	var TextOut, HTMLOut bytes.Buffer
+	link := "localhost:3000/user-verification-token=" + vr.Code()
+	err = passwordResetTextTMPL.Execute(&TextOut, link)
+	if err != nil {
+		return err
+	}
+	err = passwordResetHTMLTMPL.Execute(&HTMLOut, link)
 	if err != nil {
 		return err
 	}
@@ -615,7 +621,7 @@ func (i *User) CreateVerification(ctx context.Context, email string) error {
 			Email: u.Email(),
 			Name:  u.Name(),
 		},
-	}, "email verification", "", "")
+	}, "email verification", TextOut.String(), HTMLOut.String())
 	if err != nil {
 		return err
 	}

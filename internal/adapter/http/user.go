@@ -68,6 +68,9 @@ func (c *UserController) Signup(ctx context.Context, input SignupInput) (interfa
 	if err != nil {
 		return nil, err
 	}
+	if err := c.usecase.CreateVerification(ctx, *input.Email); err != nil {
+		return nil, err
+	}
 
 	return SignupOutput{
 		ID:    u.ID().String(),
@@ -99,8 +102,6 @@ func (c *UserController) StartPasswordReset(ctx context.Context, input PasswordR
 	if err != nil {
 		return err
 	}
-
-	// TODO: send password reset link via email
 
 	return nil
 }
