@@ -56,8 +56,7 @@ func (i *Scene) Fetch(ctx context.Context, ids []id.SceneID, operator *usecase.O
 }
 
 func (i *Scene) FindByProject(ctx context.Context, id id.ProjectID, operator *usecase.Operator) (*scene.Scene, error) {
-	res, err := i.sceneRepo.FindByProject(ctx, id)
-	return res, err
+	return i.sceneRepo.FindByProject(ctx, id)
 }
 
 func (i *Scene) Create(ctx context.Context, pid id.ProjectID, operator *usecase.Operator) (_ *scene.Scene, err error) {
