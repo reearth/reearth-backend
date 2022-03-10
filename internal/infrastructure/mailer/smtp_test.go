@@ -31,7 +31,7 @@ func TestNewWithSMTP(t *testing.T) {
 			want: &smtpMailer{
 				host:     "x.x.x",
 				port:     "8080",
-				username: "foo",
+				email:    "foo",
 				password: "foo.pass",
 			},
 		},

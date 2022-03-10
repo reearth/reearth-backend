@@ -17,7 +17,7 @@ import (
 type smtpMailer struct {
 	host     string
 	port     string
-	username string
+	email    string
 	password string
 }
 
@@ -77,11 +77,11 @@ func (m *message) encodeMessage() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func NewWithSMTP(host, port, username, password string) gateway.Mailer {
+func NewWithSMTP(host, port, email, password string) gateway.Mailer {
 	return &smtpMailer{
 		host:     host,
 		port:     port,
-		username: username,
+		email:    email,
 		password: password,
 	}
 }
@@ -108,9 +108,9 @@ func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlC
 		return err
 	}
 
-	auth := smtp.PlainAuth("", m.username, m.password, m.host)
+	auth := smtp.PlainAuth("", m.email, m.password, m.host)
 	if len(m.host) == 0 {
 		return errors.New("invalid smtp url")
 	}
-	return smtp.SendMail(m.host+":"+m.port, auth, m.username, emails, encodedMsg)
+	return smtp.SendMail(m.host+":"+m.port, auth, m.email, emails, encodedMsg)
 }
