@@ -30,7 +30,11 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	// basic middleware
 	logger := GetEchoLogger()
 	e.Logger = logger
-	e.Use(logger.Hook(), middleware.Recover(), otelecho.Middleware("reearth-backend"))
+	e.Use(
+		logger.Hook(),
+		middleware.Recover(),
+		otelecho.Middleware("reearth-backend"),
+	)
 	origins := allowedOrigins(cfg)
 	if len(origins) > 0 {
 		e.Use(
@@ -39,6 +43,13 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 			}),
 		)
 	}
+
+	jwks := &JwksSyncOnce{}
+	e.Use(
+		jwtEchoMiddleware(jwks, cfg),
+		parseJwtMiddleware(cfg),
+		authMiddleware(cfg),
+	)
 
 	// enable pprof
 	if e.Debug {
@@ -78,9 +89,7 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	api.GET("/published/:name", PublishedMetadata())
 	api.GET("/published_data/:name", PublishedData())
 
-	privateApi := api.Group("")
-	jwks := &JwksSyncOnce{}
-	authRequired(privateApi, jwks, cfg)
+	privateApi := api.Group("", AuthRequiredMiddleware())
 	graphqlAPI(e, privateApi, cfg)
 	privateAPI(e, privateApi, cfg.Repos)
 
