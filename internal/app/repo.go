@@ -87,7 +87,7 @@ func initMailer(conf *Config) gateway.Mailer {
 	if conf.Mailer == "sendgrid" {
 		return mailer.NewWithSendGrid(conf.SendGrid.Name, conf.SendGrid.Email, conf.SendGrid.API)
 	} else if conf.Mailer == "smtp" {
-		return mailer.NewWithSMTP(conf.SMTP.Host, conf.SMTP.Port, conf.SMTP.Email, conf.SMTP.Password)
+		return mailer.NewWithSMTP(conf.SMTP.Host, conf.SMTP.Port, conf.SMTP.SMTPUsername, conf.SMTP.Email, conf.SMTP.Password)
 	}
 	return nil
 }
