@@ -51,14 +51,23 @@ func InitRepos(ctx context.Context, c *repo.Container, mc *mongo.Client, databas
 }
 
 func applyTeamFilter(filter interface{}, ids user.TeamIDList) interface{} {
+	if ids == nil {
+		return filter
+	}
 	return mongodoc.And(filter, "team", bson.M{"$in": id.TeamIDsToStrings(ids)})
 }
 
 func applySceneFilter(filter interface{}, ids scene.IDList) interface{} {
+	if ids == nil {
+		return filter
+	}
 	return mongodoc.And(filter, "scene", bson.M{"$in": id.SceneIDsToStrings(ids)})
 }
 
 func applyOptionalSceneFilter(filter interface{}, ids scene.IDList) interface{} {
+	if ids == nil {
+		return filter
+	}
 	return mongodoc.And(filter, "", bson.M{"$or": []bson.M{
 		{"scene": bson.M{"$in": id.SceneIDsToStrings(ids)}},
 		{"scene": nil},
