@@ -379,11 +379,18 @@ func TestUser_SetPassword(t *testing.T) {
 		want string
 	}{
 		{
-			name: "should set the password",
+			name: "should set non-latin characters password",
 			args: args{
-				pass: "test",
+				pass: "Àêîôûtest1",
 			},
-			want: "test",
+			want: "Àêîôûtest1",
+		},
+		{
+			name: "should set latin characters password",
+			args: args{
+				pass: "Testabc1",
+			},
+			want: "Testabc1",
 		},
 	}
 	for _, tc := range tests {
@@ -526,6 +533,47 @@ func TestUser_Verification(t *testing.T) {
 				verification: tt.verification,
 			}
 			assert.Equal(t, tt.want, u.Verification())
+		})
+	}
+}
+
+func Test_ValidatePassword(t *testing.T) {
+
+	tests := []struct {
+		name    string
+		pass    string
+		wantErr bool
+	}{
+		{
+			name:    "should pass",
+			pass:    "Abcdafgh1",
+			wantErr: false,
+		},
+		{
+			name:    "shouldn't pass: length<8",
+			pass:    "Aafgh1",
+			wantErr: true,
+		},
+		{
+			name:    "shouldn't pass: don't have numbers",
+			pass:    "Abcdefghi",
+			wantErr: true,
+		},
+		{
+			name:    "shouldn't pass: don't have upper",
+			pass:    "abcdefghi1",
+			wantErr: true,
+		},
+		{
+			name:    "shouldn't pass: don't have lower",
+			pass:    "ABCDEFGHI1",
+			wantErr: true,
+		},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(tt *testing.T) {
+			out := validatePassword(tc.pass)
+			assert.Equal(tt, out != nil, tc.wantErr)
 		})
 	}
 }

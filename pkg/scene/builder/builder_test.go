@@ -388,14 +388,14 @@ func TestSceneBuilder(t *testing.T) {
 
 	sceneWidgetID1 := scene.NewWidgetID()
 	sceneWidgetID2 := scene.NewWidgetID()
-	sceneWidget1 := scene.MustNewWidget(
+	sceneWidget1 := scene.MustWidget(
 		sceneWidgetID1,
 		pluginID,
 		pluginExtension1ID,
 		scenePropertyID,
 		false,
 		false)
-	sceneWidget2 := scene.MustNewWidget(
+	sceneWidget2 := scene.MustWidget(
 		sceneWidgetID2,
 		pluginID,
 		pluginExtension2ID,
@@ -414,7 +414,7 @@ func TestSceneBuilder(t *testing.T) {
 		Property(scenep.ID()).
 		Widgets(scene.NewWidgets([]*scene.Widget{
 			sceneWidget1, sceneWidget2,
-		})).
+		}, nil)).
 		Plugins(scene.NewPlugins([]*scene.Plugin{scenePlugin1})).
 		RootLayer(rootLayer.ID()).
 		MustBuild()

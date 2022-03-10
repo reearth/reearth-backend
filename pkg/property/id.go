@@ -18,6 +18,7 @@ type SceneID = id.SceneID
 
 var NewID = id.NewPropertyID
 var NewItemID = id.NewPropertyItemID
+var NewSchemaID = id.NewPropertySchemaID
 var NewDatasetID = id.NewDatasetID
 var NewDatasetFieldID = id.NewDatasetSchemaFieldID
 var NewDatasetSchemaID = id.NewDatasetSchemaID

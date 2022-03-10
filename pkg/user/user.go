@@ -2,6 +2,7 @@ package user
 
 import (
 	"errors"
+	"unicode"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -11,6 +12,10 @@ import (
 var (
 	ErrEncodingPassword = errors.New("error encoding password")
 	ErrInvalidPassword  = errors.New("error invalid password")
+	ErrPasswordLength   = errors.New("password at least 8 characters")
+	ErrPasswordUpper    = errors.New("password should have upper case letters")
+	ErrPasswordLower    = errors.New("password should have lower case letters")
+	ErrPasswordNumber   = errors.New("password should have numbers")
 )
 
 type User struct {
@@ -151,6 +156,9 @@ func (u *User) ClearAuths() {
 }
 
 func (u *User) SetPassword(pass string) error {
+	if err := validatePassword(pass); err != nil {
+		return err
+	}
 	p, err := encodePassword(pass)
 	if err != nil {
 		return err
@@ -192,4 +200,32 @@ func (u *User) SetPasswordReset(pr *PasswordReset) {
 
 func (u *User) SetVerification(v *Verification) {
 	u.verification = v
+}
+
+func validatePassword(pass string) error {
+	var hasNum, hasUpper, hasLower bool
+	for _, c := range pass {
+		switch {
+		case unicode.IsNumber(c):
+			hasNum = true
+		case unicode.IsUpper(c):
+			hasUpper = true
+		case unicode.IsLower(c) || c == ' ':
+			hasLower = true
+		}
+	}
+	if len(pass) < 8 {
+		return ErrPasswordLength
+	}
+	if !hasLower {
+		return ErrPasswordLower
+	}
+	if !hasUpper {
+		return ErrPasswordUpper
+	}
+	if !hasNum {
+		return ErrPasswordNumber
+	}
+
+	return nil
 }
