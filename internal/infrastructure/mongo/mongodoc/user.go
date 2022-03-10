@@ -61,7 +61,7 @@ func NewUser(user *user1.User) (*UserDocument, string) {
 	auths := user.Auths()
 	authsdoc := make([]string, 0, len(auths))
 	for _, a := range auths {
-		authsdoc = append(authsdoc, a.Provider+"|"+a.Sub)
+		authsdoc = append(authsdoc, a.Sub)
 	}
 	var v *UserVerificationDoc
 	if user.Verification() != nil {
