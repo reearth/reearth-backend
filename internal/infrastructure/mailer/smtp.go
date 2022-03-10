@@ -23,6 +23,7 @@ type smtpMailer struct {
 
 type message struct {
 	to           []string
+	from         string
 	subject      string
 	plainContent string
 	htmlContent  string
@@ -67,6 +68,7 @@ func (m *message) encodeContent() (string, error) {
 func (m *message) encodeMessage() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
 	buf.WriteString(fmt.Sprintf("Subject: %s\n", m.subject))
+	buf.WriteString(fmt.Sprintf("from: %s\n", m.from))
 	buf.WriteString(fmt.Sprintf("To: %s\n", strings.Join(m.to, ",")))
 	content, err := m.encodeContent()
 	if err != nil {
@@ -98,6 +100,7 @@ func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlC
 
 	msg := &message{
 		to:           emails,
+		from:         m.email,
 		subject:      subject,
 		plainContent: plainContent,
 		htmlContent:  htmlContent,
