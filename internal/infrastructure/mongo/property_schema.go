@@ -49,11 +49,11 @@ func (r *propertySchemaRepo) FindByID(ctx context.Context, id id.PropertySchemaI
 
 func (r *propertySchemaRepo) FindByIDs(ctx context.Context, ids []id.PropertySchemaID) (property.SchemaList, error) {
 	// exclude built-in
-	b := map[string]*property.Schema{}
+	b := property.SchemaMap{}
 	ids2 := make([]id.PropertySchemaID, 0, len(ids))
 	for _, id := range ids {
 		if p := builtin.GetPropertySchema(id); p != nil {
-			b[id.String()] = p
+			b[id] = p
 		} else if s := id.Plugin().Scene(); s == nil || r.f.CanRead(*s) {
 			ids2 = append(ids2, id)
 		}
@@ -73,27 +73,7 @@ func (r *propertySchemaRepo) FindByIDs(ctx context.Context, ids []id.PropertySch
 		}
 	}
 
-	// combine built-in and mongo results
-	results := make(property.SchemaList, 0, len(ids))
-	for _, id := range ids {
-		if p, ok := b[id.String()]; ok {
-			results = append(results, p)
-			continue
-		}
-		found := false
-		for _, p := range res {
-			if p != nil && p.ID().Equal(id) {
-				results = append(results, p)
-				found = true
-				break
-			}
-		}
-		if !found {
-			results = append(results, nil)
-		}
-	}
-
-	return results, nil
+	return res.Concat(b.List()).MapToIDs(ids), nil
 }
 
 func (r *propertySchemaRepo) Save(ctx context.Context, m *property.Schema) error {

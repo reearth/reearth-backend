@@ -56,17 +56,17 @@ func (r *pluginRepo) FindByID(ctx context.Context, pid id.PluginID) (*plugin.Plu
 func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugin.Plugin, error) {
 	// TODO: separate built-in plugins to another repository
 	// exclude built-in
-	b := map[string]*plugin.Plugin{}
+	b := plugin.Map{}
 	ids2 := make([]id.PluginID, 0, len(ids))
 	for _, id := range ids {
 		if p := builtin.GetPlugin(id); p != nil {
-			b[id.String()] = p
+			b[id] = p
 		} else if s := id.Scene(); s == nil || r.f.CanRead(*s) {
 			ids2 = append(ids2, id)
 		}
 	}
 
-	res := make([]*plugin.Plugin, 0, len(ids2))
+	res := make(plugin.List, 0, len(ids2))
 	var err error
 
 	if len(ids2) > 0 {
@@ -80,27 +80,7 @@ func (r *pluginRepo) FindByIDs(ctx context.Context, ids []id.PluginID) ([]*plugi
 		}
 	}
 
-	// combine built-in and mongo results
-	results := make([]*plugin.Plugin, 0, len(ids))
-	for _, id := range ids {
-		if p, ok := b[id.String()]; ok {
-			results = append(results, p)
-			continue
-		}
-		found := false
-		for _, p := range res {
-			if p != nil && p.ID().Equal(id) {
-				results = append(results, p)
-				found = true
-				break
-			}
-		}
-		if !found {
-			results = append(results, nil)
-		}
-	}
-
-	return filterPlugins(ids, results), nil
+	return res.Concat(b.List()).MapToIDs(ids), nil
 }
 
 func (r *pluginRepo) Save(ctx context.Context, plugin *plugin.Plugin) error {
@@ -137,21 +117,6 @@ func (r *pluginRepo) findOne(ctx context.Context, filter interface{}) (*plugin.P
 		return nil, err
 	}
 	return c.Rows[0], nil
-}
-
-func filterPlugins(ids []id.PluginID, rows []*plugin.Plugin) []*plugin.Plugin {
-	res := make([]*plugin.Plugin, 0, len(ids))
-	for _, id := range ids {
-		var r2 *plugin.Plugin
-		for _, r := range rows {
-			if r.ID().Equal(id) {
-				r2 = r
-				break
-			}
-		}
-		res = append(res, r2)
-	}
-	return res
 }
 
 func (r *pluginRepo) readFilter(filter interface{}) interface{} {
