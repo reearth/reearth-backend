@@ -369,22 +369,21 @@
                                 <table class="wrapper" role="presentation" border="0" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>
-                                            <p class="greeting">Hi：</p>
+                                            <p class="greeting">Hi {{ .UserName }}：</p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p>Thank you for signing up to Re:Earth. Please verify your email address by clicking the button below.</p>
+                                            <p>{{ .Message }}</p>
                                         </td>
                                     </tr>
                                     <tr align="center">
-                                        <td> <a class="btn" href="{.}" target="_blank">Activate
-                                                your account and log in</a> </td>
+                                        <td> <a class="btn" href="{{ .ActionURL }}" target="_blank">{{ .ActionLabel }}</a> </td>
                                     </tr>
                                     <tr>
                                         <tr>
                                             <td>
-                                                <p>You can use this email address to log in to Re:Earth account anytime.</p>
+                                                <p>{{ .Suffix }}</p>
                                             </td>
                                         </tr>
                                 </table>

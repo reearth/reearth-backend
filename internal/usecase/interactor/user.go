@@ -36,31 +36,55 @@ type User struct {
 	authenticator     gateway.Authenticator
 	mailer            gateway.Mailer
 	signupSecret      string
+	authSrvUIDomain   string
+}
+
+type mailContent struct {
+	UserName    string
+	Message     string
+	Suffix      string
+	ActionLabel string
+	ActionURL   htmlTmpl.URL
 }
 
 var (
-	//go:embed emails/password_reset_html.tmpl
-	passwordResetHTMLTMPLStr string
-	//go:embed emails/password_reset_text.tmpl
-	passwordResetTextTMPLStr string
+	//go:embed emails/auth_html.tmpl
+	autHTMLTMPLStr string
+	//go:embed emails/auth_text.tmpl
+	authTextTMPLStr string
 
-	passwordResetTextTMPL *textTmpl.Template
-	passwordResetHTMLTMPL *htmlTmpl.Template
+	authTextTMPL *textTmpl.Template
+	authHTMLTMPL *htmlTmpl.Template
+
+	signupMailContent        mailContent
+	passwordResetMailContent mailContent
 )
 
 func init() {
 	var err error
-	passwordResetTextTMPL, err = textTmpl.New("passwordReset").Parse(passwordResetTextTMPLStr)
+	authTextTMPL, err = textTmpl.New("passwordReset").Parse(authTextTMPLStr)
 	if err != nil {
 		log.Panicf("password reset email template parse error: %s\n", err)
 	}
-	passwordResetHTMLTMPL, err = htmlTmpl.New("passwordReset").Parse(passwordResetHTMLTMPLStr)
+	authHTMLTMPL, err = htmlTmpl.New("passwordReset").Parse(autHTMLTMPLStr)
 	if err != nil {
 		log.Panicf("password reset email template parse error: %s\n", err)
+	}
+
+	signupMailContent = mailContent{
+		Message:     "Thank you for signing up to Re:Earth. Please verify your email address by clicking the button below.",
+		Suffix:      "You can use this email address to log in to Re:Earth account anytime.",
+		ActionLabel: "Activate your account and log in",
+	}
+
+	passwordResetMailContent = mailContent{
+		Message:     "Thank you for using Re:Earth. We’ve received a request to reset your password. If this was you, please click the link below to confirm and change your password.",
+		Suffix:      "If you did not mean to reset your password, then you can ignore this email.",
+		ActionLabel: "Confirm to reset your password",
 	}
 }
 
-func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) interfaces.User {
+func NewUser(r *repo.Container, g *gateway.Container, signupSecret, authSrcUIDomain string) interfaces.User {
 	return &User{
 		userRepo:          r.User,
 		teamRepo:          r.Team,
@@ -75,6 +99,7 @@ func NewUser(r *repo.Container, g *gateway.Container, signupSecret string) inter
 		file:              g.File,
 		authenticator:     g.Authenticator,
 		signupSecret:      signupSecret,
+		authSrvUIDomain:   authSrcUIDomain,
 		mailer:            g.Mailer,
 	}
 }
@@ -315,13 +340,14 @@ func (i *User) StartPasswordReset(ctx context.Context, email string) error {
 	}
 
 	var TextOut, HTMLOut bytes.Buffer
-	link := "localhost:3000/?pwd-reset-token=" + pr.Token
-	err = passwordResetTextTMPL.Execute(&TextOut, link)
-	if err != nil {
+	link := i.authSrvUIDomain + "/?pwd-reset-token=" + pr.Token
+	passwordResetMailContent.UserName = u.Name()
+	passwordResetMailContent.ActionURL = htmlTmpl.URL(link)
+
+	if err := authTextTMPL.Execute(&TextOut, passwordResetMailContent); err != nil {
 		return err
 	}
-	err = passwordResetHTMLTMPL.Execute(&HTMLOut, link)
-	if err != nil {
+	if err := authHTMLTMPL.Execute(&HTMLOut, passwordResetMailContent); err != nil {
 		return err
 	}
 
@@ -606,13 +632,14 @@ func (i *User) CreateVerification(ctx context.Context, email string) error {
 	}
 
 	var TextOut, HTMLOut bytes.Buffer
-	link := "localhost:3000/?user-verification-token=" + vr.Code()
-	err = passwordResetTextTMPL.Execute(&TextOut, link)
-	if err != nil {
+	link := i.authSrvUIDomain + "/?user-verification-token=" + vr.Code()
+	signupMailContent.UserName = email
+	signupMailContent.ActionURL = htmlTmpl.URL(link)
+
+	if err := authTextTMPL.Execute(&TextOut, signupMailContent); err != nil {
 		return err
 	}
-	err = passwordResetHTMLTMPL.Execute(&HTMLOut, link)
-	if err != nil {
+	if err := authHTMLTMPL.Execute(&HTMLOut, signupMailContent); err != nil {
 		return err
 	}
 

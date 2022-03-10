@@ -60,8 +60,8 @@ func (a *Request) GetClientID() string {
 }
 
 func (a *Request) GetResponseMode() oidc.ResponseMode {
-	// TODO implement me
-	panic("implement me")
+	// TODO make sure about this
+	return oidc.ResponseModeQuery
 }
 
 func (a *Request) GetCode() string {
