@@ -90,7 +90,7 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	api.GET("/published_data/:name", PublishedData())
 
 	private := api.Group("", AuthRequiredMiddleware())
-	graphqlAPI(e, private, cfg)
+	private.POST("/graphql", GraphqlAPI(cfg.Config.GraphQL, cfg.Debug || cfg.Config.Dev))
 	private.GET("/layers/:param", ExportLayer())
 
 	published := e.Group("/p", PublishedAuthMiddleware())
@@ -118,12 +118,6 @@ func errorHandler(next func(error, echo.Context)) func(error, echo.Context) {
 			next(err, c)
 		}
 	}
-}
-
-func authRequired(g *echo.Group, jwks Jwks, cfg *ServerConfig) {
-	g.Use(jwtEchoMiddleware(jwks, cfg))
-	g.Use(parseJwtMiddleware(cfg))
-	g.Use(authMiddleware(cfg))
 }
 
 func allowedOrigins(cfg *ServerConfig) []string {
