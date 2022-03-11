@@ -1,15 +1,13 @@
 package repo
 
 import (
-	"errors"
-
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/user"
 )
 
 var (
-	ErrOperationDenied = errors.New("operation denied")
+	ErrOperationDenied = usecase.ErrOperationDenied
 )
 
 type Container struct {

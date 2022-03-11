@@ -1,9 +1,15 @@
 package usecase
 
 import (
+	"errors"
+
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/scene"
 	"github.com/reearth/reearth-backend/pkg/user"
+)
+
+var (
+	ErrOperationDenied = errors.New("operation denied")
 )
 
 type Operator struct {
@@ -78,4 +84,46 @@ func (o *Operator) IsWritableScene(scene ...id.SceneID) bool {
 
 func (o *Operator) IsOwningScene(scene ...id.SceneID) bool {
 	return o.AllOwningScenes().Includes(scene...)
+}
+
+func (o *Operator) CanReadTeam(scene ...id.TeamID) error {
+	if !o.IsReadableTeam(scene...) {
+		return ErrOperationDenied
+	}
+	return nil
+}
+
+func (o *Operator) CanWriteTeam(scene ...id.TeamID) error {
+	if !o.IsWritableTeam(scene...) {
+		return ErrOperationDenied
+	}
+	return nil
+}
+
+func (o *Operator) CanOwnTeam(scene ...id.TeamID) error {
+	if !o.IsOwningTeam(scene...) {
+		return ErrOperationDenied
+	}
+	return nil
+}
+
+func (o *Operator) CanReadScene(scene ...id.SceneID) error {
+	if !o.IsReadableScene(scene...) {
+		return ErrOperationDenied
+	}
+	return nil
+}
+
+func (o *Operator) CanWriteScene(scene ...id.SceneID) error {
+	if !o.IsWritableScene(scene...) {
+		return ErrOperationDenied
+	}
+	return nil
+}
+
+func (o *Operator) CanOwnScene(scene ...id.SceneID) error {
+	if !o.IsOwningScene(scene...) {
+		return ErrOperationDenied
+	}
+	return nil
 }
