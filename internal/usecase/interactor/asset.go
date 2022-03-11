@@ -6,6 +6,7 @@ import (
 	"path"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
+	"github.com/reearth/reearth-backend/internal/usecase/executor"
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
@@ -15,95 +16,71 @@ import (
 
 type Asset struct {
 	common
+	e        *executor.Exectutor
 	repos    *repo.Container
 	gateways *gateway.Container
 }
 
 func NewAsset(r *repo.Container, g *gateway.Container) interfaces.Asset {
 	return &Asset{
+		e:        executor.New(r.Transaction),
 		repos:    r,
 		gateways: g,
 	}
 }
 
 func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, operator *usecase.Operator) (result *asset.Asset, err error) {
-	if err := i.CanWriteTeam(inp.TeamID, operator); err != nil {
-		return nil, err
-	}
-
-	if inp.File == nil {
-		return nil, interfaces.ErrFileNotIncluded
-	}
-
-	tx, err := i.repos.Transaction.Begin()
-	if err != nil {
-		return
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
+	err = i.e.Run(ctx, func(ctx context.Context) error {
+		if inp.File == nil {
+			return interfaces.ErrFileNotIncluded
 		}
-	}()
 
-	url, err := i.gateways.File.UploadAsset(ctx, inp.File)
-	if err != nil {
-		return nil, err
-	}
+		url, err := i.gateways.File.UploadAsset(ctx, inp.File)
+		if err != nil {
+			return err
+		}
 
-	result, err = asset.New().
-		NewID().
-		Team(inp.TeamID).
-		Name(path.Base(inp.File.Path)).
-		Size(inp.File.Size).
-		URL(url.String()).
-		Build()
-	if err != nil {
-		return nil, err
-	}
+		result, err = asset.New().
+			NewID().
+			Team(inp.TeamID).
+			Name(path.Base(inp.File.Path)).
+			Size(inp.File.Size).
+			URL(url.String()).
+			Build()
+		if err != nil {
+			return err
+		}
 
-	if err = i.repos.Asset.Save(ctx, result); err != nil {
-		return
-	}
+		if err := i.repos.Asset.Save(ctx, result); err != nil {
+			return err
+		}
 
-	tx.Commit()
+		return nil
+	}, i.e.CanWriteTeam(inp.TeamID, operator), i.e.Transaction())
 	return
 }
 
 func (i *Asset) Remove(ctx context.Context, aid id.AssetID, operator *usecase.Operator) (result id.AssetID, err error) {
-	asset, err := i.repos.Asset.FindByID(ctx, aid)
-	if err != nil {
-		return aid, err
-	}
-
-	tx, err := i.repos.Transaction.Begin()
-	if err != nil {
-		return
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
+	err = i.e.Run(ctx, func(ctx context.Context) error {
+		asset, err := i.repos.Asset.FindByID(ctx, aid)
+		if err != nil {
+			return err
 		}
-	}()
-
-	team, err := i.repos.Team.FindByID(ctx, asset.Team())
-	if err != nil {
-		return aid, err
-	}
-
-	if !team.Members().ContainsUser(operator.User) {
-		return aid, interfaces.ErrOperationDenied
-	}
-
-	if url, _ := url.Parse(asset.URL()); url != nil {
-		if err = i.gateways.File.RemoveAsset(ctx, url); err != nil {
-			return aid, err
+		if err := operator.CanWriteTeam(asset.Team()); err != nil {
+			return err
 		}
-	}
 
-	if err = i.repos.Asset.Remove(ctx, aid); err != nil {
-		return
-	}
+		if url, _ := url.Parse(asset.URL()); url != nil {
+			if err = i.gateways.File.RemoveAsset(ctx, url); err != nil {
+				return err
+			}
+		}
 
-	tx.Commit()
-	return aid, nil
+		if err = i.repos.Asset.Remove(ctx, aid); err != nil {
+			return err
+		}
+
+		return nil
+	}, i.e.Transaction())
+	return
 }
