@@ -89,9 +89,9 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 	api.GET("/published/:name", PublishedMetadata())
 	api.GET("/published_data/:name", PublishedData())
 
-	privateApi := api.Group("", AuthRequiredMiddleware())
-	graphqlAPI(e, privateApi, cfg)
-	privateAPI(e, privateApi, cfg.Repos)
+	private := api.Group("", AuthRequiredMiddleware())
+	graphqlAPI(e, private, cfg)
+	private.GET("/layers/:param", ExportLayer())
 
 	published := e.Group("/p", PublishedAuthMiddleware())
 	published.GET("/:name/data.json", PublishedData())
