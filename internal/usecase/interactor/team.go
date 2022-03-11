@@ -272,18 +272,3 @@ func (i *Team) Remove(ctx context.Context, id id.TeamID, operator *usecase.Opera
 	tx.Commit()
 	return
 }
-
-func (i *Team) filterTeams(teams []*user.Team, operator *usecase.Operator, err error) ([]*user.Team, error) {
-	if err != nil {
-		return nil, err
-	}
-	if operator == nil {
-		return make([]*user.Team, len(teams)), nil
-	}
-	for i, t := range teams {
-		if t == nil || !operator.IsReadableTeam(t.ID()) {
-			teams[i] = nil
-		}
-	}
-	return teams, nil
-}

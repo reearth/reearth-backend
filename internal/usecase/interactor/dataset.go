@@ -54,14 +54,6 @@ func NewDataset(r *repo.Container, gr *gateway.Container) interfaces.Dataset {
 	}
 }
 
-func (i *Dataset) DynamicSchemaFields() []*dataset.SchemaField {
-	author, _ := dataset.NewSchemaField().NewID().Name("author").Type(dataset.ValueTypeString).Build()
-	content, _ := dataset.NewSchemaField().NewID().Name("content").Type(dataset.ValueTypeString).Build()
-	location, _ := dataset.NewSchemaField().NewID().Name("location").Type(dataset.ValueTypeLatLng).Build()
-	target, _ := dataset.NewSchemaField().NewID().Name("target").Type(dataset.ValueTypeString).Build()
-	return []*dataset.SchemaField{author, content, location, target}
-}
-
 func (i *Dataset) UpdateDatasetSchema(ctx context.Context, inp interfaces.UpdateDatasetSchemaParam, operator *usecase.Operator) (_ *dataset.Schema, err error) {
 	schema, err := i.datasetSchemaRepo.FindByID(ctx, inp.SchemaId)
 	if err != nil {
@@ -106,7 +98,7 @@ func (i *Dataset) AddDynamicDatasetSchema(ctx context.Context, inp interfaces.Ad
 		NewID().
 		Scene(inp.SceneId).
 		Dynamic(true)
-	fields := i.DynamicSchemaFields()
+	fields := i.dynamicSchemaFields()
 	schemaBuilder = schemaBuilder.Fields(fields)
 	ds, err := schemaBuilder.Build()
 	if err != nil {
@@ -341,10 +333,6 @@ func (i *Dataset) importDataset(ctx context.Context, content io.Reader, name str
 	return schema, nil
 }
 
-func (i *Dataset) Fetch(ctx context.Context, ids []id.DatasetID, operator *usecase.Operator) (dataset.List, error) {
-	return i.datasetRepo.FindByIDs(ctx, ids)
-}
-
 func (i *Dataset) GraphFetch(ctx context.Context, id id.DatasetID, depth int, operator *usecase.Operator) (dataset.List, error) {
 	if depth < 0 || depth > 3 {
 		return nil, interfaces.ErrDatasetInvalidDepth
@@ -368,10 +356,6 @@ func (i *Dataset) GraphFetch(ctx context.Context, id id.DatasetID, depth int, op
 		}
 	}
 	return res, nil
-}
-
-func (i *Dataset) FetchSchema(ctx context.Context, ids []id.DatasetSchemaID, operator *usecase.Operator) (dataset.SchemaList, error) {
-	return i.datasetSchemaRepo.FindByIDs(ctx, ids)
 }
 
 func (i *Dataset) GraphFetchSchema(ctx context.Context, id id.DatasetSchemaID, depth int, operator *usecase.Operator) (dataset.SchemaList, error) {
@@ -399,22 +383,6 @@ func (i *Dataset) GraphFetchSchema(ctx context.Context, id id.DatasetSchemaID, d
 	}
 
 	return res, nil
-}
-
-func (i *Dataset) FindBySchema(ctx context.Context, ds id.DatasetSchemaID, p *usecase.Pagination, operator *usecase.Operator) (dataset.List, *usecase.PageInfo, error) {
-	return i.datasetRepo.FindBySchema(ctx, ds, p)
-}
-
-func (i *Dataset) FindSchemaByScene(ctx context.Context, sid id.SceneID, p *usecase.Pagination, operator *usecase.Operator) (dataset.SchemaList, *usecase.PageInfo, error) {
-	if err := i.CanReadScene(sid, operator); err != nil {
-		return nil, nil, err
-	}
-
-	return i.datasetSchemaRepo.FindByScene(ctx, sid, p)
-}
-
-func (i *Dataset) FindDynamicSchemaByScene(ctx context.Context, sid id.SceneID) (dataset.SchemaList, error) {
-	return i.datasetSchemaRepo.FindAllDynamicByScene(ctx, sid)
 }
 
 func (i *Dataset) Sync(ctx context.Context, sceneID id.SceneID, url string, operator *usecase.Operator) (dss dataset.SchemaList, ds dataset.List, err error) {
@@ -626,4 +594,12 @@ func (i *Dataset) RemoveDatasetSchema(ctx context.Context, inp interfaces.Remove
 
 	tx.Commit()
 	return inp.SchemaID, nil
+}
+
+func (i *Dataset) dynamicSchemaFields() []*dataset.SchemaField {
+	author, _ := dataset.NewSchemaField().NewID().Name("author").Type(dataset.ValueTypeString).Build()
+	content, _ := dataset.NewSchemaField().NewID().Name("content").Type(dataset.ValueTypeString).Build()
+	location, _ := dataset.NewSchemaField().NewID().Name("location").Type(dataset.ValueTypeLatLng).Build()
+	target, _ := dataset.NewSchemaField().NewID().Name("target").Type(dataset.ValueTypeString).Build()
+	return []*dataset.SchemaField{author, content, location, target}
 }

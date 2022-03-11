@@ -193,19 +193,6 @@ func (i *Project) Update(ctx context.Context, p interfaces.UpdateProjectParam, o
 	return prj, nil
 }
 
-func (i *Project) CheckAlias(ctx context.Context, alias string) (bool, error) {
-	if !project.CheckAliasPattern(alias) {
-		return false, project.ErrInvalidAlias
-	}
-
-	prj, err := i.projectRepo.FindByPublicName(ctx, alias)
-	if prj == nil && err == nil || err != nil && errors.Is(err, rerror.ErrNotFound) {
-		return true, nil
-	}
-
-	return false, err
-}
-
 func (i *Project) Publish(ctx context.Context, params interfaces.PublishProjectParam, operator *usecase.Operator) (_ *project.Project, err error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {

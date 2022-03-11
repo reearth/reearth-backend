@@ -54,6 +54,5 @@ type Project interface {
 	Create(context.Context, CreateProjectParam, *usecase.Operator) (*project.Project, error)
 	Update(context.Context, UpdateProjectParam, *usecase.Operator) (*project.Project, error)
 	Publish(context.Context, PublishProjectParam, *usecase.Operator) (*project.Project, error)
-	CheckAlias(context.Context, string) (bool, error)
 	Delete(context.Context, id.ProjectID, *usecase.Operator) error
 }
