@@ -29,6 +29,6 @@ func (a Auth) Ref() *Auth {
 func GenReearthSub(userID string) *Auth {
 	return &Auth{
 		Provider: "reearth",
-		Sub:      userID,
+		Sub:      "reearth|" + userID,
 	}
 }

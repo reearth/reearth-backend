@@ -69,6 +69,7 @@ func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 		SignupSecret:       cfg.Config.SignupSecret,
 		PublishedIndexHTML: publishedIndexHTML,
 		PublishedIndexURL:  cfg.Config.Published.IndexURL,
+		AuthSrvUIDomain:    cfg.Config.AuthSrv.UIDomain,
 	})
 
 	e.Use(UsecaseMiddleware(&usecases))

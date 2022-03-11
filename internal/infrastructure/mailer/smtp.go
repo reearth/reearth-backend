@@ -17,12 +17,14 @@ import (
 type smtpMailer struct {
 	host     string
 	port     string
+	email    string
 	username string
 	password string
 }
 
 type message struct {
 	to           []string
+	from         string
 	subject      string
 	plainContent string
 	htmlContent  string
@@ -67,6 +69,7 @@ func (m *message) encodeContent() (string, error) {
 func (m *message) encodeMessage() ([]byte, error) {
 	buf := bytes.NewBuffer(nil)
 	buf.WriteString(fmt.Sprintf("Subject: %s\n", m.subject))
+	buf.WriteString(fmt.Sprintf("From: %s\n", m.from))
 	buf.WriteString(fmt.Sprintf("To: %s\n", strings.Join(m.to, ",")))
 	content, err := m.encodeContent()
 	if err != nil {
@@ -77,11 +80,12 @@ func (m *message) encodeMessage() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func NewWithSMTP(host, port, username, password string) gateway.Mailer {
+func NewWithSMTP(host, port, username, email, password string) gateway.Mailer {
 	return &smtpMailer{
 		host:     host,
 		port:     port,
 		username: username,
+		email:    email,
 		password: password,
 	}
 }
@@ -98,6 +102,7 @@ func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlC
 
 	msg := &message{
 		to:           emails,
+		from:         m.email,
 		subject:      subject,
 		plainContent: plainContent,
 		htmlContent:  htmlContent,
@@ -112,5 +117,5 @@ func (m *smtpMailer) SendMail(to []gateway.Contact, subject, plainContent, htmlC
 	if len(m.host) == 0 {
 		return errors.New("invalid smtp url")
 	}
-	return smtp.SendMail(m.host+":"+m.port, auth, m.username, emails, encodedMsg)
+	return smtp.SendMail(m.host+":"+m.port, auth, m.email, emails, encodedMsg)
 }

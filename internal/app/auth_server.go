@@ -24,7 +24,7 @@ var (
 
 func authEndPoints(ctx context.Context, e *echo.Echo, r *echo.Group, cfg *ServerConfig) {
 
-	userUsecase := interactor.NewUser(cfg.Repos, cfg.Gateways, cfg.Config.SignupSecret)
+	userUsecase := interactor.NewUser(cfg.Repos, cfg.Gateways, cfg.Config.SignupSecret, cfg.Config.AuthSrv.UIDomain)
 
 	domain, err := url.Parse(cfg.Config.AuthSrv.Domain)
 	if err != nil {
@@ -208,7 +208,7 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		}
 
 		// Complete the auth request && set the subject
-		err = storage.(*interactor.AuthStorage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("auth0").Sub)
+		err = storage.(*interactor.AuthStorage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("reearth").Sub)
 		if err != nil {
 			ec.Logger().Error("failed to complete the auth request !")
 			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
