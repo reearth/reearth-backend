@@ -228,14 +228,18 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 
 func (i *User) reearthSignup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.User, *user.Team, error) {
 	// Check if user email already exists
-	existed, err := i.userRepo.FindByEmail(ctx, *inp.Email)
+	existed, err := i.userRepo.FindByNameOrEmail(ctx, *inp.Name)
+	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
+		return "", "", nil, nil, err
+	}
+	existed, err = i.userRepo.FindByEmail(ctx, *inp.Email)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 		return "", "", nil, nil, err
 	}
 
 	if existed != nil {
 		if existed.Verification().IsVerified() {
-			return "", "", nil, nil, errors.New("existed user email")
+			return "", "", nil, nil, errors.New("existed user")
 		} else {
 			//	if user exists but not verified -> create a new verification
 			if err := i.CreateVerification(ctx, *inp.Email); err != nil {
