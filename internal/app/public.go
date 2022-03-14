@@ -52,16 +52,17 @@ func PasswordReset() echo.HandlerFunc {
 
 		if len(inp.Email) > 0 {
 			if err := controller.StartPasswordReset(c.Request().Context(), inp); err != nil {
-				return err
+				c.Logger().Error("an attempt to start reset password failed. internal error: %w", err)
 			}
-			return c.JSON(http.StatusOK, true)
+			return c.JSON(http.StatusOK, echo.Map{"message": "If that email address is in our database, we will send you an email to reset your password."})
 		}
 
 		if len(inp.Token) > 0 && len(inp.Password) > 0 {
 			if err := controller.PasswordReset(c.Request().Context(), inp); err != nil {
-				return err
+				c.Logger().Error("an attempt to Set password failed. internal error: %w", err)
+				return c.JSON(http.StatusBadRequest, echo.Map{"message": "Bad set password request"})
 			}
-			return c.JSON(http.StatusOK, true)
+			return c.JSON(http.StatusOK, echo.Map{"message": "Password is updated successfully"})
 		}
 
 		return &echo.HTTPError{Code: http.StatusBadRequest, Message: "Bad reset password request"}

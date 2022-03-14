@@ -189,13 +189,13 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 
 		authRequest, err := storage.AuthRequestByID(ctx, request.AuthRequestID)
 		if err != nil {
-			ec.Logger().Error("filed to parse login request")
-			return err
+			ec.Logger().Error("filed to parse login request. internal err: %w", err)
+			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "Bad request!"))
 		}
 
 		if len(request.Email) == 0 || len(request.Password) == 0 {
-			ec.Logger().Error("credentials are not provided")
-			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
+			ec.Logger().Error("one of credentials are not provided")
+			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "Bad request!"))
 		}
 
 		// check user credentials from db
@@ -205,14 +205,14 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		})
 		if err != nil {
 			ec.Logger().Error("wrong credentials!")
-			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
+			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "Login failed; Invalid user ID or password."))
 		}
 
 		// Complete the auth request && set the subject
 		err = storage.(*interactor.AuthStorage).CompleteAuthRequest(ctx, request.AuthRequestID, user.GetAuthByProvider("reearth").Sub)
 		if err != nil {
-			ec.Logger().Error("failed to complete the auth request !")
-			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "invalid login"))
+			ec.Logger().Error("failed to complete the auth request!. internal error: %w", err)
+			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "Bad request!"))
 		}
 
 		return ec.Redirect(http.StatusFound, "/authorize/callback?id="+request.AuthRequestID)
