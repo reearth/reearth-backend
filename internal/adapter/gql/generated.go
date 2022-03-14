@@ -7535,13 +7535,13 @@ type RemoveAssetPayload {
   assetId: ID!
 }
 
+type UpdateMePayload {
+  user: User!
+}
+
 type SignupPayload {
   user: User!
   team: Team!
-}
-
-type UpdateMePayload {
-  user: User!
 }
 
 type DeleteMePayload {
