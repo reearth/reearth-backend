@@ -228,11 +228,7 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (u *user.
 
 func (i *User) reearthSignup(ctx context.Context, inp interfaces.SignupParam) (string, string, *user.User, *user.Team, error) {
 	// Check if user email already exists
-	existed, err := i.userRepo.FindByNameOrEmail(ctx, *inp.Name)
-	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
-		return "", "", nil, nil, err
-	}
-	existed, err = i.userRepo.FindByEmail(ctx, *inp.Email)
+	existed, err := i.userRepo.FindByEmail(ctx, *inp.Email)
 	if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 		return "", "", nil, nil, err
 	}
@@ -463,9 +459,18 @@ func (i *User) UpdateMe(ctx context.Context, p interfaces.UpdateMeParam, operato
 		u.UpdateTheme(*p.Theme)
 	}
 
+	if p.Password != nil && u.HasAuthProvider("reearth") {
+		if err := u.SetPassword(*p.Password); err != nil {
+			return nil, err
+		}
+	}
+
 	// Update Auth0 users
 	if p.Name != nil || p.Email != nil || p.Password != nil {
 		for _, a := range u.Auths() {
+			if a.Provider != "auth0" {
+				continue
+			}
 			if _, err := i.authenticator.UpdateUser(gateway.AuthenticatorUpdateUserParam{
 				ID:       a.Sub,
 				Name:     p.Name,
