@@ -184,13 +184,14 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		err := ec.Bind(request)
 		if err != nil {
 			ec.Logger().Error("filed to parse login request")
+			return ec.Redirect(http.StatusFound, redirectURL(ec.Request().Referer(), !cfg.Debug, "", "Bad request!"))
 			return err
 		}
 
 		authRequest, err := storage.AuthRequestByID(ctx, request.AuthRequestID)
 		if err != nil {
 			ec.Logger().Error("filed to parse login request. internal err: %w", err)
-			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "Bad request!"))
+			return ec.Redirect(http.StatusFound, redirectURL(ec.Request().Referer(), !cfg.Debug, "", "Bad request!"))
 		}
 
 		if len(request.Email) == 0 || len(request.Password) == 0 {
@@ -204,7 +205,7 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 			Password: request.Password,
 		})
 		if err != nil {
-			ec.Logger().Error("wrong credentials!")
+			ec.Logger().Error("wrong credentials!. internal error: %w", err)
 			return ec.Redirect(http.StatusFound, redirectURL(authRequest.GetRedirectURI(), !cfg.Debug, request.AuthRequestID, "Login failed; Invalid user ID or password."))
 		}
 

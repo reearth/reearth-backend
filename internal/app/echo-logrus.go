@@ -135,7 +135,7 @@ func (l *Logger) Warn(i ...interface{}) {
 
 // Error string log
 func (l *Logger) Error(i ...interface{}) {
-	logrus.Error(i[0].(string))
+	logrus.Error(i...)
 }
 
 // Fatal string log

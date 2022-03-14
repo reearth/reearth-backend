@@ -305,6 +305,9 @@ func (i *User) GetUserByCredentials(ctx context.Context, inp interfaces.GetUserB
 	if !matched {
 		return nil, interfaces.ErrSignupInvalidPassword
 	}
+	if u.Verification() == nil || !u.Verification().IsVerified() {
+		return nil, interfaces.ErrNotVerifiedUser
+	}
 	return u, nil
 }
 
