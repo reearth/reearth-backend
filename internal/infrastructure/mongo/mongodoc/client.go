@@ -322,10 +322,10 @@ func paginationFilter(ctx context.Context, coll *mongo.Collection, p *Pagination
 			}
 			paginationFilter = bson.M{
 				"$or": []bson.M{
-					{sortKey: bson.M{"$gt": curObj[sortKey]}},
+					{sortKey: bson.M{op: curObj[sortKey]}},
 					{
 						sortKey: curObj[sortKey],
-						key:     bson.M{"$gt": *cur},
+						key:     bson.M{op: *cur},
 					},
 				},
 			}
