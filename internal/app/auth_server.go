@@ -185,7 +185,6 @@ func login(ctx context.Context, cfg *ServerConfig, storage op.Storage, userUseca
 		if err != nil {
 			ec.Logger().Error("filed to parse login request")
 			return ec.Redirect(http.StatusFound, redirectURL(ec.Request().Referer(), !cfg.Debug, "", "Bad request!"))
-			return err
 		}
 
 		authRequest, err := storage.AuthRequestByID(ctx, request.AuthRequestID)
