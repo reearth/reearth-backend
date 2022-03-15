@@ -45,6 +45,12 @@ func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 		)
 	}
 
+	e.Use(
+		jwtEchoMiddleware(cfg),
+		parseJwtMiddleware(),
+		authMiddleware(cfg),
+	)
+
 	// enable pprof
 	if e.Debug {
 		pprofGroup := e.Group("/debug/pprof")
@@ -93,11 +99,6 @@ func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 
 	// authenticated endpoints
 	privateApi := api.Group("", AuthRequiredMiddleware())
-	privateApi.Use(
-		jwtEchoMiddleware(cfg),
-		parseJwtMiddleware(),
-		authMiddleware(cfg),
-	)
 	graphqlAPI(e, privateApi, cfg)
 	privateAPI(e, privateApi, cfg.Repos)
 
