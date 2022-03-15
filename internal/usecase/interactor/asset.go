@@ -15,23 +15,19 @@ import (
 
 type Asset struct {
 	common
-	assetRepo   repo.Asset
-	teamRepo    repo.Team
-	transaction repo.Transaction
-	file        gateway.File
+	repos    *repo.Container
+	gateways *gateway.Container
 }
 
-func NewAsset(r *repo.Container, gr *gateway.Container) interfaces.Asset {
+func NewAsset(r *repo.Container, g *gateway.Container) interfaces.Asset {
 	return &Asset{
-		assetRepo:   r.Asset,
-		teamRepo:    r.Team,
-		transaction: r.Transaction,
-		file:        gr.File,
+		repos:    r,
+		gateways: g,
 	}
 }
 
 func (i *Asset) Fetch(ctx context.Context, assets []id.AssetID, operator *usecase.Operator) ([]*asset.Asset, error) {
-	return i.assetRepo.FindByIDs(ctx, assets, operator.AllReadableTeams())
+	return i.repos.Asset.FindByIDs(ctx, assets)
 }
 
 func (i *Asset) FindByTeam(ctx context.Context, tid id.TeamID, keyword *string, sort *asset.SortType, p *usecase.Pagination, operator *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error) {
@@ -39,7 +35,7 @@ func (i *Asset) FindByTeam(ctx context.Context, tid id.TeamID, keyword *string, 
 		return nil, nil, err
 	}
 
-	return i.assetRepo.FindByTeam(ctx, tid, repo.AssetFilter{
+	return i.repos.Asset.FindByTeam(ctx, tid, repo.AssetFilter{
 		Sort:       sort,
 		Keyword:    keyword,
 		Pagination: p,
@@ -55,7 +51,7 @@ func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, ope
 		return nil, interfaces.ErrFileNotIncluded
 	}
 
-	tx, err := i.transaction.Begin()
+	tx, err := i.repos.Transaction.Begin()
 	if err != nil {
 		return
 	}
@@ -65,7 +61,7 @@ func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, ope
 		}
 	}()
 
-	url, err := i.file.UploadAsset(ctx, inp.File)
+	url, err := i.gateways.File.UploadAsset(ctx, inp.File)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +77,7 @@ func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, ope
 		return nil, err
 	}
 
-	if err = i.assetRepo.Save(ctx, result); err != nil {
+	if err = i.repos.Asset.Save(ctx, result); err != nil {
 		return
 	}
 
@@ -90,12 +86,12 @@ func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, ope
 }
 
 func (i *Asset) Remove(ctx context.Context, aid id.AssetID, operator *usecase.Operator) (result id.AssetID, err error) {
-	asset, err := i.assetRepo.FindByID(ctx, aid, operator.AllWritableTeams())
+	asset, err := i.repos.Asset.FindByID(ctx, aid)
 	if err != nil {
 		return aid, err
 	}
 
-	tx, err := i.transaction.Begin()
+	tx, err := i.repos.Transaction.Begin()
 	if err != nil {
 		return
 	}
@@ -105,7 +101,7 @@ func (i *Asset) Remove(ctx context.Context, aid id.AssetID, operator *usecase.Op
 		}
 	}()
 
-	team, err := i.teamRepo.FindByID(ctx, asset.Team())
+	team, err := i.repos.Team.FindByID(ctx, asset.Team())
 	if err != nil {
 		return aid, err
 	}
@@ -115,12 +111,12 @@ func (i *Asset) Remove(ctx context.Context, aid id.AssetID, operator *usecase.Op
 	}
 
 	if url, _ := url.Parse(asset.URL()); url != nil {
-		if err = i.file.RemoveAsset(ctx, url); err != nil {
+		if err = i.gateways.File.RemoveAsset(ctx, url); err != nil {
 			return aid, err
 		}
 	}
 
-	if err = i.assetRepo.Remove(ctx, aid); err != nil {
+	if err = i.repos.Asset.Remove(ctx, aid); err != nil {
 		return
 	}
 

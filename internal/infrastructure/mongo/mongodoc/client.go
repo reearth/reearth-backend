@@ -88,24 +88,16 @@ func (c *Client) Count(ctx context.Context, col string, filter interface{}) (int
 	return count, nil
 }
 
-func (c *Client) RemoveAll(ctx context.Context, col string, ids []string) error {
-	if len(ids) == 0 {
-		return nil
-	}
-	filter := bson.D{
-		{Key: "id", Value: bson.D{
-			{Key: "$in", Value: ids},
-		}},
-	}
-	_, err := c.Collection(col).DeleteMany(ctx, filter)
+func (c *Client) RemoveOne(ctx context.Context, col string, f interface{}) error {
+	_, err := c.Collection(col).DeleteOne(ctx, f)
 	if err != nil {
 		return rerror.ErrInternalBy(err)
 	}
 	return nil
 }
 
-func (c *Client) RemoveOne(ctx context.Context, col string, id string) error {
-	_, err := c.Collection(col).DeleteOne(ctx, bson.D{{Key: "id", Value: id}})
+func (c *Client) RemoveAll(ctx context.Context, col string, f interface{}) error {
+	_, err := c.Collection(col).DeleteMany(ctx, f)
 	if err != nil {
 		return rerror.ErrInternalBy(err)
 	}
@@ -113,10 +105,7 @@ func (c *Client) RemoveOne(ctx context.Context, col string, id string) error {
 }
 
 var (
-	upsert        = true
-	replaceOption = &options.ReplaceOptions{
-		Upsert: &upsert,
-	}
+	replaceOption = (&options.ReplaceOptions{}).SetUpsert(true)
 )
 
 func (c *Client) SaveOne(ctx context.Context, col string, id string, replacement interface{}) error {
@@ -138,11 +127,13 @@ func (c *Client) SaveAll(ctx context.Context, col string, ids []string, updates 
 	writeModels := make([]mongo.WriteModel, 0, len(updates))
 	for i, u := range updates {
 		id := ids[i]
-		writeModels = append(writeModels, &mongo.ReplaceOneModel{
-			Upsert:      &upsert,
-			Filter:      bson.M{"id": id},
-			Replacement: u,
-		})
+		writeModels = append(
+			writeModels,
+			(&mongo.ReplaceOneModel{}).
+				SetUpsert(true).
+				SetFilter(bson.M{"id": id}).
+				SetReplacement(u),
+		)
 	}
 
 	_, err := c.Collection(col).BulkWrite(ctx, writeModels)
@@ -202,7 +193,7 @@ func getCursor(raw bson.Raw, key string) (*usecase.Cursor, error) {
 	return &c, nil
 }
 
-func (c *Client) Paginate(ctx context.Context, col string, filter bson.M, sort *string, p *Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, sort *string, p *Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -301,14 +292,15 @@ func sortOptionsFrom(sort *string, p *Pagination, key string) (bson.D, string) {
 	return sortOptions, sortKey
 }
 
-func paginationFilter(ctx context.Context, coll *mongo.Collection, p *Pagination, sortKey, key string, filter bson.M) (bson.M, int64, error) {
+func paginationFilter(ctx context.Context, coll *mongo.Collection, p *Pagination, sortKey, key string, filter interface{}) (interface{}, int64, error) {
 	limit, op, cur, err := p.Parameters()
 	if err != nil {
 		return nil, 0, fmt.Errorf("failed to parse pagination parameters: %w", err)
 	}
 
+	var paginationFilter bson.M
+
 	if cur != nil {
-		var paginationFilter bson.M
 
 		if sortKey == "" {
 			paginationFilter = bson.M{key: bson.M{op: *cur}}
@@ -330,15 +322,13 @@ func paginationFilter(ctx context.Context, coll *mongo.Collection, p *Pagination
 				},
 			}
 		}
-
-		filter = bson.M{
-			"$and": []bson.M{
-				filter,
-				paginationFilter,
-			},
-		}
 	}
-	return filter, limit, nil
+
+	return And(
+		filter,
+		"",
+		paginationFilter,
+	), limit, nil
 }
 
 func (c *Client) CreateIndex(ctx context.Context, col string, keys []string) []string {

@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/reearth/reearth-backend/internal/usecase"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -29,7 +28,7 @@ func (c *ClientCollection) Count(ctx context.Context, filter interface{}) (int64
 	return c.Client.Count(ctx, c.CollectionName, filter)
 }
 
-func (c *ClientCollection) Paginate(ctx context.Context, filter bson.M, sort *string, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
+func (c *ClientCollection) Paginate(ctx context.Context, filter interface{}, sort *string, p *usecase.Pagination, consumer Consumer) (*usecase.PageInfo, error) {
 	return c.Client.Paginate(ctx, c.CollectionName, filter, sort, PaginationFrom(p), consumer)
 }
 
@@ -49,12 +48,12 @@ func (c *ClientCollection) UpdateManyMany(ctx context.Context, updates []Update)
 	return c.Client.UpdateManyMany(ctx, c.CollectionName, updates)
 }
 
-func (c *ClientCollection) RemoveOne(ctx context.Context, id string) error {
-	return c.Client.RemoveOne(ctx, c.CollectionName, id)
+func (c *ClientCollection) RemoveOne(ctx context.Context, f interface{}) error {
+	return c.Client.RemoveOne(ctx, c.CollectionName, f)
 }
 
-func (c *ClientCollection) RemoveAll(ctx context.Context, ids []string) error {
-	return c.Client.RemoveAll(ctx, c.CollectionName, ids)
+func (c *ClientCollection) RemoveAll(ctx context.Context, f interface{}) error {
+	return c.Client.RemoveAll(ctx, c.CollectionName, f)
 }
 
 func (c *ClientCollection) CreateIndex(ctx context.Context, keys []string) []string {
