@@ -128,12 +128,6 @@ func errorHandler(next func(error, echo.Context)) func(error, echo.Context) {
 	}
 }
 
-// func authRequired(g *echo.Group, cfg *ServerConfig) {
-// 	g.Use(jwtEchoMiddleware(cfg))
-// 	g.Use(parseJwtMiddleware())
-// 	g.Use(authMiddleware(cfg))
-// }
-
 func allowedOrigins(cfg *ServerConfig) []string {
 	if cfg == nil {
 		return nil
