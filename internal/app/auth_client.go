@@ -79,7 +79,6 @@ func authMiddleware(cfg *ServerConfig) echo.MiddlewareFunc {
 
 				ctx = adapter.AttachUser(ctx, u)
 				ctx = adapter.AttachOperator(ctx, op)
-
 			}
 
 			c.SetRequest(req.WithContext(ctx))

@@ -7,7 +7,8 @@ import (
 type InitParams struct {
 	Email    string
 	Name     string
-	Auth0Sub string
+	Sub      *Auth
+	Password *string
 	Lang     *language.Tag
 	Theme    *Theme
 	UserID   *ID
@@ -28,15 +29,21 @@ func Init(p InitParams) (*User, *Team, error) {
 		t := ThemeDefault
 		p.Theme = &t
 	}
+	if p.Sub == nil {
+		p.Sub = GenReearthSub(p.UserID.String())
+	}
 
-	u, err := New().
+	b := New().
 		ID(*p.UserID).
 		Name(p.Name).
 		Email(p.Email).
-		Auths([]Auth{AuthFromAuth0Sub(p.Auth0Sub)}).
+		Auths([]Auth{*p.Sub}).
 		Lang(*p.Lang).
-		Theme(*p.Theme).
-		Build()
+		Theme(*p.Theme)
+	if p.Password != nil {
+		b = b.PasswordPlainText(*p.Password)
+	}
+	u, err := b.Build()
 	if err != nil {
 		return nil, nil, err
 	}

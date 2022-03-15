@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"errors"
 	"io/fs"
 	"net/http"
@@ -16,7 +17,7 @@ import (
 	"go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho"
 )
 
-func initEcho(cfg *ServerConfig) *echo.Echo {
+func initEcho(ctx context.Context, cfg *ServerConfig) *echo.Echo {
 	if cfg.Config == nil {
 		log.Fatalln("ServerConfig.Config is nil")
 	}
@@ -44,10 +45,9 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 		)
 	}
 
-	jwks := &JwksSyncOnce{}
 	e.Use(
-		jwtEchoMiddleware(jwks, cfg),
-		parseJwtMiddleware(cfg),
+		jwtEchoMiddleware(cfg),
+		parseJwtMiddleware(),
 		authMiddleware(cfg),
 	)
 
@@ -80,12 +80,20 @@ func initEcho(cfg *ServerConfig) *echo.Echo {
 		SignupSecret:       cfg.Config.SignupSecret,
 		PublishedIndexHTML: publishedIndexHTML,
 		PublishedIndexURL:  cfg.Config.Published.IndexURL,
+		AuthSrvUIDomain:    cfg.Config.AuthSrv.UIDomain,
 	}))
+
+	// auth srv
+	auth := e.Group("")
+	authEndPoints(ctx, e, auth, cfg)
 
 	// apis
 	api := e.Group("/api")
 	api.GET("/ping", Ping())
 	api.POST("/signup", Signup())
+	api.POST("/signup/verify", StartSignupVerify())
+	api.POST("/signup/verify/:code", SignupVerify())
+	api.POST("/password-reset", PasswordReset())
 	api.GET("/published/:name", PublishedMetadata())
 	api.GET("/published_data/:name", PublishedData())
 
@@ -120,11 +128,11 @@ func errorHandler(next func(error, echo.Context)) func(error, echo.Context) {
 	}
 }
 
-func authRequired(g *echo.Group, jwks Jwks, cfg *ServerConfig) {
-	g.Use(jwtEchoMiddleware(jwks, cfg))
-	g.Use(parseJwtMiddleware(cfg))
-	g.Use(authMiddleware(cfg))
-}
+// func authRequired(g *echo.Group, cfg *ServerConfig) {
+// 	g.Use(jwtEchoMiddleware(cfg))
+// 	g.Use(parseJwtMiddleware())
+// 	g.Use(authMiddleware(cfg))
+// }
 
 func allowedOrigins(cfg *ServerConfig) []string {
 	if cfg == nil {

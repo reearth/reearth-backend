@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/reearth/reearth-backend/internal/infrastructure/mailer"
+
 	"github.com/reearth/reearth-backend/internal/infrastructure/github"
 	"github.com/reearth/reearth-backend/internal/infrastructure/google"
 	"github.com/spf13/afero"
@@ -70,10 +72,26 @@ func initReposAndGateways(ctx context.Context, conf *Config, debug bool) (*repo.
 	// google
 	gateways.Google = google.NewGoogle()
 
+	// mailer
+	gateways.Mailer = initMailer(conf)
+
 	// release lock of all scenes
 	if err := repos.SceneLock.ReleaseAllLock(context.Background()); err != nil {
 		log.Fatalln(fmt.Sprintf("repo initialization error: %+v", err))
 	}
 
 	return repos, gateways
+}
+
+func initMailer(conf *Config) gateway.Mailer {
+	if conf.Mailer == "sendgrid" {
+		log.Infoln("mailer: sendgrid is used")
+		return mailer.NewSendGrid(conf.SendGrid.Name, conf.SendGrid.Email, conf.SendGrid.API)
+	}
+	if conf.Mailer == "smtp" {
+		log.Infoln("mailer: smtp is used")
+		return mailer.NewSMTP(conf.SMTP.Host, conf.SMTP.Port, conf.SMTP.SMTPUsername, conf.SMTP.Email, conf.SMTP.Password)
+	}
+	log.Infoln("mailer: logger is used")
+	return mailer.NewLogger()
 }

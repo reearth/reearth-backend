@@ -14,6 +14,7 @@ var (
 
 type Container struct {
 	Asset          Asset
+	AuthRequest    AuthRequest
 	Config         Config
 	DatasetSchema  DatasetSchema
 	Dataset        Dataset
@@ -34,6 +35,7 @@ type Container struct {
 func (c Container) Filtered(team TeamFilter, scene SceneFilter) Container {
 	return Container{
 		Asset:          c.Asset.Filtered(team),
+		AuthRequest:    c.AuthRequest,
 		Config:         c.Config,
 		DatasetSchema:  c.DatasetSchema.Filtered(scene),
 		Dataset:        c.Dataset.Filtered(scene),
