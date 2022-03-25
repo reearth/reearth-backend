@@ -1,12 +1,13 @@
 package mongodoc
 
 import (
+	"testing"
+	"time"
+
 	"github.com/reearth/reearth-backend/pkg/asset"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson"
-	"testing"
-	"time"
 )
 
 func TestNewAsset(t *testing.T) {
@@ -14,13 +15,13 @@ func TestNewAsset(t *testing.T) {
 		asset *asset.Asset
 	}
 
-	newAsset, _ := asset.New().
+	newAsset := asset.New().
 		NewID().
 		Team(id.NewTeamID()).
 		Name("test").
 		Size(10).
 		URL("test_url").
-		Build()
+		MustBuild()
 
 	tests := []struct {
 		name  string
@@ -50,55 +51,43 @@ func TestNewAsset(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got, got1 := NewAsset(tt.args.asset)
-			assert.Equalf(t, tt.want, got, "NewAsset(%v)", tt.args.asset)
-			assert.Equalf(t, tt.want1, got1, "NewAsset(%v)", tt.args.asset)
+			assert.Equal(t, tt.want, got)
+			assert.Equal(t, tt.want1, got1)
 		})
 	}
 }
 
 func TestAssetDocument_Model(t *testing.T) {
-	type fields struct {
-		ID          string
-		CreatedAt   time.Time
-		Team        string
-		Name        string
-		Size        int64
-		URL         string
-		ContentType string
-	}
+	aid, _ := id.AssetIDFrom("01f2r7kg1fvvffp0gmexgy5hxy")
+	tid, _ := id.TeamIDFrom("01f2r7kg1fvvffp0gmexgy5hxy")
 
-	newFields := fields{
-		ID:          "id",
-		CreatedAt:   time.Time{},
-		Team:        "team",
-		Name:        "name",
-		Size:        10,
-		URL:         "test",
-		ContentType: "content type",
-	}
-
-	aid, _ := id.AssetIDFrom(newFields.ID)
-	tid, _ := id.TeamIDFrom(newFields.Team)
-
-	newAsset, _ := asset.New().
+	newAsset := asset.New().
 		ID(aid).
-		CreatedAt(newFields.CreatedAt).
+		CreatedAt(time.Time{}).
 		Team(tid).
-		Name(newFields.Name).
-		Size(newFields.Size).
-		URL(newFields.URL).
-		ContentType(newFields.ContentType).
-		Build()
+		Name("name").
+		Size(10).
+		URL("test").
+		ContentType("content type").
+		MustBuild()
 
 	tests := []struct {
 		name    string
-		fields  fields
+		target  *AssetDocument
 		want    *asset.Asset
 		wantErr bool
 	}{
 		{
-			name:    "asset model",
-			fields:  newFields,
+			name: "asset model",
+			target: &AssetDocument{
+				ID:          "01f2r7kg1fvvffp0gmexgy5hxy",
+				CreatedAt:   time.Time{},
+				Team:        "01f2r7kg1fvvffp0gmexgy5hxy",
+				Name:        "name",
+				Size:        10,
+				URL:         "test",
+				ContentType: "content type",
+			},
 			want:    newAsset,
 			wantErr: false,
 		},
@@ -108,16 +97,17 @@ func TestAssetDocument_Model(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			d := &AssetDocument{
-				ID:          tt.fields.ID,
-				CreatedAt:   tt.fields.CreatedAt,
-				Team:        tt.fields.Team,
-				Name:        tt.fields.Name,
-				Size:        tt.fields.Size,
-				URL:         tt.fields.URL,
-				ContentType: tt.fields.ContentType,
+				ID:          tt.target.ID,
+				CreatedAt:   tt.target.CreatedAt,
+				Team:        tt.target.Team,
+				Name:        tt.target.Name,
+				Size:        tt.target.Size,
+				URL:         tt.target.URL,
+				ContentType: tt.target.ContentType,
 			}
-			got, _ := d.Model()
-			assert.Equalf(t, tt.want, got, "Model()")
+			got, err := d.Model()
+			assert.NoError(t, err)
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
