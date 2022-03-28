@@ -7,6 +7,7 @@ import (
 type Builder struct {
 	u            *User
 	passwordText string
+	email        string
 }
 
 func New() *Builder {
@@ -21,6 +22,9 @@ func (b *Builder) Build() (*User, error) {
 		if err := b.u.SetPassword(b.passwordText); err != nil {
 			return nil, ErrEncodingPassword
 		}
+	}
+	if err := b.u.UpdateEmail(b.email); err != nil {
+		return nil, err
 	}
 	return b.u, nil
 }
@@ -49,7 +53,7 @@ func (b *Builder) Name(name string) *Builder {
 }
 
 func (b *Builder) Email(email string) *Builder {
-	b.u.email = email
+	b.email = email
 	return b
 }
 

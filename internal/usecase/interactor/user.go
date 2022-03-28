@@ -468,7 +468,9 @@ func (i *User) UpdateMe(ctx context.Context, p interfaces.UpdateMeParam, operato
 		}
 	}
 	if p.Email != nil {
-		u.UpdateEmail(*p.Email)
+		if err := u.UpdateEmail(*p.Email); err != nil {
+			return nil, err
+		}
 	}
 	if p.Lang != nil {
 		u.UpdateLang(*p.Lang)

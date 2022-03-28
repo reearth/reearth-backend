@@ -2,6 +2,7 @@ package user
 
 import (
 	"errors"
+	"net/mail"
 	"unicode"
 
 	"golang.org/x/crypto/bcrypt"
@@ -10,8 +11,9 @@ import (
 )
 
 var (
-	ErrEncodingPassword = errors.New("error encoding password")
-	ErrInvalidPassword  = errors.New("error invalid password")
+	ErrInvalidEmail     = errors.New("invalid email")
+	ErrEncodingPassword = errors.New("encoding password")
+	ErrInvalidPassword  = errors.New("invalid password")
 	ErrPasswordLength   = errors.New("password at least 8 characters")
 	ErrPasswordUpper    = errors.New("password should have upper case letters")
 	ErrPasswordLower    = errors.New("password should have lower case letters")
@@ -63,8 +65,12 @@ func (u *User) UpdateName(name string) {
 	u.name = name
 }
 
-func (u *User) UpdateEmail(email string) {
+func (u *User) UpdateEmail(email string) error {
+	if _, err := mail.ParseAddress(email); err != nil {
+		return ErrInvalidEmail
+	}
 	u.email = email
+	return nil
 }
 
 func (u *User) UpdateTeam(team TeamID) {
