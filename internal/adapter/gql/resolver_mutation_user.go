@@ -3,31 +3,46 @@ package gql
 import (
 	"context"
 
+	"github.com/reearth/reearth-backend/internal/adapter"
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
 	"github.com/reearth/reearth-backend/internal/usecase/interfaces"
 	"github.com/reearth/reearth-backend/pkg/id"
+	"github.com/reearth/reearth-backend/pkg/user"
 )
 
 func (r *mutationResolver) Signup(ctx context.Context, input gqlmodel.SignupInput) (*gqlmodel.SignupPayload, error) {
-	secret := ""
-	if input.Secret != nil {
-		secret = *input.Secret
+	sub := adapter.Sub(ctx)
+	accessToken := adapter.AccessToken(ctx)
+	issuer := adapter.Issuer(ctx)
+
+	var u *user.User
+	var t *user.Team
+	var err error
+
+	if sub != "" && accessToken != "" && issuer != "" {
+		u, t, err = usecases(ctx).User.SignupOIDC(ctx, interfaces.SignupOIDCParam{
+			Sub:         sub,
+			AccessToken: accessToken,
+			Issuer:      issuer,
+			// Email:       email,
+			// Name:        name,
+			Secret: input.Secret,
+			User: interfaces.SignupUserParam{
+				Lang:   input.Lang,
+				Theme:  gqlmodel.ToTheme(input.Theme),
+				UserID: id.UserIDFromRefID(input.UserID),
+				TeamID: id.TeamIDFromRefID(input.TeamID),
+			},
+		})
+	} else {
+		return nil, interfaces.ErrOperationDenied
 	}
 
-	sub := getSub(ctx)
-	u, team, err := usecases(ctx).User.Signup(ctx, interfaces.SignupParam{
-		Sub:    &sub,
-		Lang:   input.Lang,
-		Theme:  gqlmodel.ToTheme(input.Theme),
-		UserID: id.UserIDFromRefID(input.UserID),
-		TeamID: id.TeamIDFromRefID(input.TeamID),
-		Secret: &secret,
-	})
 	if err != nil {
 		return nil, err
 	}
 
-	return &gqlmodel.SignupPayload{User: gqlmodel.ToUser(u), Team: gqlmodel.ToTeam(team)}, nil
+	return &gqlmodel.SignupPayload{User: gqlmodel.ToUser(u), Team: gqlmodel.ToTeam(t)}, nil
 }
 
 func (r *mutationResolver) UpdateMe(ctx context.Context, input gqlmodel.UpdateMeInput) (*gqlmodel.UpdateMePayload, error) {

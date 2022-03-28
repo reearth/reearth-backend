@@ -11,10 +11,12 @@ import (
 type ContextKey string
 
 const (
-	contextUser     ContextKey = "user"
-	contextOperator ContextKey = "operator"
-	contextSub      ContextKey = "sub"
-	contextUsecases ContextKey = "usecases"
+	contextUser        ContextKey = "user"
+	contextOperator    ContextKey = "operator"
+	contextSub         ContextKey = "sub"
+	contextAccessToken ContextKey = "accesstoken"
+	contextIssuer      ContextKey = "issuer"
+	contextUsecases    ContextKey = "usecases"
 )
 
 func AttachUser(ctx context.Context, u *user.User) context.Context {
@@ -27,6 +29,16 @@ func AttachOperator(ctx context.Context, o *usecase.Operator) context.Context {
 
 func AttachSub(ctx context.Context, sub string) context.Context {
 	return context.WithValue(ctx, contextSub, sub)
+}
+
+func AttachAccessToken(ctx context.Context, a string) context.Context {
+	ctx = context.WithValue(ctx, contextAccessToken, a)
+	return ctx
+}
+
+func AttachIssuer(ctx context.Context, i string) context.Context {
+	ctx = context.WithValue(ctx, contextIssuer, i)
+	return ctx
 }
 
 func AttachUsecases(ctx context.Context, u *interfaces.Container) context.Context {
@@ -72,6 +84,24 @@ func Operator(ctx context.Context) *usecase.Operator {
 
 func Sub(ctx context.Context) string {
 	if v := ctx.Value(contextSub); v != nil {
+		if v2, ok := v.(string); ok {
+			return v2
+		}
+	}
+	return ""
+}
+
+func AccessToken(ctx context.Context) string {
+	if v := ctx.Value(contextAccessToken); v != nil {
+		if v2, ok := v.(string); ok {
+			return v2
+		}
+	}
+	return ""
+}
+
+func Issuer(ctx context.Context) string {
+	if v := ctx.Value(contextIssuer); v != nil {
 		if v2, ok := v.(string); ok {
 			return v2
 		}

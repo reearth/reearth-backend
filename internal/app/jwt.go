@@ -4,12 +4,14 @@ import (
 	"context"
 	"fmt"
 	"net/url"
+	"strings"
 	"time"
 
 	jwtmiddleware "github.com/auth0/go-jwt-middleware/v2"
 	"github.com/auth0/go-jwt-middleware/v2/jwks"
 	"github.com/auth0/go-jwt-middleware/v2/validator"
 	"github.com/labstack/echo/v4"
+	"github.com/reearth/reearth-backend/internal/adapter"
 	"github.com/reearth/reearth-backend/pkg/log"
 )
 
@@ -91,10 +93,15 @@ func parseJwtMiddleware() echo.MiddlewareFunc {
 			req := c.Request()
 			ctx := req.Context()
 
+			if at := strings.TrimPrefix(c.Request().Header.Get("Authorization"), "Bearer "); at != "" {
+				ctx = adapter.AttachAccessToken(ctx, at)
+			}
+
 			rawClaims := ctx.Value(jwtmiddleware.ContextKey{})
 			if claims, ok := rawClaims.(*validator.ValidatedClaims); ok {
 				// attach sub and access token to context
-				ctx = context.WithValue(ctx, contextAuth0Sub, claims.RegisteredClaims.Subject)
+				ctx = adapter.AttachSub(ctx, claims.RegisteredClaims.Subject)
+				ctx = adapter.AttachIssuer(ctx, claims.RegisteredClaims.Issuer)
 			}
 
 			c.SetRequest(req.WithContext(ctx))
