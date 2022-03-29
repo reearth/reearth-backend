@@ -60,7 +60,7 @@ func (r *DatasetSchema) FindByIDs(ctx context.Context, ids []id.DatasetSchemaID)
 
 func (r *DatasetSchema) FindByScene(ctx context.Context, s id.SceneID, p *usecase.Pagination) (dataset.SchemaList, *usecase.PageInfo, error) {
 	if !r.f.CanRead(s) {
-		return nil, usecase.EmptyPageInfo(), nil
+		return nil, &usecase.PageInfo{}, nil
 	}
 
 	r.lock.Lock()
@@ -76,19 +76,17 @@ func (r *DatasetSchema) FindByScene(ctx context.Context, s id.SceneID, p *usecas
 
 	var startCursor, endCursor *usecase.Cursor
 	if len(result) > 0 {
-		_startCursor := usecase.Cursor(result[0].ID().String())
-		_endCursor := usecase.Cursor(result[len(result)-1].ID().String())
-		startCursor = &_startCursor
-		endCursor = &_endCursor
+		startCursor = usecase.Cursor(result[0].ID().String()).Ref()
+		endCursor = usecase.Cursor(result[len(result)-1].ID().String()).Ref()
 	}
 
-	return result, usecase.NewPageInfo(
-		len(r.data),
-		startCursor,
-		endCursor,
-		true,
-		true,
-	), nil
+	return result, &usecase.PageInfo{
+		TotalCount:      len(r.data),
+		StartCursor:     startCursor,
+		EndCursor:       endCursor,
+		HasNextPage:     true,
+		HasPreviousPage: true,
+	}, nil
 }
 
 func (r *DatasetSchema) FindBySceneAll(ctx context.Context, s id.SceneID) (dataset.SchemaList, error) {

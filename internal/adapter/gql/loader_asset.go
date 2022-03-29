@@ -56,7 +56,7 @@ func (c *AssetLoader) FindByTeam(ctx context.Context, teamID id.ID, keyword *str
 		Edges:      edges,
 		Nodes:      nodes,
 		PageInfo:   gqlmodel.ToPageInfo(pi),
-		TotalCount: pi.TotalCount(),
+		TotalCount: pi.TotalCount,
 	}, nil
 }
 

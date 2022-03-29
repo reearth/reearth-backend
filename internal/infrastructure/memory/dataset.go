@@ -72,19 +72,17 @@ func (r *Dataset) FindBySchema(ctx context.Context, id id.DatasetSchemaID, p *us
 
 	var startCursor, endCursor *usecase.Cursor
 	if len(result) > 0 {
-		_startCursor := usecase.Cursor(result[0].ID().String())
-		_endCursor := usecase.Cursor(result[len(result)-1].ID().String())
-		startCursor = &_startCursor
-		endCursor = &_endCursor
+		startCursor = usecase.Cursor(result[0].ID().String()).Ref()
+		endCursor = usecase.Cursor(result[len(result)-1].ID().String()).Ref()
 	}
 
-	return result, usecase.NewPageInfo(
-		len(r.data),
-		startCursor,
-		endCursor,
-		true,
-		true,
-	), nil
+	return result, &usecase.PageInfo{
+		TotalCount:      len(r.data),
+		StartCursor:     startCursor,
+		EndCursor:       endCursor,
+		HasNextPage:     true,
+		HasPreviousPage: true,
+	}, nil
 }
 
 func (r *Dataset) FindBySchemaAll(ctx context.Context, id id.DatasetSchemaID) (dataset.List, error) {

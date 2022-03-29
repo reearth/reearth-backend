@@ -95,7 +95,7 @@ func (c *DatasetLoader) FindSchemaByScene(ctx context.Context, i id.ID, first *i
 		Edges:      edges,
 		Nodes:      nodes,
 		PageInfo:   gqlmodel.ToPageInfo(pi),
-		TotalCount: pi.TotalCount(),
+		TotalCount: pi.TotalCount,
 	}, nil
 }
 
@@ -135,7 +135,7 @@ func (c *DatasetLoader) FindBySchema(ctx context.Context, dsid id.ID, first *int
 		Edges:      edges,
 		Nodes:      nodes,
 		PageInfo:   gqlmodel.ToPageInfo(pi),
-		TotalCount: pi.TotalCount(),
+		TotalCount: pi.TotalCount,
 	}
 
 	return conn, nil

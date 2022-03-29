@@ -54,7 +54,7 @@ func (r *assetRepo) FindByIDs(ctx context.Context, ids []id.AssetID) ([]*asset.A
 
 func (r *assetRepo) FindByTeam(ctx context.Context, id id.TeamID, uFilter repo.AssetFilter) ([]*asset.Asset, *usecase.PageInfo, error) {
 	if !r.f.CanRead(id) {
-		return nil, usecase.EmptyPageInfo(), nil
+		return nil, &usecase.PageInfo{}, nil
 	}
 
 	var filter interface{} = bson.M{

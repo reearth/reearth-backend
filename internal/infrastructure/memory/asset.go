@@ -63,7 +63,7 @@ func (r *Asset) FindByIDs(ctx context.Context, ids []id.AssetID) ([]*asset.Asset
 
 func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, filter repo.AssetFilter) ([]*asset.Asset, *usecase.PageInfo, error) {
 	if !r.f.CanRead(id) {
-		return nil, usecase.EmptyPageInfo(), nil
+		return nil, &usecase.PageInfo{}, nil
 	}
 
 	r.lock.Lock()
@@ -94,19 +94,17 @@ func (r *Asset) FindByTeam(ctx context.Context, id id.TeamID, filter repo.AssetF
 
 	var startCursor, endCursor *usecase.Cursor
 	if len(result) > 0 {
-		_startCursor := usecase.Cursor(result[0].ID().String())
-		_endCursor := usecase.Cursor(result[len(result)-1].ID().String())
-		startCursor = &_startCursor
-		endCursor = &_endCursor
+		startCursor = usecase.Cursor(result[0].ID().String()).Ref()
+		endCursor = usecase.Cursor(result[len(result)-1].ID().String()).Ref()
 	}
 
-	return result, usecase.NewPageInfo(
-		len(r.data),
-		startCursor,
-		endCursor,
-		true,
-		true,
-	), nil
+	return result, &usecase.PageInfo{
+		TotalCount:      len(r.data),
+		StartCursor:     startCursor,
+		EndCursor:       endCursor,
+		HasNextPage:     true,
+		HasPreviousPage: true,
+	}, nil
 }
 
 func (r *Asset) Save(ctx context.Context, a *asset.Asset) error {

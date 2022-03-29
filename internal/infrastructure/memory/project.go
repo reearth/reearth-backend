@@ -45,19 +45,17 @@ func (r *Project) FindByTeam(ctx context.Context, id id.TeamID, p *usecase.Pagin
 
 	var startCursor, endCursor *usecase.Cursor
 	if len(result) > 0 {
-		_startCursor := usecase.Cursor(result[0].ID().String())
-		_endCursor := usecase.Cursor(result[len(result)-1].ID().String())
-		startCursor = &_startCursor
-		endCursor = &_endCursor
+		startCursor = usecase.Cursor(result[0].ID().String()).Ref()
+		endCursor = usecase.Cursor(result[len(result)-1].ID().String()).Ref()
 	}
 
-	return result, usecase.NewPageInfo(
-		len(r.data),
-		startCursor,
-		endCursor,
-		true,
-		true,
-	), nil
+	return result, &usecase.PageInfo{
+		TotalCount:      len(r.data),
+		StartCursor:     startCursor,
+		EndCursor:       endCursor,
+		HasNextPage:     true,
+		HasPreviousPage: true,
+	}, nil
 }
 
 func (r *Project) FindByIDs(ctx context.Context, ids []id.ProjectID) ([]*project.Project, error) {

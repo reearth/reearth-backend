@@ -136,8 +136,8 @@ func AttachParentLayer(layers []*Layer, parent id.ID) []Layer {
 	return res
 }
 
-func NewEmptyPageInfo() *PageInfo {
-	return ToPageInfo(usecase.NewPageInfo(0, nil, nil, false, false))
+func NewPageInfo() *PageInfo {
+	return ToPageInfo(&usecase.PageInfo{})
 }
 
 func (d *PropertyGroup) Field(id id.PropertySchemaFieldID) *PropertyField {

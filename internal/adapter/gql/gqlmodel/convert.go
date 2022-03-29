@@ -40,10 +40,10 @@ func ToPageInfo(p *usecase.PageInfo) *PageInfo {
 		return &PageInfo{}
 	}
 	return &PageInfo{
-		StartCursor:     p.StartCursor(),
-		EndCursor:       p.EndCursor(),
-		HasNextPage:     p.HasNextPage(),
-		HasPreviousPage: p.HasPreviousPage(),
+		StartCursor:     p.StartCursor,
+		EndCursor:       p.EndCursor,
+		HasNextPage:     p.HasNextPage,
+		HasPreviousPage: p.HasPreviousPage,
 	}
 }
 

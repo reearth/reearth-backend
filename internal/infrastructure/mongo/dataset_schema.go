@@ -61,7 +61,7 @@ func (r *datasetSchemaRepo) FindByIDs(ctx context.Context, ids []id.DatasetSchem
 
 func (r *datasetSchemaRepo) FindByScene(ctx context.Context, sceneID id.SceneID, pagination *usecase.Pagination) (dataset.SchemaList, *usecase.PageInfo, error) {
 	if !r.f.CanRead(sceneID) {
-		return nil, usecase.EmptyPageInfo(), nil
+		return nil, &usecase.PageInfo{}, nil
 	}
 	return r.paginate(ctx, bson.M{
 		"scene": sceneID.String(),

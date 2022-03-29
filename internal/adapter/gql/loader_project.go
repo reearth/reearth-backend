@@ -53,7 +53,7 @@ func (c *ProjectLoader) FindByTeam(ctx context.Context, teamID id.TeamID, first 
 		Edges:      edges,
 		Nodes:      nodes,
 		PageInfo:   gqlmodel.ToPageInfo(pi),
-		TotalCount: pi.TotalCount(),
+		TotalCount: pi.TotalCount,
 	}, nil
 }
 

@@ -61,7 +61,7 @@ func (r *projectRepo) FindByID(ctx context.Context, id id.ProjectID) (*project.P
 
 func (r *projectRepo) FindByTeam(ctx context.Context, id id.TeamID, pagination *usecase.Pagination) ([]*project.Project, *usecase.PageInfo, error) {
 	if !r.f.CanRead(id) {
-		return nil, usecase.EmptyPageInfo(), nil
+		return nil, &usecase.PageInfo{}, nil
 	}
 	return r.paginate(ctx, bson.M{
 		"team": id.String(),

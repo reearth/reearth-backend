@@ -278,7 +278,13 @@ func (c *Client) Paginate(ctx context.Context, col string, filter interface{}, s
 		hasPreviousPage = hasMore
 	}
 
-	return usecase.NewPageInfo(int(count), startCursor, endCursor, hasNextPage, hasPreviousPage), nil
+	return &usecase.PageInfo{
+		TotalCount:      int(count),
+		StartCursor:     startCursor,
+		EndCursor:       endCursor,
+		HasNextPage:     hasNextPage,
+		HasPreviousPage: hasPreviousPage,
+	}, nil
 }
 
 func sortOptionsFrom(sort *string, p *Pagination, key string) (bson.D, string) {

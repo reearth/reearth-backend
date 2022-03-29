@@ -35,7 +35,7 @@ func IterateProjectsByTeam(repo Project, ctx context.Context, tid id.TeamID, bat
 			return err
 		}
 
-		if !info.HasNextPage() {
+		if !info.HasNextPage {
 			break
 		}
 
