@@ -98,8 +98,7 @@ func TestNew(t *testing.T) {
 func TestBuilder_Build(t *testing.T) {
 	uid := NewID()
 	tid := NewTeamID()
-	en, _ := language.Parse("en")
-	pass, _ := encodePassword("pass")
+	pass := MustEncodedPassword("abcDEF0!")
 
 	type args struct {
 		Name, Lang, Email string
@@ -138,7 +137,7 @@ func TestBuilder_Build(t *testing.T) {
 				name:     "xxx",
 				password: pass,
 				auths:    []Auth{{Provider: "ppp", Sub: "sss"}},
-				lang:     en,
+				lang:     language.English,
 			},
 		}, {
 			Name:     "failed invalid id",
@@ -153,7 +152,7 @@ func TestBuilder_Build(t *testing.T) {
 			t.Parallel()
 			res, err := New().
 				ID(tt.Args.ID).
-				Password(pass).
+				EncodedPassword(pass).
 				Name(tt.Args.Name).
 				Auths(tt.Args.Auths).
 				LangFrom(tt.Args.Lang).
@@ -172,8 +171,7 @@ func TestBuilder_Build(t *testing.T) {
 func TestBuilder_MustBuild(t *testing.T) {
 	uid := NewID()
 	tid := NewTeamID()
-	en, _ := language.Parse("en")
-	pass, _ := encodePassword("pass")
+	pass := MustEncodedPassword("abcDEF0!")
 
 	type args struct {
 		Name, Lang, Email string
@@ -212,7 +210,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				name:     "xxx",
 				password: pass,
 				auths:    []Auth{{Provider: "ppp", Sub: "sss"}},
-				lang:     en,
+				lang:     language.English,
 			},
 		}, {
 			Name: "failed invalid id",
@@ -229,7 +227,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				t.Helper()
 				return New().
 					ID(tt.Args.ID).
-					Password(pass).
+					EncodedPassword(pass).
 					Name(tt.Args.Name).
 					Auths(tt.Args.Auths).
 					LangFrom(tt.Args.Lang).

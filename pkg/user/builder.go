@@ -20,7 +20,7 @@ func (b *Builder) Build() (*User, error) {
 	}
 	if b.passwordText != "" {
 		if err := b.u.SetPassword(b.passwordText); err != nil {
-			return nil, ErrEncodingPassword
+			return nil, err
 		}
 	}
 	if err := b.u.UpdateEmail(b.email); err != nil {
@@ -57,12 +57,8 @@ func (b *Builder) Email(email string) *Builder {
 	return b
 }
 
-func (b *Builder) Password(p []byte) *Builder {
-	if p == nil {
-		b.u.password = nil
-	} else {
-		b.u.password = append(p[:0:0], p...)
-	}
+func (b *Builder) EncodedPassword(p EncodedPassword) *Builder {
+	b.u.password = p.Clone()
 	return b
 }
 

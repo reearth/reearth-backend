@@ -3,28 +3,19 @@ package user
 import (
 	"errors"
 	"net/mail"
-	"unicode"
-
-	"golang.org/x/crypto/bcrypt"
 
 	"golang.org/x/text/language"
 )
 
 var (
-	ErrInvalidEmail     = errors.New("invalid email")
-	ErrEncodingPassword = errors.New("encoding password")
-	ErrInvalidPassword  = errors.New("invalid password")
-	ErrPasswordLength   = errors.New("password at least 8 characters")
-	ErrPasswordUpper    = errors.New("password should have upper case letters")
-	ErrPasswordLower    = errors.New("password should have lower case letters")
-	ErrPasswordNumber   = errors.New("password should have numbers")
+	ErrInvalidEmail = errors.New("invalid email")
 )
 
 type User struct {
 	id            ID
 	name          string
 	email         string
-	password      []byte
+	password      EncodedPassword
 	team          TeamID
 	auths         []Auth
 	lang          language.Tag
@@ -174,10 +165,7 @@ func (u *User) ClearAuths() {
 }
 
 func (u *User) SetPassword(pass string) error {
-	if err := validatePassword(pass); err != nil {
-		return err
-	}
-	p, err := encodePassword(pass)
+	p, err := NewEncodedPassword(pass)
 	if err != nil {
 		return err
 	}
@@ -186,26 +174,10 @@ func (u *User) SetPassword(pass string) error {
 }
 
 func (u *User) MatchPassword(pass string) (bool, error) {
-	if u == nil || len(u.password) == 0 {
+	if u == nil {
 		return false, nil
 	}
-	return verifyPassword(pass, u.password)
-}
-
-func encodePassword(pass string) ([]byte, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(pass), 14)
-	return bytes, err
-}
-
-func verifyPassword(toVerify string, encoded []byte) (bool, error) {
-	err := bcrypt.CompareHashAndPassword(encoded, []byte(toVerify))
-	if err != nil {
-		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
-			return false, nil
-		}
-		return false, err
-	}
-	return true, nil
+	return u.password.Verify(pass)
 }
 
 func (u *User) PasswordReset() *PasswordReset {
@@ -218,32 +190,4 @@ func (u *User) SetPasswordReset(pr *PasswordReset) {
 
 func (u *User) SetVerification(v *Verification) {
 	u.verification = v
-}
-
-func validatePassword(pass string) error {
-	var hasNum, hasUpper, hasLower bool
-	for _, c := range pass {
-		switch {
-		case unicode.IsNumber(c):
-			hasNum = true
-		case unicode.IsUpper(c):
-			hasUpper = true
-		case unicode.IsLower(c) || c == ' ':
-			hasLower = true
-		}
-	}
-	if len(pass) < 8 {
-		return ErrPasswordLength
-	}
-	if !hasLower {
-		return ErrPasswordLower
-	}
-	if !hasUpper {
-		return ErrPasswordUpper
-	}
-	if !hasNum {
-		return ErrPasswordNumber
-	}
-
-	return nil
 }
