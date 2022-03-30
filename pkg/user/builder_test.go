@@ -96,6 +96,9 @@ func TestNew(t *testing.T) {
 }
 
 func TestBuilder_Build(t *testing.T) {
+	// bcrypt is not suitable for unit tests as it requires heavy computation
+	DefaultPasswordEncoder = &NoopPasswordEncoder{}
+
 	uid := NewID()
 	tid := NewTeamID()
 	pass := MustEncodedPassword("abcDEF0!")
@@ -138,6 +141,7 @@ func TestBuilder_Build(t *testing.T) {
 				password: pass,
 				auths:    []Auth{{Provider: "ppp", Sub: "sss"}},
 				lang:     language.English,
+				theme:    ThemeDefault,
 			},
 		}, {
 			Name:     "failed invalid id",
@@ -169,6 +173,9 @@ func TestBuilder_Build(t *testing.T) {
 }
 
 func TestBuilder_MustBuild(t *testing.T) {
+	// bcrypt is not suitable for unit tests as it requires heavy computation
+	DefaultPasswordEncoder = &NoopPasswordEncoder{}
+
 	uid := NewID()
 	tid := NewTeamID()
 	pass := MustEncodedPassword("abcDEF0!")
@@ -211,6 +218,7 @@ func TestBuilder_MustBuild(t *testing.T) {
 				password: pass,
 				auths:    []Auth{{Provider: "ppp", Sub: "sss"}},
 				lang:     language.English,
+				theme:    ThemeDefault,
 			},
 		}, {
 			Name: "failed invalid id",
