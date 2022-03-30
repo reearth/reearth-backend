@@ -9,6 +9,16 @@ import (
 var Now = time.Now
 var GenerateVerificationCode = generateCode
 
+func MockNow(t time.Time) func() {
+	Now = func() time.Time { return t }
+	return func() { Now = time.Now }
+}
+
+func MockGenerateVerificationCode(code string) func() {
+	GenerateVerificationCode = func() string { return code }
+	return func() { GenerateVerificationCode = generateCode }
+}
+
 func NewVerification() *Verification {
 	return &Verification{
 		verified:   false,

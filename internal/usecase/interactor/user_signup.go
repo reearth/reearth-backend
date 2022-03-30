@@ -88,25 +88,9 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (*user.Us
 }
 
 func (i *User) SignupOIDC(ctx context.Context, inp interfaces.SignupOIDCParam) (u *user.User, _ *user.Team, err error) {
-	if inp.AccessToken == "" {
-		return nil, nil, errors.New("invalid access token")
-	}
-	if inp.Issuer == "" {
-		return nil, nil, errors.New("invalid iss")
-	}
 	if err := i.verifySignupSecret(inp.Secret); err != nil {
 		return nil, nil, err
 	}
-
-	tx, err := i.transaction.Begin()
-	if err != nil {
-		return nil, nil, err
-	}
-	defer func() {
-		if err2 := tx.End(ctx); err == nil && err2 != nil {
-			err = err2
-		}
-	}()
 
 	sub := inp.Sub
 	name := inp.Name
@@ -120,6 +104,16 @@ func (i *User) SignupOIDC(ctx context.Context, inp interfaces.SignupOIDCParam) (
 		name = ui.Name
 		email = ui.Email
 	}
+
+	tx, err := i.transaction.Begin()
+	if err != nil {
+		return nil, nil, err
+	}
+	defer func() {
+		if err2 := tx.End(ctx); err == nil && err2 != nil {
+			err = err2
+		}
+	}()
 
 	// Check if user and team already exists
 	if _, _, err := i.userAlreadyExists(ctx, inp.User.UserID, &sub, &name, inp.User.TeamID); err != nil {
@@ -208,6 +202,13 @@ func (i *User) userAlreadyExists(ctx context.Context, userID *id.UserID, sub *st
 }
 
 func getUserInfoFromISS(ctx context.Context, iss, accessToken string) (UserInfo, error) {
+	if accessToken == "" {
+		return UserInfo{}, errors.New("invalid access token")
+	}
+	if iss == "" {
+		return UserInfo{}, errors.New("invalid issuer")
+	}
+
 	var u string
 	c, err := getOpenIDConfiguration(ctx, iss)
 	if err != nil {
@@ -301,15 +302,15 @@ func getUserInfo(ctx context.Context, url, accessToken string) (ui UserInfo, err
 		err = fmt.Errorf("could not get user info: %s", ui.Error)
 		return
 	}
-	if ui.Sub != "" {
+	if ui.Sub == "" {
 		err = fmt.Errorf("could not get user info: invalid response")
 		return
 	}
-	if ui.Name != "" {
+	if ui.Name == "" {
 		err = fmt.Errorf("could not get user info: profile scope missing")
 		return
 	}
-	if ui.Email != "" {
+	if ui.Email == "" {
 		err = fmt.Errorf("could not get user info: email scope missing")
 		return
 	}
@@ -318,11 +319,12 @@ func getUserInfo(ctx context.Context, url, accessToken string) (ui UserInfo, err
 }
 
 func issToURL(iss, path string) *url.URL {
-	if !strings.HasSuffix(iss, "https://") {
-		iss = "https://" + iss
+	if iss == "" {
+		return nil
 	}
-	if !strings.HasSuffix(iss, "http://") {
-		iss = "http://" + iss
+
+	if !strings.HasPrefix(iss, "https://") && !strings.HasPrefix(iss, "http://") {
+		iss = "https://" + iss
 	}
 
 	u, err := url.Parse(iss)
