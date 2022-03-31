@@ -45,12 +45,15 @@ func (i *User) Signup(ctx context.Context, inp interfaces.SignupParam) (*user.Us
 		return nil, nil, err
 	}
 
-	if existedUser != nil && (existedUser.Verification() == nil || !existedUser.Verification().IsVerified()) {
-		// if user exists but not verified -> create a new verification
-		if err := i.createVerification(ctx, existedUser); err != nil {
-			return nil, nil, err
+	if existedUser != nil {
+		if existedUser.Verification() == nil || !existedUser.Verification().IsVerified() {
+			// if user exists but not verified -> create a new verification
+			if err := i.createVerification(ctx, existedUser); err != nil {
+				return nil, nil, err
+			}
+			return existedUser, existedTeam, nil
 		}
-		return existedUser, existedTeam, nil
+		return nil, nil, interfaces.ErrUserAlreadyExists
 	}
 
 	// Initialize user and team
@@ -116,8 +119,10 @@ func (i *User) SignupOIDC(ctx context.Context, inp interfaces.SignupOIDCParam) (
 	}()
 
 	// Check if user and team already exists
-	if _, _, err := i.userAlreadyExists(ctx, inp.User.UserID, &sub, &name, inp.User.TeamID); err != nil {
+	if existedUser, existedTeam, err := i.userAlreadyExists(ctx, inp.User.UserID, &sub, &name, inp.User.TeamID); err != nil {
 		return nil, nil, err
+	} else if existedUser != nil || existedTeam != nil {
+		return nil, nil, interfaces.ErrUserAlreadyExists
 	}
 
 	// Initialize user and team
@@ -162,17 +167,13 @@ func (i *User) userAlreadyExists(ctx context.Context, userID *id.UserID, sub *st
 		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil, err
 		}
-	}
-
-	if sub != nil {
+	} else if sub != nil {
 		// Check if user already exists
 		existedUser, err = i.userRepo.FindByAuth0Sub(ctx, *sub)
 		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil, err
 		}
-	}
-
-	if name != nil {
+	} else if name != nil {
 		existedUser, err = i.userRepo.FindByName(ctx, *name)
 		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil, err
@@ -184,7 +185,7 @@ func (i *User) userAlreadyExists(ctx context.Context, userID *id.UserID, sub *st
 		if err != nil && !errors.Is(err, rerror.ErrNotFound) {
 			return nil, nil, err
 		}
-		return existedUser, team, errors.New("existed user")
+		return existedUser, team, nil
 	}
 
 	// Check if team already exists
@@ -194,7 +195,7 @@ func (i *User) userAlreadyExists(ctx context.Context, userID *id.UserID, sub *st
 			return nil, nil, err
 		}
 		if existed != nil {
-			return nil, existed, errors.New("existed team")
+			return nil, existed, nil
 		}
 	}
 

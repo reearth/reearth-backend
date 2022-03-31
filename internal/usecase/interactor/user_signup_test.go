@@ -30,21 +30,22 @@ func TestUser_Signup(t *testing.T) {
 	defer user.MockGenerateVerificationCode(mockcode)()
 
 	tests := []struct {
-		name            string
-		signupSecret    string
-		authSrvUIDomain string
-		args            interfaces.SignupParam
-		wantUser        *user.User
-		wantTeam        *user.Team
-		wantMailTo      []gateway.Contact
-		wantMailSubject string
-		wantMailContent string
-		wantError       error
+		name             string
+		signupSecret     string
+		authSrvUIDomain  string
+		createUserBefore *user.User
+		args             interfaces.SignupParam
+		wantUser         *user.User
+		wantTeam         *user.Team
+		wantMailTo       []gateway.Contact
+		wantMailSubject  string
+		wantMailContent  string
+		wantError        error
 	}{
 		{
 			name:            "without secret",
 			signupSecret:    "",
-			authSrvUIDomain: "",
+			authSrvUIDomain: "https://reearth.io",
 			args: interfaces.SignupParam{
 				Sub:      sr("SUB"),
 				Email:    "aaa@bbb.com",
@@ -72,8 +73,62 @@ func TestUser_Signup(t *testing.T) {
 				MustBuild(),
 			wantMailTo:      []gateway.Contact{{Email: "aaa@bbb.com", Name: "NAME"}},
 			wantMailSubject: "email verification",
+			wantMailContent: "https://reearth.io/?user-verification-token=CODECODE",
+			wantError:       nil,
+		},
+		{
+			name:            "existing but not valdiated user",
+			signupSecret:    "",
+			authSrvUIDomain: "",
+			createUserBefore: user.New().
+				ID(uid).
+				Team(tid).
+				Email("aaa@bbb.com").
+				MustBuild(),
+			args: interfaces.SignupParam{
+				Email:    "aaa@bbb.com",
+				Name:     "NAME",
+				Password: "PAss00!!",
+				User: interfaces.SignupUserParam{
+					UserID: &uid,
+					TeamID: &tid,
+				},
+			},
+			wantUser: user.New().
+				ID(uid).
+				Team(tid).
+				Email("aaa@bbb.com").
+				Verification(user.VerificationFrom(mockcode, mocktime.Add(24*time.Hour), false)).
+				MustBuild(),
+			wantTeam:        nil,
+			wantMailTo:      []gateway.Contact{{Email: "aaa@bbb.com", Name: ""}},
+			wantMailSubject: "email verification",
 			wantMailContent: "/?user-verification-token=CODECODE",
 			wantError:       nil,
+		},
+		{
+			name:            "existing and valdiated user",
+			signupSecret:    "",
+			authSrvUIDomain: "",
+			createUserBefore: user.New().
+				ID(uid).
+				Team(tid).
+				Email("aaa@bbb.com").
+				Verification(user.VerificationFrom(mockcode, mocktime, true)).
+				MustBuild(),
+			args: interfaces.SignupParam{
+				Sub:      sr("SUB"),
+				Email:    "aaa@bbb.com",
+				Name:     "NAME",
+				Password: "PAss00!!",
+				User: interfaces.SignupUserParam{
+					UserID: &uid,
+					TeamID: &tid,
+				},
+			},
+			wantUser:  nil,
+			wantTeam:  nil,
+			wantError: interfaces.ErrUserAlreadyExists,
 		},
 		{
 			name:            "without secret 2",
@@ -208,6 +263,12 @@ func TestUser_Signup(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			// t.Parallel() cannot be used
 			r := memory.InitRepos(nil)
+			if tt.createUserBefore != nil {
+				assert.NoError(t, r.User.Save(
+					context.Background(),
+					tt.createUserBefore),
+				)
+			}
 			m := mailer.NewMock()
 			g := &gateway.Container{Mailer: m}
 			uc := NewUser(r, g, tt.signupSecret, tt.authSrvUIDomain)
@@ -259,17 +320,18 @@ func TestUser_SignupOIDC(t *testing.T) {
 	defer user.MockGenerateVerificationCode(mockcode)()
 
 	tests := []struct {
-		name            string
-		signupSecret    string
-		authSrvUIDomain string
-		args            interfaces.SignupOIDCParam
-		wantUser        *user.User
-		wantTeam        *user.Team
-		wantMail        *mailer.Mail
-		wantMailTo      string
-		wantMailSubject string
-		wantMailContent string
-		wantError       error
+		name             string
+		signupSecret     string
+		authSrvUIDomain  string
+		createUserBefore *user.User
+		args             interfaces.SignupOIDCParam
+		wantUser         *user.User
+		wantTeam         *user.Team
+		wantMail         *mailer.Mail
+		wantMailTo       string
+		wantMailSubject  string
+		wantMailContent  string
+		wantError        error
 	}{
 		{
 			name:            "userinfo",
@@ -360,6 +422,43 @@ func TestUser_SignupOIDC(t *testing.T) {
 			wantError: nil,
 		},
 		{
+			name:            "existed but not validated user",
+			signupSecret:    "",
+			authSrvUIDomain: "",
+			createUserBefore: user.New().
+				ID(uid).
+				Email("aaa@bbb.com").
+				MustBuild(),
+			args: interfaces.SignupOIDCParam{
+				AccessToken: "accesstoken",
+				Issuer:      "https://issuer",
+				User: interfaces.SignupUserParam{
+					UserID: &uid,
+					TeamID: &tid,
+				},
+			},
+			wantError: interfaces.ErrUserAlreadyExists,
+		},
+		{
+			name:            "existed and verified user",
+			signupSecret:    "",
+			authSrvUIDomain: "",
+			createUserBefore: user.New().
+				ID(uid).
+				Email("aaa@bbb.com").
+				Verification(user.VerificationFrom(mockcode, mocktime, true)).
+				MustBuild(),
+			args: interfaces.SignupOIDCParam{
+				AccessToken: "accesstoken",
+				Issuer:      "https://issuer",
+				User: interfaces.SignupUserParam{
+					UserID: &uid,
+					TeamID: &tid,
+				},
+			},
+			wantError: interfaces.ErrUserAlreadyExists,
+		},
+		{
 			name:            "invalid secret",
 			signupSecret:    "SECRET",
 			authSrvUIDomain: "",
@@ -417,6 +516,12 @@ func TestUser_SignupOIDC(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			// t.Parallel() cannot be used
 			r := memory.InitRepos(nil)
+			if tt.createUserBefore != nil {
+				assert.NoError(t, r.User.Save(
+					context.Background(),
+					tt.createUserBefore),
+				)
+			}
 			m := mailer.NewMock()
 			g := &gateway.Container{Mailer: m}
 			uc := NewUser(r, g, tt.signupSecret, tt.authSrvUIDomain)

@@ -20,6 +20,7 @@ var (
 	ErrInvalidUserEmail                = errors.New("invalid email")
 	ErrNotVerifiedUser                 = errors.New("not verified user")
 	ErrSignupInvalidPassword           = errors.New("invalid password")
+	ErrUserAlreadyExists               = errors.New("user already exists")
 )
 
 type SignupParam struct {
