@@ -96,7 +96,7 @@ func (r *userRepo) Save(ctx context.Context, user *user.User) error {
 }
 
 func (r *userRepo) Remove(ctx context.Context, user id.UserID) error {
-	return r.client.RemoveOne(ctx, user.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": user.String()})
 }
 
 func (r *userRepo) find(ctx context.Context, dst []*user.User, filter bson.D) ([]*user.User, error) {
@@ -109,8 +109,7 @@ func (r *userRepo) find(ctx context.Context, dst []*user.User, filter bson.D) ([
 	return c.Rows, nil
 }
 
-func (r *userRepo) findOne(ctx context.Context, filter bson.D) (*user.User, error) {
-	dst := make([]*user.User, 0, 1)
+func (r *userRepo) findOne(ctx context.Context, filter interface{}) (*user.User, error) {
 	c := mongodoc.UserConsumer{
 		Rows: dst,
 	}

@@ -49,7 +49,7 @@ func (r *authRequestRepo) Save(ctx context.Context, request *auth.Request) error
 }
 
 func (r *authRequestRepo) Remove(ctx context.Context, requestID id.AuthRequestID) error {
-	return r.client.RemoveOne(ctx, requestID.String())
+	return r.client.RemoveOne(ctx, bson.M{"id": requestID.String()})
 }
 
 func (r *authRequestRepo) findOne(ctx context.Context, filter bson.D) (*auth.Request, error) {
