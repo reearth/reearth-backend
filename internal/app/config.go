@@ -55,6 +55,7 @@ type Auth0Config struct {
 }
 
 type AuthSrvConfig struct {
+	Dev      bool
 	Disabled bool
 	Domain   string `default:"http://localhost:8080"`
 	UIDomain string `default:"http://localhost:8080"`
@@ -131,6 +132,8 @@ func ReadConfig(debug bool) (*Config, error) {
 
 	if debug {
 		c.Dev = true
+	}
+	if c.Dev || c.AuthSrv.Dev {
 		if _, ok := os.LookupEnv(op.OidcDevMode); !ok {
 			_ = os.Setenv(op.OidcDevMode, "1")
 		}
