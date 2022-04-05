@@ -9,6 +9,7 @@ import (
 	htmlTmpl "html/template"
 	"net/http"
 	"net/url"
+	"path"
 	"strings"
 
 	"github.com/reearth/reearth-backend/internal/usecase/gateway"
@@ -319,7 +320,7 @@ func getUserInfo(ctx context.Context, url, accessToken string) (ui UserInfo, err
 	return
 }
 
-func issToURL(iss, path string) *url.URL {
+func issToURL(iss, p string) *url.URL {
 	if iss == "" {
 		return nil
 	}
@@ -330,7 +331,10 @@ func issToURL(iss, path string) *url.URL {
 
 	u, err := url.Parse(iss)
 	if err == nil {
-		u.Path = path
+		u.Path = path.Join(u.Path, p)
+		if u.Path == "/" {
+			u.Path = ""
+		}
 		return u
 	}
 
