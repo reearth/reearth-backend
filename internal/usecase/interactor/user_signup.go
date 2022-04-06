@@ -105,8 +105,16 @@ func (i *User) SignupOIDC(ctx context.Context, inp interfaces.SignupOIDCParam) (
 			return nil, nil, err
 		}
 		sub = ui.Sub
-		name = ui.Name
 		email = ui.Email
+		if name == "" {
+			name = ui.Nickname
+		}
+		if name == "" {
+			name = ui.Name
+		}
+		if name == "" {
+			name = ui.Email
+		}
 	}
 
 	tx, err := i.transaction.Begin()
@@ -266,10 +274,11 @@ func getOpenIDConfiguration(ctx context.Context, iss string) (c OpenIDConfigurat
 }
 
 type UserInfo struct {
-	Sub   string `json:"sub"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Error string `json:"error"`
+	Sub      string `json:"sub"`
+	Name     string `json:"name"`
+	Nickname string `json:"nickname"`
+	Email    string `json:"email"`
+	Error    string `json:"error"`
 }
 
 func getUserInfo(ctx context.Context, url, accessToken string) (ui UserInfo, err error) {
@@ -306,10 +315,6 @@ func getUserInfo(ctx context.Context, url, accessToken string) (ui UserInfo, err
 	}
 	if ui.Sub == "" {
 		err = fmt.Errorf("could not get user info: invalid response")
-		return
-	}
-	if ui.Name == "" {
-		err = fmt.Errorf("could not get user info: profile scope missing")
 		return
 	}
 	if ui.Email == "" {
