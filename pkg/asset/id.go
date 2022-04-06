@@ -29,3 +29,10 @@ var ErrInvalidID = id.ErrInvalidID
 func createdAt(i ID) time.Time {
 	return id.ID(i).Timestamp()
 }
+
+func MockID(assetID ID) func() {
+	NewID = func() ID { return assetID }
+	return func() {
+		NewID = id.NewAssetID
+	}
+}

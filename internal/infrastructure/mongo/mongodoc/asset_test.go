@@ -15,13 +15,11 @@ func TestNewAsset(t *testing.T) {
 		asset *asset.Asset
 	}
 
-	newAsset := asset.New().
-		NewID().
-		Team(id.NewTeamID()).
-		Name("test").
-		Size(10).
-		URL("test_url").
-		MustBuild()
+	assetID := asset.NewID()
+	teamID := id.NewTeamID()
+	now := time.Now()
+
+	defer asset.MockID(assetID)()
 
 	tests := []struct {
 		name  string
@@ -32,18 +30,26 @@ func TestNewAsset(t *testing.T) {
 		{
 			name: "new asset",
 			args: args{
-				asset: newAsset,
+				asset: asset.New().
+					ID(assetID).
+					CreatedAt(now).
+					Team(teamID).
+					Name("test").
+					Size(10).
+					URL("test_url").
+					ContentType("application/json").
+					MustBuild(),
 			},
 			want: &AssetDocument{
-				ID:          newAsset.ID().String(),
-				CreatedAt:   newAsset.CreatedAt(),
-				Team:        newAsset.Team().String(),
-				Name:        newAsset.Name(),
-				Size:        newAsset.Size(),
-				URL:         newAsset.URL(),
-				ContentType: newAsset.ContentType(),
+				ID:          assetID.String(),
+				CreatedAt:   now,
+				Team:        teamID.String(),
+				Name:        "test",
+				Size:        10,
+				URL:         "test_url",
+				ContentType: "application/json",
 			},
-			want1: newAsset.ID().String(),
+			want1: assetID.String(),
 		},
 	}
 	for _, tt := range tests {
@@ -58,19 +64,9 @@ func TestNewAsset(t *testing.T) {
 }
 
 func TestAssetDocument_Model(t *testing.T) {
-	aid, _ := id.AssetIDFrom("01f2r7kg1fvvffp0gmexgy5hxy")
-	tid, _ := id.TeamIDFrom("01f2r7kg1fvvffp0gmexgy5hxy")
-
-	newAsset := asset.New().
-		ID(aid).
-		CreatedAt(time.Time{}).
-		Team(tid).
-		Name("name").
-		Size(10).
-		URL("test").
-		ContentType("content type").
-		MustBuild()
-
+	now := time.Now()
+	assetID := id.NewAssetID()
+	teamID := id.NewTeamID()
 	tests := []struct {
 		name    string
 		target  *AssetDocument
@@ -80,15 +76,23 @@ func TestAssetDocument_Model(t *testing.T) {
 		{
 			name: "asset model",
 			target: &AssetDocument{
-				ID:          "01f2r7kg1fvvffp0gmexgy5hxy",
-				CreatedAt:   time.Time{},
-				Team:        "01f2r7kg1fvvffp0gmexgy5hxy",
+				ID:          assetID.String(),
+				CreatedAt:   now,
+				Team:        teamID.String(),
 				Name:        "name",
 				Size:        10,
 				URL:         "test",
 				ContentType: "content type",
 			},
-			want:    newAsset,
+			want: asset.New().
+				ID(assetID).
+				CreatedAt(now).
+				Team(teamID).
+				Name("name").
+				Size(10).
+				URL("test").
+				ContentType("content type").
+				MustBuild(),
 			wantErr: false,
 		},
 	}
@@ -113,22 +117,21 @@ func TestAssetDocument_Model(t *testing.T) {
 }
 
 func TestAssetConsumer_Consume(t *testing.T) {
-	type fields struct {
-		Rows []*asset.Asset
-	}
+
 	type args struct {
 		raw bson.Raw
 	}
 
 	tests := []struct {
 		name    string
-		fields  fields
+		target  *AssetConsumer
 		args    args
+		want    *AssetConsumer
 		wantErr bool
 	}{
 		{
 			name:    "asset consume",
-			fields:  fields{},
+			target:  &AssetConsumer{},
 			args:    args{bson.Raw{11}},
 			wantErr: false,
 		},
@@ -138,10 +141,10 @@ func TestAssetConsumer_Consume(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			c := &AssetConsumer{
-				Rows: tt.fields.Rows,
+				Rows: tt.target.Rows,
 			}
-			out := c.Consume(tt.args.raw)
-			assert.Equal(t, out == nil, tt.wantErr)
+			err := c.Consume(tt.args.raw)
+			assert.Equal(t, err, tt.wantErr)
 		})
 	}
 }
