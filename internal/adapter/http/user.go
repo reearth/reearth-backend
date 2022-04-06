@@ -32,7 +32,7 @@ type SignupInput struct {
 	Secret   *string       `json:"secret"`
 	UserID   *id.UserID    `json:"userId"`
 	TeamID   *id.TeamID    `json:"teamId"`
-	Name     *string       `json:"username"`
+	Name     *string       `json:"name"`
 	Email    *string       `json:"email"`
 	Password *string       `json:"password"`
 	Theme    *user.Theme   `json:"theme"`
@@ -65,18 +65,19 @@ func (c *UserController) Signup(ctx context.Context, input SignupInput) (SignupO
 	var u *user.User
 	var err error
 
-	sub := adapter.Sub(ctx)
-	accessToken := adapter.AccessToken(ctx)
-	issuer := adapter.Issuer(ctx)
+	if au := adapter.GetAuthInfo(ctx); au != nil {
+		var name string
+		if input.Name != nil {
+			name = *input.Name
+		}
 
-	if sub != "" && accessToken != "" && issuer != "" {
 		u, _, err = c.usecase.SignupOIDC(ctx, interfaces.SignupOIDCParam{
-			Sub:         sub,
-			AccessToken: accessToken,
-			Issuer:      issuer,
-			// Email:       email,
-			// Name:        name,
-			Secret: input.Secret,
+			Sub:         au.Sub,
+			AccessToken: au.Token,
+			Issuer:      au.Iss,
+			Email:       au.Email,
+			Name:        name,
+			Secret:      input.Secret,
 			User: interfaces.SignupUserParam{
 				UserID: input.UserID,
 				TeamID: input.TeamID,

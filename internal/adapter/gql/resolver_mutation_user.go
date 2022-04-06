@@ -11,22 +11,20 @@ import (
 )
 
 func (r *mutationResolver) Signup(ctx context.Context, input gqlmodel.SignupInput) (*gqlmodel.SignupPayload, error) {
-	sub := adapter.Sub(ctx)
-	accessToken := adapter.AccessToken(ctx)
-	issuer := adapter.Issuer(ctx)
+	au := adapter.GetAuthInfo(ctx)
 
 	var u *user.User
 	var t *user.Team
 	var err error
 
-	if sub != "" && accessToken != "" && issuer != "" {
+	if au != nil {
 		u, t, err = usecases(ctx).User.SignupOIDC(ctx, interfaces.SignupOIDCParam{
-			Sub:         sub,
-			AccessToken: accessToken,
-			Issuer:      issuer,
-			// Email:       email,
-			// Name:        name,
-			Secret: input.Secret,
+			Sub:         au.Sub,
+			AccessToken: au.Token,
+			Issuer:      au.Iss,
+			Email:       au.Email,
+			Name:        au.Name,
+			Secret:      input.Secret,
 			User: interfaces.SignupUserParam{
 				Lang:   input.Lang,
 				Theme:  gqlmodel.ToTheme(input.Theme),
