@@ -60,6 +60,7 @@ type AuthSrvConfig struct {
 	Dev      bool
 	Disabled bool
 	Domain   string
+	UIDomain string
 	Key      string
 	DN       *AuthSrvDNConfig
 }
@@ -75,7 +76,7 @@ func (c AuthSrvConfig) AuthConfig(debug bool, host string) *AuthConfig {
 	}
 
 	var aud []string
-	if debug && host != "" && c.Domain != "" {
+	if debug && host != "" && c.Domain != "" && c.Domain != host {
 		aud = []string{host, c.Domain}
 	} else {
 		aud = []string{domain}
@@ -139,19 +140,35 @@ func ReadConfig(debug bool) (*Config, error) {
 	var c Config
 	err := envconfig.Process(configPrefix, &c)
 
-	// defailt values
-	if debug {
-		c.Dev = true
-	}
-	if c.Host_Web == "" {
-		c.Host_Web = c.Host
-	}
-
 	// overwrite env vars
 	if !c.AuthSrv.Disabled && (c.Dev || c.AuthSrv.Dev || c.AuthSrv.Domain == "") {
 		if _, ok := os.LookupEnv(op.OidcDevMode); !ok {
 			_ = os.Setenv(op.OidcDevMode, "1")
 		}
+	}
+
+	// default values
+	if debug {
+		c.Dev = true
+	}
+	c.Host = addHTTPScheme(c.Host)
+	if c.Host_Web == "" {
+		c.Host_Web = c.Host
+	} else {
+		c.Host_Web = addHTTPScheme(c.Host_Web)
+	}
+	if c.AuthSrv.Domain == "" {
+		c.AuthSrv.Domain = c.Host
+	} else {
+		c.AuthSrv.Domain = addHTTPScheme(c.AuthSrv.Domain)
+	}
+	if c.Host_Web == "" {
+		c.Host_Web = c.Host
+	}
+	if c.AuthSrv.UIDomain == "" {
+		c.AuthSrv.UIDomain = c.Host_Web
+	} else {
+		c.AuthSrv.UIDomain = addHTTPScheme(c.AuthSrv.UIDomain)
 	}
 
 	return &c, err
@@ -241,4 +258,46 @@ func (ipd *AuthConfigs) Decode(value string) error {
 
 	*ipd = providers
 	return nil
+}
+
+func (c Config) HostURL() *url.URL {
+	u, err := url.Parse(c.Host)
+	if err != nil {
+		u = nil
+	}
+	return u
+}
+
+func (c Config) HostWebURL() *url.URL {
+	u, err := url.Parse(c.Host_Web)
+	if err != nil {
+		u = nil
+	}
+	return u
+}
+
+func (c Config) AuthServeDomainURL() *url.URL {
+	u, err := url.Parse(c.AuthSrv.Domain)
+	if err != nil {
+		u = nil
+	}
+	return u
+}
+
+func (c Config) AuthServeUIDomainURL() *url.URL {
+	u, err := url.Parse(c.AuthSrv.UIDomain)
+	if err != nil {
+		u = nil
+	}
+	return u
+}
+
+func addHTTPScheme(host string) string {
+	if host == "" {
+		return ""
+	}
+	if !strings.HasPrefix(host, "https://") && !strings.HasPrefix(host, "http://") {
+		host = "http://" + host
+	}
+	return host
 }
