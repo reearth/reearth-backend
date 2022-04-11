@@ -49,5 +49,8 @@ func (a *Asset) CreatedAt() time.Time {
 	if a == nil {
 		return time.Time{}
 	}
+	if !a.createdAt.IsZero() {
+		return a.createdAt
+	}
 	return createdAt(a.id)
 }
