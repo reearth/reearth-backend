@@ -27,13 +27,3 @@ models:
     model: github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.Lang
   ID:
     model: github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.ID
-  PluginID:
-    model: github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.PluginID
-  PluginExtensionID:
-    model: github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.PluginExtensionID
-  PropertySchemaID:
-    model: github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.PropertySchemaID
-  PropertySchemaGroupID:
-    model: github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.PropertySchemaGroupID
-  PropertyFieldID:
-    model: github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel.PropertyFieldID
