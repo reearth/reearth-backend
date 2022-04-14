@@ -2,12 +2,12 @@ package tag
 
 type Group struct {
 	tag
-	tags *IDList
+	tags IDList
 }
 
-func (g *Group) Tags() *IDList {
+func (g *Group) Tags() IDList {
 	if g == nil {
 		return nil
 	}
-	return g.tags
+	return g.tags.Clone()
 }

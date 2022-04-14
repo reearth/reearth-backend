@@ -102,12 +102,11 @@ func (i *Tag) CreateGroup(ctx context.Context, inp interfaces.CreateTagGroupPara
 		return nil, interfaces.ErrOperationDenied
 	}
 
-	list := tag.IDListFrom(inp.Tags)
 	group, err := tag.NewGroup().
 		NewID().
 		Label(inp.Label).
 		Scene(inp.SceneID).
-		Tags(list).
+		Tags(inp.Tags).
 		Build()
 
 	if err != nil {
@@ -276,7 +275,7 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 	}
 
 	if group := tag.ToTagGroup(t); group != nil {
-		if len(group.Tags().Tags()) != 0 {
+		if len(group.Tags()) != 0 {
 			return nil, nil, interfaces.ErrNonemptyTagGroupCannotDelete
 		}
 	}
