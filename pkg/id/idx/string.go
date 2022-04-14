@@ -25,10 +25,6 @@ func (id *StringID[T]) CloneRef() *StringID[T] {
 	return &id2
 }
 
-func (id *StringID[T]) CopyRef() *StringID[T] {
-	return id.CloneRef()
-}
-
 func (id StringID[_]) String() string {
 	return string(id)
 }

@@ -127,11 +127,6 @@ func Filter[T any](collection []T, iteratee func(v T) bool) []T {
 	})
 }
 
-// FilterZero drops zero value elements in the slice.
-func FilterZero[T comparable](collection []T) []T {
-	return Filter(collection, IsNotZero[T])
-}
-
 // DerefSlice drops nil elements in the slice and return a new slice with dereferenced elements.
 func DerefSlice[T any](collection []*T) []T {
 	return FilterMap(collection, func(e *T) *T {
