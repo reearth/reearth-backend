@@ -11,3 +11,10 @@ func (g *Group) Tags() IDList {
 	}
 	return g.tags.Clone()
 }
+
+func (g *Group) RemoveTag(ids ...ID) {
+	if g == nil {
+		return
+	}
+	g.tags = g.tags.Delete(ids...)
+}

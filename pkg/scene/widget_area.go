@@ -56,7 +56,7 @@ func (a *WidgetArea) Add(wid WidgetID, index int) {
 	}
 
 	if i := a.widgetIds.Index(wid); i >= 0 {
-		a.widgetIds = a.widgetIds.RemoveAt(i)
+		a.widgetIds = a.widgetIds.DeleteAt(i)
 		if i < index {
 			index--
 		}
@@ -91,7 +91,7 @@ func (a *WidgetArea) Remove(wid WidgetID) {
 
 	for i, w := range a.widgetIds {
 		if w == wid {
-			a.widgetIds = a.widgetIds.RemoveAt(i)
+			a.widgetIds = a.widgetIds.DeleteAt(i)
 			return
 		}
 	}
@@ -103,5 +103,5 @@ func (a *WidgetArea) Move(from, to int) {
 	}
 
 	wid := a.widgetIds[from]
-	a.widgetIds = a.widgetIds.RemoveAt(from).Insert(to, wid)
+	a.widgetIds = a.widgetIds.DeleteAt(from).Insert(to, wid)
 }

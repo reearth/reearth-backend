@@ -211,7 +211,7 @@ func (i *Tag) DetachItemFromGroup(ctx context.Context, inp interfaces.DetachItem
 		return nil, errors.New("tag item is not attached to the group")
 	}
 
-	tg.Tags().Remove(inp.ItemID)
+	tg.RemoveTag(inp.ItemID)
 	ti.SetParent(nil)
 
 	tgt := tag.Tag(tg)
@@ -286,7 +286,7 @@ func (i *Tag) Remove(ctx context.Context, tagID id.TagID, operator *usecase.Oper
 			return nil, nil, err
 		}
 		if g != nil {
-			g.Tags().Remove(item.ID())
+			g.RemoveTag(item.ID())
 			if err := i.tagRepo.Save(ctx, g); err != nil {
 				return nil, nil, err
 			}

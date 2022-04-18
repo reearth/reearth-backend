@@ -74,7 +74,7 @@ func (s *Set[T]) Delete(id ...ID[T]) {
 		return
 	}
 	for _, i := range id {
-		s.l = s.l.Remove(i)
+		s.l = s.l.Delete(i)
 		if s.m != nil {
 			delete(s.m, i)
 		}
