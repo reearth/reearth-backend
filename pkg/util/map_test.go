@@ -30,12 +30,15 @@ func TestSyncMap_LoadAll(t *testing.T) {
 }
 
 func TestSyncMap_LoadOrStore(t *testing.T) {
-	s := &SyncMap[string, int]{}
-	res, ok := s.LoadOrStore("a", 1)
-	assert.Equal(t, 1, res)
+	s := &SyncMap[string, string]{}
+	res, ok := s.LoadOrStore("a", "A")
+	assert.Equal(t, "", res)
+	assert.False(t, ok)
+	res, ok = s.LoadOrStore("a", "AA")
+	assert.Equal(t, "A", res)
 	assert.True(t, ok)
-	res, ok = s.LoadOrStore("a", 2)
-	assert.Equal(t, 1, res)
+	res, ok = s.Load("a")
+	assert.Equal(t, "A", res)
 	assert.True(t, ok)
 }
 
@@ -107,6 +110,7 @@ func TestSyncMap_FindAll(t *testing.T) {
 	res := s.FindAll(func(k string, v int) bool {
 		return k == "a" || k == "b"
 	})
+	slices.Sort(res)
 	assert.Equal(t, []int{1, 2}, res)
 
 	res = s.FindAll(func(k string, v int) bool {
