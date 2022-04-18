@@ -15,14 +15,14 @@
       "enabledManagers": [
         "gomod"
       ],
-      "packagePatterns": [
+      "matchPackagePatterns": [
         "*"
       ],
       "groupName": "dependencies",
       "groupSlug": "gomod",
       "semanticCommitType": "chore",
       "schedule": [
-        "before 3am on the fourth day of the month"
+        "before 3:00 am on the 4th day of the month"
       ]
     },
     {
@@ -30,21 +30,21 @@
         "dockerfile",
         "docker-compose"
       ],
-      "packagePatterns": [
+      "matchPackagePatterns": [
         "*"
       ],
       "groupName": "docker dependencies",
       "groupSlug": "docker",
       "semanticCommitType": "chore",
       "schedule": [
-        "before 3am on the fourth day of the month"
+        "before 3:00 am on the 4th day of the month"
       ]
     },
     {
       "enabledManagers": [
         "github-actions"
       ],
-      "packagePatterns": [
+      "matchPackagePatterns": [
         "*"
       ],
       "groupName": "github actions dependencies",
