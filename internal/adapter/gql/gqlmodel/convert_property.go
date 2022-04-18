@@ -478,12 +478,3 @@ func propertyFieldID(property *property.Property, groupList *property.GroupList,
 
 	return sb.String()
 }
-
-func getPropertySchemaFieldIDFromGQLPropertyFieldID(i string) string {
-	const sep = "_"
-	s := strings.Split(i, sep)
-	if len(s) > 0 {
-		return s[len(s)-1]
-	}
-	return ""
-}
