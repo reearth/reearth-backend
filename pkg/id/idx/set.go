@@ -24,6 +24,9 @@ func (s *Set[T]) Has(id ...ID[T]) bool {
 }
 
 func (s *Set[T]) List() List[T] {
+	if s == nil {
+		return nil
+	}
 	return s.l.Clone()
 }
 
@@ -53,9 +56,9 @@ func (s *Set[T]) Merge(sets ...*Set[T]) {
 	if s == nil {
 		return
 	}
-	for _, s := range sets {
-		if s != nil {
-			s.Add(s.l...)
+	for _, t := range sets {
+		if t != nil {
+			s.Add(t.l...)
 		}
 	}
 }
@@ -66,7 +69,7 @@ func (s *Set[T]) Concat(sets ...*Set[T]) *Set[T] {
 	}
 	ns := s.Clone()
 	ns.Merge(sets...)
-	return s
+	return ns
 }
 
 func (s *Set[T]) Delete(id ...ID[T]) {
