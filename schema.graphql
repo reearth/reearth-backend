@@ -263,8 +263,8 @@ type Plugin {
   allTranslatedDescription: TranslatedString
   allTranslatedName: TranslatedString
   scene: Scene @goField(forceResolver: true)
-  translatedName(lang: String): String! @goField(forceResolver: true)
-  translatedDescription(lang: String): String! @goField(forceResolver: true)
+  translatedName(lang: Lang): String! @goField(forceResolver: true)
+  translatedDescription(lang: Lang): String! @goField(forceResolver: true)
   propertySchema: PropertySchema @goField(forceResolver: true)
 }
 
@@ -341,8 +341,8 @@ type PluginExtension {
   plugin: Plugin @goField(forceResolver: true)
   sceneWidget(sceneId: ID!): SceneWidget @goField(forceResolver: true)
   propertySchema: PropertySchema @goField(forceResolver: true)
-  translatedName(lang: String): String! @goField(forceResolver: true)
-  translatedDescription(lang: String): String! @goField(forceResolver: true)
+  translatedName(lang: Lang): String! @goField(forceResolver: true)
+  translatedDescription(lang: Lang): String! @goField(forceResolver: true)
 }
 
 # Scene
@@ -443,7 +443,7 @@ type PropertySchemaGroup {
   representativeFieldId: ID
   representativeField: PropertySchemaField
   schema: PropertySchema @goField(forceResolver: true)
-  translatedTitle(lang: String): String! @goField(forceResolver: true)
+  translatedTitle(lang: Lang): String! @goField(forceResolver: true)
 }
 
 type PropertySchemaField {
@@ -461,8 +461,8 @@ type PropertySchemaField {
   isAvailableIf: PropertyCondition
   allTranslatedTitle: TranslatedString
   allTranslatedDescription: TranslatedString
-  translatedTitle(lang: String): String! @goField(forceResolver: true)
-  translatedDescription(lang: String): String! @goField(forceResolver: true)
+  translatedTitle(lang: Lang): String! @goField(forceResolver: true)
+  translatedDescription(lang: Lang): String! @goField(forceResolver: true)
 }
 
 enum PropertySchemaFieldUI {
@@ -482,7 +482,7 @@ type PropertySchemaFieldChoice {
   title: String!
   icon: String
   allTranslatedTitle: TranslatedString
-  translatedTitle(lang: String): String! @goField(forceResolver: true)
+  translatedTitle(lang: Lang): String! @goField(forceResolver: true)
 }
 
 type PropertyCondition {

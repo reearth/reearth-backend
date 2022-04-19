@@ -578,8 +578,8 @@ type ComplexityRoot struct {
 		Scene                    func(childComplexity int) int
 		SceneID                  func(childComplexity int) int
 		ScenePlugin              func(childComplexity int, sceneID *gqlmodel.ID) int
-		TranslatedDescription    func(childComplexity int, lang *string) int
-		TranslatedName           func(childComplexity int, lang *string) int
+		TranslatedDescription    func(childComplexity int, lang *language.Tag) int
+		TranslatedName           func(childComplexity int, lang *language.Tag) int
 		Version                  func(childComplexity int) int
 	}
 
@@ -596,8 +596,8 @@ type ComplexityRoot struct {
 		PropertySchemaID         func(childComplexity int) int
 		SceneWidget              func(childComplexity int, sceneID gqlmodel.ID) int
 		SingleOnly               func(childComplexity int) int
-		TranslatedDescription    func(childComplexity int, lang *string) int
-		TranslatedName           func(childComplexity int, lang *string) int
+		TranslatedDescription    func(childComplexity int, lang *language.Tag) int
+		TranslatedName           func(childComplexity int, lang *language.Tag) int
 		Type                     func(childComplexity int) int
 		Visualizer               func(childComplexity int) int
 		WidgetLayout             func(childComplexity int) int
@@ -751,8 +751,8 @@ type ComplexityRoot struct {
 		Prefix                   func(childComplexity int) int
 		Suffix                   func(childComplexity int) int
 		Title                    func(childComplexity int) int
-		TranslatedDescription    func(childComplexity int, lang *string) int
-		TranslatedTitle          func(childComplexity int, lang *string) int
+		TranslatedDescription    func(childComplexity int, lang *language.Tag) int
+		TranslatedTitle          func(childComplexity int, lang *language.Tag) int
 		Type                     func(childComplexity int) int
 		UI                       func(childComplexity int) int
 	}
@@ -762,7 +762,7 @@ type ComplexityRoot struct {
 		Icon               func(childComplexity int) int
 		Key                func(childComplexity int) int
 		Title              func(childComplexity int) int
-		TranslatedTitle    func(childComplexity int, lang *string) int
+		TranslatedTitle    func(childComplexity int, lang *language.Tag) int
 	}
 
 	PropertySchemaGroup struct {
@@ -776,7 +776,7 @@ type ComplexityRoot struct {
 		SchemaGroupID         func(childComplexity int) int
 		SchemaID              func(childComplexity int) int
 		Title                 func(childComplexity int) int
-		TranslatedTitle       func(childComplexity int, lang *string) int
+		TranslatedTitle       func(childComplexity int, lang *language.Tag) int
 	}
 
 	Query struct {
@@ -1234,16 +1234,16 @@ type MutationResolver interface {
 }
 type PluginResolver interface {
 	Scene(ctx context.Context, obj *gqlmodel.Plugin) (*gqlmodel.Scene, error)
-	TranslatedName(ctx context.Context, obj *gqlmodel.Plugin, lang *string) (string, error)
-	TranslatedDescription(ctx context.Context, obj *gqlmodel.Plugin, lang *string) (string, error)
+	TranslatedName(ctx context.Context, obj *gqlmodel.Plugin, lang *language.Tag) (string, error)
+	TranslatedDescription(ctx context.Context, obj *gqlmodel.Plugin, lang *language.Tag) (string, error)
 	PropertySchema(ctx context.Context, obj *gqlmodel.Plugin) (*gqlmodel.PropertySchema, error)
 }
 type PluginExtensionResolver interface {
 	Plugin(ctx context.Context, obj *gqlmodel.PluginExtension) (*gqlmodel.Plugin, error)
 	SceneWidget(ctx context.Context, obj *gqlmodel.PluginExtension, sceneID gqlmodel.ID) (*gqlmodel.SceneWidget, error)
 	PropertySchema(ctx context.Context, obj *gqlmodel.PluginExtension) (*gqlmodel.PropertySchema, error)
-	TranslatedName(ctx context.Context, obj *gqlmodel.PluginExtension, lang *string) (string, error)
-	TranslatedDescription(ctx context.Context, obj *gqlmodel.PluginExtension, lang *string) (string, error)
+	TranslatedName(ctx context.Context, obj *gqlmodel.PluginExtension, lang *language.Tag) (string, error)
+	TranslatedDescription(ctx context.Context, obj *gqlmodel.PluginExtension, lang *language.Tag) (string, error)
 }
 type ProjectResolver interface {
 	Team(ctx context.Context, obj *gqlmodel.Project) (*gqlmodel.Team, error)
@@ -1280,15 +1280,15 @@ type PropertyLinkableFieldsResolver interface {
 	Schema(ctx context.Context, obj *gqlmodel.PropertyLinkableFields) (*gqlmodel.PropertySchema, error)
 }
 type PropertySchemaFieldResolver interface {
-	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
-	TranslatedDescription(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *string) (string, error)
+	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *language.Tag) (string, error)
+	TranslatedDescription(ctx context.Context, obj *gqlmodel.PropertySchemaField, lang *language.Tag) (string, error)
 }
 type PropertySchemaFieldChoiceResolver interface {
-	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *string) (string, error)
+	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaFieldChoice, lang *language.Tag) (string, error)
 }
 type PropertySchemaGroupResolver interface {
 	Schema(ctx context.Context, obj *gqlmodel.PropertySchemaGroup) (*gqlmodel.PropertySchema, error)
-	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaGroup, lang *string) (string, error)
+	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaGroup, lang *language.Tag) (string, error)
 }
 type QueryResolver interface {
 	Me(ctx context.Context) (*gqlmodel.User, error)
@@ -3967,7 +3967,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Plugin.TranslatedDescription(childComplexity, args["lang"].(*string)), true
+		return e.complexity.Plugin.TranslatedDescription(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "Plugin.translatedName":
 		if e.complexity.Plugin.TranslatedName == nil {
@@ -3979,7 +3979,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Plugin.TranslatedName(childComplexity, args["lang"].(*string)), true
+		return e.complexity.Plugin.TranslatedName(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "Plugin.version":
 		if e.complexity.Plugin.Version == nil {
@@ -4087,7 +4087,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.PluginExtension.TranslatedDescription(childComplexity, args["lang"].(*string)), true
+		return e.complexity.PluginExtension.TranslatedDescription(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "PluginExtension.translatedName":
 		if e.complexity.PluginExtension.TranslatedName == nil {
@@ -4099,7 +4099,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.PluginExtension.TranslatedName(childComplexity, args["lang"].(*string)), true
+		return e.complexity.PluginExtension.TranslatedName(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "PluginExtension.type":
 		if e.complexity.PluginExtension.Type == nil {
@@ -4825,7 +4825,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.PropertySchemaField.TranslatedDescription(childComplexity, args["lang"].(*string)), true
+		return e.complexity.PropertySchemaField.TranslatedDescription(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "PropertySchemaField.translatedTitle":
 		if e.complexity.PropertySchemaField.TranslatedTitle == nil {
@@ -4837,7 +4837,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.PropertySchemaField.TranslatedTitle(childComplexity, args["lang"].(*string)), true
+		return e.complexity.PropertySchemaField.TranslatedTitle(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "PropertySchemaField.type":
 		if e.complexity.PropertySchemaField.Type == nil {
@@ -4891,7 +4891,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.PropertySchemaFieldChoice.TranslatedTitle(childComplexity, args["lang"].(*string)), true
+		return e.complexity.PropertySchemaFieldChoice.TranslatedTitle(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "PropertySchemaGroup.allTranslatedTitle":
 		if e.complexity.PropertySchemaGroup.AllTranslatedTitle == nil {
@@ -4973,7 +4973,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.PropertySchemaGroup.TranslatedTitle(childComplexity, args["lang"].(*string)), true
+		return e.complexity.PropertySchemaGroup.TranslatedTitle(childComplexity, args["lang"].(*language.Tag)), true
 
 	case "Query.assets":
 		if e.complexity.Query.Assets == nil {
@@ -6500,8 +6500,8 @@ type Plugin {
   allTranslatedDescription: TranslatedString
   allTranslatedName: TranslatedString
   scene: Scene @goField(forceResolver: true)
-  translatedName(lang: String): String! @goField(forceResolver: true)
-  translatedDescription(lang: String): String! @goField(forceResolver: true)
+  translatedName(lang: Lang): String! @goField(forceResolver: true)
+  translatedDescription(lang: Lang): String! @goField(forceResolver: true)
   propertySchema: PropertySchema @goField(forceResolver: true)
 }
 
@@ -6578,8 +6578,8 @@ type PluginExtension {
   plugin: Plugin @goField(forceResolver: true)
   sceneWidget(sceneId: ID!): SceneWidget @goField(forceResolver: true)
   propertySchema: PropertySchema @goField(forceResolver: true)
-  translatedName(lang: String): String! @goField(forceResolver: true)
-  translatedDescription(lang: String): String! @goField(forceResolver: true)
+  translatedName(lang: Lang): String! @goField(forceResolver: true)
+  translatedDescription(lang: Lang): String! @goField(forceResolver: true)
 }
 
 # Scene
@@ -6680,7 +6680,7 @@ type PropertySchemaGroup {
   representativeFieldId: ID
   representativeField: PropertySchemaField
   schema: PropertySchema @goField(forceResolver: true)
-  translatedTitle(lang: String): String! @goField(forceResolver: true)
+  translatedTitle(lang: Lang): String! @goField(forceResolver: true)
 }
 
 type PropertySchemaField {
@@ -6698,8 +6698,8 @@ type PropertySchemaField {
   isAvailableIf: PropertyCondition
   allTranslatedTitle: TranslatedString
   allTranslatedDescription: TranslatedString
-  translatedTitle(lang: String): String! @goField(forceResolver: true)
-  translatedDescription(lang: String): String! @goField(forceResolver: true)
+  translatedTitle(lang: Lang): String! @goField(forceResolver: true)
+  translatedDescription(lang: Lang): String! @goField(forceResolver: true)
 }
 
 enum PropertySchemaFieldUI {
@@ -6719,7 +6719,7 @@ type PropertySchemaFieldChoice {
   title: String!
   icon: String
   allTranslatedTitle: TranslatedString
-  translatedTitle(lang: String): String! @goField(forceResolver: true)
+  translatedTitle(lang: Lang): String! @goField(forceResolver: true)
 }
 
 type PropertyCondition {
@@ -8965,10 +8965,10 @@ func (ec *executionContext) field_PluginExtension_sceneWidget_args(ctx context.C
 func (ec *executionContext) field_PluginExtension_translatedDescription_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -8980,10 +8980,10 @@ func (ec *executionContext) field_PluginExtension_translatedDescription_args(ctx
 func (ec *executionContext) field_PluginExtension_translatedName_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -9010,10 +9010,10 @@ func (ec *executionContext) field_Plugin_scenePlugin_args(ctx context.Context, r
 func (ec *executionContext) field_Plugin_translatedDescription_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -9025,10 +9025,10 @@ func (ec *executionContext) field_Plugin_translatedDescription_args(ctx context.
 func (ec *executionContext) field_Plugin_translatedName_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -9040,10 +9040,10 @@ func (ec *executionContext) field_Plugin_translatedName_args(ctx context.Context
 func (ec *executionContext) field_PropertySchemaFieldChoice_translatedTitle_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -9055,10 +9055,10 @@ func (ec *executionContext) field_PropertySchemaFieldChoice_translatedTitle_args
 func (ec *executionContext) field_PropertySchemaField_translatedDescription_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -9070,10 +9070,10 @@ func (ec *executionContext) field_PropertySchemaField_translatedDescription_args
 func (ec *executionContext) field_PropertySchemaField_translatedTitle_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -9085,10 +9085,10 @@ func (ec *executionContext) field_PropertySchemaField_translatedTitle_args(ctx c
 func (ec *executionContext) field_PropertySchemaGroup_translatedTitle_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *string
+	var arg0 *language.Tag
 	if tmp, ok := rawArgs["lang"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lang"))
-		arg0, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		arg0, err = ec.unmarshalOLang2ᚖgolangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -20933,7 +20933,7 @@ func (ec *executionContext) _Plugin_translatedName(ctx context.Context, field gr
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Plugin().TranslatedName(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.Plugin().TranslatedName(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -20975,7 +20975,7 @@ func (ec *executionContext) _Plugin_translatedDescription(ctx context.Context, f
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Plugin().TranslatedDescription(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.Plugin().TranslatedDescription(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -21557,7 +21557,7 @@ func (ec *executionContext) _PluginExtension_translatedName(ctx context.Context,
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PluginExtension().TranslatedName(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.PluginExtension().TranslatedName(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -21599,7 +21599,7 @@ func (ec *executionContext) _PluginExtension_translatedDescription(ctx context.C
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PluginExtension().TranslatedDescription(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.PluginExtension().TranslatedDescription(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -25053,7 +25053,7 @@ func (ec *executionContext) _PropertySchemaField_translatedTitle(ctx context.Con
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PropertySchemaField().TranslatedTitle(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.PropertySchemaField().TranslatedTitle(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -25095,7 +25095,7 @@ func (ec *executionContext) _PropertySchemaField_translatedDescription(ctx conte
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PropertySchemaField().TranslatedDescription(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.PropertySchemaField().TranslatedDescription(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -25271,7 +25271,7 @@ func (ec *executionContext) _PropertySchemaFieldChoice_translatedTitle(ctx conte
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PropertySchemaFieldChoice().TranslatedTitle(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.PropertySchemaFieldChoice().TranslatedTitle(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -25645,7 +25645,7 @@ func (ec *executionContext) _PropertySchemaGroup_translatedTitle(ctx context.Con
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.PropertySchemaGroup().TranslatedTitle(rctx, obj, args["lang"].(*string))
+		return ec.resolvers.PropertySchemaGroup().TranslatedTitle(rctx, obj, args["lang"].(*language.Tag))
 	})
 	if err != nil {
 		ec.Error(ctx, err)

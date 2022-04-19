@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/reearth/reearth-backend/internal/adapter/gql/gqlmodel"
+	"golang.org/x/text/language"
 )
 
 func (r *Resolver) Plugin() PluginResolver {
@@ -41,14 +42,14 @@ func (r *pluginResolver) ScenePlugin(ctx context.Context, obj *gqlmodel.Plugin, 
 	return s.Plugin(obj.ID), err
 }
 
-func (r *pluginResolver) TranslatedName(ctx context.Context, obj *gqlmodel.Plugin, lang *string) (string, error) {
+func (r *pluginResolver) TranslatedName(ctx context.Context, obj *gqlmodel.Plugin, lang *language.Tag) (string, error) {
 	if s, ok := obj.AllTranslatedName[getLang(ctx, lang)]; ok {
 		return s, nil
 	}
 	return obj.Name, nil
 }
 
-func (r *pluginResolver) TranslatedDescription(ctx context.Context, obj *gqlmodel.Plugin, lang *string) (string, error) {
+func (r *pluginResolver) TranslatedDescription(ctx context.Context, obj *gqlmodel.Plugin, lang *language.Tag) (string, error) {
 	if s, ok := obj.AllTranslatedDescription[getLang(ctx, lang)]; ok {
 		return s, nil
 	}
@@ -70,14 +71,14 @@ func (r *pluginExtensionResolver) SceneWidget(ctx context.Context, obj *gqlmodel
 	return s.Widget(obj.PluginID, obj.ExtensionID), err
 }
 
-func (r *pluginExtensionResolver) TranslatedName(ctx context.Context, obj *gqlmodel.PluginExtension, lang *string) (string, error) {
+func (r *pluginExtensionResolver) TranslatedName(ctx context.Context, obj *gqlmodel.PluginExtension, lang *language.Tag) (string, error) {
 	if s, ok := obj.AllTranslatedName[getLang(ctx, lang)]; ok {
 		return s, nil
 	}
 	return obj.Name, nil
 }
 
-func (r *pluginExtensionResolver) TranslatedDescription(ctx context.Context, obj *gqlmodel.PluginExtension, lang *string) (string, error) {
+func (r *pluginExtensionResolver) TranslatedDescription(ctx context.Context, obj *gqlmodel.PluginExtension, lang *language.Tag) (string, error) {
 	if s, ok := obj.AllTranslatedDescription[getLang(ctx, lang)]; ok {
 		return s, nil
 	}
