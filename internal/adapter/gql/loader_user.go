@@ -37,13 +37,13 @@ func (c *UserLoader) Fetch(ctx context.Context, ids []gqlmodel.ID) ([]*gqlmodel.
 	return users, nil
 }
 
-func (c *UserLoader) SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error) {
+func (c *UserLoader) SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.User, error) {
 	res, err := c.usecase.SearchUser(ctx, nameOrEmail, getOperator(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return gqlmodel.ToSearchedUser(res), nil
+	return gqlmodel.ToUser(res), nil
 }
 
 // data loader

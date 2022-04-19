@@ -549,6 +549,18 @@ type LinkDatasetToPropertyValueInput struct {
 	DatasetIds            []ID `json:"datasetIds"`
 }
 
+type Me struct {
+	ID       ID           `json:"id"`
+	Name     string       `json:"name"`
+	Email    string       `json:"email"`
+	Lang     language.Tag `json:"lang"`
+	Theme    Theme        `json:"theme"`
+	Auths    []string     `json:"auths"`
+	MyTeamID ID           `json:"myTeamId"`
+	Teams    []*Team      `json:"teams"`
+	MyTeam   *Team        `json:"myTeam"`
+}
+
 type MergedInfobox struct {
 	SceneID  ID                    `json:"sceneID"`
 	Property *MergedProperty       `json:"property"`
@@ -1045,12 +1057,6 @@ type SceneWidget struct {
 	Property    *Property        `json:"property"`
 }
 
-type SearchedUser struct {
-	UserID    ID     `json:"userId"`
-	UserName  string `json:"userName"`
-	UserEmail string `json:"userEmail"`
-}
-
 type SignupInput struct {
 	Lang   *language.Tag `json:"lang"`
 	Theme  *Theme        `json:"theme"`
@@ -1191,7 +1197,7 @@ type UpdateMeInput struct {
 }
 
 type UpdateMePayload struct {
-	User *User `json:"user"`
+	Me *Me `json:"me"`
 }
 
 type UpdateMemberOfTeamInput struct {
@@ -1320,15 +1326,9 @@ type UploadPluginPayload struct {
 }
 
 type User struct {
-	ID       ID           `json:"id"`
-	Name     string       `json:"name"`
-	Email    string       `json:"email"`
-	Lang     language.Tag `json:"lang"`
-	Theme    Theme        `json:"theme"`
-	MyTeamID ID           `json:"myTeamId"`
-	Auths    []string     `json:"auths"`
-	Teams    []*Team      `json:"teams"`
-	MyTeam   *Team        `json:"myTeam"`
+	ID    ID     `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func (User) IsNode() {}

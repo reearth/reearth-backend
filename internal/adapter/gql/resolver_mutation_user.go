@@ -49,7 +49,7 @@ func (r *mutationResolver) UpdateMe(ctx context.Context, input gqlmodel.UpdateMe
 		return nil, err
 	}
 
-	return &gqlmodel.UpdateMePayload{User: gqlmodel.ToUser(res)}, nil
+	return &gqlmodel.UpdateMePayload{Me: gqlmodel.ToMe(res)}, nil
 }
 
 func (r *mutationResolver) RemoveMyAuth(ctx context.Context, input gqlmodel.RemoveMyAuthInput) (*gqlmodel.UpdateMePayload, error) {
@@ -58,7 +58,7 @@ func (r *mutationResolver) RemoveMyAuth(ctx context.Context, input gqlmodel.Remo
 		return nil, err
 	}
 
-	return &gqlmodel.UpdateMePayload{User: gqlmodel.ToUser(res)}, nil
+	return &gqlmodel.UpdateMePayload{Me: gqlmodel.ToMe(res)}, nil
 }
 
 func (r *mutationResolver) DeleteMe(ctx context.Context, input gqlmodel.DeleteMeInput) (*gqlmodel.DeleteMePayload, error) {

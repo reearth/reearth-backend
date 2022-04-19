@@ -11,6 +11,18 @@ func ToUser(u *user.User) *User {
 	}
 
 	return &User{
+		ID:    IDFrom(u.ID()),
+		Name:  u.Name(),
+		Email: u.Email(),
+	}
+}
+
+func ToMe(u *user.User) *Me {
+	if u == nil {
+		return nil
+	}
+
+	return &Me{
 		ID:       IDFrom(u.ID()),
 		Name:     u.Name(),
 		Email:    u.Email(),
@@ -20,18 +32,6 @@ func ToUser(u *user.User) *User {
 		Auths: util.Map(u.Auths(), func(a user.Auth) string {
 			return a.Provider
 		}),
-	}
-}
-
-func ToSearchedUser(u *user.User) *SearchedUser {
-	if u == nil {
-		return nil
-	}
-
-	return &SearchedUser{
-		UserID:    IDFrom(u.ID()),
-		UserName:  u.Name(),
-		UserEmail: u.Email(),
 	}
 }
 

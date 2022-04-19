@@ -52,6 +52,7 @@ type ResolverRoot interface {
 	LayerItem() LayerItemResolver
 	LayerTagGroup() LayerTagGroupResolver
 	LayerTagItem() LayerTagItemResolver
+	Me() MeResolver
 	MergedInfobox() MergedInfoboxResolver
 	MergedInfoboxField() MergedInfoboxFieldResolver
 	MergedLayer() MergedLayerResolver
@@ -79,7 +80,6 @@ type ResolverRoot interface {
 	TagItem() TagItemResolver
 	Team() TeamResolver
 	TeamMember() TeamMemberResolver
-	User() UserResolver
 }
 
 type DirectiveRoot struct {
@@ -403,6 +403,18 @@ type ComplexityRoot struct {
 	LayerTagItem struct {
 		Tag   func(childComplexity int) int
 		TagID func(childComplexity int) int
+	}
+
+	Me struct {
+		Auths    func(childComplexity int) int
+		Email    func(childComplexity int) int
+		ID       func(childComplexity int) int
+		Lang     func(childComplexity int) int
+		MyTeam   func(childComplexity int) int
+		MyTeamID func(childComplexity int) int
+		Name     func(childComplexity int) int
+		Teams    func(childComplexity int) int
+		Theme    func(childComplexity int) int
 	}
 
 	MergedInfobox struct {
@@ -888,12 +900,6 @@ type ComplexityRoot struct {
 		PropertyID  func(childComplexity int) int
 	}
 
-	SearchedUser struct {
-		UserEmail func(childComplexity int) int
-		UserID    func(childComplexity int) int
-		UserName  func(childComplexity int) int
-	}
-
 	SignupPayload struct {
 		Team func(childComplexity int) int
 		User func(childComplexity int) int
@@ -976,7 +982,7 @@ type ComplexityRoot struct {
 	}
 
 	UpdateMePayload struct {
-		User func(childComplexity int) int
+		Me func(childComplexity int) int
 	}
 
 	UpdateMemberOfTeamPayload struct {
@@ -1012,15 +1018,9 @@ type ComplexityRoot struct {
 	}
 
 	User struct {
-		Auths    func(childComplexity int) int
-		Email    func(childComplexity int) int
-		ID       func(childComplexity int) int
-		Lang     func(childComplexity int) int
-		MyTeam   func(childComplexity int) int
-		MyTeamID func(childComplexity int) int
-		Name     func(childComplexity int) int
-		Teams    func(childComplexity int) int
-		Theme    func(childComplexity int) int
+		Email func(childComplexity int) int
+		ID    func(childComplexity int) int
+		Name  func(childComplexity int) int
 	}
 
 	WidgetAlignSystem struct {
@@ -1131,6 +1131,10 @@ type LayerTagGroupResolver interface {
 }
 type LayerTagItemResolver interface {
 	Tag(ctx context.Context, obj *gqlmodel.LayerTagItem) (gqlmodel.Tag, error)
+}
+type MeResolver interface {
+	Teams(ctx context.Context, obj *gqlmodel.Me) ([]*gqlmodel.Team, error)
+	MyTeam(ctx context.Context, obj *gqlmodel.Me) (*gqlmodel.Team, error)
 }
 type MergedInfoboxResolver interface {
 	Scene(ctx context.Context, obj *gqlmodel.MergedInfobox) (*gqlmodel.Scene, error)
@@ -1291,7 +1295,7 @@ type PropertySchemaGroupResolver interface {
 	TranslatedTitle(ctx context.Context, obj *gqlmodel.PropertySchemaGroup, lang *language.Tag) (string, error)
 }
 type QueryResolver interface {
-	Me(ctx context.Context) (*gqlmodel.User, error)
+	Me(ctx context.Context) (*gqlmodel.Me, error)
 	Node(ctx context.Context, id gqlmodel.ID, typeArg gqlmodel.NodeType) (gqlmodel.Node, error)
 	Nodes(ctx context.Context, id []gqlmodel.ID, typeArg gqlmodel.NodeType) ([]gqlmodel.Node, error)
 	PropertySchema(ctx context.Context, id gqlmodel.ID) (*gqlmodel.PropertySchema, error)
@@ -1305,7 +1309,7 @@ type QueryResolver interface {
 	DatasetSchemas(ctx context.Context, sceneID gqlmodel.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetSchemaConnection, error)
 	Datasets(ctx context.Context, datasetSchemaID gqlmodel.ID, first *int, last *int, after *usecase.Cursor, before *usecase.Cursor) (*gqlmodel.DatasetConnection, error)
 	DynamicDatasetSchemas(ctx context.Context, sceneID gqlmodel.ID) ([]*gqlmodel.DatasetSchema, error)
-	SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error)
+	SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.User, error)
 	CheckProjectAlias(ctx context.Context, alias string) (*gqlmodel.ProjectAliasAvailability, error)
 	InstallablePlugins(ctx context.Context) ([]*gqlmodel.PluginMetadata, error)
 }
@@ -1345,10 +1349,6 @@ type TeamResolver interface {
 }
 type TeamMemberResolver interface {
 	User(ctx context.Context, obj *gqlmodel.TeamMember) (*gqlmodel.User, error)
-}
-type UserResolver interface {
-	Teams(ctx context.Context, obj *gqlmodel.User) ([]*gqlmodel.Team, error)
-	MyTeam(ctx context.Context, obj *gqlmodel.User) (*gqlmodel.Team, error)
 }
 
 type executableSchema struct {
@@ -2637,6 +2637,69 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.LayerTagItem.TagID(childComplexity), true
+
+	case "Me.auths":
+		if e.complexity.Me.Auths == nil {
+			break
+		}
+
+		return e.complexity.Me.Auths(childComplexity), true
+
+	case "Me.email":
+		if e.complexity.Me.Email == nil {
+			break
+		}
+
+		return e.complexity.Me.Email(childComplexity), true
+
+	case "Me.id":
+		if e.complexity.Me.ID == nil {
+			break
+		}
+
+		return e.complexity.Me.ID(childComplexity), true
+
+	case "Me.lang":
+		if e.complexity.Me.Lang == nil {
+			break
+		}
+
+		return e.complexity.Me.Lang(childComplexity), true
+
+	case "Me.myTeam":
+		if e.complexity.Me.MyTeam == nil {
+			break
+		}
+
+		return e.complexity.Me.MyTeam(childComplexity), true
+
+	case "Me.myTeamId":
+		if e.complexity.Me.MyTeamID == nil {
+			break
+		}
+
+		return e.complexity.Me.MyTeamID(childComplexity), true
+
+	case "Me.name":
+		if e.complexity.Me.Name == nil {
+			break
+		}
+
+		return e.complexity.Me.Name(childComplexity), true
+
+	case "Me.teams":
+		if e.complexity.Me.Teams == nil {
+			break
+		}
+
+		return e.complexity.Me.Teams(childComplexity), true
+
+	case "Me.theme":
+		if e.complexity.Me.Theme == nil {
+			break
+		}
+
+		return e.complexity.Me.Theme(childComplexity), true
 
 	case "MergedInfobox.fields":
 		if e.complexity.MergedInfobox.Fields == nil {
@@ -5524,27 +5587,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.SceneWidget.PropertyID(childComplexity), true
 
-	case "SearchedUser.userEmail":
-		if e.complexity.SearchedUser.UserEmail == nil {
-			break
-		}
-
-		return e.complexity.SearchedUser.UserEmail(childComplexity), true
-
-	case "SearchedUser.userId":
-		if e.complexity.SearchedUser.UserID == nil {
-			break
-		}
-
-		return e.complexity.SearchedUser.UserID(childComplexity), true
-
-	case "SearchedUser.userName":
-		if e.complexity.SearchedUser.UserName == nil {
-			break
-		}
-
-		return e.complexity.SearchedUser.UserName(childComplexity), true
-
 	case "SignupPayload.team":
 		if e.complexity.SignupPayload.Team == nil {
 			break
@@ -5891,12 +5933,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.UpdateLayerPayload.Layer(childComplexity), true
 
-	case "UpdateMePayload.user":
-		if e.complexity.UpdateMePayload.User == nil {
+	case "UpdateMePayload.me":
+		if e.complexity.UpdateMePayload.Me == nil {
 			break
 		}
 
-		return e.complexity.UpdateMePayload.User(childComplexity), true
+		return e.complexity.UpdateMePayload.Me(childComplexity), true
 
 	case "UpdateMemberOfTeamPayload.team":
 		if e.complexity.UpdateMemberOfTeamPayload.Team == nil {
@@ -5975,13 +6017,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.UploadPluginPayload.ScenePlugin(childComplexity), true
 
-	case "User.auths":
-		if e.complexity.User.Auths == nil {
-			break
-		}
-
-		return e.complexity.User.Auths(childComplexity), true
-
 	case "User.email":
 		if e.complexity.User.Email == nil {
 			break
@@ -5996,47 +6031,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.User.ID(childComplexity), true
 
-	case "User.lang":
-		if e.complexity.User.Lang == nil {
-			break
-		}
-
-		return e.complexity.User.Lang(childComplexity), true
-
-	case "User.myTeam":
-		if e.complexity.User.MyTeam == nil {
-			break
-		}
-
-		return e.complexity.User.MyTeam(childComplexity), true
-
-	case "User.myTeamId":
-		if e.complexity.User.MyTeamID == nil {
-			break
-		}
-
-		return e.complexity.User.MyTeamID(childComplexity), true
-
 	case "User.name":
 		if e.complexity.User.Name == nil {
 			break
 		}
 
 		return e.complexity.User.Name(childComplexity), true
-
-	case "User.teams":
-		if e.complexity.User.Teams == nil {
-			break
-		}
-
-		return e.complexity.User.Teams(childComplexity), true
-
-	case "User.theme":
-		if e.complexity.User.Theme == nil {
-			break
-		}
-
-		return e.complexity.User.Theme(childComplexity), true
 
 	case "WidgetAlignSystem.inner":
 		if e.complexity.WidgetAlignSystem.Inner == nil {
@@ -6394,18 +6394,18 @@ type User implements Node {
   id: ID!
   name: String!
   email: String!
-  lang: Lang!
-  theme: Theme!
-  myTeamId: ID!
-  auths: [String!]!
-  teams: [Team!]! @goField(forceResolver: true)
-  myTeam: Team! @goField(forceResolver: true)
 }
 
-type SearchedUser {
-  userId: ID!
-  userName: String!
-  userEmail: String!
+type Me {
+  id: ID!
+  name: String!
+  email: String!
+  lang: Lang!
+  theme: Theme!
+  auths: [String!]!
+  myTeamId: ID!
+  teams: [Team!]! @goField(forceResolver: true)
+  myTeam: Team! @goField(forceResolver: true)
 }
 
 type ProjectAliasAvailability {
@@ -7497,7 +7497,7 @@ type RemoveAssetPayload {
 }
 
 type UpdateMePayload {
-  user: User!
+  me: Me!
 }
 
 type SignupPayload {
@@ -7786,7 +7786,7 @@ type DatasetEdge {
 # Query
 
 type Query {
-  me: User
+  me: Me
   node(id: ID!, type: NodeType!): Node
   nodes(id: [ID!]!, type: NodeType!): [Node]!
   propertySchema(id: ID!): PropertySchema
@@ -7824,7 +7824,7 @@ type Query {
     before: Cursor
   ): DatasetConnection!
   dynamicDatasetSchemas(sceneId: ID!): [DatasetSchema!]!
-  searchUser(nameOrEmail: String!): SearchedUser
+  searchUser(nameOrEmail: String!): User
   checkProjectAlias(alias: String!): ProjectAliasAvailability!
   installablePlugins: [PluginMetadata!]!
 }
@@ -15811,6 +15811,321 @@ func (ec *executionContext) _LayerTagItem_tag(ctx context.Context, field graphql
 	res := resTmp.(gqlmodel.Tag)
 	fc.Result = res
 	return ec.marshalOTag2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTag(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_id(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.ID)
+	fc.Result = res
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐID(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_name(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Name, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_email(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Email, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_lang(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Lang, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(language.Tag)
+	fc.Result = res
+	return ec.marshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_theme(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Theme, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.Theme)
+	fc.Result = res
+	return ec.marshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_auths(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Auths, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]string)
+	fc.Result = res
+	return ec.marshalNString2ᚕstringᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_myTeamId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.MyTeamID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(gqlmodel.ID)
+	fc.Result = res
+	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐID(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_teams(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Me().Teams(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*gqlmodel.Team)
+	fc.Result = res
+	return ec.marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Me_myTeam(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.Me) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Me",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Me().MyTeam(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*gqlmodel.Team)
+	fc.Result = res
+	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _MergedInfobox_sceneID(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.MergedInfobox) (ret graphql.Marshaler) {
@@ -25689,9 +26004,9 @@ func (ec *executionContext) _Query_me(ctx context.Context, field graphql.Collect
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*gqlmodel.User)
+	res := resTmp.(*gqlmodel.Me)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalOMe2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_node(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -26259,9 +26574,9 @@ func (ec *executionContext) _Query_searchUser(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*gqlmodel.SearchedUser)
+	res := resTmp.(*gqlmodel.User)
 	fc.Result = res
-	return ec.marshalOSearchedUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSearchedUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_checkProjectAlias(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -28136,111 +28451,6 @@ func (ec *executionContext) _SceneWidget_property(ctx context.Context, field gra
 	return ec.marshalOProperty2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐProperty(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _SearchedUser_userId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SearchedUser) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "SearchedUser",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.UserID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(gqlmodel.ID)
-	fc.Result = res
-	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐID(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _SearchedUser_userName(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SearchedUser) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "SearchedUser",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.UserName, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _SearchedUser_userEmail(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SearchedUser) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "SearchedUser",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.UserEmail, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _SignupPayload_user(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.SignupPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -29875,7 +30085,7 @@ func (ec *executionContext) _UpdateLayerPayload_layer(ctx context.Context, field
 	return ec.marshalNLayer2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐLayer(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _UpdateMePayload_user(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateMePayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _UpdateMePayload_me(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateMePayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -29893,7 +30103,7 @@ func (ec *executionContext) _UpdateMePayload_user(ctx context.Context, field gra
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.User, nil
+		return obj.Me, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -29905,9 +30115,9 @@ func (ec *executionContext) _UpdateMePayload_user(ctx context.Context, field gra
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*gqlmodel.User)
+	res := resTmp.(*gqlmodel.Me)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNMe2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _UpdateMemberOfTeamPayload_team(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.UpdateMemberOfTeamPayload) (ret graphql.Marshaler) {
@@ -30398,216 +30608,6 @@ func (ec *executionContext) _User_email(ctx context.Context, field graphql.Colle
 	res := resTmp.(string)
 	fc.Result = res
 	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _User_lang(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "User",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Lang, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(language.Tag)
-	fc.Result = res
-	return ec.marshalNLang2golangᚗorgᚋxᚋtextᚋlanguageᚐTag(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _User_theme(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "User",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Theme, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(gqlmodel.Theme)
-	fc.Result = res
-	return ec.marshalNTheme2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTheme(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _User_myTeamId(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "User",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.MyTeamID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(gqlmodel.ID)
-	fc.Result = res
-	return ec.marshalNID2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐID(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _User_auths(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "User",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Auths, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]string)
-	fc.Result = res
-	return ec.marshalNString2ᚕstringᚄ(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _User_teams(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "User",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.User().Teams(rctx, obj)
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*gqlmodel.Team)
-	fc.Result = res
-	return ec.marshalNTeam2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeamᚄ(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _User_myTeam(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.User) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "User",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.User().MyTeam(rctx, obj)
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(*gqlmodel.Team)
-	fc.Result = res
-	return ec.marshalNTeam2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐTeam(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _WidgetAlignSystem_inner(ctx context.Context, field graphql.CollectedField, obj *gqlmodel.WidgetAlignSystem) (ret graphql.Marshaler) {
@@ -38386,6 +38386,137 @@ func (ec *executionContext) _LayerTagItem(ctx context.Context, sel ast.Selection
 	return out
 }
 
+var meImplementors = []string{"Me"}
+
+func (ec *executionContext) _Me(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.Me) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, meImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Me")
+		case "id":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Me_id(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "name":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Me_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "email":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Me_email(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "lang":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Me_lang(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "theme":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Me_theme(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "auths":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Me_auths(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "myTeamId":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Me_myTeamId(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "teams":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Me_teams(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
+		case "myTeam":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Me_myTeam(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var mergedInfoboxImplementors = []string{"MergedInfobox"}
 
 func (ec *executionContext) _MergedInfobox(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.MergedInfobox) graphql.Marshaler {
@@ -43176,57 +43307,6 @@ func (ec *executionContext) _SceneWidget(ctx context.Context, sel ast.SelectionS
 	return out
 }
 
-var searchedUserImplementors = []string{"SearchedUser"}
-
-func (ec *executionContext) _SearchedUser(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.SearchedUser) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, searchedUserImplementors)
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("SearchedUser")
-		case "userId":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._SearchedUser_userId(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "userName":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._SearchedUser_userName(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "userEmail":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._SearchedUser_userEmail(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
-
 var signupPayloadImplementors = []string{"SignupPayload"}
 
 func (ec *executionContext) _SignupPayload(ctx context.Context, sel ast.SelectionSet, obj *gqlmodel.SignupPayload) graphql.Marshaler {
@@ -43998,9 +44078,9 @@ func (ec *executionContext) _UpdateMePayload(ctx context.Context, sel ast.Select
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("UpdateMePayload")
-		case "user":
+		case "me":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._UpdateMePayload_user(ctx, field, obj)
+				return ec._UpdateMePayload_me(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -44294,7 +44374,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+				invalids++
 			}
 		case "name":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -44304,7 +44384,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+				invalids++
 			}
 		case "email":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -44314,88 +44394,8 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
+				invalids++
 			}
-		case "lang":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._User_lang(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "theme":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._User_theme(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "myTeamId":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._User_myTeamId(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "auths":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._User_auths(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "teams":
-			field := field
-
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._User_teams(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
-		case "myTeam":
-			field := field
-
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._User_myTeam(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -46342,6 +46342,16 @@ func (ec *executionContext) unmarshalNListOperation2githubᚗcomᚋreearthᚋree
 
 func (ec *executionContext) marshalNListOperation2githubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐListOperation(ctx context.Context, sel ast.SelectionSet, v gqlmodel.ListOperation) graphql.Marshaler {
 	return v
+}
+
+func (ec *executionContext) marshalNMe2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMe(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Me) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._Me(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNMergedInfoboxField2ᚕᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfoboxFieldᚄ(ctx context.Context, sel ast.SelectionSet, v []*gqlmodel.MergedInfoboxField) graphql.Marshaler {
@@ -48636,6 +48646,13 @@ func (ec *executionContext) marshalOLayerItem2ᚖgithubᚗcomᚋreearthᚋreeart
 	return ec._LayerItem(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalOMe2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMe(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.Me) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Me(ctx, sel, v)
+}
+
 func (ec *executionContext) marshalOMergedInfobox2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐMergedInfobox(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.MergedInfobox) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -48983,13 +49000,6 @@ func (ec *executionContext) marshalOSceneWidget2ᚖgithubᚗcomᚋreearthᚋreea
 		return graphql.Null
 	}
 	return ec._SceneWidget(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalOSearchedUser2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSearchedUser(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SearchedUser) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._SearchedUser(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalOSignupPayload2ᚖgithubᚗcomᚋreearthᚋreearthᚑbackendᚋinternalᚋadapterᚋgqlᚋgqlmodelᚐSignupPayload(ctx context.Context, sel ast.SelectionSet, v *gqlmodel.SignupPayload) graphql.Marshaler {

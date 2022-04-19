@@ -17,12 +17,12 @@ func (r *queryResolver) Assets(ctx context.Context, teamID gqlmodel.ID, keyword 
 	return loaders(ctx).Asset.FindByTeam(ctx, teamID, keyword, gqlmodel.AssetSortTypeFrom(sortType), pagination)
 }
 
-func (r *queryResolver) Me(ctx context.Context) (*gqlmodel.User, error) {
+func (r *queryResolver) Me(ctx context.Context) (*gqlmodel.Me, error) {
 	u := getUser(ctx)
 	if u == nil {
 		return nil, nil
 	}
-	return gqlmodel.ToUser(u), nil
+	return gqlmodel.ToMe(u), nil
 }
 
 func (r *queryResolver) Node(ctx context.Context, i gqlmodel.ID, typeArg gqlmodel.NodeType) (gqlmodel.Node, error) {
@@ -252,7 +252,7 @@ func (r *queryResolver) Datasets(ctx context.Context, datasetSchemaID gqlmodel.I
 	return loaders(ctx).Dataset.FindBySchema(ctx, datasetSchemaID, first, last, before, after)
 }
 
-func (r *queryResolver) SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.SearchedUser, error) {
+func (r *queryResolver) SearchUser(ctx context.Context, nameOrEmail string) (*gqlmodel.User, error) {
 	return loaders(ctx).User.SearchUser(ctx, nameOrEmail)
 }
 

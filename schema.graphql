@@ -157,18 +157,18 @@ type User implements Node {
   id: ID!
   name: String!
   email: String!
+}
+
+type Me {
+  id: ID!
+  name: String!
+  email: String!
   lang: Lang!
   theme: Theme!
   myTeamId: ID!
   auths: [String!]!
   teams: [Team!]! @goField(forceResolver: true)
   myTeam: Team! @goField(forceResolver: true)
-}
-
-type SearchedUser {
-  userId: ID!
-  userName: String!
-  userEmail: String!
 }
 
 type ProjectAliasAvailability {
@@ -1260,7 +1260,7 @@ type RemoveAssetPayload {
 }
 
 type UpdateMePayload {
-  user: User!
+  me: Me!
 }
 
 type SignupPayload {
@@ -1549,7 +1549,7 @@ type DatasetEdge {
 # Query
 
 type Query {
-  me: User
+  me: Me
   node(id: ID!, type: NodeType!): Node
   nodes(id: [ID!]!, type: NodeType!): [Node]!
   propertySchema(id: ID!): PropertySchema
@@ -1587,7 +1587,7 @@ type Query {
     before: Cursor
   ): DatasetConnection!
   dynamicDatasetSchemas(sceneId: ID!): [DatasetSchema!]!
-  searchUser(nameOrEmail: String!): SearchedUser
+  searchUser(nameOrEmail: String!): User
   checkProjectAlias(alias: String!): ProjectAliasAvailability!
   installablePlugins: [PluginMetadata!]!
 }
