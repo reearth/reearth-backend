@@ -161,6 +161,7 @@ extensions:
             - id: tile_opacity
               type: number
               title: Opacity
+              description: "Change the opacity of the selected tile map. Min: 0 Max: 1"
               defaultValue: 1
               ui: slider
               min: 0
