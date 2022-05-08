@@ -71,23 +71,21 @@ func TestFindByID(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			t.Parallel()
 
-			want, err := asset.New().
+			want := asset.New().
 				NewID().
 				Team(tc.Expected.Asset.team).
 				Name(tc.Expected.Asset.name).
 				Size(tc.Expected.Asset.size).
 				URL(tc.Expected.Asset.url).
 				CreatedAt(tc.Expected.Asset.createdAt).
-				Build()
-
-			assert.NoError(t, err)
+				MustBuild()
 
 			database, _ := uuid.New()
 			client := mongodoc.NewClient(string(database[:]), c)
 			repo := NewAsset(client)
 
 			ctx := context.Background()
-			err = repo.Save(ctx, want)
+			err := repo.Save(ctx, want)
 			assert.NoError(t, err)
 
 			defer func() {
