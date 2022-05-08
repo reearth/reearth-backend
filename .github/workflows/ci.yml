@@ -8,6 +8,11 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:4.4-focal
+        ports:
+          - 27017:27017
     steps:
       - name: set up
         uses: actions/setup-go@v3
