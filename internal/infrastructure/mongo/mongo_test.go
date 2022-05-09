@@ -2,6 +2,7 @@ package mongo
 
 import (
 	"context"
+	"encoding/hex"
 	"os"
 	"testing"
 	"time"
@@ -32,7 +33,7 @@ func connect(t *testing.T) func() (*mongodoc.Client, func()) {
 
 	return func() (*mongodoc.Client, func()) {
 		database, _ := uuid.New()
-		databaseName := "reearth-test-" + string(database[:])
+		databaseName := "reearth-test-" + hex.EncodeToString(database[:])
 		client := mongodoc.NewClient(databaseName, c)
 
 		return client, func() {
