@@ -23,37 +23,27 @@ func TestFindByID(t *testing.T) {
 		return
 	}
 
-	type a struct {
-		id          asset.ID
-		createdAt   time.Time
-		team        asset.TeamID
-		name        string
-		size        int64
-		url         string
-		contentType string
-	}
-
 	tests := []struct {
 		Name     string
 		Expected struct {
 			Name  string
-			Asset *a
+			Asset *asset.Asset
 		}
 	}{
 		{
 			Expected: struct {
 				Name  string
-				Asset *a
+				Asset *asset.Asset
 			}{
-				Asset: &a{
-					id:          id.NewAssetID(),
-					createdAt:   time.Now(),
-					team:        id.NewTeamID(),
-					name:        "name",
-					size:        10,
-					url:         "hxxps://xxx.com",
-					contentType: "json",
-				},
+				Asset: asset.New().
+					NewID().
+					CreatedAt(time.Now()).
+					Team(id.NewTeamID()).
+					Name("name").
+					Size(10).
+					URL("hxxps://https://reearth.io/").
+					ContentType("json").
+					MustBuild(),
 			},
 		},
 	}
@@ -71,36 +61,27 @@ func TestFindByID(t *testing.T) {
 		t.Run(tc.Name, func(t *testing.T) {
 			t.Parallel()
 
-			want := asset.New().
-				NewID().
-				Team(tc.Expected.Asset.team).
-				Name(tc.Expected.Asset.name).
-				Size(tc.Expected.Asset.size).
-				URL(tc.Expected.Asset.url).
-				CreatedAt(tc.Expected.Asset.createdAt).
-				MustBuild()
-
 			database, _ := uuid.New()
 			client := mongodoc.NewClient(string(database[:]), c)
 			repo := NewAsset(client)
 
 			ctx := context.Background()
-			err := repo.Save(ctx, want)
+			err := repo.Save(ctx, tc.Expected.Asset)
 			assert.NoError(t, err)
 
 			defer func() {
 				_ = c.Database(string(database[:])).Drop(ctx)
 			}()
 
-			got, err := repo.FindByID(ctx, want.ID())
+			got, err := repo.FindByID(ctx, tc.Expected.Asset.ID())
 			assert.NoError(t, err)
-			assert.Equal(t, want.ID(), got.ID())
-			assert.Equal(t, want.CreatedAt(), got.CreatedAt())
-			assert.Equal(t, want.Team(), got.Team())
-			assert.Equal(t, want.URL(), got.URL())
-			assert.Equal(t, want.Size(), got.Size())
-			assert.Equal(t, want.Name(), got.Name())
-			assert.Equal(t, want.ContentType(), got.ContentType())
+			assert.Equal(t, tc.Expected.Asset.ID(), got.ID())
+			assert.Equal(t, tc.Expected.Asset.CreatedAt(), got.CreatedAt())
+			assert.Equal(t, tc.Expected.Asset.Team(), got.Team())
+			assert.Equal(t, tc.Expected.Asset.URL(), got.URL())
+			assert.Equal(t, tc.Expected.Asset.Size(), got.Size())
+			assert.Equal(t, tc.Expected.Asset.Name(), got.Name())
+			assert.Equal(t, tc.Expected.Asset.ContentType(), got.ContentType())
 		})
 	}
 }
