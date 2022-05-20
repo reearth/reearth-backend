@@ -5,12 +5,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/openlyinc/pointy"
 	"github.com/reearth/reearth-backend/internal/usecase"
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/project"
 	"github.com/reearth/reearth-backend/pkg/rerror"
+	"github.com/samber/lo"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -478,7 +478,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 			seeds: []*project.Project{
 				p1,
 			},
-			args:    args{tid1, usecase.NewPagination(pointy.Int(1), nil, nil, nil)},
+			args:    args{tid1, usecase.NewPagination(lo.ToPtr(1), nil, nil, nil)},
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -489,7 +489,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
-			args:    args{tid1, usecase.NewPagination(pointy.Int(1), nil, nil, nil)},
+			args:    args{tid1, usecase.NewPagination(lo.ToPtr(1), nil, nil, nil)},
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -501,7 +501,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
-			args:    args{tid1, usecase.NewPagination(pointy.Int(2), nil, nil, nil)},
+			args:    args{tid1, usecase.NewPagination(lo.ToPtr(2), nil, nil, nil)},
 			want:    []*project.Project{p1, p2},
 			wantErr: nil,
 		},
@@ -513,7 +513,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
-			args:    args{tid1, usecase.NewPagination(pointy.Int(1), nil, nil, nil)},
+			args:    args{tid1, usecase.NewPagination(lo.ToPtr(1), nil, nil, nil)},
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -525,7 +525,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
-			args:    args{tid1, usecase.NewPagination(nil, pointy.Int(1), nil, nil)},
+			args:    args{tid1, usecase.NewPagination(nil, lo.ToPtr(1), nil, nil)},
 			want:    []*project.Project{p2},
 			wantErr: nil,
 		},
