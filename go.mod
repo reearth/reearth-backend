@@ -6,6 +6,7 @@ require (
 	github.com/99designs/gqlgen v0.17.5
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/trace v1.6.1
 	github.com/auth0/go-jwt-middleware/v2 v2.0.1
+	github.com/avast/retry-go/v4 v4.0.4
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/caos/oidc v1.2.0
 	github.com/goccy/go-yaml v1.9.5
@@ -23,6 +24,7 @@ require (
 	github.com/labstack/gommon v0.3.1
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/oklog/ulid v1.3.1
+	github.com/openlyinc/pointy v1.1.2
 	github.com/paulmach/go.geojson v1.4.0
 	github.com/pkg/errors v0.9.1
 	github.com/ravilushqa/otelgqlgen v0.6.1
@@ -62,7 +64,6 @@ require (
 	github.com/agnivade/levenshtein v1.1.1 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20210927113745-59d0afb8317a // indirect
-	github.com/avast/retry-go/v4 v4.0.4 // indirect
 	github.com/caos/logging v0.0.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
