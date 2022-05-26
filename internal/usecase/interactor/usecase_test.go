@@ -121,6 +121,17 @@ func TestUc_checkPermission(t *testing.T) {
 	}
 }
 
+func TestUc(t *testing.T) {
+	teams := id.TeamIDList{id.NewTeamID(), id.NewTeamID(), id.NewTeamID()}
+	scenes := id.SceneIDList{id.NewSceneID(), id.NewSceneID(), id.NewSceneID()}
+	assert.Equal(t, &uc{}, Usecase())
+	assert.Equal(t, &uc{readableTeams: teams}, (&uc{}).WithReadableTeams(teams...))
+	assert.Equal(t, &uc{writableTeams: teams}, (&uc{}).WithWritableTeams(teams...))
+	assert.Equal(t, &uc{readableScenes: scenes}, (&uc{}).WithReadablScenes(scenes...))
+	assert.Equal(t, &uc{writableScenes: scenes}, (&uc{}).WithWritableScenes(scenes...))
+	assert.Equal(t, &uc{tx: true}, (&uc{}).Transaction())
+}
+
 func TestRun(t *testing.T) {
 	ctx := context.Background()
 	err := errors.New("test")
@@ -132,8 +143,7 @@ func TestRun(t *testing.T) {
 	gota, gotb, gotc, goterr := Run3(
 		ctx, nil, r,
 		Usecase(),
-		func(ctx2 context.Context) (any, any, any, error) {
-			assert.Same(t, ctx2, ctx)
+		func() (any, any, any, error) {
 			return a, b, c, nil
 		},
 	)
@@ -147,7 +157,7 @@ func TestRun(t *testing.T) {
 	_ = Run0(
 		ctx, nil, r,
 		Usecase().Transaction(),
-		func(ctx2 context.Context) error {
+		func() error {
 			return nil
 		},
 	)
@@ -157,7 +167,7 @@ func TestRun(t *testing.T) {
 	goterr = Run0(
 		ctx, nil, r,
 		Usecase().Transaction(),
-		func(ctx2 context.Context) error {
+		func() error {
 			return err
 		},
 	)
@@ -170,7 +180,7 @@ func TestRun(t *testing.T) {
 	goterr = Run0(
 		ctx, nil, r,
 		Usecase().Transaction(),
-		func(ctx2 context.Context) error {
+		func() error {
 			return nil
 		},
 	)
@@ -183,7 +193,7 @@ func TestRun(t *testing.T) {
 	goterr = Run0(
 		ctx, nil, r,
 		Usecase().Transaction(),
-		func(ctx2 context.Context) error {
+		func() error {
 			return nil
 		},
 	)

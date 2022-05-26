@@ -32,8 +32,8 @@ func (i *Asset) Fetch(ctx context.Context, assets []id.AssetID, operator *usecas
 func (i *Asset) FindByTeam(ctx context.Context, tid id.TeamID, keyword *string, sort *asset.SortType, p *usecase.Pagination, operator *usecase.Operator) ([]*asset.Asset, *usecase.PageInfo, error) {
 	return Run2(
 		ctx, operator, i.repos,
-		Usecase().CanReadTeams(tid),
-		func(ctx context.Context) ([]*asset.Asset, *usecase.PageInfo, error) {
+		Usecase().WithReadableTeams(tid),
+		func() ([]*asset.Asset, *usecase.PageInfo, error) {
 			return i.repos.Asset.FindByTeam(ctx, tid, repo.AssetFilter{
 				Sort:       sort,
 				Keyword:    keyword,
@@ -51,9 +51,9 @@ func (i *Asset) Create(ctx context.Context, inp interfaces.CreateAssetParam, ope
 	return Run1(
 		ctx, operator, i.repos,
 		Usecase().
-			CanReadTeams(inp.TeamID).
+			WithReadableTeams(inp.TeamID).
 			Transaction(),
-		func(ctx context.Context) (*asset.Asset, error) {
+		func() (*asset.Asset, error) {
 			url, err := i.gateways.File.UploadAsset(ctx, inp.File)
 			if err != nil {
 				return nil, err
@@ -73,7 +73,7 @@ func (i *Asset) Remove(ctx context.Context, aid id.AssetID, operator *usecase.Op
 	return Run1(
 		ctx, operator, i.repos,
 		Usecase().Transaction(),
-		func(ctx context.Context) (id.AssetID, error) {
+		func() (id.AssetID, error) {
 			asset, err := i.repos.Asset.FindByID(ctx, aid)
 			if err != nil {
 				return aid, err
