@@ -134,16 +134,18 @@ extensions:
             title: 終了時刻
             description: 何も設定されていない場合は表示中のデータによって自動的に設定されます。
           stepType:
-            title: 再生速度の指定方法です。
+            title: 再生速度の種類
+            description: 再生速度の指定方法です。
             choices:
-              rate: 割合
+              rate: 倍率
               fixed: 時間の長さ
           multiplier:
-            title: 再生速度の倍率
-            description: 再生速度を倍率で指定します。
+            title: 再生速度
+            description: 再生速度を倍率で指定します。マイナス値も指定可能です。デフォルトは1です。
           step:
             title: 再生速度
-            description: 再生速度をミリ秒で指定します。
+            description: 再生速度を秒で指定します。マイナス値も指定可能です。
+            suffix: 秒
           rangeType:
             title: 再生終了時
             description: 現在時刻が終了時刻に達した時の処理方法を指定します。

@@ -313,7 +313,7 @@ extensions:
               ui: datetime
             - id: stepType
               type: string
-              title: Step
+              title: Tick type
               defaultValue: rate
               description: How to specify the playback speed
               choices:
@@ -334,7 +334,7 @@ extensions:
             - id: step
               type: number
               title: Step
-              description: The rate at which the clock advances in milliseconds. Enabled only when the step type is fixed.
+              description: Specifies the playback speed in multiples. Negative values can also be specified. Default is 1.
               defaultValue: 1
               suffix: ms
               availableIf:
@@ -344,7 +344,7 @@ extensions:
             - id: rangeType
               type: string
               title: Range
-              description: Specifies how to process when the current time reaches the end time.
+              description: Specifies the playback speed in seconds. Negative values can also be specified.
               defaultValue: unbounded
               choices:
                 - key: unbounded
