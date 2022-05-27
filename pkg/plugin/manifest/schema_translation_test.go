@@ -19,7 +19,12 @@ func TestTranslationMap_Translated(t *testing.T) {
 					PropertySchema: TranslationPropertySchema{
 						"default": {
 							Fields: map[string]TranslationPropertySchemaField{
-								"foo":  {Title: lo.ToPtr("foo"), Choices: map[string]string{"A": "AAA", "B": "BBB"}},
+								"foo": {
+									Title:   lo.ToPtr("foo"),
+									Choices: map[string]string{"A": "AAA", "B": "BBB"},
+									Prefix:  lo.ToPtr("P"),
+									Suffix:  lo.ToPtr("S"),
+								},
 								"hoge": {Title: lo.ToPtr("hoge")},
 							},
 						},
@@ -47,6 +52,7 @@ func TestTranslationMap_Translated(t *testing.T) {
 									Title:       lo.ToPtr("foo!"),
 									Description: lo.ToPtr("DESC"),
 									Choices:     map[string]string{"B": "BBB!", "C": "CCC!"},
+									Prefix:      lo.ToPtr("p"),
 								},
 								"bar": {Title: lo.ToPtr("bar!")},
 							},
@@ -94,6 +100,8 @@ func TestTranslationMap_Translated(t *testing.T) {
 									"B": {"en": "BBB", "ja": "BBB!"},
 									"C": {"ja": "CCC!"},
 								},
+								Prefix: i18n.String{"en": "P", "ja": "p"},
+								Suffix: i18n.String{"en": "S"},
 							},
 							"hoge": {
 								Title: i18n.String{"en": "hoge"},
