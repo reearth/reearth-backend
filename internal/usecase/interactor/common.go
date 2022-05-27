@@ -45,7 +45,7 @@ func NewContainer(r *repo.Container, g *gateway.Container, config ContainerConfi
 	}
 }
 
-// common will be decrepated. Please use the Usecase function instead.
+// Deprecated: common will be deprecated. Please use the Usecase function instead.
 type common struct{}
 
 func (common) OnlyOperator(op *usecase.Operator) error {
