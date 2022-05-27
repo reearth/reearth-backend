@@ -324,7 +324,7 @@ extensions:
             - id: multiplier
               type: number
               title: Multiplier
-              description: The rate at which the clock advances as a multiple of the system time. Enabled only when the step type is rate.
+              description: Specifies the playback speed as a multiple of the real time speed. Negative values can also be specified. Default is 1x.
               defaultValue: 1
               prefix: x
               availableIf:
@@ -334,9 +334,9 @@ extensions:
             - id: step
               type: number
               title: Step
-              description: Specifies the playback speed in multiples. Negative values can also be specified. Default is 1.
+              description: Specifies the playback speed in seconds. Each time the screen is repeatedly drawn, it advances by the specified specified number of seconds. Negative values can also be specified. The default is 1 second.
               defaultValue: 1
-              suffix: ms
+              suffix: s
               availableIf:
                 field: stepType
                 type: string
