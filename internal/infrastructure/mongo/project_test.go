@@ -20,6 +20,7 @@ func Test_projectRepo_CountByTeam(t *testing.T) {
 		name    string
 		seeds   []*project.Project
 		arg     id.TeamID
+		filter  *repo.TeamFilter
 		want    int
 		wantErr error
 	}{
@@ -27,6 +28,7 @@ func Test_projectRepo_CountByTeam(t *testing.T) {
 			name:    "0 count in empty db",
 			seeds:   []*project.Project{},
 			arg:     id.NewTeamID(),
+			filter:  nil,
 			want:    0,
 			wantErr: nil,
 		},
@@ -36,6 +38,7 @@ func Test_projectRepo_CountByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     id.NewTeamID(),
+			filter:  nil,
 			want:    0,
 			wantErr: nil,
 		},
@@ -45,6 +48,7 @@ func Test_projectRepo_CountByTeam(t *testing.T) {
 				project.New().NewID().Team(tid1).MustBuild(),
 			},
 			arg:     tid1,
+			filter:  nil,
 			want:    1,
 			wantErr: nil,
 		},
@@ -56,6 +60,7 @@ func Test_projectRepo_CountByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     tid1,
+			filter:  nil,
 			want:    1,
 			wantErr: nil,
 		},
@@ -68,6 +73,20 @@ func Test_projectRepo_CountByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     tid1,
+			filter:  nil,
+			want:    2,
+			wantErr: nil,
+		},
+		{
+			name: "2 count with multi projects",
+			seeds: []*project.Project{
+				project.New().NewID().Team(tid1).MustBuild(),
+				project.New().NewID().Team(tid1).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     tid1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{id.NewTeamID()}, Writable: []id.TeamID{}},
 			want:    2,
 			wantErr: nil,
 		},
@@ -87,6 +106,10 @@ func Test_projectRepo_CountByTeam(t *testing.T) {
 			for _, p := range tc.seeds {
 				err := r.Save(ctx, p)
 				assert.Nil(t, err)
+			}
+
+			if tc.filter != nil {
+				r = r.Filtered(*tc.filter)
 			}
 
 			got, err := r.CountByTeam(ctx, tc.arg)
@@ -159,13 +182,15 @@ func Test_projectRepo_Filtered(t *testing.T) {
 }
 
 func Test_projectRepo_FindByID(t *testing.T) {
+	tid1 := id.NewTeamID()
 	id1 := id.NewProjectID()
 	now := time.Now().Truncate(time.Millisecond).UTC()
-	p1 := project.New().ID(id1).Team(id.NewTeamID()).UpdatedAt(now).MustBuild()
+	p1 := project.New().ID(id1).Team(tid1).UpdatedAt(now).MustBuild()
 	tests := []struct {
 		name    string
 		seeds   []*project.Project
 		arg     id.ProjectID
+		filter  *repo.TeamFilter
 		want    *project.Project
 		wantErr error
 	}{
@@ -173,6 +198,7 @@ func Test_projectRepo_FindByID(t *testing.T) {
 			name:    "Not found in empty db",
 			seeds:   []*project.Project{},
 			arg:     id.NewProjectID(),
+			filter:  nil,
 			want:    nil,
 			wantErr: rerror.ErrNotFound,
 		},
@@ -182,6 +208,7 @@ func Test_projectRepo_FindByID(t *testing.T) {
 				project.New().NewID().MustBuild(),
 			},
 			arg:     id.NewProjectID(),
+			filter:  nil,
 			want:    nil,
 			wantErr: rerror.ErrNotFound,
 		},
@@ -191,6 +218,7 @@ func Test_projectRepo_FindByID(t *testing.T) {
 				p1,
 			},
 			arg:     id1,
+			filter:  nil,
 			want:    p1,
 			wantErr: nil,
 		},
@@ -202,6 +230,31 @@ func Test_projectRepo_FindByID(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     id1,
+			filter:  nil,
+			want:    p1,
+			wantErr: nil,
+		},
+		{
+			name: "Filtered Found 0",
+			seeds: []*project.Project{
+				p1,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     id1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{id.NewTeamID()}, Writable: []id.TeamID{}},
+			want:    nil,
+			wantErr: nil,
+		},
+		{
+			name: "Filtered Found 2",
+			seeds: []*project.Project{
+				p1,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     id1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{tid1}, Writable: []id.TeamID{}},
 			want:    p1,
 			wantErr: nil,
 		},
@@ -221,6 +274,10 @@ func Test_projectRepo_FindByID(t *testing.T) {
 			for _, p := range tc.seeds {
 				err := r.Save(ctx, p)
 				assert.Nil(t, err)
+			}
+
+			if tc.filter != nil {
+				r = r.Filtered(*tc.filter)
 			}
 
 			got, err := r.FindByID(ctx, tc.arg)
@@ -245,6 +302,7 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 		name    string
 		seeds   []*project.Project
 		arg     id.ProjectIDList
+		filter  *repo.TeamFilter
 		want    []*project.Project
 		wantErr error
 	}{
@@ -252,6 +310,7 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 			name:    "0 count in empty db",
 			seeds:   []*project.Project{},
 			arg:     []id.ProjectID{},
+			filter:  nil,
 			want:    nil,
 			wantErr: nil,
 		},
@@ -261,6 +320,7 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     []id.ProjectID{},
+			filter:  nil,
 			want:    nil,
 			wantErr: nil,
 		},
@@ -270,6 +330,7 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 				p1,
 			},
 			arg:     []id.ProjectID{id1},
+			filter:  nil,
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -281,6 +342,7 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     []id.ProjectID{id1},
+			filter:  nil,
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -293,6 +355,33 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     []id.ProjectID{id1, id2},
+			filter:  nil,
+			want:    []*project.Project{p1, p2},
+			wantErr: nil,
+		},
+		{
+			name: "Filter 2 count with multi projects",
+			seeds: []*project.Project{
+				p1,
+				p2,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     []id.ProjectID{id1, id2},
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{id.NewTeamID()}, Writable: []id.TeamID{}},
+			want:    []*project.Project{nil, nil},
+			wantErr: nil,
+		},
+		{
+			name: "Filter 2 count with multi projects",
+			seeds: []*project.Project{
+				p1,
+				p2,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     []id.ProjectID{id1, id2},
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{tid1}, Writable: []id.TeamID{}},
 			want:    []*project.Project{p1, p2},
 			wantErr: nil,
 		},
@@ -314,6 +403,10 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 				assert.Nil(t, err)
 			}
 
+			if tc.filter != nil {
+				r = r.Filtered(*tc.filter)
+			}
+
 			got, err := r.FindByIDs(ctx, tc.arg)
 			if tc.wantErr != nil {
 				assert.ErrorIs(t, err, tc.wantErr)
@@ -327,10 +420,11 @@ func Test_projectRepo_FindByIDs(t *testing.T) {
 
 func Test_projectRepo_FindByPublicName(t *testing.T) {
 	now := time.Now().Truncate(time.Millisecond).UTC()
+	tid1 := id.NewTeamID()
 	id1 := id.NewProjectID()
 	p1 := project.New().
 		ID(id1).
-		Team(id.NewTeamID()).
+		Team(tid1).
 		Alias("xyz123").
 		PublishmentStatus(project.PublishmentStatusPublic).
 		UpdatedAt(now).
@@ -349,6 +443,7 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 		name    string
 		seeds   []*project.Project
 		arg     string
+		filter  *repo.TeamFilter
 		want    *project.Project
 		wantErr error
 	}{
@@ -356,6 +451,7 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 			name:    "Not found in empty db",
 			seeds:   []*project.Project{},
 			arg:     "xyz123",
+			filter:  nil,
 			want:    nil,
 			wantErr: rerror.ErrNotFound,
 		},
@@ -365,6 +461,7 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 				project.New().NewID().Alias("abc123").MustBuild(),
 			},
 			arg:     "xyz123",
+			filter:  nil,
 			want:    nil,
 			wantErr: rerror.ErrNotFound,
 		},
@@ -379,6 +476,7 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 					MustBuild(),
 			},
 			arg:     "xyz123",
+			filter:  nil,
 			want:    nil,
 			wantErr: rerror.ErrNotFound,
 		},
@@ -388,6 +486,7 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 				p1,
 			},
 			arg:     "xyz123",
+			filter:  nil,
 			want:    p1,
 			wantErr: nil,
 		},
@@ -398,6 +497,7 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 			},
 			arg:     "xyz321",
 			want:    p2,
+			filter:  nil,
 			wantErr: nil,
 		},
 		{
@@ -408,6 +508,31 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     "xyz123",
+			filter:  nil,
+			want:    p1,
+			wantErr: nil,
+		},
+		{
+			name: "Filtered should not Found",
+			seeds: []*project.Project{
+				p1,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     "xyz123",
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{id.NewTeamID()}, Writable: []id.TeamID{}},
+			want:    nil,
+			wantErr: rerror.ErrNotFound,
+		},
+		{
+			name: "Filtered should Found",
+			seeds: []*project.Project{
+				p1,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     "xyz123",
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{tid1}, Writable: []id.TeamID{}},
 			want:    p1,
 			wantErr: nil,
 		},
@@ -427,6 +552,10 @@ func Test_projectRepo_FindByPublicName(t *testing.T) {
 			for _, p := range tc.seeds {
 				err := r.Save(ctx, p)
 				assert.Nil(t, err)
+			}
+
+			if tc.filter != nil {
+				r = r.Filtered(*tc.filter)
 			}
 
 			got, err := r.FindByPublicName(ctx, tc.arg)
@@ -454,6 +583,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 		name    string
 		seeds   []*project.Project
 		args    args
+		filter  *repo.TeamFilter
 		want    []*project.Project
 		wantErr error
 	}{
@@ -461,6 +591,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 			name:    "0 count in empty db",
 			seeds:   []*project.Project{},
 			args:    args{id.NewTeamID(), nil},
+			filter:  nil,
 			want:    nil,
 			wantErr: nil,
 		},
@@ -470,6 +601,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			args:    args{id.NewTeamID(), nil},
+			filter:  nil,
 			want:    nil,
 			wantErr: nil,
 		},
@@ -479,6 +611,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				p1,
 			},
 			args:    args{tid1, usecase.NewPagination(lo.ToPtr(1), nil, nil, nil)},
+			filter:  nil,
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -490,6 +623,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			args:    args{tid1, usecase.NewPagination(lo.ToPtr(1), nil, nil, nil)},
+			filter:  nil,
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -502,6 +636,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			args:    args{tid1, usecase.NewPagination(lo.ToPtr(2), nil, nil, nil)},
+			filter:  nil,
 			want:    []*project.Project{p1, p2},
 			wantErr: nil,
 		},
@@ -514,6 +649,7 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			args:    args{tid1, usecase.NewPagination(lo.ToPtr(1), nil, nil, nil)},
+			filter:  nil,
 			want:    []*project.Project{p1},
 			wantErr: nil,
 		},
@@ -526,7 +662,20 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			args:    args{tid1, usecase.NewPagination(nil, lo.ToPtr(1), nil, nil)},
+			filter:  nil,
 			want:    []*project.Project{p2},
+			wantErr: nil,
+		},
+		{
+			name: "Filtered sholud not 1 count with multi projects",
+			seeds: []*project.Project{
+				p1,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			args:    args{tid1, usecase.NewPagination(lo.ToPtr(1), nil, nil, nil)},
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{id.NewTeamID()}, Writable: []id.TeamID{}},
+			want:    nil,
 			wantErr: nil,
 		},
 	}
@@ -545,6 +694,10 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 			for _, p := range tc.seeds {
 				err := r.Save(ctx, p)
 				assert.Nil(t, err)
+			}
+
+			if tc.filter != nil {
+				r = r.Filtered(*tc.filter)
 			}
 
 			got, _, err := r.FindByTeam(ctx, tc.args.tid, tc.args.pInfo)
@@ -559,18 +712,21 @@ func Test_projectRepo_FindByTeam(t *testing.T) {
 }
 
 func Test_projectRepo_Remove(t *testing.T) {
+	tid1 := id.NewTeamID()
 	id1 := id.NewProjectID()
-	p1 := project.New().ID(id1).Team(id.NewTeamID()).MustBuild()
+	p1 := project.New().ID(id1).Team(tid1).MustBuild()
 	tests := []struct {
 		name    string
 		seeds   []*project.Project
 		arg     id.ProjectID
+		filter  *repo.TeamFilter
 		wantErr error
 	}{
 		{
 			name:    "Not found in empty db",
 			seeds:   []*project.Project{},
 			arg:     id.NewProjectID(),
+			filter:  nil,
 			wantErr: nil,
 		},
 		{
@@ -579,6 +735,7 @@ func Test_projectRepo_Remove(t *testing.T) {
 				project.New().NewID().MustBuild(),
 			},
 			arg:     id.NewProjectID(),
+			filter:  nil,
 			wantErr: nil,
 		},
 		{
@@ -587,6 +744,7 @@ func Test_projectRepo_Remove(t *testing.T) {
 				p1,
 			},
 			arg:     id1,
+			filter:  nil,
 			wantErr: nil,
 		},
 		{
@@ -597,6 +755,29 @@ func Test_projectRepo_Remove(t *testing.T) {
 				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
 			},
 			arg:     id1,
+			filter:  nil,
+			wantErr: nil,
+		},
+		{
+			name: "Filtered should fail Found 2",
+			seeds: []*project.Project{
+				p1,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     id1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{id.NewTeamID()}, Writable: []id.TeamID{id.NewTeamID()}},
+			wantErr: rerror.ErrNotFound,
+		},
+		{
+			name: "Filtered should work Found 2",
+			seeds: []*project.Project{
+				p1,
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+				project.New().NewID().Team(id.NewTeamID()).MustBuild(),
+			},
+			arg:     id1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{}, Writable: []id.TeamID{tid1}},
 			wantErr: nil,
 		},
 	}
@@ -615,6 +796,10 @@ func Test_projectRepo_Remove(t *testing.T) {
 			for _, p := range tc.seeds {
 				err := r.Save(ctx, p)
 				assert.Nil(t, err)
+			}
+
+			if tc.filter != nil {
+				r = r.Filtered(*tc.filter)
 			}
 
 			err := r.Remove(ctx, tc.arg)
@@ -630,12 +815,14 @@ func Test_projectRepo_Remove(t *testing.T) {
 }
 
 func Test_projectRepo_Save(t *testing.T) {
+	tid1 := id.NewTeamID()
 	id1 := id.NewProjectID()
-	p1 := project.New().ID(id1).Team(id.NewTeamID()).MustBuild()
+	p1 := project.New().ID(id1).Team(tid1).MustBuild()
 	tests := []struct {
 		name    string
 		seeds   []*project.Project
 		arg     id.ProjectID
+		filter  *repo.TeamFilter
 		want    *project.Project
 		wantErr error
 	}{
@@ -645,6 +832,37 @@ func Test_projectRepo_Save(t *testing.T) {
 				p1,
 			},
 			arg:     id1,
+			filter:  nil,
+			want:    p1,
+			wantErr: nil,
+		},
+		{
+			name: "Filtered should fail - Saved",
+			seeds: []*project.Project{
+				p1,
+			},
+			arg:     id1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{}, Writable: []id.TeamID{}},
+			want:    nil,
+			wantErr: repo.ErrOperationDenied,
+		},
+		{
+			name: "Filtered should work - Saved",
+			seeds: []*project.Project{
+				p1,
+			},
+			arg:     id1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{tid1}, Writable: []id.TeamID{tid1}},
+			want:    p1,
+			wantErr: nil,
+		},
+		{
+			name: "Filtered should work - Saved",
+			seeds: []*project.Project{
+				p1,
+			},
+			arg:     id1,
+			filter:  &repo.TeamFilter{Readable: []id.TeamID{}, Writable: []id.TeamID{tid1}},
 			want:    p1,
 			wantErr: nil,
 		},
@@ -660,10 +878,16 @@ func Test_projectRepo_Save(t *testing.T) {
 			client := initDB(t)
 
 			r := NewProject(client)
+			if tc.filter != nil {
+				r = r.Filtered(*tc.filter)
+			}
 			ctx := context.Background()
 			for _, p := range tc.seeds {
 				err := r.Save(ctx, p)
-				assert.Nil(t, err)
+				if tc.wantErr != nil {
+					assert.ErrorIs(t, err, tc.wantErr)
+					return
+				}
 			}
 
 			got, err := r.FindByID(ctx, tc.arg)
