@@ -87,6 +87,21 @@ func (r *Dataset) FindBySchema(ctx context.Context, id id.DatasetSchemaID, p *us
 	), nil
 }
 
+func (r *Dataset) CountBySchema(ctx context.Context, id id.DatasetSchemaID) (int, error) {
+	r.lock.Lock()
+	defer r.lock.Unlock()
+
+	n := dataset.List{}
+	for _, dataset := range r.data {
+		if dataset.Schema() == id {
+			if r.f.CanRead(dataset.Scene()) {
+				n = append(n, dataset)
+			}
+		}
+	}
+	return len(n), nil
+}
+
 func (r *Dataset) FindBySchemaAll(ctx context.Context, id id.DatasetSchemaID) (dataset.List, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
