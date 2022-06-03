@@ -70,9 +70,9 @@ func (r *datasetRepo) FindBySchema(ctx context.Context, schemaID id.DatasetSchem
 }
 
 func (r *datasetRepo) CountBySchema(ctx context.Context, id id.DatasetSchemaID) (int, error) {
-	res, err := r.client.Count(ctx, bson.M{
+	res, err := r.client.Count(ctx, r.readFilter(bson.M{
 		"schema": id.String(),
-	})
+	}))
 	if err != nil {
 		return 0, err
 	}
