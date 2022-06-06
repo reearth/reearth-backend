@@ -178,6 +178,10 @@ extensions:
               ui: slider
               min: 0
               max: 1
+            - id: tile_credits
+              type: bool
+              title: Tile credit
+              description: show tile credits on screen.
         - id: theme
           title: Publish Theme
           description: Set your theme.
