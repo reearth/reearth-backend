@@ -14,6 +14,7 @@ jobs:
       new_tag: ${{ steps.info.outputs.new_tag }}
       new_tag_short: ${{ steps.info.outputs.new_tag_short }}
       branch: ${{ steps.info.outputs.branch }}
+      name: ${{ steps.info.outputs.name }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -29,14 +30,21 @@ jobs:
             echo "::set-output name=new_tag::$TAG"
             echo "::set-output name=new_tag_short::${TAG#v}"
           fi
-          echo "::set-output name=branch::`git branch --show-current`"
+          BRANCH=$(git branch --show-current)
+          echo "::set-output name=branch::$BRANCH"
+          if [[ "$BRANCH" = "release" ]]; then
+            echo "::set-output name=name::rc"
+          else
+            echo "::set-output name=name::nightly"
+          fi
       - name: Show info
         env:
           SHA_SHORT: ${{ steps.info.outputs.sha_short }}
           NEW_TAG: ${{ steps.info.outputs.new_tag }}
           NEW_TAG_SHORT: ${{ steps.info.outputs.new_tag_short }}
           BRANCH: ${{ steps.info.outputs.branch }}
-        run: echo "sha_short=$SHA_SHORT, new_tag=$NEW_TAG, new_tag_short=$NEW_TAG_SHORT, branch=$BRANCH"
+          NAME: ${{ steps.info.outputs.name }}
+        run: echo "sha_short=$SHA_SHORT, new_tag=$NEW_TAG, new_tag_short=$NEW_TAG_SHORT, branch=$BRANCH, name=$NAME"
   build:
     name: Build and release
     runs-on: ubuntu-latest
@@ -53,27 +61,27 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: 1.18
-      - name: Run GoReleaser for nightly
-        if: ${{ needs.info.outputs.branch == 'main' && !needs.info.outputs.new_tag }}
+      - name: Run GoReleaser for nightly/rc
+        if: ${{ (needs.info.outputs.branch == 'main' || needs.info.outputs.branch == 'release') && !needs.info.outputs.new_tag }}
         uses: goreleaser/goreleaser-action@v2
         with:
           args: release --rm-dist --snapshot
         env:
           GORELEASER_CURRENT_TAG: 0.0.0
       - name: Rename artifacts
-        if: ${{ needs.info.outputs.branch == 'main' && !needs.info.outputs.new_tag }}
-        run: for f in dist/${NAME}_*.*; do mv $f $(echo $f | sed -E 's/_0\.0\.0-SNAPSHOT-[^_]*/_nightly/'); done
-      - name: Create GitHub release for nightly
-        if: ${{ needs.info.outputs.branch == 'main' && !needs.info.outputs.new_tag" }}
+        if: ${{ (needs.info.outputs.branch == 'main' || needs.info.outputs.branch == 'release') && !needs.info.outputs.new_tag }}
+        run: for f in dist/${NAME}_*.*; do mv $f $(echo $f | sed -E 's/_0\.0\.0-SNAPSHOT-[^_]*/_${{ needs.info.outputs.name }}/'); done
+      - name: Release nightly/rc
+        if: ${{ (needs.info.outputs.branch == 'main' || needs.info.outputs.branch == 'release') && !needs.info.outputs.new_tag" }}
         uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           artifacts: dist/${{ env.NAME }}_*.*
           commit: ${{ github.sha }}
-          name: Nightly
-          tag: nightly
+          name: ${{ needs.info.outputs.name }}
+          tag: ${{ needs.info.outputs.name }}
           body: ${{ github.sha }}
           prerelease: true
-          allowUpdates: true
       - name: Run GoReleaser
         if: ${{ needs.info.outputs.branch == 'release' && needs.info.outputs.new_tag }}
         uses: goreleaser/goreleaser-action@v2
@@ -115,8 +123,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push nightly
-        if: ${{ needs.info.outputs.branch == 'main' && !needs.info.outputs.new_tag }}
+      - name: Build and push nightly/rc
+        if: ${{ (needs.info.outputs.branch == 'main' || needs.info.outputs.branch == 'release') && !needs.info.outputs.new_tag }}
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -124,7 +132,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           build-args: VERSION=0.0.0-SNAPSHOT-${{ needs.info.outputs.sha_short }}
-          tags: ${{ env.IMAGE_NAME }}:nightly
+          tags: ${{ env.IMAGE_NAME }}:${{ needs.info.outputs.name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Get Docker tags
