@@ -11,12 +11,11 @@ on:
           - patch
           - minor
           - major
-  pull_request: # debug
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/release'
+    if: github.ref == 'refs/heads/release'
     steps:
       - name: Set up git config
         run: |
@@ -34,19 +33,18 @@ jobs:
           version: ${{ github.event.inputs.version }}
           repo: ${{ github.repository }}
           latest: true
-      - run: git diff # debug
-      # - name: Upload latest CHANGELOG
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: changelog-${{ steps.tag.outputs.new_tag }}
-      #     path: CHANGELOG_latest.md
-      # - name: Commit & push
-      #   env:
-      #     TAG: ${{ steps.tag.outputs.new_tag }}
-      #   run: |
-      #     rm CHANGELOG_latest.md
-      #     git add CHANGELOG.md
-      #     git commit -am "$TAG"
-      #     git tag $TAG
-      #     git push
-      #     git push --tags
+      - name: Upload latest CHANGELOG
+        uses: actions/upload-artifact@v3
+        with:
+          name: changelog-${{ steps.changelog.outputs.version }}
+          path: CHANGELOG_latest.md
+      - name: Commit & push
+        env:
+          TAG: ${{ steps.changelog.outputs.version }}
+        run: |
+          rm CHANGELOG_latest.md
+          git add CHANGELOG.md
+          git commit -am "$TAG"
+          git tag $TAG
+          git push
+          git push --tags
