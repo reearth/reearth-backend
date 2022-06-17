@@ -202,7 +202,7 @@ extensions:
                 field: indicator_type
                 type: string
                 value: custom
-            - id: indicator_img_scale
+            - id: indicator_image_scale
               type: number
               title: Image scale
               availableIf:
