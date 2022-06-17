@@ -53,6 +53,7 @@ func Test_authRequestRepo_FindByID(t *testing.T) {
 
 			ctx := context.Background()
 			err := repo.Save(ctx, tt.Expected.AuthRequest)
+			assert.NoError(t, err)
 
 			got, err := repo.FindByID(ctx, tt.Expected.AuthRequest.ID())
 			assert.NoError(t, err)
