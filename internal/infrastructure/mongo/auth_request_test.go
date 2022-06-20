@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_authRequestRepo_FindByID(t *testing.T) {
+func TestAuthRequestRepo(t *testing.T) {
 	tests := []struct {
 		Name     string
 		Expected struct {
