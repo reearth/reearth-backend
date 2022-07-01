@@ -180,13 +180,13 @@ extensions:
               max: 1
         - id: indicator
           title: Indicator
-          description: Set the indicator in map when selecting layer.
+          description: Set the style of indicator shown when selecting a layer on the map.
           fields:
             - id: indicator_type
               type: string
               title: Type
               defaultValue: default
-              description: Specify the indicator.
+              description: Choose how the indicator will look.
               choices:
                 - key: default
                   label: Default
