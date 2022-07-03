@@ -85,6 +85,21 @@ extensions:
           tile_opacity:
             title: 不透明性
             description: NEEDS DESCRIPTION
+      indicator:
+        title: Indicator
+        description: Set the style of indicator shown when selecting a layer on the map.
+        fields:
+          indicator_type:
+            title: Type
+            description: Choose how the indicator will look.
+            choices:
+              default: Default
+              crosshair: Crosshair
+              custom: Custom
+          indicator_image:
+            title: Image URL
+          indicator_image_scale:
+            title: Image scale
       atmosphere:
         title: 大気
         description: 地球を覆う大気圏の設定ができます。
