@@ -86,20 +86,20 @@ extensions:
             title: 不透明性
             description: NEEDS DESCRIPTION
       indicator:
-        title: Indicator
-        description: Set the style of indicator shown when selecting a layer on the map.
+        title: インディケーター
+        description: レイヤー選択時に表示されるインディケーターのスタイルを設定します
         fields:
           indicator_type:
-            title: Type
-            description: Choose how the indicator will look.
+            title: タイプ
+            description: インディケーターの見た目を設定します
             choices:
-              default: Default
-              crosshair: Crosshair
-              custom: Custom
+              default: デフォルト
+              crosshair: 十字線
+              custom: カスタム
           indicator_image:
-            title: Image URL
+            title: 画像URL
           indicator_image_scale:
-            title: Image scale
+            title: 画像サイズ
       atmosphere:
         title: 大気
         description: 地球を覆う大気圏の設定ができます。
