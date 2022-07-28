@@ -904,3 +904,6 @@ extensions:
           clusterLabelTypography:
             title: ラベル
             description: ラベルのスタイルを指定します。
+  timeline:
+    name: タイムライン
+    description: 地球上の時間軸を操作します。
