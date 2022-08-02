@@ -1921,7 +1921,7 @@ extensions:
   - id: timeline
     type: widget
     name: Timeline
-    description: Operate timeline for earth.
+    description: A timeline widget that allows for viewing layers and data at specific points in time.
     singleOnly: true
     widgetLayout:
       extendable:

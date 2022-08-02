@@ -906,4 +906,4 @@ extensions:
             description: ラベルのスタイルを指定します。
   timeline:
     name: タイムライン
-    description: 地球上の時間軸を操作します。
+    description: 特定の時間におけるデータやレイヤーを見ることができます。
