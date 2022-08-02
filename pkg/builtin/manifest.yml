@@ -1922,7 +1922,7 @@ extensions:
     type: widget
     name: Timeline
     description: Operate timeline for earth.
-    singleOnly: false
+    singleOnly: true
     widgetLayout:
       extendable:
         horizontally: true
