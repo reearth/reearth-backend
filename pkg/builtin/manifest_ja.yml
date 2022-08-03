@@ -904,3 +904,6 @@ extensions:
           clusterLabelTypography:
             title: ラベル
             description: ラベルのスタイルを指定します。
+  timeline:
+    name: タイムライン
+    description: 特定の時間におけるデータやレイヤーを見ることができます。
