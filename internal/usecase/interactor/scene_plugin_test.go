@@ -14,6 +14,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/scene"
+	"github.com/reearth/reearth-backend/pkg/scene/sceneops"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
 )
@@ -139,7 +140,113 @@ func TestScene_InstallPlugin(t *testing.T) {
 }
 
 func TestScene_UpgradePlugin(t *testing.T) {
+	type args struct {
+		old      plugin.ID
+		new      plugin.ID
+		operator *usecase.Operator
+	}
 
+	type test struct {
+		name    string
+		args    args
+		wantErr error
+	}
+
+	sid := scene.NewID()
+	pid1 := plugin.MustID("plugin~1.0.0")
+	pid2 := plugin.MustID("plugin~1.0.1")
+	pid3 := plugin.MustID("plugin~1.0.2")
+	pid4 := plugin.MustID("pluginx~1.0.2")
+
+	tests := []test{
+		{
+			name: "should upgrade a plugin",
+			args: args{
+				old: pid1,
+				new: pid2,
+			},
+		},
+		{
+			name: "not installed",
+			args: args{
+				old: pid2,
+				new: pid3,
+			},
+			wantErr: interfaces.ErrPluginNotInstalled,
+		},
+		{
+			name: "diff names",
+			args: args{
+				old: pid1,
+				new: pid4,
+			},
+			wantErr: sceneops.ErrInvalidPlugins,
+		},
+		{
+			name: "operation denied",
+			args: args{
+				operator: &usecase.Operator{},
+			},
+			wantErr: interfaces.ErrOperationDenied,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert := assert.New(t)
+			ctx := context.Background()
+
+			pl1ps := property.NewSchema().ID(id.NewPropertySchemaID(pid1, "@")).MustBuild()
+			pl2ps := property.NewSchema().ID(id.NewPropertySchemaID(pid2, "@")).MustBuild()
+			psr := memory.NewPropertySchemaWith(pl1ps, pl2ps)
+
+			pl1 := plugin.New().ID(pid1).Schema(pl1ps.ID().Ref()).MustBuild()
+			pl2 := plugin.New().ID(pid2).Schema(pl2ps.ID().Ref()).MustBuild()
+			pr := memory.NewPluginWith(pl1, pl2)
+
+			pl1p := property.New().NewID().Scene(sid).Schema(*pl1.Schema()).MustBuild()
+			prr := memory.NewPropertyWith(pl1p)
+
+			lr := memory.NewLayerWith()
+
+			dsr := memory.NewDataset()
+
+			tid := id.NewTeamID()
+			sc := scene.New().ID(sid).RootLayer(id.NewLayerID()).Team(tid).MustBuild()
+			sc.Plugins().Add(scene.NewPlugin(pid1, pl1p.ID().Ref()))
+			sr := memory.NewSceneWith(sc)
+
+			uc := &Scene{
+				sceneRepo:          sr,
+				pluginRepo:         pr,
+				propertyRepo:       prr,
+				propertySchemaRepo: psr,
+				layerRepo:          lr,
+				datasetRepo:        dsr,
+				transaction:        memory.NewTransaction(),
+			}
+
+			o := tt.args.operator
+			if o == nil {
+				o = &usecase.Operator{
+					WritableTeams: id.TeamIDList{tid},
+				}
+			}
+			gotSc, err := uc.UpgradePlugin(ctx, sid, tt.args.old, tt.args.new, o)
+
+			if tt.wantErr != nil {
+				assert.Equal(tt.wantErr, err)
+				assert.Nil(gotSc)
+			} else {
+				assert.NoError(err)
+				assert.Same(sc, gotSc)
+				assert.False(gotSc.Plugins().Has(tt.args.old))
+				assert.True(gotSc.Plugins().Has(tt.args.new))
+				p, _ := prr.FindByID(ctx, *gotSc.Plugins().Plugin(tt.args.new).Property())
+				assert.Equal(*pl2.Schema(), p.Schema())
+			}
+		})
+	}
 }
 
 func TestScene_UninstallPlugin(t *testing.T) {
