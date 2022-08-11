@@ -99,6 +99,9 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 
 	pl, err := i.pluginRepo.FindByID(ctx, pid)
 	if err != nil {
+		if errors.Is(rerror.ErrNotFound, err) {
+			return nil, interfaces.ErrPluginNotFound
+		}
 		return nil, err
 	}
 
