@@ -51,19 +51,14 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 	}
 
 	var p *property.Property
-	var propertyID *id.PropertyID
-	schema := plugin.Schema()
-	if schema != nil {
-		pr, err := property.New().NewID().Schema(*schema).Scene(sid).Build()
+	if schema := plugin.Schema(); schema != nil {
+		p, err = property.New().NewID().Schema(*schema).Scene(sid).Build()
 		if err != nil {
 			return nil, pid, nil, err
 		}
-		prid := pr.ID()
-		p = pr
-		propertyID = &prid
 	}
 
-	s.Plugins().Add(scene.NewPlugin(pid, propertyID))
+	s.Plugins().Add(scene.NewPlugin(pid, p.IDRef()))
 
 	if p != nil {
 		if err := i.propertyRepo.Save(ctx, p); err != nil {
@@ -76,7 +71,7 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 	}
 
 	tx.Commit()
-	return s, pid, propertyID, nil
+	return s, pid, p.IDRef(), nil
 }
 
 func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, err error) {

@@ -14,76 +14,123 @@ import (
 )
 
 func TestScene_InstallPlugin(t *testing.T) {
-	assert := assert.New(t)
-	ctx := context.Background()
-	tid := id.NewTeamID()
+	type args struct {
+		pluginID plugin.ID
+		operator *usecase.Operator
+	}
+
+	type test struct {
+		name                  string
+		installedScenePlugins []*scene.Plugin
+		args                  args
+		wantErr               error
+	}
+
 	sid := scene.NewID()
 	pid := plugin.MustID("plugin~1.0.0")
 	pid2 := plugin.MustID("plugin~1.0.1")
 	pid3 := plugin.MustID("plugin~1.0.1").WithScene(&sid)
 	pid4 := plugin.MustID("plugin~1.0.1").WithScene(scene.NewID().Ref())
-	sc := scene.New().ID(sid).RootLayer(id.NewLayerID()).Team(tid).MustBuild()
-	pl := plugin.New().ID(pid).MustBuild()
-	pl2 := plugin.New().ID(pid3).MustBuild()
-	pl3 := plugin.New().ID(pid4).MustBuild()
 
-	sr := memory.NewSceneWith(sc)
-	pr := memory.NewPluginWith(pl, pl2, pl3)
-	uc := &Scene{
-		sceneRepo:   sr,
-		pluginRepo:  pr,
-		transaction: memory.NewTransaction(),
+	tests := []test{
+		{
+			name: "should install a plugin",
+			args: args{
+				pluginID: pid,
+			},
+		},
+		{
+			name: "should install a private plugin with property schema",
+			args: args{
+				pluginID: pid3,
+			},
+		},
+		{
+			name: "already installed",
+			installedScenePlugins: []*scene.Plugin{
+				scene.NewPlugin(pid, nil),
+			},
+			args: args{
+				pluginID: pid,
+			},
+			wantErr: interfaces.ErrPluginAlreadyInstalled,
+		},
+		{
+			name: "not found",
+			args: args{
+				pluginID: pid2,
+			},
+			wantErr: interfaces.ErrPluginNotFound,
+		},
+		{
+			name: "diff scene",
+			args: args{
+				pluginID: pid4,
+			},
+			wantErr: interfaces.ErrPluginNotFound,
+		},
+		{
+			name: "operation denied",
+			args: args{
+				operator: &usecase.Operator{},
+			},
+			wantErr: interfaces.ErrOperationDenied,
+		},
 	}
 
-	// normal case 1
-	gotSc, gotPid, gotPrid, err := uc.InstallPlugin(ctx, sid, pid, &usecase.Operator{
-		WritableTeams: id.TeamIDList{tid},
-	})
-	assert.NoError(err)
-	assert.Same(sc, gotSc)
-	assert.Equal(pid, gotPid)
-	assert.True(gotPrid.IsNil())
-	assert.True(gotSc.Plugins().Has(pid))
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert := assert.New(t)
+			ctx := context.Background()
 
-	// normal case 2: scene specific plugin
-	sc.Plugins().Remove(pid)
-	gotSc, gotPid, gotPrid, err = uc.InstallPlugin(ctx, sid, pid3, &usecase.Operator{
-		WritableTeams: id.TeamIDList{tid},
-	})
-	assert.NoError(err)
-	assert.Same(gotSc, sc)
-	assert.Equal(gotPid, pid3)
-	assert.True(gotPrid.IsNil())
-	assert.True(gotSc.Plugins().Has(pid3))
+			tid := id.NewTeamID()
+			sc := scene.New().ID(sid).RootLayer(id.NewLayerID()).Team(tid).MustBuild()
+			for _, p := range tt.installedScenePlugins {
+				sc.Plugins().Add(p)
+			}
+			sr := memory.NewSceneWith(sc)
 
-	// abnormal case 1: plugin not found
-	gotSc, gotPid, gotPrid, err = uc.InstallPlugin(ctx, sid, pid2, &usecase.Operator{
-		WritableTeams: id.TeamIDList{tid},
-	})
-	assert.Equal(interfaces.ErrPluginNotFound, err)
-	assert.Nil(gotSc)
-	assert.Equal(pid2, gotPid)
-	assert.True(gotPrid.IsNil())
+			pl := plugin.New().ID(pid).MustBuild()
+			pl2 := plugin.New().ID(pid3).Schema(id.NewPropertySchemaID(pid3, "@").Ref()).MustBuild()
+			pl3 := plugin.New().ID(pid4).MustBuild()
+			pr := memory.NewPluginWith(pl, pl2, pl3)
 
-	// abnormal case 2: already installed
-	sc.Plugins().Remove(pid3)
-	sc.Plugins().Add(scene.NewPlugin(pid, nil))
-	gotSc, gotPid, gotPrid, err = uc.InstallPlugin(ctx, sid, pid, &usecase.Operator{
-		WritableTeams: id.TeamIDList{tid},
-	})
-	assert.Equal(interfaces.ErrPluginAlreadyInstalled, err)
-	assert.Nil(gotSc)
-	assert.Equal(pid, gotPid)
-	assert.True(gotPrid.IsNil())
+			prr := memory.NewProperty()
 
-	// abnormal case 3: plugin scene is different
-	gotSc, gotPid, gotPrid, err = uc.InstallPlugin(ctx, sid, pid4, &usecase.Operator{
-		WritableTeams: id.TeamIDList{tid},
-	})
-	assert.Equal(interfaces.ErrPluginNotFound, err)
-	assert.Nil(gotSc)
-	assert.Equal(pid4, gotPid)
-	assert.True(gotPrid.IsNil())
+			uc := &Scene{
+				sceneRepo:    sr,
+				pluginRepo:   pr,
+				propertyRepo: prr,
+				transaction:  memory.NewTransaction(),
+			}
+
+			o := tt.args.operator
+			if o == nil {
+				o = &usecase.Operator{
+					WritableTeams: id.TeamIDList{tid},
+				}
+			}
+			gotSc, gotPid, gotPrid, err := uc.InstallPlugin(ctx, sid, tt.args.pluginID, o)
+
+			assert.Equal(tt.args.pluginID, gotPid)
+			if tt.wantErr != nil {
+				assert.Equal(tt.wantErr, err)
+				assert.Nil(gotSc)
+				assert.True(gotPrid.IsNil())
+			} else {
+				assert.NoError(err)
+				assert.Same(sc, gotSc)
+				if tt.args.pluginID.Equal(pl2.ID()) {
+					assert.False(gotPid.IsNil())
+					gotPr, _ := prr.FindByID(ctx, *gotPrid)
+					assert.Equal(*pl2.Schema(), gotPr.Schema())
+				} else {
+					assert.True(gotPrid.IsNil())
+				}
+				assert.True(gotSc.Plugins().Has(tt.args.pluginID))
+			}
+		})
+	}
 }
 
 func TestScene_UpgradePlugin(t *testing.T) {
