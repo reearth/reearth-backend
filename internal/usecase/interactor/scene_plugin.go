@@ -244,5 +244,14 @@ func (i *Scene) getOrDownloadPlugin(ctx context.Context, pid id.PluginID) (*plug
 		return nil, rerror.ErrNotFound
 	}
 
-	return nil, nil
+	pack, err := i.pluginRegistry.FetchPluginPackage(ctx, pid)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := i.pluginCommon().SavePluginPack(ctx, pack); err != nil {
+		return nil, err
+	}
+
+	return pack.Manifest.Plugin, nil
 }

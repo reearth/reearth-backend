@@ -36,6 +36,15 @@ func NewPlugin(r *repo.Container, gr *gateway.Container) interfaces.Plugin {
 	}
 }
 
+func (i *Plugin) pluginCommon() *pluginCommon {
+	return &pluginCommon{
+		pluginRepo:         i.pluginRepo,
+		propertySchemaRepo: i.propertySchemaRepo,
+		file:               i.file,
+		pluginRegistry:     i.pluginRegistry,
+	}
+}
+
 func (i *Plugin) Fetch(ctx context.Context, ids []id.PluginID, operator *usecase.Operator) ([]*plugin.Plugin, error) {
 	return i.pluginRepo.FindByIDs(ctx, ids)
 }

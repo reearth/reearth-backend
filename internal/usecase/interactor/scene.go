@@ -47,6 +47,15 @@ func NewScene(r *repo.Container, g *gateway.Container) interfaces.Scene {
 	}
 }
 
+func (i *Scene) pluginCommon() *pluginCommon {
+	return &pluginCommon{
+		pluginRepo:         i.pluginRepo,
+		propertySchemaRepo: i.propertySchemaRepo,
+		file:               i.file,
+		pluginRegistry:     i.pluginRegistry,
+	}
+}
+
 func (i *Scene) Fetch(ctx context.Context, ids []id.SceneID, operator *usecase.Operator) ([]*scene.Scene, error) {
 	return i.sceneRepo.FindByIDs(ctx, ids)
 }
