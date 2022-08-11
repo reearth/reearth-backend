@@ -69,7 +69,6 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 		return nil, nil, interfaces.ErrInvalidPluginPackage
 	}
 
-	_ = res.Body.Close()
 	return i.upload(ctx, p, sid, operator)
 }
 
