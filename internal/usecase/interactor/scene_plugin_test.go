@@ -85,6 +85,7 @@ func TestScene_InstallPlugin(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert := assert.New(t)
 			ctx := context.Background()
 
@@ -115,9 +116,8 @@ func TestScene_InstallPlugin(t *testing.T) {
 					WritableTeams: id.TeamIDList{tid},
 				}
 			}
-			gotSc, gotPid, gotPrid, err := uc.InstallPlugin(ctx, sid, tt.args.pluginID, o)
+			gotSc, gotPrid, err := uc.InstallPlugin(ctx, sid, tt.args.pluginID, o)
 
-			assert.Equal(tt.args.pluginID, gotPid)
 			if tt.wantErr != nil {
 				assert.Equal(tt.wantErr, err)
 				assert.Nil(gotSc)
@@ -126,7 +126,7 @@ func TestScene_InstallPlugin(t *testing.T) {
 				assert.NoError(err)
 				assert.Same(sc, gotSc)
 				if tt.args.pluginID.Equal(pl2.ID()) {
-					assert.False(gotPid.IsNil())
+					assert.False(gotPrid.IsNil())
 					gotPr, _ := prr.FindByID(ctx, *gotPrid)
 					assert.Equal(*pl2.Schema(), gotPr.Schema())
 				} else {
@@ -194,6 +194,7 @@ func TestScene_UninstallPlugin(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert := assert.New(t)
 			ctx := context.Background()
 
@@ -331,6 +332,7 @@ func TestScene_UpgradePlugin(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			assert := assert.New(t)
 			ctx := context.Background()
 

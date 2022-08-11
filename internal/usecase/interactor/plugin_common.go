@@ -53,7 +53,7 @@ func (i *pluginCommon) GetOrDownloadPlugin(ctx context.Context, pid id.PluginID)
 		return nil, rerror.ErrNotFound
 	}
 
-	if plugin, err := i.pluginRepo.FindByID(ctx, pid); !errors.Is(err, rerror.ErrNotFound) {
+	if plugin, err := i.pluginRepo.FindByID(ctx, pid); err != nil && !errors.Is(err, rerror.ErrNotFound) {
 		return nil, err
 	} else if plugin != nil {
 		return plugin, nil

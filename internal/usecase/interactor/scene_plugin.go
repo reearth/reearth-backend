@@ -15,7 +15,7 @@ import (
 	"github.com/reearth/reearth-backend/pkg/scene/sceneops"
 )
 
-func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, _ id.PluginID, _ *id.PropertyID, err error) {
+func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, _ *id.PropertyID, err error) {
 	tx, err := i.transaction.Begin()
 	if err != nil {
 		return
@@ -28,32 +28,35 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 
 	s, err := i.sceneRepo.FindByID(ctx, sid)
 	if err != nil {
-		return nil, pid, nil, err
+		return nil, nil, err
 	}
 	if err := i.CanWriteTeam(s.Team(), operator); err != nil {
-		return nil, pid, nil, err
+		return nil, nil, err
 	}
 
 	if s.Plugins().HasPlugin(pid) {
-		return nil, pid, nil, interfaces.ErrPluginAlreadyInstalled
+		return nil, nil, interfaces.ErrPluginAlreadyInstalled
 	}
 
 	plugin, err := i.pluginCommon().GetOrDownloadPlugin(ctx, pid)
 	if err != nil {
 		if errors.Is(rerror.ErrNotFound, err) {
-			return nil, pid, nil, interfaces.ErrPluginNotFound
+			return nil, nil, interfaces.ErrPluginNotFound
 		}
-		return nil, pid, nil, err
+		return nil, nil, err
+	}
+	if plugin == nil {
+		return nil, nil, interfaces.ErrPluginNotFound
 	}
 	if psid := plugin.ID().Scene(); psid != nil && *psid != sid {
-		return nil, pid, nil, interfaces.ErrPluginNotFound
+		return nil, nil, interfaces.ErrPluginNotFound
 	}
 
 	var p *property.Property
 	if schema := plugin.Schema(); schema != nil {
 		p, err = property.New().NewID().Schema(*schema).Scene(sid).Build()
 		if err != nil {
-			return nil, pid, nil, err
+			return nil, nil, err
 		}
 	}
 
@@ -61,16 +64,16 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 
 	if p != nil {
 		if err := i.propertyRepo.Save(ctx, p); err != nil {
-			return nil, pid, nil, err
+			return nil, nil, err
 		}
 	}
 
 	if err := i.sceneRepo.Save(ctx, s); err != nil {
-		return nil, pid, nil, err
+		return nil, nil, err
 	}
 
 	tx.Commit()
-	return s, pid, p.IDRef(), nil
+	return s, p.IDRef(), nil
 }
 
 func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.PluginID, operator *usecase.Operator) (_ *scene.Scene, err error) {
@@ -194,8 +197,10 @@ func (i *Scene) UpgradePlugin(ctx context.Context, sid id.SceneID, oldPluginID, 
 		return nil, interfaces.ErrPluginNotInstalled
 	}
 
-	if _, err := i.pluginCommon().GetOrDownloadPlugin(ctx, newPluginID); err != nil {
+	if plugin, err := i.pluginCommon().GetOrDownloadPlugin(ctx, newPluginID); err != nil {
 		return nil, err
+	} else if plugin == nil {
+		return nil, interfaces.ErrPluginNotFound
 	}
 
 	pluginMigrator := sceneops.PluginMigrator{

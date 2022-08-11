@@ -24,7 +24,7 @@ type Scene interface {
 	UpdateWidget(context.Context, UpdateWidgetParam, *usecase.Operator) (*scene.Scene, *scene.Widget, error)
 	UpdateWidgetAlignSystem(context.Context, UpdateWidgetAlignSystemParam, *usecase.Operator) (*scene.Scene, error)
 	RemoveWidget(context.Context, id.SceneID, id.WidgetID, *usecase.Operator) (*scene.Scene, error)
-	InstallPlugin(context.Context, id.SceneID, id.PluginID, *usecase.Operator) (*scene.Scene, id.PluginID, *id.PropertyID, error)
+	InstallPlugin(context.Context, id.SceneID, id.PluginID, *usecase.Operator) (*scene.Scene, *id.PropertyID, error)
 	UninstallPlugin(context.Context, id.SceneID, id.PluginID, *usecase.Operator) (*scene.Scene, error)
 	UpgradePlugin(context.Context, id.SceneID, id.PluginID, id.PluginID, *usecase.Operator) (*scene.Scene, error)
 	AddCluster(context.Context, id.SceneID, string, *usecase.Operator) (*scene.Scene, *scene.Cluster, error)
