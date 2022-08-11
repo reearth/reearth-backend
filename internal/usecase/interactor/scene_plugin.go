@@ -27,9 +27,9 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 		}
 	}()
 
-	s, err2 := i.sceneRepo.FindByID(ctx, sid)
-	if err2 != nil {
-		return nil, pid, nil, err2
+	s, err := i.sceneRepo.FindByID(ctx, sid)
+	if err != nil {
+		return nil, pid, nil, err
 	}
 	if err := i.CanWriteTeam(s.Team(), operator); err != nil {
 		return nil, pid, nil, err
@@ -41,7 +41,7 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 
 	plugin, err := i.pluginRepo.FindByID(ctx, pid)
 	if err != nil {
-		if errors.Is(err2, rerror.ErrNotFound) {
+		if errors.Is(rerror.ErrNotFound, err) {
 			return nil, pid, nil, interfaces.ErrPluginNotFound
 		}
 		return nil, pid, nil, err
@@ -67,12 +67,12 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 
 	if p != nil {
 		if err := i.propertyRepo.Save(ctx, p); err != nil {
-			return nil, pid, nil, err2
+			return nil, pid, nil, err
 		}
 	}
 
 	if err := i.sceneRepo.Save(ctx, s); err != nil {
-		return nil, pid, nil, err2
+		return nil, pid, nil, err
 	}
 
 	tx.Commit()
