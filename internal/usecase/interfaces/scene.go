@@ -12,6 +12,7 @@ import (
 var (
 	ErrPluginAlreadyInstalled    error = errors.New("plugin already installed")
 	ErrPluginNotInstalled        error = errors.New("plugin not installed")
+	ErrCannotUpgradeToPlugin     error = errors.New("cannot upgrade to such plugin")
 	ErrExtensionTypeMustBeWidget error = errors.New("extension type must be widget")
 )
 

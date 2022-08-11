@@ -29,6 +29,7 @@ type Scene struct {
 	datasetRepo        repo.Dataset
 	transaction        repo.Transaction
 	file               gateway.File
+	pluginRegistry     gateway.PluginRegistry
 }
 
 func NewScene(r *repo.Container, g *gateway.Container) interfaces.Scene {
@@ -42,6 +43,7 @@ func NewScene(r *repo.Container, g *gateway.Container) interfaces.Scene {
 		datasetRepo:        r.Dataset,
 		transaction:        r.Transaction,
 		file:               g.File,
+		pluginRegistry:     g.PluginRegistry,
 	}
 }
 
@@ -149,10 +151,19 @@ func (i *Scene) AddWidget(ctx context.Context, sid id.SceneID, pid id.PluginID, 
 		return nil, nil, err
 	}
 
-	_, extension, err := i.getPlugin(ctx, sid, pid, eid)
+	pr, err := i.pluginRepo.FindByID(ctx, pid)
 	if err != nil {
+		if errors.Is(err, rerror.ErrNotFound) {
+			return nil, nil, interfaces.ErrPluginNotFound
+		}
 		return nil, nil, err
 	}
+
+	extension := pr.Extension(eid)
+	if extension == nil {
+		return nil, nil, interfaces.ErrExtensionNotFound
+	}
+
 	if extension.Type() != plugin.ExtensionTypeWidget {
 		return nil, nil, interfaces.ErrExtensionTypeMustBeWidget
 	}
@@ -242,10 +253,19 @@ func (i *Scene) UpdateWidget(ctx context.Context, param interfaces.UpdateWidgetP
 	}
 	_, location := scene.Widgets().Alignment().Find(param.WidgetID)
 
-	_, extension, err := i.getPlugin(ctx, scene.ID(), widget.Plugin(), widget.Extension())
+	pr, err := i.pluginRepo.FindByID(ctx, widget.Plugin())
 	if err != nil {
+		if errors.Is(err, rerror.ErrNotFound) {
+			return nil, nil, interfaces.ErrPluginNotFound
+		}
 		return nil, nil, err
 	}
+
+	extension := pr.Extension(widget.Extension())
+	if extension == nil {
+		return nil, nil, interfaces.ErrExtensionNotFound
+	}
+
 	if extension.Type() != plugin.ExtensionTypeWidget {
 		return nil, nil, interfaces.ErrExtensionTypeMustBeWidget
 	}

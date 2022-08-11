@@ -39,7 +39,7 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 		return nil, pid, nil, interfaces.ErrPluginAlreadyInstalled
 	}
 
-	plugin, err := i.pluginRepo.FindByID(ctx, pid)
+	plugin, err := i.getOrDownloadPlugin(ctx, pid)
 	if err != nil {
 		if errors.Is(rerror.ErrNotFound, err) {
 			return nil, pid, nil, interfaces.ErrPluginNotFound
@@ -187,6 +187,18 @@ func (i *Scene) UpgradePlugin(ctx context.Context, sid id.SceneID, oldPluginID, 
 		return nil, err
 	}
 
+	if oldPluginID.IsNil() || newPluginID.IsNil() || oldPluginID.Equal(newPluginID) || !oldPluginID.NameEqual(newPluginID) {
+		return nil, interfaces.ErrCannotUpgradeToPlugin
+	}
+
+	if !s.Plugins().Has(oldPluginID) {
+		return nil, interfaces.ErrPluginNotInstalled
+	}
+
+	if _, err := i.getOrDownloadPlugin(ctx, newPluginID); err != nil {
+		return nil, err
+	}
+
 	pluginMigrator := sceneops.PluginMigrator{
 		Property:       repo.PropertyLoaderFrom(i.propertyRepo),
 		PropertySchema: repo.PropertySchemaLoaderFrom(i.propertySchemaRepo),
@@ -217,19 +229,20 @@ func (i *Scene) UpgradePlugin(ctx context.Context, sid id.SceneID, oldPluginID, 
 	return result.Scene, err
 }
 
-func (i *Scene) getPlugin(ctx context.Context, sid id.SceneID, p id.PluginID, e id.PluginExtensionID) (*plugin.Plugin, *plugin.Extension, error) {
-	plugin, err2 := i.pluginRepo.FindByID(ctx, p)
-	if err2 != nil {
-		if errors.Is(err2, rerror.ErrNotFound) {
-			return nil, nil, interfaces.ErrPluginNotFound
-		}
-		return nil, nil, err2
+func (i *Scene) getOrDownloadPlugin(ctx context.Context, pid id.PluginID) (*plugin.Plugin, error) {
+	if pid.IsNil() || pid.Equal(id.OfficialPluginID) {
+		return nil, rerror.ErrNotFound
 	}
 
-	extension := plugin.Extension(e)
-	if extension == nil {
-		return nil, nil, interfaces.ErrExtensionNotFound
+	if plugin, err := i.pluginRepo.FindByID(ctx, pid); !errors.Is(err, rerror.ErrNotFound) {
+		return nil, err
+	} else if plugin != nil {
+		return plugin, nil
 	}
 
-	return plugin, extension, nil
+	if !pid.Scene().IsNil() || i.pluginRegistry == nil {
+		return nil, rerror.ErrNotFound
+	}
+
+	return nil, nil
 }
