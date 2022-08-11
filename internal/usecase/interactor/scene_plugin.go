@@ -118,7 +118,7 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 	// remove widgets
 	removedProperties = append(removedProperties, scene.Widgets().RemoveAllByPlugin(pid, nil)...)
 
-	// remove layers and blocks
+	// remove blocks
 	res, err := layerops.Processor{
 		LayerLoader: repo.LayerLoaderFrom(i.layerRepo),
 		RootLayerID: scene.RootLayer(),
@@ -132,12 +132,6 @@ func (i *Scene) UninstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plug
 	// save
 	if len(res.ModifiedLayers) > 0 {
 		if err := i.layerRepo.SaveAll(ctx, res.ModifiedLayers); err != nil {
-			return nil, err
-		}
-	}
-
-	if res.RemovedLayers.LayerCount() > 0 {
-		if err := i.layerRepo.RemoveAll(ctx, res.RemovedLayers.Layers()); err != nil {
 			return nil, err
 		}
 	}
