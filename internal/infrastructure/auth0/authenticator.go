@@ -219,7 +219,7 @@ func (a *Auth0) exec(method, path, token string, b interface{}) (r response, err
 		return
 	}
 
-	if resp.StatusCode >= 300 {
+	if resp.StatusCode >= http.StatusOK {
 		err = errors.New(r.Error())
 		return
 	}

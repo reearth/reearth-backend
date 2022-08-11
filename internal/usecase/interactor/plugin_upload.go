@@ -59,7 +59,7 @@ func (i *Plugin) UploadFromRemote(ctx context.Context, u *url.URL, sid id.SceneI
 	defer func() {
 		_ = res.Body.Close()
 	}()
-	if res.StatusCode != 200 {
+	if res.StatusCode != http.StatusOK {
 		return nil, nil, interfaces.ErrInvalidPluginPackage
 	}
 

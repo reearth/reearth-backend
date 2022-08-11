@@ -99,14 +99,14 @@ func (m *Marketplace) downloadPluginPackage(ctx context.Context, url string) (*p
 	if err != nil {
 		return nil, rerror.ErrInternalBy(err)
 	}
+	defer func() {
+		_ = res.Body.Close()
+	}()
 	if res.StatusCode == http.StatusNotFound {
 		return nil, rerror.ErrNotFound
 	}
 	if res.StatusCode != http.StatusOK {
 		return nil, rerror.ErrInternalBy(fmt.Errorf("status code is %s", res.Status))
 	}
-	defer func() {
-		_ = res.Body.Close()
-	}()
 	return pluginpack.PackageFromZip(res.Body, nil, pluginPackageSizeLimit)
 }

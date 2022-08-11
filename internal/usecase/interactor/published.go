@@ -50,13 +50,13 @@ func NewPublishedWithURL(project repo.Project, file gateway.File, indexHTMLURL *
 				log.Errorf("published index: conn err: %s", err)
 				return "", errors.New("failed to fetch HTML")
 			}
+			defer func() {
+				_ = res.Body.Close()
+			}()
 			if res.StatusCode >= 300 {
 				log.Errorf("published index: status err: %d", res.StatusCode)
 				return "", errors.New("failed to fetch HTML")
 			}
-			defer func() {
-				_ = res.Body.Close()
-			}()
 			str, err := io.ReadAll(res.Body)
 			if err != nil {
 				log.Errorf("published index: read err: %s", err)
