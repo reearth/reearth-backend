@@ -9,7 +9,6 @@ import (
 	"github.com/reearth/reearth-backend/internal/usecase/repo"
 	"github.com/reearth/reearth-backend/pkg/id"
 	"github.com/reearth/reearth-backend/pkg/layer/layerops"
-	"github.com/reearth/reearth-backend/pkg/plugin"
 	"github.com/reearth/reearth-backend/pkg/property"
 	"github.com/reearth/reearth-backend/pkg/rerror"
 	"github.com/reearth/reearth-backend/pkg/scene"
@@ -39,7 +38,7 @@ func (i *Scene) InstallPlugin(ctx context.Context, sid id.SceneID, pid id.Plugin
 		return nil, pid, nil, interfaces.ErrPluginAlreadyInstalled
 	}
 
-	plugin, err := i.getOrDownloadPlugin(ctx, pid)
+	plugin, err := i.pluginCommon().GetOrDownloadPlugin(ctx, pid)
 	if err != nil {
 		if errors.Is(rerror.ErrNotFound, err) {
 			return nil, pid, nil, interfaces.ErrPluginNotFound
@@ -195,7 +194,7 @@ func (i *Scene) UpgradePlugin(ctx context.Context, sid id.SceneID, oldPluginID, 
 		return nil, interfaces.ErrPluginNotInstalled
 	}
 
-	if _, err := i.getOrDownloadPlugin(ctx, newPluginID); err != nil {
+	if _, err := i.pluginCommon().GetOrDownloadPlugin(ctx, newPluginID); err != nil {
 		return nil, err
 	}
 
@@ -227,31 +226,4 @@ func (i *Scene) UpgradePlugin(ctx context.Context, sid id.SceneID, oldPluginID, 
 
 	tx.Commit()
 	return result.Scene, err
-}
-
-func (i *Scene) getOrDownloadPlugin(ctx context.Context, pid id.PluginID) (*plugin.Plugin, error) {
-	if pid.IsNil() || pid.Equal(id.OfficialPluginID) {
-		return nil, rerror.ErrNotFound
-	}
-
-	if plugin, err := i.pluginRepo.FindByID(ctx, pid); !errors.Is(err, rerror.ErrNotFound) {
-		return nil, err
-	} else if plugin != nil {
-		return plugin, nil
-	}
-
-	if !pid.Scene().IsNil() || i.pluginRegistry == nil {
-		return nil, rerror.ErrNotFound
-	}
-
-	pack, err := i.pluginRegistry.FetchPluginPackage(ctx, pid)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := i.pluginCommon().SavePluginPack(ctx, pack); err != nil {
-		return nil, err
-	}
-
-	return pack.Manifest.Plugin, nil
 }
