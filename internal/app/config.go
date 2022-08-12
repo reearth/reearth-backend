@@ -12,6 +12,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 	"github.com/reearth/reearth-backend/pkg/auth"
 	"github.com/reearth/reearth-backend/pkg/log"
+	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 )
 
@@ -330,6 +331,7 @@ func (c OAuthClientCredentialsConfig) Config() clientcredentials.Config {
 		ClientSecret:   c.ClientSecret,
 		TokenURL:       c.TokenURL,
 		Scopes:         c.Scopes,
+		AuthStyle:      oauth2.AuthStyleInParams,
 		EndpointParams: params,
 	}
 }
